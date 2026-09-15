@@ -1,8 +1,14 @@
 # BBMOD
 
-战场兄弟（Battle Brothers）1.5.2.3 MOD 资源合集。
+战场兄弟（Battle Brothers）1.5.2.3 **MOD 管理软件 + MOD 资源合集**。
 
-## 目录说明
+## 管理软件（app/）
+
+图形化桌面工具，四大功能：**一键汉化（自研版本）/ MOD 管理 / 刷种子（全自动编排）/ 健康诊断（冲突·版本·影响种子检测，对任意第三方 mod 生效）**。
+
+详见 [app/README.md](app/README.md)。快速开始：`cd app && pip install -r requirements.txt && python main.py`。
+
+## 资源合集目录
 
 | 目录 | 内容 |
 |------|------|

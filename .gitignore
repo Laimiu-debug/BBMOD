@@ -2,6 +2,14 @@
 【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/Shs Battle Brothers v1.5.2.3a  2026-7-27.rar
 【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/shs086-01-音乐扩展包\[Shs起源1.0-可删减\]-mod_music-840-1.zip
 
+# BBMOD 管理器构建产物与缓存
+app/build/
+app/dist/
+app/spec/
+__pycache__/
+*.pyc
+.pytest_cache/
+
 # 系统杂项文件
 Thumbs.db
 Desktop.ini
