@@ -16,7 +16,8 @@ from PySide6.QtWidgets import (
 from core import game as game_mod
 from core.paths import resource_path
 from core.seedgen.config_emitter import (
-    ATTRIBUTES, CommonConfig, OriginConfig, ORIGIN_LABELS, ROLE_LABELS,
+    ATTRIBUTES, CampaignConfig, CommonConfig, OriginConfig, ORIGIN_LABELS, ROLE_LABELS,
+    DIFFICULTY_LABELS, BUDGET_LABELS,
     SCORE_EXPLANATION, SeedGenConfig, brother_condition, score_condition,
 )
 from core.seedgen.log_watcher import SeedResult
@@ -72,6 +73,13 @@ class SeedGenPage(QWidget):
         saved_notes = ctx.settings.get("seed_notes", {})
         self.notes = {str(k): v for k, v in saved_notes.items() if isinstance(v, str)} if isinstance(saved_notes, dict) else {}
         self._loading_note = False
+        self._campaign_levels = {key: 1 for key in ("combat_difficulty", "economic_difficulty", "budget_difficulty")}
+        saved_campaign = ctx.settings.get("seed_campaign", {})
+        if isinstance(saved_campaign, dict):
+            for key in self._campaign_levels:
+                value = saved_campaign.get(key)
+                if type(value) is int and value in (0, 1, 2):
+                    self._campaign_levels[key] = value
         root = QVBoxLayout(self)
         root.setSpacing(6)
 
@@ -88,6 +96,10 @@ class SeedGenPage(QWidget):
             if key != "common":
                 self.origin_combo.addItem(label, key)
         self.origin_combo.setCurrentIndex(self.origin_combo.findData("scenario.militia"))
+        if isinstance(saved_campaign, dict):
+            index = self.origin_combo.findData(saved_campaign.get("origin"))
+            if index >= 0:
+                self.origin_combo.setCurrentIndex(index)
         labeled_row(top, "起源", self.origin_combo, 1)
         help_button = QPushButton("评分说明")
         style_button(help_button, "book")
@@ -201,9 +213,10 @@ class SeedGenPage(QWidget):
         self.lower_check = QCheckBox("包含小写种子（大小写必须原样复制）")
         self.real11_check = QCheckBox("逐级模拟11级成长（关闭后使用星级平均成长）")
         self.real11_check.setChecked(True)
-        self.progress_label = QLabel("待机 · 开始后，在游戏内选择相同起源并新建战役")
+        self.progress_label = QLabel("待机 · 点击开始后自动进入所选起源刷种子")
         self.progress_label.setObjectName("runStatus")
         self.progress_label.setWordWrap(True)
+        self._update_campaign_hint()
         self.start_btn.clicked.connect(self.start)
         self.stop_btn.clicked.connect(self.stop)
         run_row.addWidget(self.start_btn)
@@ -368,13 +381,29 @@ class SeedGenPage(QWidget):
         dialog = QDialog(self)
         dialog.setWindowTitle("种子生成设置")
         layout = QVBoxLayout(dialog)
+        campaign_form = QFormLayout()
+        levels = {}
+        for key, label, choices in (
+            ("combat_difficulty", "战斗难度", DIFFICULTY_LABELS),
+            ("economic_difficulty", "经济难度", DIFFICULTY_LABELS),
+            ("budget_difficulty", "初始资金", BUDGET_LABELS),
+        ):
+            widget = QComboBox()
+            widget.setObjectName(key)
+            for value, caption in choices.items():
+                widget.addItem(caption, value)
+            widget.setCurrentIndex(widget.findData(self._campaign_levels[key]))
+            levels[key] = widget
+            campaign_form.addRow(label, widget)
+        layout.addLayout(campaign_form)
         lower = QCheckBox(self.lower_check.text())
         lower.setChecked(self.lower_check.isChecked())
         real = QCheckBox(self.real11_check.text())
         real.setChecked(self.real11_check.isChecked())
         layout.addWidget(lower)
         layout.addWidget(real)
-        description = QLabel("11级数值假设每级都提升对应属性；慢速起源仍使用星级平均成长。")
+        description = QLabel("软件会自动按所选起源和以上设置新建战役。复现红装时请保持起源、难度和 DLC 一致。\n"
+                             "11级数值假设每级都提升对应属性；慢速起源仍使用星级平均成长。")
         description.setWordWrap(True)
         layout.addWidget(description)
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -382,12 +411,29 @@ class SeedGenPage(QWidget):
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
         if dialog.exec() == QDialog.Accepted:
+            self._campaign_levels = {key: widget.currentData() for key, widget in levels.items()}
+            self._save_campaign()
+            self._update_campaign_hint()
             self.lower_check.setChecked(lower.isChecked())
             self.real11_check.setChecked(real.isChecked())
+
+    def _save_campaign(self) -> None:
+        self.ctx.settings.set("seed_campaign", {"origin": self.origin_combo.currentData(), **self._campaign_levels})
+
+    def _update_campaign_hint(self) -> None:
+        levels = self._campaign_levels
+        self.progress_label.setText(
+            f"自动开局 · 战斗{DIFFICULTY_LABELS[levels['combat_difficulty']]} · "
+            f"经济{DIFFICULTY_LABELS[levels['economic_difficulty']]} · "
+            f"资金{BUDGET_LABELS[levels['budget_difficulty']]}"
+        )
+        self.options_btn.setToolTip("点击调整自动开局的战斗难度、经济难度和初始资金")
 
     def _current_config(self) -> SeedGenConfig:
         mode = MODE_LABELS[self.mode_combo.currentText()]
         cfg = SeedGenConfig(common=CommonConfig.preset(mode))
+        cfg.campaign = CampaignConfig(origin=self.origin_combo.currentData(), **self._campaign_levels)
+        cfg.campaign.validate()
         cfg.common.EnableLowercaseSeed = self.lower_check.isChecked()
         cfg.common.UseBrotherLevel11RealAttr = self.real11_check.isChecked()
         if mode != "map_only" and self.rule_mode.currentData() != "preset":
@@ -420,6 +466,7 @@ class SeedGenPage(QWidget):
             return
         try:
             cfg = self._current_config()
+            self._save_campaign()
         except ValueError as error:
             QMessageBox.warning(self, "检查筛选条件", str(error))
             return
@@ -450,13 +497,14 @@ class SeedGenPage(QWidget):
             QMessageBox.critical(self, "启动失败", str(error))
             return
         self.table.setRowCount(0)
+        self.progress_label.setToolTip("")
         self.results = self.orch.results
         self.ctx.set_seedgen_active(True)
         self.start_btn.setEnabled(False)
         self.stop_btn.setEnabled(True)
         self.cfg_box.setEnabled(False)
         self.options_btn.setEnabled(False)
-        self.progress_label.setText(f"游戏内请选择「{self.origin_combo.currentText()}」并新建战役")
+        self.progress_label.setText(f"正在启动游戏 · 加载完成后自动以「{self.origin_combo.currentText()}」开始")
         self.timer.start()
         self.ctx.data_changed.emit()
         self._show_detail()
@@ -491,14 +539,33 @@ class SeedGenPage(QWidget):
             return
         results, _ = self.orch.poll()
         progress = self.orch.progress
-        if progress.loop_idx:
+        startup = self.orch.startup
+        if startup.stage == "error":
+            code = startup.detail.split(" ", 1)[0]
+            message = {
+                "origin-unavailable": "所选起源不可用，请检查对应 DLC 是否已安装并启用",
+                "demo-unavailable": "当前游戏模式不支持新建战役",
+                "banners-unavailable": "游戏未提供可用旗帜，请检查游戏文件",
+                "settings-mismatch": "游戏开局设置与软件不一致，已阻止继续刷种子",
+                "start-failed": "自动开局失败，请停止并恢复后查看营地诊断",
+                "generation-failed": "生成脚本出错，请停止并恢复后查看营地诊断",
+            }.get(code, "自动开局失败，请停止并恢复后查看营地诊断")
+            self.progress_label.setText(message)
+            self.progress_label.setToolTip(startup.detail)
+        elif progress.loop_idx:
             self.progress_label.setText(f"已找 {progress.loop_idx} 个 · 命中 {progress.hits} 个")
+        elif startup.stage == "generating":
+            self.progress_label.setText("已自动开局 · 正在生成第一批种子，地图生成可能需要较长时间")
+        elif startup.stage == "requested":
+            self.progress_label.setText(f"已选择「{self.origin_combo.currentText()}」· 正在加载战役")
+        elif startup.stage == "loaded":
+            self.progress_label.setText("生成器已加载 · 等待游戏主菜单准备就绪后自动开始")
         for result in results:
             self._append_result(result)
         if results:
             actual = results[-1].origin
             if actual and actual != self.origin_combo.currentData():
-                self.progress_label.setText(f"实际起源为「{ORIGIN_LABELS.get(actual, actual)}」，与所设起源不同；人物使用该起源预设")
+                self.progress_label.setText(f"记录起源「{ORIGIN_LABELS.get(actual, actual)}」与所选不符，请停止并检查游戏脚本")
         self.export_btn.setEnabled(bool(self.results))
 
     def _append_result(self, result: SeedResult) -> None:

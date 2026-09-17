@@ -32,14 +32,19 @@ def main() -> int:
                 "localization/NotoSerifSC-SemiBold.ttf", "localization/MAP-FONT-LICENSE.txt",
                 "native/bin/bbmod_launch.exe", "native/bin/bbmod_han.dll", "seedgen/payload/mod_hooks.zip",
                 "data/seed_traits.json", "seedgen/payload/seed_generator/config_role_condition.nut",
-                "seedgen/payload/seed_generator/function_brother_output_check.nut"]
+                "seedgen/payload/seed_generator/function_brother_output_check.nut",
+                "seedgen/payload/seed_generator/config_campaign.nut",
+                "seedgen/payload/seed_generator/function_auto_start.nut"]
     missing = [name for name in required if name not in bundled]
     if missing:
         raise RuntimeError(f"缺少打包资源：{missing}")
     for name in ('data/seed_traits.json', 'seedgen/payload/seed_generator/config_role_condition.nut',
-                 'seedgen/payload/seed_generator/function_brother_output_check.nut'):
+                 'seedgen/payload/seed_generator/function_brother_output_check.nut',
+                 'seedgen/payload/seed_generator/config_campaign.nut',
+                 'seedgen/payload/seed_generator/function_auto_start.nut',
+                 'seedgen/payload/scripts/!mods_preload/mod_seed_generator.nut'):
         if archive.extract(bundled[name]) != (app_dir/name).read_bytes():
-            raise RuntimeError('EXE 中的特质筛选资源与源码不一致：'+name)
+            raise RuntimeError('EXE 中的种子生成资源与源码不一致：'+name)
     hooks_bytes = archive.extract(bundled['seedgen/payload/mod_hooks.zip'])
     if hooks_bytes != (app_dir / 'seedgen/payload/mod_hooks.zip').read_bytes():
         raise RuntimeError('EXE 中的 MOD 框架与已核验的本地资源不一致')

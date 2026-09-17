@@ -33,6 +33,9 @@ class SeedResult:
     lines: list[str] = field(default_factory=list)
     done: bool = False
     origin: str = ""
+    combat_difficulty: int | None = None
+    economic_difficulty: int | None = None
+    budget_difficulty: int | None = None
 
     @property
     def team_score(self) -> float | None:
@@ -64,10 +67,19 @@ class Progress:
     detail: str = ""
 
 
+@dataclass
+class StartupStatus:
+    stage: str = "waiting"  # waiting | loaded | requested | generating | error
+    detail: str = ""
+
+
 class SeedLogParser:
     """状态机：喂入 LogRow 流，产出完成的 SeedResult 与 Progress 事件。"""
 
-    def __init__(self) -> None:
+    def __init__(self, session_id: str | None = None) -> None:
+        self.session_id = session_id
+        self.session_seen = session_id is None
+        self.startup = StartupStatus()
         self.current: SeedResult | None = None
         self.results: list[SeedResult] = []
         self.progress: Progress = Progress()
@@ -79,6 +91,16 @@ class SeedLogParser:
         new_progress: list[Progress] = []
         for row in rows:
             text = row.text.strip()
+            if not self.session_seen:
+                if text == f"BBMODSeedSession: {self.session_id}":
+                    self.session_seen = True
+                    self.startup = StartupStatus("loaded")
+                continue
+            if text.startswith("BBMODSeedStart: "):
+                stage, _, detail = text.removeprefix("BBMODSeedStart: ").partition(" ")
+                if stage in {"requested", "generating", "error"}:
+                    self.startup = StartupStatus(stage, detail)
+                continue
             m = RE_SEED_HEAD.match(text)
             if m:
                 # 上一块未闭合（异常中断）也照样收录

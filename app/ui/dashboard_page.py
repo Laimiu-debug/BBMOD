@@ -67,7 +67,7 @@ class DashboardPage(QWidget):
             return
         base = game_mod.check_base_archive(g.data_dir)
         dlcs = game_mod.installed_dlcs(g.data_dir)
-        base_txt = "疑似重打包（按时间戳判断）" if (base and base.repacked) else "未发现重打包迹象"
+        base_txt = base.summary if base else "未找到 data_001.dat"
         lines = [
             f"安装目录：{g.root}",
             f"游戏版本：{g.version}（本软件按 1.5.2.3 校准）   基座档案：{base_txt}",

@@ -106,6 +106,9 @@ ORIGIN_LABELS = {
     "common": "通用预设（未配置起源）",
 }
 
+DIFFICULTY_LABELS = {0: "新手", 1: "老兵", 2: "专家"}
+BUDGET_LABELS = {0: "高", 1: "中", 2: "低"}
+
 
 # ---------------- 配置数据模型 ----------------
 
@@ -193,11 +196,41 @@ class OriginConfig:
 
 
 @dataclass
+class CampaignConfig:
+    origin: str = "scenario.early_access"
+    combat_difficulty: int = 1
+    economic_difficulty: int = 1
+    budget_difficulty: int = 1
+
+    def validate(self) -> None:
+        if self.origin not in ORIGIN_LABELS or self.origin == "common":
+            raise ValueError("请选择一个支持的游戏起源")
+        for value in (self.combat_difficulty, self.economic_difficulty, self.budget_difficulty):
+            if type(value) is not int or value not in (0, 1, 2):
+                raise ValueError("战斗、经济和初始资金必须是有效档位")
+
+
+@dataclass
 class SeedGenConfig:
     common: CommonConfig = field(default_factory=CommonConfig)
     origins: dict[str, OriginConfig] = field(default_factory=dict)  # 自定义的起源（未含的用模板默认）
     map_conditions: list[list] | None = None   # None=用模板默认；每行 [指标名, 值, ...]
     lair_conditions: list[list] | None = None  # None=用模板默认
+    campaign: CampaignConfig = field(default_factory=CampaignConfig)
+
+
+def emit_campaign(cfg: CampaignConfig, session_id: str = "") -> str:
+    cfg.validate()
+    if session_id and not re.fullmatch(r"[a-f0-9]{32}", session_id):
+        raise ValueError("无效的种子会话编号")
+    return f'''::SeedGenerator.CampaignConfig <- {{
+    Origin = {json.dumps(cfg.origin)},
+    Difficulty = {cfg.combat_difficulty},
+    EconomicDifficulty = {cfg.economic_difficulty},
+    BudgetDifficulty = {cfg.budget_difficulty},
+    SessionID = {json.dumps(session_id)},
+}};
+'''
 
 
 # ---------------- config_common.nut：整体生成 ----------------
@@ -345,8 +378,8 @@ def emit_lair_conditions(template_text: str, cfg: SeedGenConfig) -> str:
     )
 
 
-def write_configs(payload_dir: Path, data_dir: Path, cfg: SeedGenConfig) -> list[Path]:
-    """生成 4 个 config_*.nut 写入 data/seed_generator/，返回写入的文件。"""
+def write_configs(payload_dir: Path, data_dir: Path, cfg: SeedGenConfig, session_id: str = "") -> list[Path]:
+    """生成筛选条件和自动开局配置，返回写入的文件。"""
     import shutil
 
     src = Path(payload_dir) / "seed_generator"
@@ -354,6 +387,7 @@ def write_configs(payload_dir: Path, data_dir: Path, cfg: SeedGenConfig) -> list
     dst.mkdir(parents=True, exist_ok=True)
     written = []
     for name, text in (
+        ("config_campaign.nut", emit_campaign(cfg.campaign, session_id)),
         ("config_common.nut", emit_common(cfg.common)),
         ("config_role_condition.nut", emit_role_conditions((src / "config_role_condition.nut").read_text(encoding="utf-8"), cfg)),
         ("config_map_condition.nut", emit_map_conditions((src / "config_map_condition.nut").read_text(encoding="utf-8"), cfg)),

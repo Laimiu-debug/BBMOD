@@ -29,7 +29,7 @@ OFFICIAL_ARCHIVES: dict[str, str | None] = {
     "data_010.dat": "Of Flesh and Faith",
 }
 
-# 基座重打包检测：原版条目时间戳应为 2017-2022；狐狸汉化重打包版集中在 2025/2026
+# ZIP 日期仅作元数据提示，不能据此认定汉化、重打包或 RNG 改动。
 _REPACK_YEAR_THRESHOLD = 2024
 
 
@@ -47,21 +47,30 @@ class GameInfo:
 
 @dataclass
 class BaseArchiveStatus:
-    """data_001.dat 基座状态：是否被第三方重打包（如汉化整合版）。"""
+    """data_001.dat 的可读性和日期信息；不验证是否为官方原始内容。"""
 
     path: Path
     entry_count: int = 0
     recent_entries: int = 0
     repacked: bool = False
     newest_year: int | None = None
+    read_error: str | None = None
+
+    @property
+    def summary(self) -> str:
+        if self.read_error:
+            return "无法读取"
+        return "日期较新（未校验内容）" if self.repacked else "可读取（未校验内容）"
 
     @property
     def warning(self) -> str | None:
+        if self.read_error:
+            return f"无法读取游戏档案 {self.path.name}：{self.read_error}"
         if self.repacked:
             return (
-                f"游戏基座 {self.path.name} 已被第三方重打包"
-                f"（{self.recent_entries}/{self.entry_count} 个条目时间戳晚于 {_REPACK_YEAR_THRESHOLD} 年，"
-                "非原版档案）。刷种子结果可能失真；建议在 Steam 中校验文件完整性还原原版。"
+                f"{self.path.name} 中 {self.recent_entries}/{self.entry_count} 个条目的日期"
+                f"为 {_REPACK_YEAR_THRESHOLD} 年或之后。日期不能证明游戏经过汉化或重打包，"
+                "也不能证明种子受到影响；本检查未比对官方文件内容。"
             )
         return None
 
@@ -186,10 +195,7 @@ def installed_dlcs(data_dir: Path) -> dict[str, bool]:
 
 
 def check_base_archive(data_dir: Path) -> BaseArchiveStatus | None:
-    """检查 data_001.dat 是否为原版：原版条目时间戳均为 2017-2022。
-
-    狐狸汉化等整合重打包会把全部脚本重编译，条目时间戳变为打包日。
-    """
+    """读取 ZIP 目录元数据，不以日期推断修改者、修改内容或种子兼容性。"""
     path = data_dir / "data_001.dat"
     if not path.exists():
         return None
@@ -206,9 +212,12 @@ def check_base_archive(data_dir: Path) -> BaseArchiveStatus | None:
                     status.recent_entries += 1
             if years:
                 status.newest_year = max(years)
-    except (zipfile.BadZipFile, OSError):
+    except (zipfile.BadZipFile, OSError) as error:
+        status.read_error = str(error)
         return status
-    # 启发式：超过半数条目为近期时间戳 → 重打包
+    if not status.entry_count:
+        status.read_error = "档案为空"
+    # repacked 是保留的旧字段名，只表示多数条目日期较新。
     if status.entry_count and status.recent_entries / status.entry_count > 0.5:
         status.repacked = True
     return status
@@ -266,7 +275,7 @@ def launch_game(game: GameInfo, via_steam: bool = True) -> bool:
         except OSError:
             pass
     try:
-        subprocess.Popen([str(game.exe)], cwd=str(game.root))
+        subprocess.Popen([str(game.exe)], cwd=str(game.exe.parent))
         return True
     except OSError:
         return False

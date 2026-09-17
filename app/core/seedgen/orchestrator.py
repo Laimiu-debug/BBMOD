@@ -8,7 +8,8 @@
 from __future__ import annotations
 
 import tempfile
-from dataclasses import dataclass, field
+import uuid
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 from .. import game as game_mod
@@ -33,10 +34,12 @@ class SeedGenOrchestrator:
         self.mm = ModManager(game.root)
         self.state = SessionState()
         self._injected: list[Path] = []
-        self._parser = SeedLogParser()
         self._reader: IncrementalLogReader | None = None
         self.results: list[SeedResult] = []
         self.files = FileSession(game.root)
+        self._session_id = uuid.uuid4().hex
+        self._parser = SeedLogParser(session_id=self._session_id)
+        self._campaign = None
 
     # ---------------- 准备 ----------------
 
@@ -47,11 +50,12 @@ class SeedGenOrchestrator:
             raise RuntimeError(f"会话已在 {self.state.stage} 状态，请先 stop_and_restore")
         if game_mod.is_game_running():
             raise RuntimeError("游戏正在运行，请先关闭再开始刷种子")
+        cfg.campaign.validate()
         if self.game.version and self.game.version != "1.5.2.3":
             warnings.append(f"游戏版本 {self.game.version} ≠ 1.5.2.3，种子生成器按 1.5.2.3 校准，结果可能失真。")
         base = game_mod.check_base_archive(self.game.data_dir)
-        if base and base.repacked:
-            warnings.append("游戏基座为汉化重打包版，无法通过移除 mod 净化，种子结果可能失真（建议 Steam 校验还原原版）。")
+        if base and base.read_error:
+            raise RuntimeError(base.warning)
         if self.files.active:
             recovered = self.files.restore()
             warnings.append(f"已恢复上次未结束会话的 {recovered} 个 mod 和原有配置。")
@@ -63,7 +67,7 @@ class SeedGenOrchestrator:
             temporary_root = Path(temporary).resolve()
             if not temporary_root.is_relative_to(Path(tempfile.gettempdir()).resolve()):
                 raise ValueError("配置临时目录越界")
-            for path in write_configs(self.payload_dir, temporary_root, cfg):
+            for path in write_configs(self.payload_dir, temporary_root, cfg, self._session_id):
                 payload[path.relative_to(temporary_root).as_posix()] = path.read_bytes()
         try:
             self.files.begin(payload)
@@ -74,6 +78,7 @@ class SeedGenOrchestrator:
         self._injected = [self.game.data_dir / name for name in payload]
         self.mm._audit("seedgen-prepare", self.game.data_dir, self.files.root)
         self.state.stage = "prepared"
+        self._campaign = replace(cfg.campaign)
         self.state.warnings = warnings
         return warnings
 
@@ -86,7 +91,8 @@ class SeedGenOrchestrator:
         if log_path:
             self._reader = IncrementalLogReader(log_path / "log.html")
             self._reader.reset()
-        ok = game_mod.launch_game(self.game)
+        # Launch the exact installation that received the temporary payload.
+        ok = game_mod.launch_game(self.game, via_steam=False)
         if ok:
             self.state.stage = "running"
         return ok
@@ -94,15 +100,31 @@ class SeedGenOrchestrator:
     def poll(self) -> tuple[list[SeedResult], list[Progress]]:
         """轮询新日志行 → (新种子结果, 进度事件)。"""
         if self._reader is None:
-            return [], []
+            log_path = game_mod.find_log_write_path()
+            if not log_path:
+                return [], []
+            self._reader = IncrementalLogReader(log_path / "log.html")
+        if not self._parser.session_seen:
+            # A new log may already have grown past the previous file size.
+            # Find our unique session marker before accepting any old results.
+            self._reader.reset()
         rows = self._reader.read_new()
         new_results, new_progress = self._parser.feed(rows)
+        if self._campaign:
+            for result in new_results:
+                result.combat_difficulty = self._campaign.combat_difficulty
+                result.economic_difficulty = self._campaign.economic_difficulty
+                result.budget_difficulty = self._campaign.budget_difficulty
         self.results.extend(new_results)
         return new_results, new_progress
 
     @property
     def progress(self) -> Progress:
         return self._parser.progress
+
+    @property
+    def startup(self):
+        return self._parser.startup
 
     # ---------------- 结束 ----------------
 

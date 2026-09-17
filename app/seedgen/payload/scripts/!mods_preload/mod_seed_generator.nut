@@ -23,4 +23,7 @@
 	::include("seed_generator/config_lair_condition");
 
 	::include("seed_generator/function_main_loop");
+
+	::include("seed_generator/config_campaign");
+	::include("seed_generator/function_auto_start");
 });

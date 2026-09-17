@@ -88,12 +88,17 @@ def _check_system(game: GameInfo, report: DiagnosisReport) -> None:
             fix="Steam 校验文件或回退到 1.5.2.3",
         ))
     base = check_base_archive(game.data_dir)
-    if base and base.repacked:
+    if base and base.read_error:
         report.issues.append(Issue(
-            severity="warning", source="系统",
-            title="游戏基座 data_001.dat 已被第三方重打包（非原版）",
+            severity="error", source="系统", title="无法读取游戏基座档案",
+            detail=base.warning or "", fix="检查游戏文件是否完整、是否可以读取",
+        ))
+    elif base and base.repacked:
+        report.issues.append(Issue(
+            severity="info", source="系统",
+            title="游戏档案日期较新（不代表汉化影响种子）",
             detail=base.warning or "",
-            fix="Steam → 属性 → 已安装文件 → 验证完整性，还原原版档案后再装汉化/刷种子",
+            fix=None,
         ))
     missing = [name for name, ok in installed_dlcs(game.data_dir).items() if not ok]
     if missing:

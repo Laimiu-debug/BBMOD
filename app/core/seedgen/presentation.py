@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import re
 
-from .config_emitter import ATTRIBUTES, ORIGIN_LABELS
+from .config_emitter import ATTRIBUTES, ORIGIN_LABELS, DIFFICULTY_LABELS, BUDGET_LABELS
 from .log_watcher import SeedResult
 from .traits import trait_name
 
@@ -106,14 +106,25 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
         return result.seed
     facts = highlights(result)
     origin = ORIGIN_LABELS.get(result.origin, result.origin)
+    campaign = []
+    if result.combat_difficulty in DIFFICULTY_LABELS:
+        campaign.append("战斗" + DIFFICULTY_LABELS[result.combat_difficulty])
+    if result.economic_difficulty in DIFFICULTY_LABELS:
+        campaign.append("经济" + DIFFICULTY_LABELS[result.economic_difficulty])
+    if result.budget_difficulty in BUDGET_LABELS:
+        campaign.append("资金" + BUDGET_LABELS[result.budget_difficulty])
     if mode == "danmaku":
         clauses = ([origin] if origin else []) + facts
+        if campaign:
+            clauses.append(" / ".join(campaign))
         if note.strip():
             clauses.append(" ".join(note.split()))
         description = "，".join(clauses) or "已命中当前条件，详细属性尚未记录"
         return f"{opening(result, opener)}{result.seed} {description}"
     lines = [f"种子：{result.seed}", f"起源：{origin or '日志未记录'}", f"发现于第 {result.loop_idx} 轮",
              "亮点：" + (" · ".join(facts) or "暂无可解析的属性详情")]
+    if campaign:
+        lines.insert(2, "开局设置：" + " · ".join(campaign))
     if result.team_score is not None:
         lines.append(f"高级评分：队伍平均 {result.team_score:.2f}（生成器综合评分）")
     if note.strip():
