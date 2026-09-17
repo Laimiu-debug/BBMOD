@@ -14,6 +14,20 @@ ROLES = {"Melee": "近战", "Range": "远程", "Guard": "盾卫", "Throw": "投�
          "Leader": "队长", "Duel": "决斗", "Polearm": "长柄", "Initiative": "先攻", "Useless": "待分配"}
 ITEMS = {"Armor": "红甲", "Helmet": "红盔", "Shield": "红盾", "OneHanded": "单手红武",
          "TwoHanded": "双手红武", "RangedWeapon": "远程红武"}
+BUILDINGS = {"Build": "建筑总数", "Armorsmith": "铠甲匠", "Weaponsmith": "武器匠",
+    "Fletcher": "弓弩匠", "Barber": "理发店", "Kennel": "犬舍", "Tavern": "酒馆",
+    "Taxidermist": "标本匠", "Temple": "神殿", "Traininghall": "训练场"}
+ATTACHED = {"Attached": "附属地点总数", "Barracks": "设防哨站", "GuardedCheckpoint": "守卫关卡",
+    "MilitiaTrainingCamp": "民兵训练营", "StoneWatchTower": "石制瞭望塔", "WoodenWatchTower": "木制瞭望塔",
+    "BlastFurnace": "高炉", "GemMine": "宝石矿", "SaltMine": "盐矿", "Brewery": "啤酒坊",
+    "Winery": "葡萄酒庄", "ArrowMaker": "制箭坊", "HunterCabin": "猎人小屋",
+    "leatherTanner": "制革坊", "LumberCamp": "伐木营地", "MushroomGrove": "蘑菇林", "IronVein": "铁矿脉"}
+LAIRS = {"Bandit": "强盗", "Nomad": "游牧民", "Barbarian": "蛮族", "Goblin": "地精",
+         "Undead": "亡灵", "Orc": "兽人", "Other": "其他"}
+ITEM_ATTRIBUTES = {"Stamina": "疲劳上限修正", "Armor": "护甲", "MinDamage": "最低伤害",
+    "MaxDamage": "最高伤害", "ArmorDamage": "破甲效率", "DirectDamage": "无视护甲比例",
+    "ChanceToHitHead": "命中头部几率", "AdditionalAccuracy": "命中加成", "AmmoMax": "弹药容量",
+    "FatigueOnSkillUse": "技能疲劳修正", "Condition": "耐久", "MeleeDefense": "近战防御", "RangedDefense": "远程防御"}
 _ATTRIBUTE = re.compile(r"\b(" + "|".join(ATTRIBUTES) + r"):(-?\d+)\((-?\d+)\)([0-3])")
 
 
@@ -101,6 +115,47 @@ def opening(result: SeedResult, selection: str) -> str:
     return "找新开局？"
 
 
+def world_details(result: SeedResult) -> list[str]:
+    sections = []
+    for prefix, title, labels in (
+        ("SettlementInfo:", "城镇与交通", {"Settlements": "聚落", "Port": "港口", "CityPort": "城邦港口",
+            "Products": "特产总数", "Connected": "连通聚落"}),
+        ("BuildInfo:", "城镇建筑", BUILDINGS), ("AttachedInfo:", "附属地点", ATTACHED),
+        ("NamedInfo:", "红装数量", {**ITEMS, "Sum": "合计"}),
+    ):
+        values = [f"{label} {value}" for key, label in labels.items()
+                  if (value := metric(result, prefix, key)) is not None]
+        if values:
+            sections += ["", title, "；".join(values)]
+    for line in result.lines:
+        if line.startswith("LairInfo:"):
+            match = re.match(r"LairInfo:\s*(.*?)\((\w+)\)\s+(\d+)\s+(.+?)\s+([\d.]+)-(.+)$", line)
+            if match:
+                name, kind, strength, town, distance, direction = match.groups()
+                directions = {"upper": "北", "upper_right": "东北", "right": "东", "lower_right": "东南",
+                    "lower": "南", "lower_left": "西南", "left": "西", "upper_left": "西北",
+                    "N": "北", "NE": "东北", "E": "东", "SE": "东南", "S": "南", "SW": "西南", "W": "西", "NW": "西北",
+                    "north": "北", "northeast": "东北", "east": "东", "southeast": "东南", "south": "南", "southwest": "西南", "west": "西", "northwest": "西北"}
+                direction = directions.get(direction, directions.get(direction.lower(), direction))
+                sections += ["", f"营地：{name}（{LAIRS.get(kind, '未知驻军')}）",
+                    f"驻军强度 {strength}；最近聚落 {town}；距离 {distance}，方位 {direction}"]
+        elif line.startswith("ItemInfo("):
+            match = re.match(r"ItemInfo\((\w+)\):\s*[^\s(]+(?:\([^)]*\))?\s+(.*)", line)
+            if match:
+                kind, fields = match.groups()
+                values = []
+                for key, value in re.findall(r"(\w+):(-?[\d.]+)", fields):
+                    if key not in ITEM_ATTRIBUTES:
+                        continue
+                    if key in {"ArmorDamage", "DirectDamage"}:
+                        value = f"{float(value) * 100:g}%"
+                    elif key == "ChanceToHitHead":
+                        value += "%"
+                    values.append(f"{ITEM_ATTRIBUTES[key]} {value}")
+                sections.append(f"{ITEMS.get(kind, '红装')}：" + ("；".join(values) or "未记录属性"))
+    return sections
+
+
 def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动开场白", note: str = "") -> str:
     if mode == "seed":
         return result.seed
@@ -117,6 +172,8 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
         clauses = ([origin] if origin else []) + facts
         if campaign:
             clauses.append(" / ".join(campaign))
+        if not result.done:
+            clauses.append("记录未完整，需核对")
         if note.strip():
             clauses.append(" ".join(note.split()))
         description = "，".join(clauses) or "已命中当前条件，详细属性尚未记录"
@@ -126,7 +183,9 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
     if campaign:
         lines.insert(2, "开局设置：" + " · ".join(campaign))
     if result.team_score is not None:
-        lines.append(f"高级评分：队伍平均 {result.team_score:.2f}（生成器综合评分）")
+        lines.append(f"高级队伍评分：{result.team_score:.2f}（算法的相对评分，不是属性值、百分比或胜率）")
+    if not result.done:
+        lines.append("记录未完整：日志在本条结束前中断，以下仅展示已收到的数据。")
     if note.strip():
         lines += ["", "补充介绍 / 路线：" + note.strip()]
     people = brothers(result)
@@ -138,9 +197,12 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
             lines.append(f"兄弟{brother.index} · {brother.role}：" + "；".join(values))
             if brother.traits:
                 lines.append('特质：' + '、'.join(trait_name(key) for key in brother.traits))
-    if result.lines:
-        lines += ["", "原始记录（便于核对）", *result.lines]
+    lines.extend(world_details(result))
     return "\n".join(lines)
+
+
+def raw_record(result: SeedResult) -> str:
+    return f"Seed: {result.seed} LoopIdx:{result.loop_idx} Origin:{result.origin}\n" + "\n".join(result.lines)
 
 
 def format_collection(results: list[SeedResult], mode: str, opener: str, notes: dict[str, str]) -> str:

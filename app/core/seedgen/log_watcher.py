@@ -12,8 +12,9 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from pathlib import Path
 
-from ..gamelog import LogRow
+from ..gamelog import IncrementalLogReader, LogRow
 
 RE_SEED_HEAD = re.compile(
     r"^Seed:\s+(\S+)\s+LoopIdx:(\d+)(?:\s+BroOutputType:(-?\d+))?"
@@ -83,7 +84,20 @@ class SeedLogParser:
         self.current: SeedResult | None = None
         self.results: list[SeedResult] = []
         self.progress: Progress = Progress()
-        self._orphan_lines: list[str] = []
+        self._seen: set[tuple[str, str, int]] = set()
+
+    def finish(self, complete: bool = False) -> list[SeedResult]:
+        """Preserve a final unfinished block, explicitly labelled as incomplete."""
+        current, self.current = self.current, None
+        if current is None:
+            return []
+        current.done = complete
+        key = (current.origin, current.seed, current.loop_idx)
+        if key in self._seen:
+            return []
+        self._seen.add(key)
+        self.results.append(current)
+        return [current]
 
     def feed(self, rows: list[LogRow]) -> tuple[list[SeedResult], list[Progress]]:
         """返回 (本轮完成的种子结果, 本轮出现的进度事件)。"""
@@ -91,10 +105,17 @@ class SeedLogParser:
         new_progress: list[Progress] = []
         for row in rows:
             text = row.text.strip()
+            if text.startswith("BBMODSeedSession: "):
+                if self.session_id is not None:
+                    matched = text == f"BBMODSeedSession: {self.session_id}"
+                    if matched and not self.session_seen:
+                        self.startup = StartupStatus("loaded")
+                    elif not matched:
+                        self.current = None
+                        self.startup = StartupStatus()
+                    self.session_seen = matched
+                continue
             if not self.session_seen:
-                if text == f"BBMODSeedSession: {self.session_id}":
-                    self.session_seen = True
-                    self.startup = StartupStatus("loaded")
                 continue
             if text.startswith("BBMODSeedStart: "):
                 stage, _, detail = text.removeprefix("BBMODSeedStart: ").partition(" ")
@@ -103,11 +124,7 @@ class SeedLogParser:
                 continue
             m = RE_SEED_HEAD.match(text)
             if m:
-                # 上一块未闭合（异常中断）也照样收录
-                if self.current and not self.current.done:
-                    self.current.done = True
-                    self.results.append(self.current)
-                    new_results.append(self.current)
+                new_results.extend(self.finish())
                 self.current = SeedResult(
                     seed=m.group(1),
                     loop_idx=int(m.group(2)),
@@ -117,12 +134,8 @@ class SeedLogParser:
                     origin=(origin.group(1) if (origin := re.search(r"\bOrigin:(\S+)", text)) else ""),
                 )
                 continue
-            if text == "CRLF":
-                if self.current and not self.current.done:
-                    self.current.done = True
-                    self.results.append(self.current)
-                    new_results.append(self.current)
-                    self.current = None
+            if text == "CRLF" or (not text and row.tag == "TXT"):
+                new_results.extend(self.finish(complete=True))
                 continue
             m = RE_LOOP_PROGRESS.match(text)
             if m:
@@ -137,8 +150,30 @@ class SeedLogParser:
                     self.progress.best_team_score = parts[0]
                 new_progress.append(self.progress)
                 continue
-            if self.current is not None:
+            if self.current is not None and text.startswith((
+                "TeamInfo:", "CharInfo:", "Trait:", "LairInfo:", "NamedInfo:",
+                "SettlementInfo:", "BuildInfo:", "AttachedInfo:", "ItemInfo(",
+            )):
                 self.current.lines.append(text)
-            elif text.startswith(("TeamInfo:", "CharInfo:", "LairInfo:", "NamedInfo:", "SettlementInfo:")):
-                self._orphan_lines.append(text)
         return new_results, new_progress
+
+
+def import_seed_log(path: Path) -> list[SeedResult]:
+    """Explicit historical import. Unlike live reads, no session marker is required."""
+    if path.suffix.lower() not in {".txt", ".html", ".htm"}:
+        raise ValueError("请选择种子生成器的 TXT 或 HTML 日志")
+    # Surface permission/missing-file errors instead of claiming an empty import.
+    with path.open("rb"):
+        pass
+    reader = IncrementalLogReader(path)
+    parser = SeedLogParser()
+    while True:
+        before = reader.offset
+        parser.feed(reader.read_new())
+        if reader.error:
+            raise OSError(reader.error)
+        if reader.offset == before:
+            break
+    parser.feed(reader.finish())
+    parser.finish()
+    return parser.results

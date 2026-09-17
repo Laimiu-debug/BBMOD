@@ -5,6 +5,15 @@ import json
 
 from ..paths import resource_path
 
+# Fixed origin traits are displayable but deliberately not random-trait filters.
+ORIGIN_TRAITS = {
+    "trait.player": "战团领袖", "trait.old": "年迈", "trait.arena_fighter": "竞技场斗士",
+    "trait.arena_veteran": "竞技场老兵", "trait.arena_pit_fighter": "竞技场角斗士",
+    "trait.cultist_fanatic": "达夫库尔狂信徒", "trait.cultist_zealot": "达夫库尔狂热者",
+    "trait.cultist_acolyte": "达夫库尔侍僧", "trait.cultist_disciple": "达夫库尔门徒",
+    "trait.cultist_chosen": "达夫库尔选民", "trait.cultist_prophet": "达夫库尔先知",
+}
+
 @dataclass(frozen=True)
 class Trait:
     id: str
@@ -20,7 +29,7 @@ def traits() -> dict[str, Trait]:
 
 def trait_name(trait_id: str) -> str:
     item = traits().get(trait_id)
-    return item.name if item else trait_id
+    return item.name if item else ORIGIN_TRAITS.get(trait_id, f"未收录特质（{trait_id}）")
 
 def validate_traits(required, excluded, match='all') -> tuple[list[str], list[str]]:
     available = traits()

@@ -8,7 +8,7 @@ from PySide6.QtGui import QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QDoubleSpinBox, QFileDialog, QFormLayout, QFrame, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMessageBox, QPushButton,
+    QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMenu, QMessageBox, QPushButton,
     QSpinBox, QStackedWidget, QTableWidget, QTableWidgetItem, QTabWidget,
     QTextEdit, QVBoxLayout, QWidget,
 )
@@ -20,15 +20,16 @@ from core.seedgen.config_emitter import (
     DIFFICULTY_LABELS, BUDGET_LABELS,
     SCORE_EXPLANATION, SeedGenConfig, brother_condition, score_condition,
 )
-from core.seedgen.log_watcher import SeedResult
-from core.seedgen.orchestrator import SeedGenOrchestrator
+from core.seedgen.log_watcher import SeedResult, import_seed_log
+from core.seedgen.orchestrator import SeedGenOrchestrator, StopLimits
 from core.seedgen.traits import trait_name, validate_traits
 from core.seedgen.presentation import (
-    FORMATS, OPENERS, format_collection, format_seed, highlights, note_key,
+    FORMATS, OPENERS, format_collection, format_seed, highlights, note_key, raw_record,
 )
 from .app_context import AppContext
 from .theme import style_button, style_table
 from .seed_trait_dialog import SeedTraitDialog
+from .workers import Worker
 
 PAYLOAD_DIR = resource_path("seedgen/payload")
 MODE_LABELS = {
@@ -60,6 +61,15 @@ class SeedGenPage(QWidget):
         self.ctx = ctx
         self.orch: SeedGenOrchestrator | None = None
         self.results: list[SeedResult] = []
+        self._automatic_stop_failed = False
+        self._import_worker: Worker | None = None
+        limits = ctx.settings.get("seed_stop_limits", {})
+        try:
+            self._limits = StopLimits(**limits) if isinstance(limits, dict) else StopLimits()
+        except (TypeError, ValueError):
+            self._limits = StopLimits()
+        folder = ctx.settings.get("seed_log_directory", "")
+        self._log_directory = Path(folder) if isinstance(folder, str) and folder else None
         self.extra_attributes: dict[str, int] = {}
         self.required_traits, self.excluded_traits, self.trait_match = [], [], 'all'
         saved_traits = ctx.settings.get('seed_traits', {})
@@ -208,8 +218,16 @@ class SeedGenPage(QWidget):
         self.stop_btn = QPushButton("停止并恢复")
         style_button(self.stop_btn, "stop")
         self.stop_btn.setEnabled(False)
+        self.stop_btn.setToolTip("可随时停止：结束刷种子的游戏进程，保留结果，并恢复之前的 MOD 和配置。")
         self.options_btn = QPushButton("生成设置…")
         self.options_btn.clicked.connect(self._generation_options)
+        self.log_btn = QPushButton("日志")
+        log_menu = QMenu(self.log_btn)
+        self.import_action = log_menu.addAction("导入已有种子日志（TXT / HTML）…", self.import_log)
+        log_menu.addAction("选择游戏日志目录…", self._choose_log_directory)
+        log_menu.addAction("恢复自动查找日志目录", lambda: self._set_log_directory(None))
+        log_menu.addAction("查看当前读取位置", self._show_log_location)
+        self.log_btn.setMenu(log_menu)
         self.lower_check = QCheckBox("包含小写种子（大小写必须原样复制）")
         self.real11_check = QCheckBox("逐级模拟11级成长（关闭后使用星级平均成长）")
         self.real11_check.setChecked(True)
@@ -222,6 +240,7 @@ class SeedGenPage(QWidget):
         run_row.addWidget(self.start_btn)
         run_row.addWidget(self.stop_btn)
         run_row.addWidget(self.options_btn)
+        run_row.addWidget(self.log_btn)
         run_row.addWidget(self.progress_label, 1)
         root.addLayout(run_row)
 
@@ -396,6 +415,16 @@ class SeedGenPage(QWidget):
             levels[key] = widget
             campaign_form.addRow(label, widget)
         layout.addLayout(campaign_form)
+        stop_form = QFormLayout()
+        hits = spin(maximum=1_000_000, value=self._limits.hits, unlimited=True)
+        hits.setObjectName("stop_hits")
+        hits.setSuffix(" 条")
+        minutes = spin(maximum=10080, value=self._limits.minutes, unlimited=True)
+        minutes.setObjectName("stop_minutes")
+        minutes.setSuffix(" 分钟")
+        stop_form.addRow("找到好种子后停止", hits)
+        stop_form.addRow("运行时限（含加载）", minutes)
+        layout.addLayout(stop_form)
         lower = QCheckBox(self.lower_check.text())
         lower.setChecked(self.lower_check.isChecked())
         real = QCheckBox(self.real11_check.text())
@@ -403,14 +432,19 @@ class SeedGenPage(QWidget):
         layout.addWidget(lower)
         layout.addWidget(real)
         description = QLabel("软件会自动按所选起源和以上设置新建战役。复现红装时请保持起源、难度和 DLC 一致。\n"
-                             "11级数值假设每级都提升对应属性；慢速起源仍使用星级平均成长。")
+                             "11级数值假设每级都提升对应属性；慢速起源仍使用星级平均成长。\n"
+                             "结果边刷边显示。数量和时限均为不限时持续搜索；两项都设置时，先达到哪项就停止并恢复。")
         description.setWordWrap(True)
         layout.addWidget(description)
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        buttons.button(QDialogButtonBox.Ok).setText("确定")
+        buttons.button(QDialogButtonBox.Cancel).setText("取消")
         buttons.accepted.connect(dialog.accept)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
         if dialog.exec() == QDialog.Accepted:
+            self._limits = StopLimits(hits.value(), minutes.value())
+            self.ctx.settings.set("seed_stop_limits", {"hits": hits.value(), "minutes": minutes.value()})
             self._campaign_levels = {key: widget.currentData() for key, widget in levels.items()}
             self._save_campaign()
             self._update_campaign_hint()
@@ -426,8 +460,68 @@ class SeedGenPage(QWidget):
             f"自动开局 · 战斗{DIFFICULTY_LABELS[levels['combat_difficulty']]} · "
             f"经济{DIFFICULTY_LABELS[levels['economic_difficulty']]} · "
             f"资金{BUDGET_LABELS[levels['budget_difficulty']]}"
+            f"\n{self._limits.description}"
         )
-        self.options_btn.setToolTip("点击调整自动开局的战斗难度、经济难度和初始资金")
+        self.options_btn.setToolTip("设置战斗难度、经济难度、初始资金和自动停止条件")
+
+    def _choose_log_directory(self) -> None:
+        folder = QFileDialog.getExistingDirectory(self, "选择包含 log.html 或 log.txt 的 Battle Brothers 日志目录",
+                                                  str(self._log_directory or ""))
+        if folder:
+            self._set_log_directory(Path(folder))
+
+    def _set_log_directory(self, folder: Path | None) -> None:
+        self._log_directory = folder
+        self.ctx.settings.set("seed_log_directory", str(folder) if folder else "")
+        if self.orch:
+            self.orch.set_log_directory(folder)
+            self.progress_label.setText("正在重新查找本次刷种子的日志…")
+
+    def _show_log_location(self) -> None:
+        path = self.orch.log_path if self.orch else None
+        directories = game_mod.find_log_write_paths(self._log_directory)
+        message = (f"正在读取：\n{path}" if path else "尚未连接本次刷种子日志。")
+        message += "\n\n查找目录：\n" + "\n".join(str(folder) for folder in directories)
+        message += "\n\n结果会边刷边显示。已有 log.txt 可用「导入已有种子日志」转为中文档案。"
+        QMessageBox.information(self, "种子日志位置", message)
+
+    def import_log(self) -> None:
+        if self.orch or (self._import_worker and self._import_worker.isRunning()):
+            return
+        filename, _ = QFileDialog.getOpenFileName(self, "导入已有种子日志", "", "种子日志 (*.txt *.html *.htm)")
+        if not filename:
+            return
+        self.start_btn.setEnabled(False)
+        self.import_action.setEnabled(False)
+        self.progress_label.setText("正在读取日志并生成中文档案…")
+        self._import_worker = Worker(lambda: import_seed_log(Path(filename)), self)
+        self._import_worker.done.connect(self._imported_results)
+        self._import_worker.failed.connect(lambda error: self.progress_label.setText(f"导入失败：{error}"))
+        self._import_worker.finished.connect(lambda: self.start_btn.setEnabled(True))
+        self._import_worker.finished.connect(lambda: self.import_action.setEnabled(True))
+        self._import_worker.start()
+
+    def _imported_results(self, results: list[SeedResult]) -> None:
+        seen = {(r.origin, r.seed, r.loop_idx) for r in self.results}
+        added = 0
+        self.table.setUpdatesEnabled(False)
+        try:
+            for result in results:
+                key = (result.origin, result.seed, result.loop_idx)
+                if key in seen:
+                    continue
+                seen.add(key)
+                self.results.append(result)
+                self._append_result(result)
+                added += 1
+        finally:
+            self.table.setUpdatesEnabled(True)
+        self.format_combo.setCurrentIndex(self.format_combo.findData("detail"))
+        partial = sum(not result.done for result in results)
+        self.progress_label.setText((f"已导入 {added} 条 · 重复 {len(results) - added} 条" +
+            (f" · 其中 {partial} 条日志未完整" if partial else "")) if results else
+            "未找到种子记录，请选择生成器的原始 log.txt 或 log.html")
+        self._show_detail()
 
     def _current_config(self) -> SeedGenConfig:
         mode = MODE_LABELS[self.mode_combo.currentText()]
@@ -458,6 +552,8 @@ class SeedGenPage(QWidget):
         return cfg
 
     def start(self) -> None:
+        if self.orch or (self._import_worker and self._import_worker.isRunning()):
+            return
         if not self.ctx.game:
             QMessageBox.warning(self, "未找到游戏", "请先指定游戏目录")
             return
@@ -470,7 +566,9 @@ class SeedGenPage(QWidget):
         except ValueError as error:
             QMessageBox.warning(self, "检查筛选条件", str(error))
             return
-        self.orch = SeedGenOrchestrator(self.ctx.game, PAYLOAD_DIR)
+        self.orch = SeedGenOrchestrator(self.ctx.game, PAYLOAD_DIR,
+            log_directory=self._log_directory, limits=self._limits)
+        self._automatic_stop_failed = False
         try:
             warnings = self.orch.prepare(cfg)
         except Exception as error:
@@ -492,6 +590,7 @@ class SeedGenPage(QWidget):
                 self.ctx.set_seedgen_active(True)
                 self.cfg_box.setEnabled(False)
                 self.options_btn.setEnabled(False)
+                self.import_action.setEnabled(False)
                 QMessageBox.critical(self, "启动失败，恢复未完成", f"{error}\n{restore_error}")
                 return
             QMessageBox.critical(self, "启动失败", str(error))
@@ -504,30 +603,40 @@ class SeedGenPage(QWidget):
         self.stop_btn.setEnabled(True)
         self.cfg_box.setEnabled(False)
         self.options_btn.setEnabled(False)
+        self.import_action.setEnabled(False)
         self.progress_label.setText(f"正在启动游戏 · 加载完成后自动以「{self.origin_combo.currentText()}」开始")
         self.timer.start()
         self.ctx.data_changed.emit()
         self._show_detail()
 
-    def stop(self) -> None:
+    def stop(self, _checked=False, *, reason: str = "") -> None:
         if not self.orch:
             return
         self.timer.stop()
+        self._automatic_stop_failed = False
         self.progress_label.setText("正在恢复游戏配置…")
         try:
             restored = self.orch.stop_and_restore()
         except Exception as error:
+            self._automatic_stop_failed = True
+            self.timer.start()
             QMessageBox.warning(self, "恢复未完成", str(error))
             return
         self.results = list(self.orch.results)
+        for result in self.results[self.table.rowCount():]:
+            self._append_result(result)
         preserved = getattr(getattr(self.orch, "files", None), "preserved", [])
         self.orch = None
         self.start_btn.setEnabled(True)
         self.stop_btn.setEnabled(False)
         self.cfg_box.setEnabled(True)
         self.options_btn.setEnabled(True)
+        self.import_action.setEnabled(True)
         self.ctx.set_seedgen_active(False)
-        self.progress_label.setText(f"已结束 · 命中 {len(self.results)} 个 · 恢复 {restored} 个 MOD")
+        complete = sum(result.done for result in self.results)
+        partial = len(self.results) - complete
+        self.progress_label.setText(f"{reason or '已停止'} · 命中 {complete} 条 · 恢复 {restored} 个 MOD" +
+                                   (f" · 保留 {partial} 条未完整记录" if partial else ""))
         self.ctx.data_changed.emit()
         self._show_detail()
         if preserved:
@@ -540,6 +649,9 @@ class SeedGenPage(QWidget):
         results, _ = self.orch.poll()
         progress = self.orch.progress
         startup = self.orch.startup
+        elapsed = getattr(self.orch, "elapsed_seconds", 0)
+        path = getattr(self.orch, "log_path", None)
+        self.progress_label.setToolTip((f"实时读取：{path}\n" if path else "尚未连接本次日志\n") + self._limits.description)
         if startup.stage == "error":
             code = startup.detail.split(" ", 1)[0]
             message = {
@@ -552,14 +664,17 @@ class SeedGenPage(QWidget):
             }.get(code, "自动开局失败，请停止并恢复后查看营地诊断")
             self.progress_label.setText(message)
             self.progress_label.setToolTip(startup.detail)
-        elif progress.loop_idx:
-            self.progress_label.setText(f"已找 {progress.loop_idx} 个 · 命中 {progress.hits} 个")
+        elif progress.loop_idx or self.results:
+            rounds = max(progress.loop_idx, max((result.loop_idx for result in self.results), default=0))
+            self.progress_label.setText(f"搜索至第 {rounds} 轮 · 已显示 {len(self.results)} 条 · {elapsed // 60:02}:{elapsed % 60:02}")
         elif startup.stage == "generating":
             self.progress_label.setText("已自动开局 · 正在生成第一批种子，地图生成可能需要较长时间")
         elif startup.stage == "requested":
             self.progress_label.setText(f"已选择「{self.origin_combo.currentText()}」· 正在加载战役")
         elif startup.stage == "loaded":
             self.progress_label.setText("生成器已加载 · 等待游戏主菜单准备就绪后自动开始")
+        elif elapsed >= 45:
+            self.progress_label.setText("尚未读到本次日志 · 游戏仍加载时请等待；已开始刷种子可在「日志」选择目录")
         for result in results:
             self._append_result(result)
         if results:
@@ -567,11 +682,18 @@ class SeedGenPage(QWidget):
             if actual and actual != self.origin_combo.currentData():
                 self.progress_label.setText(f"记录起源「{ORIGIN_LABELS.get(actual, actual)}」与所选不符，请停止并检查游戏脚本")
         self.export_btn.setEnabled(bool(self.results))
+        if self._automatic_stop_failed:
+            self.progress_label.setText("恢复未完成，备份已保留 · 请点击「停止并恢复」重试")
+        elif reason := getattr(self.orch, "stop_reason", ""):
+            self.stop(reason=reason)
 
     def _append_result(self, result: SeedResult) -> None:
         row = self.table.rowCount()
         self.table.insertRow(row)
-        values = [result.seed, " · ".join(highlights(result)) or "双击查看记录",
+        summary = " · ".join(highlights(result)) or "双击查看中文档案"
+        if not result.done:
+            summary = "记录未完整 · " + summary
+        values = [result.seed, summary,
                   ORIGIN_LABELS.get(result.origin, result.origin) or "未记录", str(result.loop_idx)]
         for column, value in enumerate(values):
             item = QTableWidgetItem(value)
@@ -580,7 +702,10 @@ class SeedGenPage(QWidget):
                 item.setData(Qt.UserRole, result)
             self.table.setItem(row, column, item)
         self.export_btn.setEnabled(True)
-        self.table.scrollToBottom()
+        if row == 0:
+            self.table.selectRow(0)
+        if self.table.currentRow() >= row - 1:
+            self.table.scrollToBottom()
 
     def _selected_result(self) -> SeedResult | None:
         row = self.table.currentRow()
@@ -647,6 +772,10 @@ class SeedGenPage(QWidget):
         text.setReadOnly(True)
         text.setPlainText(format_seed(result, "detail", note=self.notes.get(note_key(result), "")))
         layout.addWidget(text)
+        raw = QCheckBox("查看英文原始记录（排查用）")
+        raw.toggled.connect(lambda checked: text.setPlainText(raw_record(result) if checked else
+            format_seed(result, "detail", note=self.notes.get(note_key(result), ""))))
+        layout.addWidget(raw)
         buttons = QDialogButtonBox(QDialogButtonBox.Close)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)

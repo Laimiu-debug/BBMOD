@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from PySide6.QtCore import QTimer
-from PySide6.QtWidgets import QApplication, QComboBox, QDialog, QDialogButtonBox
+from PySide6.QtWidgets import QApplication, QComboBox, QDialog, QDialogButtonBox, QSpinBox
 
 from core.settings import Settings
 from core.seedgen.log_watcher import Progress, StartupStatus
@@ -33,11 +33,15 @@ def test_campaign_options_persist_and_reach_every_search_mode(app, context):
         for key, value in (("combat_difficulty", 2), ("economic_difficulty", 0), ("budget_difficulty", 2)):
             combo = dialog.findChild(QComboBox, key)
             combo.setCurrentIndex(combo.findData(value))
+        dialog.findChild(QSpinBox, "stop_hits").setValue(3)
+        dialog.findChild(QSpinBox, "stop_minutes").setValue(20)
         dialog.findChild(QDialogButtonBox).button(QDialogButtonBox.Ok).click()
     QTimer.singleShot(0, choose_levels)
     page._generation_options()
     reopened = SeedGenPage(context)
     assert "战斗专家" in reopened.progress_label.text() and "经济新手" in reopened.progress_label.text()
+    assert reopened._limits.hits == 3 and reopened._limits.minutes == 20
+    assert "找到 3 条" in reopened.progress_label.text() and "运行 20 分钟" in reopened.progress_label.text()
     for mode in ("只找地图", "人物 + 地图", "人物 + 红装", "只找开局兄弟（快）"):
         reopened.mode_combo.setCurrentText(mode)
         cfg = reopened._current_config()

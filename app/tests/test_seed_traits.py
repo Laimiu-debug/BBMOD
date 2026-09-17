@@ -73,7 +73,7 @@ def test_result_details_keep_traits_attached_to_the_right_brother():
     assert brothers(result)[1].traits == ['trait.clumsy', 'trait.unknown_mod_trait']
     text = format_seed(result)
     assert '特质：铁肺、高大' in text
-    assert '特质：笨拙、trait.unknown_mod_trait' in text
+    assert '特质：笨拙、未收录特质（trait.unknown_mod_trait）' in text
 
 
 def test_actual_squirrel_checker_matches_distinct_brothers(tmp_path):

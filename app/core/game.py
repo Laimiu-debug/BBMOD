@@ -6,12 +6,15 @@
 from __future__ import annotations
 
 import ctypes
+import html
 import os
 import re
 import shutil
 import subprocess
 import zipfile
+import uuid
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
 APP_ID = "365360"
@@ -223,33 +226,74 @@ def check_base_archive(data_dir: Path) -> BaseArchiveStatus | None:
     return status
 
 
-def find_log_write_path() -> Path | None:
-    r"""定位游戏实际写盘目录（Documents\Battle Brothers，含 OneDrive 重定向）。
+@lru_cache(maxsize=1)
+def documents_path() -> Path | None:
+    """Ask Windows for Documents, including folders redirected to another drive."""
+    if os.name != "nt":
+        return None
 
-    优先解析 log.html 首部的 "Using write path:" 行（游戏自述的权威来源），
-    找不到再探测两个候选目录。
-    """
-    candidates = [
-        Path.home() / "Documents" / "Battle Brothers",
-        Path.home() / "OneDrive" / "Documents" / "Battle Brothers",
-    ]
-    for c in candidates:
-        log = c / "log.html"
-        if log.exists():
-            try:
-                head = log.read_bytes()[:8192]
-                m = re.search(rb"Using write path:\s*([^<\r\n]+)", head)
-                if m:
-                    p = Path(m.group(1).decode("utf-8", errors="replace").strip())
-                    if p.exists():
-                        return p
-            except OSError:
-                pass
-            return c
-    for c in candidates:
-        if c.exists():
-            return c
+    class GUID(ctypes.Structure):
+        _fields_ = [("data1", ctypes.c_uint32), ("data2", ctypes.c_uint16),
+                    ("data3", ctypes.c_uint16), ("data4", ctypes.c_ubyte * 8)]
+
+    folder = GUID.from_buffer_copy(uuid.UUID("fdd39ad0-238f-46af-adb4-6c85480369c7").bytes_le)
+    pointer = ctypes.c_void_p()
+    try:
+        lookup = ctypes.windll.shell32.SHGetKnownFolderPath
+        lookup.argtypes = [ctypes.POINTER(GUID), ctypes.c_uint32, ctypes.c_void_p,
+                           ctypes.POINTER(ctypes.c_void_p)]
+        lookup.restype = ctypes.c_long
+        if lookup(ctypes.byref(folder), 0, None, ctypes.byref(pointer)) == 0:
+            return Path(ctypes.wstring_at(pointer))
+    except (AttributeError, OSError):
+        pass
+    finally:
+        if pointer.value:
+            free = ctypes.windll.ole32.CoTaskMemFree
+            free.argtypes = [ctypes.c_void_p]
+            free.restype = None
+            free(pointer)
     return None
+
+
+def find_log_write_paths(preferred: Path | None = None) -> list[Path]:
+    """All plausible folders; live readers still verify their session marker."""
+    documents = documents_path()
+    candidates = ([Path(preferred)] if preferred else [])
+    if documents:
+        candidates.append(documents / GAME_DIRNAME)
+    candidates += [Path.home() / "Documents" / GAME_DIRNAME,
+                   Path.home() / "OneDrive" / "Documents" / GAME_DIRNAME]
+    candidates += [Path(value) / "Documents" / GAME_DIRNAME
+                   for key in ("OneDrive", "OneDriveConsumer", "OneDriveCommercial")
+                   if (value := os.environ.get(key))]
+    unique: dict[str, Path] = {}
+    for folder in candidates:
+        unique.setdefault(os.path.normcase(str(folder.absolute())), folder)
+    for folder in list(unique.values()):
+        try:
+            with (folder / "log.html").open("rb") as stream:
+                head = stream.read(8192).decode("utf-8", errors="replace")
+            match = re.search(r"Using write path:\s*([^<\r\n]+)", head)
+            if match:
+                reported = Path(html.unescape(match[1]).strip())
+                if reported.is_absolute() and reported.is_dir():
+                    unique.setdefault(os.path.normcase(str(reported.absolute())), reported)
+        except OSError:
+            continue
+
+    def modified(folder: Path) -> int:
+        try:
+            return (folder / "log.html").stat().st_mtime_ns
+        except OSError:
+            return 0
+
+    return sorted(unique.values(), key=lambda folder: (folder == preferred, modified(folder)), reverse=True)
+
+
+def find_log_write_path() -> Path | None:
+    """Best existing folder for diagnostics; generation monitors every candidate."""
+    return next((folder for folder in find_log_write_paths() if folder.is_dir()), None)
 
 
 # ---------------- 进程管理 ----------------

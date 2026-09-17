@@ -73,7 +73,7 @@ def test_prepare_launch_and_restore_use_selected_campaign_and_exact_directory(tm
     campaign = CampaignConfig(origin="scenario.gladiators", combat_difficulty=2, budget_difficulty=0)
     with patch("core.seedgen.orchestrator.game_mod.is_game_running", return_value=False), \
          patch("core.seedgen.orchestrator.game_mod.launch_game", return_value=True) as launch, \
-         patch("core.seedgen.orchestrator.game_mod.find_log_write_path", return_value=log_dir):
+         patch("core.seedgen.orchestrator.game_mod.find_log_write_paths", return_value=[log_dir]):
         assert session.prepare(SeedGenConfig(campaign=campaign)) == []  # Recent dates do not block startup.
         emitted = (data / "seed_generator/config_campaign.nut").read_text(encoding="utf-8")
         assert 'Origin = "scenario.gladiators"' in emitted and "Difficulty = 2" in emitted

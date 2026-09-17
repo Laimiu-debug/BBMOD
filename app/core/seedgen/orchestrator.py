@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import tempfile
+import time
 import uuid
 from dataclasses import dataclass, field, replace
 from pathlib import Path
@@ -27,8 +28,26 @@ class SessionState:
     warnings: list[str] = field(default_factory=list)
 
 
+@dataclass(frozen=True)
+class StopLimits:
+    hits: int = 0
+    minutes: int = 0
+
+    def __post_init__(self):
+        if any(type(value) is not int or value < 0 for value in (self.hits, self.minutes)):
+            raise ValueError("自动停止的数量和分钟数必须是非负整数；0 表示不限")
+
+    @property
+    def description(self) -> str:
+        conditions = [f"找到 {self.hits} 条"] if self.hits else []
+        if self.minutes:
+            conditions.append(f"运行 {self.minutes} 分钟")
+        return " 或 ".join(conditions) + "后停止" if conditions else "持续搜索，可随时停止"
+
+
 class SeedGenOrchestrator:
-    def __init__(self, game: GameInfo, payload_dir: Path | str) -> None:
+    def __init__(self, game: GameInfo, payload_dir: Path | str, *,
+                 log_directory: Path | None = None, limits: StopLimits | None = None) -> None:
         self.game = game
         self.payload_dir = Path(payload_dir)
         self.mm = ModManager(game.root)
@@ -40,6 +59,11 @@ class SeedGenOrchestrator:
         self._session_id = uuid.uuid4().hex
         self._parser = SeedLogParser(session_id=self._session_id)
         self._campaign = None
+        self.log_directory = log_directory
+        self.limits = limits or StopLimits()
+        self._started_at: float | None = None
+        self._readers: dict[Path, tuple[IncrementalLogReader, SeedLogParser]] = {}
+        self._seen: set[tuple[str, str, int]] = set()
 
     # ---------------- 准备 ----------------
 
@@ -87,36 +111,88 @@ class SeedGenOrchestrator:
     def launch(self) -> bool:
         if self.state.stage != "prepared":
             raise RuntimeError("请先 prepare()")
-        log_path = game_mod.find_log_write_path()
-        if log_path:
-            self._reader = IncrementalLogReader(log_path / "log.html")
-            self._reader.reset()
+        self._discover_readers()
         # Launch the exact installation that received the temporary payload.
         ok = game_mod.launch_game(self.game, via_steam=False)
         if ok:
             self.state.stage = "running"
+            self._started_at = time.monotonic()
         return ok
 
-    def poll(self) -> tuple[list[SeedResult], list[Progress]]:
-        """轮询新日志行 → (新种子结果, 进度事件)。"""
-        if self._reader is None:
-            log_path = game_mod.find_log_write_path()
-            if not log_path:
-                return [], []
-            self._reader = IncrementalLogReader(log_path / "log.html")
-        if not self._parser.session_seen:
-            # A new log may already have grown past the previous file size.
-            # Find our unique session marker before accepting any old results.
-            self._reader.reset()
-        rows = self._reader.read_new()
-        new_results, new_progress = self._parser.feed(rows)
-        if self._campaign:
-            for result in new_results:
+    def _discover_readers(self) -> None:
+        for directory in game_mod.find_log_write_paths(self.log_directory):
+            for name in ("log.html", "log.txt"):
+                path = directory / name
+                if path not in self._readers:
+                    reader = IncrementalLogReader(path)
+                    parser = SeedLogParser(session_id=self._session_id)
+                    self._readers[path] = (reader, parser)
+                    if self._reader is None:
+                        self._reader, self._parser = reader, parser
+
+    def set_log_directory(self, directory: Path | None) -> None:
+        self.log_directory = directory
+        self._readers.clear()
+        self._reader = None
+        self._parser = SeedLogParser(session_id=self._session_id)
+        self._discover_readers()
+
+    def _collect(self, results: list[SeedResult]) -> list[SeedResult]:
+        fresh = []
+        for result in results:
+            key = (result.origin, result.seed, result.loop_idx)
+            if key in self._seen:
+                continue
+            self._seen.add(key)
+            if self._campaign:
                 result.combat_difficulty = self._campaign.combat_difficulty
                 result.economic_difficulty = self._campaign.economic_difficulty
                 result.budget_difficulty = self._campaign.budget_difficulty
-        self.results.extend(new_results)
-        return new_results, new_progress
+            fresh.append(result)
+        self.results.extend(fresh)
+        return fresh
+
+    def poll(self) -> tuple[list[SeedResult], list[Progress]]:
+        """轮询新日志行 → (新种子结果, 进度事件)。"""
+        if not self._parser.session_seen:
+            self._discover_readers()
+        candidates = ([(self._reader, self._parser)] if self._parser.session_seen and self._reader
+                      else list(self._readers.values()))
+        for reader, parser in candidates:
+            generation = reader.generation
+            rows = reader.read_new()
+            if generation != reader.generation:
+                parser = SeedLogParser(session_id=self._session_id)
+                self._readers[reader.path] = (reader, parser)
+                if reader is self._reader:
+                    self._parser = parser
+            results, progress = parser.feed(rows)
+            if parser.session_seen or results or progress:
+                self._reader, self._parser = reader, parser
+                return self._collect(results), progress
+        return [], []
+
+    @property
+    def log_path(self) -> Path | None:
+        return self._reader.path if self._reader and self._parser.session_seen else None
+
+    @property
+    def checked_log_paths(self) -> list[Path]:
+        return list(self._readers)
+
+    @property
+    def elapsed_seconds(self) -> int:
+        return max(0, int(time.monotonic() - self._started_at)) if self._started_at is not None else 0
+
+    @property
+    def stop_reason(self) -> str:
+        if self.state.stage != "running":
+            return ""
+        if self.limits.hits and sum(result.done for result in self.results) >= self.limits.hits:
+            return f"已达到 {self.limits.hits} 条命中目标"
+        if self.limits.minutes and self.elapsed_seconds >= self.limits.minutes * 60:
+            return f"已达到 {self.limits.minutes} 分钟时限"
+        return ""
 
     @property
     def progress(self) -> Progress:
@@ -133,6 +209,16 @@ class SeedGenOrchestrator:
         if game_mod.is_game_running():
             if self.state.stage != "running" or not game_mod.kill_game():
                 raise RuntimeError("游戏仍在运行。请先关闭游戏，再重试恢复；原文件备份已保留。")
+        # Drain output after the process stops, including a final truncated block.
+        # A partial record is retained for inspection but does not count as a full hit.
+        while self._readers:
+            offsets = {path: reader.offset for path, (reader, _) in self._readers.items()}
+            self.poll()
+            if offsets == {path: reader.offset for path, (reader, _) in self._readers.items()}:
+                break
+        if self._reader and self._parser.session_seen:
+            results, _ = self._parser.feed(self._reader.finish())
+            self._collect(results + self._parser.finish())
         restored = self.files.restore()
         self.mm._audit("seedgen-restore", self.files.root, self.game.data_dir)
         self.state.stage = "restored"
