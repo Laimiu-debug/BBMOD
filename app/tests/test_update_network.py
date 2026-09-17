@@ -19,7 +19,7 @@ def app():
 
 @pytest.fixture
 def network(app, tmp_path, monkeypatch):
-    response = {'code': 200, 'body': json.dumps([release_row()]).encode(), 'redirect': None}
+    response = {'code': 200, 'body': json.dumps([release_row('v999.0.0')]).encode(), 'redirect': None}
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             self.send_response(response['code'])
@@ -49,7 +49,7 @@ def wait_idle(app, service):
 def test_real_check_and_hash_verified_download(app, network):
     service, response = network
     service.check();wait_idle(app, service)
-    assert service.latest().tag == 'v0.3.0-rc.5'
+    assert service.latest().tag == 'v999.0.0'
     assert service.preferences['last_check']
     assert '发现新版本' in service.status
     response['body'] = b'MZ-new'
