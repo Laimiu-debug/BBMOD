@@ -6,6 +6,7 @@ import re
 
 from .config_emitter import ATTRIBUTES, ORIGIN_LABELS
 from .log_watcher import SeedResult
+from .traits import trait_name
 
 FORMATS = {"种子档案（含详情）": "detail", "弹幕模式（一行一条）": "danmaku", "仅种子码": "seed"}
 OPENERS = ["自动开场白", "卡大货了？", "缺大哥？", "跑商发愁？", "想找红装？", "不加开场白"]
@@ -23,11 +24,16 @@ class Brother:
     initial: dict[str, int] = field(default_factory=dict)
     projected: dict[str, int] = field(default_factory=dict)
     stars: dict[str, int] = field(default_factory=dict)
+    traits: list[str] = field(default_factory=list)
 
 
 def brothers(result: SeedResult) -> list[Brother]:
     parsed = []
-    for line in result.brothers:
+    for line in result.lines:
+        if line.startswith('Trait:'):
+            if parsed:
+                parsed[-1].traits = list(dict.fromkeys(line.removeprefix('Trait:').split()))
+            continue
         head = re.match(r"CharInfo:\s*(\d+)\s+(\S+?):", line)
         if not head:
             continue
@@ -119,6 +125,8 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
             values = [f"{label} {brother.initial[key]}→{brother.projected[key]}（{brother.stars[key]}星）"
                       for key, label in ATTRIBUTES.items() if key in brother.projected]
             lines.append(f"兄弟{brother.index} · {brother.role}：" + "；".join(values))
+            if brother.traits:
+                lines.append('特质：' + '、'.join(trait_name(key) for key in brother.traits))
     if result.lines:
         lines += ["", "原始记录（便于核对）", *result.lines]
     return "\n".join(lines)

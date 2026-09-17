@@ -21,6 +21,7 @@ gt.SeedGenerator.BroOutput <- {
 	RoleAttr = 3, 				# 输出个体属性满足要求的结果
 	RoleTraitScore = 4, 		# 输出个体特性和职业分同时满足要求的结果
 	RoleTraitScoreIndex = 5, 	# 输出对应索引的兄弟个体特性和职业分同时满足要求的结果 角斗士起源 狮子->0 熊->1 蛇->2
+	BrotherFilter = 6,       # [人数, 八项属性门槛, 必选特质数组, 排除特质数组, 是否全部具备]
 };
 
 ## 输出条件 满足任一条件则会输出结果

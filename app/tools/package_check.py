@@ -30,10 +30,16 @@ def main() -> int:
                 "localization/reviewed_place_names.json", "localization/place_session.nut",
                 "localization/NotoSansSC-Regular.ttf", "localization/FONT-LICENSE.txt",
                 "localization/NotoSerifSC-SemiBold.ttf", "localization/MAP-FONT-LICENSE.txt",
-                "native/bin/bbmod_launch.exe", "native/bin/bbmod_han.dll", "seedgen/payload/mod_hooks.zip"]
+                "native/bin/bbmod_launch.exe", "native/bin/bbmod_han.dll", "seedgen/payload/mod_hooks.zip",
+                "data/seed_traits.json", "seedgen/payload/seed_generator/config_role_condition.nut",
+                "seedgen/payload/seed_generator/function_brother_output_check.nut"]
     missing = [name for name in required if name not in bundled]
     if missing:
         raise RuntimeError(f"缺少打包资源：{missing}")
+    for name in ('data/seed_traits.json', 'seedgen/payload/seed_generator/config_role_condition.nut',
+                 'seedgen/payload/seed_generator/function_brother_output_check.nut'):
+        if archive.extract(bundled[name]) != (app_dir/name).read_bytes():
+            raise RuntimeError('EXE 中的特质筛选资源与源码不一致：'+name)
     hooks_bytes = archive.extract(bundled['seedgen/payload/mod_hooks.zip'])
     if hooks_bytes != (app_dir / 'seedgen/payload/mod_hooks.zip').read_bytes():
         raise RuntimeError('EXE 中的 MOD 框架与已核验的本地资源不一致')
@@ -83,6 +89,8 @@ def main() -> int:
             raise RuntimeError('EXE 没有加载新版汉化管理界面')
         if result.returncode == 0 and b'legacy_hooks=ready' not in result.stdout:
             raise RuntimeError('EXE 中的兼容框架未通过加载校验')
+        if result.returncode == 0 and b'seed_traits=58' not in result.stdout:
+            raise RuntimeError('EXE 未加载完整的开局特质筛选资源')
         report = {
             "executable": str(executable),
             "sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
@@ -103,6 +111,7 @@ def main() -> int:
             "stdout": result.stdout.decode(errors="replace"),
             "stderr": result.stderr.decode(errors="replace"),
             "game_acceptance": "pending",
+            "seed_trait_choices": 58,
         }
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

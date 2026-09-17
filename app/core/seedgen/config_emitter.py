@@ -13,8 +13,10 @@
 from __future__ import annotations
 
 import re
+import json
 from dataclasses import dataclass, field
 from pathlib import Path
+from .traits import validate_traits
 
 ROLES = {
     "RoleMelee": 0, "RoleRange": 1, "RoleGuard": 2, "RoleThrow": 3,
@@ -29,10 +31,12 @@ ROLE_LABELS = {
 BRO_OUTPUT = {
     "TeamScore": 0, "RoleScore": 1, "AnyRoleScore": 2, "RoleAttr": 3,
     "RoleTraitScore": 4, "RoleTraitScoreIndex": 5,
+    "BrotherFilter": 6,
 }
 BRO_OUTPUT_LABELS = {
     "TeamScore": "队伍平均分", "RoleScore": "指定职业分", "AnyRoleScore": "不限职业分",
     "RoleAttr": "11级预估属性", "RoleTraitScore": "职业分+特性", "RoleTraitScoreIndex": "指定兄弟分+特性",
+    "BrotherFilter": "属性与人物特质",
 }
 
 # RoleAttr reads eight projected level-11 attributes in this exact order.
@@ -48,7 +52,7 @@ SCORE_EXPLANATION = (
     "近战命中35%、近战防御30%、疲劳上限20%、生命10%、决心5%。\n"
     "每项属性都先按脚本规定的上下基准换算，再按权重相加；初始属性和特性另有加减分。"
     "因此分数可以低于0或超过1，0.8无法直接换算成近战数值、胜率或百分位。\n\n"
-    "只想找90+近战的兄弟，选择「按属性筛选」，将近战命中设为90即可。"
+    "只想找90+近战的兄弟，选择「属性与特质」，将近战命中设为90即可。"
     "11级属性按每级都选择提升该属性估算，不包含装备和额外加点特技。"
 )
 
@@ -126,8 +130,9 @@ class CommonConfig:
         presets = {
             "map_only": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
                              OnlyPrintMatchingSettlement=True, PrintLairInfo=False),
-            "bro_only": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
-                             OnlyPrintMatchingSettlement=False, PrintLairInfo=False),
+            "bro_only": dict(GenerateSettlementMode=False, GenerateBrotherMode=True,
+                             MatchingBrotherGenerateSettlement=False,
+                             OnlyPrintMatchingSettlement=False, PrintLairInfo=False, PrintLairNamedDetail=False),
             "bro_map": dict(GenerateSettlementMode=False, GenerateBrotherMode=True,
                             MatchingBrotherGenerateSettlement=True, OnlyPrintMatchingSettlement=True),
             "bro_lair": dict(GenerateSettlementMode=False, GenerateBrotherMode=True,
@@ -167,6 +172,18 @@ def score_condition(kind: str, score: float, count: int, role: str) -> BroCondit
     if kind == "RoleScore" and role in ROLES:
         return BroCondition(kind, [score, count, role])
     raise ValueError("未知评分条件")
+
+
+def brother_condition(count: int, thresholds: dict[str, int], required=(), excluded=(), match='all') -> BroCondition:
+    """Count distinct brothers satisfying the attributes AND the trait rule."""
+    required, excluded = validate_traits(required, excluded, match)
+    if not required and not excluded:
+        return attribute_condition(count, thresholds)
+    if type(count) is not int or not 1 <= count <= 27:
+        raise ValueError('兄弟人数应在1至27之间')
+    if any(key not in ATTRIBUTES for key in thresholds) or any(type(v) is not int or v < 0 for v in thresholds.values()):
+        raise ValueError('属性门槛必须是有效属性的非负整数')
+    return BroCondition('BrotherFilter', [count, [thresholds.get(key, -100) for key in ATTRIBUTES], required, excluded, match == 'all'])
 
 
 @dataclass
@@ -216,10 +233,14 @@ gt.SeedGenerator.DebugConfig <- {{
 
 def _val(v):
     """参数渲染：Role 枚举名 → Role.X；trait/物品 id 等字符串 → 保留引号字面量。"""
+    if isinstance(v, bool):
+        return 'true' if v else 'false'
+    if isinstance(v, (list, tuple)):
+        return '[' + ', '.join(_val(item) for item in v) + ']'
     if isinstance(v, str) and v in ROLES:
         return f"Role.{v}"
     if isinstance(v, str):
-        return f'"{v}"'
+        return json.dumps(v, ensure_ascii=False)
     return str(v)
 
 

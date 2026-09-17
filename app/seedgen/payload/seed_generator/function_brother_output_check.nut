@@ -153,6 +153,28 @@ gt.SeedGenerator.broOutputCheck <- function(wolrd_state, bros_sort_entries, bros
 				}
 			}
 		}
+		else if(cond[0] == BroOutput.BrotherFilter)
+		{
+			// Every counted brother must satisfy the whole rule. No RNG calls.
+			local remaining = cond[1];
+			foreach(brother in bros_entries)
+			{
+				local pass = true;
+				for(local attribute = 0; attribute < AttrNum; attribute++)
+					if(brother[BroScoreEntry.MaxAttr][attribute] < cond[2][attribute]) pass = false;
+				if(!pass) continue;
+				local held = brother[BroScoreEntry.Trait];
+				foreach(trait in cond[4])
+					if(held.find(trait) != null) pass = false;
+				if(!pass) continue;
+				local found = 0;
+				foreach(trait in cond[3])
+					if(held.find(trait) != null) found++;
+				if(cond[3].len() > 0 && (cond[5] ? found != cond[3].len() : found == 0)) continue;
+				remaining--;
+				if(remaining == 0) return i;
+			}
+		}
 		else if(cond[0] == BroOutput.RoleTraitScore)
 		{
 			local cond_size = 5;

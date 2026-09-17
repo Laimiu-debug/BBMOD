@@ -1,0 +1,770 @@
+{
+  "schema_version": 1,
+  "source": "Official 1.5.2.3 CharacterTraits; BBMOD independent reviewed translations",
+  "traits": [
+    {
+      "id": "trait.eagle_eyes",
+      "name": "鹰眼",
+      "english": "Eagle Eyes",
+      "description": "此角色天生拥有鹰一般的锐眼，百步之外的苍蝇也能看得一清二楚。",
+      "incompatible": [
+        "trait.short_sighted",
+        "trait.night_blind"
+      ]
+    },
+    {
+      "id": "trait.short_sighted",
+      "name": "近视",
+      "english": "Short Sighted",
+      "description": "那边是棵树，还是个兽人？此角色近视，看不清远处的东西。",
+      "incompatible": [
+        "trait.eagle_eyes",
+        "trait.night_owl"
+      ]
+    },
+    {
+      "id": "trait.tough",
+      "name": "强健",
+      "english": "Tough",
+      "description": "此角色坚韧得像铁钉，拳脚重击也难以将他打垮。",
+      "incompatible": [
+        "trait.tiny",
+        "trait.fragile",
+        "trait.bleeder",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.strong",
+      "name": "强壮",
+      "english": "Strong",
+      "description": "吃得好，练得壮，浑身都是结实的肌肉。",
+      "incompatible": [
+        "trait.tiny",
+        "trait.fragile",
+        "trait.fat",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.hesitant",
+      "name": "犹豫",
+      "english": "Hesitant",
+      "description": "呃……这个……也许吧。此角色总是迟迟拿不定主意。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.deathwish",
+        "trait.cocky",
+        "trait.quick",
+        "trait.brute",
+        "trait.bloodthirsty",
+        "trait.impatient"
+      ]
+    },
+    {
+      "id": "trait.quick",
+      "name": "敏捷",
+      "english": "Quick",
+      "description": "我已经到了！此角色行动迅速，经常抢在敌人之前出手。",
+      "incompatible": [
+        "trait.huge",
+        "trait.hesitant",
+        "trait.clubfooted"
+      ]
+    },
+    {
+      "id": "trait.tiny",
+      "name": "矮小",
+      "english": "Tiny",
+      "description": "此角色个头矮小，早已习惯在人缝间钻来钻去。",
+      "incompatible": [
+        "trait.huge",
+        "trait.strong",
+        "trait.tough",
+        "trait.brute",
+        "trait.iron_jaw"
+      ]
+    },
+    {
+      "id": "trait.cocky",
+      "name": "自负",
+      "english": "Cocky",
+      "description": "太轻松了！此角色有时过于自大，难免吃亏。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.hesitant",
+        "trait.pessimist",
+        "trait.dastard",
+        "trait.insecure",
+        "trait.craven",
+        "trait.fainthearted",
+        "trait.paranoid",
+        "trait.fear_beasts",
+        "trait.fear_undead",
+        "trait.fear_greenskins",
+        "trait.teamplayer"
+      ]
+    },
+    {
+      "id": "trait.clumsy",
+      "name": "笨拙",
+      "english": "Clumsy",
+      "description": "此角色对自己造成的危险，可能和对敌人一样大。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.dexterous",
+        "trait.sure_footing",
+        "trait.swift",
+        "trait.lucky"
+      ]
+    },
+    {
+      "id": "trait.fearless",
+      "name": "无畏",
+      "english": "Fearless",
+      "description": "彼岸还有不少老朋友等着重逢。此角色并不惧怕死亡。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.insecure",
+        "trait.craven",
+        "trait.hesitant",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.brave",
+        "trait.superstitious",
+        "trait.paranoid",
+        "trait.fear_beasts",
+        "trait.fear_undead",
+        "trait.fear_greenskins"
+      ]
+    },
+    {
+      "id": "trait.fat",
+      "name": "肥胖",
+      "english": "Fat",
+      "description": "比起锻炼，此角色更喜欢猪排，稍一活动便容易上气不接下气。",
+      "incompatible": [
+        "trait.athletic",
+        "trait.swift",
+        "trait.quick",
+        "trait.strong",
+        "trait.spartan",
+        "trait.swift",
+        "trait.iron_lungs"
+      ]
+    },
+    {
+      "id": "trait.dumb",
+      "name": "迟钝",
+      "english": "Dumb",
+      "description": "呃，什么？此角色脑子不太灵光，学会新东西总要多花些时间。",
+      "incompatible": [
+        "trait.bright",
+        "trait.aspiring",
+        "trait.sophisticated",
+        "trait.teamplayer"
+      ]
+    },
+    {
+      "id": "trait.bright",
+      "name": "聪慧",
+      "english": "Bright",
+      "description": "此角色比大多数人更容易理解新事物，也更擅长随机应变。",
+      "incompatible": [
+        "trait.dumb"
+      ]
+    },
+    {
+      "id": "trait.drunkard",
+      "name": "酒鬼",
+      "english": "Drunkard",
+      "description": "此角色的克朗花去了哪里，根本不用猜。每场战斗前，他都会痛饮一番，哪怕得偷偷摸摸地喝。",
+      "incompatible": [
+        "trait.teamplayer"
+      ]
+    },
+    {
+      "id": "trait.fainthearted",
+      "name": "胆怯",
+      "english": "Fainthearted",
+      "description": "此角色时不时就需要别人说几句暖心话，再拍拍他的背。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.deathwish",
+        "trait.craven",
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.iron_jaw",
+        "trait.hate_greenskins",
+        "trait.hate_undead",
+        "trait.hate_beasts"
+      ]
+    },
+    {
+      "id": "trait.bleeder",
+      "name": "易流血",
+      "english": "Bleeder",
+      "description": "此角色容易出血，止血所需的时间也比常人更长。",
+      "incompatible": [
+        "trait.tough",
+        "trait.iron_jaw",
+        "trait.survivor"
+      ]
+    },
+    {
+      "id": "trait.ailing",
+      "name": "体弱多病",
+      "english": "Ailing",
+      "description": "此角色总是一副苍白病弱的模样，尤其容易受到毒素侵害。",
+      "incompatible": [
+        "trait.tough",
+        "trait.iron_jaw",
+        "trait.survivor",
+        "trait.strong",
+        "trait.athletic",
+        "trait.iron_lungs",
+        "trait.lucky",
+        "trait.clubfooted"
+      ]
+    },
+    {
+      "id": "trait.determined",
+      "name": "坚定",
+      "english": "Determined",
+      "description": "别担心，交给我。此角色有着令人惊叹的自信。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.dastard",
+        "trait.insecure",
+        "trait.fainthearted",
+        "trait.craven",
+        "trait.paranoid",
+        "trait.fear_beasts",
+        "trait.fear_undead",
+        "trait.fear_greenskins"
+      ]
+    },
+    {
+      "id": "trait.dastard",
+      "name": "胆小鬼",
+      "english": "Dastard",
+      "description": "此角色一有机会便会转身逃跑。最好盯紧他！",
+      "incompatible": [
+        "trait.determined",
+        "trait.brave",
+        "trait.deathwish",
+        "trait.bloodthirsty",
+        "trait.fearless",
+        "trait.cocky",
+        "trait.optimist",
+        "trait.hate_greenskins",
+        "trait.hate_undead",
+        "trait.hate_beasts"
+      ]
+    },
+    {
+      "id": "trait.deathwish",
+      "name": "视死如归",
+      "english": "Deathwish",
+      "description": "我还没死呢！此角色毫不在意自己受了多少伤，依然会奋战到底。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.hesitant",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.craven",
+        "trait.survivor"
+      ]
+    },
+    {
+      "id": "trait.fragile",
+      "name": "脆弱",
+      "english": "Fragile",
+      "description": "此角色的身板脆得像蛋壳，天生就不是肉搏的料。",
+      "incompatible": [
+        "trait.huge",
+        "trait.tough",
+        "trait.strong",
+        "trait.brawler",
+        "trait.gluttonous",
+        "trait.brute",
+        "trait.iron_jaw"
+      ]
+    },
+    {
+      "id": "trait.insecure",
+      "name": "缺乏自信",
+      "english": "Insecure",
+      "description": "我办不到！此角色实在需要多一点自信。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.optimist",
+        "trait.irrational",
+        "trait.determined",
+        "trait.sure_footing",
+        "trait.cocky",
+        "trait.brute",
+        "trait.bloodthirsty"
+      ]
+    },
+    {
+      "id": "trait.optimist",
+      "name": "乐观",
+      "english": "Optimist",
+      "description": "杯里还有半杯水呢！",
+      "incompatible": [
+        "trait.weasel",
+        "trait.pessimist",
+        "trait.irrational",
+        "trait.insecure",
+        "trait.dastard",
+        "trait.paranoid"
+      ]
+    },
+    {
+      "id": "trait.pessimist",
+      "name": "悲观",
+      "english": "Pessimist",
+      "description": "杯子明明已经空了一半。",
+      "incompatible": [
+        "trait.optimist",
+        "trait.irrational",
+        "trait.cocky",
+        "trait.determined",
+        "trait.survivor"
+      ]
+    },
+    {
+      "id": "trait.superstitious",
+      "name": "迷信",
+      "english": "Superstitious",
+      "description": "有诅咒！此角色十分迷信，因此更容易受到直接打击决心的技能影响。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave"
+      ]
+    },
+    {
+      "id": "trait.brave",
+      "name": "勇敢",
+      "english": "Brave",
+      "description": "只管往前走。此角色有勇气踏入未知之地。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.insecure",
+        "trait.craven",
+        "trait.hesitant",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.fearless",
+        "trait.paranoid",
+        "trait.fear_beasts",
+        "trait.fear_undead",
+        "trait.fear_greenskins"
+      ]
+    },
+    {
+      "id": "trait.dexterous",
+      "name": "灵巧",
+      "english": "Dexterous",
+      "description": "此角色动作灵巧，近战时更容易命中敌人。",
+      "incompatible": [
+        "trait.clumsy"
+      ]
+    },
+    {
+      "id": "trait.sure_footing",
+      "name": "步伐稳健",
+      "english": "Sure Footing",
+      "description": "此角色下盘稳健，敌人很难打乱他的平衡并趁隙命中。",
+      "incompatible": [
+        "trait.clumsy",
+        "trait.insecure"
+      ]
+    },
+    {
+      "id": "trait.asthmatic",
+      "name": "哮喘",
+      "english": "Asthmatic",
+      "description": "此角色容易气短咳嗽，从疲劳中恢复所需的时间比旁人更长。",
+      "incompatible": [
+        "trait.athletic",
+        "trait.iron_lungs"
+      ]
+    },
+    {
+      "id": "trait.iron_lungs",
+      "name": "铁肺",
+      "english": "Iron Lungs",
+      "description": "无论挥舞沉重的武器，还是奔跑着穿过整个战场，此角色都很少喘不过气来。",
+      "incompatible": [
+        "trait.asthmatic",
+        "trait.fat",
+        "trait.gluttonous",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.craven",
+      "name": "怯懦",
+      "english": "Craven",
+      "description": "快逃命啊！此角色胆小如鼠，局势稍有不利便会拔腿就跑。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.fainthearted",
+        "trait.deathwish",
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.hate_greenskins",
+        "trait.hate_undead",
+        "trait.hate_beasts"
+      ]
+    },
+    {
+      "id": "trait.greedy",
+      "name": "贪婪",
+      "english": "Greedy",
+      "description": "我还要更多！此角色贪得无厌，要求的日薪高于出身相近的其他人。若你花光了克朗，他也会很快离开。",
+      "incompatible": []
+    },
+    {
+      "id": "trait.gluttonous",
+      "name": "贪食",
+      "english": "Gluttonous",
+      "description": "好吃，再来一份！带着此角色旅行时，最好多备些食物。一旦彻底断粮，他很快就会离开。",
+      "incompatible": [
+        "trait.athletic",
+        "trait.iron_lungs",
+        "trait.spartan",
+        "trait.fragile"
+      ]
+    },
+    {
+      "id": "trait.spartan",
+      "name": "节俭",
+      "english": "Spartan",
+      "description": "有燕麦粥和水不就够了吗？此角色对美食毫无兴趣，消耗的食物也更少。即使彻底断粮，他也不会那么快离开。",
+      "incompatible": [
+        "trait.fat",
+        "trait.gluttonous"
+      ]
+    },
+    {
+      "id": "trait.athletic",
+      "name": "健步如飞",
+      "english": "Athletic",
+      "description": "此角色体格健壮，身手矫健。",
+      "incompatible": [
+        "trait.asthmatic",
+        "trait.clubfooted",
+        "trait.fat",
+        "trait.gluttonous",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.brute",
+      "name": "蛮力",
+      "english": "Brute",
+      "description": "此角色不擅长精细的招式，近战时宁愿牺牲些许精准度，也要全力砸向敌人的脑袋，造成额外伤害。",
+      "incompatible": [
+        "trait.tiny",
+        "trait.fragile",
+        "trait.insecure",
+        "trait.hesitant"
+      ]
+    },
+    {
+      "id": "trait.irrational",
+      "name": "喜怒无常",
+      "english": "Irrational",
+      "description": "刚才还庆幸杯里有半杯水，转眼又抱怨只剩半杯了。",
+      "incompatible": [
+        "trait.pessimist",
+        "trait.optimist",
+        "trait.insecure"
+      ]
+    },
+    {
+      "id": "trait.clubfooted",
+      "name": "跛足",
+      "english": "Clubfooted",
+      "description": "此角色幼时便患有足部畸形，至今行走仍比常人费力。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.athletic",
+        "trait.quick",
+        "trait.sure_footing",
+        "trait.impatient",
+        "trait.swift",
+        "trait.lucky"
+      ]
+    },
+    {
+      "id": "trait.loyal",
+      "name": "忠诚",
+      "english": "Loyal",
+      "description": "我跟定你了！此角色忠心耿耿，即使战团的克朗与食物都已耗尽，也不太可能离开。",
+      "incompatible": [
+        "trait.disloyal",
+        "trait.craven",
+        "trait.fainthearted",
+        "trait.dastard"
+      ]
+    },
+    {
+      "id": "trait.disloyal",
+      "name": "不忠",
+      "english": "Disloyal",
+      "description": "我得先顾好自己！此角色缺乏忠诚，一旦战团没了克朗或食物，他很快就会离开。",
+      "incompatible": [
+        "trait.loyal",
+        "trait.brave",
+        "trait.fearless"
+      ]
+    },
+    {
+      "id": "trait.bloodthirsty",
+      "name": "嗜血",
+      "english": "Bloodthirsty",
+      "description": "此角色对敌人极其残暴，杀死对方还不够，非要将那颗脑袋挂上尖桩才罢休！",
+      "incompatible": [
+        "trait.weasel",
+        "trait.fainthearted",
+        "trait.hesistant",
+        "trait.craven",
+        "trait.insecure",
+        "trait.craven",
+        "trait.paranoid",
+        "trait.fear_beasts",
+        "trait.fear_undead",
+        "trait.fear_greenskins",
+        "trait.teamplayer"
+      ]
+    },
+    {
+      "id": "trait.iron_jaw",
+      "name": "铁下巴",
+      "english": "Iron Jaw",
+      "description": "足以打残旁人的重击，此角色却能硬扛下来。",
+      "incompatible": [
+        "trait.fragile",
+        "trait.fainthearted",
+        "trait.bleeder",
+        "trait.tiny",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.survivor",
+      "name": "幸存者",
+      "english": "Survivor",
+      "description": "你怎么就是死不了？此角色命硬得很，多半能活得比身边的人更久。",
+      "incompatible": [
+        "trait.bleeder",
+        "trait.pessimist",
+        "trait.deathwish",
+        "trait.ailing"
+      ]
+    },
+    {
+      "id": "trait.impatient",
+      "name": "急躁",
+      "english": "Impatient",
+      "description": "快走吧！怎么还没好？此角色一刻也等不及。",
+      "incompatible": [
+        "trait.hesitant",
+        "trait.clubfooted",
+        "trait.teamplayer"
+      ]
+    },
+    {
+      "id": "trait.swift",
+      "name": "敏捷",
+      "english": "Swift",
+      "description": "此角色天生身手敏捷，更容易躲开飞来的箭矢等远程攻击。",
+      "incompatible": [
+        "trait.clumsy",
+        "trait.fat",
+        "trait.clubfooted"
+      ]
+    },
+    {
+      "id": "trait.night_blind",
+      "name": "夜盲",
+      "english": "Night Blind",
+      "description": "到了夜里，最好把此角色拴在队伍里，免得走丢——他连自己的鼻子都看不见。",
+      "incompatible": [
+        "trait.eagle_eyes",
+        "trait.night_owl"
+      ]
+    },
+    {
+      "id": "trait.night_owl",
+      "name": "夜猫子",
+      "english": "Night Owl",
+      "description": "有些人更能适应昏暗的环境，而此角色尤其擅长。",
+      "incompatible": [
+        "trait.short_sighted",
+        "trait.night_blind"
+      ]
+    },
+    {
+      "id": "trait.paranoid",
+      "name": "多疑",
+      "english": "Paranoid",
+      "description": "我发誓，那边的灌木刚才动了！此角色疑神疑鬼，格外谨慎，不愿贸然前进。",
+      "incompatible": [
+        "trait.optimist",
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.cocky",
+        "trait.bloodthirsty"
+      ]
+    },
+    {
+      "id": "trait.hate_greenskins",
+      "name": "憎恨绿皮",
+      "english": "Hate for Greenskins",
+      "description": "过去的某次经历，让此角色对一切凶恶的绿皮都怀有刻骨的仇恨。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.craven",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.fear_greenskins"
+      ]
+    },
+    {
+      "id": "trait.hate_undead",
+      "name": "憎恨亡灵",
+      "english": "Hate for Undead",
+      "description": "过去的某次经历，让此角色对一切不肯安分躺在地下的死物都怀有刻骨的仇恨。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.craven",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.fear_undead"
+      ]
+    },
+    {
+      "id": "trait.hate_beasts",
+      "name": "憎恨野兽",
+      "english": "Hate for Beasts",
+      "description": "过去的某次经历，让此角色对一切荒野凶兽都怀有刻骨的仇恨。",
+      "incompatible": [
+        "trait.weasel",
+        "trait.craven",
+        "trait.dastard",
+        "trait.fainthearted",
+        "trait.fear_beasts"
+      ]
+    },
+    {
+      "id": "trait.fear_beasts",
+      "name": "畏惧野兽",
+      "english": "Fear of Beasts",
+      "description": "过去的某次经历，或一个格外逼真的故事，让此角色对荒野中凶兽的可怕本领心生恐惧，在战场上面对它们时也更容易动摇。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.hate_beasts"
+      ]
+    },
+    {
+      "id": "trait.fear_undead",
+      "name": "畏惧亡灵",
+      "english": "Fear of Undead",
+      "description": "过去的某次经历，或一个格外逼真的故事，让此角色对行尸走肉的可怕本领心生恐惧，在战场上面对它们时也更容易动摇。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.hate_undead"
+      ]
+    },
+    {
+      "id": "trait.fear_greenskins",
+      "name": "畏惧绿皮",
+      "english": "Fear of Greenskins",
+      "description": "过去的某次经历，或一个格外逼真的故事，让此角色对绿皮的可怕本领心生恐惧，在战场上面对它们时也更容易动摇。",
+      "incompatible": [
+        "trait.fearless",
+        "trait.brave",
+        "trait.determined",
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.hate_greenskins"
+      ]
+    },
+    {
+      "id": "trait.teamplayer",
+      "name": "团队协作",
+      "english": "Team Player",
+      "description": "此角色总会把自己的行动意图告诉战友。说实在的，他那张嘴根本停不下来。至少能少出些误伤事故。",
+      "incompatible": [
+        "trait.cocky",
+        "trait.bloodthirsty",
+        "trait.drunkard",
+        "trait.dumb",
+        "trait.impatient"
+      ]
+    },
+    {
+      "id": "trait.weasel",
+      "name": "滑头",
+      "english": "Weasel",
+      "description": "此角色像黄鼠狼一样敏捷。可惜，这份本领似乎只有在逃命时才使得出来。",
+      "incompatible": [
+        "trait.clubfooted",
+        "trait.clumsy",
+        "trait.determined",
+        "trait.bloodthirsty",
+        "trait.deathwish",
+        "trait.brave",
+        "trait.fearless",
+        "trait.cocky",
+        "trait.optimist",
+        "trait.hate_greenskins",
+        "trait.hate_undead",
+        "trait.hate_beasts"
+      ]
+    },
+    {
+      "id": "trait.huge",
+      "name": "高大",
+      "english": "Huge",
+      "description": "此角色身材格外高大魁梧，出手很重，却也比旁人更容易成为靶子。",
+      "incompatible": [
+        "trait.tiny",
+        "trait.quick",
+        "trait.fragile"
+      ]
+    },
+    {
+      "id": "trait.lucky",
+      "name": "幸运",
+      "english": "Lucky",
+      "description": "此角色似乎天生就能在最后一刻躲开危险。",
+      "incompatible": [
+        "trait.pessimist",
+        "trait.clumsy",
+        "trait.ailing",
+        "trait.clubfooted"
+      ]
+    }
+  ]
+}

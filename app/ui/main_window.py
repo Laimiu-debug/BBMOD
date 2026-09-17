@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QSize, Qt
+from core.version import VERSION
 from PySide6.QtWidgets import (
     QButtonGroup, QFileDialog, QFrame, QHBoxLayout, QLabel, QLineEdit,
     QMainWindow, QMessageBox, QPushButton, QStackedWidget, QVBoxLayout, QWidget,
@@ -98,7 +99,7 @@ class MainWindow(QMainWindow):
         titles.addWidget(self.heading)
         titles.addWidget(self.subtitle)
         header.addLayout(titles, 1)
-        self.version_badge = QLabel('BATTLE BROTHERS  /  1.5.2.3')
+        self.version_badge = QLabel(f'BBMOD {VERSION}\nBATTLE BROTHERS  /  1.5.2.3')
         self.version_badge.setObjectName('versionBadge')
         header.addWidget(self.version_badge, 0, Qt.AlignBottom)
         content.addWidget(hero)

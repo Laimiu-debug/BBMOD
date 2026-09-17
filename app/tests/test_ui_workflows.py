@@ -2,14 +2,15 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
-from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QDialog, QDialogButtonBox, QFileDialog, QMessageBox
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtTest import QTest
 
 from core.settings import Settings
 from core.seedgen.log_watcher import SeedResult
 from ui.l10n_page import L10nPage
 from ui.seedgen_page import SeedGenPage
+from ui.seed_trait_dialog import SeedTraitDialog
 
 
 @pytest.fixture(scope="module")
@@ -151,3 +152,61 @@ def test_txt_danmaku_export_and_write_failure(app, context, tmp_path):
     with patch.object(QFileDialog, "getSaveFileName", return_value=(str(tmp_path / "missing/file.txt"), "")), patch.object(QMessageBox, "warning") as warning:
         page.export_txt()
         warning.assert_called_once()
+
+
+def test_trait_filter_ui_combines_attributes_and_handles_modes(app, context):
+    context.settings.set('seed_traits', {'required':['trait.huge','trait.iron_lungs'], 'excluded':['trait.clumsy'], 'match':'all'})
+    page = SeedGenPage(context)
+    page.bro_count.setValue(2)
+    condition = next(iter(page._current_config().origins.values())).conditions[0]
+    assert condition.type == 'BrotherFilter' and condition.args[0] == 2
+    assert condition.args[1][3] == 90 and condition.args[1][5] == 25
+    assert condition.args[2:4] == [['trait.huge','trait.iron_lungs'], ['trait.clumsy']]
+    page.rule_mode.setCurrentIndex(page.rule_mode.findData('traits'))
+    condition = next(iter(page._current_config().origins.values())).conditions[0]
+    assert condition.args[1] == [-100]*8
+    page.mode_combo.setCurrentText('只找地图')
+    assert page._current_config().origins == {}
+    page.mode_combo.setCurrentText('只找开局兄弟（快）')
+    assert page._current_config().common.GenerateBrotherMode
+    assert not page._current_config().common.GenerateSettlementMode
+    page.required_traits, page.excluded_traits = [], []
+    with pytest.raises(ValueError, match='至少一项'):
+        page._current_config()
+
+
+def test_trait_dialog_search_clear_conflicts_and_cancel(app):
+    dialog = SeedTraitDialog(['trait.huge'], ['trait.clumsy'])
+    dialog.search.setText('iron lungs')
+    visible = [dialog.table.item(row, 0).data(Qt.UserRole) for row in range(dialog.table.rowCount()) if not dialog.table.isRowHidden(row)]
+    assert visible == ['trait.iron_lungs']
+    dialog.choices['trait.iron_lungs'].setCurrentIndex(1)
+    assert dialog.selection() == (['trait.iron_lungs','trait.huge'], ['trait.clumsy'], 'all')
+    dialog.choices['trait.tiny'].setCurrentIndex(1)
+    dialog._accept()
+    assert dialog.result() != QDialog.Accepted and '不能同时具备' in dialog.error.text()
+    dialog.match.setCurrentIndex(1)
+    assert len(dialog.selection()[0]) == 3
+    dialog.clear()
+    assert dialog.selection() == ([], [], 'all')
+    dialog.reject()
+    assert dialog.result() == QDialog.Rejected
+
+
+def test_trait_dialog_apply_and_cancel_keep_correct_saved_selection(app, context):
+    page = SeedGenPage(context)
+    def apply():
+        dialog = page.findChildren(SeedTraitDialog)[-1]
+        dialog.choices['trait.iron_lungs'].setCurrentIndex(1)
+        QTest.mouseClick(dialog.buttons.button(QDialogButtonBox.Ok), Qt.LeftButton)
+    QTimer.singleShot(0, apply)
+    page.traits_btn.click()
+    assert page.required_traits == ['trait.iron_lungs']
+    assert SeedGenPage(context).required_traits == ['trait.iron_lungs']
+    def cancel():
+        dialog = page.findChildren(SeedTraitDialog)[-1]
+        dialog.choices['trait.huge'].setCurrentIndex(1)
+        dialog.reject()
+    QTimer.singleShot(0, cancel)
+    page.traits_btn.click()
+    assert page.required_traits == ['trait.iron_lungs']

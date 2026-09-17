@@ -44,6 +44,9 @@ def main() -> None:
                     window.select_page(index)
                     app.processEvents()
                     assert (window.width(), window.height()) == (width, height)
+                    if name == "expedition":
+                        hint = window.seedgen.attr_hint
+                        assert hint.height() >= hint.heightForWidth(hint.width()), "筛选条件说明被截断"
                     filename = f"{name}-{width}.png"
                     assert window.grab().save(str(output / filename))
                     report.append({"page": name, "requested": [width, height],

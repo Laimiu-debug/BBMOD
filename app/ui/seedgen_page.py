@@ -17,15 +17,17 @@ from core import game as game_mod
 from core.paths import resource_path
 from core.seedgen.config_emitter import (
     ATTRIBUTES, CommonConfig, OriginConfig, ORIGIN_LABELS, ROLE_LABELS,
-    SCORE_EXPLANATION, SeedGenConfig, attribute_condition, score_condition,
+    SCORE_EXPLANATION, SeedGenConfig, brother_condition, score_condition,
 )
 from core.seedgen.log_watcher import SeedResult
 from core.seedgen.orchestrator import SeedGenOrchestrator
+from core.seedgen.traits import trait_name, validate_traits
 from core.seedgen.presentation import (
     FORMATS, OPENERS, format_collection, format_seed, highlights, note_key,
 )
 from .app_context import AppContext
 from .theme import style_button, style_table
+from .seed_trait_dialog import SeedTraitDialog
 
 PAYLOAD_DIR = resource_path("seedgen/payload")
 MODE_LABELS = {
@@ -58,16 +60,25 @@ class SeedGenPage(QWidget):
         self.orch: SeedGenOrchestrator | None = None
         self.results: list[SeedResult] = []
         self.extra_attributes: dict[str, int] = {}
+        self.required_traits, self.excluded_traits, self.trait_match = [], [], 'all'
+        saved_traits = ctx.settings.get('seed_traits', {})
+        if isinstance(saved_traits, dict):
+            try:
+                required, excluded = validate_traits(saved_traits.get('required', []), saved_traits.get('excluded', []), saved_traits.get('match', 'all'))
+                self.required_traits, self.excluded_traits = required, excluded
+                self.trait_match = saved_traits.get('match', 'all')
+            except ValueError:
+                pass
         saved_notes = ctx.settings.get("seed_notes", {})
         self.notes = {str(k): v for k, v in saved_notes.items() if isinstance(v, str)} if isinstance(saved_notes, dict) else {}
         self._loading_note = False
         root = QVBoxLayout(self)
-        root.setSpacing(8)
+        root.setSpacing(6)
 
         self.cfg_box = QGroupBox("Ⅰ  选择想要的开局")
         self.cfg_box.setObjectName("seedFilters")
         filters = QVBoxLayout(self.cfg_box)
-        filters.setSpacing(6)
+        filters.setSpacing(4)
         top = QHBoxLayout()
         self.mode_combo = QComboBox()
         self.mode_combo.addItems(MODE_LABELS)
@@ -90,10 +101,10 @@ class SeedGenPage(QWidget):
         bro_page = QWidget()
         bro_layout = QVBoxLayout(bro_page)
         bro_layout.setContentsMargins(8, 6, 8, 4)
-        bro_layout.setSpacing(5)
+        bro_layout.setSpacing(4)
         rule_row = QHBoxLayout()
         self.rule_mode = QComboBox()
-        for label, key in (("按属性筛选（推荐）", "attributes"), ("沿用起源预设", "preset"), ("高级评分", "score")):
+        for label, key in (("属性与特质（推荐）", "attributes"), ("沿用起源预设", "preset"), ("高级评分", "score"), ("仅按特质筛选", "traits")):
             self.rule_mode.addItem(label, key)
         rule_row.addWidget(self.rule_mode, 2)
         self.bro_count = spin(1, 27, 1)
@@ -101,6 +112,9 @@ class SeedGenPage(QWidget):
         self.more_btn = QPushButton("其他属性…")
         self.more_btn.clicked.connect(self._edit_extra_attributes)
         rule_row.addWidget(self.more_btn)
+        self.traits_btn = QPushButton('特质筛选…')
+        self.traits_btn.clicked.connect(self._edit_traits)
+        rule_row.addWidget(self.traits_btn)
         bro_layout.addLayout(rule_row)
         self.rule_stack = QStackedWidget()
         bro_layout.addWidget(self.rule_stack)
@@ -134,6 +148,9 @@ class SeedGenPage(QWidget):
             self.bro_role.addItem(label, key)
         self.role_label = labeled_row(score_layout, "职业", self.bro_role)
         self.rule_stack.addWidget(score_page)
+        trait_only = QLabel('只筛选开局特质，不检查能力值。点击「特质筛选」设置必选或排除项。')
+        trait_only.setWordWrap(True)
+        self.rule_stack.addWidget(trait_only)
         self.attr_hint = QLabel("同一名兄弟须同时满足以上门槛 · 属性均为11级预估 · 不限项不参与筛选")
         self.attr_hint.setObjectName("muted")
         self.attr_hint.setWordWrap(True)
@@ -197,7 +214,7 @@ class SeedGenPage(QWidget):
 
         self.table = QTableWidget(0, 4)
         style_table(self.table)
-        self.table.setMinimumHeight(100)
+        self.table.setMinimumHeight(96)
         self.table.setHorizontalHeaderLabels(["种子码", "发现的亮点", "起源", "轮次"])
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         self.table.setSelectionMode(QTableWidget.SingleSelection)
@@ -282,6 +299,9 @@ class SeedGenPage(QWidget):
         index = self.rule_mode.currentIndex()
         self.rule_stack.setCurrentIndex(index)
         self.more_btn.setVisible(index == 0)
+        self.traits_btn.setVisible(index in (0, 3))
+        selected = len(self.required_traits) + len(self.excluded_traits)
+        self.traits_btn.setText(f'特质筛选（{selected}项）' if selected else '特质筛选…')
         team = index == 2 and self.bro_type_combo.currentData() == "TeamScore"
         self.bro_count.setVisible(index != 1 and not team)
         self.count_label.setVisible(index != 1 and not team)
@@ -292,10 +312,29 @@ class SeedGenPage(QWidget):
             extra = f" · 另设{len(self.extra_attributes)}项（其他属性中查看）" if self.extra_attributes else ""
             text = "11级预估 · 同一名兄弟须满足所有门槛 · 不限项不参与筛选" + extra
         elif index == 1:
-            text = "原始起源预设可能较严格。想自己选门槛，请切回按属性筛选。"
-        else:
+            text = "原始起源预设可能较严格。想自己选条件，请切回「属性与特质」。"
+        elif index == 2:
             text = "0.8 是综合潜力评分；可能超过1。这里按严格大于筛选，计算方法见「评分说明」。"
+        else:
+            text = '只筛特质 · 同一名兄弟须满足特质组合 · 达到人数门槛才保留'
+        if index in (0, 3):
+            def names(items):
+                return '、'.join(trait_name(key) for key in items[:3]) + (f'等{len(items)}项' if len(items) > 3 else '')
+            summary = []
+            if self.required_traits:
+                summary.append(('全部具备：' if self.trait_match == 'all' else '任意具备：') + names(self.required_traits))
+            if self.excluded_traits:
+                summary.append('排除：' + names(self.excluded_traits))
+            text += '\n' + ('；'.join(summary) if summary else '特质不限；可选择铁肺、高大（巨人）、酒鬼等')
         self.attr_hint.setText(text)
+
+    def _edit_traits(self):
+        dialog = SeedTraitDialog(self.required_traits, self.excluded_traits, self.trait_match, self)
+        if dialog.exec() == QDialog.Accepted:
+            self.required_traits, self.excluded_traits, self.trait_match = dialog.selection()
+            self.ctx.settings.set('seed_traits', {'required':self.required_traits,
+                'excluded':self.excluded_traits, 'match':self.trait_match})
+            self._rule_changed()
 
     def _mode_changed(self, *_args) -> None:
         mode = MODE_LABELS[self.mode_combo.currentText()]
@@ -352,10 +391,15 @@ class SeedGenPage(QWidget):
         cfg.common.EnableLowercaseSeed = self.lower_check.isChecked()
         cfg.common.UseBrotherLevel11RealAttr = self.real11_check.isChecked()
         if mode != "map_only" and self.rule_mode.currentData() != "preset":
-            if self.rule_mode.currentData() == "attributes":
-                thresholds = {key: widget.value() for key, widget in self.attr_spins.items() if widget.value()}
-                thresholds.update(self.extra_attributes)
-                condition = attribute_condition(self.bro_count.value(), thresholds)
+            if self.rule_mode.currentData() in ("attributes", "traits"):
+                thresholds = {}
+                if self.rule_mode.currentData() == "attributes":
+                    thresholds = {key: widget.value() for key, widget in self.attr_spins.items() if widget.value()}
+                    thresholds.update(self.extra_attributes)
+                if self.rule_mode.currentData() == 'traits' and not (self.required_traits or self.excluded_traits):
+                    raise ValueError('请在「特质筛选」中选择至少一项必选或排除特质')
+                condition = brother_condition(self.bro_count.value(), thresholds,
+                    self.required_traits, self.excluded_traits, self.trait_match)
             else:
                 condition = score_condition(self.bro_type_combo.currentData(), round(self.bro_score.value(), 2),
                                             self.bro_count.value(), self.bro_role.currentData())

@@ -12,7 +12,9 @@ local gt = this.getroottable();
 # PrintLairInfo = false
 
 # 常用模式2 生成满足人物条件的种子
-# GenerateSettlementMode = true
+# GenerateSettlementMode = false
+# GenerateBrotherMode = true
+# MatchingBrotherGenerateSettlement = false
 # OnlyPrintMatchingSettlement = false
 # PrintLairInfo = false
 
