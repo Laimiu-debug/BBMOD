@@ -7,16 +7,17 @@
 """
 from __future__ import annotations
 
-import shutil
+import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from .. import game as game_mod
 from ..game import GameInfo
-from ..modmanager import ModManager, Snapshot
+from ..modmanager import ModManager
 from .config_emitter import SeedGenConfig, write_configs
 from .log_watcher import Progress, SeedLogParser, SeedResult
 from ..gamelog import IncrementalLogReader
+from .session import FileSession
 
 
 @dataclass
@@ -31,12 +32,11 @@ class SeedGenOrchestrator:
         self.payload_dir = Path(payload_dir)
         self.mm = ModManager(game.root)
         self.state = SessionState()
-        self._snapshot: Snapshot | None = None
         self._injected: list[Path] = []
-        self._created_dirs: list[Path] = []
         self._parser = SeedLogParser()
         self._reader: IncrementalLogReader | None = None
         self.results: list[SeedResult] = []
+        self.files = FileSession(game.root)
 
     # ---------------- 准备 ----------------
 
@@ -52,37 +52,30 @@ class SeedGenOrchestrator:
         base = game_mod.check_base_archive(self.game.data_dir)
         if base and base.repacked:
             warnings.append("游戏基座为汉化重打包版，无法通过移除 mod 净化，种子结果可能失真（建议 Steam 校验还原原版）。")
+        if self.files.active:
+            recovered = self.files.restore()
+            warnings.append(f"已恢复上次未结束会话的 {recovered} 个 mod 和原有配置。")
         if self.mm.has_orphan_stash():
-            recovered = self.mm.cleanup_stash()
-            warnings.append(f"发现上次刷种子遗留的 {recovered} 个 mod，已自动还原到 data 目录。")
-
-        self._snapshot = self.mm.stash_all_mods()
-        self._inject_payload()
-        write_configs(self.payload_dir, self.game.data_dir, cfg)
+            raise RuntimeError("发现旧版暂存目录 bbmod_seedgen_stash。请先恢复其中的 MOD 并检查旧版注入文件，再开始远征。")
+        payload = {path.relative_to(self.payload_dir).as_posix(): path.read_bytes()
+            for path in self.payload_dir.rglob("*") if path.is_file()}
+        with tempfile.TemporaryDirectory(prefix="bbmod-config-") as temporary:
+            temporary_root = Path(temporary).resolve()
+            if not temporary_root.is_relative_to(Path(tempfile.gettempdir()).resolve()):
+                raise ValueError("配置临时目录越界")
+            for path in write_configs(self.payload_dir, temporary_root, cfg):
+                payload[path.relative_to(temporary_root).as_posix()] = path.read_bytes()
+        try:
+            self.files.begin(payload)
+        except Exception:
+            if self.files.active:
+                self.files.restore()
+            raise
+        self._injected = [self.game.data_dir / name for name in payload]
+        self.mm._audit("seedgen-prepare", self.game.data_dir, self.files.root)
         self.state.stage = "prepared"
         self.state.warnings = warnings
         return warnings
-
-    def _inject_payload(self) -> None:
-        for item in self.payload_dir.iterdir():
-            dst = self.game.data_dir / item.name
-            if item.is_file():
-                if not dst.exists():
-                    shutil.copy2(item, dst)
-                    self._injected.append(dst)
-            else:
-                for f in sorted(item.rglob("*")):
-                    if f.is_file():
-                        target = dst / f.relative_to(item)
-                        if not target.exists():
-                            target.parent.mkdir(parents=True, exist_ok=True)
-                            shutil.copy2(f, target)
-                            self._injected.append(target)
-        # 记录 payload 涉及的 data 子目录（恢复后用于自底向上删空壳）
-        for f in self._injected:
-            for d in f.parents:
-                if d.is_relative_to(self.game.data_dir) and d != self.game.data_dir and d not in self._created_dirs:
-                    self._created_dirs.append(d)
 
     # ---------------- 运行 ----------------
 
@@ -115,31 +108,11 @@ class SeedGenOrchestrator:
 
     def stop_and_restore(self) -> int:
         """停止游戏 → 移除注入 → 恢复 mod 快照。返回恢复的 mod 数。"""
-        try:
-            if game_mod.is_game_running():
-                game_mod.kill_game()
-        finally:
-            self._cleanup_payload()
-            restored = 0
-            if self._snapshot is not None:
-                restored = self.mm.restore_snapshot(self._snapshot)
-            self.state.stage = "restored"
-            self._snapshot = None
-        return restored
-
-    def _cleanup_payload(self) -> None:
-        for f in self._injected:
-            try:
-                if f.exists():
-                    f.unlink()
-            except OSError:
-                pass
-        # 自底向上清理我们创建的空目录
-        for d in sorted(self._created_dirs, key=lambda p: len(p.parts), reverse=True):
-            try:
-                if d.exists() and d != self.game.data_dir and not any(d.iterdir()):
-                    d.rmdir()
-            except OSError:
-                pass
+        if game_mod.is_game_running():
+            if self.state.stage != "running" or not game_mod.kill_game():
+                raise RuntimeError("游戏仍在运行。请先关闭游戏，再重试恢复；原文件备份已保留。")
+        restored = self.files.restore()
+        self.mm._audit("seedgen-restore", self.files.root, self.game.data_dir)
+        self.state.stage = "restored"
         self._injected.clear()
-        self._created_dirs.clear()
+        return restored

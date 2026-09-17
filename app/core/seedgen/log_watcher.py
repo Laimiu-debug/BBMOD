@@ -20,7 +20,7 @@ RE_SEED_HEAD = re.compile(
     r"(?:\s+MapOutputType:(-?\d+))?(?:\s+LairOutputType:(-?\d+))?"
 )
 RE_LOOP_PROGRESS = re.compile(r"^LoopIdx:\s+(\d+)\((\d+)\)\s*(.*)$")
-RE_TEAM_SCORE = re.compile(r"^TeamInfo:.*?(\d+\.\d+)")
+RE_TEAM_SCORE = re.compile(r"^TeamInfo:\s*([+-]?\d+(?:\.\d+)?)\b")
 
 
 @dataclass
@@ -32,6 +32,7 @@ class SeedResult:
     lair_output_type: int = -1
     lines: list[str] = field(default_factory=list)
     done: bool = False
+    origin: str = ""
 
     @property
     def team_score(self) -> float | None:
@@ -91,6 +92,7 @@ class SeedLogParser:
                     bro_output_type=int(m.group(3) or -1),
                     map_output_type=int(m.group(4) or -1),
                     lair_output_type=int(m.group(5) or -1),
+                    origin=(origin.group(1) if (origin := re.search(r"\bOrigin:(\S+)", text)) else ""),
                 )
                 continue
             if text == "CRLF":

@@ -14,6 +14,8 @@ from PySide6.QtWidgets import (
 from core.modinfo import CATEGORY_LABELS, analyze_zip
 from .app_context import AppContext
 from .workers import Worker
+from .theme import GREEN, MUTED, style_button, style_table
+from PySide6.QtGui import QColor
 
 
 class ModsPage(QWidget):
@@ -41,6 +43,11 @@ class ModsPage(QWidget):
         self.open_dir_btn = QPushButton("打开 data 目录")
         self.save_profile_btn = QPushButton("保存为方案")
         self.apply_profile_btn = QPushButton("应用方案")
+        for button, glyph in ((self.refresh_btn, "refresh"), (self.disable_btn, "stop"),
+                (self.enable_btn, "play"), (self.uninstall_btn, "close"),
+                (self.open_dir_btn, "folder"), (self.save_profile_btn, "save"),
+                (self.apply_profile_btn, "check")):
+            style_button(button, glyph)
         for b, fn in (
             (self.refresh_btn, self.refresh),
             (self.disable_btn, lambda: self._on_disable(False)),
@@ -58,6 +65,8 @@ class ModsPage(QWidget):
         lay.addWidget(self.status_label)
 
         self.table = QTableWidget(0, 5)
+        style_table(self.table)
+        self.table.horizontalHeader().setStretchLastSection(True)
         self.table.setHorizontalHeaderLabels(["状态", "文件名", "Mod ID / 名称", "API", "影响种子"])
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
@@ -75,16 +84,16 @@ class ModsPage(QWidget):
         for i, m in enumerate(mods):
             self._installed_infos[m.path.name] = m.info
             state = QTableWidgetItem("已启用" if m.enabled else "已禁用")
-            state.setForeground(Qt.green if m.enabled else Qt.gray)
+            state.setForeground(QColor(GREEN if m.enabled else MUTED))
             ids = ", ".join(f"{r.mod_id} v{r.version}" for r in m.info.registrations) or "（未注册/纯覆盖）"
-            seed = "⚠ 是" if m.info.seed_sensitive_paths else ""
+            seed = "有影响" if m.info.seed_sensitive_paths else "—"
             self.table.setItem(i, 0, state)
             self.table.setItem(i, 1, QTableWidgetItem(m.path.name))
             self.table.setItem(i, 2, QTableWidgetItem(ids))
             self.table.setItem(i, 3, QTableWidgetItem(m.info.api))
             seed_item = QTableWidgetItem(seed)
-            if seed:
-                seed_item.setForeground(Qt.red)
+            if m.info.seed_sensitive_paths:
+                seed_item.setForeground(QColor("#8b601f"))
             self.table.setItem(i, 4, seed_item)
         enabled = sum(1 for m in mods if m.enabled)
         self.status_label.setText(f"共 {len(mods)} 个：启用 {enabled} · 禁用 {len(mods) - enabled}（挂载顺序即文件名排序）")
@@ -96,6 +105,8 @@ class ModsPage(QWidget):
         return self.table.item(sel[0].row(), 1).text()
 
     def _on_disable(self, enable: bool) -> None:
+        if not self._can_modify():
+            return
         name = self._selected_name()
         if not name:
             return
@@ -110,6 +121,8 @@ class ModsPage(QWidget):
         self.ctx.data_changed.emit()
 
     def uninstall(self) -> None:
+        if not self._can_modify():
+            return
         name = self._selected_name()
         if not name:
             return
@@ -134,6 +147,8 @@ class ModsPage(QWidget):
             self.status_label.setText(f"已保存方案「{name.strip()}」")
 
     def apply_profile(self) -> None:
+        if not self._can_modify():
+            return
         profiles = self.ctx.mm.load_profiles()
         if not profiles:
             QMessageBox.information(self, "应用方案", "还没有保存过方案")
@@ -158,6 +173,9 @@ class ModsPage(QWidget):
         self.repo_refresh_btn = QPushButton("刷新仓库")
         self.import_btn = QPushButton("导入外部文件夹…")
         self.install_btn = QPushButton("安装所选")
+        style_button(self.repo_refresh_btn, "refresh")
+        style_button(self.import_btn, "folder")
+        style_button(self.install_btn, "download", primary=True)
         self.search_edit = QLineEdit()
         self.search_edit.setPlaceholderText("搜索 mod 名称/文件名…")
         self.repo_refresh_btn.clicked.connect(self.refresh_repo)
@@ -175,6 +193,7 @@ class ModsPage(QWidget):
         self.cat_list.currentItemChanged.connect(lambda *_: self._filter_repo())
         splitter.addWidget(self.cat_list)
         self.repo_table = QTableWidget(0, 4)
+        style_table(self.repo_table)
         self.repo_table.setHorizontalHeaderLabels(["名称", "文件名", "分类", "说明"])
         self.repo_table.setSelectionBehavior(QTableWidget.SelectRows)
         self.repo_table.setEditTriggers(QTableWidget.NoEditTriggers)
@@ -187,6 +206,8 @@ class ModsPage(QWidget):
         return w
 
     def refresh_repo(self) -> None:
+        if hasattr(self, "_repo_worker") and self._repo_worker.isRunning():
+            return
         def scan():
             return self.ctx.store().scan()
 
@@ -240,6 +261,8 @@ class ModsPage(QWidget):
             self.refresh_repo()
 
     def install_selected(self) -> None:
+        if not self._can_modify():
+            return
         rows = {idx.row() for idx in self.repo_table.selectedIndexes()}
         if not rows:
             QMessageBox.information(self, "安装", "先在列表中选择要安装的 mod（可多选）")
@@ -262,3 +285,12 @@ class ModsPage(QWidget):
         self.refresh()
         self.refresh_repo()
         self.ctx.data_changed.emit()
+
+    def _can_modify(self) -> bool:
+        if not self.ctx.mm or getattr(self.ctx, 'management_busy', False) or getattr(self.ctx, 'seedgen_active', False):
+            return False
+        from core.game import is_game_running
+        if is_game_running():
+            QMessageBox.information(self, '游戏运行中', '请关闭游戏后再更改 MOD 或汉化配置。')
+            return False
+        return True

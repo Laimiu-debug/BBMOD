@@ -13,6 +13,8 @@ from core.gamelog import load_log
 from core.modinfo import analyze_zip
 from .app_context import AppContext
 from .workers import Worker
+from .theme import GREEN, MUTED, RED, style_button, style_table
+from PySide6.QtGui import QColor
 
 SEVERITY_TEXT = {"error": "错误", "warning": "警告", "info": "提示"}
 
@@ -31,6 +33,7 @@ class DashboardPage(QWidget):
         self.info_label = QLabel("检测中…")
         self.info_label.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.refresh_btn = QPushButton("重新检测")
+        style_button(self.refresh_btn, "refresh")
         self.refresh_btn.clicked.connect(self.refresh)
         info_layout.addWidget(self.info_label, 1)
         info_layout.addWidget(self.refresh_btn)
@@ -41,6 +44,10 @@ class DashboardPage(QWidget):
         diag_layout = QVBoxLayout(diag_box)
         self.summary_label = QLabel("—")
         self.table = QTableWidget(0, 4)
+        style_table(self.table)
+        self.table.setColumnWidth(0, 68)
+        self.table.setColumnWidth(1, 230)
+        self.table.setColumnWidth(3, 260)
         self.table.setHorizontalHeaderLabels(["级别", "对象", "问题", "修复建议"])
         self.table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
@@ -51,13 +58,16 @@ class DashboardPage(QWidget):
         root.addWidget(diag_box, 1)
 
     def refresh(self) -> None:
+        if hasattr(self, "_worker") and self._worker.isRunning():
+            self._refresh_pending = True
+            return
         g = self.ctx.game
         if not g:
             self.info_label.setText("未找到游戏，请到 设置 中手动指定安装目录")
             return
         base = game_mod.check_base_archive(g.data_dir)
         dlcs = game_mod.installed_dlcs(g.data_dir)
-        base_txt = "⚠ 汉化重打包版（非原版）" if (base and base.repacked) else "原版"
+        base_txt = "疑似重打包（按时间戳判断）" if (base and base.repacked) else "未发现重打包迹象"
         lines = [
             f"安装目录：{g.root}",
             f"游戏版本：{g.version}（本软件按 1.5.2.3 校准）   基座档案：{base_txt}",
@@ -71,7 +81,13 @@ class DashboardPage(QWidget):
         self._worker.done.connect(self._show_report)
         self._worker.failed.connect(lambda e: (self.summary_label.setText(f"诊断失败：{e}"),
                                                self.refresh_btn.setEnabled(True)))
+        self._worker.finished.connect(self._finish_refresh)
         self._worker.start()
+
+    def _finish_refresh(self) -> None:
+        if getattr(self, "_refresh_pending", False):
+            self._refresh_pending = False
+            self.refresh()
 
     def _run_diagnosis(self) -> DiagnosisReport:
         g = self.ctx.game
@@ -91,11 +107,11 @@ class DashboardPage(QWidget):
         for i, issue in enumerate(issues):
             level = QTableWidgetItem(SEVERITY_TEXT[issue.severity])
             if issue.severity == "error":
-                level.setForeground(Qt.red)
+                level.setForeground(QColor(RED))
             elif issue.severity == "warning":
-                level.setForeground(Qt.darkYellow)
+                level.setForeground(QColor("#8b601f"))
             else:
-                level.setForeground(Qt.gray)
+                level.setForeground(QColor(MUTED))
             self.table.setItem(i, 0, level)
             self.table.setItem(i, 1, QTableWidgetItem(issue.source))
             self.table.setItem(i, 2, QTableWidgetItem(issue.title + (f"\n{issue.detail[:200]}" if issue.detail else "")))

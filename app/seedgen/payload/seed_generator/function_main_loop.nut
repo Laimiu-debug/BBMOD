@@ -150,7 +150,7 @@ local startNewCampaign = function()
 				}
 				if(!CommonConfig.OnlyPrintMatchingLair || gt.SeedGenerator.lair_output_type >= 0)
 				{
-					this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type);
+					this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type + " Origin:" + origin);
 
 					if(CommonConfig.PrintLairInfo)
 					{
@@ -341,7 +341,7 @@ local startNewCampaign = function()
 				bro_output_idx++;
 				if(!CommonConfig.MatchingBrotherGenerateSettlement)
 				{
-					this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type);
+					this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type + " Origin:" + origin);
 					gt.SeedGenerator.printBroInfo(roster, role_array, team_score_avg_, bros_len, bros, bros_entries);
 					this.logInfo("CRLF");
 				}
@@ -383,7 +383,7 @@ local startNewCampaign = function()
 							}
 							if(!CommonConfig.OnlyPrintMatchingLair || gt.SeedGenerator.lair_output_type >= 0)
 							{
-								this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type);
+								this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type + " Origin:" + origin);
 								gt.SeedGenerator.printBroInfo(roster, role_array, team_score_avg_, bros_len, bros, bros_entries);
 
 								if(roster != null)
@@ -419,7 +419,7 @@ local startNewCampaign = function()
 						}
 						if(!CommonConfig.OnlyPrintMatchingLair || gt.SeedGenerator.lair_output_type >= 0)
 						{
-							this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type);
+							this.logInfo("Seed: " + seedString + " LoopIdx:" + loop_idx + " BroOutputType:" + gt.SeedGenerator.bro_output_type + " MapOutputType:" + gt.SeedGenerator.map_output_type + " LairOutputType:" + gt.SeedGenerator.lair_output_type + " Origin:" + origin);
 							gt.SeedGenerator.printBroInfo(roster, role_array, team_score_avg_, bros_len, bros, bros_entries);
 
 							if(roster != null)

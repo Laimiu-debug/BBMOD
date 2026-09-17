@@ -109,7 +109,11 @@ def locate_game(manual_hint: str | None = None) -> GameInfo | None:
     """检测链：手动指定 → 注册表+libraryfolders.vdf 扫描 → 常见盘符兜底。"""
     candidates: list[Path] = []
     if manual_hint:
-        candidates.append(Path(manual_hint))
+        root = Path(manual_hint)
+        exe = root / 'win32' / EXE_NAME
+        if not exe.is_file() or not (root / 'data').is_dir():
+            return None
+        return GameInfo(root=root, exe=exe, version=read_file_version(exe), data_dir=root / 'data')
     steam = find_steam_root()
     if steam:
         for lib in list_steam_libraries(steam):
@@ -246,6 +250,7 @@ def is_game_running() -> bool:
         out = subprocess.run(
             ["tasklist", "/FI", f"IMAGENAME eq {EXE_NAME}", "/FO", "CSV", "/NH"],
             capture_output=True, text=True, timeout=10,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         ).stdout
     except (OSError, subprocess.TimeoutExpired):
         return False

@@ -32,8 +32,25 @@ BRO_OUTPUT = {
 }
 BRO_OUTPUT_LABELS = {
     "TeamScore": "队伍平均分", "RoleScore": "指定职业分", "AnyRoleScore": "不限职业分",
-    "RoleAttr": "原始属性", "RoleTraitScore": "职业分+特性", "RoleTraitScoreIndex": "指定兄弟分+特性",
+    "RoleAttr": "11级预估属性", "RoleTraitScore": "职业分+特性", "RoleTraitScoreIndex": "指定兄弟分+特性",
 }
+
+# RoleAttr reads eight projected level-11 attributes in this exact order.
+ATTRIBUTES = {
+    "Hitpoints": "生命", "Bravery": "决心", "Stamina": "疲劳上限",
+    "MeleeSkill": "近战命中", "RangedSkill": "远程命中",
+    "MeleeDefense": "近战防御", "RangedDefense": "远程防御", "Initiative": "先攻",
+}
+SCORE_EXPLANATION = (
+    "队伍平均分 = 每名开局兄弟分配职业后的评分之和 ÷ 兄弟人数。\n"
+    "例如三人评分为 0.9、0.8、0.7，平均分就是 0.8。职业名额会影响分配结果。\n\n"
+    "个人评分由初始属性、11级预估属性和特性共同计算。近战职业的权重为："
+    "近战命中35%、近战防御30%、疲劳上限20%、生命10%、决心5%。\n"
+    "每项属性都先按脚本规定的上下基准换算，再按权重相加；初始属性和特性另有加减分。"
+    "因此分数可以低于0或超过1，0.8无法直接换算成近战数值、胜率或百分位。\n\n"
+    "只想找90+近战的兄弟，选择「按属性筛选」，将近战命中设为90即可。"
+    "11级属性按每级都选择提升该属性估算，不包含装备和额外加点特技。"
+)
 
 MAP_METRICS = {
     "SettlementNum": 0, "PortNum": 1, "CityPortNum": 2, "PortMeanDis": 3, "MeanDis": 4,
@@ -128,6 +145,28 @@ class BroCondition:
     type: str                 # BRO_OUTPUT 键名
     args: list                # 其余参数（数值或 Role 枚举名字符串或 trait id）
     comment: str = ""
+
+
+def attribute_condition(count: int, thresholds: dict[str, int]) -> BroCondition:
+    """Require the same N brothers to satisfy every supplied attribute minimum."""
+    if not 1 <= count <= 27:
+        raise ValueError("兄弟人数应在1至27之间")
+    if not thresholds or any(key not in ATTRIBUTES for key in thresholds):
+        raise ValueError("请至少设置一项有效属性")
+    if any(not isinstance(value, int) or value < 0 for value in thresholds.values()):
+        raise ValueError("属性门槛必须是非负整数")
+    return BroCondition("RoleAttr", [count, *(thresholds.get(key, -100) for key in ATTRIBUTES)])
+
+
+def score_condition(kind: str, score: float, count: int, role: str) -> BroCondition:
+    if kind == "TeamScore":
+        return BroCondition(kind, [score])
+    if kind == "AnyRoleScore":
+        # The Squirrel checker consumes pairs, without a role argument.
+        return BroCondition(kind, [score, count])
+    if kind == "RoleScore" and role in ROLES:
+        return BroCondition(kind, [score, count, role])
+    raise ValueError("未知评分条件")
 
 
 @dataclass

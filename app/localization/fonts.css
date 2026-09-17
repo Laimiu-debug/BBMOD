@@ -1,0 +1,12 @@
+/* BBMOD: apply the independent Chinese font only to translated display elements. */
+@font-face {
+    font-family: 'BBMOD Han';
+    src: url('coui://ui/mods/bbmod_l10n/NotoSansSC-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+.bbmod-l10n-text,
+input[type="text"], input:not([type]), input[type="search"], textarea,
+[contenteditable="true"] {
+    font-family: 'BBMOD Han', 'Microsoft YaHei', 'SimHei', sans-serif !important;
+}
