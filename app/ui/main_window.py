@@ -12,6 +12,8 @@ from .dashboard_page import DashboardPage
 from .l10n_page import L10nPage
 from .mods_page import ModsPage
 from .seedgen_page import SeedGenPage
+from .update_service import UpdateService
+from .update_dialog import UpdateDialog
 from .theme import GOLD, CampHeader, ParchmentSurface, apply_theme, crest, icon, style_button
 
 PAGES = [
@@ -28,13 +30,16 @@ def apply_dark_palette(app) -> None:
 
 
 class MainWindow(QMainWindow):
-    def __init__(self) -> None:
+    def __init__(self, *, auto_updates=True) -> None:
         super().__init__()
         self.setWindowTitle('BBMOD · 战团整备所')
         self.setWindowIcon(crest())
         self.resize(1360, 880)
         self.setMinimumSize(1080, 720)
         self.ctx = AppContext()
+        self.updates = UpdateService(self.ctx.settings, self, automatic=auto_updates)
+        self._update_dialog = None
+        self._pending_update = None
         root = QWidget()
         root.setObjectName('windowRoot')
         shell = QHBoxLayout(root)
@@ -99,8 +104,12 @@ class MainWindow(QMainWindow):
         titles.addWidget(self.heading)
         titles.addWidget(self.subtitle)
         header.addLayout(titles, 1)
-        self.version_badge = QLabel(f'BBMOD {VERSION}\nBATTLE BROTHERS  /  1.5.2.3')
+        self.version_badge = QPushButton(f'BBMOD {VERSION}\n版本与更新')
         self.version_badge.setObjectName('versionBadge')
+        self.version_badge.setToolTip('查看软件版本、发布历史和自动更新设置')
+        self.version_badge.clicked.connect(self.show_updates)
+        self.updates.attention.connect(lambda tag: self.version_badge.setText(f'发现新版本 {tag}\n查看更新'))
+        self.updates.changed.connect(self._update_badge)
         header.addWidget(self.version_badge, 0, Qt.AlignBottom)
         content.addWidget(hero)
         game_bar = QFrame()
@@ -146,6 +155,38 @@ class MainWindow(QMainWindow):
         self.dashboard.refresh()
         self.mods.refresh()
         self.l10n.refresh_status()
+
+    def _update_badge(self):
+        latest = self.updates.latest()
+        if latest and latest.newer_than() and latest.tag != self.updates.preferences.get('ignored'):
+            self.version_badge.setText(f'发现新版本 {latest.tag}\n查看更新')
+        else:
+            self.version_badge.setText(f'BBMOD {VERSION}\n版本与更新')
+
+    def show_updates(self):
+        if self._update_dialog is None:
+            self._update_dialog = UpdateDialog(self.updates, self)
+            self._update_dialog.install_requested.connect(self._request_update)
+        self._update_dialog.show()
+        self._update_dialog.raise_()
+        self._update_dialog.activateWindow()
+
+    def _request_update(self):
+        from core.app_updates import prepare_install
+        from .workers import Worker
+        if self.ctx.management_busy or self.ctx.seedgen_active or self.seedgen.orch is not None or any(worker.isRunning() for worker in self.findChildren(Worker)):
+            QMessageBox.information(self, '任务进行中', '请先停止种子远征，并等待文件或 MOD 操作完成，再重启更新。')
+            return
+        release = self.updates.download_release
+        if not self.updates.downloaded or not release or not release.newer_than() or self.updates.busy:
+            return
+        try:
+            self._pending_update = prepare_install(self.updates.downloaded, release)
+            self.updates.save_preference('pending', str(self._pending_update.parent / 'result.json'))
+            self.close()
+        except (OSError, ValueError) as error:
+            self._pending_update = None
+            QMessageBox.warning(self, '暂时无法更新', str(error) + '\n下载文件已保留，可打开下载目录。')
 
     def _session_changed(self, active: bool) -> None:
         self._management_changed(self.ctx.management_busy)
@@ -206,4 +247,16 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, '任务处理中', '正在读取或构建文件，请等待完成后关闭。')
             event.ignore()
             return
+        if self._pending_update:
+            from core.app_updates import launch_helper
+            try:
+                launch_helper(self._pending_update)
+            except (OSError, ValueError) as error:
+                self._pending_update = None
+                QMessageBox.warning(self, '无法启动更新', str(error))
+                event.ignore()
+                return
+        self.updates.shutdown()
+        if self._update_dialog:
+            self._update_dialog.close()
         event.accept()

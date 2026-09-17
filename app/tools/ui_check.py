@@ -26,7 +26,7 @@ def main() -> None:
         os.environ["APPDATA"] = temporary
         app = QApplication([])
         apply_dark_palette(app)
-        window = MainWindow()
+        window = MainWindow(auto_updates=False)
         window.show()
         window.select_page(1)
         started = time.monotonic()

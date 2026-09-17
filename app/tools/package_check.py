@@ -91,6 +91,8 @@ def main() -> int:
             raise RuntimeError('EXE 中的兼容框架未通过加载校验')
         if result.returncode == 0 and b'seed_traits=58' not in result.stdout:
             raise RuntimeError('EXE 未加载完整的开局特质筛选资源')
+        if result.returncode == 0 and b'updater=ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载版本管理与更新组件')
         report = {
             "executable": str(executable),
             "sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
@@ -112,6 +114,7 @@ def main() -> int:
             "stderr": result.stderr.decode(errors="replace"),
             "game_acceptance": "pending",
             "seed_trait_choices": 58,
+            "updater_ready": b'updater=ready' in result.stdout,
         }
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -40,6 +40,7 @@ exe = EXE(
     a.datas,
     [],
     name='BBMOD',
+    version='data/windows-version.txt',
     icon='assets/bbmod.ico',
     debug=False,
     bootloader_ignore_signals=False,

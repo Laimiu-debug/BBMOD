@@ -2,9 +2,27 @@
 
 面向《战场兄弟》1.5.2.3 的本地桌面工具：营地诊断、MOD 军械库、独立汉化工坊与种子远征。
 
-## 先设置汉化，再从软件启动
+## 下载测试版
 
-当前软件为 **0.3.0-rc.3 测试版**，独立汉化沿用 rc.2：[下载 EXE 与查看已知问题](https://github.com/Laimiu-debug/BBMOD/releases/tag/v0.3.0-rc.3)。隔离测试副本的中文启动尝试失败，尚未定位原因，游戏内验收未完成。已按用户要求停止游戏测试；发布检查仅离线进行。
+当前软件为 **0.3.0-rc.4 测试版**，独立汉化沿用 rc.2：[下载 EXE 与查看已知问题](https://github.com/Laimiu-debug/BBMOD/releases/tag/v0.3.0-rc.4)。隔离测试副本的中文启动尝试失败，尚未定位原因，游戏内验收未完成。已按用户要求停止游戏测试。
+
+## 版本管理与自动更新
+
+点击右上角「版本与更新」：查看当前软件版本、内置独立汉化版本、GitHub 发布历史及每版说明。Windows 文件属性也包含软件版本。旧版 rc.3 及更早版本没有更新器，需要先手动下载 rc.4 并替换一次 EXE。
+
+- 默认开启启动后后台检查；距离上次成功检查不足 6 小时则复用版本记录，软件持续运行时每 6 小时检查一次，也可随时点击「立即检查」。可以关闭自动检查。
+- 支持「稳定版」与「稳定版 + 测试版」通道。本版为测试版，默认包含测试版；稳定版通道没有发行版时会明确提示，不会把测试版误报为稳定版。
+- 发现较新版本后，右上角显示提示。检查失败、断网或 GitHub 限流不会阻塞主界面，也不会被显示成“已经最新”。
+- 选择版本可阅读说明、打开发布页面或下载 EXE。下载支持取消，并校验发布资产的大小、SHA-256 和 Windows 程序标识；校验失败不允许安装。
+- 下载较新版本后，发行版可点击「重启并更新」。更新器等待旧软件退出，在原位置替换 EXE 并重启。替换或进程启动失败会尝试恢复旧版；旧版备份以 `BBMOD.previous-xxxxxxxx.exe` 保存在程序旁边。程序正常启动后的业务行为仍需另行验证。
+- 正在刷种子、构建汉化或处理 MOD 时禁止重启更新。设置和下载记录存于 `%APPDATA%/BBMOD`，汉化与 MOD 配置不随 EXE 替换。已有汉化 ZIP 不会被自动重新生成。
+- 历史版本可以下载留存；软件不会自动降级。源码运行时可检查和下载，安装按钮仅在 Windows 打包版中启用。无目录写权限时可打开下载目录手动处理。
+
+更新检查使用公开的 [GitHub Releases API](https://docs.github.com/en/rest/releases/releases)，不需要登录。发布说明按纯文本展示。重启使用 [PyInstaller 的独立进程环境](https://pyinstaller.org/en/stable/common-issues-and-pitfalls.html#using-sys-executable-to-spawn-subprocesses-that-outlive-the-application-process-implementing-application-restart)，避免继承已退出程序的解包目录。
+
+开发检查：`python -m pytest tests/test_app_updates.py tests/test_update_network.py`；`python tools/check_updates.py --download` 会在临时配置中检查公开版本并下载校验；`python tools/check_update_install.py --exe <新版EXE> --old-exe <旧版EXE>` 只更新隔离的软件副本，运行软件自检，不会打开游戏。
+
+## 设置汉化并启动游戏
 
 打开 `dist/BBMOD.exe`，选择游戏目录，进入「汉化工坊 → 汉化管理与启动」：
 
