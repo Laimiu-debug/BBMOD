@@ -1,0 +1,13 @@
+**
+!web/
+!web/**
+web/.venv/
+web/var/
+web/.preview/
+web/.env
+web/certs/
+web/staticfiles/
+web/**/__pycache__/
+!app/
+!app/core/
+!app/core/archive_safety.py

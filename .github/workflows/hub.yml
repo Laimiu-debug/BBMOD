@@ -1,0 +1,38 @@
+name: Self-hosted MOD hub
+on:
+  push:
+    paths: ['web/**', 'app/core/archive_safety.py', '.dockerignore', '.github/workflows/hub.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r web/requirements.lock
+      - name: Application checks
+        env:
+          BBMOD_DEBUG: '1'
+        run: |
+          python web/manage.py test catalog --noinput
+          python web/manage.py makemigrations --check --dry-run
+      - name: Build and start isolated Ubuntu stack
+        working-directory: web
+        run: |
+          python tools/init_env.py --host 127.0.0.1
+          docker compose config --quiet
+          docker compose up -d --build --wait --wait-timeout 120
+          curl --fail --retry 10 --retry-delay 2 --retry-connrefused http://127.0.0.1:8080/health/
+          curl --fail http://127.0.0.1:8080/api/v1/catalog/
+          curl --fail http://127.0.0.1:8080/login/
+          curl --fail http://127.0.0.1:8080/static/site.css > /dev/null
+          docker compose exec -T app python manage.py backup_hub
+      - name: Logs on failure
+        if: failure()
+        working-directory: web
+        run: docker compose logs --tail 100

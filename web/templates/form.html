@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}{{ title }} · BBMOD{% endblock %}{% block content %}
+<section class="page-head"><p class="eyebrow">AUTHOR'S WORKSHOP</p><h1>{{ title }}</h1>{% if intro %}<p>{{ intro }}</p>{% endif %}</section>
+<form method="post" class="panel editor {% if compact %}compact{% endif %}">{% csrf_token %}{% include 'form_fields.html' %}{% if action %}<input type="hidden" name="action" value="{{ action }}">{% endif %}<div class="form-actions"><button class="button primary">{{ submit }}</button><a href="{% url 'workshop' %}">返回</a></div></form>
+{% endblock %}

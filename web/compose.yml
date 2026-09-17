@@ -1,0 +1,32 @@
+name: bbmod-hub
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: web/Dockerfile
+    env_file: .env
+    environment:
+      BBMOD_DATA_DIR: /srv/data
+      BBMOD_TRUST_PROXY: '1'
+    volumes:
+      - bbmod_data:/srv/data
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://localhost:8000/health/', headers={'X-Forwarded-Proto':'https'}))"]
+    networks: [backend]
+    security_opt: [no-new-privileges:true]
+  proxy:
+    image: nginx:stable-alpine
+    ports: ['${BBMOD_BIND:-0.0.0.0}:${BBMOD_PORT:-8080}:80']
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+    networks: [backend]
+    security_opt: [no-new-privileges:true]
+networks:
+  backend:
+volumes:
+  bbmod_data:

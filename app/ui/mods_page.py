@@ -28,6 +28,9 @@ class ModsPage(QWidget):
         tabs = QTabWidget()
         tabs.addTab(self._build_installed_tab(), "已安装（游戏 data 目录）")
         tabs.addTab(self._build_repo_tab(), "仓库（内置合集 / 外部导入）")
+        from .online_mods import OnlineModsPage
+        self.online = OnlineModsPage(ctx, self._can_modify, self)
+        tabs.addTab(self.online, "在线军械库")
         root.addWidget(tabs, 1)
 
     # ---------------- 已安装 ----------------

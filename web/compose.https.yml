@@ -1,0 +1,10 @@
+# Place a valid IP/domain certificate in web/certs before enabling this override.
+services:
+  app:
+    environment:
+      BBMOD_HTTPS: '1'
+  proxy:
+    ports: ['443:443']
+    volumes:
+      - ./deploy/nginx-https.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/bbmod-certs:ro
