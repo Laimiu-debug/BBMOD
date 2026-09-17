@@ -1,4 +1,5 @@
 """Create an allowlisted server source package. Never includes credentials or uploads."""
+import argparse
 import hashlib
 import io
 import json
@@ -6,18 +7,26 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.1.0'
+VERSION = '0.3.1'
 PREFIX = f'BBMOD-Hub-{VERSION}'
-OUT = ROOT / 'app/build/github-release/v0.3.0-rc.5'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output', type=Path, default=ROOT / 'app/build/hub' / VERSION)
+args = parser.parse_args()
+OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
 target = OUT / f'{PREFIX}.tar.gz'
 files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py']
+files += [ROOT / 'app' / name for name in ['core/paths.py', 'core/gamelog.py',
+    'core/seedgen/config_emitter.py', 'core/seedgen/log_watcher.py', 'core/seedgen/presentation.py',
+    'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'data/seed_traits.json']]
 web = ROOT / 'web'
-for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'Dockerfile', 'compose.yml', 'compose.https.yml', '.env.example', 'README.md']:
+for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'Dockerfile', 'compose.yml', 'compose.https.yml', 'compose.gateway.yml', '.env.example', 'README.md']:
     files.append(web / name)
-for folder in ['hub', 'catalog', 'templates', 'static', 'deploy', 'tools']:
+for folder in ['hub', 'catalog', 'templates', 'static', 'deploy', 'tools', 'vercel', 'content']:
     for path in (web / folder).rglob('*'):
-        if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc' and path.name != 'seed_preview.py':
+        if (path.is_file() and not any(p in {'__pycache__', '.vercel'} for p in path.parts)
+                and path.suffix != '.pyc' and path.name != 'seed_preview.py'
+                and not path.name.startswith('.env')):
             files.append(path)
 manifest = {}
 with tarfile.open(target, 'w:gz') as archive:

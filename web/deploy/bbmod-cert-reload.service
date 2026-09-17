@@ -1,0 +1,10 @@
+[Unit]
+Description=Load renewed BBMOD certificate into Nginx
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+StateDirectory=bbmod-cert-reload
+StateDirectoryMode=0700
+ExecStart=/usr/bin/python3 /home/ubuntu/bbmod-hub/ops/reload-bbmod-certificate.py

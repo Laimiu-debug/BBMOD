@@ -57,6 +57,29 @@ class PublishingTests(TestCase):
         self.assertEqual(response['Cache-Control'], 'private, no-store')
         self.assertFalse(payload['mods'][0]['inspection']['game_tested'])
 
+    @override_settings(
+        ALLOWED_HOSTS=['bbmod.vercel.app'],
+        CSRF_TRUSTED_ORIGINS=['https://bbmod.vercel.app'],
+        SECURE_PROXY_SSL_HEADER=('HTTP_X_FORWARDED_PROTO', 'https'),
+        SESSION_COOKIE_SECURE=True, CSRF_COOKIE_SECURE=True,
+    )
+    def test_gateway_login_csrf_cookies_and_private_cache(self):
+        visitor = Client(enforce_csrf_checks=True)
+        headers = {'HTTP_HOST': 'bbmod.vercel.app', 'HTTP_X_FORWARDED_PROTO': 'https'}
+        page = visitor.get('/login/', **headers)
+        self.assertEqual(page.status_code, 200)
+        self.assertTrue(page.cookies[settings.CSRF_COOKIE_NAME]['secure'])
+        fields = {'username': self.author.username, 'password': 'Original-Password-1234',
+                  'csrfmiddlewaretoken': visitor.cookies[settings.CSRF_COOKIE_NAME].value}
+        self.assertEqual(visitor.post('/login/', fields, HTTP_ORIGIN='https://untrusted.example', **headers).status_code, 403)
+        login = visitor.post('/login/', fields, HTTP_ORIGIN='https://bbmod.vercel.app', **headers)
+        self.assertEqual(login.status_code, 302)
+        self.assertEqual(login['Location'], '/workshop/')
+        self.assertTrue(login.cookies[settings.SESSION_COOKIE_NAME]['secure'])
+        for path in ['/', '/api/v1/catalog/', '/workshop/', '/missing-page/']:
+            response = visitor.get(path, **headers)
+            self.assertEqual(response['Cache-Control'], 'private, no-store', path)
+
     def test_draft_private_and_published_by_author(self):
         self.upload(publish=False)
         release = Release.objects.get()

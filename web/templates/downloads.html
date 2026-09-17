@@ -1,3 +1,32 @@
 {% extends 'base.html' %}{% load static %}{% block title %}下载 BBMOD 管理器{% endblock %}{% block content %}
-<section class="page-head"><p class="eyebrow">YOUR CAMP COMPANION</p><h1>BBMOD 桌面管理器</h1><p>管理 MOD、独立汉化与种子筛选，让整备更从容。</p></section><section class="panel download-feature"><img src="{% static 'crest-painted.png' %}" alt="BBMOD 盾徽"><div><h2>Windows 单文件版</h2><p>从项目的 GitHub 发布页选择版本、阅读更新说明并下载 BBMOD.exe。首次使用后选择游戏目录。</p><a class="button primary" href="https://github.com/Laimiu-debug/BBMOD/releases" rel="noopener noreferrer" target="_blank">查看版本与下载 ↗</a><p class="help">当前软件仍为测试版，游戏内兼容性以各版本的已知问题和验证说明为准。</p><h3>连接本站军械库</h3><p>在新版软件的「MOD 军械库 → 在线军械库」填入本站地址，再刷新列表。</p><button class="button" data-copy-origin>复制本站地址</button></div></section>
+<section class="page-head"><p class="eyebrow">YOUR CAMP COMPANION</p><h1>BBMOD 桌面管理器</h1><p>管理 MOD、独立汉化与种子筛选，让整备更从容。</p></section>
+<section class="panel download-feature">
+  <img src="{% static 'crest-painted.png' %}" alt="BBMOD 盾徽">
+  <div>
+    <h2>Windows 单文件版</h2>
+    {% if desktop %}
+    <p>推荐 {{ desktop.version }} · {{ desktop.channel_label }} · {{ desktop.size|filesizeformat }}</p>
+    <a class="button primary" href="{% url 'desktop_version_download' desktop.id %}" download="{{ desktop.filename }}">直接下载 Windows 版</a>
+    <p>无需登录，点击即可下载。下载完成后打开程序，选择游戏目录即可使用。</p>
+    <div class="prose">{{ desktop.notes|linebreaks }}</div>
+    {% else %}
+    <p>{% if channel == 'stable' %}目前没有公开的稳定版，可在下方选择测试版。{% elif channel == 'preview' %}目前没有公开的测试版，可在下方选择稳定版。{% else %}下载文件正在准备中，请稍后再试。{% endif %}</p>
+    {% endif %}
+    <h3>连接本站军械库</h3>
+    <p>在软件的「MOD 军械库 → 在线军械库」填入本站地址，再刷新列表。</p>
+    <button class="button" data-copy-origin>复制本站地址</button>
+  </div>
+</section>
+<section class="panel history">
+  <div class="section-heading"><h2>选择其他版本</h2><span>历史版本保留下载</span></div>
+  <nav class="version-filters" aria-label="版本类型">
+    <a href="?channel=all" {% if channel == 'all' %}aria-current="page"{% endif %}>全部版本</a>
+    <a href="?channel=stable" {% if channel == 'stable' %}aria-current="page"{% endif %}>稳定版</a>
+    <a href="?channel=preview" {% if channel == 'preview' %}aria-current="page"{% endif %}>测试版</a>
+  </nav>
+  {% for r in releases %}<article class="release-row" id="version-{{ r.version }}">
+    <div class="version-row"><div><h3>{{ r.version }} <span class="tag">{{ r.channel_label }}</span>{% if r.id == desktop.id %}<span class="tag">推荐</span>{% endif %}</h3><p class="muted">{{ r.published_at|date:'Y.m.d' }} · {{ r.size|filesizeformat }}</p></div><a class="button" href="{% url 'desktop_version_download' r.id %}" download="{{ r.filename }}">下载 {{ r.version }}</a></div>
+    <details class="checksum"><summary>更新说明与文件校验</summary><div class="prose">{{ r.notes|linebreaks }}</div><p>{{ r.filename }}</p><code>{{ r.sha256 }}</code></details>
+  </article>{% empty %}<p class="muted">暂未发布此类型的版本，请选择其他类型。</p>{% endfor %}
+</section>
 {% endblock %}

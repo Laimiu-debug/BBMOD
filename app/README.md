@@ -4,7 +4,7 @@
 
 ## 下载测试版
 
-当前已发布软件为 **0.3.0-rc.5 测试版**，独立汉化沿用 rc.2：[下载 EXE 与查看已知问题](https://github.com/Laimiu-debug/BBMOD/releases/tag/v0.3.0-rc.5)。源码 rc.6 已完成刷种子自动开局、实时结果、日志导入与自动停止的修复和离线验证，但旧中文地名启动组件被 Windows Defender 隔离，EXE 构建尚未完成。隔离测试副本的中文启动问题和游戏内验收仍未完成，已按用户要求停止游戏测试。
+GitHub 当前发布软件为 **0.3.0-rc.5 测试版**，独立汉化沿用 rc.2：[查看 GitHub 发布](https://github.com/Laimiu-debug/BBMOD/releases/tag/v0.3.0-rc.5)。最新本地候选为 `dist/BBMOD-0.3.0-rc.7.exe`，增加种子持续进度、复杂路线计算上限、本地自动保存、重复搜索保留结果和匿名「分享给兄弟」。[rc.7 说明](releases/0.3.0-rc.7.md)。旧中文地名启动器的 Windows Defender 检测、隔离副本中文启动问题和游戏内验收仍未解决；本次仅进行离线检查和桌面程序自检。
 
 ## 在线军械库
 
@@ -202,6 +202,8 @@ node tests/runtime.test.cjs ./build/browser-check/node_modules/jsdom
 
 ## 打包
 
+**2026-09-17 已按用户最新要求恢复本地打包并生成 rc.6 测试包。** 保留现有中文地名组件；204 项离线回归（排除 1 项真实游戏操作）、包内资源校验和独立桌面启动自检通过。旧启动组件的 Defender 检测尚未完成复核，打包与桌面自检不代表中文启动问题已解决。排查说明见 [中文地名组件复核](native/defender-review.md)。
+
 安装 `requirements-dev.txt` 后：
 
 ```powershell
@@ -211,7 +213,9 @@ python -m PyInstaller --noconfirm BBMOD.spec
 python tools/package_check.py
 ```
 
-当前 spec 保留单文件构建，成品 `dist/BBMOD.exe`，包含完整独立精修词库、字体、图标、种子脚本和中文地图字体组件。内置 MOD 资源合集仍从 EXE 周边仓库目录寻找，不把第三方汉化并入应用。
+当前 spec 保留单文件构建，成品按实际软件版本命名，例如 `dist/BBMOD-0.3.0-rc.6.exe`，包含完整独立精修词库、字体、图标、种子脚本和中文地图字体组件。组件缺失会在依赖收集之前停止，不会自动重建、恢复或生成缺组件的 EXE。内置 MOD 资源合集仍从 EXE 周边仓库目录寻找，不把第三方汉化并入应用。
+
+发布时提供带版本号的主下载文件，并保留内容完全一致的 `BBMOD.exe` 附件供 rc.4／rc.5 更新器使用。新更新器优先选择与发布标签严格对应的版本文件，仍校验下载地址、大小和 SHA256；旧附件名称继续兼容。更新后保留用户原有程序路径，避免破坏快捷方式。
 
 地名专项检查：先构建本地预览 ZIP，再运行 `python tools/check_place_display.py`。该工具运行独立的原生测试 EXE、离线 Squirrel 解释器及 Node.js，不启动游戏。原生调用约定及存档边界见 `native/place_session_abi.md`。
 

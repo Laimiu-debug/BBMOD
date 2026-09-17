@@ -23,6 +23,12 @@ local BroEntryNum = gt.SeedGenerator.BroEntryNum;
 gt.SeedGenerator.map_output_type <- -1;
 gt.SeedGenerator.lair_output_type <- -1;
 gt.SeedGenerator.bro_output_type <- -1;
+gt.SeedGenerator.CurrentLoop <- 0;
+gt.SeedGenerator.CurrentHits <- 0;
+gt.SeedGenerator.reportProgress <- function(phase)
+{
+	::logInfo("BBMODSeedProgress: " + this.CurrentLoop + "(" + this.CurrentHits + ") " + phase);
+}
 
 local broScoreSortByDescend = function(first, second)
 {
@@ -40,7 +46,8 @@ local startNewCampaign = function()
 	this.Math.seedRandomString(this.m.CampaignSettings.Seed);
 	local origin = this.m.CampaignSettings.StartingScenario.getID();
 
-	local loop_idx = 0;
+	local loop_idx = -1;
+	local last_progress_time = -10.0;
 	local bro_output_idx = 0;
 	local change_seed_timer = 0;
 	local max_team_avg_score = 0;
@@ -70,6 +77,15 @@ local startNewCampaign = function()
 
 	while(true)
 	{
+		// Count every attempted seed, including map-generation skips.
+		loop_idx++;
+		gt.SeedGenerator.CurrentLoop = loop_idx;
+		gt.SeedGenerator.CurrentHits = bro_output_idx;
+		if(loop_idx % 1000 == 0 || (loop_idx % 100 == 0 && this.Time.getExactTime() - last_progress_time >= 1.0))
+		{
+			gt.SeedGenerator.reportProgress("brothers");
+			last_progress_time = this.Time.getExactTime();
+		}
 		if(loop_idx % gt.SeedGenerator.LoopPrintInterval == 0)
 		{
 			change_seed_timer++;
@@ -121,6 +137,14 @@ local startNewCampaign = function()
 		{
 			run_at_least_once_flag = true;
 			gt.SeedGenerator.map_output_type = gt.SeedGenerator.generateSettlement(seedString, this);
+			if(gt.SeedGenerator.map_output_type == -2)
+			{
+				run_at_least_once_flag = false;
+				this.World.clearScene();
+				this.World.EntityManager.clear();
+				this.World.FactionManager.clear();
+				continue;
+			}
 			// this.m.Assets.init();
 			// this.World.FactionManager.createFactions();
 			// this.World.EntityManager.buildRoadAmbushSpots();
@@ -354,6 +378,14 @@ local startNewCampaign = function()
 					this.World.EntityManager.clear();
 					this.World.FactionManager.clear();
 					gt.SeedGenerator.map_output_type = gt.SeedGenerator.generateSettlement(seedString, this);
+					if(gt.SeedGenerator.map_output_type == -2)
+					{
+						if(roster != null) roster.clear();
+						this.World.clearScene();
+						this.World.EntityManager.clear();
+						this.World.FactionManager.clear();
+						continue;
+					}
 
 					// if(roster != null)
 					// 	roster.clear();
@@ -445,7 +477,6 @@ local startNewCampaign = function()
 				roster.clear();
 		}
 
-		loop_idx++;
 	}
 }
 

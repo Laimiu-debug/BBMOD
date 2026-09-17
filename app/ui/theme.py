@@ -244,7 +244,7 @@ QTableWidget, QTableView, QListWidget { background:#eee0bd; alternate-background
 QTableWidget::item { border-bottom:1px solid #cbb78e; }
 QTableWidget::item:selected { background:#755035; color:#fff0ce; }
 QTextEdit { background:#f0e3c7; border:1px solid #ad9161; }
-#runStatus { color:#e0c99e; font-size:11px; }
+#runStatus { color:#685035; font-size:11px; }
 #seedFilters { padding:9px 3px 3px; }
 #seedPage QComboBox, #seedPage QSpinBox, #seedPage QDoubleSpinBox, #seedPage QLineEdit { padding:3px 5px; min-height:18px; }
 #seedPage QPushButton { padding:4px 8px; min-height:18px; }

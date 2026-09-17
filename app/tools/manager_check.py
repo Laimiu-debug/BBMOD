@@ -13,7 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from core import game
 from core.modmanager import ModManager
 
-COLLECTION = Path(r"G:\code\BBMOD\1.5.2.3游戏版本-原版汉化+MOD精选总集-2026-7月版\狐狸汉化精选MOD合集\基础功能MOD")
+COLLECTION = (Path(__file__).resolve().parents[2] / "其他mod"
+              / "1.5.2.3游戏版本-原版汉化+MOD精选总集-2026-7月版" / "狐狸汉化精选MOD合集" / "基础功能MOD")
 
 
 def sig(mm: ModManager) -> set[str]:

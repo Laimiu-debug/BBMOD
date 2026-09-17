@@ -1,6 +1,7 @@
 import io
 import re
 import warnings
+import uuid
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +10,7 @@ from django.core.files.base import ContentFile
 from PIL import Image
 from app.core.archive_safety import inspect_archive, valid_install_name
 from .models import Mod, Release
+from .desktop import inspect_desktop, version_key
 
 
 class ModForm(forms.ModelForm):
@@ -67,6 +69,13 @@ class ReleaseForm(forms.ModelForm):
         fields = ['version', 'notes', 'archive', 'cover']
         widgets = {'notes': forms.Textarea(attrs={'rows': 5})}
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['notes'].required = False
+
+    def clean_notes(self):
+        return self.cleaned_data.get('notes') or '本次上传未填写补充更新说明。'
+
     def clean_version(self):
         value = self.cleaned_data['version']
         if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._+-]{0,39}', value):
@@ -103,6 +112,75 @@ class ReleaseForm(forms.ModelForm):
                     return ContentFile(buf.getvalue(), name='cover.webp')
         except Exception as exc:
             raise forms.ValidationError('无法读取图片，请使用不超过 1600 万像素的 PNG、JPEG 或 WebP。') from exc
+
+
+class QuickModForm(ModForm):
+    """Create a work and its first version on one page."""
+    def __init__(self, *args, upload_name='', **kwargs):
+        data = kwargs.get('data')
+        if data is not None:
+            data = data.copy()
+            if not data.get('title'):
+                data['title'] = re.sub(r'[_.]+', ' ', upload_name.rsplit('.', 1)[0])[:100].strip()
+            if not data.get('install_name'):
+                if valid_install_name(upload_name):
+                    data['install_name'] = upload_name
+                else:
+                    stem = re.sub(r'[^A-Za-z0-9_.-]+', '_', upload_name.rsplit('.', 1)[0]).strip('_.-')
+                    proposed = (stem[:90] + '.zip') if stem else ''
+                    data['install_name'] = proposed if valid_install_name(proposed) else f'mod_{uuid.uuid4().hex[:12]}.zip'
+            for key, default in {'category': '基础功能', 'game_version': '1.5.2.3',
+                                 'save_impact': 'unknown', 'seed_impact': 'unknown'}.items():
+                if not data.get(key):
+                    data[key] = default
+            kwargs['data'] = data
+        super().__init__(*args, **kwargs)
+        self.fields['summary'].label = '介绍'
+        self.fields['summary'].widget = forms.Textarea(attrs={'rows': 3, 'placeholder': '它有什么作用？玩家需要知道什么？'})
+        for key in ['description', 'license', 'install_name']:
+            self.fields[key].required = False
+
+    def clean(self):
+        values = super().clean()
+        values['description'] = values.get('description') or values.get('summary', '')
+        values['license'] = values.get('license') or '上传者确认具备本站分发授权，其他用途请联系作者。'
+        return values
+
+    def advanced_fields(self):
+        return [self[name] for name in ['description', 'install_name', 'license', 'source_url',
+            'game_version', 'dlc', 'mod_ids', 'requires', 'conflicts', 'save_impact', 'seed_impact', 'compatibility_notes']]
+
+    def advanced_errors(self):
+        return any(field.errors for field in self.advanced_fields())
+
+
+class DesktopReleaseForm(forms.Form):
+    file = forms.FileField(label='Windows 程序', widget=forms.ClearableFileInput(attrs={'accept': '.exe'}))
+    version = forms.CharField(label='版本号', max_length=40, help_text='例如 0.3.0 或 0.3.0-rc.5；rc、beta 等后缀会标为测试版。')
+    notes = forms.CharField(label='更新说明', max_length=10000, widget=forms.Textarea(attrs={'rows': 4, 'placeholder': '这次更新了什么？有哪些已知问题？'}))
+    publish = forms.BooleanField(label='上传成功后立即公开', required=False, initial=True)
+
+    def clean_version(self):
+        value = self.cleaned_data['version'].removeprefix('v')
+        try:
+            version_key(value)
+        except ValueError as exc:
+            raise forms.ValidationError(str(exc)) from exc
+        return value
+
+    def clean_file(self):
+        upload = self.cleaned_data['file']
+        self.inspection = inspect_desktop(upload)
+        return upload
+
+    def clean(self):
+        values = super().clean()
+        upload, version = values.get('file'), values.get('version')
+        if upload and version:
+            match = re.fullmatch(r'BBMOD-(.+)\.exe', upload.name, flags=re.IGNORECASE)
+            if match and match.group(1) != version:
+                self.add_error('version', '版本号与 EXE 文件名不一致，请核对后上传。')
+        return values
 
 
 class CreateAuthorForm(UserCreationForm):

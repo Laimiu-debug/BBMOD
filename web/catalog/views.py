@@ -15,12 +15,22 @@ from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.views.decorators.http import require_POST, require_GET
-from .forms import ModForm, ReleaseForm, CreateAuthorForm
-from .models import Mod, Release, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES
+from django.utils.http import content_disposition_header
+from django.views.decorators.http import require_POST, require_GET, require_safe
+from .desktop import desktop_available, public_desktop_releases, recommended_desktop, create_desktop_release
+from .forms import ModForm, QuickModForm, ReleaseForm, DesktopReleaseForm, CreateAuthorForm
+from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES
 from .services import public_releases, create_release, can_inspect, audit
+from .visitors import traffic_summary
 
 admin_required = user_passes_test(lambda u: u.is_active and u.is_superuser)
+
+
+def upload_redirect(request, name, **kwargs):
+    response = redirect(name, **kwargs)
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'redirect': response['Location']})
+    return response
 
 
 def csrf_failure(request, reason=''):
@@ -50,7 +60,7 @@ def catalog(request):
     if request.GET.get('sort') == 'name':
         releases.sort(key=lambda r: r.metadata.get('title', ''))
     return render(request, 'catalog.html', {'page': Paginator(releases, 12).get_page(request.GET.get('page')), 'count': count,
-                                           'q': query, 'category': category, 'categories': CATEGORIES})
+                                           'q': query, 'category': category, 'categories': CATEGORIES, 'track_visit': True})
 
 
 @require_GET
@@ -58,7 +68,7 @@ def detail(request, mod_id):
     rels = list(public_releases().filter(mod_id=mod_id))
     if not rels:
         raise Http404
-    return render(request, 'detail.html', {'release': rels[0], 'history': rels})
+    return render(request, 'detail.html', {'release': rels[0], 'history': rels, 'track_visit': True})
 
 
 @require_GET
@@ -143,6 +153,30 @@ def owned_mod(request, mod_id):
 
 
 @login_required
+def quick_publish(request):
+    data = request.POST if request.method == 'POST' else None
+    files = request.FILES if request.method == 'POST' else None
+    uploaded = request.FILES.get('archive') if files else None
+    mod_form = QuickModForm(data=data, instance=Mod(owner=request.user), upload_name=uploaded.name if uploaded else '')
+    release_form = ReleaseForm(data, files, initial={'version': '1.0.0', 'publish': True})
+    if request.method == 'POST':
+        valid_mod, valid_release = mod_form.is_valid(), release_form.is_valid()
+        if valid_mod and valid_release:
+            try:
+                with transaction.atomic():
+                    mod = mod_form.save()
+                    release = create_release(request.user, mod, release_form)
+            except ValidationError as exc:
+                release_form.add_error(None, exc)
+            except IntegrityError:
+                mod_form.add_error('install_name', '该文件名或版本已被使用，请刷新后重试。')
+            else:
+                messages.success(request, '作品已公开，玩家现在可以下载。' if release.status == 'published' else '作品已保存为草稿。')
+                return upload_redirect(request, 'detail' if release.status == 'published' else 'upload', mod_id=mod.pk)
+    return render(request, 'quick_publish.html', {'mod_form': mod_form, 'release_form': release_form, 'max_bytes': settings.MAX_MOD_BYTES})
+
+
+@login_required
 def edit_mod(request, mod_id=None):
     mod = owned_mod(request, mod_id) if mod_id else Mod(owner=request.user)
     form = ModForm(request.POST or None, instance=mod)
@@ -155,7 +189,7 @@ def edit_mod(request, mod_id=None):
             form.add_error('install_name', '该文件名已被使用，请换一个。')
         else:
             messages.success(request, '资料已保存。上传新版本后，新的作品说明会随版本公开。')
-            return redirect('upload', mod_id=mod.pk)
+            return upload_redirect(request, 'upload', mod_id=mod.pk)
     return render(request, 'form.html', {'form': form, 'title': '编辑作品' if mod_id else '创建作品',
                                         'intro': '填写作品介绍和安装要求。每个版本都会保存当时的说明。', 'submit': '保存并管理版本'})
 
@@ -174,8 +208,8 @@ def upload(request, mod_id):
             form.add_error(None, '版本号已存在或有并发更新，请刷新后重试。')
         else:
             messages.success(request, '新版本已公开。' if form.cleaned_data['publish'] else '新版本已保存，尚未公开。')
-            return redirect('upload', mod_id=mod.pk)
-    return render(request, 'upload.html', {'mod': mod, 'form': form, 'history': mod.releases.all()})
+            return upload_redirect(request, 'upload', mod_id=mod.pk)
+    return render(request, 'upload.html', {'mod': mod, 'form': form, 'history': mod.releases.all(), 'max_bytes': settings.MAX_MOD_BYTES})
 
 
 @login_required
@@ -203,7 +237,8 @@ def release_action(request, release_id):
 def management(request):
     mods = Mod.objects.select_related('owner').order_by('-updated_at')
     return render(request, 'management.html', {'mods': Paginator(mods, 30).get_page(request.GET.get('page')),
-                                               'logs': AuditLog.objects.select_related('actor').order_by('-created_at')[:25]})
+                                               'logs': AuditLog.objects.select_related('actor').order_by('-created_at')[:25],
+                                               'traffic': traffic_summary()})
 
 
 @admin_required
@@ -280,4 +315,83 @@ def health(request):
 
 @require_GET
 def downloads(request):
-    return render(request, 'downloads.html')
+    channel = request.GET.get('channel', 'all')
+    channel = channel if channel in {'all', 'stable', 'preview'} else 'all'
+    releases = public_desktop_releases(channel)
+    return render(request, 'downloads.html', {'desktop': recommended_desktop(releases), 'releases': releases, 'channel': channel, 'track_visit': True})
+
+
+@require_safe
+def desktop_download(request, release_id=None):
+    if release_id:
+        release = get_object_or_404(DesktopRelease, pk=release_id)
+        if release.status != 'published' and not (request.user.is_active and request.user.is_superuser):
+            raise Http404
+    else:
+        release = recommended_desktop(public_desktop_releases())
+    if not release or not desktop_available(release):
+        raise Http404
+    if settings.DESKTOP_DOWNLOAD_ACCEL:
+        # The private Nginx location streams the file and supports Range requests.
+        response = HttpResponse(content_type='application/octet-stream')
+        response['X-Accel-Redirect'] = '/_desktop/' + release.file.name
+    elif request.method == 'HEAD':
+        response = HttpResponse(content_type='application/octet-stream')
+    else:
+        try:
+            response = FileResponse(release.file.open('rb'), content_type='application/octet-stream')
+        except OSError:
+            raise Http404
+    response['Content-Disposition'] = content_disposition_header(True, release.filename)
+    response['Content-Length'] = release.size
+    response['X-Checksum-SHA256'] = release.sha256
+    response['Cache-Control'] = 'private, no-store'
+    return response
+
+
+@admin_required
+def software_management(request):
+    form = DesktopReleaseForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        try:
+            create_desktop_release(request.user, form)
+        except ValidationError as exc:
+            form.add_error(None, exc)
+        except IntegrityError:
+            form.add_error('version', '该版本已存在，请使用新的版本号。')
+        else:
+            messages.success(request, '程序版本已公开。' if form.cleaned_data.get('publish') else '程序已保存为草稿。')
+            return upload_redirect(request, 'software_management')
+    return render(request, 'software_management.html', {'form': form, 'history': DesktopRelease.objects.all(),
+                                                       'max_bytes': settings.MAX_DESKTOP_BYTES})
+
+
+@admin_required
+@require_POST
+def software_action(request, release_id):
+    with transaction.atomic():
+        release = get_object_or_404(DesktopRelease.objects.select_for_update(), pk=release_id)
+        action = request.POST.get('action')
+        if action == 'publish' and desktop_available(release):
+            release.status = 'published'
+            release.published_at = release.published_at or timezone.now()
+        elif action == 'withdraw':
+            release.status = 'withdrawn'
+        else:
+            messages.error(request, '文件尚未就绪或操作无效。')
+            return redirect('software_management')
+        release.save(update_fields=['status', 'published_at'])
+        audit(request.user, '公开程序版本' if action == 'publish' else '撤回程序版本', release.pk, release.version)
+    return redirect('software_management')
+
+
+@require_GET
+def api_desktop_releases(request):
+    rows = public_desktop_releases()
+    recommended = recommended_desktop(rows)
+    items = [{'id': str(r.pk), 'version': r.version, 'prerelease': r.prerelease, 'notes': r.notes,
+              'filename': r.filename, 'size': r.size, 'sha256': r.sha256,
+              'published_at': r.published_at.isoformat() if r.published_at else None,
+              'download_path': reverse('desktop_version_download', args=[r.pk])} for r in rows]
+    return JsonResponse({'schema_version': 1, 'recommended_version': recommended.version if recommended else None,
+                         'releases': items}, json_dumps_params={'ensure_ascii': False})

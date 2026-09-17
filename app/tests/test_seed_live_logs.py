@@ -227,6 +227,8 @@ def test_stop_drains_last_complete_record_and_preserves_unfinished_tail(live_ses
 
 def test_stop_limits_use_received_complete_results_and_elapsed_time(live_session):
     session, path = live_session
+    # At this start time, subtracting the deadline rounds just below 60.
+    session._started_at = 4.1
     session.limits = StopLimits(hits=2, minutes=10)
     path.write_text(html_rows("BBMODSeedSession: " + session._session_id,
         "LoopIdx: 4000(987) 0.9", "Seed: COMPLETE00 LoopIdx:1", "CRLF",
@@ -239,6 +241,8 @@ def test_stop_limits_use_received_complete_results_and_elapsed_time(live_session
     session.poll()
     assert "2 条" in session.stop_reason
     session.limits = StopLimits(minutes=1)
+    with patch("core.seedgen.orchestrator.time.monotonic", return_value=session._started_at + 59.999):
+        assert session.stop_reason == ""
     with patch("core.seedgen.orchestrator.time.monotonic", return_value=session._started_at + 60):
         assert "1 分钟" in session.stop_reason
     session.limits = StopLimits()

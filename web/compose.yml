@@ -8,8 +8,11 @@ services:
     environment:
       BBMOD_DATA_DIR: /srv/data
       BBMOD_TRUST_PROXY: '1'
+      BBMOD_DESKTOP_DOWNLOAD_ROOT: /srv/desktop
+      BBMOD_DESKTOP_DOWNLOAD_ACCEL: '1'
     volumes:
       - bbmod_data:/srv/data
+      - bbmod_desktop:/srv/desktop
     restart: unless-stopped
     healthcheck:
       test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen(urllib.request.Request('http://localhost:8000/health/', headers={'X-Forwarded-Proto':'https'}))"]
@@ -20,6 +23,7 @@ services:
     ports: ['${BBMOD_BIND:-0.0.0.0}:${BBMOD_PORT:-8080}:80']
     volumes:
       - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - bbmod_desktop:/srv/desktop:ro
     depends_on:
       app:
         condition: service_healthy
@@ -30,3 +34,4 @@ networks:
   backend:
 volumes:
   bbmod_data:
+  bbmod_desktop:

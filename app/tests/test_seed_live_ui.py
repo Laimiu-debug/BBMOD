@@ -51,7 +51,7 @@ def test_live_table_chinese_preview_and_stop_keep_last_buffered_result(page):
     page.origin_combo.setCurrentIndex(page.origin_combo.findData("scenario.cultists"))
     page._poll()
     assert page.orch is fake and page.table.rowCount() == 1  # Live, before stop.
-    assert "已显示 1 条" in page.progress_label.text() and "999" not in page.progress_label.text()
+    assert "本次命中 1 条" in page.progress_label.text() and "999" not in page.progress_label.text()
     page.format_combo.setCurrentIndex(page.format_combo.findData("detail"))
     assert "近战命中 57→91（3星）" in page.detail_label.toPlainText()
     assert "达夫库尔狂信徒" in page.detail_label.toPlainText() and "Trait:" not in page.detail_label.toPlainText()

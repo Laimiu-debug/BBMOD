@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer
-from PySide6.QtGui import QKeySequence, QShortcut
+from PySide6.QtCore import Qt, QTimer, QUrl
+from PySide6.QtGui import QKeySequence, QShortcut, QDesktopServices
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QDoubleSpinBox, QFileDialog, QFormLayout, QFrame, QGridLayout, QGroupBox,
@@ -22,6 +22,9 @@ from core.seedgen.config_emitter import (
 )
 from core.seedgen.log_watcher import SeedResult, import_seed_log
 from core.seedgen.orchestrator import SeedGenOrchestrator, StopLimits
+from core.seedgen.library import SeedLibrary
+from core.seedgen.protocol import seed_key, share_payload
+from core.seedgen.sharing import upload_seed, PUBLIC_SITE
 from core.seedgen.traits import trait_name, validate_traits
 from core.seedgen.presentation import (
     FORMATS, OPENERS, format_collection, format_seed, highlights, note_key, raw_record,
@@ -63,6 +66,9 @@ class SeedGenPage(QWidget):
         self.results: list[SeedResult] = []
         self._automatic_stop_failed = False
         self._import_worker: Worker | None = None
+        self._share_worker: Worker | None = None
+        self.library = None
+        self._library_error = ""
         limits = ctx.settings.get("seed_stop_limits", {})
         try:
             self._limits = StopLimits(**limits) if isinstance(limits, dict) else StopLimits()
@@ -244,6 +250,19 @@ class SeedGenPage(QWidget):
         run_row.addWidget(self.progress_label, 1)
         root.addLayout(run_row)
 
+        library_row = QHBoxLayout()
+        self.library_label = QLabel("找到的种子自动保存在本机")
+        library_row.addWidget(self.library_label, 1)
+        self.save_btn = QPushButton("保存所选")
+        self.publish_btn = QPushButton("分享给兄弟")
+        self.publish_btn.setToolTip("无需登录。将所选种子的详情和介绍公开到 bbmod.site，分享成功后复制链接。")
+        style_button(self.publish_btn, "copy", primary=True)
+        self.gallery_btn = QPushButton("逛种子广场 ↗")
+        library_row.addWidget(self.save_btn)
+        library_row.addWidget(self.publish_btn)
+        library_row.addWidget(self.gallery_btn)
+        root.addLayout(library_row)
+
         self.table = QTableWidget(0, 4)
         style_table(self.table)
         self.table.setMinimumHeight(96)
@@ -305,6 +324,9 @@ class SeedGenPage(QWidget):
         self.opener_combo.setCurrentText(opener if isinstance(opener, str) else "自动开场白")
         self.click_copy.setChecked(bool(preferences.get("click_copy", False)))
         self.copy_btn.clicked.connect(self.copy_selected)
+        self.save_btn.clicked.connect(self.save_selected)
+        self.publish_btn.clicked.connect(self.publish_selected)
+        self.gallery_btn.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(PUBLIC_SITE + "/seeds/")))
         self.export_btn.clicked.connect(self.export_txt)
         self.format_combo.currentIndexChanged.connect(self._share_changed)
         self.opener_combo.currentTextChanged.connect(self._share_changed)
@@ -325,6 +347,101 @@ class SeedGenPage(QWidget):
         self._rule_changed()
         self._mode_changed()
         self._share_changed(save=False)
+        try:
+            self.library = SeedLibrary(ctx.settings.path.parent / "seeds.sqlite3")
+            self.results = self.library.all()
+            for result in self.results:
+                self._append_result(result)
+            self._library_status()
+        except Exception as error:
+            self._library_error = str(error)
+            self.library_label.setText("本地种子库读取失败 · 原文件已保留，可导出 TXT 备份")
+            self.library_label.setToolTip(str(error))
+        self._show_detail()
+
+    def _library_status(self):
+        self.library_label.setText(f"本地已保存 {len(self.results)} 条 · 重新搜索与重启均保留")
+        if self.library:
+            self.library_label.setToolTip(str(self.library.path))
+
+    def _accept_results(self, results):
+        added = 0
+        indexes = {seed_key(r): i for i, r in enumerate(self.results)}
+        for result in results:
+            if self.library:
+                try:
+                    result = self.library.save(result)
+                    self._library_error = ""
+                except Exception as error:
+                    self._library_error = str(error)
+            identity = seed_key(result)
+            if identity in indexes:
+                index = indexes[identity]
+                old = self.results[index]
+                if (result.done and not old.done) or (result.done == old.done and len(result.lines) > len(old.lines)):
+                    self.results[index] = result
+                    self._write_result(index, result)
+                continue
+            indexes[identity] = len(self.results)
+            self.results.append(result)
+            self._append_result(result)
+            added += 1
+        if self._library_error:
+            self.library_label.setText("自动保存失败 · 结果仍在列表中，请导出 TXT 备份")
+            self.library_label.setToolTip(self._library_error)
+        else:
+            self._library_status()
+        self._show_detail()
+        return added
+
+    def save_selected(self):
+        result = self._selected_result()
+        if result:
+            try:
+                if not self.library:
+                    raise RuntimeError(self._library_error or "本地种子库不可用")
+                self.library.save(result)
+            except Exception as error:
+                QMessageBox.warning(self, "保存失败", f"{error}\n可用「导出全部 TXT」另存备份。")
+                return
+            self.library_label.setText(f"{result.seed} 已保存到本机 · 重启后仍可查看")
+
+    def publish_selected(self):
+        result = self._selected_result()
+        if not result or (self._share_worker and self._share_worker.isRunning()):
+            return
+        note = self.notes.get(note_key(result), "")
+        try:
+            share_payload(result, note)
+            if not self.library:
+                raise RuntimeError(self._library_error or "本地种子库不可用")
+            self.library.save(result)
+        except Exception as error:
+            QMessageBox.warning(self, "暂时无法分享", str(error))
+            return
+        self.publish_btn.setEnabled(False)
+        self.publish_btn.setText("正在分享…")
+        # The worker belongs to the application so changing pages cannot destroy it.
+        self._share_worker = Worker(lambda: upload_seed(result, note), QApplication.instance())
+        self._share_worker.done.connect(lambda url: self._published(result, url))
+        self._share_worker.failed.connect(lambda error: QMessageBox.warning(self, "分享未完成", f"{error}\n种子仍保存在本机，可重新点击分享。"))
+        self._share_worker.finished.connect(self._share_finished)
+        QApplication.instance().aboutToQuit.connect(self._share_worker.wait)
+        self._share_worker.start()
+
+    def _published(self, result, url):
+        QApplication.clipboard().setText(url)
+        try:
+            self.library.mark_shared(result, url)
+        except Exception as error:
+            self.library_label.setText("已分享到网站并复制链接 · 本地分享状态保存失败")
+            self.library_label.setToolTip(str(error))
+            return
+        self.library_label.setText(f"{result.seed} 已分享 · 链接已复制，可直接发给兄弟")
+        self.library_label.setToolTip(url)
+
+    def _share_finished(self):
+        self.publish_btn.setText("分享给兄弟")
         self._show_detail()
 
     def _rule_changed(self, *_args) -> None:
@@ -502,18 +619,9 @@ class SeedGenPage(QWidget):
         self._import_worker.start()
 
     def _imported_results(self, results: list[SeedResult]) -> None:
-        seen = {(r.origin, r.seed, r.loop_idx) for r in self.results}
-        added = 0
         self.table.setUpdatesEnabled(False)
         try:
-            for result in results:
-                key = (result.origin, result.seed, result.loop_idx)
-                if key in seen:
-                    continue
-                seen.add(key)
-                self.results.append(result)
-                self._append_result(result)
-                added += 1
+            added = self._accept_results(results)
         finally:
             self.table.setUpdatesEnabled(True)
         self.format_combo.setCurrentIndex(self.format_combo.findData("detail"))
@@ -595,9 +703,7 @@ class SeedGenPage(QWidget):
                 return
             QMessageBox.critical(self, "启动失败", str(error))
             return
-        self.table.setRowCount(0)
         self.progress_label.setToolTip("")
-        self.results = self.orch.results
         self.ctx.set_seedgen_active(True)
         self.start_btn.setEnabled(False)
         self.stop_btn.setEnabled(True)
@@ -622,9 +728,8 @@ class SeedGenPage(QWidget):
             self.timer.start()
             QMessageBox.warning(self, "恢复未完成", str(error))
             return
-        self.results = list(self.orch.results)
-        for result in self.results[self.table.rowCount():]:
-            self._append_result(result)
+        session_results = list(self.orch.results)
+        self._accept_results(session_results)
         preserved = getattr(getattr(self.orch, "files", None), "preserved", [])
         self.orch = None
         self.start_btn.setEnabled(True)
@@ -633,8 +738,8 @@ class SeedGenPage(QWidget):
         self.options_btn.setEnabled(True)
         self.import_action.setEnabled(True)
         self.ctx.set_seedgen_active(False)
-        complete = sum(result.done for result in self.results)
-        partial = len(self.results) - complete
+        complete = sum(result.done for result in session_results)
+        partial = len(session_results) - complete
         self.progress_label.setText(f"{reason or '已停止'} · 命中 {complete} 条 · 恢复 {restored} 个 MOD" +
                                    (f" · 保留 {partial} 条未完整记录" if partial else ""))
         self.ctx.data_changed.emit()
@@ -664,9 +769,12 @@ class SeedGenPage(QWidget):
             }.get(code, "自动开局失败，请停止并恢复后查看营地诊断")
             self.progress_label.setText(message)
             self.progress_label.setToolTip(startup.detail)
-        elif progress.loop_idx or self.results:
-            rounds = max(progress.loop_idx, max((result.loop_idx for result in self.results), default=0))
-            self.progress_label.setText(f"搜索至第 {rounds} 轮 · 已显示 {len(self.results)} 条 · {elapsed // 60:02}:{elapsed % 60:02}")
+        elif progress.loop_idx or self.orch.results:
+            rounds = max(progress.loop_idx, max((result.loop_idx for result in self.orch.results), default=0))
+            phase = {"map": "生成地图", "routes": "分析路线", "map-skipped": "复杂地图已跳过", "brothers": "筛选兄弟"}.get(getattr(progress, "phase", ""), "搜索中")
+            silent = getattr(self.orch, "silent_seconds", 0)
+            status = f"日志 {silent} 秒未更新，可停止并保留结果" if silent >= 30 else phase
+            self.progress_label.setText(f"第 {rounds} 轮 · 本次命中 {len(self.orch.results)} 条 · {status} · {elapsed // 60:02}:{elapsed % 60:02}")
         elif startup.stage == "generating":
             self.progress_label.setText("已自动开局 · 正在生成第一批种子，地图生成可能需要较长时间")
         elif startup.stage == "requested":
@@ -675,8 +783,8 @@ class SeedGenPage(QWidget):
             self.progress_label.setText("生成器已加载 · 等待游戏主菜单准备就绪后自动开始")
         elif elapsed >= 45:
             self.progress_label.setText("尚未读到本次日志 · 游戏仍加载时请等待；已开始刷种子可在「日志」选择目录")
-        for result in results:
-            self._append_result(result)
+        if results:
+            self._accept_results(results)
         if results:
             actual = results[-1].origin
             if actual and actual != self.origin_combo.currentData():
@@ -690,6 +798,14 @@ class SeedGenPage(QWidget):
     def _append_result(self, result: SeedResult) -> None:
         row = self.table.rowCount()
         self.table.insertRow(row)
+        self._write_result(row, result)
+        self.export_btn.setEnabled(True)
+        if row == 0:
+            self.table.selectRow(0)
+        if self.table.currentRow() >= row - 1:
+            self.table.scrollToBottom()
+
+    def _write_result(self, row, result):
         summary = " · ".join(highlights(result)) or "双击查看中文档案"
         if not result.done:
             summary = "记录未完整 · " + summary
@@ -701,11 +817,6 @@ class SeedGenPage(QWidget):
             if column == 0:
                 item.setData(Qt.UserRole, result)
             self.table.setItem(row, column, item)
-        self.export_btn.setEnabled(True)
-        if row == 0:
-            self.table.selectRow(0)
-        if self.table.currentRow() >= row - 1:
-            self.table.scrollToBottom()
 
     def _selected_result(self) -> SeedResult | None:
         row = self.table.currentRow()
@@ -715,6 +826,8 @@ class SeedGenPage(QWidget):
     def _show_detail(self) -> None:
         result = self._selected_result()
         self.copy_btn.setEnabled(result is not None)
+        self.save_btn.setEnabled(result is not None)
+        self.publish_btn.setEnabled(bool(result and result.done and not (self._share_worker and self._share_worker.isRunning())))
         self.note_edit.setEnabled(result is not None)
         self.export_btn.setEnabled(bool(self.results))
         self._loading_note = True

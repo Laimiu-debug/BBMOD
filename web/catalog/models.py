@@ -2,6 +2,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.db.models.functions import Lower
+from .storage import DesktopStorage
 
 CATEGORIES = [(x, x) for x in ['基础功能', '战斗与平衡', '起源与事件', '装备与外观', '汉化', '框架', '其他']]
 IMPACTS = [('unknown', '尚未确认'), ('no', '作者声明无影响'), ('yes', '有影响，请阅读说明')]
@@ -67,6 +68,31 @@ class Release(models.Model):
         constraints = [models.UniqueConstraint(fields=['mod', 'version'], name='unique_mod_version')]
 
 
+class DesktopRelease(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    version = models.CharField('版本号', max_length=40, unique=True)
+    notes = models.TextField('更新说明', max_length=10000)
+    file = models.FileField('Windows 程序', storage=DesktopStorage(), upload_to='releases/')
+    sha256 = models.CharField(max_length=64)
+    size = models.PositiveBigIntegerField()
+    prerelease = models.BooleanField(default=False)
+    status = models.CharField(max_length=15, choices=[('draft', '未公开'), ('published', '已公开'), ('withdrawn', '已撤回')], default='draft')
+    uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    @property
+    def filename(self):
+        return f'BBMOD-{self.version}.exe'
+
+    @property
+    def channel_label(self):
+        return '测试版' if self.prerelease else '稳定版'
+
+
 class AuditLog(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     action = models.CharField(max_length=80)
@@ -79,3 +105,47 @@ class LoginAttempt(models.Model):
     key = models.CharField(max_length=64, primary_key=True)
     failures = models.PositiveIntegerField(default=0)
     since = models.DateTimeField()
+
+
+class SharedSeed(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    fingerprint = models.CharField(max_length=64, unique=True)
+    seed = models.CharField(max_length=10, db_index=True)
+    origin = models.CharField(max_length=50, db_index=True)
+    game_version = models.CharField(max_length=30, blank=True)
+    combat_difficulty = models.SmallIntegerField(null=True, blank=True)
+    economic_difficulty = models.SmallIntegerField(null=True, blank=True)
+    budget_difficulty = models.SmallIntegerField(null=True, blank=True)
+    record = models.JSONField()
+    note = models.CharField(max_length=1000, blank=True)
+    ports = models.PositiveIntegerField(null=True, blank=True, db_index=True)
+    named = models.PositiveIntegerField(null=True, blank=True, db_index=True)
+    melee = models.SmallIntegerField(null=True, blank=True, db_index=True)
+    blocked = models.BooleanField(default=False, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        ordering = ['-created_at', '-id']
+
+
+class SharedSeedBrother(models.Model):
+    seed = models.ForeignKey(SharedSeed, on_delete=models.CASCADE, related_name='brothers')
+    melee = models.SmallIntegerField(null=True)
+    ranged = models.SmallIntegerField(null=True)
+    defense = models.SmallIntegerField(null=True)
+    # Delimiters make membership exact, including on SQLite.
+    traits = models.CharField(max_length=2000, blank=True)
+
+
+class SeedUploadBudget(models.Model):
+    key = models.CharField(max_length=64, primary_key=True)
+    count = models.PositiveIntegerField(default=0)
+    since = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
+class SiteVisitor(models.Model):
+    """A first-party browser identifier, not a person, IP or device fingerprint."""
+    token_hash = models.CharField(max_length=64, unique=True)
+    first_seen = models.DateTimeField(auto_now_add=True, db_index=True)
+    last_seen = models.DateTimeField(db_index=True)
+    page_views = models.PositiveBigIntegerField(default=1)

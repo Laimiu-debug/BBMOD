@@ -12,7 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from core.modinfo import analyze_zip, requirement_target
 
-COLLECTION = Path(r"G:\code\BBMOD\1.5.2.3游戏版本-原版汉化+MOD精选总集-2026-7月版\狐狸汉化精选MOD合集")
+COLLECTION = (Path(__file__).resolve().parents[2] / "其他mod"
+              / "1.5.2.3游戏版本-原版汉化+MOD精选总集-2026-7月版" / "狐狸汉化精选MOD合集")
 OUT = Path(__file__).resolve().parents[1] / "data" / "mod_index.json"
 
 # 人工标注（探索报告结论）：文件名关键片段 → 元数据

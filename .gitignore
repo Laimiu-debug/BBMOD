@@ -1,6 +1,8 @@
 # GitHub 单文件大小上限为 100MB，以下超大压缩包仅保留在本地，不纳入版本控制
 【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/Shs Battle Brothers v1.5.2.3a  2026-7-27.rar
 【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/shs086-01-音乐扩展包\[Shs起源1.0-可删减\]-mod_music-840-1.zip
+其他mod/【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/Shs Battle Brothers v1.5.2.3a  2026-7-27.rar
+其他mod/【Shs 传奇 19.3.X 傻瓜包】最新版/【Shs 传奇 19.3.X 傻瓜包】最新版/shs086-01-音乐扩展包\[Shs起源1.0-可删减\]-mod_music-840-1.zip
 
 # BBMOD 管理器构建产物与缓存
 app/build/
@@ -21,7 +23,13 @@ web/.venv/
 web/.env
 web/var/
 web/staticfiles/
+web/desktop-downloads/
 web/.preview/
 web/certs/
 output/playwright/
 .playwright-cli/
+.vercel/
+output/vercel-cli-ascii.mjs
+output/deployment/
+output/seed-tests/
+output/visitor-tests/

@@ -1,0 +1,11 @@
+[Unit]
+Description=Check whether BBMOD TLS certificate needs reloading
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+RandomizedDelaySec=5min
+Unit=bbmod-cert-reload.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% block title %}管理器版本 · BBMOD{% endblock %}{% block content %}
+<a class="back" href="{% url 'management' %}">← 管理后台</a>
+<section class="page-head heading-actions"><div><p class="eyebrow">DESKTOP RELEASES</p><h1>管理器版本</h1><p>上传一次，玩家就能从网站下载。旧版本会保留。</p></div><a class="button" href="{% url 'downloads' %}">查看下载页</a></section>
+<section class="panel"><h2>发布新版本</h2>
+<form method="post" enctype="multipart/form-data" class="editor" data-upload data-autofill="desktop">{% csrf_token %}
+  {% if form.non_field_errors %}<div class="notice error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+  {% include 'dropzone.html' with field=form.file prompt='把打包好的 BBMOD EXE 拖到这里' %}
+  {% include 'field.html' with field=form.version %}
+  {% include 'field.html' with field=form.notes %}
+  {% include 'field.html' with field=form.publish %}
+  <button class="button primary" type="submit">上传程序版本</button>
+  {% include 'upload_status.html' %}
+  <p class="help">网站自动生成带版本号的下载文件名并核对文件格式与完整性；不会运行上传的程序。同一版本的文件不能覆盖。</p>
+</form></section>
+<section class="panel history"><h2>全部版本</h2>
+{% for r in history %}<article class="release-row">
+  <div class="section-heading"><h3>{{ r.version }} <span class="tag">{{ r.channel_label }}</span></h3><span class="tag">{{ r.get_status_display }}</span></div>
+  <p class="muted">{{ r.created_at|date:'Y.m.d H:i' }} · {{ r.size|filesizeformat }}</p>
+  <div class="prose">{{ r.notes|linebreaks }}</div>
+  <div class="row-actions inline"><a class="button small" href="{% url 'desktop_version_download' r.id %}" download="{{ r.filename }}">下载此版本</a>
+    <form method="post" action="{% url 'software_action' r.id %}">{% csrf_token %}
+    {% if r.status == 'published' %}<input type="hidden" name="action" value="withdraw"><button class="button small" data-confirm="撤回后，玩家不能再下载此版本。确认撤回？">撤回版本</button>
+    {% else %}<input type="hidden" name="action" value="publish"><button class="button small primary">公开版本</button>{% endif %}
+    </form>
+  </div><details class="checksum"><summary>文件校验</summary><code>{{ r.sha256 }}</code></details>
+</article>{% empty %}<p class="muted">还没有程序版本。上传后会自动出现在下载页。</p>{% endfor %}
+</section>{% endblock %}

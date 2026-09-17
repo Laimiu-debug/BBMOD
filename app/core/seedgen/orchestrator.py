@@ -145,6 +145,7 @@ class SeedGenOrchestrator:
                 continue
             self._seen.add(key)
             if self._campaign:
+                result.game_version = self.game.version or ""
                 result.combat_difficulty = self._campaign.combat_difficulty
                 result.economic_difficulty = self._campaign.economic_difficulty
                 result.budget_difficulty = self._campaign.budget_difficulty
@@ -190,13 +191,19 @@ class SeedGenOrchestrator:
             return ""
         if self.limits.hits and sum(result.done for result in self.results) >= self.limits.hits:
             return f"已达到 {self.limits.hits} 条命中目标"
-        if self.limits.minutes and self.elapsed_seconds >= self.limits.minutes * 60:
+        if (self.limits.minutes and self._started_at is not None
+                and time.monotonic() >= self._started_at + self.limits.minutes * 60):
             return f"已达到 {self.limits.minutes} 分钟时限"
         return ""
 
     @property
     def progress(self) -> Progress:
         return self._parser.progress
+
+    @property
+    def silent_seconds(self) -> int:
+        last = self._parser.last_activity or self._started_at
+        return max(0, int(time.monotonic() - last)) if last is not None else 0
 
     @property
     def startup(self):

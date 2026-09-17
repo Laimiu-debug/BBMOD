@@ -130,8 +130,14 @@ local vertexSortByAscend = function(first, second)
 }
 
 local dfs;
+local route_visits = 0;
+local route_deadline = 0.0;
 dfs = function(index, end_index, graph_list, visited_flags, visited_index, temp, ans)
 {
+	// Bound exponential simple-cycle enumeration; reject rather than claim a partial match.
+	route_visits++;
+	if(route_visits > 250000 || (route_visits % 1024 == 0 && ::Time.getExactTime() >= route_deadline))
+		throw "BBMOD-route-budget";
 	temp[0]++;
 	local graph = graph_list[index];
 	visited_flags[index] = true;
@@ -167,6 +173,7 @@ dfs = function(index, end_index, graph_list, visited_flags, visited_index, temp,
 # 根据种子生成城市
 gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 {
+	this.reportProgress("map");
 	port_num = 0;
 	port_location = array(PortLocationNum, 0);
 	city_port_num = 0;
@@ -368,7 +375,12 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 
 	local last_ans = array(ConnectedAnsEntryNum, 0);
 	last_ans[ConnectedAnsEntry.ResultIndexList] = [];
+	this.reportProgress("routes");
+	route_visits = 0;
+	route_deadline = ::Time.getExactTime() + 3.0;
 	# 循环dfs
+	try
+	{
 	for ( local i = 0; i < settlements_num; i++)
 	{
 		local visited_flags = array(settlements_num, false);
@@ -388,6 +400,13 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 		}
 	}
 
+	}
+	catch(error)
+	{
+		if(error != "BBMOD-route-budget") throw error;
+		this.reportProgress("map-skipped");
+		return -2;
+	}
 	// this.logInfo("ANS: " + last_ans[ConnectedAnsEntry.VertexNum] + " " + last_ans[ConnectedAnsEntry.RoadSizeSum] + " " + last_ans[ConnectedAnsEntry.RoadSizeSum] / last_ans[ConnectedAnsEntry.VertexNum]);
 	for( local i = 0; i < last_ans[ConnectedAnsEntry.ResultIndexList].len(); i++)
 	{

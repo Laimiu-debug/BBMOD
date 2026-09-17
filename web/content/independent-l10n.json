@@ -1,0 +1,21 @@
+{
+  "archive": "app/dist/mod_bbmod_zhcn.zip",
+  "sha256": "467d524c4a75240ecfd2154b094dd6cde9dcb67094aa8053a834ca0cf3c01210",
+  "version": "0.3.0-rc.2",
+  "title": "BBMOD 独立汉化 · 本体与官方 DLC",
+  "summary": "覆盖本体与官方 DLC 的界面、装备、技能、人物、委托和事件，共 15,815 条独立译文。",
+  "category": "汉化",
+  "description": "本项目独立制作的简体中文汉化，不复用狐狸汉化的译文或脚本。包含本体与官方 DLC 的界面、装备、技能、人物、委托和事件文本，译文目录已完成独立精修。\n\n适用于 Battle Brothers 1.5.2.3。将 mod_bbmod_zhcn.zip 放入游戏 data 目录，或通过 BBMOD 在线军械库下载。无需额外安装 Mod Hooks，包内带有已注明来源的兼容运行文件及中文字体。\n\n直接启动游戏时，地图及对话中的地名保持英文。中文地名显示还依赖 BBMOD 的启动组件；该组件存在被 Windows Defender 隔离的问题，目前复核尚未完成。\n\n已检查 ZIP 结构、文件完整性和文本格式。完整游戏流程与第三方 MOD 组合尚未完成验收。",
+  "install_name": "mod_bbmod_zhcn.zip",
+  "license": "BBMOD 自制译文；随包框架与字体遵循各自许可。",
+  "source_url": "https://github.com/Laimiu-debug/BBMOD",
+  "game_version": "1.5.2.3",
+  "dlc": "支持已安装的官方 DLC",
+  "mod_ids": "",
+  "requires": "",
+  "conflicts": "",
+  "save_impact": "unknown",
+  "seed_impact": "unknown",
+  "compatibility_notes": "使用前停用其他覆盖相同文本的汉化包，避免内容互相覆盖。已有同名独立汉化包时，通过汉化工坊管理或先确认现有文件；在线安装不会覆盖未受管理的同名 ZIP。显星功能仍取决于相应 MOD 是否启用。地名原始数据和存档中的名称保留英文，中文地名需启动组件支持。",
+  "notes": "本体与官方 DLC 独立汉化精修版，使用现有已生成文件，未重新构建。正文与地名译文已完成独立校对；游戏内验收待进行，中文地名启动组件的 Defender 兼容问题仍在处理。"
+}

@@ -288,6 +288,12 @@ class L10nPage(QWidget):
         native = any(m.get('requires_bbmod_launcher') or m.get('uses_bbmod_map_font') for m in manifests)
         self.launch_btn.setEnabled(native and not self._busy and not getattr(self.ctx, 'seedgen_active', False))
         self.launch_btn.setToolTip('安装完整汉化后，由此启动游戏并加载中文地图字体。')
+        if native:
+            from core.native_font import missing_components
+            missing = missing_components()
+            if missing:
+                self.status_label.setText(self.status_label.text() + ' · 中文地名启动组件缺失：' + '、'.join(missing))
+                self.launch_btn.setToolTip('组件缺失，暂不能以中文地名启动。点击可查看缺失位置和处理说明。')
         if getattr(self.ctx, 'seedgen_active', False):
             self.build_btn.setEnabled(False)
             self.uninstall_btn.setEnabled(False)

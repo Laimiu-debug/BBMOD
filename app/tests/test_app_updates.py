@@ -65,6 +65,27 @@ def test_bad_metadata_and_download_hosts():
     assert not updates.download_host_allowed('https://github.com.evil.org/a')
 
 
+@pytest.mark.parametrize('legacy_first', [False, True])
+def test_versioned_asset_preferred_with_legacy_fallback(legacy_first):
+    row = release_row('v0.3.0-rc.6')
+    legacy = row['assets'][0]
+    filename = 'BBMOD-0.3.0-rc.6.exe'
+    versioned = {**legacy, 'name': filename,
+                 'browser_download_url': updates.RELEASES_URL + '/download/v0.3.0-rc.6/' + filename}
+    row['assets'] = [legacy, versioned] if legacy_first else [versioned, legacy]
+    assert parsed(row).download_url.endswith('/' + filename)
+    versioned['digest'] = 'sha256:invalid'
+    assert parsed(row).download_url.endswith('/BBMOD.exe')
+
+
+@pytest.mark.parametrize('filename', ['BBMOD-0.3.0-rc.5.exe', 'BBMOD-0.3.0-rc.6.exe.exe', '../BBMOD-0.3.0-rc.6.exe'])
+def test_wrong_versioned_asset_rejected(filename):
+    row = release_row('v0.3.0-rc.6')
+    row['assets'][0].update(name=filename,
+        browser_download_url=updates.RELEASES_URL + '/download/v0.3.0-rc.6/' + filename)
+    assert not parsed(row).installable
+
+
 def install_fixture(tmp_path):
     job = tmp_path / '缓存 & 中文' / 'job'
     job.mkdir(parents=True)
@@ -190,6 +211,7 @@ def test_windows_resource_version_matches_application():
     text = (Path(__file__).parents[1] / 'data/windows-version.txt').read_text(encoding='utf-8')
     assert f"StringStruct('FileVersion', '{VERSION}')" in text
     assert f"StringStruct('ProductVersion', '{VERSION}')" in text
+    assert f"StringStruct('OriginalFilename', 'BBMOD-{VERSION}.exe')" in text
 
 
 def test_allowed_download_redirect_uses_qt_signal(app, tmp_path):

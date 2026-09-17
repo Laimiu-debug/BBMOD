@@ -1,0 +1,4 @@
+.vercel
+README.md
+*.local
+.env*

@@ -3,14 +3,18 @@
 <title>{% block title %}BBMOD · 战场兄弟军械库{% endblock %}</title>
 <meta name="description" content="浏览战场兄弟社区作品，下载 MOD，管理自己的发布版本。">
 <link rel="icon" href="{% static 'bbmod.ico' %}"><link rel="stylesheet" href="{% static 'site.css' %}">
+{% if track_visit or traffic %}<link rel="stylesheet" href="{% static 'visitors.css' %}">{% endif %}
+{% if track_visit %}<script src="{% static 'visitors.js' %}" defer></script>{% endif %}
+{% if '/seeds/' in request.path %}<link rel="stylesheet" href="{% static 'seeds.css' %}"><script src="{% static 'seeds.js' %}" defer></script>{% endif %}
 <script src="{% static 'site.js' %}" defer></script></head>
 <body><a class="skip" href="#main">跳到正文</a>
 <header class="topbar"><div class="shell topbar-inner">
 <a class="brand" href="{% url 'catalog' %}"><img src="{% static 'crest-painted.png' %}" alt=""><span><b>BBMOD</b><small>战场兄弟 · 社区军械库</small></span></a>
 <nav aria-label="主导航"><a href="{% url 'catalog' %}" {% if request.path == '/' %}aria-current="page"{% endif %}>探索 MOD</a><a href="{% url 'downloads' %}" {% if request.path == '/downloads/' %}aria-current="page"{% endif %}>下载管理器</a>
-{% if user.is_authenticated %}<a href="{% url 'workshop' %}">作者工坊</a>{% if user.is_superuser %}<a href="{% url 'management' %}">管理后台</a>{% endif %}{% endif %}</nav>
+<a href="{% url 'seeds' %}" {% if '/seeds/' in request.path %}aria-current="page"{% endif %}>种子广场</a>{% if user.is_authenticated %}<a href="{% url 'workshop' %}">作者工坊</a>{% if user.is_superuser %}<a href="{% url 'management' %}">管理后台</a>{% endif %}{% endif %}</nav>
 <div class="account-nav">{% if user.is_authenticated %}<a href="{% url 'password_change' %}">{{ user.first_name|default:user.username }}</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="text-button">退出</button></form>{% else %}<a class="button small" href="{% url 'login' %}">作者登录 <span aria-hidden="true">↗</span></a>{% endif %}</div>
 </div></header>
+{% if track_visit %}<div class="shell visitor-welcome" data-visitor-welcome data-endpoint="{% url 'visitor_visit' %}" data-csrf="{{ csrf_token }}" aria-live="polite"><strong data-visitor-greeting>欢迎你，好兄弟</strong><span data-visitor-total></span></div>{% endif %}
 <main class="shell" id="main">{% if messages %}<div class="messages" role="status">{% for message in messages %}<p class="notice {{ message.tags }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% block content %}{% endblock %}</main>
 <footer class="shell footer"><span>BBMOD 军械库 <span class="dot">·</span> 为下一场远征整备</span><span>《战场兄弟》玩家社区 · 非官方站点</span></footer>
 </body></html>

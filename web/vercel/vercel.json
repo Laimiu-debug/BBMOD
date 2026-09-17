@@ -1,0 +1,20 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "node build.mjs",
+  "headers": [
+    {
+      "source": "/:path*",
+      "headers": [
+        {"key": "x-vercel-enable-rewrite-caching", "value": "0"},
+        {"key": "Cache-Control", "value": "private, no-store"}
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "https://sdhaohan.cn/bbmod-origin/:path*"
+    }
+  ]
+}

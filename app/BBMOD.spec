@@ -1,8 +1,20 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import os
+import runpy
 import sys
 from pathlib import Path
+
+app_version = runpy.run_path(str(Path(SPECPATH) / 'core/version.py'))['VERSION']
+
+# Fail before PyInstaller collects dependencies. A missing native component
+# must not be replaced with an incomplete EXE or rebuilt automatically.
+native_dir = Path(SPECPATH) / 'build/native'
+missing_native = [name for name in ('bbmod_launch.exe', 'bbmod_han.dll')
+                  if not (native_dir / name).is_file()]
+if missing_native:
+    raise SystemExit('中文地名组件缺失，已停止打包：' + '、'.join(missing_native)
+                     + '。请先完成组件问题排查；不要从旧 EXE 自动恢复或绕过安全软件。')
 
 # Resolve native dependencies from Python and Windows only. Unrelated tools on
 # PATH can ship identically named ICU/OpenSSL/CRT DLLs with incompatible exports.
@@ -39,7 +51,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='BBMOD',
+    name=f'BBMOD-{app_version}',
     version='data/windows-version.txt',
     icon='assets/bbmod.ico',
     debug=False,

@@ -10,11 +10,15 @@ from .paths import resource_path
 
 SUPPORTED_EXE_SHA256 = '345126b48b57719e71c80cd21b778f1a0bfda52295cc136ce3895ef43bbafd6a'
 
+class NativeComponentError(RuntimeError):
+    """The font adapter is unavailable; never retry extraction or launch."""
+
+
 def check_executable(exe: Path) -> None:
     if hashlib.sha256(Path(exe).read_bytes()).hexdigest() != SUPPORTED_EXE_SHA256:
         raise ValueError('当前游戏主程序尚未通过中文地图字体适配验证。当前支持 Steam 原版 1.5.2.3。')
 
-def _assets() -> dict[str, Path]:
+def component_paths() -> dict[str, Path]:
     folder = resource_path('native/bin')
     if not folder.is_dir(): folder = resource_path('build/native')
     files = {'bbmod_launch.exe': folder/'bbmod_launch.exe', 'bbmod_han.dll': folder/'bbmod_han.dll',
@@ -23,33 +27,92 @@ def _assets() -> dict[str, Path]:
     license_path = resource_path('native/licenses/LICENSE.txt')
     if not license_path.is_file(): license_path = resource_path('native/vendor/minhook/LICENSE.txt')
     files['MINHOOK-LICENSE.txt'] = license_path
-    if not all(p.is_file() for p in files.values()):
-        raise FileNotFoundError('缺少中文地图字体组件，请使用完整的 BBMOD 软件包。')
     return files
+
+
+def missing_components() -> list[str]:
+    return [name for name, path in component_paths().items() if not path.is_file()]
+
+
+def _unavailable(names, folder: Path) -> NativeComponentError:
+    return NativeComponentError(
+        '中文地名启动组件缺失或校验失败：' + '、'.join(names)
+        + '\n位置：' + str(folder)
+        + '\n请核对 Windows 安全中心的“保护历史记录”。文件缺失也可能由安装不完整或清理造成，不能仅凭缺失判断为隔离或误报。'
+        + '\n本次未继续启动游戏，也未重新释放该组件。中文地名功能保留，等待组件问题处理完成。')
+
+
+def _assets() -> dict[str, Path]:
+    files = component_paths()
+    missing = [name for name, path in files.items() if not path.is_file()]
+    if missing:
+        raise _unavailable(missing, files[missing[0]].parent)
+    return files
+
+
+def _validate_runtime(target: Path, hashes: dict[str, str]) -> None:
+    invalid = [name for name, digest in hashes.items()
+               if not (target/name).is_file()
+               or hashlib.sha256((target/name).read_bytes()).hexdigest() != digest]
+    if invalid:
+        raise _unavailable(invalid, target)
+
+
+def _check_previous_copies(parent: Path, hashes: dict[str, str]) -> None:
+    # rc.5 included the place dictionary in the cache key. A changed dictionary
+    # must not cause an identical missing/quarantined executable to be re-created
+    # under a new cache directory. Only inspect receipts for these exact assets.
+    for receipt in parent.glob('*/manifest.json'):
+        try:
+            saved = json.loads(receipt.read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            continue
+        if isinstance(saved, dict) and all(saved.get(name) == digest for name, digest in hashes.items()):
+            _validate_runtime(receipt.parent, hashes)
+
 
 def prepare_runtime(parent: Path, place_data: bytes | None = None) -> Path:
     assets = _assets()
     hashes = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name,path in assets.items()}
-    if place_data is not None:
-        hashes['place_names.tsv'] = hashlib.sha256(place_data).hexdigest()
     version = hashlib.sha256(json.dumps(hashes,sort_keys=True).encode()).hexdigest()[:16]
-    target = Path(parent)/'chinese-font'/version
-    target.mkdir(parents=True,exist_ok=True)
-    # A persistent private copy outlives a one-file manager's temporary folder.
-    for name,source in assets.items():
-        path = target/name
-        if path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == hashes[name]: continue
-        pending = path.with_suffix(path.suffix+'.tmp')
-        pending.write_bytes(source.read_bytes())
-        pending.replace(path)
+    cache = Path(parent)/'chinese-font'
+    _check_previous_copies(cache, hashes)
+    target = cache/version
+    if target.exists():
+        # Treat incomplete initialization as a failed installation as well.
+        # Do not silently repair executable files which disappeared later.
+        receipt = target/'manifest.json'
+        try:
+            saved = json.loads(receipt.read_text(encoding='utf-8'))
+        except (OSError, ValueError) as error:
+            raise _unavailable(['manifest.json'], target) from error
+        if not isinstance(saved, dict) or any(saved.get(name) != digest for name, digest in hashes.items()):
+            raise _unavailable(['manifest.json'], target)
+        _validate_runtime(target, hashes)
+    else:
+        target.mkdir(parents=True, exist_ok=False)
+        # Record intent before copying so even an interrupted first extraction
+        # is not automatically retried on the next click.
+        (target/'manifest.json').write_text(json.dumps(hashes,indent=2),encoding='utf-8')
+        for name, source in assets.items():
+            with (target/name).open('xb') as stream:
+                stream.write(source.read_bytes())
+        _validate_runtime(target, hashes)
     if place_data is not None:
-        path = target/'place_names.tsv'
-        if not path.exists() or path.read_bytes() != place_data:
-            pending = path.with_suffix('.tmp')
-            pending.write_bytes(place_data)
-            pending.replace(path)
-    (target/'manifest.json').write_text(json.dumps(hashes,indent=2),encoding='utf-8')
+        path = _place_data_path(target, place_data)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if path.exists():
+            if path.read_bytes() != place_data:
+                raise _unavailable(['place_names.tsv'], path.parent)
+        else:
+            with path.open('xb') as stream:
+                stream.write(place_data)
     return target
+
+
+def _place_data_path(runtime: Path, data: bytes) -> Path:
+    return runtime/'places'/hashlib.sha256(data).hexdigest()/'place_names.tsv'
+
 
 def launch_localized(game, runtime_root: Path, *, place_package: Path | None = None) -> dict:
     from .game import is_game_running
@@ -66,12 +129,17 @@ def launch_localized(game, runtime_root: Path, *, place_package: Path | None = N
     for key in ('BBMOD_PLACE_NAMES_PATH', 'BBMOD_PLACE_NAMES_SHA256'):
         environment.pop(key, None)
     if place_data is not None:
-        environment['BBMOD_PLACE_NAMES_PATH'] = str(runtime/'place_names.tsv')
+        environment['BBMOD_PLACE_NAMES_PATH'] = str(_place_data_path(runtime, place_data))
         environment['BBMOD_PLACE_NAMES_SHA256'] = hashlib.sha256(place_data).hexdigest()
-    result = subprocess.run([str(runtime/'bbmod_launch.exe'),str(game.exe),str(runtime/'bbmod_han.dll'),
+    try:
+        result = subprocess.run([str(runtime/'bbmod_launch.exe'),str(game.exe),str(runtime/'bbmod_han.dll'),
                              str(runtime/'NotoSerifSC-SemiBold.ttf'),str(log)], env=environment,
                             cwd=str(game.exe.parent),capture_output=True,timeout=60,
                             creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+    except OSError as error:
+        if not (runtime/'bbmod_launch.exe').is_file() or getattr(error, 'winerror', None) in {225, 226}:
+            raise _unavailable(['bbmod_launch.exe'], runtime) from error
+        raise
     if result.returncode:
         raise RuntimeError('中文启动未完成，请查看启动记录：'+str(log))
     output = result.stdout.decode('ascii',errors='ignore').strip()

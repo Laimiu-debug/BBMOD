@@ -1,0 +1,10 @@
+<div class="field">
+  <label class="drop-zone" for="{{ field.id_for_label }}" data-drop-zone data-max-bytes="{{ max_bytes }}">
+    <span class="drop-symbol" aria-hidden="true">↑</span>
+    <strong>{{ prompt }}</strong>
+    <span>也可以点击选择文件 · 最大 {{ max_bytes|filesizeformat }}</span>
+    {{ field }}
+    <span class="file-selection" data-file-summary aria-live="polite">尚未选择文件</span>
+  </label>
+  {% if field.errors %}<div class="field-errors" role="alert">{{ field.errors }}</div>{% endif %}
+</div>

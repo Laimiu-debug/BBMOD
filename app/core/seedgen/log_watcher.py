@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -37,6 +38,7 @@ class SeedResult:
     combat_difficulty: int | None = None
     economic_difficulty: int | None = None
     budget_difficulty: int | None = None
+    game_version: str = ""
 
     @property
     def team_score(self) -> float | None:
@@ -66,6 +68,7 @@ class Progress:
     hits: int = 0
     best_team_score: str = ""
     detail: str = ""
+    phase: str = ""
 
 
 @dataclass
@@ -85,6 +88,7 @@ class SeedLogParser:
         self.results: list[SeedResult] = []
         self.progress: Progress = Progress()
         self._seen: set[tuple[str, str, int]] = set()
+        self.last_activity: float | None = None
 
     def finish(self, complete: bool = False) -> list[SeedResult]:
         """Preserve a final unfinished block, explicitly labelled as incomplete."""
@@ -116,6 +120,15 @@ class SeedLogParser:
                     self.session_seen = matched
                 continue
             if not self.session_seen:
+                continue
+            self.last_activity = time.monotonic()
+            if text.startswith("BBMODSeedProgress: "):
+                match = re.fullmatch(r"BBMODSeedProgress: (\d+)\((\d+)\) ([a-z-]+)", text)
+                if match:
+                    self.progress.loop_idx = int(match[1])
+                    self.progress.hits = int(match[2])
+                    self.progress.phase = match[3]
+                    new_progress.append(self.progress)
                 continue
             if text.startswith("BBMODSeedStart: "):
                 stage, _, detail = text.removeprefix("BBMODSeedStart: ").partition(" ")

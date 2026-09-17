@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% block title %}上传 MOD · BBMOD{% endblock %}{% block content %}
+<a class="back" href="{% url 'workshop' %}">← 我的作品</a>
+<section class="page-head"><p class="eyebrow">AUTHOR'S WORKSHOP</p><h1>发布你的 MOD</h1><p>拖入文件，写几句介绍，就能与其他战团分享。</p></section>
+<form method="post" enctype="multipart/form-data" class="panel editor quick-editor" data-upload data-autofill="mod">{% csrf_token %}
+  {% if mod_form.non_field_errors or release_form.non_field_errors %}<div class="notice error" role="alert">{{ mod_form.non_field_errors }}{{ release_form.non_field_errors }}</div>{% endif %}
+  {% include 'dropzone.html' with field=release_form.archive prompt='把 MOD ZIP 拖到这里' %}
+  <div class="form-grid">{% include 'field.html' with field=mod_form.title %}{% include 'field.html' with field=release_form.version %}</div>
+  {% include 'field.html' with field=mod_form.summary %}
+  {% include 'field.html' with field=mod_form.category %}
+  <details class="advanced-options" {% if mod_form.advanced_errors or release_form.cover.errors or release_form.notes.errors %}open{% endif %}>
+    <summary>更多设置 <span>封面、前置 MOD、兼容与安装说明</span></summary>
+    {% include 'field.html' with field=release_form.cover %}
+    {% include 'field.html' with field=release_form.notes %}
+    {% for field in mod_form.advanced_fields %}{% include 'field.html' %}{% endfor %}
+  </details>
+  {% include 'field.html' with field=release_form.rights %}
+  {% include 'field.html' with field=release_form.publish %}
+  <div class="form-actions"><button class="button primary" type="submit">上传并保存作品</button><a href="{% url 'workshop' %}">返回</a></div>
+  {% include 'upload_status.html' %}
+</form>
+{% endblock %}

@@ -73,21 +73,26 @@ def parse_releases(payload: bytes) -> list[Release]:
             key = version_key(tag)
         except (TypeError, ValueError):
             continue
-        # Only the project's own release pages and exact EXE asset are actionable.
+        # Only this project's release page and exact versioned/legacy assets
+        # are actionable. Older clients still need the BBMOD.exe alias.
         url = RELEASES_URL + '/tag/' + tag
         if row.get('html_url') != url:
             continue
         asset_url, size, digest = '', 0, ''
         assets = row.get('assets', [])
-        for asset in (assets if isinstance(assets, list) else []):
-            if not isinstance(asset, dict):
-                continue
-            expected = RELEASES_URL + '/download/' + tag + '/BBMOD.exe'
-            if asset.get('name') != 'BBMOD.exe' or asset.get('state') != 'uploaded' or asset.get('browser_download_url') != expected:
-                continue
-            checksum = asset.get('digest') or ''
-            if re.fullmatch(r'sha256:[0-9a-fA-F]{64}', checksum) and type(asset.get('size')) is int and 0 < asset['size'] <= MAX_DOWNLOAD:
-                asset_url, size, digest = expected, asset['size'], checksum[7:].lower()
+        for filename in (f'BBMOD-{tag.removeprefix("v")}.exe', 'BBMOD.exe'):
+            for asset in (assets if isinstance(assets, list) else []):
+                if not isinstance(asset, dict):
+                    continue
+                expected = RELEASES_URL + '/download/' + tag + '/' + filename
+                if asset.get('name') != filename or asset.get('state') != 'uploaded' or asset.get('browser_download_url') != expected:
+                    continue
+                checksum = asset.get('digest') or ''
+                if re.fullmatch(r'sha256:[0-9a-fA-F]{64}', checksum) and type(asset.get('size')) is int and 0 < asset['size'] <= MAX_DOWNLOAD:
+                    asset_url, size, digest = expected, asset['size'], checksum[7:].lower()
+                    break
+            if asset_url:
+                break
         releases[key] = Release(tag, str(row.get('name') or tag), str(row.get('body') or '此版本没有更新说明。'),
                                 str(row.get('published_at') or ''), bool(row.get('prerelease')) or not key[3], url, asset_url, size, digest)
     return [releases[key] for key in sorted(releases, reverse=True)]

@@ -8,16 +8,20 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import time
 
 from PyInstaller.archive.readers import CArchiveReader
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from core.version import VERSION
+
 
 def main() -> int:
     app_dir = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--exe", type=Path, default=app_dir / "dist/BBMOD.exe")
+    parser.add_argument("--exe", type=Path, default=app_dir / f"dist/BBMOD-{VERSION}.exe")
     parser.add_argument("--report", type=Path, default=app_dir / "build/review/exe-selftest.json")
     args = parser.parse_args()
     executable = args.exe.resolve(strict=True)
