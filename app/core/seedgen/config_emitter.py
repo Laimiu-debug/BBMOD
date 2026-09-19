@@ -129,10 +129,13 @@ class CommonConfig:
 
     @staticmethod
     def preset(mode: str) -> "CommonConfig":
-        """五种推荐模式（对应 config_common.nut 顶部注释）。"""
+        """Common search modes, including camp loot without character filters."""
         presets = {
             "map_only": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
                              OnlyPrintMatchingSettlement=True, PrintLairInfo=False),
+            "lair_only": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
+                              OnlyPrintMatchingSettlement=False, PrintLairInfo=True,
+                              PrintLairNamedDetail=True, OnlyPrintMatchingLair=True),
             "bro_only": dict(GenerateSettlementMode=False, GenerateBrotherMode=True,
                              MatchingBrotherGenerateSettlement=False,
                              OnlyPrintMatchingSettlement=False, PrintLairInfo=False, PrintLairNamedDetail=False),

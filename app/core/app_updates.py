@@ -20,6 +20,8 @@ from .version import VERSION
 REPOSITORY = 'Laimiu-debug/BBMOD'
 RELEASES_URL = f'https://github.com/{REPOSITORY}/releases'
 API_URL = f'https://api.github.com/repos/{REPOSITORY}/releases?per_page=100'
+SITE_ORIGIN = 'https://bbmod.site'
+SITE_API_URL = SITE_ORIGIN + '/api/v1/desktop/releases/'
 MAX_DOWNLOAD = 300 * 1024 * 1024
 VERSION_PATTERN = re.compile(r'^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$')
 
@@ -102,9 +104,48 @@ def available_releases(releases, include_preview):
     return [item for item in releases if include_preview or not item.prerelease]
 
 
+def parse_site_releases(payload: bytes) -> list[Release]:
+    """The official site's schema, with exact paths and version-bound assets."""
+    try:
+        data = json.loads(payload)
+    except (ValueError, UnicodeError) as error:
+        raise ValueError('官网返回了无效的版本数据') from error
+    if not isinstance(data, dict) or data.get('schema_version') != 1 or not isinstance(data.get('releases'), list):
+        raise ValueError('官网返回了无效的版本列表')
+    releases = {}
+    for row in data['releases']:
+        if not isinstance(row, dict):
+            continue
+        try:
+            version = row['version']
+            key = version_key(version)
+            identifier = str(uuid.UUID(row['id']))
+            path = '/downloads/windows/' + identifier + '/'
+            if (row.get('download_path') != path or row.get('filename') != f'BBMOD-{version}.exe'
+                    or type(row.get('size')) is not int or not 0 < row['size'] <= MAX_DOWNLOAD
+                    or not isinstance(row.get('sha256'), str)
+                    or not re.fullmatch('[a-fA-F0-9]{64}', row['sha256'])):
+                continue
+            releases[key] = Release('v' + version, 'BBMOD ' + version, str(row.get('notes') or '此版本没有更新说明。'),
+                str(row.get('published_at') or ''), bool(row.get('prerelease')) or not key[3],
+                SITE_ORIGIN + '/downloads/', SITE_ORIGIN + path, row['size'], row['sha256'].lower())
+        except (KeyError, TypeError, ValueError, AttributeError):
+            continue
+    if data['releases'] and not releases:
+        raise ValueError('官网版本列表缺少可验证的程序文件')
+    return [releases[key] for key in sorted(releases, reverse=True)]
+
+
 def download_host_allowed(url: str) -> bool:
-    parsed = urlsplit(url)
-    return parsed.scheme == 'https' and parsed.hostname in {'github.com', 'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
+    try:
+        parsed = urlsplit(url)
+        if parsed.scheme != 'https' or parsed.username or parsed.password or parsed.port not in (None, 443):
+            return False
+        if parsed.hostname == 'bbmod.site':
+            return bool(re.fullmatch(r'/downloads/windows/[a-f0-9-]{36}/', parsed.path)) and not parsed.query and not parsed.fragment
+        return parsed.hostname in {'github.com', 'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
+    except ValueError:
+        return False
 
 
 def sha256_file(path: Path) -> str:
@@ -129,7 +170,7 @@ def write_json(path: Path, data):
     os.replace(temporary, path)
 
 
-def prepare_install(source: Path, release: Release, *, target: Path | None = None, parent_pid: int | None = None) -> Path:
+def prepare_install(source: Path, release: Release, *, target: Path | None = None, parent_pid: int | None = None, restart=True) -> Path:
     if target is None:
         if not getattr(sys, 'frozen', False) or sys.platform != 'win32':
             raise ValueError('源码运行时请手动使用已下载的 EXE')
@@ -146,7 +187,8 @@ def prepare_install(source: Path, release: Release, *, target: Path | None = Non
     request = source.parent / 'install.json'
     write_json(request, {'source': str(source), 'target': str(target), 'sha256': release.sha256,
                         'size': release.size, 'current_sha256': sha256_file(target), 'version': release.tag,
-                        'parent_pid': os.getpid() if parent_pid is None else parent_pid, 'id': uuid.uuid4().hex})
+                        'parent_pid': os.getpid() if parent_pid is None else parent_pid, 'id': uuid.uuid4().hex,
+                        'restart': bool(restart)})
     return request
 
 
@@ -235,7 +277,9 @@ def install_request(request: Path, *, wait=wait_for_exit, launch=None, verify_mo
         _replace_with_retry(target, backup)
         moved = True
         _replace_with_retry(staged, target)
-        if launch:
+        if not plan.get('restart', True) and not verify_mode:
+            result['restart'] = False
+        elif launch:
             launch(target)
         else:
             command = [str(target)] + (['--selftest'] if verify_mode else [])

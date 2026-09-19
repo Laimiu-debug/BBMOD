@@ -12,6 +12,7 @@ def selftest() -> int:
     from PySide6.QtWidgets import QApplication
     from core.l10n_compat import hooks_assets
     from core.seedgen.traits import traits
+    from core.seedgen.weapons import NAMED_WEAPONS, WEAPON_CHOICES
     from core.version import VERSION
     from ui.main_window import MainWindow, apply_dark_palette
 
@@ -24,14 +25,34 @@ def selftest() -> int:
     app.exec()
     errors = w.dashboard.report.error_count if w.dashboard.report else -1
     manager_ready = w.l10n.sections.count() == 2 and w.l10n.management.choice.count() >= 3
+    guidance_ready = (bool(w.l10n.management.current_name.text())
+                      and w.l10n.management.advanced_panel.isHidden())
     hooks_ready = len(hooks_assets()) == 4
     trait_count = len(traits())
+    weapon_count = len(NAMED_WEAPONS)
+    weapons_ready = w.seedgen.weapon_filter.weapon.count() == len(WEAPON_CHOICES)
+    ports_ready = all(getattr(w.seedgen, name, None) is not None
+                      and getattr(w.seedgen, name).objectName() == name
+                      for name in ('north_south_ports', 'arena_port'))
     updater_ready = hasattr(w, 'updates') and w.updates.reply is None and not w.updates.timer.isActive()
-    print(f"selftest: installed={w.mods.table.rowCount()} l10n_entries={len(w.l10n.entries)} diag_errors={errors} l10n_manager={'ready' if manager_ready else 'missing'} legacy_hooks={'ready' if hooks_ready else 'missing'} seed_traits={trait_count} version={VERSION} updater={'ready' if updater_ready else 'missing'}")
-    ok = w.tabs.count() == 4 and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and hooks_ready and trait_count == 58
+    settings_ready = w.tabs.count() == 7 and w.settings_page.family.count() > 0
+    equipment_ready = (w.inspector.sections.count() == 2 and w.inspector.sections.currentIndex() == 0
+                       and w.inspector.catalog_page.table.rowCount() > 94)
+    launch_ready = (w.l10n.management.session is w.ctx.game_session
+                    and w.ctx.game_session.state in {'idle', 'running'})
+    sharing_ready = (hasattr(w.seedgen, 'publish_all_btn') and hasattr(w.seedgen, 'share_progress')
+                     and not w.seedgen._share_active and not w.seedgen.cancel_share_btn.isEnabled())
+    seed_copy_ready = w.seedgen.copy_codes_btn.objectName() == 'copySeedCodes'
+    print(f"equipment_catalog: {'ready' if equipment_ready else 'missing'} entries={w.inspector.catalog_page.table.rowCount()}")
+    print(f"game_launch_feedback: {'ready' if launch_ready else 'missing'} state={w.ctx.game_session.state}")
+    print(f"localization_guidance: {'ready' if guidance_ready else 'missing'}")
+    print(f"seed_share_queue: {'ready' if sharing_ready else 'missing'}")
+    print(f"seed_code_copy: {'ready' if seed_copy_ready else 'missing'}")
+    print(f"selftest: installed={w.mods.table.rowCount()} l10n_entries={len(w.l10n.entries)} diag_errors={errors} l10n_manager={'ready' if manager_ready else 'missing'} legacy_hooks={'ready' if hooks_ready else 'missing'} seed_traits={trait_count} seed_weapons={weapon_count if weapons_ready else 0} seed_ports={'ready' if ports_ready else 'missing'} version={VERSION} updater={'ready' if updater_ready else 'missing'} font_settings={'ready' if settings_ready else 'missing'}")
+    ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and guidance_ready and hooks_ready and trait_count == 58
     if w.ctx.game:
         ok = ok and errors >= 0
-    return 0 if ok and updater_ready else 1
+    return 0 if ok and updater_ready and weapons_ready and weapon_count == 50 and ports_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready else 1
 
 
 def main() -> int:

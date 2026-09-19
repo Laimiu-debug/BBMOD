@@ -27,28 +27,52 @@ def main() -> int:
     executable = args.exe.resolve(strict=True)
     archive = CArchiveReader(str(executable))
     bundled = {name.replace("\\", "/"): name for name in archive.toc}
-    required = ["assets/bbmod.ico", "assets/crest-painted.png", "assets/camp-painted.png",
+    required = ["assets/equipment/manifest.json", "data/equipment_catalog.json", "assets/game-ui/dialog_panel_01.png", "data/item_inspector/catalog.json", "data/item_inspector/bridge.nut", "data/item_inspector/hover.js", "assets/bbmod.ico", "assets/crest-painted.png", "assets/camp-painted.png",
                 "assets/panel-frame.svg", "assets/Cinzel.ttf",
                 "localization/catalog.json", "localization/full_catalog.json", "localization/runtime.js",
+                "localization/name_order.json", "localization/reviewed_dynamic.json", "localization/reviewed_contextual.json", "localization/reviewed_source_fixes.json",
                 "localization/place_names.json", "localization/place_name_pools.cnut",
                 "localization/reviewed_place_names.json", "localization/place_session.nut",
                 "localization/NotoSansSC-Regular.ttf", "localization/FONT-LICENSE.txt",
                 "localization/NotoSerifSC-SemiBold.ttf", "localization/MAP-FONT-LICENSE.txt",
-                "native/bin/bbmod_launch.exe", "native/bin/bbmod_han.dll", "seedgen/payload/mod_hooks.zip",
+                "localization/map_labels.nut", "localization/map_labels.js", "localization/map_labels.css",
+                "seedgen/payload/mod_hooks.zip",
                 "data/seed_traits.json", "seedgen/payload/seed_generator/config_role_condition.nut",
+                "seedgen/payload/seed_generator/config_map_condition.nut",
+                "seedgen/payload/seed_generator/function_map_output_check.nut",
+                "seedgen/payload/seed_generator/function_generate_settlement.nut",
                 "seedgen/payload/seed_generator/function_brother_output_check.nut",
                 "seedgen/payload/seed_generator/config_campaign.nut",
                 "seedgen/payload/seed_generator/function_auto_start.nut"]
     missing = [name for name in required if name not in bundled]
     if missing:
         raise RuntimeError(f"缺少打包资源：{missing}")
-    for name in ('data/seed_traits.json', 'seedgen/payload/seed_generator/config_role_condition.nut',
+    retired = [name for name in bundled if name.rsplit('/', 1)[-1] in {'bbmod_launch.exe', 'bbmod_han.dll'}]
+    if retired:
+        raise RuntimeError('新版不得携带旧注入组件：' + '、'.join(retired))
+    python_archive = archive.open_embedded_archive(next(name for name in archive.toc if name.startswith('PYZ')))
+    if 'core.native_font' in python_archive.toc:
+        raise RuntimeError('新版不得携带旧注入启动代码')
+    if 'core.l10n_display' not in python_archive.toc:
+        raise RuntimeError('EXE 缺少人物和势力名称显示词库的构建组件')
+    if 'core.l10n_context' not in python_archive.toc:
+        raise RuntimeError('EXE 缺少按使用场景区分译文的构建组件')
+    equipment_icons = json.loads(archive.extract(bundled['assets/equipment/manifest.json']))
+    for filename, metadata in equipment_icons['files'].items():
+        resource = 'assets/equipment/' + filename
+        if resource not in bundled or hashlib.sha256(archive.extract(bundled[resource])).hexdigest() != metadata['sha256']:
+            raise RuntimeError('EXE 中的装备图标缺失或校验失败：' + resource)
+    for name in ('localization/runtime.js', 'localization/name_order.json', 'localization/reviewed_dynamic.json', 'localization/reviewed_contextual.json', 'localization/reviewed_source_fixes.json', 'localization/reviewed_place_names.json',
+                 'assets/equipment/manifest.json', 'assets/bbmod.ico', 'data/equipment_catalog.json', 'data/item_inspector/catalog.json', 'data/item_inspector/bridge.nut', 'assets/game-ui/dialog_panel_01.png', 'data/seed_traits.json', 'seedgen/payload/seed_generator/config_role_condition.nut',
+                 'seedgen/payload/seed_generator/config_map_condition.nut',
+                 'seedgen/payload/seed_generator/function_map_output_check.nut',
+                 'seedgen/payload/seed_generator/function_generate_settlement.nut',
                  'seedgen/payload/seed_generator/function_brother_output_check.nut',
                  'seedgen/payload/seed_generator/config_campaign.nut',
                  'seedgen/payload/seed_generator/function_auto_start.nut',
                  'seedgen/payload/scripts/!mods_preload/mod_seed_generator.nut'):
         if archive.extract(bundled[name]) != (app_dir/name).read_bytes():
-            raise RuntimeError('EXE 中的种子生成资源与源码不一致：'+name)
+            raise RuntimeError('EXE 中的资源与源码不一致：'+name)
     hooks_bytes = archive.extract(bundled['seedgen/payload/mod_hooks.zip'])
     if hooks_bytes != (app_dir / 'seedgen/payload/mod_hooks.zip').read_bytes():
         raise RuntimeError('EXE 中的 MOD 框架与已核验的本地资源不一致')
@@ -61,15 +85,10 @@ def main() -> int:
     full = json.loads(full_bytes)
     policy_bytes = archive.extract(bundled['localization/place_names.json'])
     policy_hash = hashlib.sha256(policy_bytes).hexdigest()
-    for name in ('place_names.json', 'place_name_pools.cnut', 'runtime.js', 'reviewed_place_names.json', 'place_session.nut'):
+    for name in ('place_names.json', 'place_name_pools.cnut', 'runtime.js', 'reviewed_place_names.json', 'place_session.nut',
+                 'map_labels.nut', 'map_labels.js', 'map_labels.css'):
         if archive.extract(bundled['localization/' + name]) != (app_dir / 'localization' / name).read_bytes():
             raise RuntimeError('EXE 中的地名配置或界面组件与当前版本不一致')
-    native_hashes = {}
-    for name in ('bbmod_launch.exe', 'bbmod_han.dll'):
-        raw = archive.extract(bundled['native/bin/' + name])
-        if raw != (app_dir / 'build/native' / name).read_bytes():
-            raise RuntimeError('EXE 中的原生显示组件与当前构建不一致')
-        native_hashes[name] = hashlib.sha256(raw).hexdigest()
     if full.get('translation_stage') != 'complete_draft':
         raise RuntimeError('EXE 未包含完整初译目录')
     policy = json.loads(policy_bytes)
@@ -100,6 +119,24 @@ def main() -> int:
             raise RuntimeError('EXE 中的兼容框架未通过加载校验')
         if result.returncode == 0 and b'seed_traits=58' not in result.stdout:
             raise RuntimeError('EXE 未加载完整的开局特质筛选资源')
+        if result.returncode == 0 and b'seed_weapons=50' not in result.stdout:
+            raise RuntimeError('EXE 未加载红武器筛选界面和完整类型列表')
+        if result.returncode == 0 and b'seed_ports=ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载南北港和竞技场港筛选界面')
+        if result.returncode == 0 and ('version=' + VERSION).encode() not in result.stdout:
+            raise RuntimeError('EXE 中的软件版本与当前发布版本不一致')
+        if result.returncode == 0 and b'font_settings=ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载字体设置页面')
+        if result.returncode == 0 and b'equipment_catalog: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载离线装备表格及独立鉴定页签')
+        if result.returncode == 0 and b'game_launch_feedback: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载共享启动状态或未完成游戏进程检查')
+        if result.returncode == 0 and b'localization_guidance: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载当前汉化状态与默认收起的高级制作入口')
+        if result.returncode == 0 and b'seed_share_queue: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载种子批量分享队列')
+        if result.returncode == 0 and b'seed_code_copy: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载常驻种子码复制入口')
         if result.returncode == 0 and b'updater=ready' not in result.stdout:
             raise RuntimeError('EXE 未加载版本管理与更新组件')
         report = {
@@ -112,7 +149,15 @@ def main() -> int:
             "full_catalog_sha256": full_sha256,
             "place_name_policy_sha256": policy_hash,
             "reviewed_geographic_entries": len(place_review['reviewed_ids']),
-            "native_components_sha256": native_hashes,
+            "retired_native_components_included": False,
+            "retired_native_loader_included": False,
+            "font_settings_ready": b'font_settings=ready' in result.stdout,
+            "equipment_catalog_ready": b'equipment_catalog: ready' in result.stdout,
+            "game_launch_feedback_ready": b'game_launch_feedback: ready' in result.stdout,
+            "localization_guidance_ready": b'localization_guidance: ready' in result.stdout,
+            "seed_share_queue_ready": b'seed_share_queue: ready' in result.stdout,
+            "seed_code_copy_ready": b'seed_code_copy: ready' in result.stdout,
+            "equipment_icon_files": len(equipment_icons['files']),
             "hooks_archive_sha256": hashlib.sha256(hooks_bytes).hexdigest(),
             "translation_stage": full['translation_stage'],
             "editorial_review": editorial,
@@ -123,6 +168,8 @@ def main() -> int:
             "stderr": result.stderr.decode(errors="replace"),
             "game_acceptance": "pending",
             "seed_trait_choices": 58,
+            "seed_weapon_choices": 50,
+            "seed_port_filters_ready": b'seed_ports=ready' in result.stdout,
             "updater_ready": b'updater=ready' in result.stdout,
         }
     args.report.parent.mkdir(parents=True, exist_ok=True)

@@ -14,10 +14,11 @@ import zipfile
 from .cnut import Cnut, patch_literals
 from .cnut_semantics import protected_literals
 from .game import OFFICIAL_ARCHIVES
-from .l10n_tokens import validate_translation
+from .l10n_tokens import validate_translation, reviewed_source_structures
 from .paths import resource_path
 from .place_names import load_policy, geographic_spans, owner_pool_patches, preserve_inline_names, POOL_ENTRY, POOL_FILE
 from .l10n_compat import DISPLAY_ONLY_FILES
+from .l10n_context import CONTEXT_FILE, entries_for_context, load_contextual_terms
 
 FULL_CATALOG_FILE = resource_path('localization/full_catalog.json')
 CATEGORIES = {'ambitions': '志向与誓言', 'config': '名称与游戏术语', 'contracts': '委托与谈判', 'entity': '人物、城镇与世界', 'events': '事件与剧情', 'items': '武器、护甲与物品', 'retinue': '随从', 'scenarios': '起源与战斗场景', 'skills': '技能、特长与状态', 'states': '战役与战斗提示', 'ui': '游戏界面', 'ai': '地图行军状态', 'factions': '势力', 'dlc': '扩展内容', 'mapgen': '世界生成'}
@@ -57,10 +58,12 @@ def patch_js(raw: bytes, patches: list, entries: dict) -> bytes:
     return b''.join(chunks)
 
 
-def write_full_patches(zf: zipfile.ZipFile, game_root: Path, catalog: dict, overrides: dict[str, str], *, catalog_sha256: str | None = None) -> dict:
+def write_full_patches(zf: zipfile.ZipFile, game_root: Path, catalog: dict, overrides: dict[str, str], *, catalog_sha256: str | None = None, custom_overrides: dict[str, str] | None = None) -> dict:
     policy = load_policy(catalog)
     entries = {key: {**entry, 'translation': overrides.get(entry['source'], entry['translation'])} for key, entry in catalog['entries'].items()}
     entries = preserve_inline_names(entries, policy)
+    contextual = load_contextual_terms(catalog)
+    explicit_overrides = overrides if custom_overrides is None else custom_overrides
     for key, entry in entries.items():
         problems = validate_translation(entry['source'], entry['translation'])
         if problems:
@@ -94,8 +97,9 @@ def write_full_patches(zf: zipfile.ZipFile, game_root: Path, catalog: dict, over
             if name in DISPLAY_ONLY_FILES:
                 # Keep the vanilla/MOD implementation, translate its DOM labels.
                 continue
+            file_entries = entries_for_context(entries, contextual.get(name, {}), explicit_overrides)
             if spec.get('kind') == 'js':
-                result = patch_js(raw, spec['patches'], entries)
+                result = patch_js(raw, spec['patches'], file_entries)
                 replacement_count = len(spec['patches'])
             else:
                 parsed = Cnut(raw, encrypted=True)
@@ -105,12 +109,12 @@ def write_full_patches(zf: zipfile.ZipFile, game_root: Path, catalog: dict, over
                     lit = spans.get(start)
                     if lit is None or lit.end != end:
                         raise ValueError(f'{name}：文本位置不是字符串常量')
-                    if lit.index in protected[lit.function] and entries[key]['translation'] != lit.text:
+                    if lit.index in protected[lit.function] and file_entries[key]['translation'] != lit.text:
                         raise ValueError(f'{name}：不能翻译游戏内部标识 {lit.text}')
                 geography = geographic_spans(policy, name)
                 patches = [p for p in spec['patches'] if tuple(p) not in geography]
                 extras, extra_entries = owner_pool_patches(name, parsed) if policy else ([], {})
-                result = patch_literals(raw, patches + extras, {**entries, **extra_entries})
+                result = patch_literals(raw, patches + extras, {**file_entries, **extra_entries})
                 retained_names += len(geography)
                 pool_changes += len(extras)
                 replacement_count = len(patches)
@@ -129,4 +133,7 @@ def write_full_patches(zf: zipfile.ZipFile, game_root: Path, catalog: dict, over
     zf.writestr('BBMOD_TEXT_SOURCES.json', json.dumps(sources, ensure_ascii=False))
     if catalog_sha256 is None:
         catalog_sha256 = hashlib.sha256(json.dumps(catalog,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf-8')).hexdigest()
-    return {'full_text_files': len(sources), 'text_replacements': count, 'full_text_entries': len(entries), 'translation_stage': catalog.get('translation_stage', 'draft'), 'editorial_review': catalog.get('editorial_review', {}), 'native_map_font': catalog.get('native_map_font', 'pending'), 'full_catalog_sha256': catalog_sha256, **policy_meta}
+    return {'full_text_files': len(sources), 'text_replacements': count, 'full_text_entries': len(entries), 'translation_stage': catalog.get('translation_stage', 'draft'), 'editorial_review': catalog.get('editorial_review', {}), 'native_map_font': catalog.get('native_map_font', 'pending'), 'full_catalog_sha256': catalog_sha256,
+            'contextual_text_entries': sum(len(terms) for terms in contextual.values()),
+            'reviewed_source_marker_fixes': len(reviewed_source_structures()),
+            'contextual_text_sha256': hashlib.sha256(CONTEXT_FILE.read_bytes()).hexdigest(), **policy_meta}

@@ -6,6 +6,7 @@ fragments. No game process, save, or Steam installation is opened or changed.
 from __future__ import annotations
 
 import hashlib
+import argparse
 import json
 from pathlib import Path
 import re
@@ -26,6 +27,7 @@ FILES = [
         'effects/indomitable_effect', 'effects/honor_guard_potion_effect',
         'effects/dazed_effect', 'effects/chilled_effect',
         'actives/gash_skill', 'actives/deathblow_skill',
+        'actives/cleave', 'actives/whip_skill',
     )),
 ]
 
@@ -37,7 +39,7 @@ HARNESS = r'''
  min=function(a,b){return a<b?a:b;}, minf=function(a,b){return a<b?a:b;},
  max=function(a,b){return a>b?a:b;}, abs=function(v){return ::abs(v);}, pow=function(a,b){return ::pow(a,b);} };
 ::fixture <- {armor=[300,300], fat=[-5,-10], specialized=false};
-::props <- {IsSpecializedInSwords=false};
+::props <- {IsSpecializedInSwords=false,IsSpecializedInCleavers=false};
 ::actor <- {
  getArmor=function(part){return ::fixture.armor[part];},
  getCurrentProperties=function(){::props.IsSpecializedInSwords=::fixture.specialized;return ::props;},
@@ -94,6 +96,11 @@ tooltip("chilled",chilled_effect);
 tooltip("gash.normal",gash_skill,false);
 ::fixture.specialized=true; tooltip("gash.mastery",gash_skill,false);
 tooltip("deathblow",deathblow_skill,false);
+tooltip("cleave.normal",cleave,false);
+tooltip("whip.normal",whip_skill,false);
+::props.IsSpecializedInCleavers=true;
+tooltip("cleave.mastery",cleave,false);
+tooltip("whip.mastery",whip_skill,false);
 print("BBMOD_COMPOSED_PASS\\n");
 '''
     harness = TARGET/(label+'.nut')
@@ -112,8 +119,14 @@ print("BBMOD_COMPOSED_PASS\\n");
 
 
 def main():
+    global TARGET
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--package', type=Path, default=WORK/'preview-package/mod_bbmod_zhcn.zip')
+    parser.add_argument('--output', type=Path, default=TARGET)
+    args = parser.parse_args()
+    TARGET = args.output
     TARGET.mkdir(parents=True,exist_ok=True)
-    package = WORK/'preview-package/mod_bbmod_zhcn.zip'
+    package = args.package
     patched = TARGET/'patched'
     with zipfile.ZipFile(package) as archive:
         for name in FILES:
@@ -134,6 +147,10 @@ def main():
         'tooltip.battle_forged.600.0':'承受原本的70%护甲伤害',
         'tooltip.nimble.15.0':'承受原本的40%生命值伤害',
         'tooltip.indomitable.2':'承受原本的50%伤害',
+        'tooltip.cleave.normal.0':'额外施加可叠加的流血效果，每回合造成5点流血伤害，持续2回合',
+        'tooltip.cleave.mastery.0':'额外施加可叠加的流血效果，每回合造成10点流血伤害，持续2回合',
+        'tooltip.whip.normal.1':'额外施加可叠加的流血效果，每回合造成10点流血伤害，持续2回合',
+        'tooltip.whip.mastery.1':'额外施加可叠加的流血效果，每回合造成20点流血伤害，持续2回合',
     }
     for key,value in expected.items():
         assert plain[key]==value,(key,plain[key])
@@ -154,11 +171,12 @@ def main():
     report={
         'package_sha256':hashlib.sha256(package.read_bytes()).hexdigest(),
         'full_catalog_sha256':hashlib.sha256((APP/'localization/full_catalog.json').read_bytes()).hexdigest(),
-        'game_started':False, 'game_acceptance':'not_run_user_requested_offline_only',
+        'game_started':False, 'game_acceptance':'not_performed',
         'source':'actual original and packaged bytecode executed in offline Squirrel with engine fixtures',
         'files':len(FILES), 'rendered_texts':len(current),
         'native_execution':'passed', 'numbers_variables_markup':'passed',
         'damage_percentages':'passed', 'names_and_composed_tooltips':'passed',
+        'bleeding_normal_and_mastery':'passed',
         'texts':{key:{'source':original[key],'translation':current[key],'plain':plain[key]} for key in sorted(current)},
     }
     (TARGET/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf8')

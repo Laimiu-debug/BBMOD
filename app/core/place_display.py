@@ -1,4 +1,4 @@
-"""One reviewed, display-only place lexicon for the native map and HTML UI."""
+"""One reviewed, display-only place lexicon for map labels and HTML UI."""
 from __future__ import annotations
 
 import hashlib
@@ -12,10 +12,11 @@ from .paths import resource_path
 REVIEW_FILE = resource_path('localization/reviewed_place_names.json')
 BRIDGE_FILE = resource_path('localization/place_session.nut')
 BRIDGE_ENTRY = 'scripts/!mods_preload/bbmod_place_session.nut'
+CONFIG_ENTRY = 'scripts/!mods_preload/bbmod_place_config.nut'
 DATA_ENTRY = 'ui/mods/bbmod_l10n/place_names.tsv'
 JS_ENTRY = 'ui/mods/bbmod_l10n/place_names.js'
 HEADER = 'BBMOD-PLACE-DISPLAY-1\n'
-MODE = 'launcher_session'
+MODE = 'mod_ui'
 
 
 def reviewed_places(catalog, policy):
@@ -84,14 +85,16 @@ def build_display_data(catalog, policy, dictionary):
 def write_display_assets(archive, catalog, policy, dictionary):
     raw, names = build_display_data(catalog, policy, dictionary)
     digest = hashlib.sha256(raw).hexdigest()
-    config = {'session': 'zh-CN:' + digest, 'names': names}
+    config = {'session': 'zh-CN:' + digest, 'names': names, 'mode': MODE}
     archive.writestr(DATA_ENTRY, raw)
     archive.writestr(JS_ENTRY, 'window.BBMOD_PLACE_NAMES = ' + json.dumps(config, ensure_ascii=True) + ';\n')
     archive.write(BRIDGE_FILE, BRIDGE_ENTRY)
+    archive.writestr(CONFIG_ENTRY, '::BBMODPlaceDisplaySession <- "zh-CN:' + digest + '";\n')
+    from .map_labels import write_assets
     return {'place_name_display': MODE, 'place_display_sha256': digest,
             'reviewed_place_entries': len(policy['name_keys']), 'expanded_place_names': len(names),
             'place_display_bridge_sha256': hashlib.sha256(BRIDGE_FILE.read_bytes()).hexdigest(),
-            'place_name_save_policy': 'original_english_unchanged'}
+            'place_name_save_policy': 'original_english_unchanged', **write_assets(archive)}
 
 
 def read_packaged_display(package):
@@ -124,10 +127,15 @@ def read_packaged_display(package):
         if not script.startswith(prefix) or not script.endswith(';\n'):
             raise ValueError('界面地名词库格式无效')
         config = json.loads(script[len(prefix):-2])
-        if config != {'session': 'zh-CN:' + manifest['place_display_sha256'], 'names': names}:
+        if config != {'session': 'zh-CN:' + manifest['place_display_sha256'], 'names': names, 'mode': MODE}:
             raise ValueError('地图与对话的地名词库不一致，请重新生成汉化包')
         bridge = archive.read(BRIDGE_ENTRY)
         if (hashlib.sha256(bridge).hexdigest() != manifest.get('place_display_bridge_sha256')
                 or bridge != BRIDGE_FILE.read_bytes()):
             raise ValueError('地名会话组件不匹配，请更新软件并重新生成汉化包')
+        expected_config = '::BBMODPlaceDisplaySession <- "zh-CN:' + manifest['place_display_sha256'] + '";\n'
+        if archive.read(CONFIG_ENTRY).decode('ascii') != expected_config:
+            raise ValueError('地名显示配置不一致，请重新生成汉化包')
+        from .map_labels import validate_assets
+        validate_assets(archive, manifest)
         return raw

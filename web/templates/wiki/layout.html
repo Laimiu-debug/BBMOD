@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% load static %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'wiki.css' %}"><script src="{% static 'wiki.js' %}" defer></script>{% if wiki_snapshot %}<link rel="stylesheet" href="{% url 'wiki_styles' wiki_snapshot %}">{% endif %}{% endblock %}
+{% block content %}<div class="wiki-shell" data-wiki-mode="{{ wiki_mode }}">{% block wiki_content %}{% endblock %}</div>{% endblock %}

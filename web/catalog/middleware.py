@@ -44,5 +44,6 @@ class SecurityHeadersMiddleware:
         # Public pages also contain the visitor's session state and CSRF tokens.
         # Never let a reverse-proxy cache replay them to a different visitor.
         # WhiteNoise serves static assets before this middleware.
-        response['Cache-Control'] = 'private, no-store'
+        if not getattr(response, 'bbmod_public_asset', False):
+            response['Cache-Control'] = 'private, no-store'
         return response

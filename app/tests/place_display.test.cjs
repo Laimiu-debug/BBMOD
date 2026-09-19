@@ -6,7 +6,7 @@ const assets = path.resolve(process.argv[3]);
 const source = name => fs.readFileSync(path.join(assets,name),'utf8');
 const config = JSON.parse(source('place_names.js').replace(/^window.BBMOD_PLACE_NAMES = /,'').replace(/;\n$/,''));
 
-function session(marker, delayed=false) {
+function session(marker, delayed=false, automatic=false) {
     const dom = new JSDOM('<body><div id="dialogue">护送商队前往Wiesendorf，随后探索Black Monolith。</div><div id="map">Wiesendorf</div><button id="menu">New Campaign</button><input id="Wiesendorf" value="Wiesendorf"><div contenteditable="true">Black Monolith</div><div data-bbmod-translate="off">Wiesendorf</div><div id="title" title="Wiesendorf" data-place-id="Wiesendorf"></div></body>',{runScripts:'outside-only'});
     const w=dom.window, calls=[], pending=[];
     w.MainMenuScreen=function(){};
@@ -21,7 +21,10 @@ function session(marker, delayed=false) {
         }
     }};
     w.setTimeout=callback=>{pending.push(callback);return pending.length;};
-    for(const name of ['mod_hooks.js','dictionary.js','place_names.js','runtime.js'])w.eval(source(name));
+    for(const name of ['mod_hooks.js','dictionary.js','place_names.js','runtime.js']) {
+        if(name==='runtime.js' && !automatic) delete w.BBMOD_PLACE_NAMES.mode;
+        w.eval(source(name));
+    }
     w.BBMODL10N.start();
     const screen=new w.MainMenuScreen();screen.onConnection(123);
     assert.equal(screen.connected,1);
@@ -32,6 +35,14 @@ function session(marker, delayed=false) {
 }
 
 (async()=>{
+    // New ordinary MOD mode translates both launch routes without a native token.
+    for(const marker of ['', null, config.session]) {
+        const {dom,w,calls} = session(marker, false, true);
+        for(const [english,chinese] of Object.entries(config.names)) assert.equal(w.BBMODL10N.translate(english),chinese);
+        assert.equal(w.document.querySelector('#dialogue').textContent,'护送商队前往维森多夫，随后探索黑色巨石。');
+        assert(!calls.includes('bbmodGetPlaceNameSession'));
+        dom.window.close();
+    }
     for(const marker of ['',null,'zh-CN:wrong-dictionary']){
         const {dom,w,calls}=session(marker);
         assert.equal(w.document.querySelector('#map').textContent,'Wiesendorf');

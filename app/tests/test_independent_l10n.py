@@ -27,16 +27,16 @@ def isolated_catalog(monkeypatch):
 
 
 def test_full_catalog_review_and_display_fallback_survive_packaging(game_root, tmp_path, monkeypatch):
-    from core import full_l10n, native_font
+    from core import full_l10n, map_labels
     source = 'New Campaign'
     catalog = {'schema_version':1, 'scope_description':'独立初译', 'translation_stage':'complete_draft',
-               'files':{}, 'display_fallbacks':{'Overview':'委托概览'},
+               'files':{}, 'display_fallbacks':{'Overview':'委托概览', 'AP to switch.':'旧的切换提示'},
                'entries':{'entry':{'source':source, 'translation':'校对后的新战役', 'category':'ui', 'status':'reviewed'}}}
     published = tmp_path/'catalog.json'
     published.write_text(json.dumps(catalog), encoding='utf8')
     monkeypatch.setattr(l10n, 'load_full_catalog', lambda: catalog)
     monkeypatch.setattr(full_l10n, 'FULL_CATALOG_FILE', published)
-    monkeypatch.setattr(native_font, 'check_executable', lambda _: None)
+    monkeypatch.setattr(map_labels, 'check_executable', lambda _: None)
     assert l10n.translated_catalog()[source] == '校对后的新战役'
     output = tmp_path/'full.zip'
     l10n.build_localization(game_root, {source:'用户指定新战役'}, output)
@@ -44,6 +44,8 @@ def test_full_catalog_review_and_display_fallback_survive_packaging(game_root, t
         dictionary = json.loads(z.read(l10n.UI_ROOT+'dictionary.js').decode().partition(' = ')[2].rstrip(';\n'))
         assert dictionary[source] == '用户指定新战役'
         assert dictionary['Overview'] == '委托概览'
+        assert dictionary['AP to switch.'] == '点行动点（切换装备）。'
+        assert dictionary.get('s', 's') == 's'
 
 
 def test_build_uses_only_base_ui_and_independent_assets(game_root, tmp_path):

@@ -1,0 +1,12 @@
+{
+  "game": "Battle Brothers 1.5.2.3",
+  "archive": "data_001.dat",
+  "copyright": "Game artwork copyright Overhype Studios. BBMOD is an unofficial community tool.",
+  "files": [
+    {
+      "file": "dialog_panel_01.png",
+      "source": "gfx/ui/skin/dialog_panel_01.png",
+      "sha256": "7d0467acb1a3b403ab236ea9abb5be197ba9013a567e68a233b26c42f0e933dc"
+    }
+  ]
+}

@@ -149,3 +149,43 @@ class SiteVisitor(models.Model):
     first_seen = models.DateTimeField(auto_now_add=True, db_index=True)
     last_seen = models.DateTimeField(db_index=True)
     page_views = models.PositiveBigIntegerField(default=1)
+
+
+class Suggestion(models.Model):
+    class Kind(models.TextChoices):
+        FEATURE = 'feature', '功能建议'
+        BUG = 'bug', '问题反馈'
+        OTHER = 'other', '其他想法'
+
+    class Status(models.TextChoices):
+        NEW = 'new', '待查看'
+        REVIEWING = 'reviewing', '处理中'
+        DONE = 'done', '已完成'
+        CLOSED = 'closed', '暂不采纳'
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    kind = models.CharField('建议类型', max_length=15, choices=Kind.choices)
+    title = models.CharField('一句话概括', max_length=100)
+    details = models.TextField('详细说明', max_length=5000)
+    version = models.CharField('相关版本', max_length=60, blank=True)
+    nickname = models.CharField('怎么称呼你', max_length=40, blank=True)
+    contact = models.CharField('联系方式', max_length=150, blank=True)
+    status = models.CharField('处理状态', max_length=15, choices=Status.choices, default=Status.NEW, db_index=True)
+    internal_notes = models.TextField('内部备注', max_length=5000, blank=True)
+    handled_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at', '-id']
+
+    @property
+    def reference(self):
+        return self.id.hex[:12].upper()
+
+
+class SuggestionBudget(models.Model):
+    # Short-lived keyed hashes only; never persist the visitor's IP address.
+    key = models.CharField(max_length=64, primary_key=True)
+    count = models.PositiveIntegerField(default=0)
+    since = models.DateTimeField(auto_now_add=True, db_index=True)

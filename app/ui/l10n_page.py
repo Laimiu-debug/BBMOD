@@ -19,6 +19,34 @@ from .theme import GREEN, MUTED, style_button, style_table
 from .localization_manager import LocalizationManager
 
 
+class WorkshopTabs(QTabWidget):
+    """The hidden translation editor must not push management actions offscreen."""
+
+    def __init__(self):
+        super().__init__()
+        self.currentChanged.connect(self.updateGeometry)
+
+    def minimumSizeHint(self):
+        size = super().minimumSizeHint()
+        if self.currentWidget() is not None:
+            heights = [self.widget(i).minimumSizeHint().height() for i in range(self.count())]
+            chrome = max(0, size.height() - max(heights))
+            size.setHeight(self.currentWidget().minimumSizeHint().height() + chrome)
+        return size
+
+    def heightForWidth(self, width):
+        page = self.currentWidget()
+        if page is None:
+            return super().heightForWidth(width)
+        # QTabWidget normally uses the largest height-for-width of every tab.
+        # Keep the active controls' font-aware preferred heights; the management
+        # table has its own smaller minimum and can scroll independently.
+        minimum = self.minimumSizeHint()
+        chrome = minimum.height() - page.minimumSizeHint().height()
+        page_height = page.layout().totalHeightForWidth(max(0, width - 4))
+        return max(minimum.height(), page_height + chrome)
+
+
 class L10nPage(QWidget):
     def __init__(self, ctx: AppContext) -> None:
         super().__init__()
@@ -33,22 +61,25 @@ class L10nPage(QWidget):
         self._page_size = 200
         self._rows = []
         shell = QVBoxLayout(self)
-        self.sections = QTabWidget()
-        self.management = LocalizationManager(ctx, self.build_and_install)
-        self.sections.addTab(self.management, '汉化管理与启动')
+        self.sections = WorkshopTabs()
+        self.management = LocalizationManager(ctx, self.open_editor)
+        self.ctx.game_session.changed.connect(lambda: self._set_busy(self._busy))
+        self.sections.addTab(self.management, '当前汉化与切换')
         editor_page = QWidget()
-        self.sections.addTab(editor_page, '独立译文编辑')
+        self.sections.addTab(editor_page, '译文编辑与制作')
+        self.sections.setTabToolTip(1, '高级制作工具；查看当前汉化和日常启动请使用第一个页签')
         shell.addWidget(self.sections)
         root = QVBoxLayout(editor_page)
-        info = QGroupBox('BBMOD 独立汉化  /  ' + l10n.VERSION)
+        info = QGroupBox('汉化制作工具 · 内置译文版本 ' + l10n.VERSION)
         info_layout = QVBoxLayout(info)
         top = QHBoxLayout()
         self.status_label = QLabel()
         self.status_label.setWordWrap(True)
         top.addWidget(self.status_label, 1)
-        self.export_btn = QPushButton('导出汉化包')
+        self.export_btn = QPushButton('制作并导出 ZIP')
         style_button(self.export_btn, 'save')
-        self.build_btn = QPushButton('生成并选择此汉化')
+        self.build_btn = QPushButton('制作并预览切换')
+        self.build_btn.setToolTip('用此页译文制作新包；完成后仍需到管理页确认应用，当前汉化才会改变')
         style_button(self.build_btn, 'download', primary=True)
         self.uninstall_btn = QPushButton('卸载本汉化')
         style_button(self.uninstall_btn, 'close')
@@ -65,7 +96,7 @@ class L10nPage(QWidget):
         self.uninstall_btn.hide()
         self.launch_btn.hide()
         info_layout.addLayout(top)
-        self.scope_label = QLabel('当前范围：' + self.meta['scope'] + '。从 BBMOD 启动时，地图、任务和对话显示中文地名；直接启动时显示英文。旧存档中已保存的中文名称不会自动恢复。')
+        self.scope_label = QLabel('仅在首次制作、修改译文或修复汉化包时使用此页，日常启动无需制作。译文范围：' + self.meta['scope'] + '。新版独立汉化应用后，从 Steam 或本软件启动均显示中文地名。')
         self.scope_label.setObjectName('muted')
         self.scope_label.setWordWrap(True)
         info_layout.addWidget(self.scope_label)
@@ -269,7 +300,7 @@ class L10nPage(QWidget):
         manifests = [l10n.package_manifest(path) or {} for path in installed]
         self.game_path_label.setText('当前游戏目录：' + str(game.root) if game else '当前尚未指定游戏目录')
         if not game:
-            self.status_label.setText('译文目录已就绪。指定游戏目录后即可构建汉化包。')
+            self.status_label.setText('这里编辑内置译文；查看当前使用的汉化，请先选择游戏目录并返回“当前汉化与切换”。')
         elif installed:
             if any(m.get('translation_stage') == 'partial_preview' for m in manifests):
                 state = '独立汉化开发测试版已安装 · 仍有缺译'
@@ -279,21 +310,20 @@ class L10nPage(QWidget):
                          else '独立正文汉化已安装 · 剧情初稿待校对')
             else:
                 state = '独立菜单汉化已安装 · 正文汉化尚未安装'
-            self.status_label.setText(state)
+            self.status_label.setText(state + '。日常使用无需重新制作；修改译文后才需生成新包。')
         else:
             fox = any('狐狸' in path.name for path in game.data_dir.glob('*.zip'))
-            self.status_label.setText('此目录仍装有狐狸汉化 · 尚未安装 BBMOD 独立汉化' if fox else f'独立词库已就绪 · {len(self.entries)} 条译文 · 当前尚未安装')
+            self.status_label.setText('当前检测到其他汉化文件；可继续使用。此页仅制作 BBMOD 汉化，不会编辑其他汉化。' if fox else
+                                      f'内置 {len(self.entries)} 条译文可供制作。只使用已有汉化时，无需操作此页。')
         self._set_busy(self._busy)
-        self.uninstall_btn.setEnabled(bool(installed) and not self._busy)
+        self.uninstall_btn.setEnabled(bool(installed) and not self._busy and not self.ctx.game_session.occupied)
         native = any(m.get('requires_bbmod_launcher') or m.get('uses_bbmod_map_font') for m in manifests)
-        self.launch_btn.setEnabled(native and not self._busy and not getattr(self.ctx, 'seedgen_active', False))
-        self.launch_btn.setToolTip('安装完整汉化后，由此启动游戏并加载中文地图字体。')
+        self.launch_btn.setEnabled(bool(installed) and not self._busy and not getattr(self.ctx, 'seedgen_active', False)
+                                   and not self.ctx.game_session.occupied)
+        self.launch_btn.setToolTip('启动当前目录的游戏。新版中文地名由汉化包直接显示。')
         if native:
-            from core.native_font import missing_components
-            missing = missing_components()
-            if missing:
-                self.status_label.setText(self.status_label.text() + ' · 中文地名启动组件缺失：' + '、'.join(missing))
-                self.launch_btn.setToolTip('组件缺失，暂不能以中文地名启动。点击可查看缺失位置和处理说明。')
+            self.status_label.setText('当前 BBMOD 汉化依赖旧启动组件，需换用新版包；可导入现成包，或在此制作并确认应用。')
+            self.launch_btn.setToolTip('当前包依赖旧启动器，请先换用新版汉化包。')
         if getattr(self.ctx, 'seedgen_active', False):
             self.build_btn.setEnabled(False)
             self.uninstall_btn.setEnabled(False)
@@ -302,15 +332,18 @@ class L10nPage(QWidget):
     def _set_busy(self, busy: bool) -> None:
         self._busy = busy
         locked = busy or getattr(self.ctx, 'management_busy', False) or getattr(self.ctx, 'seedgen_active', False)
-        for button in (self.build_btn, self.export_btn):
-            button.setEnabled(bool(self.ctx.game) and not locked)
-        self.uninstall_btn.setEnabled(bool(self.ctx.game) and not busy)
-        if busy:
+        self.export_btn.setEnabled(bool(self.ctx.game) and not locked)
+        self.build_btn.setEnabled(bool(self.ctx.game) and not locked and not self.ctx.game_session.occupied)
+        self.uninstall_btn.setEnabled(bool(self.ctx.game) and not locked and not self.ctx.game_session.occupied)
+        if locked or self.ctx.game_session.occupied:
             self.launch_btn.setEnabled(False)
 
     def launch_chinese(self) -> None:
         self.sections.setCurrentIndex(0)
         self.management.launch_current()
+
+    def open_editor(self) -> None:
+        self.sections.setCurrentIndex(1)
 
     def _launch_failed(self, error: str) -> None:
         self._set_busy(False)
@@ -331,6 +364,8 @@ class L10nPage(QWidget):
 
     def _build(self, output: Path, install: bool) -> None:
         if self._busy or getattr(self.ctx, 'management_busy', False) or getattr(self.ctx, 'seedgen_active', False):
+            return
+        if install and self.ctx.game_session.occupied:
             return
         game_root, manager = self.ctx.game.root, self.ctx.mm
         overrides = dict(self.overrides)
@@ -358,8 +393,14 @@ class L10nPage(QWidget):
             self.sections.setCurrentIndex(0)
             self.management.select_profile(result['profile_id'])
             self.ctx.data_changed.emit()
-        QMessageBox.information(self, '汉化已生成，请核对切换预览后应用' if installed else '汉化包已导出',
-            f"{result['out']}\n{result['entry_count']} 条独立译文。\n当前范围：{result['scope']}。")
+        pending = bool(installed and self.management.plan and self.management.plan.changed)
+        title = ('汉化包已准备，尚未切换' if pending else '汉化包已准备，当前配置无需改变') if installed else '汉化包已导出'
+        guidance = '\n当前汉化保持不变；需要换用此包时，再核对切换预览并应用。' if pending else ''
+        if installed and self.management.plan is None:
+            title = '汉化包已准备，请查看方案提示'
+            guidance = '\n当前汉化保持不变，请回到管理页查看提示。'
+        QMessageBox.information(self, title,
+            f"{result['out']}\n{result['entry_count']} 条独立译文。\n译文范围：{result['scope']}。" + guidance)
 
     def _build_failed(self, error: str) -> None:
         self._set_busy(False)

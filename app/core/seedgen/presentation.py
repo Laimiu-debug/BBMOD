@@ -7,6 +7,8 @@ import re
 from .config_emitter import ATTRIBUTES, ORIGIN_LABELS, DIFFICULTY_LABELS, BUDGET_LABELS
 from .log_watcher import SeedResult
 from .traits import trait_name
+from .weapons import NAMED_WEAPONS
+from .config_emitter import NAMED_ATTR_LABELS
 
 FORMATS = {"种子档案（含详情）": "detail", "弹幕模式（一行一条）": "danmaku", "仅种子码": "seed"}
 OPENERS = ["自动开场白", "卡大货了？", "缺大哥？", "跑商发愁？", "想找红装？", "不加开场白"]
@@ -140,9 +142,9 @@ def world_details(result: SeedResult) -> list[str]:
                 sections += ["", f"营地：{name}（{LAIRS.get(kind, '未知驻军')}）",
                     f"驻军强度 {strength}；最近聚落 {town}；距离 {distance}，方位 {direction}"]
         elif line.startswith("ItemInfo("):
-            match = re.match(r"ItemInfo\((\w+)\):\s*[^\s(]+(?:\([^)]*\))?\s+(.*)", line)
+            match = re.match(r"ItemInfo\((\w+)\):\s*([^\s(]+)(?:\(([^)]*)\))?\s+(.*)", line)
             if match:
-                kind, fields = match.groups()
+                kind, item_id, rolls, fields = match.groups()
                 values = []
                 for key, value in re.findall(r"(\w+):(-?[\d.]+)", fields):
                     if key not in ITEM_ATTRIBUTES:
@@ -152,7 +154,11 @@ def world_details(result: SeedResult) -> list[str]:
                     elif key == "ChanceToHitHead":
                         value += "%"
                     values.append(f"{ITEM_ATTRIBUTES[key]} {value}")
-                sections.append(f"{ITEMS.get(kind, '红装')}：" + ("；".join(values) or "未记录属性"))
+                quality = [f"{NAMED_ATTR_LABELS[key]}品质 {value}%"
+                           for key, value in re.findall(r"(\w+):([\d.]+)%", rolls or '')
+                           if key in NAMED_ATTR_LABELS]
+                title = NAMED_WEAPONS.get(item_id, ITEMS.get(kind, '红装'))
+                sections.append(f"{title}：" + ("；".join(quality + values) or "未记录属性"))
     return sections
 
 

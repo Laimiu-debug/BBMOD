@@ -84,6 +84,10 @@ def reason(text, file, function, ctx, key=False):
         return 'visible_party'
     if text in RESERVED:
         return 'program_token'
+    # This is an English plural suffix, not the banner-size key "s".
+    if (file, function, text) == ('scripts/states/tactical_state.cnut',
+                                 'tactical_combat_result_screen_onQueryCombatInformation', 's'):
+        return 'visible_grammar'
     if ctx and all(INTERNAL_CALL.search(c) or re.search(r'\[\s*$', c) and 'Flags' in c[-60:] for c in ctx):
         return 'program_argument'
     if 'config/' in file and Path(file).stem in TEXT_CONFIGS and function == 'main' and ctx:

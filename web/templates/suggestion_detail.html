@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}处理建议 · BBMOD{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'suggestions.css' %}">{% endblock %}
+{% block content %}
+<section class="page-head"><a href="{% url 'suggestion_management' %}">← 建议管理</a><h1 class="suggestion-title">{{ suggestion.title }}</h1><div class="suggestion-meta"><span class="tag suggestion-status-{{ suggestion.status }}">{{ suggestion.get_status_display }}</span><span>{{ suggestion.get_kind_display }}</span><span>{{ suggestion.reference }}</span><time datetime="{{ suggestion.created_at|date:'c' }}">{{ suggestion.created_at|date:'Y.m.d H:i' }}</time></div></section>
+<div class="suggestion-review-layout">
+  <section class="panel"><h2>建议详情</h2><div class="prose">{{ suggestion.details|linebreaks }}</div><dl class="suggestion-contact"><dt>相关版本</dt><dd>{{ suggestion.version|default:'未填写' }}</dd><dt>提交者</dt><dd>{{ suggestion.nickname|default:'未留称呼' }}</dd><dt>联系方式</dt><dd>{{ suggestion.contact|default:'未填写' }}</dd></dl><p class="help">以上信息仅管理员可见。</p></section>
+  <form method="post" class="panel editor" novalidate>{% csrf_token %}{{ form.revision }}<h2>处理记录</h2>{% if form.non_field_errors or form.revision.errors %}<div class="notice error" role="alert">{{ form.non_field_errors }}{{ form.revision.errors }}</div>{% endif %}{% include 'field.html' with field=form.status %}{% include 'field.html' with field=form.internal_notes %}<button class="button primary" type="submit">保存处理记录</button>{% if suggestion.handled_by %}<p class="help">最近处理：{{ suggestion.handled_by.first_name|default:suggestion.handled_by.username }} · {{ suggestion.updated_at|date:'Y.m.d H:i' }}</p>{% endif %}</form>
+</div>
+{% endblock %}

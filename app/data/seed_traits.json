@@ -342,7 +342,7 @@
       "id": "trait.superstitious",
       "name": "迷信",
       "english": "Superstitious",
-      "description": "有诅咒！此角色十分迷信，因此更容易受到直接打击决心的技能影响。",
+      "description": "有诅咒！此角色十分迷信，因此更容易受到直接打击意志的技能影响。",
       "incompatible": [
         "trait.fearless",
         "trait.brave"

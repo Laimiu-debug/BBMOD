@@ -1,7 +1,12 @@
 """Shared markup/placeholder checks for independently authored translations."""
 from __future__ import annotations
 from collections import Counter
+from functools import lru_cache
+import hashlib
+import json
 import re
+
+from .paths import resource_path
 
 VARIABLE = re.compile(r'%[A-Za-z0-9_]+%')
 STRUCTURE = re.compile(r'\[img\][\s\S]*?\[/img\]|\[[^\]\n]*\]|\[(?:color|font|size)=|</?[^>\n]*(?:>|$)|%SPEECH_[A-Z_]+%|[{}|\n\r\[\]]')
@@ -53,10 +58,32 @@ def protected_tokens(text: str) -> dict:
             'numbers': Counter(n.replace(',', '') for n in NUMBER.findall(clean))}
 
 
+@lru_cache(maxsize=1)
+def reviewed_source_structures() -> dict:
+    """Permit only exact, reviewed repairs to malformed official display text."""
+    path = resource_path('localization/reviewed_source_fixes.json')
+    if not path.exists():
+        return {}
+    document = json.loads(path.read_text(encoding='utf8'))
+    if document.get('schema_version') != 1 or not isinstance(document.get('structures'), dict):
+        raise ValueError('原版文本排版修订记录无效')
+    for digest, rule in document['structures'].items():
+        if not re.fullmatch('[0-9a-f]{64}', digest) or not all(
+                isinstance(rule.get(key), list) and all(isinstance(v, str) for v in rule[key])
+                for key in ['original', 'corrected']):
+            raise ValueError('原版文本排版修订规则无效')
+    return document['structures']
+
+
 def validate_translation(source: str, translation: str) -> list[str]:
     if not isinstance(translation, str):
         return ['译文必须是文字']
     a, b = protected_tokens(source), protected_tokens(translation)
+    repair = reviewed_source_structures().get(hashlib.sha256(source.encode('utf8')).hexdigest())
+    if repair and a['structure'] == repair['original'] and b['structure'] == repair['corrected']:
+        # Historical reviewed drafts remain readable, but no other marker
+        # sequence, lookup key, variable, number, or branch separator is exempt.
+        a['structure'] = repair['corrected']
     if source == _BARBARIAN_KING_DEATH_SOURCE:
         a['numbers'] -= Counter({'2': 1})
     issues = []

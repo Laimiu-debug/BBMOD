@@ -11,6 +11,7 @@ from core.seedgen.log_watcher import SeedResult
 from ui.l10n_page import L10nPage
 from ui.seedgen_page import SeedGenPage
 from ui.seed_trait_dialog import SeedTraitDialog
+from ui.game_session import GameSession
 
 
 @pytest.fixture(scope="module")
@@ -23,8 +24,12 @@ def context(tmp_path):
     settings = Settings.__new__(Settings)
     settings.path = tmp_path / "settings.json"
     settings.data = {}
-    return SimpleNamespace(game=None, mm=None, settings=settings,
+    ctx = SimpleNamespace(game=None, mm=None, settings=settings,
         data_changed=SimpleNamespace(emit=lambda: None), set_seedgen_active=lambda _: None)
+    ctx.game_session = GameSession(probe=lambda: False)
+    ctx.game_session.observe(False)
+    yield ctx
+    ctx.game_session.shutdown()
 
 
 def test_filtered_translation_edit_uses_stable_source_key(app, context):
@@ -63,7 +68,7 @@ def test_place_editor_uses_chinese_display_translation_and_stable_english_key(ap
     assert page.overrides == {'Wiesendorf':'维森村'}
     page.table.selectRow(0);page.reset_selected()
     assert page.overrides == {} and page.table.item(0,2).text() == '维森多夫'
-    assert '直接启动时显示英文' in page.scope_label.text()
+    assert '从 Steam 或本软件启动均显示中文地名' in page.scope_label.text()
 
 
 def test_stopped_expedition_keeps_details_and_exports(app, context, tmp_path):

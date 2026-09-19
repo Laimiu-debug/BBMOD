@@ -11,7 +11,6 @@ import json
 from pathlib import Path, PurePosixPath
 import re
 import shutil
-import subprocess
 import uuid
 import zipfile
 
@@ -136,7 +135,7 @@ class LocalizationProfiles:
 
     def _ensure_idle(self, *, changing: bool = False) -> None:
         if game_mod.is_game_running():
-            raise RuntimeError('游戏正在运行，请关闭游戏后再切换汉化或启动。')
+            raise RuntimeError('游戏正在运行，无需再次启动；切换汉化请先退出游戏。')
         if (self.root / 'bbmod_seedgen_session/session.json').exists():
             raise RuntimeError('种子远征尚未恢复，请先停止并恢复该会话。')
         if changing and (self.data / GUARD).exists():
@@ -344,12 +343,10 @@ class LocalizationProfiles:
                         or set(guard.get('disabled_functions', [])) != {'autosave', 'saveCampaign'}):
                     raise RuntimeError('开发测试副本的保护文件与汉化包不一致')
             manifest = l10n.package_manifest(own[0]['path']) or {}
+            if manifest.get('place_name_display') == 'mod_ui':
+                from .place_display import read_packaged_display
+                read_packaged_display(own[0]['path'])
             if manifest.get('requires_bbmod_launcher') or manifest.get('uses_bbmod_map_font'):
-                from .native_font import launch_localized
-                if manifest.get('place_name_display') == 'launcher_session':
-                    return {**launch_localized(game, runtime, place_package=own[0]['path']), 'mode': 'bbmod'}
-                return {**launch_localized(game, runtime), 'mode': 'bbmod'}
+                raise RuntimeError('当前安装的是依赖旧中文启动组件的汉化包。请在汉化管理中导入新版包，或进入“译文编辑与制作”制作新版包，确认应用后再启动游戏。新版通过普通 MOD 显示中文地名，无需旧启动器。')
         # Never use a Steam URL here: it may launch a different installation.
-        executable = game.exe.resolve()
-        process = subprocess.Popen([str(executable)], cwd=str(executable.parent))
-        return {'pid': process.pid, 'mode': 'current'}
+        return game_mod.launch_executable(game)

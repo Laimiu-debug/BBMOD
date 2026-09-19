@@ -9,7 +9,7 @@ import zipfile
 
 import pytest
 
-from core import native_font, place_display
+from core import place_display
 from core.full_l10n import load_full_catalog
 from core.l10n import BRAND_META, PACKAGE_ID, load_catalog, translated_catalog
 from core.localization_profiles import LocalizationProfiles
@@ -24,7 +24,7 @@ def corpus():
 
 def make_package(path, corpus):
     with zipfile.ZipFile(path, 'w') as archive:
-        manifest = {'package_id': PACKAGE_ID, 'uses_bbmod_map_font': True, 'supports_direct_launch': True,
+        manifest = {'package_id': PACKAGE_ID, 'uses_bbmod_map_font': False, 'supports_direct_launch': True,
                     **place_display.write_display_assets(archive, *corpus)}
         archive.writestr(BRAND_META, json.dumps(manifest))
     return path
@@ -38,6 +38,8 @@ def test_all_geographic_sources_reviewed_without_altering_the_canonical_catalog(
     assert {'Wiesendorf', 'Stormy Sea', 'Icy Cave', 'Black Monolith', 'Sandwik'} <= set(reviewed)
     assert dictionary['Sandwik'] == '桑德维克'
     assert dictionary['Black Monolith'] == '黑色巨石'
+    # Distinct original watch forts must not collapse to the same display name.
+    assert dictionary['Fahrnwacht'] != dictionary['Farnwacht']
     assert all(row.status == 'reviewed' for row in load_catalog()[1])
     assert catalog == before
 
@@ -63,7 +65,7 @@ def test_changed_review_manifest_is_rejected_before_build(tmp_path, monkeypatch,
         place_display.build_display_data(*corpus)
 
 
-def test_packaged_native_and_ui_dictionaries_are_identical(tmp_path, corpus):
+def test_packaged_display_and_ui_dictionaries_are_identical(tmp_path, corpus):
     path = make_package(tmp_path/'package.zip', corpus)
     assert place_display.read_packaged_display(path) == place_display.build_display_data(*corpus)[0]
 
@@ -78,50 +80,51 @@ def test_mismatched_package_never_starts_game(tmp_path, corpus, entry):
             if name == entry:
                 raw = raw.replace('维森多夫'.encode(), '错误城'.encode()) if entry.endswith('.tsv') else raw+b'// changed\n'
             out.writestr(name, raw)
-    game = SimpleNamespace(exe=tmp_path/'BattleBrothers.exe')
-    with patch('core.game.is_game_running', return_value=False), patch.object(native_font,'check_executable'), \
-            patch.object(native_font.subprocess,'run') as run, patch.object(native_font,'prepare_runtime') as runtime:
+    root = tmp_path/'game'; (root/'data').mkdir(parents=True); (root/'win32').mkdir()
+    game = SimpleNamespace(root=root, exe=root/'win32/BattleBrothers.exe')
+    game.exe.write_bytes(b'not executable')
+    (root/'data/independent.zip').write_bytes(altered.read_bytes())
+    with patch('core.game.is_game_running', return_value=False), patch('core.game.launch_executable') as run:
         with pytest.raises(ValueError):
-            native_font.launch_localized(game, tmp_path/'runtime', place_package=altered)
-        run.assert_not_called(); runtime.assert_not_called()
+            LocalizationProfiles(root).launch(game, tmp_path/'runtime')
+        run.assert_not_called()
+        assert not (tmp_path/'runtime').exists()
 
 
-def test_launch_uses_private_child_environment_and_keeps_game_files_unchanged(tmp_path, monkeypatch, corpus):
-    package = make_package(tmp_path/'installed.zip', corpus)
-    assets = {}
-    for name in ('bbmod_launch.exe','bbmod_han.dll','NotoSerifSC-SemiBold.ttf','FONT-LICENSE.txt','MINHOOK-LICENSE.txt'):
-        assets[name] = tmp_path/name
-        assets[name].write_bytes(b'test fixture only, never executed')
-    game = SimpleNamespace(exe=tmp_path/'game/win32/BattleBrothers.exe')
-    game.exe.parent.mkdir(parents=True); game.exe.write_bytes(b'original-test-fixture')
-    monkeypatch.setenv('BBMOD_PLACE_NAMES_PATH','inherited-marker-must-not-be-used')
-    monkeypatch.setenv('BBMOD_PLACE_NAMES_SHA256','stale')
-    environment = dict(os.environ)
-    with patch('core.game.is_game_running', return_value=False), patch.object(native_font,'check_executable'), \
-            patch.object(native_font,'_assets', return_value=assets), \
-            patch.object(native_font.subprocess,'run', return_value=SimpleNamespace(returncode=0,stdout=b'123\n')) as run:
-        result = native_font.launch_localized(game,tmp_path/'runtime',place_package=package)
-        child = run.call_args.kwargs['env']
-        data_path = Path(child['BBMOD_PLACE_NAMES_PATH'])
-        assert data_path.is_relative_to(tmp_path/'runtime')
-        assert child['BBMOD_PLACE_NAMES_SHA256'] == hashlib.sha256(data_path.read_bytes()).hexdigest()
-        assert result['pid'] == 123 and dict(os.environ) == environment
-        assert game.exe.read_bytes() == b'original-test-fixture'
-        # Old font-only packages must never inherit a Chinese place session.
-        native_font.launch_localized(game,tmp_path/'runtime')
-        assert not any(k.startswith('BBMOD_PLACE_NAMES_') for k in run.call_args.kwargs['env'])
-        assert dict(os.environ) == environment
-
-
-def test_profile_launch_uses_currently_installed_dictionary(tmp_path, corpus):
+def test_profile_launch_checks_installed_dictionary_then_starts_game_normally(tmp_path, corpus, monkeypatch):
     root = tmp_path/'game'; (root/'data').mkdir(parents=True); (root/'win32').mkdir()
     game = SimpleNamespace(root=root,exe=root/'win32/BattleBrothers.exe')
     game.exe.write_bytes(b'test-only')
     installed = make_package(root/'data/independent.zip', corpus)
+    monkeypatch.setenv('BBMOD_FONT_PATH', 'obsolete-font')
+    monkeypatch.setenv('BBMOD_PLACE_NAMES_PATH', 'obsolete-session')
+    before = {p: p.read_bytes() for p in root.rglob('*') if p.is_file()}
     with patch('core.game.is_game_running', return_value=False), \
-            patch('core.native_font.launch_localized', return_value={'pid':123}) as native, \
-            patch('core.localization_profiles.subprocess.Popen') as plain:
+            patch('core.game.find_steam_root', return_value=None), \
+            patch('core.game.os.startfile', create=True) as plain, \
+            patch('core.game.subprocess.Popen') as child_start:
         result = LocalizationProfiles(root).launch(game,tmp_path/'runtime')
-        native.assert_called_once_with(game,tmp_path/'runtime',place_package=installed)
-        assert result == {'pid':123,'mode':'bbmod'}
-        plain.assert_not_called()
+        assert result == {'mode':'current'}
+        assert plain.call_args.args == (str(game.exe),)
+        assert plain.call_args.kwargs['cwd'] == str(game.exe.parent)
+        child_start.assert_not_called()
+        assert os.environ['BBMOD_FONT_PATH'] == 'obsolete-font'
+        assert not (tmp_path/'runtime').exists()
+        assert before == {p: p.read_bytes() for p in root.rglob('*') if p.is_file()}
+
+
+@pytest.mark.parametrize('entry', [place_display.JS_ENTRY, place_display.CONFIG_ENTRY,
+                                  'scripts/!mods_preload/bbmod_map_labels.nut',
+                                  'gfx/fonts/cinzel_bold_100.png'])
+def test_damaged_mod_display_is_rejected_before_plain_launch(tmp_path, corpus, entry):
+    root = tmp_path/'game'; (root/'data').mkdir(parents=True); (root/'win32').mkdir()
+    game = SimpleNamespace(root=root, exe=root/'win32/BattleBrothers.exe')
+    game.exe.write_bytes(b'not executable')
+    original = make_package(tmp_path/'source.zip', corpus)
+    with zipfile.ZipFile(original) as src, zipfile.ZipFile(root/'data/independent.zip', 'w') as dest:
+        for name in src.namelist():
+            dest.writestr(name, src.read(name) + (b'changed' if name == entry else b''))
+    with patch('core.game.is_game_running', return_value=False), patch('core.game.launch_executable') as start:
+        with pytest.raises(ValueError):
+            LocalizationProfiles(root).launch(game, tmp_path/'runtime')
+        start.assert_not_called()

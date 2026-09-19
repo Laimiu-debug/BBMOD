@@ -7,14 +7,8 @@ from pathlib import Path
 
 app_version = runpy.run_path(str(Path(SPECPATH) / 'core/version.py'))['VERSION']
 
-# Fail before PyInstaller collects dependencies. A missing native component
-# must not be replaced with an incomplete EXE or rebuilt automatically.
-native_dir = Path(SPECPATH) / 'build/native'
-missing_native = [name for name in ('bbmod_launch.exe', 'bbmod_han.dll')
-                  if not (native_dir / name).is_file()]
-if missing_native:
-    raise SystemExit('中文地名组件缺失，已停止打包：' + '、'.join(missing_native)
-                     + '。请先完成组件问题排查；不要从旧 EXE 自动恢复或绕过安全软件。')
+# Map labels now use ordinary game MOD scripts and HTML. Do not distribute the
+# retired process-injection launcher or DLL, even if an old build still exists.
 
 # Resolve native dependencies from Python and Windows only. Unrelated tools on
 # PATH can ship identically named ICU/OpenSSL/CRT DLLs with incompatible exports.
@@ -27,9 +21,7 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('data', 'data'), ('seedgen', 'seedgen'), ('assets', 'assets'), ('localization', 'localization'),
-           ('build/native/bbmod_launch.exe', 'native/bin'), ('build/native/bbmod_han.dll', 'native/bin'),
-           ('native/vendor/minhook/LICENSE.txt', 'native/licenses')],
+    datas=[('data', 'data'), ('seedgen', 'seedgen'), ('assets', 'assets'), ('localization', 'localization')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

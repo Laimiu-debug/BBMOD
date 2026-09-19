@@ -1,0 +1,5 @@
+{% extends 'wiki/layout.html' %}{% block title %}{% if query %}{{ query }} · {% endif %}百科搜索 · BBMOD{% endblock %}
+{% block wiki_content %}<nav class="wiki-breadcrumb"><a href="{% url 'wiki' %}">游戏百科</a><span>/</span><span>{% if query %}搜索{% else %}全部词条{% endif %}</span></nav>
+<header class="wiki-search-heading"><h1>{% if query %}寻找「{{ query }}」{% else %}全部词条{% endif %}</h1><p>{{ result_count }} 条结果 · 第 {{ page }} / {{ pages }} 页</p></header>{% include 'wiki/search_form.html' %}
+<section class="wiki-results">{% for entry in results %}<article><a href="{{ entry.url }}"><h2>{{ entry.label }}</h2>{% if entry.title_zh %}<span class="wiki-english">{{ entry.title }}</span>{% endif %}</a><p>{{ entry.summary|truncatechars:190 }}</p><a class="wiki-read-link" href="{{ entry.url }}">打开词条 →</a></article>{% empty %}<div class="wiki-empty"><h2>还没有找到对应词条</h2><p>可以换一个英文原名或 BBMOD zh 中的名称试试。</p><a href="{% url 'wiki_search' %}">浏览全部词条 →</a></div>{% endfor %}</section>
+{% include 'wiki/pagination.html' %}{% endblock %}

@@ -48,6 +48,7 @@ class SeedFilters(forms.Form):
     exclude = forms.ChoiceField(label='排除的特质', required=False)
     sort = forms.ChoiceField(label='排列方式', choices=[('', '最新分享'), ('ports', '港口最多'),
         ('named', '红装最多'), ('melee', '近战最高')], required=False)
+    per_page = forms.ChoiceField(label='每页显示', choices=[('6', '6 条'), ('12', '12 条'), ('24', '24 条')], required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -69,7 +70,11 @@ def _card(seed):
 
 @require_GET
 def gallery(request):
-    form = SeedFilters(request.GET)
+    parameters = request.GET.copy()
+    # Bound page sizes independently of the filters, including hand-edited URLs.
+    if parameters.get('per_page') not in ('6', '12', '24'):
+        parameters['per_page'] = '6'
+    form = SeedFilters(parameters)
     query = SharedSeed.objects.filter(blocked=False)
     total = query.count()
     if form.is_valid():
@@ -102,12 +107,13 @@ def gallery(request):
             query = query.order_by(F(data['sort']).desc(nulls_last=True), '-created_at', '-id')
     else:
         query = query.none()
-    page = Paginator(query, 18).get_page(request.GET.get('page'))
+    page = Paginator(query, int(parameters['per_page'])).get_page(request.GET.get('page'))
     page.object_list = [_card(seed) for seed in page.object_list]
-    params = request.GET.copy()
+    params = parameters
     params.pop('page', None)
     advanced = any(request.GET.get(key) for key in ('combat', 'economic', 'budget', 'melee', 'ranged', 'defense', 'people', 'trait', 'exclude'))
     return render(request, 'seeds.html', {'form': form, 'page': page, 'total': total,
+        'page_links': list(page.paginator.get_elided_page_range(page.number, on_each_side=1, on_ends=1)),
         'params': params.urlencode(), 'advanced': advanced, 'track_visit': True})
 
 

@@ -19,7 +19,7 @@ from django.utils.http import content_disposition_header
 from django.views.decorators.http import require_POST, require_GET, require_safe
 from .desktop import desktop_available, public_desktop_releases, recommended_desktop, create_desktop_release
 from .forms import ModForm, QuickModForm, ReleaseForm, DesktopReleaseForm, CreateAuthorForm
-from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES
+from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES, Suggestion
 from .services import public_releases, create_release, can_inspect, audit
 from .visitors import traffic_summary
 
@@ -238,7 +238,8 @@ def management(request):
     mods = Mod.objects.select_related('owner').order_by('-updated_at')
     return render(request, 'management.html', {'mods': Paginator(mods, 30).get_page(request.GET.get('page')),
                                                'logs': AuditLog.objects.select_related('actor').order_by('-created_at')[:25],
-                                               'traffic': traffic_summary()})
+                                               'traffic': traffic_summary(),
+                                               'new_suggestions': Suggestion.objects.filter(status=Suggestion.Status.NEW).count()})
 
 
 @admin_required

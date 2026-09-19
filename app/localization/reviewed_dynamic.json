@@ -1,0 +1,9 @@
+{
+  "provenance": "BBMOD 独立编写。结算语法依据官方 tactical_state；快速换装兼容仅依据已安装模组的英文可见短句，不引用其实现或第三方汉化。",
+  "terms": {
+    "s": "",
+    "Switch to": "换用",
+    "Quickly switch to another item from your bag.": "快速换用背包中的另一件装备。",
+    "AP to switch.": "点行动点（切换装备）。"
+  }
+}

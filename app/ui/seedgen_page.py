@@ -3,13 +3,13 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer, QUrl
+from PySide6.QtCore import Qt, QTimer, QUrl, QSignalBlocker, QItemSelectionModel
 from PySide6.QtGui import QKeySequence, QShortcut, QDesktopServices
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QDoubleSpinBox, QFileDialog, QFormLayout, QFrame, QGridLayout, QGroupBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMenu, QMessageBox, QPushButton,
-    QSpinBox, QStackedWidget, QTableWidget, QTableWidgetItem, QTabWidget,
+    QSpinBox, QStackedWidget, QTableWidget, QTableWidgetItem, QTabWidget, QProgressBar,
     QTextEdit, QVBoxLayout, QWidget,
 )
 
@@ -24,7 +24,7 @@ from core.seedgen.log_watcher import SeedResult, import_seed_log
 from core.seedgen.orchestrator import SeedGenOrchestrator, StopLimits
 from core.seedgen.library import SeedLibrary
 from core.seedgen.protocol import seed_key, share_payload
-from core.seedgen.sharing import upload_seed, PUBLIC_SITE
+from core.seedgen.sharing import publish_seed, PUBLIC_SITE
 from core.seedgen.traits import trait_name, validate_traits
 from core.seedgen.presentation import (
     FORMATS, OPENERS, format_collection, format_seed, highlights, note_key, raw_record,
@@ -32,12 +32,15 @@ from core.seedgen.presentation import (
 from .app_context import AppContext
 from .theme import style_button, style_table
 from .seed_trait_dialog import SeedTraitDialog
+from .seed_weapon_filter import SeedWeaponFilter
 from .workers import Worker
+from .seed_share_worker import SeedShareWorker
 
 PAYLOAD_DIR = resource_path("seedgen/payload")
 MODE_LABELS = {
     "人物 + 地图": "bro_map", "只找开局兄弟（快）": "bro_only",
-    "只找地图": "map_only", "人物 + 红装": "bro_lair", "人物 + 地图 + 红装": "all",
+    "只找地图": "map_only", "只找红装": "lair_only",
+    "人物 + 红装": "bro_lair", "人物 + 地图 + 红装": "all",
 }
 
 
@@ -57,6 +60,33 @@ def labeled_row(layout, label, widget, stretch=1):
     return caption
 
 
+class SeedWorkspaces(QTabWidget):
+    """Hidden expedition filters must not widen the saved-seed library."""
+    def __init__(self):
+        super().__init__()
+        self.currentChanged.connect(self.updateGeometry)
+
+    def minimumSizeHint(self):
+        size = super().minimumSizeHint()
+        page = self.currentWidget()
+        if page is not None:
+            sizes = [self.widget(i).minimumSizeHint() for i in range(self.count())]
+            chrome_width = max(0, size.width() - max(value.width() for value in sizes))
+            chrome_height = max(0, size.height() - max(value.height() for value in sizes))
+            size.setWidth(max(self.tabBar().minimumSizeHint().width() + 4,
+                              page.minimumSizeHint().width() + chrome_width))
+            size.setHeight(page.minimumSizeHint().height() + chrome_height)
+        return size
+
+    def heightForWidth(self, width):
+        page = self.currentWidget()
+        if page is None:
+            return super().heightForWidth(width)
+        minimum = self.minimumSizeHint()
+        chrome = minimum.height() - page.minimumSizeHint().height()
+        return max(minimum.height(), page.layout().totalHeightForWidth(max(0, width - 4)) + chrome)
+
+
 class SeedGenPage(QWidget):
     def __init__(self, ctx: AppContext) -> None:
         super().__init__()
@@ -66,9 +96,14 @@ class SeedGenPage(QWidget):
         self.results: list[SeedResult] = []
         self._automatic_stop_failed = False
         self._import_worker: Worker | None = None
-        self._share_worker: Worker | None = None
+        self._share_worker: SeedShareWorker | None = None
+        self._share_active = False
+        self._share_report = None
+        self._single_share = False
         self.library = None
         self._library_error = ""
+        self._trash_mode = False
+        self._view_results = []
         limits = ctx.settings.get("seed_stop_limits", {})
         try:
             self._limits = StopLimits(**limits) if isinstance(limits, dict) else StopLimits()
@@ -196,26 +231,41 @@ class SeedGenPage(QWidget):
         labeled_row(map_row, "城镇 ≥", self.city_count)
         labeled_row(map_row, "甲店 ≥", self.armorsmith_count)
         map_layout.addLayout(map_row)
-        map_hint = QLabel("同时满足所有已设门槛才保留；例如港口填7，就找至少7座港口的地图。")
+        port_options = QHBoxLayout()
+        port_options.setSpacing(24)
+        self.north_south_ports = QCheckBox("南北港")
+        self.north_south_ports.setObjectName("north_south_ports")
+        self.north_south_ports.setToolTip("左上北港、左下南港各至少一座；中间港和东港不计入南北港。")
+        self.arena_port = QCheckBox("竞技场港")
+        self.arena_port.setObjectName("arena_port")
+        self.arena_port.setToolTip("竞技场所在的城邦同时有港口；其他城邦有港口不算。")
+        port_options.addWidget(self.north_south_ports)
+        port_options.addWidget(self.arena_port)
+        port_options.addStretch()
+        map_layout.addLayout(port_options)
+        saved_map = ctx.settings.get("seed_map_filters", {})
+        if isinstance(saved_map, dict):
+            for key, widget in (("ports", self.port_count), ("settlements", self.city_count),
+                                ("armorsmiths", self.armorsmith_count)):
+                value = saved_map.get(key)
+                if type(value) is int and widget.minimum() <= value <= widget.maximum():
+                    widget.setValue(value)
+            self.north_south_ports.setChecked(saved_map.get("north_south_ports") is True)
+            self.arena_port.setChecked(saved_map.get("arena_port") is True)
+        for widget in (self.port_count, self.city_count, self.armorsmith_count):
+            widget.valueChanged.connect(self._save_map_filters)
+        for widget in (self.north_south_ports, self.arena_port):
+            widget.toggled.connect(self._save_map_filters)
+        map_hint = QLabel("南北港：左上北港、左下南港各至少1座。竞技场港：竞技场所在城有港口。\n"
+                          "所有已设条件须同时满足；未勾选则不限。例如港口填7，仍须至少7座港口。")
         map_hint.setWordWrap(True)
         map_hint.setObjectName("muted")
         map_layout.addWidget(map_hint)
         self.filter_tabs.addTab(map_page, "地图与港口")
 
-        lair_page = QWidget()
-        lair_layout = QVBoxLayout(lair_page)
-        lair_layout.setContentsMargins(8, 8, 8, 4)
-        lair_row = QHBoxLayout()
-        self.named_min = spin(1, 200, 20)
-        labeled_row(lair_row, "全地图红装总数至少", self.named_min)
-        lair_row.addWidget(QLabel("件"))
-        lair_row.addStretch(2)
-        lair_layout.addLayout(lair_row)
-        lair_hint = QLabel("统计生成时营地中的红装。红装位置可在结果详情的营地记录里核对。")
-        lair_hint.setWordWrap(True)
-        lair_hint.setObjectName("muted")
-        lair_layout.addWidget(lair_hint)
-        self.filter_tabs.addTab(lair_page, "营地红装")
+        self.weapon_filter = SeedWeaponFilter(ctx.settings)
+        self.named_min = self.weapon_filter.total
+        self.filter_tabs.addTab(self.weapon_filter, "营地红装")
         root.addWidget(self.cfg_box)
 
         run_row = QHBoxLayout()
@@ -252,23 +302,23 @@ class SeedGenPage(QWidget):
 
         library_row = QHBoxLayout()
         self.library_label = QLabel("找到的种子自动保存在本机")
+        self.library_label.setObjectName('muted')
         library_row.addWidget(self.library_label, 1)
         self.save_btn = QPushButton("保存所选")
-        self.publish_btn = QPushButton("分享给兄弟")
+        self.publish_btn = QPushButton("分享所选")
         self.publish_btn.setToolTip("无需登录。将所选种子的详情和介绍公开到 bbmod.site，分享成功后复制链接。")
         style_button(self.publish_btn, "copy", primary=True)
         self.gallery_btn = QPushButton("逛种子广场 ↗")
         library_row.addWidget(self.save_btn)
-        library_row.addWidget(self.publish_btn)
         library_row.addWidget(self.gallery_btn)
         root.addLayout(library_row)
 
         self.table = QTableWidget(0, 4)
         style_table(self.table)
-        self.table.setMinimumHeight(96)
+        self.table.setMinimumHeight(360)
         self.table.setHorizontalHeaderLabels(["种子码", "发现的亮点", "起源", "轮次"])
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        self.table.setSelectionMode(QTableWidget.SingleSelection)
+        self.table.setSelectionMode(QTableWidget.ExtendedSelection)
         self.table.setWordWrap(False)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.table.setColumnWidth(0, 146)
@@ -292,7 +342,8 @@ class SeedGenPage(QWidget):
         self.opener_combo.lineEdit().setMaxLength(60)
         self.click_copy = QCheckBox("点选即复制")
         self.click_copy.setToolTip("开启后，点击种子行即可复制当前格式；新结果到来不会改动剪贴板。")
-        self.copy_btn = QPushButton("复制所选")
+        self.copy_btn = QPushButton("复制文案")
+        self.copy_btn.setToolTip('复制当前行的档案或弹幕文案，使用左侧所选格式；表格内可按 Ctrl+Shift+C。')
         style_button(self.copy_btn, "copy", primary=True)
         self.export_btn = QPushButton("导出全部 TXT")
         style_button(self.export_btn, "save")
@@ -304,8 +355,8 @@ class SeedGenPage(QWidget):
         share_layout.addLayout(share_row)
         self.detail_label = QTextEdit()
         self.detail_label.setReadOnly(True)
-        self.detail_label.setMinimumHeight(42)
-        self.detail_label.setMaximumHeight(62)
+        self.detail_label.setMinimumHeight(160)
+        self.detail_label.setMaximumHeight(230)
         self.detail_label.setPlaceholderText("Ⅱ  命中种子后点选一行；在这里预览档案或弹幕，复制后即可粘贴。")
         share_layout.addWidget(self.detail_label)
         self.note_edit = QLineEdit()
@@ -337,7 +388,10 @@ class SeedGenPage(QWidget):
         self.table.cellDoubleClicked.connect(self._open_record)
         self.copy_shortcut = QShortcut(QKeySequence.Copy, self.table)
         self.copy_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
-        self.copy_shortcut.activated.connect(self.copy_selected)
+        self.copy_shortcut.activated.connect(self.copy_seed_codes)
+        self.copy_text_shortcut = QShortcut(QKeySequence('Ctrl+Shift+C'), self.table)
+        self.copy_text_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+        self.copy_text_shortcut.activated.connect(self.copy_selected)
         self.rule_mode.currentIndexChanged.connect(self._rule_changed)
         self.bro_type_combo.currentIndexChanged.connect(self._rule_changed)
         self.mode_combo.currentIndexChanged.connect(self._mode_changed)
@@ -359,10 +413,161 @@ class SeedGenPage(QWidget):
             self.library_label.setToolTip(str(error))
         self._show_detail()
 
+        # Separate the expedition form from the saved library so filters no
+        # longer squeeze the seed table down to three visible rows.
+        while root.count(): root.takeAt(0)
+        root.addLayout(run_row)
+        self.sections = SeedWorkspaces()
+        self.sections.setObjectName('seedWorkspaces')
+        expedition = QWidget(); expedition_layout = QVBoxLayout(expedition)
+        expedition_layout.addWidget(self.cfg_box)
+        hint = QLabel('找到的结果自动进入「我的种子」。可以随时切换查看，远征会继续运行。')
+        hint.setWordWrap(True); hint.setObjectName('muted'); expedition_layout.addWidget(hint)
+        show_library = QPushButton('查看我的种子 →')
+        show_library.clicked.connect(lambda: self.sections.setCurrentIndex(1))
+        expedition_layout.addWidget(show_library); expedition_layout.addStretch()
+        library_page = QWidget(); library_layout = QVBoxLayout(library_page)
+        library_layout.addLayout(library_row)
+        self.library_label.setWordWrap(True)
+        sharing = QHBoxLayout()
+        public_hint = QLabel('分享到种子广场后，所有人都可查看。')
+        public_hint.setWordWrap(True); public_hint.setObjectName('muted')
+        sharing.addWidget(public_hint, 1)
+        sharing.addWidget(self.publish_btn)
+        self.publish_all_btn = QPushButton('一键分享全部')
+        self.publish_all_btn.setToolTip('公开分享本机已保存的全部完整种子及各自介绍，包含搜索隐藏的条目；跳过已分享和回收站。仅处理点击时已有的种子。')
+        style_button(self.publish_all_btn, 'copy', primary=True)
+        sharing.addWidget(self.publish_all_btn)
+        self.cancel_share_btn = QPushButton('停止上传')
+        self.cancel_share_btn.setEnabled(False)
+        self.cancel_share_btn.setToolTip('停止后续上传；正在发送的这一条可能完成，成功记录会保存。再次点击一键分享可继续剩余种子。')
+        sharing.addWidget(self.cancel_share_btn)
+        library_layout.addLayout(sharing)
+        self.share_status = QLabel('全部分享会跳过已分享的种子，包含搜索隐藏的条目；新刷出的种子不会自动上传。')
+        self.share_status.setTextFormat(Qt.PlainText)
+        self.share_status.setWordWrap(True); self.share_status.setObjectName('muted')
+        library_layout.addWidget(self.share_status)
+        share_progress_row = QHBoxLayout()
+        self.share_progress = QProgressBar(); self.share_progress.setRange(0, 1); self.share_progress.setValue(0)
+        self.share_progress.hide(); share_progress_row.addWidget(self.share_progress, 1)
+        self.share_details_btn = QPushButton('查看分享结果'); self.share_details_btn.hide()
+        share_progress_row.addWidget(self.share_details_btn)
+        library_layout.addLayout(share_progress_row)
+        self.publish_all_btn.clicked.connect(self.publish_all)
+        self.cancel_share_btn.clicked.connect(self.cancel_sharing)
+        self.share_details_btn.clicked.connect(self.show_share_results)
+        QApplication.instance().aboutToQuit.connect(self.shutdown_sharing)
+        tools = QHBoxLayout()
+        self.library_search = QLineEdit(); self.library_search.setPlaceholderText('搜索种子码、起源或自己的介绍')
+        self.library_search.setClearButtonEnabled(True); tools.addWidget(self.library_search, 1)
+        self.copy_codes_btn = QPushButton('复制种子码')
+        self.copy_codes_btn.setObjectName('copySeedCodes')
+        self.copy_codes_btn.setToolTip('只复制种子码，保留大小写；多选时按列表顺序逐行复制，不含搜索隐藏的条目。表格内可按 Ctrl+C。')
+        style_button(self.copy_codes_btn, 'copy', primary=True)
+        self.copy_codes_btn.clicked.connect(self.copy_seed_codes)
+        tools.addWidget(self.copy_codes_btn)
+        self.library_view = QComboBox(); self.library_view.addItems(['已保存', '回收站']); tools.addWidget(self.library_view)
+        self.delete_btn = QPushButton('删除所选'); tools.addWidget(self.delete_btn)
+        self.restore_btn = QPushButton('恢复所选'); tools.addWidget(self.restore_btn)
+        self.preview_btn = QPushButton('展开档案与分享'); self.preview_btn.setCheckable(True); tools.addWidget(self.preview_btn)
+        library_layout.addLayout(tools); library_layout.addWidget(self.table, 1)
+        library_layout.addWidget(share); share.setVisible(False)
+        self.preview_btn.toggled.connect(share.setVisible)
+        self.preview_btn.toggled.connect(lambda active: self.preview_btn.setText('收起档案与分享' if active else '展开档案与分享'))
+        self.selection_hint = QLabel('Ctrl / Shift 可多选 · 双击查看完整档案 · 删除后可从回收站恢复')
+        self.selection_hint.setObjectName('muted'); self.selection_hint.setWordWrap(True)
+        library_layout.addWidget(self.selection_hint)
+        self.sections.addTab(expedition, '寻找新开局'); self.sections.addTab(library_page, '我的种子')
+        root.addWidget(self.sections, 1)
+        self.library_search.textChanged.connect(self._filter_library)
+        self.library_view.currentIndexChanged.connect(self._change_library_view)
+        self.delete_btn.clicked.connect(self.delete_selected)
+        self.restore_btn.clicked.connect(self.restore_selected)
+        self.table.itemSelectionChanged.connect(self._selection_actions)
+        if hasattr(self.ctx, 'session_changed'):
+            self.ctx.session_changed.connect(self._selection_actions)
+        self._rebuild_library()
+        if self.results: self.sections.setCurrentIndex(1)
+
     def _library_status(self):
+        if self._library_error:
+            self.library_label.setText('自动保存失败 · 结果仍在列表中，请导出 TXT 备份')
+            self.library_label.setToolTip(self._library_error)
+            return
         self.library_label.setText(f"本地已保存 {len(self.results)} 条 · 重新搜索与重启均保留")
         if self.library:
             self.library_label.setToolTip(str(self.library.path))
+        if hasattr(self, 'sections'):
+            self.sections.setTabText(1, f'我的种子 · {len(self.results)}')
+
+    def _change_library_view(self, index):
+        self._trash_mode = index == 1
+        self._rebuild_library()
+
+    def _rebuild_library(self):
+        selected_keys = set(self._selected_keys())
+        try:
+            self._view_results = self.library.all(deleted=True) if self._trash_mode and self.library else list(self.results)
+        except Exception as error:
+            self.library_label.setText('种子库读取失败，原记录已保留：' + str(error)); return
+        with QSignalBlocker(self.table):
+            self.table.setRowCount(0)
+            self.table.setRowCount(len(self._view_results))
+            for row, result in enumerate(self._view_results): self._write_result(row, result)
+        self._filter_library()
+        visible = [row for row in range(self.table.rowCount()) if not self.table.isRowHidden(row)]
+        selected_rows = [row for row in visible if seed_key(self._view_results[row]) in selected_keys]
+        for row in selected_rows or visible[:1]:
+            index = self.table.model().index(row, 0)
+            self.table.selectionModel().select(index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
+        if selected_rows or visible:
+            self.table.selectionModel().setCurrentIndex(self.table.model().index((selected_rows or visible)[0], 0), QItemSelectionModel.NoUpdate)
+        self._selection_actions(); self._show_detail(); self._library_status()
+
+    def _filter_library(self, *_):
+        query = self.library_search.text().strip().casefold()
+        for row in range(self.table.rowCount()):
+            result = self.table.item(row, 0).data(Qt.UserRole)
+            haystack = ' '.join([result.seed, ORIGIN_LABELS.get(result.origin, result.origin),
+                                ' '.join(highlights(result)), self.notes.get(note_key(result), '')]).casefold()
+            self.table.setRowHidden(row, bool(query and query not in haystack))
+        if self.table.currentRow() >= 0 and self.table.isRowHidden(self.table.currentRow()): self.table.clearSelection()
+        self._selection_actions(); self._show_detail()
+
+    def _selected_keys(self):
+        return [seed_key(self.table.item(index.row(), 0).data(Qt.UserRole))
+                for index in self.table.selectionModel().selectedRows() if not self.table.isRowHidden(index.row())]
+
+    def _selection_actions(self, *_):
+        if not hasattr(self, 'delete_btn'): return
+        count = len(self._selected_keys())
+        self.copy_codes_btn.setEnabled(count > 0)
+        self.copy_codes_btn.setText('复制种子码')
+        busy = self.orch is not None or self._share_active
+        self.delete_btn.setVisible(not self._trash_mode); self.restore_btn.setVisible(self._trash_mode)
+        self.delete_btn.setEnabled(bool(count and self.library and not busy))
+        self.restore_btn.setEnabled(bool(count and self.library and not busy))
+        visible = sum(not self.table.isRowHidden(row) for row in range(self.table.rowCount()))
+        self.selection_hint.setText(f'当前显示 {visible} 条 · 已选 {count} 条 · Ctrl+C 复制种子码 · ' +
+            ('远征或分享进行中，结束后可删除 / 恢复' if busy else 'Ctrl / Shift 多选；双击查看档案；删除可恢复'))
+
+    def delete_selected(self):
+        self._change_deleted(False)
+
+    def restore_selected(self):
+        self._change_deleted(True)
+
+    def _change_deleted(self, restore):
+        if not self.library or self.orch is not None or self._share_active: return
+        keys = self._selected_keys()
+        if not keys: return
+        try:
+            count = self.library.restore(keys) if restore else self.library.delete(keys)
+            self.results = self.library.all()
+            self._rebuild_library()
+            self.library_label.setText(f'已恢复 {count} 条种子。' if restore else f'已将 {count} 条移入本机回收站；已分享的网站记录保留。')
+        except Exception as error:
+            self.library_label.setText('操作未完成，种子记录已保留：' + str(error))
 
     def _accept_results(self, results):
         added = 0
@@ -371,6 +576,8 @@ class SeedGenPage(QWidget):
             if self.library:
                 try:
                     result = self.library.save(result)
+                    if self.library.is_deleted(result):
+                        continue
                     self._library_error = ""
                 except Exception as error:
                     self._library_error = str(error)
@@ -380,17 +587,18 @@ class SeedGenPage(QWidget):
                 old = self.results[index]
                 if (result.done and not old.done) or (result.done == old.done and len(result.lines) > len(old.lines)):
                     self.results[index] = result
-                    self._write_result(index, result)
+                    if not hasattr(self, 'sections'): self._write_result(index, result)
                 continue
             indexes[identity] = len(self.results)
             self.results.append(result)
-            self._append_result(result)
+            if not hasattr(self, 'sections'): self._append_result(result)
             added += 1
         if self._library_error:
             self.library_label.setText("自动保存失败 · 结果仍在列表中，请导出 TXT 备份")
             self.library_label.setToolTip(self._library_error)
         else:
             self._library_status()
+        if hasattr(self, 'sections'): self._rebuild_library()
         self._show_detail()
         return added
 
@@ -408,7 +616,7 @@ class SeedGenPage(QWidget):
 
     def publish_selected(self):
         result = self._selected_result()
-        if not result or (self._share_worker and self._share_worker.isRunning()):
+        if not result or self._share_active or self._trash_mode:
             return
         note = self.notes.get(note_key(result), "")
         try:
@@ -419,30 +627,97 @@ class SeedGenPage(QWidget):
         except Exception as error:
             QMessageBox.warning(self, "暂时无法分享", str(error))
             return
-        self.publish_btn.setEnabled(False)
-        self.publish_btn.setText("正在分享…")
-        # The worker belongs to the application so changing pages cannot destroy it.
-        self._share_worker = Worker(lambda: upload_seed(result, note), QApplication.instance())
-        self._share_worker.done.connect(lambda url: self._published(result, url))
-        self._share_worker.failed.connect(lambda error: QMessageBox.warning(self, "分享未完成", f"{error}\n种子仍保存在本机，可重新点击分享。"))
-        self._share_worker.finished.connect(self._share_finished)
-        QApplication.instance().aboutToQuit.connect(self._share_worker.wait)
-        self._share_worker.start()
+        self._publish_items([(result, note)], single=True)
 
-    def _published(self, result, url):
-        QApplication.clipboard().setText(url)
-        try:
-            self.library.mark_shared(result, url)
-        except Exception as error:
-            self.library_label.setText("已分享到网站并复制链接 · 本地分享状态保存失败")
-            self.library_label.setToolTip(str(error))
+    def publish_all(self):
+        if self._share_active or self._trash_mode or not self.library:
             return
-        self.library_label.setText(f"{result.seed} 已分享 · 链接已复制，可直接发给兄弟")
-        self.library_label.setToolTip(url)
+        try:
+            # Read durable history, regardless of table filters or selection.
+            items = [(result, self.notes.get(note_key(result), '')) for result in self.library.all()]
+        except Exception as error:
+            self.share_status.setText('无法读取种子库，尚未上传：' + str(error))
+            return
+        if items:
+            self._publish_items(items, single=False)
+
+    def _publish_items(self, items, *, single):
+        if self._share_worker:
+            self._share_worker.deleteLater()
+        self._single_share = single
+        self._share_active = True
+        self._share_report = None
+        self.share_details_btn.hide()
+        self.share_progress.setRange(0, len(items)); self.share_progress.setValue(0); self.share_progress.show()
+        self.share_status.setText(f'正在准备分享 {len(items)} 条种子…')
+        self.cancel_share_btn.setEnabled(True)
+        self._share_worker = SeedShareWorker(self.library, items, publish_seed, self)
+        self._share_worker.progress.connect(self._share_progress_changed)
+        self._share_worker.done.connect(self._sharing_done)
+        self._share_worker.failed.connect(self._sharing_failed)
+        self._share_worker.finished.connect(self._share_finished)
+        self._share_worker.start()
+        self._show_detail(); self._selection_actions()
+
+    def _share_progress_changed(self, state):
+        self.share_progress.setMaximum(state['total']); self.share_progress.setValue(state['completed'])
+        summary = f"已处理 {state['completed']}/{state['total']} · 新分享 {state['created']} · 已存在 {state['existing']} · 跳过 {state['invalid']} · 失败 {state['failed']}"
+        self.share_status.setText(('正在停止，等待当前请求结束 · ' if self._share_worker.queue.cancelled.is_set() else '') + state['message'] + '\n' + summary)
+
+    def _sharing_done(self, report):
+        self._share_report = report
+        label = '已停止' if report.stopped else '已暂停' if report.paused else '已处理完毕'
+        self.share_progress.setValue(report.completed)
+        self.share_status.setText(f"{label} · 新分享 {report.created} · 已存在 {report.existing} · 跳过 {report.invalid} · 失败 {report.failed} · 未处理 {report.remaining}"
+            + ('\n已成功的记录会跳过；再次点击一键分享可继续。' if report.stopped or report.paused or report.failed else ''))
+        self.share_details_btn.setVisible(bool(report.links or report.issues))
+        if self._single_share and report.links:
+            seed, url = report.links[0]
+            QApplication.clipboard().setText(url)
+            self.library_label.setText(f'{seed} ' + ('已分享' if report.created else '已存在，沿用原分享') + ' · 链接已复制')
+            self.library_label.setToolTip(url)
+
+    def _sharing_failed(self, error):
+        report = self._share_worker.queue.report
+        report.paused = True
+        report.issues.append('队列已暂停：' + error)
+        self._sharing_done(report)
+        self.share_status.setText(self.share_status.text() + '\n' + error)
 
     def _share_finished(self):
-        self.publish_btn.setText("分享给兄弟")
+        self._share_active = False
+        self.cancel_share_btn.setEnabled(False)
         self._show_detail()
+        self._selection_actions()
+
+    def cancel_sharing(self):
+        if self._share_worker and self._share_active:
+            self._share_worker.cancel()
+            self.cancel_share_btn.setEnabled(False)
+            self.share_status.setText('正在停止后续上传，等待当前请求结束；已成功的记录会保留。')
+
+    def shutdown_sharing(self):
+        if self._share_worker:
+            self._share_worker.cancel()
+            self._share_worker.wait()
+
+    def show_share_results(self):
+        if not self._share_report:
+            return
+        report = self._share_report
+        dialog = QDialog(self); dialog.setWindowTitle('种子分享结果'); dialog.resize(780, 500)
+        layout = QVBoxLayout(dialog)
+        details = QTextEdit(); details.setReadOnly(True)
+        details.setPlainText('\n'.join([
+            f'新分享 {report.created} · 已存在 {report.existing} · 跳过 {report.invalid} · 失败 {report.failed} · 未处理 {report.remaining}',
+            '重复种子沿用原链接和原介绍。失败或未处理的条目可再次分享；如有本地保存问题，原因列在下方。',
+            '', *report.issues, '', *[f'{seed}  {url}' for seed, url in report.links]]))
+        layout.addWidget(details)
+        copy_links = QPushButton('复制这些分享链接'); copy_links.setEnabled(bool(report.links))
+        copy_links.clicked.connect(lambda: QApplication.clipboard().setText('\n'.join(f'{seed}  {url}' for seed, url in report.links)))
+        layout.addWidget(copy_links)
+        buttons = QDialogButtonBox(QDialogButtonBox.Close); buttons.rejected.connect(dialog.reject); layout.addWidget(buttons)
+        dialog.exec()
 
     def _rule_changed(self, *_args) -> None:
         index = self.rule_mode.currentIndex()
@@ -485,9 +760,18 @@ class SeedGenPage(QWidget):
                 'excluded':self.excluded_traits, 'match':self.trait_match})
             self._rule_changed()
 
+    def _save_map_filters(self, *_args) -> None:
+        self.ctx.settings.set("seed_map_filters", {
+            "ports": self.port_count.value(), "settlements": self.city_count.value(),
+            "armorsmiths": self.armorsmith_count.value(),
+            "north_south_ports": self.north_south_ports.isChecked(),
+            "arena_port": self.arena_port.isChecked(),
+        })
+
     def _mode_changed(self, *_args) -> None:
         mode = MODE_LABELS[self.mode_combo.currentText()]
-        enabled = (mode != "map_only", mode in ("map_only", "bro_map", "all"), mode in ("bro_lair", "all"))
+        enabled = (mode not in ("map_only", "lair_only"), mode in ("map_only", "bro_map", "all"),
+                   mode in ("lair_only", "bro_lair", "all"))
         for index, active in enumerate(enabled):
             self.filter_tabs.setTabEnabled(index, active)
         if not enabled[self.filter_tabs.currentIndex()]:
@@ -638,7 +922,7 @@ class SeedGenPage(QWidget):
         cfg.campaign.validate()
         cfg.common.EnableLowercaseSeed = self.lower_check.isChecked()
         cfg.common.UseBrotherLevel11RealAttr = self.real11_check.isChecked()
-        if mode != "map_only" and self.rule_mode.currentData() != "preset":
+        if mode not in ("map_only", "lair_only") and self.rule_mode.currentData() != "preset":
             if self.rule_mode.currentData() in ("attributes", "traits"):
                 thresholds = {}
                 if self.rule_mode.currentData() == "attributes":
@@ -653,10 +937,15 @@ class SeedGenPage(QWidget):
                                             self.bro_count.value(), self.bro_role.currentData())
             cfg.origins = {self.origin_combo.currentData(): OriginConfig(conditions=[condition])}
         if mode in ("map_only", "bro_map", "all"):
-            cfg.map_conditions = [["PortNum", self.port_count.value(), "SettlementNum", self.city_count.value(),
-                                   "ArmorsmithNum", self.armorsmith_count.value()]]
-        if mode in ("bro_lair", "all"):
-            cfg.lair_conditions = [["NamedNumber", self.named_min.value()]]
+            condition = ["PortNum", self.port_count.value(), "SettlementNum", self.city_count.value(),
+                         "ArmorsmithNum", self.armorsmith_count.value()]
+            if self.north_south_ports.isChecked():
+                condition.extend(["UpperLeftPortNum", 1, "LowerLeftPortNum", 1])
+            if self.arena_port.isChecked():
+                condition.extend(["ArenaPort", 1])
+            cfg.map_conditions = [condition]
+        if mode in ("lair_only", "bro_lair", "all"):
+            cfg.lair_conditions = self.weapon_filter.conditions()
         return cfg
 
     def start(self) -> None:
@@ -820,14 +1109,23 @@ class SeedGenPage(QWidget):
 
     def _selected_result(self) -> SeedResult | None:
         row = self.table.currentRow()
+        if row >= 0 and self.table.isRowHidden(row): return None
+        if row not in {index.row() for index in self.table.selectionModel().selectedRows()}: return None
         item = self.table.item(row, 0) if row >= 0 else None
         return item.data(Qt.UserRole) if item else None
 
     def _show_detail(self) -> None:
         result = self._selected_result()
         self.copy_btn.setEnabled(result is not None)
-        self.save_btn.setEnabled(result is not None)
-        self.publish_btn.setEnabled(bool(result and result.done and not (self._share_worker and self._share_worker.isRunning())))
+        self.save_btn.setEnabled(result is not None and not self._trash_mode)
+        self.publish_btn.setEnabled(bool(result and result.done and not self._trash_mode and not self._share_active))
+        shared = False
+        if result and self.library:
+            try: shared = bool(self.library.shared_url(result))
+            except Exception: pass
+        self.publish_btn.setText('复制分享链接' if shared else '分享所选')
+        if hasattr(self, 'publish_all_btn'):
+            self.publish_all_btn.setEnabled(bool(self.results and self.library and not self._trash_mode and not self._share_active))
         self.note_edit.setEnabled(result is not None)
         self.export_btn.setEnabled(bool(self.results))
         self._loading_note = True
@@ -871,7 +1169,17 @@ class SeedGenPage(QWidget):
         if result:
             QApplication.clipboard().setText(self._formatted(result))
             self.copy_btn.setText("已复制 ✓")
-            QTimer.singleShot(1800, self, lambda: self.copy_btn.setText("复制所选"))
+            QTimer.singleShot(1800, self, lambda: self.copy_btn.setText("复制文案"))
+
+    def copy_seed_codes(self) -> None:
+        rows = sorted(index.row() for index in self.table.selectionModel().selectedRows()
+                      if not self.table.isRowHidden(index.row()))
+        if not rows:
+            return
+        codes = [self.table.item(row, 0).data(Qt.UserRole).seed for row in rows]
+        QApplication.clipboard().setText('\n'.join(codes))
+        self.copy_codes_btn.setText('已复制 ✓')
+        QTimer.singleShot(1800, self, self._selection_actions)
 
     def _open_record(self, *_args) -> None:
         result = self._selected_result()

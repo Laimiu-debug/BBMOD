@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}建议管理 · BBMOD{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'suggestions.css' %}">{% endblock %}
+{% block content %}
+<section class="page-head"><a href="{% url 'management' %}">← 管理后台</a><h1>玩家建议</h1><p>共 {{ total }} 条 · {{ new_count }} 条待查看 · {{ reviewing_count }} 条处理中。建议及联系方式仅管理员可见。</p></section>
+<section class="panel">
+  <form class="suggestion-filters" method="get" role="search" aria-label="筛选建议">
+    <div><label for="suggestion-q">搜索内容</label><input id="suggestion-q" name="q" value="{{ q }}" maxlength="100" placeholder="标题、内容或称呼"></div>
+    <div><label for="suggestion-status">处理状态</label><select id="suggestion-status" name="status"><option value="">全部状态</option>{% for value,label in statuses %}<option value="{{ value }}" {% if status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <div><label for="suggestion-kind">建议类型</label><select id="suggestion-kind" name="kind"><option value="">全部类型</option>{% for value,label in kinds %}<option value="{{ value }}" {% if kind == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <button class="button primary" type="submit">筛选</button><a class="button" href="{% url 'suggestion_management' %}">重置</a>
+  </form>
+  <p class="muted">符合条件：{{ page.paginator.count }} 条</p>
+  {% for suggestion in page %}
+  <article class="suggestion-row">
+    <div><div class="suggestion-meta"><span class="tag suggestion-status-{{ suggestion.status }}">{{ suggestion.get_status_display }}</span><span>{{ suggestion.get_kind_display }}</span><time datetime="{{ suggestion.created_at|date:'c' }}">{{ suggestion.created_at|date:'Y.m.d H:i' }}</time></div><h2><a href="{% url 'suggestion_detail' suggestion.id %}">{{ suggestion.title }}</a></h2><p>{{ suggestion.details|truncatechars:140 }}</p><span class="muted">{{ suggestion.nickname|default:'未留称呼' }} · {{ suggestion.reference }}{% if suggestion.version %} · {{ suggestion.version }}{% endif %}</span></div>
+    <a class="button small" href="{% url 'suggestion_detail' suggestion.id %}">查看并处理 →</a>
+  </article>
+  {% empty %}<div class="empty suggestion-empty"><h2>{% if total %}没有符合条件的建议{% else %}还没有收到建议{% endif %}</h2><p>{% if total %}试试其他关键词，或重置筛选条件。{% else %}玩家提交后，会在这里显示。{% endif %}</p></div>{% endfor %}
+  {% if page.has_other_pages %}<nav class="pagination" aria-label="建议分页">{% if page.has_previous %}<a href="?q={{ q|urlencode }}&amp;status={{ status|urlencode }}&amp;kind={{ kind|urlencode }}&amp;page={{ page.previous_page_number }}">上一页</a>{% endif %}<span>{{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?q={{ q|urlencode }}&amp;status={{ status|urlencode }}&amp;kind={{ kind|urlencode }}&amp;page={{ page.next_page_number }}">下一页</a>{% endif %}</nav>{% endif %}
+</section>
+{% endblock %}

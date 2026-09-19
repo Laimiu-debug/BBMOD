@@ -104,55 +104,52 @@ def list_steam_libraries(steam_root: Path) -> list[Path]:
     """解析 libraryfolders.vdf 枚举全部 Steam 库（含主库）。"""
     libs = [steam_root]
     vdf = steam_root / "steamapps" / "libraryfolders.vdf"
-    if not vdf.exists():
-        return libs
     try:
         text = vdf.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return libs
     for m in re.finditer(r'"path"\s+"([^"]+)"', text):
         p = Path(m.group(1).replace("\\\\", "\\"))
-        if p.exists() and p not in libs:
-            libs.append(p)
+        try:
+            if p not in libs and p.is_dir():
+                libs.append(p)
+        except OSError:
+            # Steam may retain libraries on disconnected or inaccessible drives.
+            continue
     return libs
+
+
+def _inspect_game(root: Path) -> GameInfo | None:
+    """An unavailable candidate must not prevent the application from opening."""
+    exe = root / "win32" / EXE_NAME
+    data_dir = root / "data"
+    try:
+        if not exe.is_file() or not data_dir.is_dir():
+            return None
+    except OSError:
+        return None
+    return GameInfo(root=root, exe=exe, version=read_file_version(exe), data_dir=data_dir)
 
 
 def locate_game(manual_hint: str | None = None) -> GameInfo | None:
     """检测链：手动指定 → 注册表+libraryfolders.vdf 扫描 → 常见盘符兜底。"""
-    candidates: list[Path] = []
     if manual_hint:
-        root = Path(manual_hint)
-        exe = root / 'win32' / EXE_NAME
-        if not exe.is_file() or not (root / 'data').is_dir():
-            return None
-        return GameInfo(root=root, exe=exe, version=read_file_version(exe), data_dir=root / 'data')
+        # Preserve the user's choice even when it is unavailable; do not switch
+        # silently to a different installation with different MODs and settings.
+        return _inspect_game(Path(manual_hint))
     steam = find_steam_root()
     if steam:
         for lib in list_steam_libraries(steam):
-            manifest = lib / "steamapps" / f"appmanifest_{APP_ID}.acf"
-            game_dir = lib / "steamapps" / "common" / GAME_DIRNAME
-            if manifest.exists() and game_dir.exists():
-                candidates.append(game_dir)
-            elif game_dir.exists():
-                candidates.append(game_dir)
+            found = _inspect_game(lib / "steamapps" / "common" / GAME_DIRNAME)
+            if found:
+                return found
     # 兜底：扫常见盘符的默认 Steam 库位置
-    for drive in ("C:", "D:", "E:", "F:", "G:"):
-        p = Path(drive, "SteamLibrary", "steamapps", "common", GAME_DIRNAME)
-        if p.exists():
-            candidates.append(p)
-        p = Path(drive, "Program Files (x86)", "Steam", "steamapps", "common", GAME_DIRNAME)
-        if p.exists():
-            candidates.append(p)
-
-    for root in candidates:
-        exe = root / "win32" / EXE_NAME
-        if exe.exists():
-            return GameInfo(
-                root=root,
-                exe=exe,
-                version=read_file_version(exe),
-                data_dir=root / "data",
-            )
+    # A bare "D:" is drive-relative on Windows; the slash anchors it at the root.
+    for drive in ("C:/", "D:/", "E:/", "F:/", "G:/"):
+        for library in ("SteamLibrary", "Program Files (x86)/Steam"):
+            found = _inspect_game(Path(drive) / library / "steamapps" / "common" / GAME_DIRNAME)
+            if found:
+                return found
     return None
 
 
@@ -310,6 +307,36 @@ def is_game_running() -> bool:
     return EXE_NAME.lower() in out.lower()
 
 
+def launch_executable(game: GameInfo) -> dict:
+    """Use the desktop launch path for both ordinary play and seed searches."""
+    executable = game.exe.resolve()
+    if hasattr(os, 'startfile'):
+        # Steam can relaunch its registered installation; copied games must
+        # never escape the directory protected by the active MOD transaction.
+        steam = find_steam_root()
+        registered = []
+        for library in list_steam_libraries(steam) if steam else []:
+            manifest = library / 'steamapps' / f'appmanifest_{APP_ID}.acf'
+            if not manifest.is_file():
+                continue
+            match = re.search(r'"installdir"\s+"([^"\r\n]+)"',
+                              manifest.read_text(encoding='utf-8-sig', errors='replace'))
+            common = (library / 'steamapps/common').resolve()
+            installed = (common / (match[1] if match else GAME_DIRNAME)).resolve()
+            if installed.is_relative_to(common) and installed.is_dir():
+                registered.append(installed)
+        if registered and game.root.resolve() not in registered:
+            raise RuntimeError('当前目录不是 Steam 注册的游戏目录。为防止隔离测试跳到常用游戏，已停止启动。请在 BBMOD 中选择 Steam 已安装的游戏目录：\n' + '\n'.join(map(str, registered)))
+        os.startfile(str(executable), cwd=str(executable.parent))
+        return {'mode': 'current'}
+    environment = dict(os.environ)
+    for key in list(environment):
+        if key.startswith(('BBMOD_FONT_', 'BBMOD_PLACE_NAMES_')):
+            environment.pop(key)
+    process = subprocess.Popen([str(executable)], cwd=str(executable.parent), env=environment)
+    return {'pid': process.pid, 'mode': 'current'}
+
+
 def launch_game(game: GameInfo, via_steam: bool = True) -> bool:
     """启动游戏。默认走 steam://run/365360（保证 Steamworks/DLC 正常初始化）。"""
     if via_steam:
@@ -319,7 +346,7 @@ def launch_game(game: GameInfo, via_steam: bool = True) -> bool:
         except OSError:
             pass
     try:
-        subprocess.Popen([str(game.exe)], cwd=str(game.exe.parent))
+        launch_executable(game)
         return True
     except OSError:
         return False

@@ -92,3 +92,51 @@ class SeedSharingTests(TestCase):
         self.assertEqual(self.publish(payload('ABCDEFGHIJ')).status_code, 429)
         self.assertEqual(self.publish().status_code, 200)
         self.assertEqual(SharedSeed.objects.count(), 1)
+
+
+class SeedPaginationTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Direct fixtures avoid testing publication quotas in pagination tests.
+        for index in range(23):
+            code = 'SEED' + f'{index:06d}'
+            record = payload(code)['record']
+            SharedSeed.objects.create(fingerprint=str(index), seed=code, origin=record['origin'],
+                game_version=record['game_version'], record=record, note='北港 & 远征',
+                ports=7, named=index, combat_difficulty=2, economic_difficulty=1, budget_difficulty=0)
+        record = payload('BLOCKEDabc')['record']
+        SharedSeed.objects.create(fingerprint='blocked', seed='BLOCKEDabc', origin=record['origin'],
+            record=record, blocked=True)
+
+    def test_six_per_page_no_duplicates_and_numeric_navigation(self):
+        seen = []
+        for number, count in ((1, 6), (2, 6), (3, 6), (4, 5)):
+            response = self.client.get('/seeds/', {'page': number})
+            page = response.context['page']
+            self.assertEqual(page.paginator.count, 23)
+            self.assertEqual(len(page), count)
+            self.assertContains(response, 'aria-current="page" aria-label="第 ' + str(number) + ' 页"', count=2)
+            self.assertNotContains(response, 'BLOCKEDabc')
+            seen.extend(seed.seed for seed in page)
+        self.assertEqual(len(set(seen)), 23)
+        self.assertEqual(seen, [seed.seed for seed in SharedSeed.objects.filter(blocked=False)])
+
+    def test_filters_page_size_sort_and_url_preserved(self):
+        query = {'q': '北港 &', 'ports': '7', 'sort': 'named', 'origin': 'scenario.militia', 'per_page': '12', 'page': '2'}
+        response = self.client.get('/seeds/', query)
+        self.assertEqual(len(response.context['page']), 11)
+        self.assertEqual(response.context['page'][0].named, 10)
+        self.assertIn('q=%E5%8C%97%E6%B8%AF+%26', response.context['params'])
+        self.assertIn('per_page=12', response.context['params'])
+        self.assertNotIn('&page=', response.context['params'])
+        self.assertContains(response, '第 13–23 条 / 共 23 条')
+        self.assertEqual(len(self.client.get('/seeds/', {'per_page': 24}).context['page']), 23)
+
+    def test_invalid_pages_and_sizes_are_bounded(self):
+        for value in ('0', '-3', '10000000', 'abc'):
+            self.assertEqual(len(self.client.get('/seeds/', {'per_page': value}).context['page']), 6)
+        self.assertEqual(self.client.get('/seeds/', {'page': 'bad'}).context['page'].number, 1)
+        self.assertEqual(self.client.get('/seeds/', {'page': 999}).context['page'].number, 4)
+        response = self.client.get('/seeds/', {'q': 'nothing matches'})
+        self.assertEqual(response.context['page'].paginator.count, 0)
+        self.assertContains(response, '第 0–0 条 / 共 0 条')

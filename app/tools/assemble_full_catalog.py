@@ -120,9 +120,9 @@ def main():
         'translation_stage': 'incomplete_draft' if missing or invalid or latin else 'complete_draft',
         'editorial_review': editorial_review,
         'display_fallbacks': {s.strip(): t.strip() for s,t in terms.items() if s.strip() and t.strip()},
-        'scope_description': ('本体与官方 DLC 的界面、物品、技能、人物、委托及事件文本已全部独立精修；地名保留原版英文；游戏内验收待进行'
+        'scope_description': ('本体与官方 DLC 的界面、物品、技能、人物、委托及事件文本提供独立中文译文，持续修订；地名显示中文；游戏内验收待进行'
                               if review_complete else '本体与官方 DLC 的界面、物品、技能、人物、地名、委托及事件文本；长篇剧情为独立初稿，待逐条校对'),
-        'native_map_font': 'bbmod_launcher_noto_serif_sc',
+        'native_map_font': 'mod_ui',
         'provenance': {'source': '用户本机原版 1.5.2.3 官方档案', 'translation': ('本地 MADLAD-400 初稿；非地名译文现已全部依据原文独立精修' if review_complete else '人工独立术语与专名；本地 MADLAD-400 初稿'),
                        'excluded': '第三方 MOD 译文及脚本', 'model': 'google/madlad400-3b-mt', 'model_license': 'Apache-2.0'},
     })

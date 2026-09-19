@@ -23,6 +23,7 @@ def page(app, tmp_path):
     page = SeedGenPage(context)
     yield page
     page.timer.stop()
+    page.shutdown_sharing()
     if page._import_worker:
         page._import_worker.wait(5000)
     page.close()

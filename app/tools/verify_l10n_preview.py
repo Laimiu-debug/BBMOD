@@ -1,4 +1,5 @@
 """Check exactly the scripts in the current preview, including protected keys."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -17,9 +18,12 @@ from tools.translate_full_catalog import WORK
 
 
 def main():
-    package = WORK / 'preview-package/mod_bbmod_zhcn.zip'
-    target = WORK / 'preview-validation'
-    target.mkdir(exist_ok=True)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--package', type=Path, default=WORK/'preview-package/mod_bbmod_zhcn.zip')
+    parser.add_argument('--output', type=Path, default=WORK/'preview-validation')
+    args = parser.parse_args()
+    package, target = args.package, args.output
+    target.mkdir(parents=True, exist_ok=True)
     scripts, javascript = [], []
     vendor = hooks_assets()
     with zipfile.ZipFile(package) as z:

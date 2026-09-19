@@ -10,6 +10,7 @@ from core import game as game_mod
 from core.modmanager import ModManager
 from core.modstore import ModStore
 from core.settings import Settings
+from .game_session import GameSession
 
 _COLLECTION_DIR = "狐狸汉化精选MOD合集"
 _COLLECTION_PARENT_PREFIX = "1.5.2.3游戏版本"
@@ -54,6 +55,7 @@ class AppContext(QObject):
         self.mm = ModManager(self.game.root) if self.game else None
         self.seedgen_active = False
         self.management_busy = False
+        self.game_session = GameSession(self)
 
     def set_management_busy(self, active: bool) -> None:
         self.management_busy = active

@@ -7,7 +7,7 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.3.1'
+VERSION = '0.3.4'
 PREFIX = f'BBMOD-Hub-{VERSION}'
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, default=ROOT / 'app/build/hub' / VERSION)
@@ -20,9 +20,9 @@ files += [ROOT / 'app' / name for name in ['core/paths.py', 'core/gamelog.py',
     'core/seedgen/config_emitter.py', 'core/seedgen/log_watcher.py', 'core/seedgen/presentation.py',
     'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'data/seed_traits.json']]
 web = ROOT / 'web'
-for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'Dockerfile', 'compose.yml', 'compose.https.yml', 'compose.gateway.yml', '.env.example', 'README.md']:
+for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'requirements-wiki.txt', 'Dockerfile', 'compose.yml', 'compose.https.yml', 'compose.gateway.yml', '.env.example', 'README.md']:
     files.append(web / name)
-for folder in ['hub', 'catalog', 'templates', 'static', 'deploy', 'tools', 'vercel', 'content']:
+for folder in ['hub', 'catalog', 'templates', 'static', 'deploy', 'tools', 'vercel', 'content', 'docs']:
     for path in (web / folder).rglob('*'):
         if (path.is_file() and not any(p in {'__pycache__', '.vercel'} for p in path.parts)
                 and path.suffix != '.pyc' and path.name != 'seed_preview.py'

@@ -31,6 +31,7 @@ class DashboardPage(QWidget):
         info_box = QGroupBox("游戏状态")
         info_layout = QHBoxLayout(info_box)
         self.info_label = QLabel("检测中…")
+        self.info_label.setWordWrap(True)
         self.info_label.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.refresh_btn = QPushButton("重新检测")
         style_button(self.refresh_btn, "refresh")
@@ -63,7 +64,7 @@ class DashboardPage(QWidget):
             return
         g = self.ctx.game
         if not g:
-            self.info_label.setText("未找到游戏，请到 设置 中手动指定安装目录")
+            self.info_label.setText("未找到游戏，请点击上方「更换目录」指定安装目录。")
             return
         base = game_mod.check_base_archive(g.data_dir)
         dlcs = game_mod.installed_dlcs(g.data_dir)

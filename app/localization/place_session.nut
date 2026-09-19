@@ -1,5 +1,5 @@
 // BBMOD independent display bridge. Canonical names and saved data stay English.
-// Only our process-local native adapter can provide this launch-session marker.
+// The ordinary MOD preload provides the dictionary token for all launch routes.
 ::mods_hookNewObject("ui/screens/menu/main_menu_screen", function(screen) {
     screen.bbmodGetPlaceNameSession <- function(_unused = null) {
         local root = getroottable();

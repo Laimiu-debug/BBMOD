@@ -60,6 +60,7 @@ def load_terms():
     terms.update(json.loads((ROOT / 'localization/reviewed_onboarding.json').read_text(encoding='utf-8'))['terms'])
     terms.update(json.loads((ROOT / 'localization/reviewed_equipment_contracts.json').read_text(encoding='utf-8'))['terms'])
     terms.update(json.loads((ROOT / 'localization/reviewed_refinement.json').read_text(encoding='utf-8'))['terms'])
+    terms.update(json.loads((ROOT / 'localization/reviewed_dynamic.json').read_text(encoding='utf-8'))['terms'])
     for source, value in list(terms.items()):
         if source.startswith(('the ', 'The ')):
             terms['the ' + source[4:]] = value

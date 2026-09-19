@@ -15,7 +15,7 @@ sys.path.insert(0,str(ROOT))
 def launch():
     from core.game import GameInfo, OFFICIAL_ARCHIVES
     from core.l10n import PACKAGE_NAME, package_manifest
-    from core.native_font import launch_localized
+    from core.localization_profiles import LocalizationProfiles
     game_root=ROOT/'build/full-l10n/game-check'
     data=game_root/'data'
     # A missing or contaminated preview must not fall back to locate_game(),
@@ -40,11 +40,10 @@ def launch():
             raise ValueError('测试保护文件不完整。')
     if guard['package_sha256']!=hashlib.sha256((data/PACKAGE_NAME).read_bytes()).hexdigest():
         raise ValueError('测试包已更新，请先重新准备对应的测试保护文件。')
-    os.environ['BBMOD_PREVIEW_TITLE']='BBMOD 独立汉化测试（开发中，不保存进度） | Battle Brothers 1.5.2.3'
     game=GameInfo(game_root,game_root/'win32/BattleBrothers.exe','1.5.2.3',data)
-    if manifest.get('place_name_display') == 'launcher_session':
-        return launch_localized(game,ROOT/'build/preview-runtime',place_package=data/PACKAGE_NAME)
-    return launch_localized(game,ROOT/'build/preview-runtime')
+    if manifest.get('place_name_display') != 'mod_ui':
+        raise ValueError('测试副本仍是旧启动器方案，请准备新版 MOD 显示测试包。')
+    return LocalizationProfiles(game_root).launch(game, ROOT/'build/preview-runtime')
 
 
 if __name__=='__main__':

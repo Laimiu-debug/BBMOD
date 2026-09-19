@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "provenance": "Independently reviewed against the original English item-name pools. These display-only translations distinguish equipment names from character traits, titles and attacks.",
+  "files": {
+    "scripts/config/item_names.cnut": {
+      "Old": "古旧",
+      "Whip": "长鞭",
+      "of the Desert": "·沙漠",
+      "of the North": "·北境"
+    }
+  }
+}

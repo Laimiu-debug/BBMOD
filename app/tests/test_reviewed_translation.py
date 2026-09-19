@@ -10,10 +10,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_reviewed_onboarding_is_used_whole_with_markup_and_variables():
     reviewed = json.loads((ROOT/'localization/reviewed_onboarding.json').read_text(encoding='utf8'))['terms']
+    refined = json.loads((ROOT/'localization/reviewed_refinement.json').read_text(encoding='utf8'))['terms']
     terms = load_terms()
     for source, value in reviewed.items():
         assert not validate_translation(source, value), source
-        assert job_parts(source, terms) == [(True, value)], source
+        expected = refined.get(source, value)
+        assert not validate_translation(source, expected), source
+        assert job_parts(source, terms) == [(True, expected)], source
 
 
 def test_reviewed_fragment_matches_trimmed_concatenation_part():
@@ -23,20 +26,25 @@ def test_reviewed_fragment_matches_trimmed_concatenation_part():
 
 def test_reviewed_equipment_and_contracts_are_preserved_whole():
     reviewed = json.loads((ROOT/'localization/reviewed_equipment_contracts.json').read_text(encoding='utf8'))['terms']
+    refined = json.loads((ROOT/'localization/reviewed_refinement.json').read_text(encoding='utf8'))['terms']
     terms = load_terms()
     for source, value in reviewed.items():
         assert not validate_translation(source, value), source
-        assert job_parts(source, terms) == [(True, value)], source
+        # Later editorial revisions still have to win as a complete template.
+        expected = refined.get(source, value)
+        assert not validate_translation(source, expected), source
+        assert job_parts(source, terms) == [(True, expected)], source
 
 
 def test_initial_review_preserves_variables_and_wins_over_machine_cache():
     reviewed = json.loads((ROOT/'localization/reviewed_initial.json').read_text(encoding='utf8'))['terms']
     refined = json.loads((ROOT/'localization/reviewed_refinement.json').read_text(encoding='utf8'))['terms']
+    refined_fragments = {source.strip(): value.strip() for source, value in refined.items()}
     terms = load_terms()
     for source, value in reviewed.items():
         assert not validate_translation(source, value), source
         # An explicitly reviewed refinement supersedes an earlier reviewed draft.
-        expected = refined.get(source, value)
+        expected = refined_fragments.get(source, refined.get(source, value))
         assert not validate_translation(source, expected), source
         assert fixed_text(source, terms) == expected, source
 

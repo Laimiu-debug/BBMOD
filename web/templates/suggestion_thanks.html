@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}建议已收到 · BBMOD{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'suggestions.css' %}">{% endblock %}
+{% block content %}
+<section class="panel suggestion-thanks">
+  <span class="suggestion-check" aria-hidden="true">✓</span>
+  <p class="eyebrow">LETTER RECEIVED</p><h1>建议收到了，好兄弟</h1>
+  <p>你的建议已保存，管理员可以在后台查看和处理。<br>感谢你花时间帮助 BBMOD 变得更好。</p>
+  <p class="suggestion-reference">建议编号 <strong>{{ reference }}</strong></p>
+  <p class="help">建议内容不会公开。若你留下了联系方式，我们可在需要时进一步了解情况。</p>
+  <div class="form-actions"><a class="button primary" href="{% url 'catalog' %}">返回军械库</a><a class="button" href="{% url 'suggestions' %}">再提一条</a></div>
+</section>
+{% endblock %}

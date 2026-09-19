@@ -44,6 +44,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_ROOT = DATA_DIR / 'private'
 DESKTOP_DOWNLOAD_ROOT = Path(os.environ.get('BBMOD_DESKTOP_DOWNLOAD_ROOT', str(DATA_DIR / 'desktop')))
 DESKTOP_DOWNLOAD_ACCEL = os.environ.get('BBMOD_DESKTOP_DOWNLOAD_ACCEL', '0') == '1'
+WIKI_ROOT = Path(os.environ.get('BBMOD_WIKI_ROOT', str(DATA_DIR / 'wiki'))).resolve()
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/workshop/'

@@ -2,12 +2,17 @@
 from __future__ import annotations
 
 from PySide6.QtCore import QByteArray, Qt, QRect
-from PySide6.QtGui import QColor, QFont, QFontDatabase, QIcon, QPainter, QPalette, QPixmap, QLinearGradient
+from PySide6.QtGui import QColor, QFont, QFontDatabase, QFontMetrics, QIcon, QPainter, QPalette, QPixmap, QLinearGradient
 from PySide6.QtSvg import QSvgRenderer
-from PySide6.QtWidgets import QApplication, QPushButton, QTableWidget, QWidget, QStyleOption, QStyle
+from PySide6.QtWidgets import QApplication, QHeaderView, QPushButton, QTableWidget, QWidget, QStyleOption, QStyle
 import random
+import re
 
 from core.paths import resource_path
+from core.appearance import Appearance, SETTINGS_KEY, normalize_appearance
+from core.settings import Settings
+
+_font_families = None
 
 INK, MUTED, RED, GREEN, GOLD = "#382f23", "#74644c", "#923e32", "#3e6549", "#d7ba7a"
 _ICONS = {
@@ -25,11 +30,12 @@ _ICONS = {
  "save": '<path d="M5 3h19l5 5v21H3V3Zm4 0v9h14V3M9 29V18h14v11"/>',
  "warning": '<path d="m16 3 14 25H2Zm0 8v8m0 4v1"/>',
  "copy": '<path d="M11 9h17v20H11ZM5 23H3V3h18v2"/>',
+ "settings": '<path d="M5 7h22M5 16h22M5 25h22"/><circle cx="12" cy="7" r="3" fill="#453d30"/><circle cx="22" cy="16" r="3" fill="#453d30"/><circle cx="10" cy="25" r="3" fill="#453d30"/>',
 }
 
 
 def crest() -> QIcon:
-    return QIcon(str(resource_path("assets/crest-painted.png")))
+    return QIcon(str(resource_path("assets/bbmod.ico")))
 
 
 def icon(name: str, color: str = INK, size: int = 24) -> QIcon:
@@ -60,8 +66,36 @@ def style_table(table: QTableWidget) -> None:
     table.setAlternatingRowColors(True)
     table.setShowGrid(False)
     table.verticalHeader().setVisible(False)
-    table.verticalHeader().setDefaultSectionSize(38)
+    fit_table_font(table)
     table.horizontalHeader().setMinimumSectionSize(64)
+
+
+def fit_table_font(table: QTableWidget) -> None:
+    table.ensurePolished()
+    height = max(38, table.fontMetrics().height() + 18, table.iconSize().height() + 8)
+    table.verticalHeader().setMinimumSectionSize(height)
+    table.verticalHeader().setDefaultSectionSize(height)
+    header = table.horizontalHeader()
+    label_font = QFont(header.font())
+    label_font.setBold(True)
+    metrics = QFontMetrics(label_font)
+    minimums = {column: metrics.horizontalAdvance(table.horizontalHeaderItem(column).text()) + 24
+                for column in range(table.columnCount()) if table.horizontalHeaderItem(column)}
+    stretch_minimum = max([64] + [width for column, width in minimums.items()
+                                  if header.sectionResizeMode(column) == QHeaderView.Stretch])
+    header.setMinimumSectionSize(stretch_minimum)
+    widths = getattr(table, '_bbmod_font_widths', {})
+    for column, minimum in minimums.items():
+        if header.sectionResizeMode(column) not in (QHeaderView.Interactive, QHeaderView.Fixed):
+            continue
+        current = table.columnWidth(column)
+        original, last = widths.get(column, (current, current))
+        if current != last:
+            original = current  # Retain a column width the user dragged manually.
+        fitted = max(original, minimum, stretch_minimum)
+        table.setColumnWidth(column, fitted)
+        widths[column] = (original, fitted)
+    table._bbmod_font_widths = widths
 
 
 class ParchmentSurface(QWidget):
@@ -97,7 +131,7 @@ class CampHeader(QWidget):
     def __init__(self):
         super().__init__()
         self.setObjectName("campHeader")
-        self.setFixedHeight(108)
+        self.setMinimumHeight(108)
         self.art = QPixmap(str(resource_path("assets/camp-painted.png")))
 
     def paintEvent(self, event):
@@ -126,15 +160,54 @@ class CampHeader(QWidget):
         painter.end()
 
 
-def apply_theme(app: QApplication) -> None:
-    app.setStyle("Fusion")
+def font_families() -> tuple[str, str]:
+    global _font_families
+    if _font_families is not None:
+        return _font_families
     font_id = QFontDatabase.addApplicationFont(str(resource_path("localization/NotoSansSC-Regular.ttf")))
     families = QFontDatabase.applicationFontFamilies(font_id)
     family = families[0] if families else "Microsoft YaHei UI"
     title_id = QFontDatabase.addApplicationFont(str(resource_path("assets/Cinzel.ttf")))
     title_families = QFontDatabase.applicationFontFamilies(title_id)
     title_family = title_families[0] if title_families else family
-    app.setFont(QFont(family, 10))
+    _font_families = (family, title_family)
+    return _font_families
+
+
+def resolve_appearance(value) -> Appearance:
+    preferences = normalize_appearance(value)
+    fallback, _ = font_families()
+    available = {name.casefold(): name for name in QFontDatabase.families(QFontDatabase.SimplifiedChinese)}
+    return Appearance(available.get(preferences.font_family.casefold(), fallback), preferences.font_size)
+
+
+def css_family(family: str) -> str:
+    return '"' + family.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
+def typography_stylesheet(preferences: Appearance) -> str:
+    _, title_family = font_families()
+    # Scale every textual style, including headers, hints, tabs and tooltips.
+    # Small secondary text stays within two points of the chosen body size.
+    def size(match):
+        points = max(preferences.font_size - 2, float(match[1]) / 13 * preferences.font_size)
+        return f'font-size:{points:.2f}pt'
+    sheet = re.sub(r'font-size:\s*(\d+(?:\.\d+)?)px', size, STYLESHEET)
+    return (sheet.replace('"Microsoft YaHei UI"', css_family(preferences.font_family))
+        .replace('font-family:Georgia', 'font-family:' + css_family(title_family))
+        .replace('__ASSETS__', resource_path('assets').as_posix()))
+
+
+def apply_theme(app: QApplication, preferences=None) -> Appearance:
+    if preferences is None:
+        preferences = Settings().get(SETTINGS_KEY)
+    if isinstance(preferences, Appearance):
+        preferences = preferences.to_dict()
+    preferences = resolve_appearance(preferences)
+    if not app.property('bbmodThemeReady'):
+        app.setStyle("Fusion")
+        app.setProperty('bbmodThemeReady', True)
+    app.setFont(QFont(preferences.font_family, preferences.font_size))
     app.setWindowIcon(crest())
     pal = QPalette()
     for role, color in {
@@ -149,9 +222,12 @@ def apply_theme(app: QApplication) -> None:
     pal.setColor(QPalette.Disabled, QPalette.Text, QColor("#9b8b70"))
     pal.setColor(QPalette.Disabled, QPalette.ButtonText, QColor("#9b8b70"))
     app.setPalette(pal)
-    app.setStyleSheet(STYLESHEET.replace('"Microsoft YaHei UI"', f'"{family}"')
-        .replace('font-family:Georgia', f'font-family:"{title_family}"')
-        .replace('__ASSETS__', resource_path('assets').as_posix()))
+    app.setStyleSheet(typography_stylesheet(preferences))
+    app.setProperty('bbmodAppearance', preferences.to_dict())
+    for widget in app.allWidgets():
+        if isinstance(widget, QTableWidget):
+            fit_table_font(widget)
+    return preferences
 
 
 STYLESHEET = """
@@ -244,7 +320,8 @@ QTableWidget, QTableView, QListWidget { background:#eee0bd; alternate-background
 QTableWidget::item { border-bottom:1px solid #cbb78e; }
 QTableWidget::item:selected { background:#755035; color:#fff0ce; }
 QTextEdit { background:#f0e3c7; border:1px solid #ad9161; }
-#runStatus { color:#685035; font-size:11px; }
+#runStatus { color:#d6c39c; font-size:11px; }
+#workspaceHint { color:#d6c39c; font-size:12px; }
 #seedFilters { padding:9px 3px 3px; }
 #seedPage QComboBox, #seedPage QSpinBox, #seedPage QDoubleSpinBox, #seedPage QLineEdit { padding:3px 5px; min-height:18px; }
 #seedPage QPushButton { padding:4px 8px; min-height:18px; }
@@ -257,6 +334,10 @@ QTextEdit { background:#f0e3c7; border:1px solid #ad9161; }
 #sharePanel QTextEdit { border:1px solid #ac905c; padding:3px 5px; }
 #seedPage QCheckBox { font-size:12px; }
 #localizationControls { padding:9px 3px 3px; }
+#localizationCurrentName { font-weight:bold; font-size:16px; color:#382f23; }
 #localizationManager QPushButton { padding:4px 8px; min-height:18px; }
 #localizationManager QHeaderView::section { padding:5px 8px; }
+#pageScroll, #pageScroll > QWidget > QWidget, #sidebarScroll, #sidebarScroll > QWidget > QWidget { background:transparent; border:none; }
+#fontPreview { background:#f4e9d2; border:1px solid #b29b71; }
+#fontPreview QLabel { border:none; background:transparent; }
 """

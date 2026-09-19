@@ -21,7 +21,7 @@ from .l10n_compat import override_keys, write_hooks
 BRAND_META = 'BBMOD_L10N.json'
 PACKAGE_ID = 'bbmod.independent.zh-CN'
 PACKAGE_NAME = 'mod_bbmod_zhcn.zip'
-VERSION = '0.3.0-rc.2'
+VERSION = '0.3.0-rc.7'
 CATALOG_FILE = resource_path('localization/catalog.json')
 UI_ROOT = 'ui/mods/bbmod_l10n/'
 FONT_ENTRY = UI_ROOT + 'NotoSansSC-Regular.ttf'
@@ -128,7 +128,7 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
     full = load_full_catalog()
     policy = load_policy(full)
     if full:
-        from .native_font import check_executable
+        from .map_labels import check_executable
         check_executable(game_root / 'win32/BattleBrothers.exe')
     ui_keys = {source for group in json.loads(CATALOG_FILE.read_text(encoding='utf-8-sig'))['groups'].values() for source in group}
     ui_dictionary = {source: dictionary[source] for source in ui_keys}
@@ -145,17 +145,34 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
         # A separately rendered town name must not be translated again by the
         # UI fallback. Names embedded in narrative come from the same entity.
         ui_dictionary.update({name.strip(): name.strip() for name in original_names(full, policy)})
+        # Independently reviewed runtime-only fragments have no native catalog
+        # row. Read their current authoring file, not an older assembled cache.
+        dynamic_terms = json.loads(resource_path('localization/reviewed_dynamic.json').read_text(encoding='utf8'))['terms']
+        for source, value in dynamic_terms.items():
+            if source == 's' and value == '':
+                continue  # Grammar-only native suffix; never erase arbitrary UI identifiers.
+            if validate_translation(source, value) or not value.strip():
+                raise ValueError('动态提示译文无效：' + source)
+            if source not in dictionary:
+                ui_dictionary[source.strip()] = value.strip()
     raw, archive_name = read_base_html(game_root / 'data')
     html = raw.decode('utf-8-sig')
+    from .l10n_display import build_name_forms, build_southern_name_parts, ENTRY as NAME_FORMS_ENTRY
+    name_forms = build_name_forms(full, dictionary) if full else {}
     injection = ('\n<!-- BBMOD independent localization -->\n'
         '<link rel="stylesheet" href="mods/bbmod_l10n/fonts.css"/>\n'
         '<script src="mods/bbmod_l10n/dictionary.js"></script>\n'
         '<script src="mods/bbmod_l10n/runtime.js"></script>\n')
     if full:
         injection = '<script src="mod_hooks.js"></script>\n' + injection
+    if name_forms:
+        injection = injection.replace('<script src="mods/bbmod_l10n/runtime.js">',
+                                      '<script src="mods/bbmod_l10n/name_forms.js"></script>\n<script src="mods/bbmod_l10n/runtime.js">')
     if policy:
         injection = injection.replace('<script src="mods/bbmod_l10n/runtime.js">',
                                       '<script src="mods/bbmod_l10n/place_names.js"></script>\n<script src="mods/bbmod_l10n/runtime.js">')
+        injection += ('<link rel="stylesheet" href="mods/bbmod_l10n/map_labels.css"/>\n'
+                      '<script src="mods/bbmod_l10n/map_labels.js"></script>\n')
     html = re.sub(r'</head\s*>', lambda match: injection + match.group(0), html, count=1, flags=re.I)
     source_dir = resource_path('localization')
     assets = ['runtime.js', 'fonts.css', 'NotoSansSC-Regular.ttf', 'FONT-LICENSE.txt']
@@ -165,7 +182,7 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
     manifest = {
         'package_id': PACKAGE_ID, 'brand': 'BBMOD 独立汉化', 'version': VERSION,
         'target_game_version': '1.5.2.3', 'language': 'zh-CN',
-        'scope': meta['scope'] + ('；地名存档保留英文，从 BBMOD 启动时地图及对话统一显示中文，直接启动显示英文' if policy else ''), 'provenance': meta['provenance'],
+        'scope': meta['scope'] + ('；地名存档保留英文，Steam 与 BBMOD 启动均通过 MOD 界面显示中文地名' if policy else ''), 'provenance': meta['provenance'],
         'entry_count': len(entries), 'overrides_applied': len(overrides),
         'base_archive': archive_name, 'base_ui_sha256': hashlib.sha256(raw).hexdigest(),
         'catalog_sha256': hashlib.sha256(CATALOG_FILE.read_bytes()).hexdigest(),
@@ -185,6 +202,14 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                 manifest.update(write_display_assets(zf, full, policy, dictionary))
             zf.writestr('ui/main.html', html.encode('utf-8'))
             zf.writestr(UI_ROOT + 'dictionary.js', 'window.BBMOD_DICTIONARY = ' + json.dumps(ui_dictionary, ensure_ascii=True) + ';\n')
+            if name_forms:
+                content = 'window.BBMOD_NAME_FORMS = ' + json.dumps(name_forms, ensure_ascii=True, sort_keys=True) + ';\n'
+                southern_parts = build_southern_name_parts(dictionary)
+                content += 'window.BBMOD_SOUTHERN_NAME_PARTS = ' + json.dumps(southern_parts, ensure_ascii=True, sort_keys=True) + ';\n'
+                zf.writestr(NAME_FORMS_ENTRY, content)
+                manifest['name_display_forms'] = len(name_forms)
+                manifest['southern_name_parts'] = sum(len(terms) for terms in southern_parts.values())
+                manifest['name_display_sha256'] = hashlib.sha256(content.encode('utf-8')).hexdigest()
             for asset in assets:
                 zf.write(source_dir / asset, UI_ROOT + asset)
             from .input_ime import ENTRY, patch_input
@@ -194,14 +219,15 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                     manifest['chinese_input_support'] = True
             if full:
                 from .full_l10n import FULL_CATALOG_FILE
-                manifest.update(write_full_patches(zf, game_root, full, dictionary, catalog_sha256=hashlib.sha256(FULL_CATALOG_FILE.read_bytes()).hexdigest()))
-                manifest['requires_bbmod_launcher'] = not bool(policy)
-                manifest['uses_bbmod_map_font'] = True
-                manifest['supports_direct_launch'] = bool(policy)
-                review_note = ('本体与官方 DLC 的正文和 2,196 条地名译文均已独立精修；当前版本仅完成离线检查，游戏内验收尚未进行。'
+                manifest.update(write_full_patches(zf, game_root, full, dictionary, catalog_sha256=hashlib.sha256(FULL_CATALOG_FILE.read_bytes()).hexdigest(), custom_overrides=overrides))
+                manifest['requires_bbmod_launcher'] = False
+                manifest['uses_bbmod_map_font'] = False
+                manifest['supports_direct_launch'] = True
+                manifest['native_map_font'] = 'mod_ui' if policy else 'not_included'
+                review_note = ('本体与官方 DLC 的正文和 2,196 条地名提供独立中文译文，并持续修订动态拼接文本；当前版本仅完成离线检查，游戏内验收尚未进行。'
                                if full.get('editorial_review', {}).get('status') == 'complete'
                                else '长篇剧情为独立翻译初稿，可在汉化工坊中继续校对。')
-                zf.writestr('BBMOD中文启动说明.txt', '本包覆盖本体及官方 DLC 文本。\n从新版 BBMOD 启动时，地图、任务和对话中的地名统一显示中文；直接从 Steam 或游戏 EXE 启动时，地名显示英文，正文仍为中文。\n地名的英文原值和存档保持不变，中文显示标记仅存在于此次游戏进程；退出软件不会影响已启动的游戏，下次直接启动仍为英文。\n旧汉化存档中已经保存的中文名称不会自动恢复；不会迁移或重写存档。\n' + review_note + '\n')
+                zf.writestr('BBMOD中文启动说明.txt', '本包覆盖本体及官方 DLC 文本，已可直接使用，无需再次生成。\n关闭游戏后，可在 BBMOD 的汉化管理中导入并应用本包；已经应用的包无需重复操作。仅修改译文时才需要重新制作。\nSteam、游戏 EXE 与 BBMOD 启动均显示中文地名。\n地名的英文原值和存档保持不变；旧汉化存档中已经保存的中文名称不会自动恢复。\n' + review_note + '\n')
             zf.writestr(BRAND_META, json.dumps(manifest, ensure_ascii=False, indent=2))
         with zipfile.ZipFile(pending) as zf:
             broken = zf.testzip()

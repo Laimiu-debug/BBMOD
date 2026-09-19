@@ -1,0 +1,8 @@
+<div class="seed-pagination">
+  <span>第 {{ page.start_index }}–{{ page.end_index }} 条 / 共 {{ page.paginator.count }} 条</span>
+  {% if page.has_other_pages %}<nav aria-label="种子分页（{{ position }}）">
+    {% if page.has_previous %}<a rel="prev" href="?{{ params }}&amp;page={{ page.previous_page_number }}" aria-label="上一页">‹</a>{% else %}<span class="disabled" aria-disabled="true" aria-label="上一页">‹</span>{% endif %}
+    {% for number in page_links %}{% if number == page.paginator.ELLIPSIS %}<span class="ellipsis">{{ number }}</span>{% elif number == page.number %}<span aria-current="page" aria-label="第 {{ number }} 页">{{ number }}</span>{% else %}<a href="?{{ params }}&amp;page={{ number }}" aria-label="第 {{ number }} 页">{{ number }}</a>{% endif %}{% endfor %}
+    {% if page.has_next %}<a rel="next" href="?{{ params }}&amp;page={{ page.next_page_number }}" aria-label="下一页">›</a>{% else %}<span class="disabled" aria-disabled="true" aria-label="下一页">›</span>{% endif %}
+  </nav>{% endif %}
+</div>

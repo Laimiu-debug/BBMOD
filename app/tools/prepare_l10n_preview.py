@@ -1,5 +1,6 @@
 """Install a validated preview only into the isolated workspace test copy."""
 from __future__ import annotations
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -17,13 +18,29 @@ from tools.translate_full_catalog import WORK
 
 
 def main():
-    source=WORK/'preview-package'/PACKAGE_NAME
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--package', type=Path, default=WORK/'preview-package'/PACKAGE_NAME)
+    args = parser.parse_args()
+    source=args.package
+    from core.game import is_game_running
+    if is_game_running():
+        raise RuntimeError('请先关闭游戏，再更新隔离测试副本。')
     validation=json.loads((source.parent/'validation.json').read_text(encoding='utf-8'))
     package_hash=hashlib.sha256(source.read_bytes()).hexdigest()
     if validation['package_sha256']!=package_hash or not validation['instructions_unchanged'] or not (validation.get('program_literals_validated') or validation.get('program_literals_unchanged')):
         raise ValueError('测试包尚未通过对应的结构验证。')
     game=WORK/'game-check';data=game/'data'
     assert data.resolve().is_relative_to(WORK.resolve())
+    backup = source.parent/'before-preview'
+    backup.mkdir(exist_ok=True)
+    for name in (PACKAGE_NAME, 'mod_zz_bbmod_preview_guard.zip'):
+        previous = data/name
+        if previous.exists():
+            digest = hashlib.sha256(previous.read_bytes()).hexdigest()
+            saved = backup/(previous.stem + '-' + digest[:16] + '.zip')
+            if not saved.exists(): shutil.copy2(previous, saved)
+            if hashlib.sha256(saved.read_bytes()).hexdigest() != digest:
+                raise ValueError('隔离副本备份校验失败。')
     disabled=WORK/'diagnostics-disabled';disabled.mkdir(exist_ok=True)
     old=data/'mod_zz_bbmod_font_smoke.zip'
     if old.exists():
@@ -64,7 +81,7 @@ def main():
         manifest=json.loads(archive.read('BBMOD_L10N.json'))
     stage=('已完成本体与官方 DLC 已提取文本的初译，剧情和用词仍待逐条校对。' if manifest.get('translation_stage')=='complete_draft'
            else '当前仍有缺译，剧情初稿仍待校对。')
-    description='BBMOD 独立汉化开发测试\n\n请从桌面的专用测试入口进入，并新建战役。\n此副本加载本项目独立汉化。\n测试不保存进度；'+stage+'\n中文地图字体由专用入口加载。\n普通 Steam 启动入口仍指向原先的游戏。\n'
+    description='BBMOD 独立汉化离线测试副本\n\n此副本用于资源和结构检查。\nSteam 普通启动可能跳回已注册的安装目录，旧独立测试入口会拒绝这种启动。\n实机测试须先授权，并在正式安装目录备份、临时安装和恢复。\n此副本含禁止保存保护；'+stage+'\n中文地图文字由普通 MOD 界面显示。\n'
     (game/'独立测试说明.txt').write_text(description,encoding='utf-8-sig')
     print(json.dumps({'game':str(game),'package_sha256':package_hash,'save_guard':guarded,'automatic_start':False},ensure_ascii=False))
 

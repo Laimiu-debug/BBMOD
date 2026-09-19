@@ -2,8 +2,25 @@ from django.urls import path
 from . import views
 from . import seeds
 from . import visitors
+from . import suggestions
+from . import wiki
 
 urlpatterns = [
+    path('wiki/', wiki.home, name='wiki'),
+    path('wiki/search/', wiki.search, name='wiki_search'),
+    path('wiki/about/', wiki.about, name='wiki_about'),
+    path('wiki/read/<path:title>/', wiki.article, name='wiki_article'),
+    path('wiki/source/<int:page_id>/', wiki.source, name='wiki_source'),
+    path('wiki/media/<str:filename>', wiki.media, name='wiki_media'),
+    path('wiki/styles/<str:snapshot>/', wiki.styles, name='wiki_styles'),
+    path('manage/wiki/', wiki.management, name='wiki_management'),
+    path('api/v1/wiki/search/', wiki.api_search, name='wiki_api_search'),
+    path('api/v1/wiki/pages/<int:page_id>/', wiki.api_page, name='wiki_api_page'),
+    path('suggestions/', suggestions.submit, name='suggestions'),
+    path('api/v1/suggestions/', suggestions.api_submit, name='suggestion_api'),
+    path('suggestions/thanks/', suggestions.thanks, name='suggestion_thanks'),
+    path('manage/suggestions/', suggestions.management, name='suggestion_management'),
+    path('manage/suggestions/<uuid:suggestion_id>/', suggestions.detail, name='suggestion_detail'),
     path('api/v1/visitor/', visitors.visit, name='visitor_visit'),
     path('seeds/', seeds.gallery, name='seeds'),
     path('seeds/<uuid:seed_id>/', seeds.detail, name='seed_detail'),

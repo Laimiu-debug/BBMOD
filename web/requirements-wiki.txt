@@ -1,0 +1,2 @@
+-r requirements.lock
+requests==2.32.5

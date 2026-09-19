@@ -208,22 +208,42 @@ def test_import_only_copies_zip_and_rejects_nested_bundles(setup):
         manager.register('越界', [unsafe])
 
 
-def test_launch_routes_fonts_only_for_own_translation_and_uses_exact_directory(setup):
+def test_plain_launch_uses_exact_directory_and_legacy_package_requires_update(setup):
     manager, tmp = setup
     game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
     other = package(manager.data / 'other_chinese.zip')
-    with patch('core.localization_profiles.subprocess.Popen', return_value=SimpleNamespace(pid=123)) as launch, \
-            patch('core.native_font.launch_localized') as native:
+    with patch('core.game.os.startfile', create=True) as launch, \
+            patch('core.game.find_steam_root', return_value=None):
         assert manager.launch(game, tmp)['mode'] == 'current'
-        launch.assert_called_once_with([str(game.exe)], cwd=str(game.exe.parent))
-        native.assert_not_called()
+        assert launch.call_args.args == (str(game.exe),)
+        assert launch.call_args.kwargs['cwd'] == str(game.exe.parent)
     other.unlink()
     package(manager.data / 'our.zip', own=True)
-    with patch('core.localization_profiles.subprocess.Popen') as launch, \
-            patch('core.native_font.launch_localized', return_value={'pid': 456}) as native:
-        assert manager.launch(game, tmp) == {'pid': 456, 'mode': 'bbmod'}
-        native.assert_called_once_with(game, tmp)
+    with patch('core.game.launch_executable') as launch:
+        with pytest.raises(RuntimeError, match='依赖旧中文启动组件'):
+            manager.launch(game, tmp)
         launch.assert_not_called()
+
+
+def test_copied_game_cannot_bootstrap_into_registered_steam_install(setup):
+    manager, tmp = setup
+    game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
+    steam = tmp / 'steam'
+    registered = steam / 'steamapps/common/Battle Brothers'
+    registered.mkdir(parents=True)
+    (steam / 'steamapps/appmanifest_365360.acf').write_text('"installdir" "Battle Brothers"')
+    with patch('core.game.find_steam_root', return_value=steam), \
+            patch('core.game.list_steam_libraries', return_value=[steam]), \
+            patch('core.game.os.startfile', create=True) as start:
+        with pytest.raises(RuntimeError, match='隔离测试'):
+            manager.launch(game, tmp)
+        start.assert_not_called()
+        (registered / 'data').mkdir()
+        (registered / 'win32').mkdir()
+        correct = SimpleNamespace(root=registered, exe=registered / 'win32/BattleBrothers.exe')
+        correct.exe.write_bytes(b'test executable')
+        assert LocalizationProfiles(registered).launch(correct, tmp)['mode'] == 'current'
+        start.assert_called_once_with(str(correct.exe), cwd=str(correct.exe.parent))
 
 
 def test_conflicting_localizations_and_pending_journal_block_launch(setup):
@@ -231,23 +251,20 @@ def test_conflicting_localizations_and_pending_journal_block_launch(setup):
     game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
     package(manager.data / 'ours.zip', own=True)
     package(manager.data / 'other_chinese.zip')
-    with patch('core.localization_profiles.subprocess.Popen') as launch, \
-            patch('core.native_font.launch_localized') as native, pytest.raises(RuntimeError, match='多套汉化'):
+    with patch('core.game.launch_executable') as launch, pytest.raises(RuntimeError, match='多套汉化'):
         manager.launch(game, tmp)
     launch.assert_not_called()
-    native.assert_not_called()
 
 
-def test_direct_launch_compatible_package_still_gets_fonts_from_bbmod(setup):
+def test_legacy_direct_launch_package_cannot_invoke_retired_native_loader(setup):
     manager, tmp = setup
     game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
     package(manager.data / 'ours.zip', {l10n.BRAND_META: json.dumps({
         'package_id': l10n.PACKAGE_ID, 'requires_bbmod_launcher': False,
         'uses_bbmod_map_font': True, 'supports_direct_launch': True})})
-    with patch('core.localization_profiles.subprocess.Popen') as launch, \
-            patch('core.native_font.launch_localized', return_value={'pid': 789}) as native:
-        assert manager.launch(game, tmp) == {'pid': 789, 'mode': 'bbmod'}
-        native.assert_called_once_with(game, tmp)
+    with patch('core.game.launch_executable') as launch:
+        with pytest.raises(RuntimeError, match='旧中文启动组件'):
+            manager.launch(game, tmp)
         launch.assert_not_called()
 
 

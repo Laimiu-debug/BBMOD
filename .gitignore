@@ -33,3 +33,7 @@ output/vercel-cli-ascii.mjs
 output/deployment/
 output/seed-tests/
 output/visitor-tests/
+output/wiki-source/
+output/wiki-preview/
+output/art-review/
+output/seeds-preview/

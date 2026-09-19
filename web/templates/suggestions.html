@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}反馈与建议 · BBMOD{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'suggestions.css' %}">{% endblock %}
+{% block content %}
+<section class="page-head suggestion-head">
+  <p class="eyebrow">LETTERS TO THE CAMP</p>
+  <h1>好兄弟，说说你的想法</h1>
+  <p>想要的新功能、使用中遇到的问题，或是一个小小的改进，都可以在这里告诉我们。</p>
+</section>
+<div class="suggestion-layout">
+  <form method="post" class="panel editor suggestion-editor" action="{% url 'suggestions' %}" novalidate>
+    {% csrf_token %}{{ form.submission }}
+    <div class="section-heading"><h2>描述问题或建议</h2><span>带 * 为必填</span></div>
+    <p class="muted">无需登录，提交后由管理员查看。</p>
+    {% if form.errors %}<div class="notice error" role="alert"><strong>还差一步</strong>{% if form.non_field_errors %}{{ form.non_field_errors }}{% else %}<p>请检查下方标出的内容，修改后再提交。</p>{% endif %}{{ form.submission.errors }}</div>{% endif %}
+    {% include 'field.html' with field=form.kind %}
+    {% include 'field.html' with field=form.title %}
+    {% include 'field.html' with field=form.details %}
+    <details class="advanced-options" {% if form.version.value or form.nickname.value or form.contact.value or form.version.errors or form.nickname.errors or form.contact.errors %}open{% endif %}>
+      <summary>补充信息 <span>选填 · 方便我们了解和跟进</span></summary>
+      {% include 'field.html' with field=form.version %}
+      {% include 'field.html' with field=form.nickname %}
+      {% include 'field.html' with field=form.contact %}
+    </details>
+    <div class="suggestion-submit"><button class="button primary" type="submit">提交反馈 <span aria-hidden="true">→</span></button><span class="help">内容和联系方式仅管理员可见。</span></div>
+  </form>
+  <aside class="suggestion-guide" aria-label="填写提示">
+    <section class="panel suggestion-letter"><p class="eyebrow">EVERY IDEA COUNTS</p><h2>让下一次远征<br>更顺手一点</h2><p>BBMOD 因兄弟们的反馈而改进。你的使用场景，能帮助我们判断该把功夫花在哪里。</p><span class="suggestion-stamp" aria-hidden="true">BBMOD · 营地来信</span></section>
+    <section class="suggestion-tips"><h2>怎样写，更容易跟进？</h2><ol><li><strong>说清楚场景</strong><p>是管理器、汉化、种子功能，还是官网？当时正在做什么？</p></li><li><strong>描述你希望的结果</strong><p>哪里不方便，希望怎样改；遇到问题时，附上复现步骤和版本。</p></li><li><strong>一条建议，一件事</strong><p>便于逐条排查和安排。联系方式可留可不留，不影响提交。</p></li></ol><p class="help">我们会查看收到的建议，具体是否采纳及完成时间取决于实际情况。</p></section>
+  </aside>
+</div>
+{% endblock %}

@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--exe', type=Path, required=True)
     parser.add_argument('--old-exe', type=Path, required=True)
+    parser.add_argument('--silent', action='store_true', help='Validate exit-only replacement without relaunch')
     args = parser.parse_args()
     workspace = ROOT/'build/update-install-check'/uuid.uuid4().hex
     workspace.mkdir(parents=True)
@@ -41,9 +42,10 @@ def main():
                                creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     release = Release('v'+VERSION,'新版','本地更新验证','',True,RELEASES_URL+'/tag/v'+VERSION,
                       RELEASES_URL+'/download/v'+VERSION+'/BBMOD.exe',source.stat().st_size,sha256_file(source))
-    request = prepare_install(source,release,target=target,parent_pid=old.pid)
+    request = prepare_install(source,release,target=target,parent_pid=old.pid,restart=not args.silent)
     with (workspace/'helper.log').open('wb') as log:
-        process = subprocess.run([str(helper),'--apply-update',str(request),'--verify-update'],env=environment,
+        command = [str(helper),'--apply-update',str(request)] + ([] if args.silent else ['--verify-update'])
+        process = subprocess.run(command,env=environment,
                                  cwd=job,stdout=log,stderr=log,timeout=140,
                                  creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     assert old.wait(timeout=20)==0
@@ -53,12 +55,17 @@ def main():
     assert sha256_file(target)==sha256_file(source)
     assert sha256_file(Path(result['backup']))==old_hash
     assert settings.read_bytes()==settings_before
-    restarted = (job/'restarted.log').read_text(encoding='utf-8',errors='replace')
-    assert 'version='+VERSION in restarted and 'updater=ready' in restarted
+    if args.silent:
+        assert result['restart'] is False and not (job/'restarted.log').exists()
+    else:
+        restarted = (job/'restarted.log').read_text(encoding='utf-8',errors='replace')
+        assert 'version='+VERSION in restarted and 'updater=ready' in restarted
     report = {'game_started':False,'status':'passed','target_version':VERSION,
               'installed_sha256':sha256_file(target),'backup_sha256':old_hash,
-              'settings_unchanged':True,'new_version_selftest':True,'parent_exit_wait':True,'evidence':str(workspace)}
-    (ROOT/'build/review/update-install-check.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+              'settings_unchanged':True,'new_version_selftest':not args.silent,'silent_no_relaunch':args.silent,
+              'parent_exit_wait':True,'evidence':str(workspace)}
+    name = 'update-silent-check.json' if args.silent else 'update-install-check.json'
+    (ROOT/'build/review'/name).write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report))
 
 if __name__ == '__main__':

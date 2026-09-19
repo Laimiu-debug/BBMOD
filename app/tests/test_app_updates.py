@@ -235,7 +235,38 @@ def test_restart_is_blocked_while_managing_files_or_seeds(busy):
     from unittest.mock import Mock
     window = SimpleNamespace(ctx=SimpleNamespace(management_busy=busy=='management', seedgen_active=busy=='seedgen'),
                              seedgen=SimpleNamespace(orch=object() if busy=='orchestrator' else None),
+                             updates=SimpleNamespace(status='', changed=Mock()),
                              findChildren=lambda _: [SimpleNamespace(isRunning=lambda: busy=='worker')], close=Mock())
     with patch('PySide6.QtWidgets.QMessageBox.information') as message, patch.object(updates,'prepare_install') as prepare:
         MainWindow._request_update(window)
-        message.assert_called_once();prepare.assert_not_called();window.close.assert_not_called()
+        message.assert_not_called();prepare.assert_not_called();window.close.assert_not_called()
+        assert '请先停止' in window.updates.status
+
+
+def test_exit_update_does_not_relaunch_application(tmp_path):
+    source, target, request = install_fixture(tmp_path)
+    plan = json.loads(request.read_text())
+    plan['restart'] = False
+    updates.write_json(request, plan)
+    result = updates.install_request(request, wait=lambda _: None, launch=lambda _: pytest.fail('silent exit must not relaunch'))
+    assert result['status'] == 'installed' and result['restart'] is False
+    assert target.read_bytes() == b'MZ-new' and Path(result['backup']).read_bytes() == b'MZ-old'
+
+
+def site_row():
+    return {'id': 'a823d83f-7e73-42e8-a48b-e65548e6d3a2', 'version': '0.4.0', 'prerelease': False,
+        'filename': 'BBMOD-0.4.0.exe', 'size': 6, 'sha256': hashlib.sha256(b'MZ-new').hexdigest(),
+        'download_path': '/downloads/windows/a823d83f-7e73-42e8-a48b-e65548e6d3a2/', 'notes': '本地验证'}
+
+
+def test_official_release_is_installable_and_bad_assets_are_excluded():
+    row = site_row()
+    release = updates.parse_site_releases(json.dumps({'schema_version': 1, 'releases': [row]}).encode())[0]
+    assert release.installable and release.download_url.startswith('https://bbmod.site/')
+    for key, value in [('id', 'bad'), ('filename', 'BBMOD.exe'), ('sha256', 'bad'), ('size', True),
+                       ('download_path', '//evil.example/a.exe')]:
+        with pytest.raises(ValueError):
+            updates.parse_site_releases(json.dumps({'schema_version': 1, 'releases': [{**row, key: value}]}).encode())
+    for bad in ('https://bbmod.site@evil.example/downloads/windows/x/', 'https://bbmod.site:444/a',
+                'https://bbmod.site.evil/a', 'https://user@bbmod.site/a', 'https://bbmod.site/wiki/a'):
+        assert not updates.download_host_allowed(bad)

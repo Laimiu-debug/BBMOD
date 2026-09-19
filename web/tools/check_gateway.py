@@ -24,6 +24,12 @@ def check(base, path):
             assert isinstance(json.loads(body)['mods'], list)
         elif path == '/login/':
             assert 'csrfmiddlewaretoken' in body
+        elif path == '/suggestions/':
+            assert 'csrfmiddlewaretoken' in body and '提交建议' in body and '仅管理员可见' in body
+        elif path == '/wiki/':
+            assert '战场兄弟百科' in body and '/wiki/search/' in body
+        elif path == '/api/v1/wiki/search/':
+            assert json.loads(body)['schema_version'] == 1 and json.loads(body)['total'] > 0
         elif path == '/downloads/':
             assert 'BBMOD 桌面管理器' in body
             if '直接下载 Windows 版' in body:
@@ -45,7 +51,7 @@ def main():
             or parsed.path not in {'', '/'} or parsed.query or parsed.fragment):
         parser.error('请输入 HTTPS 网站地址，不含账号、路径或查询参数。')
     base = args.url.rstrip('/')
-    paths = ['/', '/health/', '/api/v1/catalog/', '/login/', '/static/site.css', '/downloads/', '/api/v1/desktop/releases/']
+    paths = ['/', '/health/', '/api/v1/catalog/', '/login/', '/static/site.css', '/downloads/', '/api/v1/desktop/releases/', '/suggestions/', '/static/suggestions.css', '/wiki/', '/api/v1/wiki/search/', '/static/wiki.css']
     with ThreadPoolExecutor(max_workers=3) as pool:
         results = list(pool.map(lambda path: check(base, path), paths))
     print(json.dumps({'url': base, 'status': 'passed', 'checks': results}, indent=2))

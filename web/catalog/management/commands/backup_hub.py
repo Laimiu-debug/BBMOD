@@ -9,6 +9,7 @@ from pathlib import Path
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from catalog.models import Release
+from catalog.wiki_store import current_release, ASSET_PATTERN
 
 
 class Command(BaseCommand):
@@ -38,6 +39,23 @@ class Command(BaseCommand):
                         if not path.is_file() or not path.resolve().is_relative_to(Path(settings.DESKTOP_DOWNLOAD_ROOT).resolve()):
                             raise CommandError('备份缺少管理器版本文件或路径无效。')
                         out.add(path, arcname='desktop/' + name)
+                    wiki_release = current_release()
+                    if wiki_release:
+                        # Pin one immutable edition even if a concurrent import
+                        # switches the live pointer while this backup is running.
+                        manifest = json.loads((wiki_release/'manifest.json').read_text(encoding='utf-8'))
+                        if set(manifest.get('files',{})) != {'wiki.sqlite3','styles.css','report.json'}:
+                            raise CommandError('百科快照文件清单无效。')
+                        for name in (*manifest['files'], 'manifest.json'):
+                            out.add(wiki_release/name, arcname='wiki/releases/'+wiki_release.name+'/'+name)
+                        for name in manifest['assets']:
+                            if not ASSET_PATTERN.fullmatch(name):raise CommandError('百科图片路径无效。')
+                            path=Path(settings.WIKI_ROOT)/'assets'/name
+                            if not path.is_file():raise CommandError('百科备份缺少图片。')
+                            out.add(path,arcname='wiki/assets/'+name)
+                        pointer=Path(temp)/'wiki-current.json'
+                        pointer.write_text(json.dumps({'snapshot':wiki_release.name}),encoding='utf-8')
+                        out.add(pointer,arcname='wiki/current.json')
             except Exception:
                 archive_path.unlink(missing_ok=True)
                 raise
