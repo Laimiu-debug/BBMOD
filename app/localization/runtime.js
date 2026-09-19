@@ -9,11 +9,12 @@
     var places = root.BBMOD_PLACE_NAMES || null;
     var placeSession = !!(places && places.mode === "mod_ui");
     var nameForms = root.BBMOD_NAME_FORMS || {};
+    var personNames = root.BBMOD_PERSON_NAMES || {};
     var southernNames = root.BBMOD_SOUTHERN_NAME_PARTS || null;
-    function buckets(names) {
+    function buckets(names, byEnd) {
         var result = {};
         Object.keys(names).forEach(function (name) {
-            var first = name.charAt(0);
+            var first = name.charAt(byEnd ? name.length - 1 : 0);
             if (!result[first]) { result[first] = []; }
             result[first].push(name);
         });
@@ -22,8 +23,23 @@
         });
         return result;
     }
-    var placeBuckets = buckets(places ? places.names : {});
+    // CityStateNames already localize in native scripts. Include their original
+    // and translated display forms too, without changing those saved names.
+    var geographicNames = {}, cityPlaces = root.BBMOD_CITY_PLACES || {};
+    Object.keys(places ? places.names : {}).forEach(function (name) { geographicNames[name] = places.names[name]; });
+    Object.keys(cityPlaces).forEach(function (name) { geographicNames[name] = cityPlaces[name]; });
+    var placeBuckets = buckets(geographicNames);
     var nameBuckets = buckets(nameForms);
+    var personBuckets = buckets(personNames);
+    var locatedPlaces = {};
+    if (places) {
+        Object.keys(geographicNames).forEach(function (name) {
+            locatedPlaces[name] = geographicNames[name];
+            locatedPlaces[geographicNames[name]] = geographicNames[name];
+        });
+    }
+    var locatedPlaceBuckets = buckets(locatedPlaces);
+    var locatedPlaceEnds = buckets(locatedPlaces, true);
     var southernBuckets = southernNames ? {
         given: buckets(southernNames.given), family: buckets(southernNames.family),
         titles: buckets(southernNames.titles)
@@ -86,9 +102,74 @@
         return out + value.substring(start);
     }
 
+    function namePart(value, offset, forms, index) {
+        var choices = index[value.charAt(offset)] || [], i, name, end;
+        for (i = 0; i < choices.length; i += 1) {
+            name = choices[i]; end = offset + name.length;
+            if (value.substr(offset, name.length) === name &&
+                    (end === value.length || !/[A-Za-z0-9_']/.test(value.charAt(end)))) {
+                return {end: end, text: forms[name]};
+            }
+        }
+        return null;
+    }
+
+    function personPart(value, offset) {
+        // Southern names consist of two pools; avoid a name/town cross product.
+        var given, family, gap;
+        if (southernNames) {
+            given = southernPart(value, offset, "given");
+            gap = given ? /^(?:\s+|·)/.exec(value.substring(given.end)) : null;
+            family = gap ? southernPart(value, given.end + gap[0].length, "family") : null;
+            if (family) { return {end: family.end, text: given.text + "·" + family.text}; }
+        }
+        return namePart(value, offset, personNames, personBuckets);
+    }
+
+    function repeatedPlacePrefix(before, place) {
+        if (before.slice(-1) !== "的") { return 0; }
+        var end = before.length - 1, choices = locatedPlaceEnds[before.charAt(end - 1)] || [], i, name, start;
+        // Match the longest complete known place: "博克霍恩" must not count as
+        // "霍恩" just because the Chinese names share a suffix.
+        for (i = 0; i < choices.length; i += 1) {
+            name = choices[i]; start = end - name.length;
+            if (start >= 0 && before.substring(start, end) === name &&
+                    (start === 0 || !/[A-Za-z0-9_']/.test(before.charAt(start - 1)))) {
+                return locatedPlaces[name] === place.text ? name.length + 1 : 0;
+            }
+        }
+        return 0;
+    }
+
+    function translateLocatedNames(value) {
+        if (!placeSession || !places || !/\s+(?:of|的)\s+/.test(value)) { return value; }
+        var result = "", start = 0, i = 0, person, connector, place, before, prefix, repeated;
+        while (i < value.length) {
+            if (i > 0 && /[A-Za-z0-9_']/.test(value.charAt(i - 1))) { i += 1; continue; }
+            person = personPart(value, i);
+            // Actor.getName joins Name + space + Title. Both vanilla "of " and
+            // older translated "的 " titles remain in saves and contract flags.
+            connector = person ? /^\s+(?:of|的)\s+/.exec(value.substring(person.end)) : null;
+            place = connector ? namePart(value, person.end + connector[0].length,
+                locatedPlaces, locatedPlaceBuckets) : null;
+            if (place) {
+                before = value.substring(start, i);
+                prefix = place.text + "的";
+                // A contract may already say "%objective%的%recipient%". Only
+                // collapse the same known location immediately before this name.
+                repeated = repeatedPlacePrefix(before, place);
+                if (repeated) { before = before.slice(0, -repeated); }
+                result += before + prefix + person.text;
+                i = place.end; start = i;
+            } else { i += 1; }
+        }
+        return result + value.substring(start);
+    }
+
     function translateNames(value) {
         // Expand a whole geographic name before matching personal name forms.
-        if (placeSession && places) { value = translateForms(value, places.names, placeBuckets); }
+        if (placeSession && places) { value = translateForms(value, geographicNames, placeBuckets); }
+        value = translateLocatedNames(value);
         value = translateSouthernNames(value);
         return translateForms(value, nameForms, nameBuckets);
     }
@@ -198,7 +279,7 @@
         if (root.console && root.console.log) { root.console.log("BBMOD independent UI localization loaded"); }
     }
 
-    root.BBMODL10N = {translate: translate, walk: walk, start: start, setPlaceSession: setPlaceSession, version: "0.3.0-rc.7"};
+    root.BBMODL10N = {translate: translate, walk: walk, start: start, setPlaceSession: setPlaceSession, version: "0.3.0-rc.8"};
     if (places && !placeSession && root.MainMenuScreen && root.SQ) {
         var previousConnection = root.MainMenuScreen.prototype.onConnection;
         root.MainMenuScreen.prototype.onConnection = function (handle) {

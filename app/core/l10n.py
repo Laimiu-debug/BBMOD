@@ -21,7 +21,7 @@ from .l10n_compat import override_keys, write_hooks
 BRAND_META = 'BBMOD_L10N.json'
 PACKAGE_ID = 'bbmod.independent.zh-CN'
 PACKAGE_NAME = 'mod_bbmod_zhcn.zip'
-VERSION = '0.3.0-rc.7'
+VERSION = '0.3.0-rc.8'
 CATALOG_FILE = resource_path('localization/catalog.json')
 UI_ROOT = 'ui/mods/bbmod_l10n/'
 FONT_ENTRY = UI_ROOT + 'NotoSansSC-Regular.ttf'
@@ -157,7 +157,7 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                 ui_dictionary[source.strip()] = value.strip()
     raw, archive_name = read_base_html(game_root / 'data')
     html = raw.decode('utf-8-sig')
-    from .l10n_display import build_name_forms, build_southern_name_parts, ENTRY as NAME_FORMS_ENTRY
+    from .l10n_display import build_name_forms, build_person_names, build_southern_name_parts, build_city_places, ENTRY as NAME_FORMS_ENTRY
     name_forms = build_name_forms(full, dictionary) if full else {}
     injection = ('\n<!-- BBMOD independent localization -->\n'
         '<link rel="stylesheet" href="mods/bbmod_l10n/fonts.css"/>\n'
@@ -206,9 +206,15 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                 content = 'window.BBMOD_NAME_FORMS = ' + json.dumps(name_forms, ensure_ascii=True, sort_keys=True) + ';\n'
                 southern_parts = build_southern_name_parts(dictionary)
                 content += 'window.BBMOD_SOUTHERN_NAME_PARTS = ' + json.dumps(southern_parts, ensure_ascii=True, sort_keys=True) + ';\n'
+                person_names = build_person_names(full, dictionary)
+                content += 'window.BBMOD_PERSON_NAMES = ' + json.dumps(person_names, ensure_ascii=True, sort_keys=True) + ';\n'
+                city_places = build_city_places(dictionary)
+                content += 'window.BBMOD_CITY_PLACES = ' + json.dumps(city_places, ensure_ascii=True, sort_keys=True) + ';\n'
                 zf.writestr(NAME_FORMS_ENTRY, content)
                 manifest['name_display_forms'] = len(name_forms)
                 manifest['southern_name_parts'] = sum(len(terms) for terms in southern_parts.values())
+                manifest['person_name_forms'] = len(person_names)
+                manifest['city_place_forms'] = len(city_places)
                 manifest['name_display_sha256'] = hashlib.sha256(content.encode('utf-8')).hexdigest()
             for asset in assets:
                 zf.write(source_dir / asset, UI_ROOT + asset)

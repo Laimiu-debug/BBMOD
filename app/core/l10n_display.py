@@ -9,6 +9,36 @@ from .place_names import load_policy
 ENTRY = 'ui/mods/bbmod_l10n/name_forms.js'
 
 
+def build_city_places(dictionary):
+    """CityStateNames are a separate official pool from northern place templates."""
+    review = json.loads(resource_path('localization/name_order.json').read_text(encoding='utf-8'))
+    result = {}
+    for source in review['city_state_names']:
+        target = dictionary.get(source, '').strip()
+        if not target:
+            raise ValueError('城邦名称缺少译文：' + source)
+        result[source] = target
+    return result
+
+
+def build_person_names(catalog, dictionary):
+    """Recognize authored names in geographic titles, not arbitrary possessives."""
+    policy = load_policy(catalog)
+    if not policy:
+        return {}
+    result = {}
+    for pool in ('CharacterNames', 'KnightNames'):
+        for source in policy['owner_pools'][pool]:
+            target = dictionary.get(source, '').strip()
+            if not target:
+                raise ValueError('人物或势力名称缺少译文：' + source)
+            for variant in {source, target}:
+                if variant in result and result[variant] != target:
+                    raise ValueError('人物名称存在歧义：' + variant)
+                result[variant] = target
+    return result
+
+
 def build_southern_name_parts(dictionary):
     """Recognize given name + family name + title without a huge cross product."""
     review = json.loads(resource_path('localization/name_order.json').read_text(encoding='utf-8'))

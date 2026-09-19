@@ -1,6 +1,10 @@
 {
   "schema_version": 1,
   "provenance": "Official English character, councilman/vizier title and noble house pools, independently reviewed for Chinese display order. Duplicate weighted names are deduplicated only in this display index; stored names and original selection pools remain unchanged.",
+  "city_state_names": [
+    "Dahab", "Kabira", "Ras Sanan", "Tanwir", "Azim Shab", "Tarwa", "Hakim Al Ramal",
+    "Karrakan", "Al-Hazred", "Al-Hazif", "Quadim", "Hikma", "El-Hadet", "Al-Anwar"
+  ],
   "council_titles": [
     "the Wise",
     "the Elder",
