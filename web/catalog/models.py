@@ -22,6 +22,7 @@ class Mod(models.Model):
     description = models.TextField('详细说明', max_length=20000)
     category = models.CharField('分类', max_length=20, choices=CATEGORIES, default='基础功能')
     source_url = models.URLField('原作或源码链接', blank=True)
+    original_author = models.CharField('原作者署名', max_length=200, blank=True)
     license = models.CharField('分发许可', max_length=200)
     game_version = models.CharField('适用游戏版本', max_length=80, default='1.5.2.3')
     dlc = models.CharField('所需 DLC', max_length=300, blank=True)
@@ -44,7 +45,9 @@ class Mod(models.Model):
                   'save_impact', 'seed_impact', 'compatibility_notes']
         result = {f: getattr(self, f) for f in fields}
         result.update({f: [x.strip() for x in getattr(self, f).splitlines() if x.strip()] for f in ['mod_ids', 'requires', 'conflicts']})
-        result['author'] = self.owner.first_name or self.owner.username
+        result['uploader'] = self.owner.first_name or self.owner.username
+        result['original_author'] = self.original_author
+        result['author'] = self.original_author or result['uploader']
         return result
 
 

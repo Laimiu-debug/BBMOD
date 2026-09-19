@@ -22,6 +22,7 @@ from .forms import ModForm, QuickModForm, ReleaseForm, DesktopReleaseForm, Creat
 from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES, Suggestion
 from .services import public_releases, create_release, can_inspect, audit
 from .visitors import traffic_summary
+from .community import catalogue_items, requirement_labels
 
 admin_required = user_passes_test(lambda u: u.is_active and u.is_superuser)
 
@@ -49,18 +50,22 @@ def latest_releases():
 
 @require_GET
 def catalog(request):
-    releases = latest_releases()
+    releases = catalogue_items(latest_releases())
     count = len(releases)
     query = request.GET.get('q', '').strip()[:200]
     category = request.GET.get('category', '')
     if query:
-        releases = [r for r in releases if query.casefold() in ' '.join(str(r.metadata.get(k, '')) for k in ['title', 'summary', 'author']).casefold()]
+        releases = [r for r in releases if query.casefold() in ' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'english_name', 'summary', 'author']).casefold()]
     if category:
-        releases = [r for r in releases if r.metadata.get('category') == category]
+        releases = [r for r in releases if r['metadata'].get('category') == category]
+    source_kind = request.GET.get('source', '')
+    if source_kind in ('hosted', 'original'):
+        releases = [r for r in releases if r['source_kind'] == source_kind]
     if request.GET.get('sort') == 'name':
-        releases.sort(key=lambda r: r.metadata.get('title', ''))
+        releases.sort(key=lambda r: r['metadata'].get('title', ''))
     return render(request, 'catalog.html', {'page': Paginator(releases, 12).get_page(request.GET.get('page')), 'count': count,
-                                           'q': query, 'category': category, 'categories': CATEGORIES, 'track_visit': True})
+                                           'q': query, 'category': category, 'source_kind': source_kind,
+                                           'categories': CATEGORIES, 'track_visit': True})
 
 
 @require_GET
@@ -68,7 +73,9 @@ def detail(request, mod_id):
     rels = list(public_releases().filter(mod_id=mod_id))
     if not rels:
         raise Http404
-    return render(request, 'detail.html', {'release': rels[0], 'history': rels, 'track_visit': True})
+    return render(request, 'detail.html', {'release': rels[0], 'history': rels,
+                                          'requirements': requirement_labels(rels[0].metadata.get('requires', [])),
+                                          'track_visit': True})
 
 
 @require_GET

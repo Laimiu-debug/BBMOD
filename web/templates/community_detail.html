@@ -1,0 +1,6 @@
+{% extends 'base.html' %}{% block title %}{{ mod.title }} · BBMOD{% endblock %}{% block content %}
+<a class="back" href="{% url 'catalog' %}">← 返回探索 MOD</a>
+<section class="page-head"><p class="eyebrow">{{ mod.category }}</p><h1>{{ mod.title }}</h1><p>{{ mod.summary }}</p><p class="muted">原作者 {{ mod.author }}{% if mod.english_name %} · {{ mod.english_name }}{% endif %}</p></section>
+<div class="detail-layout"><div><section class="panel prose"><h2>作品介绍</h2><p>{{ mod.description }}</p><h2>与 BBMOD 汉化搭配</h2><p>{{ mod.compatibility }}</p></section></div>
+<aside><section class="panel install-panel"><h2>获取 MOD</h2><a class="button primary full" href="{{ mod.source_url }}" rel="noopener noreferrer">前往作者原站 ↗</a><p class="help">文件和更新由原作者提供，本站仅整理介绍。</p><dl><dt>前置要求</dt><dd>{{ mod.requirements }}</dd><dt>汉化适配</dt><dd>{{ mod.compatibility_label }}</dd></dl>{% if mod.community_url %}<a href="{{ mod.community_url }}" rel="noopener noreferrer">作者社区发布帖 ↗</a>{% endif %}</section></aside></div>
+{% endblock %}

@@ -4,6 +4,7 @@ from . import seeds
 from . import visitors
 from . import suggestions
 from . import wiki
+from . import community
 
 urlpatterns = [
     path('wiki/', wiki.home, name='wiki'),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('api/v1/seeds/', seeds.publish, name='seed_publish'),
     path('manage/seeds/', seeds.management, name='seed_management'),
     path('', views.catalog, name='catalog'), path('mods/<uuid:mod_id>/', views.detail, name='detail'),
+    path('mods/community/<slug:slug>/', community.detail, name='community_detail'),
     path('files/<uuid:release_id>/download/', views.release_file, name='download'),
     path('files/<uuid:release_id>/cover/', views.release_file, {'cover': True}, name='cover'),
     path('downloads/', views.downloads, name='downloads'),

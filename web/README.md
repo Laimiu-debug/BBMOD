@@ -1,4 +1,4 @@
-# BBMOD 社区军械库 · 0.3.4
+# BBMOD 社区军械库 · 0.3.5
 
 可自行部署的 MOD 分发网站，配套桌面端的在线军械库；当前提供 BBMOD `0.3.0-rc.15` 与独立汉化 `0.3.0-rc.3`。访客无需登录即可浏览和下载；管理员创建作者账号，作者首次登录改密后可直接公开作品；管理员可以下架作品、停用账号和重置密码。
 
@@ -35,7 +35,7 @@
 
 ## Ubuntu 部署（无域名）
 
-需要 Docker Engine 与 Compose 插件，安装方法见 [Docker 官方 Ubuntu 指南](https://docs.docker.com/engine/install/ubuntu/)。以下命令从项目根目录运行，或解压 `BBMOD-Hub-0.3.4.tar.gz` 后进入 `BBMOD-Hub-0.3.4/`。
+需要 Docker Engine 与 Compose 插件，安装方法见 [Docker 官方 Ubuntu 指南](https://docs.docker.com/engine/install/ubuntu/)。以下命令从项目根目录运行，或解压 `BBMOD-Hub-0.3.5.tar.gz` 后进入 `BBMOD-Hub-0.3.5/`。
 
 ```bash
 cd web
@@ -78,7 +78,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 
 `compose.gateway.yml` 为已有 HTTPS 代理的服务器提供独立部署配置，不占用宿主机的 80/443/8080 端口。它使用 BBMOD 专用数据卷；只有网关容器连接已有代理网络。`deploy/bbmod-origin-location.conf` 是需要加入现有 HTTPS 站点的单独路由片段。具体配置、更新及验证见上述说明。
 
-源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.4/BBMOD-Hub-0.3.4.tar.gz`。包内不含 `.env`、Vercel 登录信息、账号数据库、上传文件或预览账号初始化命令。升级前使用 `backup_hub` 备份，并在备份副本演练迁移。本版没有新增社区数据库迁移；百科快照单独存放于持久卷的 `wiki/`。Vercel 继续转发到当前源站。
+源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.5/BBMOD-Hub-0.3.5.tar.gz`。包内不含 `.env`、Vercel 登录信息、账号数据库、上传文件或预览账号初始化命令。升级前使用 `backup_hub` 备份，并在备份副本演练迁移。本版通过 0006_mod_original_author 增加可选原作者署名，保留已有账号、作品、版本与下载数据；百科快照单独存放于持久卷的 `wiki/`。Vercel 继续转发到当前源站。
 
 ## 管理员发布软件版本
 
@@ -157,3 +157,10 @@ $env:BBMOD_DEBUG='1'
 检查前置和冲突的 MOD ID，版本范围、DLC、存档影响仍需阅读作者说明。不会自动装一串前置，也不会把静态检查标为游戏兼容性验收。HTTP 连接的哈希校验只能发现文件不一致，不能证明服务器身份。未连接网站或断网时，本地 MOD、汉化和种子功能继续可用。
 
 桌面建议接口：`GET /api/v1/suggestions/` 获取会话绑定凭据和 CSRF token，`POST` 使用相同 Cookie、`X-CSRFToken` 和 JSON 字段提交。与官网共用管理员收件箱、校验、限流和幂等回执；本版没有新增数据库迁移。
+
+
+## MOD 介绍与来源
+
+“探索 MOD”统一展示本站作品与原作者作品，支持分类、搜索、分页和来源筛选。`content/community-mods.json` 收录 24 项简短介绍；每项说明功能、前置和汉化适配情况，不把维护者的电脑环境当作访客环境。只有许可明确的三个署名整理包提供本站下载，其余在 MOD 详情页链接原作者页面。没有额外兼容导航页。桌面安装 API 继续只返回可由本站下载的公开版本。
+
+公开快照分别记录 `original_author` / `uploader`，兼容原有 `author` 字段。未经许可的本地收藏不进入部署源码包；59 项本地核查证据见 `docs/mod-compatibility-2026-09-19.md` 与对应 JSON，不作为公共导航内容。

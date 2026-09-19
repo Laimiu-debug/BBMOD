@@ -1,0 +1,1421 @@
+{
+  "schema": 1,
+  "checked_at": "2026-09-19",
+  "game_version": "1.5.2.3",
+  "localization_version": "0.3.0-rc.7",
+  "localization_mod_id": "22c174ed-fc9d-4dbb-9642-44831ce694e8",
+  "localization_sha256": "a7bdb5516df563faaf1d6ef831cb6339acbb1ba3d22710bf1555a9c57b2cf36d",
+  "scope": "本次盘点游戏启用目录、停用目录、本地 MOD 收藏及下载目录中的相关归档，共 71 个文件；按内容去重后为 66 份。下列 59 项为第三方或整合包记录，自制 MOD 和旧汉化备份另行排除。",
+  "limitations": "ZIP 已检查目录、注册入口、声明前置与同路径覆盖；部分编译入口读取了元数据。显星 / 评分另做了实际脚本和招募界面的专项离线检查。RAR 只盘点目录。本次没有启动游戏，不能标为全部兼容或已完成实机验收，也不是全硬盘扫描。",
+  "findings": [
+    "本次检查的游戏目录中，Swifter 缺少 MSU，职业属性范围缺少 Modern Hooks。汉化内置的是旧 Hooks 21.1，不能代替这两个前置。",
+    "Modern Hooks 的 fps_module.js 负责 MOD 界面连接，与 rc.7 同名页面存在覆盖关系；必须保留框架连接逻辑，并验证加载顺序。",
+    "“营地显示人物11级上限”实际是头像扩展。详细阵亡名册、犬舍买狼、无限竞技场、军团战袍和旧汉化包存在页面 / 脚本覆盖问题。",
+    "两套显星、两个 Swifter、两个 BBForge 版本不要同时装；Swifter 与旧 Autopilot 也声明冲突。",
+    "需要前置的本站整理版仍未完成游戏验收；先从对应原站获取兼容版本的依赖，再单独验证。"
+  ],
+  "exclusions": "自制装备鉴定和当前独立汉化不作为第三方作品重复上架；旧 BBMOD 汉化归档只作本地备份。狐狸 / Bigmap 旧汉化与 SHS 整合环境不能叠加到当前原版汉化。SHS RAR 中还含游戏程序和官方 data 文件，整包及音乐扩展不在本站转载。",
+  "bundle_mods": [
+    "data_cn_s[Shs修正版]_20260624.zip",
+    "mod_legends-assets-19.4.3.zip",
+    "mod_legends_19.4.18_SHS汉化组汉化.zip",
+    "mod_modern_hooks-0.6.0.zip",
+    "mod_stdlib_2.6.zip",
+    "shs001-MSU标准组件(Shs特供版)_mod_msu-1.9.0.zip",
+    "shs002-佣兵系列SSu-[Shs起源3.5_修正版]8.5.2-汉化版-v5.0（有bug及时反馈）.zip",
+    "shs003-魔法起源[Shs起源1.6_修正版](中文翻译_v1.0)-mod_nggh_magic_concept_3.0.0-beta.90a-unstable.zip",
+    "shs006-自动修理[Shs起源1.1-可删减]-auto_repair_marker_CN-1-1-0.zip",
+    "shs007-计划特技[shs起源1.1-可删减](汉化版1.0)_mod_plan_perks-6-1-0.zip",
+    "shs008-战斗伤害动态显示[Shs起源1.4-可删减](红版)-fly-num-show_1.3.zip",
+    "shs016-自建据点[Shs起源1.3-可删减](汉化版1.1)_mod_stronghold-2-18-01.zip",
+    "shs024-配件栏的野兽[Shs起源3.3-可删减](汉化版1.1)_mod_AC_legend_main_1_22_22.zip",
+    "shs025-操控召唤野兽[shs起源2.0-可删减](特供版)-well_trained_pets_2.8.zip",
+    "shs043-时间加速[shs起源1.4-可删减](特供版)-mod_swifter_1.1.3.zip",
+    "shs050-恶灵骑士[Shs起源5.1](特供版)_骑兵mod_1.2.7.zip",
+    "shs051-烙印战士[shs起源1.1-可删减]_v1.0.zip",
+    "shs052-图腾师起源[Shs起源1.7-可删减](汉化1.06)_totemer-1.02.zip",
+    "shs053-炼金附魔系统[shs起源1.4-可删减]-alchemy_enchantment_system_zh_1.3.0.zip",
+    "shs067-肉体和信仰[Shs起源1.2-可删减](汉化版1.1)-of_flesh_and_faith_plus_3.4.zip",
+    "shs075-传奇蟒皮臼炮[Shs起源1.1-可删减](汉化版v1.0)-mod_craftable_siege_weapons_1.0.10.zip",
+    "shs076-猩红宫廷[Shs起源1.1](汉化版1.0)-mod_zzz_RedCourt_V3.8.zip",
+    "shs077-01-传奇守护神[Shs起源](本体)_26.7.24.zip",
+    "shs077-02-传奇守护神[Shs起源](更新)_26.7.26.zip",
+    "shs079-精灵圣树复活[Shs起源1.3-可删减](汉化版V1.0)-fromTheGrave-1-0-0.zip",
+    "shs084-三国起源36人上阵[Shs起源3.0_可删除]-mod_legends_expanded_roste.zip",
+    "shs085-自动战斗[Shs起源1.0-可删减](汉化版v1.0)-mod_autopilot_new_2.9.0.zip",
+    "shs101-大剑师起源复刻[shs起源2.2-可删减](@山山而川定制)-ptr_2_2_2.zip",
+    "shs101-更多旗帜[可删除]-KdC_banner_collection-1-2.zip",
+    "shs103-妖刀姬[@梦浮舟订制-可删减]普通版_v1.1.zip"
+  ],
+  "entries": [
+    {
+      "id": "mod-e92e5a6f656c",
+      "title": "地图 / 战斗加速 Swifter 1.1.3",
+      "author": "Enduriel",
+      "version": "1.1.3",
+      "status": "conditional",
+      "notes": "本次检查的游戏目录缺少 MSU；随汉化提供的旧 Hooks 21.1 会拒绝本包的 1.1.3 注册格式，已用实际框架离线复现。需配套 Modern Hooks 和 MSU 后再验收。与 Autopilot、Quicker、Faster、Fastest 冲突，两个 Swifter 版本也不能同时装。",
+      "dependencies": "mod_msu(>=1.0.0-beta)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/542"
+        }
+      ],
+      "filenames": [
+        "mod_swifter-542-1-1-3-加速模组_需MSU.zip"
+      ],
+      "mod_ids": [
+        "mod_swifter"
+      ],
+      "sha256": [
+        "e92e5a6f656c2fba997846b00f06da10ce05f8bc78c8cab2fae4f3f33f370325"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 22 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-51daa9c4cb4c",
+      "title": "战斗快速切换背包物品",
+      "author": "MrBrut",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "编译入口确认是 Quickly swap items。与汉化没有同路径脚本覆盖；尚未验证实际战斗中的切换、行动点和快捷键。EIMO 附带的快速切换包可能与本项重复，不要同时装入。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/456"
+        }
+      ],
+      "filenames": [
+        "战斗快速一键更换背包武器（顺位数字）.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "51daa9c4cb4cb31ee7c02917ca16ee1ea434abfe6aa1c8823d401c3fbca19542"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-a993de21b58f",
+      "title": "显星、属性与评分（本地改版）",
+      "author": "Leonion（原作）；本地改作者未核实",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "offline_checked",
+      "notes": "当前本地版本与 rc.7 的实际 Hooks 注册、重挂、属性 / 星级 / 评分和招募界面通过专项离线检查。汉化已为其招募页面让出覆盖路径。不要同时启用“轻度显星”；本地包标注影响存档。尚未进行游戏运行验收。",
+      "dependencies": "",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/172"
+        }
+      ],
+      "filenames": [
+        "显星显属性带评价（影响存档）.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "a993de21b58f6132f0339ecdf7141e56c0086a3f0c12d3f83e4b202749af4279"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 2 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-7d8e20e11143",
+      "title": "职业属性范围 Backgrounds and Attribute Ranges",
+      "author": "Vazl",
+      "version": "2.0.0",
+      "status": "conditional",
+      "notes": "本包直接使用 Modern Hooks，本次检查的游戏目录缺少该前置。没有与 rc.7 同路径覆盖；补齐前置后需验证背景悬浮提示。原包为英文，MOD 新增提示不等于已被本体汉化完整覆盖。",
+      "dependencies": "Modern Hooks",
+      "distribution": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/287"
+        }
+      ],
+      "filenames": [
+        "职业属性能力范围显示.zip"
+      ],
+      "mod_ids": [
+        "mod_backgrounds_attribute_ranges"
+      ],
+      "sha256": [
+        "7d8e20e11143ae42935e9d751313b21d9a239f2f69b8aaed8a524362146a3ef7"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 9 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。",
+      "published_mod_id": "783bd935-b580-5bff-a566-cffbb18d6147"
+    },
+    {
+      "id": "mod-c7d232ace6ee",
+      "title": "“11 级上限”文件实际为头像扩展",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "文件名与内容不符：只包含 more_heads 图集、脸型配置、brush 和预载清单，没有 11 级潜力计算或属性展示脚本。不能当作潜力显示 MOD。与其他写入 preload/on_running.txt 的外观包存在覆盖风险。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "营地显示人物11级上限.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "c7d232ace6ee6fed367165ed690a1509b61e7697f385ac8bc809c199e5c71e3a"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 4 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-720a6d127f63",
+      "title": "狐狸汉化整包（本地归档）",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "与独立汉化有 2278 个不同内容的脚本 / 页面覆盖路径。两套完整汉化必须分开使用，不能叠加；本次仅查看归档目录，没有复用其译文或脚本。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "data狐狸汉化+hooks 20260624.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "720a6d127f6325d2186061f788410f10f0db0d3ee70a998f23a9ebd3947cad6f"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 2474 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 2278 处。 例如：scripts/ambitions/ambition.nut；scripts/ambitions/ambitions/allied_civilians_ambition.nut；scripts/ambitions/ambitions/allied_nobles_ambition.nut；scripts/ambitions/ambitions/armor_ambition.nut。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-2f38590cb154",
+      "title": "旧版本体汉化 + Hooks + 修改器（本地归档）",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "与当前独立汉化有 40 个不同内容的脚本 / 页面覆盖路径，包含旧界面与字体。必须使用独立汉化配置切换，不可混装。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "zbigmap000-游戏本体汉化(默认-全粗字体)+hook+内置修改器汉化(Shift+X)-20221006(2).zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "2f38590cb154e658bb3f27fc01b267e90efbc69fdaa0be90febf499597f8c726"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 91 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 40 处。 例如：ui/controls/input.js；ui/controls/popup_dialog.js；ui/main.html；ui/screens/character/modules/character_screen_left_panel/character_screen_left_panel_header_module.js。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-0461ea3f457a",
+      "title": "Modding Script Hooks 21.1",
+      "author": "Adam",
+      "version": "21.1",
+      "status": "conditional",
+      "notes": "rc.7 已原样内置所需的四个运行文件。这个旧独立 ZIP 还含 ui/main.html，与当前中文入口冲突；使用 rc.7 时无需再安装本包，也不要用它覆盖汉化入口。",
+      "dependencies": "",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/42"
+        }
+      ],
+      "filenames": [
+        "mod_hooks.zip"
+      ],
+      "mod_ids": [
+        "mod_hooks"
+      ],
+      "sha256": [
+        "0461ea3f457a798e6af2082ecbe6e058f5917e70f4487a1298160161b0a8d38c"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 5 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：ui/main.html。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-4583955d5181",
+      "title": "旧种子生成器备份",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "separate",
+      "notes": "RAR 内含另一套刷种子脚本与配置。应在独立刷种子环境使用，不能与当前 BBMOD 生成器叠加；来源和分发授权未确认。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "种子生成器备份.rar"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "4583955d51817311513e80b65f16fb872fee210424e4048cde9adc7cb547283f"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 32 个。 RAR 仅完成目录清单检查，不等同于包内 MOD 审校。"
+    },
+    {
+      "id": "mod-748f1ac81ad3",
+      "title": "一万金币制作不老泉",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "新增制作配方，没有与 rc.7 同路径覆盖；改变配方 / 经济规则，新增说明仍需单独汉化和实测。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "1W制作不老泉.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "748f1ac81ad33ad29293ffc925e35aa468b170818f4783177a84f49204c98b86"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-9cee87384a37",
+      "title": "五万金币制作技能药水",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "新增药水配方，没有与 rc.7 同路径覆盖。需验证配方引用的物品是否存在、制作行为及存档兼容性。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "5W出技能药水.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "9cee87384a371a9b02e2cc0ef8de913903dc30b11b00b36cd387bd272d712737"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-f41cb37bb626",
+      "title": "兵员比较 Compare Bros",
+      "author": "Azzinoth224",
+      "version": "1",
+      "status": "unverified",
+      "notes": "使用旧 Hooks，没有与 rc.7 同路径覆盖。尚未验证与显星 / 属性界面叠加后的显示。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/820"
+        }
+      ],
+      "filenames": [
+        "CompareBros-820-1-0-1741641816.zip"
+      ],
+      "mod_ids": [
+        "mod_compare_bros"
+      ],
+      "sha256": [
+        "f41cb37bb62626e27870e348eec13003074d2c9218f2b0b5f4c049a291e266c5"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-e1729d189901",
+      "title": "精灵种族 EIF",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "包含额外种族 / 外观 / 语音资源和字体；没有与 rc.7 的脚本页面同路径覆盖。角色生成、语音素材来源和追加内容汉化均需另行核实。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "EIF.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "e1729d189901338e14545bcb8911e088769d6c5c43a7fb85bcf5bd0190b8b798"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 50 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-c542faa298ac",
+      "title": "装备损坏图标 Armour Indicators",
+      "author": "AllanniaBB；原始 Armour Indicator：gwtwind",
+      "version": "1.4.2",
+      "status": "conditional",
+      "notes": "需要 Modern Hooks、MSU ≥ 1.7.0 和旧 Hooks。原归档夹带同一 MOD 的旧版 ZIP；本站整理版只移除此嵌套包并补充署名，保留其余游戏文件原字节，避免重复安装。未发现与 rc.7 同路径覆盖，战斗 / 背包显示仍待游戏验收。",
+      "dependencies": "Modern Hooks；mod_msu >= 1.7.0",
+      "distribution": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/96"
+        }
+      ],
+      "filenames": [
+        "m0d_03_（铠甲损坏标识）armour_indicators-96-1-4-2-1761145139.zip"
+      ],
+      "mod_ids": [
+        "mod_armour_indicators"
+      ],
+      "sha256": [
+        "c542faa298ac69fb3caa7a2daf6d8b038daab978e6c92b682db78dacacd8ff80"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 29 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。",
+      "published_mod_id": "756b808d-6b9c-5a31-924c-385d41311ddc"
+    },
+    {
+      "id": "mod-4503e856d215",
+      "title": "详细阵亡名册 Better Obituary",
+      "author": "AllanniaBB",
+      "version": "3.5.2",
+      "status": "conflict",
+      "notes": "直接替换 world_obituary_screen.js，与 rc.7 的阵亡名册页面冲突。还需 Modern Hooks 和 MSU ≥ 1.7.0；未合并页面并完成验证前，不作为已适配版本下载。",
+      "dependencies": "Modern Hooks；mod_msu >= 1.7.0",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/108"
+        }
+      ],
+      "filenames": [
+        "m0d_22_详细阵亡人员情报.zip"
+      ],
+      "mod_ids": [
+        "mod_better_obituary"
+      ],
+      "sha256": [
+        "4503e856d2152bd0f444dfcda30ff2e761329973c0da8f1183fe7d802575cf02"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 11 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：ui/screens/world/world_obituary_screen.js。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-acf28030c70e",
+      "title": "自由布阵 Prepare Carefully",
+      "author": "TaroEld",
+      "version": "0.9.2",
+      "status": "conditional",
+      "notes": "没有与 rc.7 同路径覆盖。本地 0.9.2 使用旧 Hooks 的语义版本注册，单用 rc.7 内置 Hooks 21.1 不满足其版本格式，需 Modern Hooks 兼容桥接。战前移动、地形限制和其他战斗 MOD 组合尚待游戏验证；不将其称为已完全适配。",
+      "dependencies": "旧 Hooks（rc.7 内置）；Modern Hooks 兼容桥接",
+      "distribution": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/571"
+        }
+      ],
+      "filenames": [
+        "m0d_24_（自由布阵）zhiyoubuzheng.zip"
+      ],
+      "mod_ids": [
+        "mod_prepare_carefully"
+      ],
+      "sha256": [
+        "acf28030c70ee9be22a1468baa21e7b77eb0833d9b19b91700965c773c335515"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 3 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。",
+      "published_mod_id": "fdafda61-3c1f-5f2d-ac54-d2e88c12f8dc"
+    },
+    {
+      "id": "mod-18fbf059480a",
+      "title": "Modern Hooks 0.6.0",
+      "author": "Enduriel and MSU Team",
+      "version": "0.6.0",
+      "status": "conditional",
+      "notes": "可与旧 Hooks 共存，不能替代所有旧接口。它在 fps_module.js 中建立 MOD 界面连接，而 rc.7 也提供同名页面；必须保留 Modern Hooks 的连接逻辑，不能让汉化旧页面覆盖它。该组合仍需加载顺序与实机验收。",
+      "dependencies": "Modern Hooks",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/685"
+        }
+      ],
+      "filenames": [
+        "mod_modern_hooks-685-0-6-0-1748620177.zip"
+      ],
+      "mod_ids": [
+        "mod_modern_hooks"
+      ],
+      "sha256": [
+        "18fbf059480a09483693b8eef9c97c3a32450885b1971dda49b5cc14a66d7ed1"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 22 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：ui/screens/root/modules/fps_module.js。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-ccf966e67c3b",
+      "title": "MSU 1.9.0（本地汉化版）",
+      "author": "MSU Team",
+      "version": "1.9.0",
+      "status": "conditional",
+      "notes": "需要 Modern Hooks。本次检查的游戏目录未启用 MSU；这是 Swifter、装备图标等 MOD 的关键前置。本地汉化改版没有单独转载授权证据，只提供原作页面。",
+      "dependencies": "Modern Hooks；Modern Hooks；vanilla",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/479"
+        }
+      ],
+      "filenames": [
+        "mod_msu-1.9.0(汉化版).zip"
+      ],
+      "mod_ids": [
+        "mod_msu"
+      ],
+      "sha256": [
+        "ccf966e67c3be85e0918c44cb043bb39b08803e8d793d51d021f218b5d4bbab9"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 216 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-90e658a31c29",
+      "title": "沙匪起源（本地版本）",
+      "author": "尚未核实原作者",
+      "version": "1",
+      "status": "unverified",
+      "notes": "增加开局起源与开局事件，没有与 rc.7 同路径覆盖。追加剧情和角色文字未纳入本体汉化审校；来源尚不能唯一对应。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "mod_沙匪起源.zip"
+      ],
+      "mod_ids": [
+        "mod_desertBandits"
+      ],
+      "sha256": [
+        "90e658a31c29ba9d58bedbee5de8c203de8fea3973f6f4b2c1e325df072ad9d0"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 3 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-e63c7df72392",
+      "title": "战术命中因素",
+      "author": "MrBrut",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "编译入口确认 mod_tactical_hit_factors。没有与 rc.7 同路径覆盖；具体战斗提示、换行与其他战斗提示 MOD 的组合尚待验证。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/283"
+        }
+      ],
+      "filenames": [
+        "mod_（战术命中要素）tactical_hit_factors-283-6-1606037352.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "e63c7df723926586be0fa521923e90602d95a4e089f9a1539907eeb3083a50db"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-4a6b20603e2f",
+      "title": "发现传奇地点",
+      "author": "TaroEld",
+      "version": "1.0",
+      "status": "unverified",
+      "notes": "旧 Hooks 入口，无同路径覆盖。会暴露世界地图地点，应单独使用并确认快捷键；未验证地图名称及新旧存档。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/372"
+        }
+      ],
+      "filenames": [
+        "zbigmap012-发现传奇地点(Ctrl+U)-mod-uncover-legendary-locations-372-1-2-1626108860.zip"
+      ],
+      "mod_ids": [
+        "mod_uncover_legendary_locations"
+      ],
+      "sha256": [
+        "4a6b20603e2fe0b167246bb301c9199f406bc9ee52afbc1d3342d6b3538aa4da"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-80928130d72d",
+      "title": "战利品 / 背包管理 EIMO 9.0.6",
+      "author": "Enduriel",
+      "version": "9.0.6",
+      "status": "conditional",
+      "notes": "需要 MSU ≥ 1.1.0 及兼容版本注册的框架。归档还夹带另一个快速切换物品 ZIP，可能与已装切换 MOD 重复。原站禁止转载，本站不提供本地改版文件。",
+      "dependencies": "mod_msu(>=1.1.0)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/239"
+        }
+      ],
+      "filenames": [
+        "zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip"
+      ],
+      "mod_ids": [
+        "mod_EIMO"
+      ],
+      "sha256": [
+        "80928130d72d8cf93005e32e24764ba4e546b42c82ca07c1d0e028f90ddfb29f"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 38 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-579ad33cf00b",
+      "title": "自定义兵员底座（Bigmap 改版）",
+      "author": "Bigmap（脚本署名，原帖未核实）",
+      "version": "1.0.1",
+      "status": "conditional",
+      "notes": "需要 MSU 和兼容旧语义版本注册的框架。修改显示和界面翻译，尚未核实本地改作者的完整分发许可；与中文界面的组合待验证。",
+      "dependencies": "mod_msu(>=1.0.0-beta)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "zbigmap033-自定义武将底座MSU2.4.zip"
+      ],
+      "mod_ids": [
+        "mus_custom_socket"
+      ],
+      "sha256": [
+        "579ad33cf00b62c518e66fb7240985ae4d989fa2032edb0b08c87cea13a4e2c4"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 2 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-1866e34ab5bc",
+      "title": "地图 / 战斗加速 Swifter 1.1.2（本地汉化版）",
+      "author": "Enduriel",
+      "version": "1.1.2",
+      "status": "conditional",
+      "notes": "需配套 MSU 与版本兼容框架。与当前 1.1.3 使用相同 mod_swifter ID，只能安装一个版本；也与 Autopilot / Quicker / Faster / Fastest 冲突。本地汉化新增署名与授权不明。",
+      "dependencies": "mod_msu(>=1.0.0-beta)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/542"
+        }
+      ],
+      "filenames": [
+        "zbigmap043-更快的速度更快的事件频率(1-4地图加速、F1-F4战斗加速，不兼容06战斗加速)1.12-MSU汉化版1.12-swifter-542-1-1-2-1660927118.zip"
+      ],
+      "mod_ids": [
+        "mod_swifter"
+      ],
+      "sha256": [
+        "1866e34ab5bcfa9fef5ccbf98f97cc01be9618449468076a512cbd23e4dabbfb"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 23 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-1b70b2773ed2",
+      "title": "战前整备 Prepare For Battle",
+      "author": "Enduriel",
+      "version": "1.0.1",
+      "status": "conditional",
+      "notes": "要求 MSU ≥ 1.0.0-beta.4，本地语义版本注册还需兼容桥接。无同路径覆盖，战前面板与战斗切换仍待验证。",
+      "dependencies": "mod_msu(>=1.0.0-beta.4)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/557"
+        }
+      ],
+      "filenames": [
+        "zbigmap046-战前准备1.01-MSU汉化版1.0-mod_prepare_for_battle-557-1-0-1-1652847896.zip"
+      ],
+      "mod_ids": [
+        "mod_prepare_for_battle"
+      ],
+      "sha256": [
+        "1b70b2773ed237883b3965c81027dfc6cd5e2008667e0ca925385503ca343c40"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 5 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-4637cca0f9ba",
+      "title": "可拆卸护甲附件",
+      "author": "MrBrut",
+      "version": "1",
+      "status": "unverified",
+      "notes": "使用旧 Hooks，无同路径覆盖。会改变附件拆卸操作；需验证快捷键、附件保留和与装备鉴定的提示组合。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/444"
+        }
+      ],
+      "filenames": [
+        "zbigmap050-可移除护甲配件(快捷键U)-removableUpgradesVer2-444-1-1631955666.zip"
+      ],
+      "mod_ids": [
+        "mod_removableUpgradesVer2"
+      ],
+      "sha256": [
+        "4637cca0f9ba84fe035161c7ae9bb1f87e08e203dc368e77abcd80f1fc0d9fa3"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 2 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-c144f5a06119",
+      "title": "自动战斗 Autopilot（旧版本）",
+      "author": "尚未核实原作者",
+      "version": "1.2.3",
+      "status": "conflict",
+      "notes": "Swifter 明确声明与 mod_autopilot 冲突，不能与当前加速 MOD 一起启用。本包还需要 MSU；本地汉化改版来源及授权未确认。",
+      "dependencies": "mod_msu；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "zbigmap060-自动战斗.zip"
+      ],
+      "mod_ids": [
+        "mod_autopilot"
+      ],
+      "sha256": [
+        "c144f5a061191dfdafc0541a348b2f00246b0052d5e630fc7274d685ecf3b13d"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 7 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-f49ae192495d",
+      "title": "军团战袍 Company Tabards",
+      "author": "Pixel_and_Sarissofoi",
+      "version": "1.5.2024",
+      "status": "conflict",
+      "notes": "直接替换独狼起源脚本，与汉化版本冲突；版本号 1.5.2024 也不被旧 Hooks 21.1 接受。另与头像扩展、骨板显示器共用预载清单，不能整包盲目混装。",
+      "dependencies": "语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/107"
+        }
+      ],
+      "filenames": [
+        "军团外套-附件.zip"
+      ],
+      "mod_ids": [
+        "sarisofoi_company_tabards"
+      ],
+      "sha256": [
+        "f49ae192495d53f1e75e265b72ee11a602262007a29c372f06240fb4a4a50f96"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 67 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：scripts/scenarios/world/lone_wolf_scenario.nut。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-afe84e53da21",
+      "title": "刺客之王 The Hassassin",
+      "author": "Niczada",
+      "version": "1.1",
+      "status": "unverified",
+      "notes": "增加起源、事件和装备，没有同路径覆盖。独立汉化只覆盖本体，新增起源剧情、装备文字和存档影响仍待验证。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/805"
+        }
+      ],
+      "filenames": [
+        "刺客之王起源.zip"
+      ],
+      "mod_ids": [
+        "mod_hassassin"
+      ],
+      "sha256": [
+        "afe84e53da21ee1a8e58cbda4a97454e6f6172532a325964a4e6f4bb9f9a5f96"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 12 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-be052be733bd",
+      "title": "商店出售红盾",
+      "author": "尚未核实原作者",
+      "version": "1.0",
+      "status": "unverified",
+      "notes": "旧 Hooks 入口，无同路径覆盖；会改变商店装备供给，不能由此推断种子和存档无影响。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "商店出售红盾.zip"
+      ],
+      "mod_ids": [
+        "mod_namedShieldsInShops"
+      ],
+      "sha256": [
+        "be052be733bd3e9bbc8aeb42ffa4973e0103acdd7ac7e6e3003b63e95e35db2b"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-ed0b4049350b",
+      "title": "原价回购物品",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "通过 mod_ends_buyback 入口修改回购行为。未发现同路径覆盖，但与 EIMO 的回购功能可能重复，需组合验证。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "回购-原价买回物品.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "ed0b4049350b3ac59dffe761949a8b0f0435b7b89391daef251cc99a09fc5c3b"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-c7f38554c82a",
+      "title": "宝藏地图 Artifact Reliquary",
+      "author": "chopeks；美术：Evie Nekomancer（原作 README 署名）",
+      "version": "0.5.2",
+      "status": "conditional",
+      "notes": "需要 Modern Hooks、MSU ≥ 1.2.6；声明不支持 Legends < 19.0.0。无同路径覆盖，但新增地图道具、事件和地点提示尚未纳入本体汉化。 原作说明指出不可安全地从已有存档移除此 MOD。",
+      "dependencies": "Modern Hooks；mod_msu >= 1.2.6",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [
+        {
+          "label": "原作者源码项目",
+          "url": "https://github.com/chopeks/mod_find_legendary_maps"
+        }
+      ],
+      "filenames": [
+        "宝藏地图（提示红装位置）.zip"
+      ],
+      "mod_ids": [
+        "A"
+      ],
+      "sha256": [
+        "c7f38554c82a99268fbca3ec7a213537e7fd1a449dbd9c0c0d03dbc459518bf1"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 36 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-6ef3583a553d",
+      "title": "敌人战斗属性 Tactical Tooltip（本地改版）",
+      "author": "MrBrut（原作）；本地改作者未核实",
+      "version": "7.2",
+      "status": "unverified",
+      "notes": "旧 Hooks，无同路径覆盖。原作允许署名转载，但本地脚本包含第三方中文改动，其改版授权未确认，所以只提供原作链接。",
+      "dependencies": "",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/266"
+        }
+      ],
+      "filenames": [
+        "战场敌人战斗属性.zip"
+      ],
+      "mod_ids": [
+        "mod_tactical_tooltip"
+      ],
+      "sha256": [
+        "6ef3583a553d380c6fc8e4311e763f123ed62083952da5ec99270f19a4d6102a"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 12 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-01004a80ecd9",
+      "title": "城市价格与状态提示（本地改版）",
+      "author": "MrBrut",
+      "version": "6",
+      "status": "unverified",
+      "notes": "归档包含价格和城镇状态两个入口；与独立“城市据点状态”可能重复显示。无汉化同路径覆盖，需验证中文提示布局。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/311"
+        }
+      ],
+      "filenames": [
+        "显示城市交易价格比例.zip"
+      ],
+      "mod_ids": [
+        "mod_settlement_prices_tooltip"
+      ],
+      "sha256": [
+        "01004a80ecd94889b32ff41a4d291496143327f8a9a6e0c5a785252e4d10ca5b"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 14 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-b94c4030ee20",
+      "title": "世界地图城镇状态提示",
+      "author": "MrBrut",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "编译入口是 mod_settlement_situations_worldmap_tooltip。无同路径覆盖；与价格包内的城镇状态功能叠加待验证。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/313"
+        }
+      ],
+      "filenames": [
+        "显示城市据点状态.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "b94c4030ee20e704dc319aa2ad46787e3bd040ea41ec42249637c06c05f55109"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-5c505ef9edaa",
+      "title": "红装属性范围 Named Item Stat Viewer（本地改版）",
+      "author": "sryanr（原作）；本地改作者未核实",
+      "version": "1.2",
+      "status": "conditional",
+      "notes": "使用 Modern Hooks，并在 MSU 之后排队。无同路径覆盖；与 BBMOD 装备鉴定可能叠加提示。本地中文改版授权未确认，不转载。",
+      "dependencies": "Modern Hooks",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/850"
+        }
+      ],
+      "filenames": [
+        "显示红装属性范围.zip"
+      ],
+      "mod_ids": [
+        "namedItemStats"
+      ],
+      "sha256": [
+        "5c505ef9edaaecca25b5928628f05da50f4926f3f70b60e2d7d7851ada80ac08"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-7f7288f3966e",
+      "title": "营地红装提示 Lair Info Compilation",
+      "author": "尚未核实原作者",
+      "version": "1.0",
+      "status": "unverified",
+      "notes": "旧 Hooks 入口，无同路径覆盖。会揭示营地物品信息，营地刷新、中文地名和其他提示 MOD 的组合未验证。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "显示营地红装.zip"
+      ],
+      "mod_ids": [
+        "Lair_Info_Compilation"
+      ],
+      "sha256": [
+        "7f7288f3966ee1c10cab0a266089261dfc331ebee9c444b40a392b4e3b6fbc69"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-5ac57625c6af",
+      "title": "视野范围 Vision Radius",
+      "author": "TaroEld",
+      "version": "2.1.1",
+      "status": "conditional",
+      "notes": "需要 MSU ≥ 1.1.1 及语义版本兼容框架。无同路径覆盖；地图圈层、DLC 和中文地图标签的叠加待验证。",
+      "dependencies": "mod_msu(>=1.1.1)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/487"
+        }
+      ],
+      "filenames": [
+        "显示视野范围.zip"
+      ],
+      "mod_ids": [
+        "mod_vision_radius"
+      ],
+      "sha256": [
+        "5ac57625c6af68e121f3056d1136be7ef3618972c786e61637990d8598711876"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 3 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-4a41358ff29d",
+      "title": "开放全部制作配方",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "tnf_allRecipes 入口，无同路径覆盖。改变配方可见性，额外配方的名称与可制作性仍需验证。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "炼金配方可见.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "4a41358ff29dd042b0cbbfadc951078cadf430e7d37e9fd02f5e8ad9066e7ac1"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-d39bddfd5f75",
+      "title": "犬舍可购买狼",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "直接覆盖 kennel_building 脚本，与独立汉化同一脚本冲突。当前没有合并兼容补丁，不建议同时启用。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "犬舍可购买狼.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "d39bddfd5f75992b039b7383fcf20c95f897c347d8a8d0bd2dec1e1654f36403"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：scripts/entity/world/settlements/buildings/kennel_building.nut。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-2bd367379bef",
+      "title": "狂暴 / 猎头触发特效 VSE",
+      "author": "Enduriel",
+      "version": "1.0.2",
+      "status": "conditional",
+      "notes": "需要 MSU 与语义版本兼容框架。无同路径覆盖；会改动战斗视觉表现和图集，需与其他技能外观 MOD 组合验证。",
+      "dependencies": "mod_msu(>=1.0.0-beta)；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/548"
+        }
+      ],
+      "filenames": [
+        "狂暴 猎头触发特效.zip"
+      ],
+      "mod_ids": [
+        "mod_vse"
+      ],
+      "sha256": [
+        "2bd367379befe0d09c3b150332fea6bfd364ccbadf03c438ea21e011f2317475"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 6 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-20199f360f78",
+      "title": "玩家控制宠物 Well Trained Pets（Legends 版）",
+      "author": "Necro（原作）；NgGH707（原站维护上传）",
+      "version": "2.9.0",
+      "status": "separate",
+      "notes": "入口自报 Well Trained Pets (Legends) 2.9.0。不能把它直接当成原版宠物控制包；需要对应 Legends / MSU 环境，原版汉化没有完成适配。",
+      "dependencies": "mod_msu；语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/317"
+        }
+      ],
+      "filenames": [
+        "玩家控制宠物（攻击快捷键点1）.zip"
+      ],
+      "mod_ids": [
+        "mod_well_trained_pets"
+      ],
+      "sha256": [
+        "20199f360f78857eeb9cae3a778e3c026069ff526bcb9cddc3a49860c2f0c8cf"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 87 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-ee6e53661ea2",
+      "title": "神殿治疗永久伤残",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "脚本入口标识为 mod_olto_v_temple_remove_injuries_perm。无同路径覆盖，但伤残恢复、价格及存档状态修改仍待验证；来源和许可未核实。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "神殿治疗永久伤残.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "ee6e53661ea21d0da468b71f00df8093f7552cac38a69c44362e9a413cb0a72a"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-16a520cc7a6b",
+      "title": "自动暂停 Configurable Pause",
+      "author": "Enduriel",
+      "version": "1.0.6",
+      "status": "conditional",
+      "notes": "需要 Modern Hooks 和 MSU；与 mod_pause 冲突。无同路径覆盖，地图事件 / 自动暂停行为尚待验证。",
+      "dependencies": "Modern Hooks；mod_msu",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/731"
+        }
+      ],
+      "filenames": [
+        "自动暂停-合集版.zip"
+      ],
+      "mod_ids": [
+        "mod_configurable_pause"
+      ],
+      "sha256": [
+        "16a520cc7a6b654dc86bcce8741e746c833b252ef143bb30a91eebccd0589537"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 4 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-c0a67a3e793c",
+      "title": "轻度显星 Tryout Talents Alternative",
+      "author": "Rule303",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "直接替换招募界面的 JS / CSS，与当前“显星、属性与评分”占用同一页面。两种显星方案只能选择一个。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/75"
+        }
+      ],
+      "filenames": [
+        "轻度显星-仅显示成长星.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "c0a67a3e793c02d402e30cc8ebd44f8cfa330424309e600f6c056f105dd37fa1"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 3 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-c09e7912b9f0",
+      "title": "简化遗忘药水配方（本地改版）",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "新增 potion_of_oblivion_02_blueprint，无同路径覆盖；配方成本、物品引用、文本和存档行为未验证。本地改作者许可未核实。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "轻松制作遗忘药水-见见改.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "c09e7912b9f02b210566446c05734197dc39e133c46956f1f7fcf8823e6ee921"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-75d26e3ca40a",
+      "title": "增加 50% 招募人数",
+      "author": "尚未核实原作者",
+      "version": "2",
+      "status": "unverified",
+      "notes": "旧 Hooks 入口，无同路径覆盖；改变城镇招募生成，不能标成不影响种子。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "重命名英文使用-1.5倍雇佣新人.zip"
+      ],
+      "mod_ids": [
+        "mod_moreRecruits"
+      ],
+      "sha256": [
+        "75d26e3ca40a5079430d5aeb5955bf10ea6d035814411dd0a4309c72622d742a"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-742d9798da42",
+      "title": "骨板显示器",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "未与汉化脚本直接重叠，但同时含源码 / 编译脚本和 preload/on_running.txt，与其他共享预载清单的外观包有覆盖风险。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "骨板显示器.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "742d9798da420ce1581830ac0219fae3271109addfec6c0505a07b41a9897651"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 11 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-cb77a3c2ddac",
+      "title": "按 Y 随时献祭",
+      "author": "ReapingLife",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "RAR 目录包含 mod_davkul_hotkey.nut。原作允许署名转载，但本次只完成该 RAR 的目录检查，未验证包内代码、快捷键和存档行为，不提供本站文件。",
+      "dependencies": "",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/975"
+        }
+      ],
+      "filenames": [
+        "按Y随时献祭-在城村附近使用-达库尔专用-mod_davkul_hotkey-975-2-0-1-1773469591.rar"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "cb77a3c2ddac5e98af20f4d64d51a3548aefcf6fc286a45f71184b9ed911d28c"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 3 个。 RAR 仅完成目录清单检查，不等同于包内 MOD 审校。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-f56f67f3a97e",
+      "title": "角斗士起源增加一人",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "编译入口为 mod_plus_one_to_roster，无同路径覆盖；修改起源人数上限，需验证开局和读档。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "角斗士13人.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "f56f67f3a97ee958dffc1acc3f1435dee1de599aa462fb3400150e0d66a8dd18"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-bf5aef74b4fc",
+      "title": "商店提高红装出现率",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "mod_25_more_named_items 入口，无同路径覆盖。文件名中的“必出”未获行为验证；会改变商店生成规则。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "重命名英文使用-25%商店红装(必出红装).zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "bf5aef74b4fc62f3153e363a1d04021e01ea129e816cf287460be5f50388d1c8"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-b2788adf63e6",
+      "title": "BBForge Vanilla 兵员编辑器（本地改版）",
+      "author": "Vortal（原作）；本地改作者未核实",
+      "version": "0.1.0",
+      "status": "conflict",
+      "notes": "与下载目录的 BBForge 8.7.39 共用 mod_bbforge.nut 和界面路径，不能同时装入。需要 Modern Hooks；修改人物和存档，不作为原版汉化已适配作品分发。",
+      "dependencies": "Modern Hooks",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/971"
+        }
+      ],
+      "filenames": [
+        "重命名英文使用-SHIFT+E-多功能修改器.zip"
+      ],
+      "mod_ids": [
+        "mod_bbforge_vanilla"
+      ],
+      "sha256": [
+        "b2788adf63e6bbf100bb7ff0f5d864459d4b85c78e6d17ea23ca7552c05a6b7b"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 5 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-2fc5ed9d5423",
+      "title": "先知固定为旗手",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "unverified",
+      "notes": "mod_prophet_always_bannerman 入口，无同路径覆盖。修改达库尔先知相关规则，需验证事件、技能和存档。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "重命名英文使用-先知永远是旗手（检查集结部队）.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "2fc5ed9d54234ffda8cecee7b64972997c18ec366c61ca1af88387342b83ce9c"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-5bf4cdf6abfb",
+      "title": "无限竞技场次数",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "conflict",
+      "notes": "整文件覆盖 arena_contract.cnut，与独立汉化的竞技场委托脚本冲突。必须合并修改并验证才能搭配，本站不分发当前包。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "重命名英文使用-无限竞技场次数.zip"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "5bf4cdf6abfb5bcb2dbc18cfc2ecaccd25e408efd06f938d58e51dd2802ec232"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 1 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 1 处。 例如：scripts/contracts/contracts/arena_contract.cnut。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。"
+    },
+    {
+      "id": "mod-e9bc45cfe504",
+      "title": "更多武器外观 More Weapon Skins",
+      "author": "KarldeCori",
+      "version": "0.8.0",
+      "status": "conditional",
+      "notes": "使用 Modern Hooks，MSU 队列关系需按原作说明处理。无同路径覆盖，但增加武器变体；本地文件也标注改变种子。装备图标 / 战斗模型和已有存档仍待验证。",
+      "dependencies": "Modern Hooks",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/726"
+        }
+      ],
+      "filenames": [
+        "重命名英文使用-美化-武器皮肤包（改变种子）.zip"
+      ],
+      "mod_ids": [
+        "mod_more_weapon_skins"
+      ],
+      "sha256": [
+        "e9bc45cfe504b58023d0e69fe93e7ccc280d48e9b4008034223dba18bc00cbd9"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 781 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-8ecea1b5acd6",
+      "title": "随从上限十人（本地版本）",
+      "author": "Flash2",
+      "version": "1.1",
+      "status": "unverified",
+      "notes": "旧 Hooks 入口，无同路径覆盖。会修改随从上限及界面，本地版本与原作具体配置尚未逐字节核对。",
+      "dependencies": "",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/281"
+        }
+      ],
+      "filenames": [
+        "重命名英文使用-随从上限变为10个 .zip"
+      ],
+      "mod_ids": [
+        "mod_more_followers"
+      ],
+      "sha256": [
+        "8ecea1b5acd61dc454c5fb69cc29a9a35c2669cc81447f649c85a7753d9f1ec5"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 2 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-799da3113aca",
+      "title": "SHS Legends 整合包",
+      "author": "尚未核实原作者",
+      "version": "本地未标版本；按 SHA-256 识别",
+      "status": "separate",
+      "notes": "RAR 目录含 BattleBrothers.exe、data_001.dat 等完整游戏文件及 Legends 19.4 系列 MOD，不能作为普通 MOD 上传。原版独立汉化不能直接覆盖这套环境；内含 MOD 只做目录盘点，未逐个验收。",
+      "dependencies": "",
+      "distribution": "来源或分发授权未确认，本站不转载。",
+      "sources": [],
+      "filenames": [
+        "Shs Battle Brothers v1.5.2.3a  2026-7-27.rar"
+      ],
+      "mod_ids": [],
+      "sha256": [
+        "799da3113aca8e5bc039770cbd34232cf1c5e45ed58c78d1901bed5f789eda09"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 159 个。 RAR 仅完成目录清单检查，不等同于包内 MOD 审校。"
+    },
+    {
+      "id": "mod-b7e994e00c58",
+      "title": "SHS 音乐扩展（本地改版）",
+      "author": "F",
+      "version": "1.0.0",
+      "status": "separate",
+      "notes": "需要 Modern Hooks、MSU ≥ 1.2.6。原作禁止异站转载，且包内音乐版权链未核实；本站仅提供原作页面，不能转载此音乐包。",
+      "dependencies": "Modern Hooks；mod_msu >= 1.2.6",
+      "distribution": "原作禁止异站转载，仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/840"
+        }
+      ],
+      "filenames": [
+        "shs086-01-音乐扩展包[Shs起源1.0-可删减]-mod_music-840-1.zip"
+      ],
+      "mod_ids": [
+        "mod_epic_music_potato"
+      ],
+      "sha256": [
+        "b7e994e00c5881817e0b9eb3d83d77b82dc04a66e8a3364a657fa0e67de28bd3"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 126 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    },
+    {
+      "id": "mod-2cdd709fae46",
+      "title": "BBForge 汉化修改器 8.7.39（本地改版）",
+      "author": "Vortal（原作）；本地改作者未核实",
+      "version": "8.7.39",
+      "status": "conflict",
+      "notes": "与 BBForge Vanilla 共用入口和 UI 路径，只能保留一个版本。本包采用旧语义版本注册，需要配套框架。第三方中文改版的授权、原版 / Legends / Reforged 行为均待核实。",
+      "dependencies": "语义版本兼容框架（如 Modern Hooks）",
+      "distribution": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+      "sources": [
+        {
+          "label": "原作与许可说明",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/971"
+        }
+      ],
+      "filenames": [
+        "mod_汉化修改器_shift+e呼出_传奇_重铸_原版兼容_v8.7.39.zip"
+      ],
+      "mod_ids": [
+        "mod_bbforge"
+      ],
+      "sha256": [
+        "2cdd709fae46eb5d86ca387f7f6893a64984a5fcca87be08b9d63932f43dcd5a"
+      ],
+      "evidence": "归档 SHA-256 固定；文件条目 14 个。按大小写归一及 .nut / .cnut 同脚本规则比对 rc.7：不同内容覆盖 0 处。 未发现同路径覆盖不代表运行兼容、汉化完整或存档安全。 原作者页面及转载说明核查于 2026-09-19；原站更新版不自动继承本次本地版本结论。"
+    }
+  ]
+}

@@ -16,12 +16,13 @@ from .desktop import inspect_desktop, version_key
 class ModForm(forms.ModelForm):
     class Meta:
         model = Mod
-        fields = ['title', 'summary', 'category', 'description', 'install_name', 'license', 'source_url',
+        fields = ['title', 'summary', 'category', 'description', 'install_name', 'license', 'source_url', 'original_author',
                   'game_version', 'dlc', 'mod_ids', 'requires', 'conflicts', 'save_impact', 'seed_impact', 'compatibility_notes']
         widgets = {k: forms.Textarea(attrs={'rows': 3}) for k in ['description', 'mod_ids', 'requires', 'conflicts', 'compatibility_notes']}
         help_texts = {
             'install_name': '英文、数字、下划线或短横线，以 .zip 结尾。保留需要的加载顺序前缀，创建后不可更改。',
             'license': '例如：原创，允许在本站分发；或填写所采用的开源许可证。',
+            'original_author': '转载作品填写原作者，含译者或改作者时一并署名；发布账号会另列为整理发布者。原创作品可留空。',
             'mod_ids': '填写脚本注册的 MOD ID，每行一个；纯资源包可留空。',
             'requires': '每行一个前置 MOD ID，例如 mod_hooks。版本要求请补充到兼容说明。',
             'conflicts': '每行一个冲突 MOD ID。',
@@ -49,6 +50,8 @@ class ModForm(forms.ModelForm):
 
     def clean(self):
         values = super().clean()
+        if values.get('original_author') and not values.get('source_url'):
+            self.add_error('source_url', '请为原作者署名补充可核实的原作链接。')
         for name in ['mod_ids', 'requires', 'conflicts']:
             lines = [s.strip() for s in values.get(name, '').splitlines() if s.strip()]
             if len(lines) > 30 or any(not re.fullmatch(r'[A-Za-z0-9_.-]{1,100}', s) for s in lines):
@@ -147,7 +150,7 @@ class QuickModForm(ModForm):
         return values
 
     def advanced_fields(self):
-        return [self[name] for name in ['description', 'install_name', 'license', 'source_url',
+        return [self[name] for name in ['description', 'install_name', 'license', 'source_url', 'original_author',
             'game_version', 'dlc', 'mod_ids', 'requires', 'conflicts', 'save_impact', 'seed_impact', 'compatibility_notes']]
 
     def advanced_errors(self):
