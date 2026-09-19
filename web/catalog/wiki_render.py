@@ -30,24 +30,50 @@ CSS_PROPERTIES = set('text-align vertical-align font-size font-weight font-style
 COLOR = re.compile(r'(?:#[a-fA-F0-9]{3,8}|[a-zA-Z]+|rgba?\([\d.,%\s]+\))\Z')
 VALUE = re.compile(r'[a-zA-Z0-9#.,%\s()/+\-]+\Z')
 
+# These are UI attribute/perk labels, including labels supplied by the final
+# display layer rather than a visible-field catalog entry. This allowlist does
+# not import arbitrary character-name or equipment-name fallback words.
+UI_TERMS = set(('Hitpoints|Fatigue|Resolve|Initiative|Melee Skill|Ranged Skill|Melee Defense|Ranged Defense|'
+    'Head Armor|Body Armor|Action Points|Fast Adaptation|Crippling Strikes|Colossus|Nine Lives|Bags and Belts|'
+    'Pathfinder|Adrenaline|Recover|Student|Executioner|Bullseye|Dodge|Fortified Mind|Resilient|Steel Brow|'
+    'Quick Hands|Gifted|Backstabber|Anticipation|Shield Expert|Brawny|Relentless|Rotation|Rally the Troops|'
+    'Taunt|Mace Mastery|Flail Mastery|Hammer Mastery|Cleaver Mastery|Axe Mastery|Sword Mastery|Dagger Mastery|'
+    'Polearm Mastery|Spear Mastery|Crossbow Mastery|Bow Mastery|Throwing Mastery|Reach Advantage|Overwhelm|'
+    'Lone Wolf|Underdog|Footwork|Berserk|Head Hunter|Nimble|Battle Forged|Fearsome|Duelist|Killing Frenzy|'
+    'Indomitable').split('|'))
+
 
 def term_catalog(path):
-    document = json.loads(path.read_text(encoding='utf-8'))
+    raw = path.read_bytes()
+    document = json.loads(raw.decode('utf-8'))
     terms = {}
+    fallbacks = document.get('display_fallbacks', {})
+    def valid_label(en, zh):
+        return (2 <= len(en) <= 70 and len(en.split()) <= 8 and re.search(r'[\u3400-\u9fff]', zh)
+            and not any(c in en+zh for c in '<>[]{}%\n\r')
+            and not en.endswith(('.', '!', '?', ':')) and title_key(en) != 'name')
     for entry in document['entries'].values():
         en = entry.get('source', '').strip()
-        zh = entry.get('translation', '').strip()
-        if (entry.get('status') != 'reviewed' or not 2 <= len(en) <= 70
-                or len(en.split()) > 8 or not re.search(r'[\u3400-\u9fff]', zh)
-                or any(c in en+zh for c in '<>[]{}%\n\r')
-                or en.endswith(('.', '!', '?', ':')) or title_key(en)=='name'):
+        zh = fallbacks.get(en, entry.get('translation', '')).strip()
+        if entry.get('status') != 'reviewed' or not valid_label(en, zh):
             continue
         contexts = entry.get('contexts', [])
+        files = [context.get('file', '') for context in contexts]
+        if (any('character_names.cnut' in name for name in files)
+                and not any(context.get('reason') == 'visible_field' for context in contexts)):
+            continue
+        if any('/skills/actives/' in name for name in files) and any('/items/weapons/' in name for name in files):
+            continue
         if not any(c.get('reason') in ('visible_field', 'visible_name_or_term') for c in contexts):
             continue
         terms[title_key(en)] = (en, zh)
+    for en in sorted(UI_TERMS):
+        zh = fallbacks.get(en, '').strip()
+        if valid_label(en, zh):
+            terms[title_key(en)] = (en, zh)
     return terms, {'game_version': document.get('source_game', ''),
-                   'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'reviewed_terms': len(terms)}
+                   'sha256': hashlib.sha256(raw).hexdigest(), 'reviewed_terms': len(terms),
+                   'display_fallbacks_applied': True}
 
 
 def translated_title(title, terms):
@@ -171,7 +197,9 @@ def render_article(parsed, terms, available, assets, styles):
         if element.get('id'):
             element['id'] = 'w-' + element['id']
         original_style = element.get('style', '')
-        if 'color: transparent' in original_style or 'color:transparent' in original_style:
+        if any(declaration.type == 'declaration' and declaration.lower_name == 'color'
+               and tinycss2.serialize(declaration.value).strip().lower() == 'transparent'
+               for declaration in tinycss2.parse_declaration_list(original_style)):
             element['class'].append('w-sort-label')
         cls = style_class(original_style, styles)
         if cls:

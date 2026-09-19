@@ -1,0 +1,1868 @@
+{
+  "schema_version": 1,
+  "kind": "wiki_units",
+  "page_revisions": {
+    "2817": 46518,
+    "2822": 42167,
+    "6982": 46208,
+    "6984": 46304,
+    "6989": 46287,
+    "6992": 46197,
+    "6996": 46696,
+    "6999": 46604,
+    "7005": 46278,
+    "7011": 46322,
+    "7016": 46312,
+    "7020": 46306,
+    "7025": 46697,
+    "7028": 46166,
+    "7031": 46554,
+    "7034": 46170,
+    "7036": 46274,
+    "7039": 46130,
+    "7041": 46273,
+    "7043": 46484,
+    "7049": 46479,
+    "7052": 46152,
+    "7058": 46192,
+    "7062": 46674,
+    "7065": 46690,
+    "7069": 46317,
+    "7074": 46307,
+    "7084": 46321,
+    "7092": 46198,
+    "7112": 46319,
+    "7708": 46137,
+    "7775": 46211,
+    "7781": 46551,
+    "7784": 46272,
+    "7786": 46692,
+    "7788": 46110,
+    "7791": 46109,
+    "7793": 46678,
+    "7796": 46612,
+    "7799": 46202,
+    "7801": 46182,
+    "7803": 46529,
+    "7805": 46179,
+    "7809": 46200,
+    "7811": 46153,
+    "7815": 46290,
+    "7826": 46187,
+    "7838": 46232,
+    "7877": 46461,
+    "7897": 46275,
+    "7913": 46103,
+    "7917": 46147,
+    "7922": 46267,
+    "7924": 46339,
+    "7927": 46120,
+    "7937": 46160,
+    "7977": 46173,
+    "8008": 46667,
+    "8015": 46118,
+    "8051": 46669,
+    "8074": 46487,
+    "8089": 46199,
+    "8093": 46142,
+    "8104": 46227,
+    "8120": 46183,
+    "8151": 46549,
+    "8157": 46689,
+    "8163": 46291,
+    "8176": 46165,
+    "8187": 46230,
+    "8196": 46276,
+    "8228": 46670,
+    "8232": 46149,
+    "8252": 46158,
+    "8257": 46562,
+    "8266": 46303,
+    "8298": 46134,
+    "8304": 46578,
+    "8318": 46293,
+    "8370": 46694,
+    "8374": 46269,
+    "8394": 46190,
+    "8435": 46577,
+    "8443": 46196,
+    "8464": 46382,
+    "8564": 46310,
+    "8682": 46127,
+    "8688": 46236,
+    "8985": 46122,
+    "9074": 46340,
+    "9117": 46688,
+    "9126": 46528,
+    "9279": 46296,
+    "9327": 46533,
+    "9397": 46668,
+    "9415": 46206,
+    "9424": 46145,
+    "9859": 46177,
+    "9868": 46483,
+    "9878": 46102,
+    "9882": 46610,
+    "10151": 46455,
+    "10154": 46677,
+    "10217": 46603,
+    "10249": 46294,
+    "10724": 41856,
+    "11149": 46583,
+    "11161": 34400,
+    "11490": 46359,
+    "11530": 46288,
+    "11543": 46311,
+    "11564": 46530,
+    "11816": 46463,
+    "12023": 46212,
+    "12031": 46107,
+    "12035": 46138,
+    "12043": 46163,
+    "12044": 46164,
+    "12045": 46184,
+    "12046": 46527,
+    "12049": 46225,
+    "12050": 46228,
+    "12051": 46234,
+    "12052": 46235,
+    "12053": 46268,
+    "12054": 46238,
+    "12060": 46280,
+    "12061": 46284,
+    "12062": 46283,
+    "12065": 46480,
+    "12069": 46316,
+    "12070": 46320,
+    "12071": 46323,
+    "12072": 46338,
+    "12074": 46341,
+    "12075": 46342,
+    "12076": 46462,
+    "12077": 46534,
+    "12078": 46543,
+    "12079": 46544,
+    "12080": 46663,
+    "12081": 46546,
+    "12083": 46592,
+    "12084": 46606,
+    "12114": 46169,
+    "12115": 46201,
+    "12117": 46226,
+    "12134": 46478,
+    "12135": 46675,
+    "12136": 46676,
+    "12248": 46457,
+    "12720": 46589,
+    "12756": 46453,
+    "12862": 46111,
+    "13057": 46156,
+    "13274": 46193,
+    "14744": 46277,
+    "14987": 46214,
+    "14988": 46217,
+    "15165": 46481,
+    "15166": 46381,
+    "15169": 46433,
+    "15181": 46482,
+    "15195": 46458,
+    "15227": 46542,
+    "15230": 46550,
+    "15231": 46560,
+    "15257": 46561,
+    "17101": 46331,
+    "17102": 46327,
+    "17104": 46330,
+    "17106": 46333,
+    "17107": 46334
+  },
+  "units": [
+    {
+      "id": "u-d3ad8e45b16ad906a290049a",
+      "source_sha256": "d3ad8e45b16ad906a290049afbd49564c3bf8365b26de6aedb79d6d4f2f0f0ae",
+      "source": "One of your brothers tells you about a dogfighting opportunity. You can choose:",
+      "zh": "一名弟兄告诉你，附近有场斗狗比赛可以参加。你可以选择：",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-a0973e58e6e641fc0f212f69",
+      "source_sha256": "a0973e58e6e641fc0f212f69dcf03fe9c97520caff0cd6f086b93776ae514397",
+      "source": "\"Time to ante up and see what our mutt can do.\"",
+      "zh": "“下注吧，看看咱们这条狗有多大本事。”",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-f32b3e6d55deea4cc93ba25c",
+      "source_sha256": "f32b3e6d55deea4cc93ba25cef808d6e6729ee4597341ea73560bfd158d1bfe4",
+      "source": "\"Take your damn crowns, then. We're leaving with our dog.\"",
+      "zh": "“那就拿着你那该死的克朗。我们要带狗走。”",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-bf4377addc744a5ce25d0c27",
+      "source_sha256": "bf4377addc744a5ce25d0c27280cc7b791667412fd8a046ef14404e6dffe9cbf",
+      "source": "\"This is bad. Let's get out of here.\" (nothing happens)",
+      "zh": "“情况不妙。咱们离开这里。”（无事发生。）",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-bd3734c24e9e3ecaafb51750",
+      "source_sha256": "bd3734c24e9e3ecaafb51750ac6616b606faa27c012d6933945a1779371bcffc",
+      "source": "The {#1}Wardogs{/#1} or {#2}Warhounds{/#2} can be with or without armor and they must be assigned to a brother, but {#3}Heavily Armored{/#3} dogs are excluded from this event",
+      "zh": "{#1}战犬{/#1}或{#2}战獒{/#2}都可以，可以披甲，也可以不披甲，但必须装备在一名弟兄身上；{#3}重甲{/#3}犬不参与此事件。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-188d4ff067e81525e7eb14b9",
+      "source_sha256": "188d4ff067e81525e7eb14b9c7e5e78d544640268bd443349d5361709e361048",
+      "source": "You have to be near an allied settlement (3 tiles away)",
+      "zh": "你必须位于一处友好聚落的 3 格范围内。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-6d6c0c39ff20ba084cfcb6ef",
+      "source_sha256": "6d6c0c39ff20ba084cfcb6ef43a13051e890b8487e1b617b883da9060aa5ad88",
+      "source": "Score = 15 for every brother that has a {#1}Wardog{/#1} or {#2}Warhound{/#2} assigned to him",
+      "zh": "事件权重：每名装备了{#1}战犬{/#1}或{#2}战獒{/#2}的弟兄增加 15。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-92e3f9c5418749063814e616",
+      "source_sha256": "92e3f9c5418749063814e61608731ef4425ddb35c0f79ffbdbd5119babdcccef",
+      "source": "You have to be in the top 80% of the map (north)",
+      "zh": "你必须位于地图北部，也就是地图从北向南的前 80% 范围内。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        8157,
+        15257
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-930a20b1b094a112952ead2a",
+      "source_sha256": "930a20b1b094a112952ead2aecec4234330dd190995c4829fbbebe8d5024c7d5",
+      "source": "A man is dangling down from a tree and being whipped for having fun with a dead horse. You can choose:",
+      "zh": "一名男子因为与死马寻欢，被吊在树上鞭打。你可以选择：",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-585c5b4b8be5abac1bc4095d",
+      "source_sha256": "585c5b4b8be5abac1bc4095d89a6a28d2ec5168e781f2ff3a39ed9f9d9d425d8",
+      "source": "You gain a wounded (current hitpoints reduced to 30) {#1}{#2}{#3/}{/#2}{/#1} {#4}Vagabond{/#4} brother",
+      "zh": "一名受伤的{#1}{#2}{#3/}{/#2}{/#1}{#4}流浪汉{/#4}加入战团，当前生命值降至 30。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-6fd42bff585f568ba8f79340",
+      "source_sha256": "6fd42bff585f568ba8f7934040d01bb5ed76ac331e40e6fbb2ef0657d6c9a84e",
+      "source": "If you have a {#1}{#2}{#3/}{/#2}{/#1} {#4}Butcher{/#4} you gain 2x {#5}{#6}{#7/}{/#6}{/#5} {#8}Strange Meat{/#8} from the dead horse",
+      "zh": "如果战团中有{#1}{#2}{#3/}{/#2}{/#1}{#4}屠夫{/#4}，你会从死马身上获得 2 份{#5}{#6}{#7/}{/#6}{/#5}{#8}不明兽肉{/#8}。",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-7b1d7a706da645c31214c06d",
+      "source_sha256": "7b1d7a706da645c31214c06d8ccd2a5e2609e789e77ffd158e4ab2c9b8f49dec",
+      "source": "\"{#1}{#2}{#3/}{/#2}{/#1} {#4}Flagellant{/#4}, you look like you have something on your mind.\"",
+      "zh": "“{#1}{#2}{#3/}{/#2}{/#1}{#4}苦修者{/#4}，你好像有话想说。”",
+      "status": "reviewed",
+      "page_ids": [
+        2817,
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-d55fc7c55363a6c6ca07199e",
+      "source_sha256": "d55fc7c55363a6c6ca07199e02ca9a461350c2b35579187dd7df566db6e6ac90",
+      "source": "Move to the war camp and report to the commander. Assist the army in their battle against a noble house.",
+      "zh": "前往军营，向指挥官报到。协助军队对抗敌对贵族家族。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-496d0dbcd9369e604adaaee9",
+      "source_sha256": "496d0dbcd9369e604adaaee9eb1704862af3cb3abef88a165e6443f182a055a4",
+      "source": "The contract consists of two preliminary missions and the decisive battle itself. Every mission starts on the next morning, so you always have some time to resupply and heal.",
+      "zh": "这份委托包括两项前期任务，以及最后的决战。每项任务都会在次日清晨开始，因此你总有一些时间补充物资、治疗伤势。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-bd795136dbc289e9bdff2da3",
+      "source_sha256": "bd795136dbc289e9bdff2da379cb01ab5d711f9109218a7dd01fc21d2695888c",
+      "source": "Following missions may be assigned to you at the war camp:",
+      "zh": "在军营中，你可能接到以下任务：",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-c43bb7928625edef7cc03c7b",
+      "source_sha256": "c43bb7928625edef7cc03c7bc82a3f1192312eae4047f88575d1e4b0181ffafa",
+      "source": "40% chance: Intercept scouts of a noble house last seen in a certain direction of the warcamp and let no one escape alive. You need to fight a {#1}{#2}{#3/}{/#2}{/#1} {#4}noble force{/#4}.",
+      "zh": "40% 概率：拦截一支贵族家族的侦察队。他们最后出现在军营的某个方向，不要放走任何活口。你需要与{#1}{#2}{#3/}{/#2}{/#1}{#4}贵族军队{/#4}交战。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-7645369f3a7cfe2b448070ec",
+      "source_sha256": "7645369f3a7cfe2b448070ec2ebdde3858ef23bb6dc3f6b649f3547b51f737cf",
+      "source": "60% chance: Requisition supplies at the objective in a certain direction of the warcamp. (you are send after an enemy wheat field or pig farm)",
+      "zh": "60% 概率：前往军营某个方向的目标地点征用补给。目标是敌方的一片麦田或一座养猪场。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-8a9f993785e97d1da8d34ce1",
+      "source_sha256": "8a9f993785e97d1da8d34ce1bda44269bb07b76cb924ce59695d9b6d23982892",
+      "source": "33% chance: You are ambushed at the farm and will face {#1}{#2}{#3/}{/#2}{/#1} {#4}mercenaries{/#4} and {#5}{#6}{#7/}{/#6}{/#5} {#8}armed peasants{/#8}.",
+      "zh": "33% 概率：你在农场遭到伏击，需要面对{#1}{#2}{#3/}{/#2}{/#1}{#4}佣兵{/#4}和{#5}{#6}{#7/}{/#6}{/#5}{#8}武装农民{/#8}。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-e2a290bb5038730e80c9955e",
+      "source_sha256": "e2a290bb5038730e80c9955e1a0827d8318c3c350705dfa17849d20afb5da3d1",
+      "source": "33% chance: You meet unruly farmers. You either fight {#1}{#2}{#3/}{/#2}{/#1} {#4}armed peasants{/#4} or pay them some crowns for the supplies.",
+      "zh": "33% 概率：你遇到不肯服从的农民。你可以与{#1}{#2}{#3/}{/#2}{/#1}{#4}武装农民{/#4}交战，也可以付些克朗，买下他们的补给。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-9c3d8d67bacbe94ef02246a3",
+      "source_sha256": "9c3d8d67bacbe94ef02246a3bb104391e512c26322fc2abe9d1efc13cbee1f3e",
+      "source": "50% chance: Intercept supplies enroute from settlement A to settlement B. You need to fight a well armed {#1}{#2}{#3/}{/#2}{/#1} {#4}caravan{/#4}.",
+      "zh": "50% 概率：拦截一批从聚落 A 运往聚落 B 的补给。你需要与一支装备精良的{#1}{#2}{#3/}{/#2}{/#1}{#4}商队{/#4}交战。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-a3b699b283592131e6f93aac",
+      "source_sha256": "a3b699b283592131e6f93aac4408e9da0e895314e8aad9031a390ae9e1e3ebcc",
+      "source": "50% chance: Follow the footprints and approach the deserters. Either convince them to come back or kill them. ({#1}Deserter Quest{/#1})",
+      "zh": "50% 概率：追踪脚印，找到逃兵。你可以说服他们归队，也可以杀死他们。（{#1}逃兵的请求{/#1}）",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-b9a03661966c2386a06ce25e",
+      "source_sha256": "b9a03661966c2386a06ce25e8d0d0bc2a0c37668df78f78827d39e98bf5b238b",
+      "source": "Win the final battle for the noble house. You will face the {#1}{#2}{#3/}{/#2}{/#1} {#4}enemy house army{/#4} as well as a handful of mercenaries, but you will be backed up with allies from the house army that employed you. Each side is led by a {#5}Knight{/#5}, and if the contract difficulty is 3 skulls and the Warriors of the North DLC is enabled, the enemy commander is always a {#6}champion{/#6}.",
+      "zh": "为雇佣你的贵族家族赢下最后的决战。你将面对{#1}{#2}{#3/}{/#2}{/#1}{#4}敌方家族的军队{/#4}和少量佣兵，同时也会得到雇主家族军队的支援。双方各由一名{#5}骑士{/#5}带领；如果委托难度为 3 颗骷髅，并且启用了《北境勇士》DLC，敌方指挥官必定是{#6}精英{/#6}。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11149
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-498ed2f6ad2a16719e791ff3",
+      "source_sha256": "498ed2f6ad2a16719e791ff3ce166523336311904408781241d8c6abcb532255",
+      "source": "Raid the caravan going from settlement A to settlement B.",
+      "zh": "袭击从聚落 A 前往聚落 B 的商队。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-74857251ce9dfa15def12b2e",
+      "source_sha256": "74857251ce9dfa15def12b2e34527e649a92a4f07d5f6d3f4a6c5d995e597f63",
+      "source": "You get full payment if noone escaped from the caravan, 50% less pay otherwise. For each person that escaped there is a 15% chance that you fail the contract and get no payment at all.",
+      "zh": "如果商队中无人逃走，你会获得全额报酬；否则报酬减少 50%。每逃走一人，都有 15% 的概率导致委托失败，届时你将拿不到任何报酬。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-fde63f8927f1fe04c73273d3",
+      "source_sha256": "fde63f8927f1fe04c73273d318391fc79a1c1cb4adf3e525df0a6b902b267166",
+      "source": "10% chance: A man offers you some crowns if you dont destroy the caravan. ({#1}Bribe{/#1})",
+      "zh": "10% 概率：有人提出，只要你放过商队，就付给你一些克朗。（{#1}贿赂{/#1}）",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-88d99fca4591f4d0845fd119",
+      "source_sha256": "88d99fca4591f4d0845fd119a3d48c3cb53264d37194654d9d294ab1f87ab59c",
+      "source": "5% chance: You have to fight a {#1}{#2}{#3/}{/#2}{/#1} {#4}Swordmasters{/#4} in addition to the caravan.",
+      "zh": "5% 概率：除商队外，你还需要对付一名{#1}{#2}{#3/}{/#2}{/#1}{#4}剑术大师{/#4}。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-36e1e9309a585fd9df2caf5e",
+      "source_sha256": "36e1e9309a585fd9df2caf5eed7a9b6db2baed9935aefcba3577a8764d336379",
+      "source": "5% chance: You have to fight a {#1}{#2}{#3/}{/#2}{/#1} {#4}Necromancers{/#4} and {#5}{#6}{#7/}{/#6}{/#5} {#8}Zombies{/#8} in addition to the caravan.",
+      "zh": "5% 概率：除商队外，你还需要对付{#1}{#2}{#3/}{/#2}{/#1}{#4}死灵法师{/#4}和{#5}{#6}{#7/}{/#6}{/#5}{#8}行尸{/#8}。",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-2da902021408fbccf4711844",
+      "source_sha256": "2da902021408fbccf4711844102c489ccd7980d6ced0bf768aa80dd71233da8c",
+      "source": "5% chance: You have to deal with women and children after the battle. ({#1}Women and Children{/#1})",
+      "zh": "5% 概率：战斗结束后，你需要处置妇女和儿童。（{#1}妇女与儿童{/#1}）",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-81563f5d5b3cfd1b4e19a0db",
+      "source_sha256": "81563f5d5b3cfd1b4e19a0db9bcabc341ad07bc5e022c2343e011ba8eec47253",
+      "source": "10% chance: You found some papers after the battle that you could use against you employer. ({#1}Compromising Papers{/#1})",
+      "zh": "10% 概率：战斗结束后，你找到了一些可用来要挟雇主的文件。（{#1}把柄文件{/#1}）",
+      "status": "reviewed",
+      "page_ids": [
+        2822,
+        11161
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-6d635c8e95e5376ee3d943c2",
+      "source_sha256": "6d635c8e95e5376ee3d943c25e7c3943883b216266abfa6d8848b97dd222e5a2",
+      "source": "Sorry, event interactivity is not supported on mobile devices yet.",
+      "zh": "抱歉，移动设备暂不支持事件互动。",
+      "status": "reviewed",
+      "page_ids": [
+        6982,
+        6984,
+        6989,
+        6992,
+        6996,
+        6999,
+        7005,
+        7011,
+        7016,
+        7020,
+        7025,
+        7028,
+        7031,
+        7034,
+        7036,
+        7039,
+        7041,
+        7043,
+        7049,
+        7052,
+        7058,
+        7062,
+        7065,
+        7069,
+        7074,
+        7084,
+        7092,
+        7112,
+        7708,
+        7775,
+        7781,
+        7784,
+        7786,
+        7788,
+        7791,
+        7793,
+        7796,
+        7799,
+        7801,
+        7803,
+        7805,
+        7809,
+        7811,
+        7815,
+        7826,
+        7838,
+        7877,
+        7897,
+        7913,
+        7917,
+        7922,
+        7924,
+        7927,
+        7937,
+        7977,
+        8008,
+        8015,
+        8051,
+        8074,
+        8089,
+        8093,
+        8104,
+        8120,
+        8151,
+        8157,
+        8163,
+        8176,
+        8187,
+        8196,
+        8228,
+        8232,
+        8252,
+        8257,
+        8266,
+        8298,
+        8304,
+        8318,
+        8370,
+        8374,
+        8394,
+        8435,
+        8443,
+        8464,
+        8564,
+        8682,
+        8688,
+        8985,
+        9074,
+        9117,
+        9126,
+        9279,
+        9327,
+        9397,
+        9415,
+        9424,
+        9859,
+        9868,
+        9878,
+        9882,
+        10151,
+        10154,
+        10217,
+        10249,
+        11490,
+        11530,
+        11543,
+        11564,
+        11816,
+        12023,
+        12031,
+        12035,
+        12043,
+        12044,
+        12045,
+        12046,
+        12049,
+        12050,
+        12051,
+        12052,
+        12053,
+        12054,
+        12060,
+        12061,
+        12062,
+        12065,
+        12069,
+        12070,
+        12071,
+        12072,
+        12074,
+        12075,
+        12076,
+        12077,
+        12078,
+        12079,
+        12080,
+        12081,
+        12083,
+        12084,
+        12114,
+        12115,
+        12117,
+        12134,
+        12135,
+        12136,
+        12248,
+        12720,
+        12756,
+        12862,
+        13057,
+        13274,
+        14744,
+        14987,
+        14988,
+        15165,
+        15166,
+        15169,
+        15181,
+        15195,
+        15227,
+        15230,
+        15231,
+        15257,
+        17101,
+        17102,
+        17104,
+        17106,
+        17107
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-18071b9ca8eba5c3ca23e9c7",
+      "source_sha256": "18071b9ca8eba5c3ca23e9c7802eac83d7431e97ed7493d378b06947d37620bf",
+      "source": "While on the path, you come to a man being dangled upside down from a tree branch. A bunch of men are sitting around him sharing a goatskin flask, looking like they're at the end of a day's hard work. When you ask what is going on, one of them looks up and smiles.",
+      "zh": "沿路前行时，你看见一个男人被倒吊在树枝上。一群人围坐在旁，传着羊皮酒囊喝酒，仿佛刚结束一天的辛劳。你问出了什么事，其中一人抬起头，笑了笑。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-0c7b70ae0b4b21fe04cb086c",
+      "source_sha256": "0c7b70ae0b4b21fe04cb086c4362ffd88bd56cb99edada35b0d8b0309e091b12",
+      "source": "Let's keep going. ({#1}{#2}continue{/#2}{/#1} if you have a Butcher, otherwise the event ends)",
+      "zh": "继续赶路。（如果战团中有屠夫，则{#1}{#2}继续事件{/#2}{/#1}；否则事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-560026da05d85cf6b7d971f6",
+      "source_sha256": "560026da05d85cf6b7d971f6bddc04e32a6817f074e3ca9251197e95e4cb9e07",
+      "source": "You walk over to the dangling man. There's blood running down his back, streaking from a dozen slashes. He's got a cloth covering his eyes which you pull down. Blinking, he asks what it is you want as though you're interrupting his own hiding. You ask him if what they say is true. He spits and clears his throat.",
+      "zh": "你走到倒吊着的男人面前。他背上十几道鞭痕正往下淌血。你拉下蒙住他眼睛的布。他眨眨眼，问你想干什么，那口气仿佛你打扰了他挨揍。你问那些人说的是不是真的。他啐了一口，清清嗓子。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-8c2352f2dbcef15aa90ad32f",
+      "source_sha256": "8c2352f2dbcef15aa90ad32ffcbd171670c09bb38fc3b86fc93a86e906cdc809",
+      "source": "We'll cut you down. ({#1}{#2}75% he is ok{/#2}{/#1}, {#3}{#4}25% he dies{/#4}{/#3})",
+      "zh": "我们把你放下来。（{#1}{#2}75% 概率安然落地{/#2}{/#1}，{#3}{#4}25% 概率死亡{/#4}{/#3}。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-084933bb6506f3beae563c19",
+      "source_sha256": "084933bb6506f3beae563c19ff9c1cf2f94ef6df510a0359c775a972e6d04d6b",
+      "source": "Time to leave. ({#1}{#2}continue{/#2}{/#1} if you have a Butcher, otherwise the event ends)",
+      "zh": "该走了。（如果战团中有屠夫，则{#1}{#2}继续事件{/#2}{/#1}；否则事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-7b4b7ee47c3ae5b809be53e3",
+      "source_sha256": "7b4b7ee47c3ae5b809be53e3dd6a9916a7ef7278535d10424e4f531368f70aa8",
+      "source": "You take out your blade and cut the man down. He crumples onto his shoulders and splays out, his lashed back in the dirt. The soil may as well have been salt judging by his wailing. One of the whippers stands up.",
+      "zh": "你拔出刀，把绳子割断。那人肩膀先着地，随后四仰八叉地摊倒，挨过鞭子的后背贴在泥土上。听他嚎叫的声音，简直像是躺在一地盐里。一个执鞭的人站了起来。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-2345b4edbd15a836175a2654",
+      "source_sha256": "2345b4edbd15a836175a2654db9d71178654cb91e1bb2b88d0847f4af315a759",
+      "source": "Welcome aboard, you horse whore. ({#1}Vagabond{/#1} joins you and the event ends)",
+      "zh": "欢迎入伙，你这搞马的混账。（{#1}流浪汉{/#1}加入战团，事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-c40272947c4711006cb672e4",
+      "source_sha256": "c40272947c4711006cb672e4780ba0de68feb661c487303663df583378713ae0",
+      "source": "Just go. We have no place for you. (the event ends)",
+      "zh": "走吧。我们这里没有你的位置。（事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-97a22e0ed795c9b8a6fec6d5",
+      "source_sha256": "97a22e0ed795c9b8a6fec6d5228544ec34be8ee1f71bcbe962419034c48f988c",
+      "source": "You take out your blade and cut the man down. He falls right on his head and his neck breaks with a disgusting crack. The rest of his body crumples with his legs awkwardly heaved over his own chest, a position no doubt strange to this sexual deviant. The horse owner springs to his feet.",
+      "zh": "你拔出刀，把绳子割断。那人头朝下摔在地上，脖子发出令人作呕的咔嚓声，折断了。身体随之瘫倒，双腿以别扭的姿势翻到胸前——就连这个性癖古怪的家伙，恐怕也没摆过这样的姿势。马主人腾地站了起来。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-28d492ec722d176a5041040e",
+      "source_sha256": "28d492ec722d176a5041040e4f6271a78e5589d26c1641ac46844a4fce9c844d",
+      "source": "{#1}Flagellant{/#1} steps forward and takes the horse owner's whip. He bends it and runs the leather through his hands. Nodding, he calls it a 'fine tool' for a good whipping, but that the men were going about it 'all the wrong way.' He points at the wounds on the man's back.",
+      "zh": "{#1}苦修者{/#1}走上前，接过马主人的鞭子。他将鞭身弯起，让皮条从双手间滑过，点头称赞这是件抽起人来很顺手的“好工具”，可这些人的用法“全错了”。他指向那人背上的伤口。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-cf399588046c29148621957d",
+      "source_sha256": "cf399588046c29148621957df4c17820d50e6a55397b286584741bdb3b83ad7b",
+      "source": "{#1}Butcher{/#1} asks if the horse is still around. Its owner nods.",
+      "zh": "{#1}屠夫{/#1}问那匹马是否还在。马主人点点头。",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-4ad9eb5537336f44f361addb",
+      "source_sha256": "4ad9eb5537336f44f361addb0ec10361343cf61e6ea40113ac356b31500eee14",
+      "source": "Not sure I want that in our stocks. (the event ends)",
+      "zh": "我可不确定要不要把这东西放进补给里。（事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-ab85506f785712f06962bb64",
+      "source_sha256": "ab85506f785712f06962bb64357bd42d174dba3c1c55f34a854e0859bb2708eb",
+      "source": "{#1}<img alt=\"Start\" class=\"w-thumbimage\" data-caption=\"Start\" data-image-key=\"The_horseman2.png\" data-image-name=\"The horseman2.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/dbcae0276c7bdfe5c3b99120b7979b339d1073b533a0b241003db00c62db4177.webp\" title=\"The horseman2.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Start\" class=\"w-thumbimage\" data-caption=\"Start\" data-image-key=\"The_horseman2.png\" data-image-name=\"The horseman2.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/dbcae0276c7bdfe5c3b99120b7979b339d1073b533a0b241003db00c62db4177.webp\" title=\"The horseman2.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-8179df4c18d95c2ce62993f2",
+      "source_sha256": "8179df4c18d95c2ce62993f248db36b18f4c494e88b3e7cd8a8a6a144e7c3628",
+      "source": "{#1}<img alt=\"Path 1\" class=\"w-thumbimage\" data-caption=\"Path 1\" data-image-key=\"The_horseman5.png\" data-image-name=\"The horseman5.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/f0bb6ac671ab2301b30031ad666a1b4b905c261ad91388cfec8d988df2912e6a.webp\" title=\"The horseman5.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1\" class=\"w-thumbimage\" data-caption=\"Path 1\" data-image-key=\"The_horseman5.png\" data-image-name=\"The horseman5.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/f0bb6ac671ab2301b30031ad666a1b4b905c261ad91388cfec8d988df2912e6a.webp\" title=\"The horseman5.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-8943c492c4a76288eeba15ed",
+      "source_sha256": "8943c492c4a76288eeba15ed2b9f38e10cb09cf344f69ca147721671bb8cd5e5",
+      "source": "{#1}<img alt=\"Path 1A (Success)\" class=\"w-thumbimage\" data-caption=\"Path 1A (Success)\" data-image-key=\"The_horseman.png\" data-image-name=\"The horseman.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/66705f3552ec180d9811fbd8359174760565985c44690fc86d4bb1437fad8a94.webp\" title=\"The horseman.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1A (Success)\" class=\"w-thumbimage\" data-caption=\"Path 1A (Success)\" data-image-key=\"The_horseman.png\" data-image-name=\"The horseman.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/66705f3552ec180d9811fbd8359174760565985c44690fc86d4bb1437fad8a94.webp\" title=\"The horseman.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-7dface3d321aede35a875884",
+      "source_sha256": "7dface3d321aede35a8758845663d6e43bf119e93afd4429279620c65ee7a4f5",
+      "source": "{#1}<img alt=\"Path 1A (Failure)\" class=\"w-thumbimage\" data-caption=\"Path 1A (Failure)\" data-image-key=\"The_horseman4.png\" data-image-name=\"The horseman4.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/6b167130b5d030328a8f44c3544b218e5657c8746ad8de33fd20488adb715ed9.webp\" title=\"The horseman4.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1A (Failure)\" class=\"w-thumbimage\" data-caption=\"Path 1A (Failure)\" data-image-key=\"The_horseman4.png\" data-image-name=\"The horseman4.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/6b167130b5d030328a8f44c3544b218e5657c8746ad8de33fd20488adb715ed9.webp\" title=\"The horseman4.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-938f43b7e662e6e6ca5e1e23",
+      "source_sha256": "938f43b7e662e6e6ca5e1e23bd65e67085d60330d0ba6fea380ee838c17bc7c1",
+      "source": "{#1}<img alt=\"Path 1B (Flagellant)\" class=\"w-thumbimage\" data-caption=\"Path 1B (Flagellant)\" data-image-key=\"The_horseman6.png\" data-image-name=\"The horseman6.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/5ecc3e9644cf3528b663e6caf906a06eb35a85dbe3578cdfb459c82107e3ca79.webp\" title=\"The horseman6.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1B (Flagellant)\" class=\"w-thumbimage\" data-caption=\"Path 1B (Flagellant)\" data-image-key=\"The_horseman6.png\" data-image-name=\"The horseman6.png\" data-relevant=\"1\" decoding=\"async\" height=\"185\" loading=\"lazy\" src=\"/wiki/media/5ecc3e9644cf3528b663e6caf906a06eb35a85dbe3578cdfb459c82107e3ca79.webp\" title=\"The horseman6.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        8157
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-773fb20be68ac00f5254e7be",
+      "source_sha256": "773fb20be68ac00f5254e7bec5a341db75699fa663c1217adaff618ca293e4ec",
+      "source": "{#1}Doghandler{/#1} asks you to enter {#2}Wardog{/#2} into a local dog fighting circle. That sounds like an awful idea, but the man goes on to explain that a lot of money stands to be made in dogfighting. All the doghandler needs is an ante of two hundred crowns.",
+      "zh": "{#1}带犬的弟兄{/#1}请你让{#2}战犬{/#2}参加当地的斗狗比赛。听着实在不是个好主意，可他接着解释，斗狗能赚不少钱。他只需要两百克朗作为赌本。",
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-a94649d827cc08de3d5bac76",
+      "source_sha256": "a94649d827cc08de3d5bac76cee4340a081813bba13970ba6fdbe9874576f746",
+      "source": "You take a purse of crowns and follow {#1}Doghandler{/#1} through a wind of darker and darker streets. Soon enough, there isn't much to see. Wet cobblestones, licked white by strobes of moonlight, lazily guide you into what depths the city hides from those who prefer the day. Suddenly, a torch flares up and a man's face, afloat and disembodied in the dark, speaks out to you.",
+      "zh": "你带上一袋克朗，跟着{#1}带犬的弟兄{/#1}穿过蜿蜒的街巷，四周越来越暗。不久，眼前便几乎什么也看不清了。潮湿的鹅卵石路被片片月光照得发白，曲折地将你引向城中那些见不得光的角落。突然，一支火把亮起，一张人脸浮现在黑暗中，看不见身体，开口朝你说话。",
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-4c6ed12b107db6e429253f29",
+      "source_sha256": "4c6ed12b107db6e429253f297e0940dab28a5fa982755cfcafb7231b48dd2cd8",
+      "source": "Following the man's torch through the dark, you come to a building with a sliding portal at its door. The stranger gives the door a pattern of knocks and it pops open as if commanded by the final rap. You are ushered in, leering faces watching from the side as you enter. Immediately, you hear the unsettling din of snarling and barking. This is what you are here for, right?",
+      "zh": "你跟着那人的火把穿过黑暗，来到一栋建筑前，门上装着一个滑动的小窗口。陌生人按特定节奏敲了几下，最后一声刚落，门便像得了命令似的弹开。你被引进屋内，两旁的人不怀好意地盯着你。立刻，令人不安的低吼和犬吠扑面而来。你来这里，不就是为了这个吗？",
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-3fb639d588a6e8e3d021e445",
+      "source_sha256": "3fb639d588a6e8e3d021e4455d9834186fb75aacc5083eb118a5897949f75065",
+      "source": "This is bad. Let's get out of here. (the event ends)",
+      "zh": "情况不妙。咱们离开这里。（事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-100c4d4bf507294c2418823c",
+      "source_sha256": "100c4d4bf507294c2418823cb297cc7683364529b496efdb226d06534a0687e0",
+      "source": "It appears the company also has the meanest and baddest dogs. (the event ends)",
+      "zh": "看来，咱们战团的狗也是最凶最狠的。（事件结束。）",
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-5ee31bfbc7913bfce5bef2c9",
+      "source_sha256": "5ee31bfbc7913bfce5bef2c947a720b87c6226efe6912149aac1590d55ae94de",
+      "source": "{#1}<img alt=\"Start\" class=\"w-thumbimage\" data-caption=\"Start\" data-image-key=\"Dogfighting.png\" data-image-name=\"Dogfighting.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/f3bbd6b330813306e735b0fef9de8a015f450f1e7aba6af7d0aebf015dc9fd6d.webp\" title=\"Dogfighting.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Start\" class=\"w-thumbimage\" data-caption=\"Start\" data-image-key=\"Dogfighting.png\" data-image-name=\"Dogfighting.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/f3bbd6b330813306e735b0fef9de8a015f450f1e7aba6af7d0aebf015dc9fd6d.webp\" title=\"Dogfighting.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-22651605af87e8001441e126",
+      "source_sha256": "22651605af87e8001441e126d6442a26eed64f96870abfe5e4e5cf4ad3eadcb2",
+      "source": "{#1}<img alt=\"Path 1\" class=\"w-thumbimage\" data-caption=\"Path 1\" data-image-key=\"Dogfighting2.png\" data-image-name=\"Dogfighting2.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/6fca4588acd550f026501afd72a9c4bfa8bfbe9093adfc33312eb165215ea37a.webp\" title=\"Dogfighting2.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1\" class=\"w-thumbimage\" data-caption=\"Path 1\" data-image-key=\"Dogfighting2.png\" data-image-name=\"Dogfighting2.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/6fca4588acd550f026501afd72a9c4bfa8bfbe9093adfc33312eb165215ea37a.webp\" title=\"Dogfighting2.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-d9ea964cbe519515b96a48e4",
+      "source_sha256": "d9ea964cbe519515b96a48e4cfc19f9c9961b33f302636b24f3fbb381382ef8f",
+      "source": "{#1}<img alt=\"Path 1.1\" class=\"w-thumbimage\" data-caption=\"Path 1.1\" data-image-key=\"Dogfighting3.png\" data-image-name=\"Dogfighting3.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/c4b2f788d1172a9f4a399b44d66fbbc05efbf19dbd4a5ece7c83a50fa944a914.webp\" title=\"Dogfighting3.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1.1\" class=\"w-thumbimage\" data-caption=\"Path 1.1\" data-image-key=\"Dogfighting3.png\" data-image-name=\"Dogfighting3.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/c4b2f788d1172a9f4a399b44d66fbbc05efbf19dbd4a5ece7c83a50fa944a914.webp\" title=\"Dogfighting3.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-ad0ac8c701d78efa3f80cfb6",
+      "source_sha256": "ad0ac8c701d78efa3f80cfb62c3f768bbeb44f2b315878e845f4aec8d68de336",
+      "source": "{#1}<img alt=\"Path 1.1.1\" class=\"w-thumbimage\" data-caption=\"Path 1.1.1\" data-image-key=\"Dogfighting4.png\" data-image-name=\"Dogfighting4.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/396b17c59f8d745cd9b7b948c76691f3c91fbc177cf81947a8482c31fd33331c.webp\" title=\"Dogfighting4.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Path 1.1.1\" class=\"w-thumbimage\" data-caption=\"Path 1.1.1\" data-image-key=\"Dogfighting4.png\" data-image-name=\"Dogfighting4.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/396b17c59f8d745cd9b7b948c76691f3c91fbc177cf81947a8482c31fd33331c.webp\" title=\"Dogfighting4.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-86fb64e5c17da74062314821",
+      "source_sha256": "86fb64e5c17da74062314821edd9234278c82ba5e2f2dc1ece399deaee178a8e",
+      "source": "{#1}<img alt=\"Dog dies\" class=\"w-thumbimage\" data-caption=\"Dog dies\" data-image-key=\"Dogfighting5.png\" data-image-name=\"Dogfighting5.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/51d2c325ccc64d90c5a225765126f2048a4547ab72878b5ff50cb8de573a62c8.webp\" title=\"Dogfighting5.png\" width=\"185\"/>{#2/}{/#1}",
+      "zh": "{#1}{#2/}{/#1}",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<img alt=\"Dog dies\" class=\"w-thumbimage\" data-caption=\"Dog dies\" data-image-key=\"Dogfighting5.png\" data-image-name=\"Dogfighting5.png\" data-relevant=\"1\" decoding=\"async\" height=\"167\" loading=\"lazy\" src=\"/wiki/media/51d2c325ccc64d90c5a225765126f2048a4547ab72878b5ff50cb8de573a62c8.webp\" title=\"Dogfighting5.png\" width=\"185\"/>",
+        "reason": "Reviewed event gallery: this is only duplicate serialized markup for the same protected image. Preserve the actual original image and its link; remove the printed HTML."
+      },
+      "status": "reviewed",
+      "page_ids": [
+        9415
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-b2c185a76e6479476c75970d",
+      "source_sha256": "b2c185a76e6479476c75970d2b5a9be40433808f56a223186e054bbebad21ff6",
+      "source": "Each time you visit the {#1}Tavern{/#1} you get 1 free rumor. You can buy drinks for the patrons to get up to 4 more rumors. Paying for 1 rumor costs 20 {#2}{#3}{#4/}{/#3}{/#2} x buying price multiplicator of the settlement and you gain +0,1 {#5}Relations{/#5} with the settlement.",
+      "zh": "每次造访{#1}酒馆{/#1}，你都能免费听到 1 条传闻。请店里的客人喝酒，最多还能再听到 4 条。购买 1 条传闻的费用为 20 {#2}{#3}{#4/}{/#3}{/#2} × 该聚落的购买价格倍率，同时你与该聚落的{#5}关系{/#5}提高 +0,1。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-a09ca29df1473577b3490015",
+      "source_sha256": "a09ca29df1473577b349001517f9a02e4b9029f6f7b4a70f3763f7ce9f8021ec",
+      "source": "The {#1}Minstrel{/#1} follower makes {#2}Tavern Rumors{/#2} more likely to contain useful information.",
+      "zh": "雇佣{#1}吟游诗人{/#1}随从，会提高{#2}酒馆传闻{/#2}包含有用消息的概率。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-47531e2aab9ccb403477d3cb",
+      "source_sha256": "47531e2aab9ccb403477d3cba3ddc41983359c1876881b5f48910e833709dbbb",
+      "source": "{#1}20% chance:{/#1} You get 1 {#2}Contract Rumor{/#2} if available else {#3}B{/#3}",
+      "zh": "{#1}20% 概率：{/#1}若有可用消息，获得 1 条{#2}委托传闻{/#2}；否则进入{#3}分支 B{/#3}。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-06938930648cca2715e49e5a",
+      "source_sha256": "06938930648cca2715e49e5a5e7afc7ddbc030cd8c125e6ee79cf2c046b6f2f4",
+      "source": "{#1}20% chance:{/#1} You get 1 {#2}Location Rumor{/#2} if available else {#3}B{/#3}",
+      "zh": "{#1}20% 概率：{/#1}若有可用消息，获得 1 条{#2}地点传闻{/#2}；否则进入{#3}分支 B{/#3}。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-359cd8ce4749448e8e7f542d",
+      "source_sha256": "359cd8ce4749448e8e7f542df283031e1fb6b9b335cd87104b0ab3bd9c031bff",
+      "source": "{#1}20% chance:{/#1} You get 1 {#2}Named Item Rumor{/#2} if available else {#3}B{/#3}",
+      "zh": "{#1}20% 概率：{/#1}若有可用消息，获得 1 条{#2}红装传闻{/#2}；否则进入{#3}分支 B{/#3}。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-c421efc7a056ec7e49bae10f",
+      "source_sha256": "c421efc7a056ec7e49bae10f8871d70eb5b318983f035328ec8e947b1da9effa",
+      "source": "{#1}B:{/#1} You get 1 General Rumor, Military Rumor, Civilian Rumor or Settlement Rumor",
+      "zh": "{#1}分支 B：{/#1}获得 1 条普通传闻、军事传闻、民生传闻或聚落传闻。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-575711fdfc4f71e8f11ac97f",
+      "source_sha256": "575711fdfc4f71e8f11ac97f5b047ab94dd0c2dc93c95f9f955af307d40f681b",
+      "source": "The rumors will just reveal the location of a named item. They aren't creating new ones. The map has a size of 140x140. The rumor can reveal named item locations with a range of up to 30 from the settlement.",
+      "zh": "这些传闻只会揭示现有红装的位置，不会生成新的红装。地图大小为 140x140。传闻能够揭示的红装位置，最远可距聚落 30 格。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-f039f15c0f4e628e31c1bffa",
+      "source_sha256": "f039f15c0f4e628e31c1bffa296ab1cce10a8ce0ec5b3332f86bfcf1c1968c9d",
+      "source": "{#1}It's said that kobolds and goblins take a special interest in everything shiny. I never believed this to be true myself, but I repeatedly saw something glissening in the sun {#2}terrain{/#2} {#3}direction{/#3} from here and heard strange stories about short and stubby creatures roaming that area. {/#1}",
+      "zh": "{#1}都说狗头人和地精特别喜欢亮闪闪的东西。我本来一直不信，可我几次看见这里{#3}〈方位〉{/#3}的{#2}〈地形〉{/#2}中，有什么东西在阳光下闪光，还听过些怪事，说那一带有矮矮胖胖的生物出没。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-2759aef8db02b265bd3f8a90",
+      "source_sha256": "2759aef8db02b265bd3f8a90511b0175d9609f5603c60b8477dd0682f461e666",
+      "source": "{#1}The famed {#2}named item{/#2} has been guarded in the armory for decades, but when the wild men from the north came they took everything with them. They are said to be camping out somewhere in {#3}terrain{/#3} {#4}distance{/#4} form here. {/#1}",
+      "zh": "{#1}那件有名的{#2}〈红装名称〉{/#2}在军械库里看守了几十年，可北方的野人一来，就把东西全抢走了。听说他们就在离这儿{#4}〈距离〉{/#4}的{#3}〈地形〉{/#3}某处扎营。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-8fc19a0f9896e78483b527ff",
+      "source_sha256": "8fc19a0f9896e78483b527ffcca8a27ffa2756c3f532244fec53366f54a10ad4",
+      "source": "{#1}The nomads take what they want and hide out in the desert. The guards have been looking for them {#2}terrain{/#2} {#3}direction{/#3} of here. I think they\\'re {#4}distance{/#4}. {/#1}",
+      "zh": "{#1}游牧民想抢什么就抢什么，然后躲进沙漠。卫兵一直在这里{#3}〈方位〉{/#3}的{#2}〈地形〉{/#2}搜寻他们。我看他们离这儿{#4}〈距离〉{/#4}。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-6278518f8087ae832a240b93",
+      "source_sha256": "6278518f8087ae832a240b93ededd49c31726f382788d1217676ac063b956a8e",
+      "source": "{#1}A shield reflecting the sunlight like a mirror, more blinding than the midday in the desert! Where I saw that? Some Nomads had it in the {#2}direction{/#2} {#3}distance{/#3} from here, if I recall correctly.\" {/#1}",
+      "zh": "{#1}那面盾像镜子一样反射阳光，比沙漠正午的太阳还晃眼！问我在哪儿见的？没记错的话，在这里{#2}〈方位〉{/#2}、离这儿{#3}〈距离〉{/#3}的地方，几个游牧民拿着它。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-3fff3ae7187901557a8372ed",
+      "source_sha256": "3fff3ae7187901557a8372edf18ea9449ec421b2bd33c6b9712977915bab46b5",
+      "source": "{#1}All my life I\\'ve been hunting nomdas across the borders {#2}terrain{/#2}, but I never saw one wield a shield like this one before. It was {#3}distance{/#3} to the {#4}direction{/#4} at one of their camps. {/#1}",
+      "zh": "{#1}我这辈子都在边境的{#2}〈地形〉{/#2}追猎游牧民，可从没见过他们用这样的盾。那是在他们的一座营地里，位于{#4}〈方位〉{/#4}，离这儿{#3}〈距离〉{/#3}。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-7ce239d49371e79aee2c8c6f",
+      "source_sha256": "7ce239d49371e79aee2c8c6fc397b33248c8c2ecba7360b2615dcda805f19313",
+      "source": "{#1}An oppulent armor is said to be hidden out {#2}terrain{/#2} {#3}direction{/#3} from here. Many treasure seekers failed to claim it so far but maybe you have more luck? {/#1}",
+      "zh": "{#1}听说这里{#3}〈方位〉{/#3}的{#2}〈地形〉{/#2}藏着一件华贵的护甲。许多寻宝人都没能找到它，也许你运气更好？{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-c88c1de15801fb884c228c3e",
+      "source_sha256": "c88c1de15801fb884c228c3e5238213ddd3ee12fdb910bb802c5741c3b70a704",
+      "source": "The rumor will just reveal a location. There is no guarantee of treasure, even if the rumor said so. There is no range limitation for the reveal.",
+      "zh": "传闻只会揭示地点。即使传闻声称那里有财宝，也不能保证真有宝物。这类传闻揭示地点时没有距离限制。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    },
+    {
+      "id": "u-ea28e3bf9e73fe8816279908",
+      "source_sha256": "ea28e3bf9e73fe8816279908057fd4bdcb0bbab358d56022b7375f076e470ccc",
+      "source": "Names a settlement that has 1 or more {#1}Contracts{/#1} available. The rumor wont create new {#2}Contracts{/#2}.",
+      "zh": "指出一处有 1 份或更多{#1}委托{/#1}可接的聚落。传闻不会生成新的{#2}委托{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        10724
+      ],
+      "provenance": {
+        "method": "Independent complete-unit English/Chinese review; all supplied links, figures, conditions and branch outcomes preserved.",
+        "reviewed_pages": [
+          8157,
+          9415,
+          10724,
+          11149,
+          11161
+        ]
+      }
+    }
+  ]
+}

@@ -1,10 +1,10 @@
-# BBMOD 社区军械库 · 0.3.5
+# BBMOD 社区军械库 · 0.3.6
 
-可自行部署的 MOD 分发网站，配套桌面端的在线军械库；当前提供 BBMOD `0.3.0-rc.15` 与独立汉化 `0.3.0-rc.3`。访客无需登录即可浏览和下载；管理员创建作者账号，作者首次登录改密后可直接公开作品；管理员可以下架作品、停用账号和重置密码。
+可自行部署的 MOD 分发网站，配套桌面端的在线军械库；软件及独立汉化的当前版本以官网公开下载目录为准。访客无需登录即可浏览和下载；管理员创建作者账号，作者首次登录改密后可直接公开作品；管理员可以下架作品、停用账号和重置密码。
 
 ## 当前功能
 
-- 游戏百科 `/wiki/`：全量英文游戏词条、分类、重定向、原文下载和来源版本。中文搜索及双语名称取自已校对的 BBMOD zh 词库；文章正文保留英文。原文的过时提示、DLC 条件与公式保留，事件内容可折叠。
+- 游戏百科 `/wiki/`：提供游戏资料的中文全文、中英对照与英文原文，支持中文全文检索、分类、重定向、原文下载和来源版本。118 篇官方历史日志按明确范围保留英文。原文的过时提示、DLC 条件与公式保留；目录与长表适配手机阅读。
 - 百科通过公开 MediaWiki API 离线构建，访问时不调用 Fandom。HTML 经白名单清洗，原站脚本不运行；图片使用本站内容哈希地址。当前资料、原始来源版本和完整性报告与社区数据库分开存储，管理员通过 `/manage/wiki/` 查阅报告。
 - 图片保留独立来源信息；原站未提供许可声明时如实记录为 `source_unstated`，不将正文的 CC 许可自动套用到媒体文件。大图可生成最大 1600 像素的网页阅读副本，原始来源元数据和实际返回文件哈希分别保存。
 - 百科维护、快照发布、备份和验收见 [`docs/wiki-migration.md`](docs/wiki-migration.md)。
@@ -35,7 +35,7 @@
 
 ## Ubuntu 部署（无域名）
 
-需要 Docker Engine 与 Compose 插件，安装方法见 [Docker 官方 Ubuntu 指南](https://docs.docker.com/engine/install/ubuntu/)。以下命令从项目根目录运行，或解压 `BBMOD-Hub-0.3.5.tar.gz` 后进入 `BBMOD-Hub-0.3.5/`。
+需要 Docker Engine 与 Compose 插件，安装方法见 [Docker 官方 Ubuntu 指南](https://docs.docker.com/engine/install/ubuntu/)。以下命令从项目根目录运行，或解压 `BBMOD-Hub-0.3.6.tar.gz` 后进入 `BBMOD-Hub-0.3.6/`。
 
 ```bash
 cd web
@@ -78,7 +78,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 
 `compose.gateway.yml` 为已有 HTTPS 代理的服务器提供独立部署配置，不占用宿主机的 80/443/8080 端口。它使用 BBMOD 专用数据卷；只有网关容器连接已有代理网络。`deploy/bbmod-origin-location.conf` 是需要加入现有 HTTPS 站点的单独路由片段。具体配置、更新及验证见上述说明。
 
-源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.5/BBMOD-Hub-0.3.5.tar.gz`。包内不含 `.env`、Vercel 登录信息、账号数据库、上传文件或预览账号初始化命令。升级前使用 `backup_hub` 备份，并在备份副本演练迁移。本版通过 0006_mod_original_author 增加可选原作者署名，保留已有账号、作品、版本与下载数据；百科快照单独存放于持久卷的 `wiki/`。Vercel 继续转发到当前源站。
+源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.6/BBMOD-Hub-0.3.6.tar.gz`。包内不含 `.env`、Vercel 登录信息、账号数据库、上传文件或预览账号初始化命令。升级前使用 `backup_hub` 备份，并在备份副本演练迁移。本版增加独立中文百科正文与三种阅读模式，不新增社区数据库迁移，保留已有账号、作品、版本与下载数据；百科快照单独存放于持久卷的 `wiki/`。Vercel 继续转发到当前源站。
 
 ## 管理员发布软件版本
 

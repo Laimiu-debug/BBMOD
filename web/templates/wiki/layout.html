@@ -1,3 +1,3 @@
 {% extends 'base.html' %}{% load static %}
-{% block extra_head %}<link rel="stylesheet" href="{% static 'wiki.css' %}"><script src="{% static 'wiki.js' %}" defer></script>{% if wiki_snapshot %}<link rel="stylesheet" href="{% url 'wiki_styles' wiki_snapshot %}">{% endif %}{% endblock %}
-{% block content %}<div class="wiki-shell" data-wiki-mode="{{ wiki_mode }}">{% block wiki_content %}{% endblock %}</div>{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'wiki.css' %}?v=0.3.6"><script src="{% static 'wiki.js' %}?v=0.3.6" defer></script>{% if wiki_snapshot %}<link rel="stylesheet" href="{% url 'wiki_styles' wiki_snapshot %}">{% endif %}{% endblock %}
+{% block content %}<div class="wiki-shell" data-wiki-mode="{{ wiki_mode }}"><div class="wiki-language-bar"><span>阅读语言</span><nav class="wiki-mode" aria-label="阅读语言">{% for choice in wiki_modes %}<a href="{{ choice.url }}" {% if wiki_mode == choice.value %}aria-current="true"{% endif %}>{{ choice.label }}</a>{% endfor %}</nav></div>{% block wiki_content %}{% endblock %}</div>{% endblock %}

@@ -1,0 +1,5247 @@
+{
+  "schema_version": 1,
+  "kind": "wiki_units",
+  "license": "CC-BY-SA-3.0",
+  "source": "https://battlebrothers.fandom.com",
+  "translation_method": "Independently translated and reviewed as complete units against revision-locked English page units and BBMOD game terms.",
+  "page_revisions": {
+    "1461": 45759,
+    "2183": 41567,
+    "2266": 37381,
+    "2283": 29427,
+    "2288": 37583,
+    "2399": 37051,
+    "2450": 37387,
+    "2501": 45636,
+    "2603": 46596,
+    "2816": 42010,
+    "2817": 46518,
+    "2834": 37561,
+    "2975": 30605,
+    "3410": 37297,
+    "3414": 37276,
+    "3426": 40111,
+    "3437": 37268,
+    "3439": 42180,
+    "3445": 37320,
+    "3464": 45584,
+    "3472": 37313,
+    "3485": 40640,
+    "3543": 43487,
+    "3617": 41471,
+    "3651": 44124,
+    "3725": 46376,
+    "3767": 44122,
+    "4031": 41700,
+    "4032": 41698,
+    "4131": 9176,
+    "4294": 42042,
+    "4297": 46037,
+    "4400": 37591,
+    "4401": 37592,
+    "4463": 37341,
+    "4486": 37049,
+    "4615": 42067,
+    "4788": 44125,
+    "4849": 41890,
+    "4853": 41892,
+    "4867": 42593,
+    "4987": 42060,
+    "4988": 42059,
+    "5049": 44126,
+    "5272": 43505,
+    "5273": 43499,
+    "5299": 43481,
+    "5843": 41854,
+    "5845": 41848,
+    "6022": 41992,
+    "6032": 45410,
+    "6040": 41998,
+    "6382": 42207,
+    "6430": 42007,
+    "6989": 46287,
+    "6992": 46197,
+    "6996": 46696,
+    "6999": 46604,
+    "7011": 46322,
+    "7016": 46312,
+    "7020": 46306,
+    "7025": 46697,
+    "7028": 46166,
+    "7031": 46554,
+    "7036": 46274,
+    "7039": 46130,
+    "7041": 46273,
+    "7049": 46479,
+    "7058": 46192,
+    "7062": 46674,
+    "7065": 46690,
+    "7072": 45562,
+    "7092": 46198,
+    "7112": 46319,
+    "7159": 44121,
+    "7232": 37593,
+    "7448": 44156,
+    "7651": 38277,
+    "7708": 46137,
+    "7735": 40531,
+    "7781": 46551,
+    "7784": 46272,
+    "7791": 46109,
+    "7793": 46678,
+    "7796": 46612,
+    "7801": 46182,
+    "7823": 38343,
+    "7826": 46187,
+    "7834": 36959,
+    "7838": 46232,
+    "7877": 46461,
+    "7892": 35636,
+    "7924": 46339,
+    "7927": 46120,
+    "7937": 46160,
+    "7977": 46173,
+    "8005": 41763,
+    "8008": 46667,
+    "8015": 46118,
+    "8074": 46487,
+    "8089": 46199,
+    "8093": 46142,
+    "8120": 46183,
+    "8132": 41288,
+    "8151": 46549,
+    "8174": 18977,
+    "8228": 46670,
+    "8232": 46149,
+    "8266": 46303,
+    "8287": 20738,
+    "8298": 46134,
+    "8304": 46578,
+    "8318": 46293,
+    "8370": 46694,
+    "8374": 46269,
+    "8394": 46190,
+    "8435": 46577,
+    "8464": 46382,
+    "8490": 39108,
+    "8543": 36117,
+    "8869": 45406,
+    "8985": 46122,
+    "9003": 37814,
+    "9010": 41997,
+    "9038": 43463,
+    "9117": 46688,
+    "9126": 46528,
+    "9192": 38346,
+    "9327": 46533,
+    "9351": 30599,
+    "9397": 46668,
+    "9424": 46145,
+    "9444": 38245,
+    "9447": 38243,
+    "9859": 46177,
+    "9868": 46483,
+    "9878": 46102,
+    "9882": 46610,
+    "10777": 38271,
+    "10893": 24621,
+    "10902": 44137,
+    "10903": 44138,
+    "10910": 46252,
+    "10918": 43510,
+    "10937": 43502,
+    "10939": 43501,
+    "10941": 43500,
+    "10954": 42119,
+    "10956": 46495,
+    "11359": 40867,
+    "11362": 30520,
+    "11490": 46359,
+    "11501": 41302,
+    "11530": 46288,
+    "11543": 46311,
+    "11754": 42008,
+    "12043": 46163,
+    "12045": 46184,
+    "12046": 46527,
+    "12050": 46228,
+    "12060": 46280,
+    "12061": 46284,
+    "12065": 46480,
+    "12069": 46316,
+    "12070": 46320,
+    "12071": 46323,
+    "12075": 46342,
+    "12076": 46462,
+    "12077": 46534,
+    "12078": 46543,
+    "12079": 46544,
+    "12080": 46663,
+    "12081": 46546,
+    "12083": 46592,
+    "12084": 46606,
+    "12115": 46201,
+    "12134": 46478,
+    "12431": 41353,
+    "12718": 39850,
+    "12720": 46589,
+    "12862": 46111,
+    "12902": 41635,
+    "13214": 41918,
+    "13436": 39662,
+    "13445": 38215,
+    "13466": 45529,
+    "13471": 45530,
+    "13535": 38382,
+    "13726": 37061,
+    "13756": 38389,
+    "13771": 38378,
+    "13791": 45816,
+    "13793": 38193,
+    "13801": 39129,
+    "13802": 41725,
+    "13888": 45811,
+    "13936": 35869,
+    "13988": 41878,
+    "14694": 37839,
+    "14773": 35955,
+    "15089": 36009,
+    "15165": 46481,
+    "15166": 46381,
+    "15181": 46482,
+    "15191": 41510,
+    "15195": 46458,
+    "15221": 41077,
+    "15227": 46542,
+    "15231": 46560,
+    "15390": 46511,
+    "15451": 43496,
+    "15460": 43520,
+    "15491": 44158,
+    "15794": 41956,
+    "15796": 41959,
+    "15816": 42057,
+    "15834": 41330,
+    "15888": 46598,
+    "15893": 46601,
+    "15909": 39598,
+    "15931": 41004,
+    "15938": 39859,
+    "15958": 41896,
+    "16125": 41163,
+    "16130": 41223,
+    "16310": 42946,
+    "16681": 43949,
+    "16875": 44531,
+    "16876": 44557,
+    "16879": 44459,
+    "16934": 46259,
+    "16957": 45659,
+    "17102": 46327,
+    "17128": 46436,
+    "17129": 46437,
+    "17168": 46685
+  },
+  "units": [
+    {
+      "id": "u-c2ca8e7e05d187094877f754",
+      "source_sha256": "c2ca8e7e05d187094877f75481fc0b37acaae8984cb6e5cbe6a7992b7df392e3",
+      "source": "Guides, Tools and Info Resources",
+      "zh": "攻略、工具与资料",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-c2d0c96cbe55f0252e1ce19d",
+      "source_sha256": "c2d0c96cbe55f0252e1ce19d5dc308027c376e22d19222803f519c91e49952d1",
+      "source": "Demolish Armor: 134 – 201",
+      "zh": "粉碎护甲：134 – 201",
+      "status": "reviewed",
+      "page_ids": [
+        7735
+      ]
+    },
+    {
+      "id": "u-c30300ee6ea6b5e3d51f3947",
+      "source_sha256": "c30300ee6ea6b5e3d51f3947addbaca33024a587f1271d14a96aef6075964862",
+      "source": "{#1}7 2-handed guys (you'll see screenshots).{/#1}",
+      "zh": "{#1}7 名双手武器手，后面有截图。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-c33508d2ceafad2287833054",
+      "source_sha256": "c33508d2ceafad2287833054acd787e821f36cbebd30874e20704e1b2e913eba",
+      "source": "{#1}Shift{/#1}/{#2}Return{/#2}",
+      "zh": "{#1}Shift{/#1}/{#2}回车{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-c33683f90903c9a6cd2cdcf9",
+      "source_sha256": "c33683f90903c9a6cd2cdcf98d8c2b9e37a97eacd6a6b23fdc38a04f8fd7162e",
+      "source": "You can only get 1 cursed skull per campaign.",
+      "zh": "每场战役只能获得 1 个诅咒水晶头骨。",
+      "status": "reviewed",
+      "page_ids": [
+        4867
+      ]
+    },
+    {
+      "id": "u-c345cc45af624ab55de9fdce",
+      "source_sha256": "c345cc45af624ab55de9fdcee6c7dca4653134ef97fcaab9005a14f0545d315e",
+      "source": "{#1}Inventory Keyboard Shortcuts{/#1}",
+      "zh": "{#1}物品栏快捷键{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-c3659724f326c45b4aa9b08c",
+      "source_sha256": "c3659724f326c45b4aa9b08c218621cf425e778a8cc5326c9179e0d6e868bae3",
+      "source": "60% chance: You complete the contract.",
+      "zh": "60% 概率：完成委托。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-c36f4ec36b611425da743173",
+      "source_sha256": "c36f4ec36b611425da743173965abf24d5ae1e9f7abfed9f6f036fdfa43edf9a",
+      "source": "{#1}Geomancy (Once){/#1}",
+      "zh": "{#1}地术（单次）{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        16310
+      ]
+    },
+    {
+      "id": "u-c374ac0ac80d8fc997f16f88",
+      "source_sha256": "c374ac0ac80d8fc997f16f88ed1164d145c7fd1ccd904270fda0b89cdc90b4ce",
+      "source": "Mood Decay per Hour, if Above 3,15",
+      "zh": "心情高于 3,15 时的每小时衰减",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-c38323f973174c7334b3ea37",
+      "source_sha256": "c38323f973174c7334b3ea3701b53c0ba4cd21893b0233ca7cf6ec5c25cfeb18",
+      "source": "Incredulously, {#1}Target{/#1} throws his hand out.",
+      "zh": "{#1}被误伤的弟兄{/#1}难以置信地摊开手。",
+      "status": "reviewed",
+      "page_ids": [
+        7796
+      ]
+    },
+    {
+      "id": "u-c38e84398d2ff2cc92aca187",
+      "source_sha256": "c38e84398d2ff2cc92aca1878df9e6aab5d22bfc940c5a2bfe169360bc14aeea",
+      "source": "Start screen, but on mountain terrain",
+      "zh": "初始画面，但发生在山地。",
+      "status": "reviewed",
+      "page_ids": [
+        8435
+      ]
+    },
+    {
+      "id": "u-c3b1faebf3497c53f273e5e0",
+      "source_sha256": "c3b1faebf3497c53f273e5e074e2788722d3b2006a9aa53d7b36c557391cce19",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Black Marsh Stew{/#5}{#6/}Base worth: 85{#7}{#8}{#9/}{/#8}{/#7}{#10/}Spoil time: 12 days",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}黑沼炖汤{/#5}{#6/}基础价值：85{#7}{#8}{#9/}{/#8}{/#7}{#10/}保质期：12 天",
+      "status": "reviewed",
+      "page_ids": [
+        2501
+      ]
+    },
+    {
+      "id": "u-c3c8f231ee6b063f534d6804",
+      "source_sha256": "c3c8f231ee6b063f534d68042f56d6cd820e711a443be267f727ca433946dac7",
+      "source": "To each his own. (the event ends)",
+      "zh": "各有各的活法。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        9397
+      ]
+    },
+    {
+      "id": "u-c3f1062c28320ed653d4865d",
+      "source_sha256": "c3f1062c28320ed653d4865d07f88349bbc24fa2968b332ca86a77699aada260",
+      "source": "Can be looted from {#1}Mercenary{/#1}, {#2}Nomad Outlaw{/#2}.",
+      "zh": "可从{#1}佣兵{/#1}、{#2}游牧亡命徒{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        8490
+      ]
+    },
+    {
+      "id": "u-c40a6a438d64d1a85aa710f9",
+      "source_sha256": "c40a6a438d64d1a85aa710f9287ab1f720541b1eacf392169c038b6f87b2f87f",
+      "source": "See also: {#1}Named and Legendary Items{/#1}.",
+      "zh": "另见：{#1}名贵与传奇装备{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        2183
+      ]
+    },
+    {
+      "id": "u-c4375dccdfaa3e55881db175",
+      "source_sha256": "c4375dccdfaa3e55881db175c5e326b1ca6265f408c9929e422c2b1e6fb3159a",
+      "source": "{#1}Killerontherun{/#1} suffers light wounds",
+      "zh": "{#1}在逃杀人犯{/#1}受到轻伤。",
+      "status": "reviewed",
+      "page_ids": [
+        12065
+      ]
+    },
+    {
+      "id": "u-c44d94cc727f2d6f3da35bd9",
+      "source_sha256": "c44d94cc727f2d6f3da35bd96beb07b6eece2fafc42a8a5deb081fbbc0d0ac4b",
+      "source": "starting armor for {#1}Pimp{/#1}.",
+      "zh": "{#1}皮条客{/#1}的初始护甲。",
+      "status": "reviewed",
+      "page_ids": [
+        7232
+      ]
+    },
+    {
+      "id": "u-c45f2b252996f59acfa1968f",
+      "source_sha256": "c45f2b252996f59acfa1968f11be9b3bf2f347dec4ebd0d25d4db491c4ec7dcc",
+      "source": "between 4 and 10 tiles away from a town",
+      "zh": "距离城镇 4 至 10 格。",
+      "status": "reviewed",
+      "page_ids": [
+        4849
+      ]
+    },
+    {
+      "id": "u-c47403ed2c6052e22da51816",
+      "source_sha256": "c47403ed2c6052e22da518160ef3a2d81e84ededf9a5d656bd066b49ca30df6f",
+      "source": "{#1}Target{/#1} gets a {#2}bad mood{/#2}",
+      "zh": "{#1}被误伤的弟兄{/#1}{#2}心情变差{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        7796
+      ]
+    },
+    {
+      "id": "u-c49f02d2092f6bac0244bc2a",
+      "source_sha256": "c49f02d2092f6bac0244bc2a5d99d5de307962dc6626784df150652d7e3eaa08",
+      "source": "25% of all brothers get a {#1}good mood{/#1}",
+      "zh": "25% 的弟兄{#1}心情改善{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        8304
+      ]
+    },
+    {
+      "id": "u-c4a39414f76003f0b79c8eff",
+      "source_sha256": "c4a39414f76003f0b79c8eff18b40a96bfc4f8fbe6c304b7a27c8521909013f4",
+      "source": "You'll both fit right in. (the event ends)",
+      "zh": "你们两个都很适合加入我们。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7020
+      ]
+    },
+    {
+      "id": "u-c4a8a514aaa331904a997677",
+      "source_sha256": "c4a8a514aaa331904a997677bd17ffc47817a78565bb6b9a93b4cf2c798780da",
+      "source": "{#1}{#2}1.3{/#2} {#3}Path 2 (Miner){/#3}{/#1}",
+      "zh": "{#1}{#2}1.3{/#2} {#3}分支 2（矿工）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8543
+      ]
+    },
+    {
+      "id": "u-c4cec8d76e6da7ab8f8a5c1b",
+      "source_sha256": "c4cec8d76e6da7ab8f8a5c1b8cbe4e86e04df54a9280b392e86517410d70e4ac",
+      "source": "{#1}Student{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}受教者{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        7793
+      ]
+    },
+    {
+      "id": "u-c54f7f1ff9bfa9004351a4df",
+      "source_sha256": "c54f7f1ff9bfa9004351a4df8465872ca01bea38457113c7237813a3385a73f4",
+      "source": "He'll fit right in with us. ({#1}{#2}70% Success{/#2}{/#1}, {#3}{#4}30% Failure{/#4}{/#3})",
+      "zh": "它会很适合我们的。（{#1}{#2}70% 成功{/#2}{/#1}，{#3}{#4}30% 失败{/#4}{/#3}）",
+      "status": "reviewed",
+      "page_ids": [
+        9878
+      ]
+    },
+    {
+      "id": "u-c54fa6e16e9891ea6a32f0d2",
+      "source_sha256": "c54fa6e16e9891ea6a32f0d2544c129bc86a2f38ffbbaddc0928c36d42c541be",
+      "source": "{#1}Defensive Character Builds{/#1}",
+      "zh": "{#1}防御角色配点{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-c5812e187a84abae667d85c5",
+      "source_sha256": "c5812e187a84abae667d85c5416877bf9b925b56a10ecae0463add65e543d219",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Hex (Skill){/#4}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}咒缚（技能）{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        16879
+      ]
+    },
+    {
+      "id": "u-c598c32465e46d69d4ac5e30",
+      "source_sha256": "c598c32465e46d69d4ac5e30cf61d5125e4d7e3422f47d57b6387d2fda970ba8",
+      "source": "Another battle against Orc Stronghold:",
+      "zh": "另一场对兽人要塞的战斗：",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-c59ec8300f1e48ea5ec66361",
+      "source_sha256": "c59ec8300f1e48ea5ec6636186961dfb3791c55cf0d6f7fc986490eb2efc2978",
+      "source": "Fresh Company of New Order consist:",
+      "zh": "新秩序战团初建时的配置：",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-c5d1329740f7e940e1edf960",
+      "source_sha256": "c5d1329740f7e940e1edf960f99f97710c1c1fe7059dc69a3edaac6cf3bbc625",
+      "source": "Explanation of the infobox Damage values:",
+      "zh": "信息框中伤害数值的说明：",
+      "status": "reviewed",
+      "page_ids": [
+        10954
+      ]
+    },
+    {
+      "id": "u-c61438c177ce4e1a615b3200",
+      "source_sha256": "c61438c177ce4e1a615b3200cbfdb93045557511982584b8f239c4cdb21050f4",
+      "source": "Starting gear of new mercenaries: {#1}Witchhunter{/#1}.",
+      "zh": "新雇佣兵的初始装备：{#1}猎巫人{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        2834
+      ]
+    },
+    {
+      "id": "u-c618b1b52e61693eecf004f5",
+      "source_sha256": "c618b1b52e61693eecf004f5a0cdb722590fe41ca1e223a9147bb02821c14439",
+      "source": "Gained upon fulfilling the {#1}Defeat Undead Location{/#1} ambition.",
+      "zh": "完成{#1}摧毁亡灵据点{/#1}抱负后获得。",
+      "status": "reviewed",
+      "page_ids": [
+        4988
+      ]
+    },
+    {
+      "id": "u-c6287eac8bfc1c1b3ecb23bb",
+      "source_sha256": "c6287eac8bfc1c1b3ecb23bbb64de7700abaa22300710b7478e688c154b06294",
+      "source": "Nobody saw nothing. (the event ends)",
+      "zh": "谁也没看见什么。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7039
+      ]
+    },
+    {
+      "id": "u-c62acd3d69be5359726c9bd7",
+      "source_sha256": "c62acd3d69be5359726c9bd74ec08cf3a89c29eb56e72fcf8cab28a6fd27a649",
+      "source": "{#1}F1{/#1}",
+      "zh": "{#1}分支 F1{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-c6a21fdf6365697df64f1b38",
+      "source_sha256": "c6a21fdf6365697df64f1b3877578e821474943304561009bdc5cfe41717fdfc",
+      "source": "{#1}Attribute Averages - Colorcoded Table{/#1}",
+      "zh": "{#1}属性平均值色阶表{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10893
+      ]
+    },
+    {
+      "id": "u-c6d753ba93ccfbe454bea06a",
+      "source_sha256": "c6d753ba93ccfbe454bea06a18446978840eea7f64ab0ce56cf4d44a6f70a23b",
+      "source": "{#1}Bastard{/#1} suffers 2 {#2}injuries{/#2}",
+      "zh": "{#1}私生子{/#1}受到 2 处{#2}伤势{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        8298
+      ]
+    },
+    {
+      "id": "u-c6f378fb9e58d9c12892c391",
+      "source_sha256": "c6f378fb9e58d9c12892c391ecc939d7d8b438603646f97ebf9a94dd6852414c",
+      "source": "Loot in battle: {#1}Nomad Outlaw{/#1}, {#2}Nomad Leader{/#2}, {#3}Officer{/#3}.",
+      "zh": "战斗缴获：{#1}游牧亡命徒{/#1}、{#2}游牧首领{/#2}、{#3}军官{/#3}。",
+      "status": "reviewed",
+      "page_ids": [
+        13471
+      ]
+    },
+    {
+      "id": "u-c6f7bed4250717e384ff0df1",
+      "source_sha256": "c6f7bed4250717e384ff0df1be97ea6234bb60f802b4c007bd6a4bc43a215830",
+      "source": "Phew. (the event ends)",
+      "zh": "呼。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12069
+      ]
+    },
+    {
+      "id": "u-c727355c2b44adab22b72308",
+      "source_sha256": "c727355c2b44adab22b7230895859de45faaa59f5f5ce80e94d14deecab3505a",
+      "source": "{#1}{#2}2.2{/#2} {#3}{#4}Lategame Company:{/#4}{/#3}{/#1}",
+      "zh": "{#1}{#2}2.2{/#2} {#3}{#4}后期战团：{/#4}{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-c72aee33419732adc6ad2023",
+      "source_sha256": "c72aee33419732adc6ad202353b85ec9adf273a9b408dbd880a6efccee74c828",
+      "source": "This world favors the strong. (the event ends)",
+      "zh": "这世道偏爱强者。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        11530
+      ]
+    },
+    {
+      "id": "u-c7399a702cbc2ff4d1c9026b",
+      "source_sha256": "c7399a702cbc2ff4d1c9026b7b41cb56e08472bb9243dc7841b969ae0362278c",
+      "source": "Disturbing. (the event ends)",
+      "zh": "真叫人不安。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7062
+      ]
+    },
+    {
+      "id": "u-c74b3efbf336db42556f0e41",
+      "source_sha256": "c74b3efbf336db42556f0e413e972872d356ed747286f419cd5d14fbecc9b5b7",
+      "source": "You lose Dried Fish",
+      "zh": "失去鱼干。",
+      "status": "reviewed",
+      "page_ids": [
+        7784
+      ]
+    },
+    {
+      "id": "u-c7594f840244bbfa96fe65af",
+      "source_sha256": "c7594f840244bbfa96fe65afedac3137774fc58d2fa82b66970efb4323009a45",
+      "source": "{#1}{#2}1.3{/#2} {#3}Path 2 (Servant/Juggler){/#3}{/#1}",
+      "zh": "{#1}{#2}1.3{/#2} {#3}分支 2（仆人／杂耍艺人）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        9192
+      ]
+    },
+    {
+      "id": "u-c7a6f8535a10010bee5dabd7",
+      "source_sha256": "c7a6f8535a10010bee5dabd7ab3d4a281f10f15c94f22146321316b703596291",
+      "source": "{#1}On Fire{/#1}",
+      "zh": "{#1}燃烧{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        13888
+      ]
+    },
+    {
+      "id": "u-c7b934f5410c7ecdbb55a174",
+      "source_sha256": "c7b934f5410c7ecdbb55a174cb18e1c0f72943ee89d4e33b1cb27c5b6bfe7867",
+      "source": "{#1}{/#1}{#2}Where Can It Be Found?{/#2}",
+      "zh": "{#1}{/#1}{#2}在哪里可以找到？{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15816
+      ]
+    },
+    {
+      "id": "u-c7bdd2c5819d084ecd5ae137",
+      "source_sha256": "c7bdd2c5819d084ecd5ae137499b5547ff666ab482e0e3ac490e9e55c6c60cea",
+      "source": "{#1}Strong2{/#1} gains +1 Max Fatigue",
+      "zh": "{#1}强壮者乙{/#1}获得 +1 疲劳上限。",
+      "status": "reviewed",
+      "page_ids": [
+        8228
+      ]
+    },
+    {
+      "id": "u-c7bee9e274267116001737c6",
+      "source_sha256": "c7bee9e274267116001737c65c2ddbae7ee4c0b9e0afd5dc1828a83bf900126a",
+      "source": "You lose 500 crowns",
+      "zh": "失去 500 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        7801
+      ]
+    },
+    {
+      "id": "u-c7c31424359d9204b4e409f3",
+      "source_sha256": "c7c31424359d9204b4e409f3bd943e23998cb4f043e70f0237cff583c7a35595",
+      "source": "{#1}Duelists{/#1}",
+      "zh": "{#1}决斗家{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        4788
+      ]
+    },
+    {
+      "id": "u-c7db0898b454e3789a201933",
+      "source_sha256": "c7db0898b454e3789a201933f419bd31827dbfd2eb84dc998ef8da63f0b6c1db",
+      "source": "{#1}Split Man{/#1} skill damage mechanics are explaned {#2}here{/#2}.",
+      "zh": "{#1}劈身{/#1}技能的伤害机制见{#2}此处{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        4032
+      ]
+    },
+    {
+      "id": "u-c7e9d9be595579a232e798ca",
+      "source_sha256": "c7e9d9be595579a232e798cafb06606ca9963e0179d99d120518b427ad2217dc",
+      "source": "{#1}{/#1}{#2}Path 2 (before the fight){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（战斗前）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        16130
+      ]
+    },
+    {
+      "id": "u-c8209208c0d65eb5379d2ef2",
+      "source_sha256": "c8209208c0d65eb5379d2ef23cc8c94b9abbb1ec688d183f17163d03ba70d1ec",
+      "source": "{#1}{#2}2{/#2} {#3}Beasts & Exploration{/#3}{/#1}",
+      "zh": "{#1}{#2}2{/#2} {#3}野兽与探索{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11754
+      ]
+    },
+    {
+      "id": "u-c8576b0ec97e5aa92a05ac13",
+      "source_sha256": "c8576b0ec97e5aa92a05ac13b5659ba3b3e258ad2d87e9a197c1f67b42f6113f",
+      "source": "{#1}Decline3{/#1}",
+      "zh": "{#1}拒绝分支三{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8298
+      ]
+    },
+    {
+      "id": "u-c863bb57ca1c5aaeb3156e5c",
+      "source_sha256": "c863bb57ca1c5aaeb3156e5cb867f20536d4314a75aa5dc9897b4b7119b32b79",
+      "source": "{#1}{#2}1{/#2} {#3}Events by Background{/#3}{/#1}",
+      "zh": "{#1}{#2}1{/#2} {#3}按背景分类的事件{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-c899dcf5b90fbe1c4fdff8aa",
+      "source_sha256": "c899dcf5b90fbe1c4fdff8aa83eef03a2eb36512897c605c3df0d6075b55c283",
+      "source": "Path 1 (35% chance)",
+      "zh": "分支 1（35% 概率）",
+      "status": "reviewed",
+      "page_ids": [
+        7092
+      ]
+    },
+    {
+      "id": "u-c8b6fbbd55374af94c6867f7",
+      "source_sha256": "c8b6fbbd55374af94c6867f72075f521bf3efb091990288af3f704126fcabe4a",
+      "source": "You win 25 Crowns",
+      "zh": "赢得 25 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        9327
+      ]
+    },
+    {
+      "id": "u-c8c6dfedb0fc73cb616f837f",
+      "source_sha256": "c8c6dfedb0fc73cb616f837f8c7d6701ae4def78905774bdf0867f4132349df3",
+      "source": "{#1}Path 1.1.1B{/#1}",
+      "zh": "{#1}分支 1.1.1B{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        12431
+      ]
+    },
+    {
+      "id": "u-c8cff03b9d66efe248accddd",
+      "source_sha256": "c8cff03b9d66efe248accddde7fb7e9a38415ba51563d93cbac7c59812501f7d",
+      "source": "Militia Barracks, Stone Watchtower increase availability.",
+      "zh": "民兵营地和石制哨塔会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        13466
+      ]
+    },
+    {
+      "id": "u-c9099e6522b63f2e0689cb0c",
+      "source_sha256": "c9099e6522b63f2e0689cb0cc0ac3351c1ae0ddbd2e374e3e2f80d67249b9004",
+      "source": "Path 1 (Trick)",
+      "zh": "分支 1（诡计）",
+      "status": "reviewed",
+      "page_ids": [
+        8074
+      ]
+    },
+    {
+      "id": "u-c913f656001f0239245790a6",
+      "source_sha256": "c913f656001f0239245790a66e8aaa729140440124a569bfc3dd8d9b3548d1b3",
+      "source": "\"No hard feelings, old man.\"",
+      "zh": "“别往心里去，老头。”",
+      "status": "reviewed",
+      "page_ids": [
+        7708
+      ]
+    },
+    {
+      "id": "u-c9203ddbe8b5ef92b2123ae1",
+      "source_sha256": "c9203ddbe8b5ef92b2123ae1464cc20271d93aa24a615db9696a79a75d3a0c7c",
+      "source": "A fearsome armor to behold. (the event ends)",
+      "zh": "这身甲光看着就够吓人的。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        9117
+      ]
+    },
+    {
+      "id": "u-c95046385715022580fdaf65",
+      "source_sha256": "c95046385715022580fdaf65b7a305b8a7b61b0aab5ab80c041f178213db05bb",
+      "source": "{#1}Marketplace{/#1} in southern city states.",
+      "zh": "南方城邦的{#1}集市{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13466
+      ]
+    },
+    {
+      "id": "u-c984c42c8aa96c1fe661ec7d",
+      "source_sha256": "c984c42c8aa96c1fe661ec7d793b9dd8f4004ea230d637eb14a12c7f42a7b1be",
+      "source": "\"Please, no more.\"",
+      "zh": "“求你了，别再来了。”",
+      "status": "reviewed",
+      "page_ids": [
+        7112
+      ]
+    },
+    {
+      "id": "u-c98fd86f2cd77d493956f0e9",
+      "source_sha256": "c98fd86f2cd77d493956f0e977a86a0adb6bf1f20bc52ca18fbd561bfdffac3e",
+      "source": "{#1}Probable Perks:{/#1} Colossus, Resilient, B&B, Fortified Mind",
+      "zh": "{#1}通常会选的特长：{/#1}巨人体魄、顽强、行囊与腰带、坚定心智。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-c99d118dd0d81f7b1f352c60",
+      "source_sha256": "c99d118dd0d81f7b1f352c60815f4a8c554fd714249c13e737cfe5bf207583d5",
+      "source": "Joined the Company",
+      "zh": "加入战团",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-c9db166c5f928d3a10f8ff70",
+      "source_sha256": "c9db166c5f928d3a10f8ff70a7d51b7b39fee136bd898c458688ae220ad1fe8e",
+      "source": "You gain the Aspect of Davkul",
+      "zh": "获得达夫库尔化身。",
+      "status": "reviewed",
+      "page_ids": [
+        12046
+      ]
+    },
+    {
+      "id": "u-c9e2b995af52080d10cebca4",
+      "source_sha256": "c9e2b995af52080d10cebca496f1a9f2079e62e55b7eabdd48ad16f15c34b123",
+      "source": "Other",
+      "zh": "其他",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-ca2e3c873d214b1c7aa930b7",
+      "source_sha256": "ca2e3c873d214b1c7aa930b7ffab8df54c112d7690fbb6f7d0a68147b3e3b285",
+      "source": "Possible starting weapon of new mercenaries: {#1}Executioner{/#1}.",
+      "zh": "新雇佣兵可能携带的初始武器：{#1}刽子手{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        17128
+      ]
+    },
+    {
+      "id": "u-ca4df9c06cb27080189a3285",
+      "source_sha256": "ca4df9c06cb27080189a32857d90ab783c37f18f4c331c150cd5faa0b141332e",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Furs{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}毛皮{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-ca6d54decc3426f1fe217001",
+      "source_sha256": "ca6d54decc3426f1fe2170010b4e8f4f4dce15905e0c5406ed1abad60d9e6ded",
+      "source": "Path 1B (Wildman) continued",
+      "zh": "分支 1B（荒野人）续",
+      "status": "reviewed",
+      "page_ids": [
+        7020
+      ]
+    },
+    {
+      "id": "u-ca70568b9e6fa2b7cb8bea84",
+      "source_sha256": "ca70568b9e6fa2b7cb8bea847ec4af1d557065ceb55c955550352eac0c00cb5a",
+      "source": "It's better this way. (the event ends)",
+      "zh": "这样更好。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7065
+      ]
+    },
+    {
+      "id": "u-ca8ed41d402e65c6dfd0c68c",
+      "source_sha256": "ca8ed41d402e65c6dfd0c68c3db7fe5929811f5f972f0763dd472a29531f9d46",
+      "source": "{#1}{/#1}{#2}Negative Version(10%){/#2}",
+      "zh": "{#1}{/#1}{#2}负面版本（10%）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        14694
+      ]
+    },
+    {
+      "id": "u-cab2129795ab5ff2304b7092",
+      "source_sha256": "cab2129795ab5ff2304b709245f3556c380338fdc0181c6941547b2a9f106985",
+      "source": "Wildman's token",
+      "zh": "荒野人分支",
+      "status": "reviewed",
+      "page_ids": [
+        7020
+      ]
+    },
+    {
+      "id": "u-cab93601997f96576b9df141",
+      "source_sha256": "cab93601997f96576b9df1416d3c8a0823b9040a26a21068a91010009574509e",
+      "source": "{#1}Alt{/#1}",
+      "zh": "{#1}Alt{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-cad36a916eaea1e09d0373e1",
+      "source_sha256": "cad36a916eaea1e09d0373e1be11089c5d26cb18a4a114edb3751c3a63a34238",
+      "source": "{#1}Apprentice{/#1} gains +3-5 Hitpoints",
+      "zh": "{#1}学徒{/#1}获得 +3-5 生命值。",
+      "status": "reviewed",
+      "page_ids": [
+        8015
+      ]
+    },
+    {
+      "id": "u-cad820fb0470a7656b28bd5c",
+      "source_sha256": "cad820fb0470a7656b28bd5cba42ef5e161ea67eef71d28700b8551b0f56f183",
+      "source": "{#1}{/#1}{#2}Path 2 (Oathtakers){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（立誓者）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15931
+      ]
+    },
+    {
+      "id": "u-cb0be216ae3fb7fcb6c5bfeb",
+      "source_sha256": "cb0be216ae3fb7fcb6c5bfebf9ac78d184947f8da10b4084969a0ae99b9f747e",
+      "source": "{#1}{/#1}{#2}>> vs Goblin Cities <<{/#2}",
+      "zh": "{#1}{/#1}{#2}>> 对抗地精城市 <<{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-cb0ccf3714926ba00c3c02c3",
+      "source_sha256": "cb0ccf3714926ba00c3c02c3c3bdac8d0c89e3c2273d5985d541ff5d5cf021dd",
+      "source": "We leave as well. (the event ends)",
+      "zh": "我们也走吧。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        9859
+      ]
+    },
+    {
+      "id": "u-cb3f2517b9af85a0579d420c",
+      "source_sha256": "cb3f2517b9af85a0579d420cbe3424b0e00c9f4dba9eccc4252ea4bc56467f42",
+      "source": "{#1}Monk2{/#1} gains +1 Resolve",
+      "zh": "{#1}僧侣乙{/#1}获得 +1 意志。",
+      "status": "reviewed",
+      "page_ids": [
+        11490
+      ]
+    },
+    {
+      "id": "u-cb40f1b910674d3731a57ae1",
+      "source_sha256": "cb40f1b910674d3731a57ae14b2488a72b80149ca2d3fdb1cc255f8beb13aa39",
+      "source": "The mason nods.",
+      "zh": "石匠点了点头。",
+      "status": "reviewed",
+      "page_ids": [
+        12070
+      ]
+    },
+    {
+      "id": "u-cbb4c674f6c09f1fe6b17eae",
+      "source_sha256": "cbb4c674f6c09f1fe6b17eaed08b6cfd047128a257078b613f1f07500840a543",
+      "source": "Strong2's token",
+      "zh": "强壮者乙分支",
+      "status": "reviewed",
+      "page_ids": [
+        8228
+      ]
+    },
+    {
+      "id": "u-cc1df104a047fa42b3739997",
+      "source_sha256": "cc1df104a047fa42b37399972ee7cf3ad90e0a251f4dda6a285159cd4d931bd0",
+      "source": "Follow him, quick! ({#1}{#2}45% brigands{/#2}{/#1}, {#3}{#4}45% wolves{/#4}{/#3}, {#5}{#6}10% named dagger{/#6}{/#5})",
+      "zh": "跟上他，快！（{#1}{#2}45% 遭遇强盗{/#2}{/#1}，{#3}{#4}45% 遭遇狼群{/#4}{/#3}，{#5}{#6}10% 获得名贵匕首{/#6}{/#5}）",
+      "status": "reviewed",
+      "page_ids": [
+        7112
+      ]
+    },
+    {
+      "id": "u-cc31db86a8815e254db8b4eb",
+      "source_sha256": "cc31db86a8815e254db8b4eb823010e8fc59b138724ec5644e4f31414f0843b4",
+      "source": "melee: {#1}Goblin Skirmisher{/#1}.",
+      "zh": "近战缴获：{#1}地精散兵{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        3445
+      ]
+    },
+    {
+      "id": "u-cc9fe198171f4603bda14eaf",
+      "source_sha256": "cc9fe198171f4603bda14eafd0f0c8763cf3dacacb4c50ac69fe010a892f3915",
+      "source": "{#1}{#2}4{/#2} {#3}Speak About Those Pieces of Shite{/#3}{/#1}",
+      "zh": "{#1}{#2}4{/#2} {#3}谈谈那群狗东西{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15938
+      ]
+    },
+    {
+      "id": "u-ccaa33d67f76bda3f798b4ef",
+      "source_sha256": "ccaa33d67f76bda3f798b4ef620ff2b237c8a3bf677394bb30eaa0fd5b25cefa",
+      "source": "A frightening prospect. (the event ends)",
+      "zh": "这前景真让人害怕。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-ccee639f86d5cd0703fef6e1",
+      "source_sha256": "ccee639f86d5cd0703fef6e11451995d597d09f2d9b3bc7c879ca1eae0292b55",
+      "source": "See also:",
+      "zh": "另见：",
+      "status": "reviewed",
+      "page_ids": [
+        7448
+      ]
+    },
+    {
+      "id": "u-cd18d4df69540e0451f09c32",
+      "source_sha256": "cd18d4df69540e0451f09c328aa7cb391586df2138fb1134570d2bea858e0fec",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Ancient Gold Coins{#5/}Base worth: 875{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}古代金币{#5/}基础价值：875{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-cd1fb5714e753cd7d51165ba",
+      "source_sha256": "cd1fb5714e753cd7d51165ba5855c2e2185973cb54ee83a952b6e4e78f303431",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Two-Handed{#6/}Mace{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}双手{#6/}钉锤{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        9038
+      ]
+    },
+    {
+      "id": "u-cd269702ca212bf75fa323b4",
+      "source_sha256": "cd269702ca212bf75fa323b4c2ca447f39ca088c515d1222ac8d5300c4dfe79b",
+      "source": "{#1}WinNoBet{/#1}",
+      "zh": "{#1}获胜（未下注）{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7049
+      ]
+    },
+    {
+      "id": "u-cd384d8dea005a7e70e35e39",
+      "source_sha256": "cd384d8dea005a7e70e35e39501f8404959db09500c5644f8423b0cec518e471",
+      "source": "Can cause {#1}Sick{/#1}",
+      "zh": "可能导致{#1}患病{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        6032
+      ]
+    },
+    {
+      "id": "u-cd40dabb4574ea5c0ab7ab1e",
+      "source_sha256": "cd40dabb4574ea5c0ab7ab1e7125b4ff10542c9c0c3776a910029297283a39c3",
+      "source": "Before editing or commenting,{#1/}read the {#2}Editing Guide{/#2}.",
+      "zh": "编辑或评论之前，{#1/}请先阅读{#2}编辑指南{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-cd42f627622e1ce280cd7753",
+      "source_sha256": "cd42f627622e1ce280cd7753b11bd648da1cb7dcfbe0a4006ebf4a60fa5b4b46",
+      "source": "{#1}Armorer and Weaponsmith{/#1}",
+      "zh": "{#1}制甲师与武器匠{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-cd6a50e7f5433c8e4fa5ea6b",
+      "source_sha256": "cd6a50e7f5433c8e4fa5ea6b09b1cd94590e0b9a6e6c7c53aded37b4caff0cab",
+      "source": "Is he alright? (the event ends)",
+      "zh": "他没事吧？（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        11543
+      ]
+    },
+    {
+      "id": "u-cd745ae9d12e48055b2c8cc9",
+      "source_sha256": "cd745ae9d12e48055b2c8cc91282078d94e61f37f882654c4df35834797a35bf",
+      "source": "{#1}I2{/#1}",
+      "zh": "{#1}分支 I2{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-cd850f76e6fbf1aa64877dae",
+      "source_sha256": "cd850f76e6fbf1aa64877daef69b8c448fc3c5e0d41d902b10538b406e17f641",
+      "source": "\"There's more fight in you yet, friend.\"",
+      "zh": "“你还没到打不动的时候呢，朋友。”",
+      "status": "reviewed",
+      "page_ids": [
+        9878
+      ]
+    },
+    {
+      "id": "u-cd99ecb33e163124ab317daf",
+      "source_sha256": "cd99ecb33e163124ab317dafe1e6bf1739c7b1ce3815e145fa1530b1299d6023",
+      "source": "Pay Raise Denied",
+      "zh": "加薪请求被拒",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-cdc65a7704b42e181c9285a9",
+      "source_sha256": "cdc65a7704b42e181c9285a94330a7de59ababea64533815f0c3fabe2b7e375f",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Amber Shards{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}琥珀碎片{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-ce030492a4f985eaf1341490",
+      "source_sha256": "ce030492a4f985eaf13414909d07599e9f8065882f89c7c7b0c8ad30e8f4ad49",
+      "source": "{#1}Shift{/#1}",
+      "zh": "{#1}Shift{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-ce1f1f900044b5331ed530da",
+      "source_sha256": "ce1f1f900044b5331ed530dac9b6c63a86e73e7072bcf569400270408002f796",
+      "source": "\"Play nice now.\"",
+      "zh": "“现在好好相处。”",
+      "status": "reviewed",
+      "page_ids": [
+        7937
+      ]
+    },
+    {
+      "id": "u-ce2864234854f09de62933b4",
+      "source_sha256": "ce2864234854f09de62933b4b78b67ff4fc21b17b1fd6ede15306daad22c6bb1",
+      "source": "{#1}Q1{/#1}",
+      "zh": "{#1}分支 Q1{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-ce43eb418cf0c6c216bf9f63",
+      "source_sha256": "ce43eb418cf0c6c216bf9f63aca91f7f722c7ef1b04a766fc5a72ab92582fdda",
+      "source": "\"Thank you, sellsword.\"",
+      "zh": "“谢谢你，佣兵。”",
+      "status": "reviewed",
+      "page_ids": [
+        7062
+      ]
+    },
+    {
+      "id": "u-ce72e1c296139861f930b27b",
+      "source_sha256": "ce72e1c296139861f930b27b999ea1259edfbdd555623021ecf6a9376515f7ae",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Black and{#6/}Gold Armor{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}黑金{#6/}护甲{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        15451
+      ]
+    },
+    {
+      "id": "u-cec1b50d04f541230abb2c88",
+      "source_sha256": "cec1b50d04f541230abb2c88f8b52d5b316eed54a03135b905e0b7d89fc9f7f5",
+      "source": "{#1}Monk{/#1} gains +1-2 Resolve",
+      "zh": "{#1}僧侣{/#1}获得 +1-2 意志。",
+      "status": "reviewed",
+      "page_ids": [
+        6992
+      ]
+    },
+    {
+      "id": "u-ced89759798ee8827b60144d",
+      "source_sha256": "ced89759798ee8827b60144d7bd15551f7db07d2905c68131cc105d8450344aa",
+      "source": "Well, great.",
+      "zh": "好吧，真不错。",
+      "status": "reviewed",
+      "page_ids": [
+        7031
+      ]
+    },
+    {
+      "id": "u-ceeb0c5eb46c049b22e9fabf",
+      "source_sha256": "ceeb0c5eb46c049b22e9fabf30b554156defa97e6ad8d2967e37c210c714878a",
+      "source": "{#1}Secondary Skills:{/#1} Ranged defense (around 20)",
+      "zh": "{#1}次要属性：{/#1}远程防御，约 20。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-cef66e101192af658c1e71fb",
+      "source_sha256": "cef66e101192af658c1e71fb015936e7a2d788e8e26b2d71b92640d23a8f0e9e",
+      "source": "{#1}Special:UncategorizedCategories{/#1}",
+      "zh": "{#1}尚未归类的分类{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        4131
+      ]
+    },
+    {
+      "id": "u-cf2cbe0045a588c6d25a9f07",
+      "source_sha256": "cf2cbe0045a588c6d25a9f07c13f2cea221af03980b71d9a29c5613ac61b36e9",
+      "source": "You finish the contract without anything happening.",
+      "zh": "顺利完成委托，没有发生其他事情。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-cf5d5e94fe8d7ed87832477f",
+      "source_sha256": "cf5d5e94fe8d7ed87832477fed989cde5d015b000a00c98524433dce9197b2c4",
+      "source": "\"Alright.\"",
+      "zh": "“好吧。”",
+      "status": "reviewed",
+      "page_ids": [
+        8298
+      ]
+    },
+    {
+      "id": "u-cf6de981371ee092ad377051",
+      "source_sha256": "cf6de981371ee092ad377051d96cab466afc93bfc13be122af3fb34ea259cf24",
+      "source": "Renown ≥ 6,000 and two {#1}late game crises{/#1} ended",
+      "zh": "声望 ≥ 6,000，且已结束两场{#1}后期危机{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        6430
+      ]
+    },
+    {
+      "id": "u-cf769f18ac875eeff5053d86",
+      "source_sha256": "cf769f18ac875eeff5053d8635e3a0cd4b07c2c267c20060898390ebddf9a100",
+      "source": "Has very limited effect on Resilient targets: only -1{#1}{#2}{#3/}{/#2}{/#1}, -1{#4}{#5}{#6/}{/#5}{/#4}, -10{#7}{#8}{#9/}{/#8}{/#7}.",
+      "zh": "对有顽强的目标影响很小：仅 -1{#1}{#2}{#3/}{/#2}{/#1}、-1{#4}{#5}{#6/}{/#5}{/#4}、-10{#7}{#8}{#9/}{/#8}{/#7}。",
+      "status": "reviewed",
+      "page_ids": [
+        6022
+      ]
+    },
+    {
+      "id": "u-cf9e49d5a9869cc663745092",
+      "source_sha256": "cf9e49d5a9869cc6637450929622945a1fdabd7e5c1a6463978656f4252eab25",
+      "source": "Received Injury",
+      "zh": "受到伤势",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-cfac2213173d4b1367187005",
+      "source_sha256": "cfac2213173d4b1367187005a28c47656b990a170cda1cf5eb073bf529135af1",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Alloy{#6/}Plate Armor{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}合金{#6/}板甲{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        10939
+      ]
+    },
+    {
+      "id": "u-cfc4bde24cf79b2ca786dfd8",
+      "source_sha256": "cfc4bde24cf79b2ca786dfd8c19032705c1e1d4c6a1e36fec4f2a57d3db8dc88",
+      "source": "{#1}{#2}3.2{/#2} {#3}>> Indomitable/Riposte Shield Tank <<{/#3}{/#1}",
+      "zh": "{#1}{#2}3.2{/#2} {#3}>> 不屈／还击盾卫 <<{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-d01019a7959c0ad29c99753a",
+      "source_sha256": "d01019a7959c0ad29c99753a280885ae34a4df7d52377579e312752df176709e",
+      "source": "{#1}G1{/#1}",
+      "zh": "{#1}分支 G1{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-d01d7520d3f95584ced4548a",
+      "source_sha256": "d01d7520d3f95584ced4548a94619dbc4b95e927a6bfbaf4732f76dc275da052",
+      "source": "The historian nods.",
+      "zh": "历史学者点了点头。",
+      "status": "reviewed",
+      "page_ids": [
+        8266
+      ]
+    },
+    {
+      "id": "u-d01de7b306a84d8e263044d5",
+      "source_sha256": "d01de7b306a84d8e263044d5c49838534b323c81346b31c13a7d26019431333a",
+      "source": "\"What if...\"",
+      "zh": "“要是……”",
+      "status": "reviewed",
+      "page_ids": [
+        11490
+      ]
+    },
+    {
+      "id": "u-d026271c233e04cf20780142",
+      "source_sha256": "d026271c233e04cf2078014236a953e567caea8f9c806e80a711ce98009e4263",
+      "source": "{#1}Injured{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}伤员{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        12045
+      ]
+    },
+    {
+      "id": "u-d02c0c733ff30a0323541a0f",
+      "source_sha256": "d02c0c733ff30a0323541a0f4c2399cddb64a6f82b641e28109a178538799a9b",
+      "source": "Nothing to be done now. (the event ends)",
+      "zh": "现在也没办法了。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12065
+      ]
+    },
+    {
+      "id": "u-d0b1e6ca9b2192fe90c1cafc",
+      "source_sha256": "d0b1e6ca9b2192fe90c1cafca0685e9c6a0d0c5dbd73c49245010a3f36949e06",
+      "source": "{#1}Braveman1{/#1} nods.",
+      "zh": "{#1}勇敢者甲{/#1}点了点头。",
+      "status": "reviewed",
+      "page_ids": [
+        8394
+      ]
+    },
+    {
+      "id": "u-d0bbb8bbf38a20550fb5c227",
+      "source_sha256": "d0bbb8bbf38a20550fb5c22717bafc98e42f026ff308a6bfa48e4d6519710f96",
+      "source": "\"The Empire rises.\"",
+      "zh": "“帝国正在复苏。”",
+      "status": "reviewed",
+      "page_ids": [
+        12720
+      ]
+    },
+    {
+      "id": "u-d0c2a0f16d06f41f347ed2bf",
+      "source_sha256": "d0c2a0f16d06f41f347ed2bfa4afab86461a276ec19983e6f82284b7e83d2671",
+      "source": "{#1}Alt{/#1}+{#2}F4{/#2}",
+      "zh": "{#1}Alt{/#1}+{#2}F4{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-d0ceb86a077ad6354c6b722a",
+      "source_sha256": "d0ceb86a077ad6354c6b722a62e068de40724c399cc153ed416c0b18a8e3f15e",
+      "source": "{#1}Mercenaries Intervene{/#1}",
+      "zh": "{#1}佣兵介入{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8174
+      ]
+    },
+    {
+      "id": "u-d0d964f9901db2576c87c475",
+      "source_sha256": "d0d964f9901db2576c87c4756805824a8bdf5b58ecae1e6d0deb9155c9a52222",
+      "source": "{#1}{#2}Cleaver Mastery{/#2}{/#1} perk benefits:",
+      "zh": "{#1}{#2}斩刀精通{/#2}{/#1}特长的效果：",
+      "status": "reviewed",
+      "page_ids": [
+        4031
+      ]
+    },
+    {
+      "id": "u-d0ec852e66f7d4966b8f10a0",
+      "source_sha256": "d0ec852e66f7d4966b8f10a04e41cebfd8d108bb11ee74178791b0fcf203e7c2",
+      "source": "Weakbro's token",
+      "zh": "胆弱弟兄分支",
+      "status": "reviewed",
+      "page_ids": [
+        8374
+      ]
+    },
+    {
+      "id": "u-d0f3bf80f1ec3a2d0788eaa3",
+      "source_sha256": "d0f3bf80f1ec3a2d0788eaa3828a8ab85c57dbc0347e74b9357cefaf06df9759",
+      "source": "Center the camera on the currently acting character",
+      "zh": "将镜头移到当前行动的角色。",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-d0f577e911889764674fc3fe",
+      "source_sha256": "d0f577e911889764674fc3fec685fa261ed6752edfbe43a7f526afc0a7000cb0",
+      "source": "{#1}Ratcatcher{/#1} snaps his fingers.",
+      "zh": "{#1}捕鼠人{/#1}打了个响指。",
+      "status": "reviewed",
+      "page_ids": [
+        7028
+      ]
+    },
+    {
+      "id": "u-d0feadaab59c2dcc05dd7b3b",
+      "source_sha256": "d0feadaab59c2dcc05dd7b3bab3a646dd350123f9efad8c68154d4d7a80b0565",
+      "source": "{#1}{#2}{#3}Archer{/#3}, why don't you take a shot?{/#2}{/#1}",
+      "zh": "{#1}{#2}{#3}弓手{/#3}，你何不射一箭试试？{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8266
+      ]
+    },
+    {
+      "id": "u-d17424011c0188ca2e8e24ef",
+      "source_sha256": "d17424011c0188ca2e8e24ef77f1b6658f629c6e08134c281799b46b42d93a86",
+      "source": "lowest minimum damage",
+      "zh": "伤害下限的最低值",
+      "status": "reviewed",
+      "page_ids": [
+        3464
+      ]
+    },
+    {
+      "id": "u-d175e7cb9b7332764799bef6",
+      "source_sha256": "d175e7cb9b7332764799bef61ab91b95ca8dfac23be1f8860921d322b22ddbe1",
+      "source": "Save it for battle. (the event ends)",
+      "zh": "把力气留到战场上吧。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7036
+      ]
+    },
+    {
+      "id": "u-d18261306d3d3ad921454c43",
+      "source_sha256": "d18261306d3d3ad921454c4346c1b4f3390bb35ce10b6c8537e790d00438ffdc",
+      "source": "{#1}{#2}2.6{/#2} {#3}Duelists{/#3}{/#1}",
+      "zh": "{#1}{#2}2.6{/#2} {#3}决斗家{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        4788
+      ]
+    },
+    {
+      "id": "u-d189d71e093f72ca9dd3611e",
+      "source_sha256": "d189d71e093f72ca9dd3611ee606e59e700681cfe7f42818c358386c230783a4",
+      "source": "{#1}Round Swing{/#1} gains {#2}+5%{/#2} chance to hit.",
+      "zh": "{#1}回旋斩{/#1}获得 {#2}+5%{/#2} 命中率。",
+      "status": "reviewed",
+      "page_ids": [
+        4032
+      ]
+    },
+    {
+      "id": "u-d18c677c5e5fd66ee5dd44d3",
+      "source_sha256": "d18c677c5e5fd66ee5dd44d340bd96342a1393a30eb7a4b5921e9036f200e285",
+      "source": "{#1}ArrowGood{/#1}",
+      "zh": "{#1}射箭成功{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7028
+      ]
+    },
+    {
+      "id": "u-d1a204e0ead93d986d236c65",
+      "source_sha256": "d1a204e0ead93d986d236c65b3fb1af19f6f454dcdf4a0e9a07e1f1e6dcc1d7b",
+      "source": "notice Backstab perk to increase melee hit chances",
+      "zh": "注意：背刺者特长能提高近战命中率。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-d1a3c6f7f23964713ec24e84",
+      "source_sha256": "d1a3c6f7f23964713ec24e84615b974a67da1a4af030018f1f378a74457149de",
+      "source": "{#1}{#2}5.6{/#2} {#3}>> vs Unholds/Schrats/Lindwurms <<{/#3}{/#1}",
+      "zh": "{#1}{#2}5.6{/#2} {#3}>> 对抗巨魔／树妖／林德蠕龙 <<{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-d1d4774d5e41e1b6a2e26ec7",
+      "source_sha256": "d1d4774d5e41e1b6a2e26ec7d0b6bc6b6fd2840f2437393c1f02fb0f5a4b47bb",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Deformed Valuables{#5/}Base worth: 450{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}变形的贵重物品{#5/}基础价值：450{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-d21cf55696d3adebf88c2bad",
+      "source_sha256": "d21cf55696d3adebf88c2bad38da502dfb6f92e04e567c37d6ed4a9adbc636eb",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Silverware{#5/}Base worth: 350{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}银餐具{#5/}基础价值：350{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-d28f84470c27538ff0e6bbf8",
+      "source_sha256": "d28f84470c27538ff0e6bbf82b221cce2f436ac13ae4477141005fd0d79a1f54",
+      "source": "(the event ends)",
+      "zh": "（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-d29011262623b8e8c34c2c4c",
+      "source_sha256": "d29011262623b8e8c34c2c4c12380a6094b6f92f8723bdde742b5aa84227bd0d",
+      "source": "\"Uh, he's not moving.\"",
+      "zh": "“呃，他不动了。”",
+      "status": "reviewed",
+      "page_ids": [
+        7838
+      ]
+    },
+    {
+      "id": "u-d2c5b450eb414c73b10a433f",
+      "source_sha256": "d2c5b450eb414c73b10a433f6c3f38ee1148b8b0ef45815f6d67b9016d9f9c70",
+      "source": "{#1}{/#1}{#2}Path 4 (Killer on the Run){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 4（在逃杀人犯）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        7892
+      ]
+    },
+    {
+      "id": "u-d31edb986bab75feea263558",
+      "source_sha256": "d31edb986bab75feea2635583851a7ff957461e3c6676e3ea23b3b691bdc496e",
+      "source": "Trainees gain +0-2 Ranged Skill",
+      "zh": "受训者获得 +0-2 远程命中。",
+      "status": "reviewed",
+      "page_ids": [
+        7977
+      ]
+    },
+    {
+      "id": "u-d33a4095906025de2ba2e6c6",
+      "source_sha256": "d33a4095906025de2ba2e6c69d89661a5ee7787384e7fe8a986f504c127f5098",
+      "source": "What a beautiful day! (the event ends)",
+      "zh": "多美好的一天！（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12862
+      ]
+    },
+    {
+      "id": "u-d33e8e192c78cdad3c4a35cf",
+      "source_sha256": "d33e8e192c78cdad3c4a35cf0cd0230ab8e3be0ab5676a079af6d967b6e344c0",
+      "source": "Such is life. (the event ends)",
+      "zh": "生活就是如此。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7708
+      ]
+    },
+    {
+      "id": "u-d362eba47f5610241e10cde5",
+      "source_sha256": "d362eba47f5610241e10cde57890e93ef25c830edc407b0dae1679b1d8c703d6",
+      "source": "\"Wombless, I ascend, sellsword. The grand nurturer...\"",
+      "zh": "“佣兵，我虽无子宫，却已升华。我是伟大的养育者……”",
+      "status": "reviewed",
+      "page_ids": [
+        17102
+      ]
+    },
+    {
+      "id": "u-d36a4651806fec367e5b45a8",
+      "source_sha256": "d36a4651806fec367e5b45a8e984e9118d0c9ad50253b7cad631baa1e713de1f",
+      "source": "Nodding, the shepherd explains.",
+      "zh": "牧羊人点着头，解释起来。",
+      "status": "reviewed",
+      "page_ids": [
+        12084
+      ]
+    },
+    {
+      "id": "u-d37e8aef889ceeaee52152d4",
+      "source_sha256": "d37e8aef889ceeaee52152d4d2443afb1fff5682bec5c70531da667603c1828e",
+      "source": "{#1}Farmhand{/#1} suffers an {#2}injury{/#2} (50%) or light wounds (50%)",
+      "zh": "{#1}农场帮工{/#1}受到一处{#2}伤势{/#2}（50%），或受到轻伤（50%）。",
+      "status": "reviewed",
+      "page_ids": [
+        12050
+      ]
+    },
+    {
+      "id": "u-d385f9494ea6c4661bab8afd",
+      "source_sha256": "d385f9494ea6c4661bab8afd346aa6e99ff2c85a140f6caec576b4cf3a4ece02",
+      "source": "{#1}Battle Standard{/#1} Lost",
+      "zh": "失去{#1}战旗{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-d3e792499f88b6c24d788273",
+      "source_sha256": "d3e792499f88b6c24d788273502ea7712a8822fc8dd99a4fb771ca57c1ed4c5b",
+      "source": "{#1}Dude{/#1} gains +1-3 Max Fatigue",
+      "zh": "{#1}这名弟兄{/#1}获得 +1-3 疲劳上限。",
+      "status": "reviewed",
+      "page_ids": [
+        8464
+      ]
+    },
+    {
+      "id": "u-d3ecaaea78b5f616b70d0f91",
+      "source_sha256": "d3ecaaea78b5f616b70d0f914f1c99a35aec7374769aa8e1302dc74e9b7ebc48",
+      "source": "Build me a bow of legends! ({#1}{#2}60% Success{/#2}{/#1}, {#3}{#4}40% Failure{/#4}{/#3})",
+      "zh": "给我做一把传说中的好弓！（{#1}{#2}60% 成功{/#2}{/#1}，{#3}{#4}40% 失败{/#4}{/#3}）",
+      "status": "reviewed",
+      "page_ids": [
+        8093
+      ]
+    },
+    {
+      "id": "u-d41133d209a5562385301b2a",
+      "source_sha256": "d41133d209a5562385301b2a6ee974b2533039f8f6b4e7748c44ee88ba53d7ce",
+      "source": "{#1}Nongambler{/#1} suffers an {#2}injury{/#2} (50%) or light wounds (50%)",
+      "zh": "{#1}不擅赌博的弟兄{/#1}受到一处{#2}伤势{/#2}（50%），或受到轻伤（50%）。",
+      "status": "reviewed",
+      "page_ids": [
+        7036
+      ]
+    },
+    {
+      "id": "u-d43235cce70bfcd3dc0d5f10",
+      "source_sha256": "d43235cce70bfcd3dc0d5f10029cf7fd82ba16e3a0706a7e9a115b735d0da855",
+      "source": "Suit yourself. (the event ends)",
+      "zh": "随你便。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7031
+      ]
+    },
+    {
+      "id": "u-d44f05641d1b2fea75674928",
+      "source_sha256": "d44f05641d1b2fea756749287d0bbc0314425bf88918b68d95bb01fbd23bd92f",
+      "source": "Path 1A1 continued",
+      "zh": "分支 1A1 续",
+      "status": "reviewed",
+      "page_ids": [
+        7011
+      ]
+    },
+    {
+      "id": "u-d4dd2f11cf698bf37107aae9",
+      "source_sha256": "d4dd2f11cf698bf37107aae99d016843dd69fe9b2e8890c48cf5246ab3cbde3d",
+      "source": "{#1}Perk calculator{/#1}",
+      "zh": "{#1}特长计算器{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-d503476d4fde1cfc5a6880ee",
+      "source_sha256": "d503476d4fde1cfc5a6880ee5cf9e6ce84187ff8ff6caa079724f04d5ef46c61",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Mushrooms{/#4}{#5/}{#6}{#7}{#8/}{/#7}{/#6} {#9}Strange Mushrooms{/#9} become available{#10/}Attracts {#11}{#12}{#13/}{/#12}{/#11}{#14}Cultists{/#14}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}蘑菇{/#4}{#5/}{#6}{#7}{#8/}{/#7}{/#6} 开始供应{#9}奇异蘑菇{/#9}{#10/}吸引{#11}{#12}{#13/}{/#12}{/#11}{#14}邪教徒{/#14}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-d5264f505778998e9c8bb48d",
+      "source_sha256": "d5264f505778998e9c8bb48d2fc478fb16e2722967095047712bd8cc64878716",
+      "source": "{#1}The Quartermaster{/#1} will increase carrying capacity by 50.",
+      "zh": "{#1}军需官{/#1}会使携带上限增加 50。",
+      "status": "reviewed",
+      "page_ids": [
+        13214
+      ]
+    },
+    {
+      "id": "u-d52b51b810e036e389018954",
+      "source_sha256": "d52b51b810e036e389018954d4a742f08db05ef2b057f24d347c04701347b28d",
+      "source": "{#1}Axe Mastery{/#1} perk gives these bonuses:",
+      "zh": "{#1}斧术精通{/#1}特长提供以下加成：",
+      "status": "reviewed",
+      "page_ids": [
+        4032
+      ]
+    },
+    {
+      "id": "u-d563ba6d7aa7089ca44f2a25",
+      "source_sha256": "d563ba6d7aa7089ca44f2a25e2be252adf6f5e588844d61bf50d088f122fa4a1",
+      "source": "{#1}Essential Perks:{/#1} Bullseye, Footwork , Bow proficiency",
+      "zh": "{#1}必要特长：{/#1}鹰眼、灵活步法、弓术精通。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-d5d141215a68523071f364f0",
+      "source_sha256": "d5d141215a68523071f364f0bc9cccc4296105e80bdaed8129c5a1281dcdac30",
+      "source": "{#1}Poacher{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}偷猎者{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        12077
+      ]
+    },
+    {
+      "id": "u-d5d7c8dcf52df9647e8fbbe1",
+      "source_sha256": "d5d7c8dcf52df9647e8fbbe1ddf050167f07381f838a854760110a3e37184327",
+      "source": "Pause/Unpause game",
+      "zh": "暂停／继续游戏",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-d5dc289b20b13b8d1b8be1f3",
+      "source_sha256": "d5dc289b20b13b8d1b8be1f36545c2cd755e75a1f3feb421f28747fcc9c13c4f",
+      "source": "Playing {#1}Manhunters{/#1} origin.",
+      "zh": "使用{#1}捕奴者{/#1}起源。",
+      "status": "reviewed",
+      "page_ids": [
+        15958
+      ]
+    },
+    {
+      "id": "u-d5fff89904f0df9f8d4c4a8e",
+      "source_sha256": "d5fff89904f0df9f8d4c4a8e804b90fe2d64cade0631f7c8d54206697f7882d8",
+      "source": "\"{#1}Split Man{/#1}\" Skill {#2}damage mechanics explanation{/#2}.",
+      "zh": "“{#1}劈身{/#1}”技能的{#2}伤害机制说明{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        3617
+      ]
+    },
+    {
+      "id": "u-d60489d110caea261638ec48",
+      "source_sha256": "d60489d110caea261638ec484cb025236f42359a40a6ba0163724daece82b526",
+      "source": "Can be looted from {#1}Orc Berserker{/#1}, {#2}Orc Warlord{/#2}.",
+      "zh": "可从{#1}兽人狂战士{/#1}、{#2}兽人军阀{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        3617
+      ]
+    },
+    {
+      "id": "u-d604b52cb1ffff428216550a",
+      "source_sha256": "d604b52cb1ffff428216550ac225cd4308d759109fa0dd5da0103a06badcb1ad",
+      "source": "You lose {#1}some food{/#1}",
+      "zh": "失去{#1}一些食物{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        7065
+      ]
+    },
+    {
+      "id": "u-d605d7b10ea72897f863e476",
+      "source_sha256": "d605d7b10ea72897f863e4763c588bc26a2b3c4f3886839a4dd18ca29ba6ad22",
+      "source": "{#1}Speak About Those Pieces of Shite{/#1}",
+      "zh": "{#1}谈谈那群狗东西{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15938
+      ]
+    },
+    {
+      "id": "u-d6616a4392168901b4ea5504",
+      "source_sha256": "d6616a4392168901b4ea55047aafe9c87b7f5b0c473b0727d95a80647f19ca2e",
+      "source": "{#1}{#2}1.1{/#2} {#3}Path 1 (Historian){/#3}{/#1}",
+      "zh": "{#1}{#2}1.1{/#2} {#3}分支 1（历史学者）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8132
+      ]
+    },
+    {
+      "id": "u-d669abe84126c2181d38d21d",
+      "source_sha256": "d669abe84126c2181d38d21dfbf93a57e8fd99fa14311ab1c28398fb5678a74b",
+      "source": "Can be very rarely bought from a {#1}Fletcher{/#1}.",
+      "zh": "极少数情况下，可从{#1}弓弩匠{/#1}处购买。",
+      "status": "reviewed",
+      "page_ids": [
+        9010
+      ]
+    },
+    {
+      "id": "u-d6757b05781f2367b5e7699f",
+      "source_sha256": "d6757b05781f2367b5e7699f7f4affe9034a39de8be0211d9ef18b23060ab2bc",
+      "source": "Possible starting weapon of new mercenaries: {#1}Nomad{/#1}.",
+      "zh": "新雇佣兵可能携带的初始武器：{#1}游牧民{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13445
+      ]
+    },
+    {
+      "id": "u-d69473eb88f1e2d9bda686e1",
+      "source_sha256": "d69473eb88f1e2d9bda686e1503aeac14d8a0570ae723c1f7ae3905adba36dfa",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Cured Venison{#5/}Base worth: 95{#6}{#7}{#8/}{/#7}{/#6}{#9/}Spoil time: 12 days",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}腌鹿肉{#5/}基础价值：95{#6}{#7}{#8/}{/#7}{/#6}{#9/}保质期：12 天",
+      "status": "reviewed",
+      "page_ids": [
+        2501
+      ]
+    },
+    {
+      "id": "u-d697019f0558d4a6eb94f5a2",
+      "source_sha256": "d697019f0558d4a6eb94f5a2f7fee602eb056add860d6035b786f7fb66d730c9",
+      "source": "Possible starting armor of new mercenaries: {#1}Apprentice{/#1}, {#2}Bowyer{/#2}.",
+      "zh": "新雇佣兵可能穿戴的初始护甲：{#1}学徒{/#1}、{#2}制弓匠{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        2266
+      ]
+    },
+    {
+      "id": "u-d6a333d58516ba45274a1fbe",
+      "source_sha256": "d6a333d58516ba45274a1fbeea25705a2c01522dd6aa0f7e27420a1f1f3f2a65",
+      "source": "{#1}Fruits{/#1}",
+      "zh": "{#1}水果{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7784
+      ]
+    },
+    {
+      "id": "u-d6b826152be30e5dc3826f08",
+      "source_sha256": "d6b826152be30e5dc3826f08bbd95365c5c62bb29fb1900cf3ddcb57d4558016",
+      "source": "You gain {#1}{#2}Noblename{/#2}'s Shield{/#1}",
+      "zh": "获得{#1}{#2}那位贵族{/#2}的盾牌{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        12060
+      ]
+    },
+    {
+      "id": "u-d6bfae4af45a24cbf80b2fdc",
+      "source_sha256": "d6bfae4af45a24cbf80b2fdca6c6b695efd9dce896af10213f01b5cabcfbdf03",
+      "source": "{#1}{#2}Overhype{/#2} Twitter{/#1}{#3/}",
+      "zh": "{#1}{#2}Overhype{/#2} 的 Twitter{/#1}{#3/}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-d704f77ccd2606a39c40fcb5",
+      "source_sha256": "d704f77ccd2606a39c40fcb5ede3cf09438c537ee0d65fa37932c7266186aa0f",
+      "source": "{#1}Surefooted{/#1} clears his throat and steps forward.",
+      "zh": "{#1}步伐稳健的弟兄{/#1}清了清嗓子，走上前来。",
+      "status": "reviewed",
+      "page_ids": [
+        7039
+      ]
+    },
+    {
+      "id": "u-d7362f0ab20ec6533f81b793",
+      "source_sha256": "d7362f0ab20ec6533f81b7933ad8db41b9737e1efc33df4c06861a18db4a9eb5",
+      "source": "He continues.",
+      "zh": "他接着说道。",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-d7395343437a600e6b7497e2",
+      "source_sha256": "d7395343437a600e6b7497e2f071018f6615ff30f4386dd4a1b25a71421cb73f",
+      "source": "33% chance: You get nothing, he was a Liar.",
+      "zh": "33% 概率：一无所获，他是个骗子。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-d74542e8bafaf3e24d3000f5",
+      "source_sha256": "d74542e8bafaf3e24d3000f5afe2b49441e33c16013e24feee993d9b44809eee",
+      "source": "\"Sir, you oughta come see this.\"",
+      "zh": "“长官，您得来看看这个。”",
+      "status": "reviewed",
+      "page_ids": [
+        7058
+      ]
+    },
+    {
+      "id": "u-d75a8572a4f013729f9c2066",
+      "source_sha256": "d75a8572a4f013729f9c2066ed4c196762cf8079fe1b1b571d5fea19bd89ac40",
+      "source": "{#1}Optional Perks: {/#1}Pathfinder, Gifted, Fearsome, Indomitable, Killing Frenzy",
+      "zh": "{#1}可选特长：{/#1}寻路者、天赋异禀、威慑、不屈、杀戮狂热。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-d75b19186fd409c91eb0cb8c",
+      "source_sha256": "d75b19186fd409c91eb0cb8c5a4f72f19c3c90e79e953fad5553062d5be6e14a",
+      "source": "Only take 50% of damage inflicted by {#1}Miasma{/#1}.",
+      "zh": "受到{#1}瘴气{/#1}伤害时，只承受 50%。",
+      "status": "reviewed",
+      "page_ids": [
+        15909
+      ]
+    },
+    {
+      "id": "u-d76ccd1431009460d82cede2",
+      "source_sha256": "d76ccd1431009460d82cede21f7d4b58aee20eb12b4b0172e6a4f9d02f92ecfd",
+      "source": "\"Hey, that's mine! Give it back!\"",
+      "zh": "“嘿，那是我的！还给我！”",
+      "status": "reviewed",
+      "page_ids": [
+        7016
+      ]
+    },
+    {
+      "id": "u-d76d8553bc17125654b2a39e",
+      "source_sha256": "d76d8553bc17125654b2a39e2275d86faf309a29e4cab11fc29b0b626aaafd6b",
+      "source": "Stupid kids. (the event ends)",
+      "zh": "蠢孩子。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        6992
+      ]
+    },
+    {
+      "id": "u-d780ef3b21879899070a5396",
+      "source_sha256": "d780ef3b21879899070a5396e35fc183c9e25ee87f35bf0ccef7cc866e97c408",
+      "source": "{#1}Path 1C1{/#1}",
+      "zh": "{#1}分支 1C1{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15089
+      ]
+    },
+    {
+      "id": "u-d7b6f98a9c1aacb1de5ab1bc",
+      "source_sha256": "d7b6f98a9c1aacb1de5ab1bc986b131e2837148ad233807309564b1604ea9fd0",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Golden{#6/}Lamellar Armor{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}金色{#6/}札甲{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        10937
+      ]
+    },
+    {
+      "id": "u-d7b7107ad753ad38bccdfca3",
+      "source_sha256": "d7b7107ad753ad38bccdfca3259be7dafe8cff47055f60845471e18ac3327fe5",
+      "source": "{#1} {#2} Read more >{/#2} {/#1}",
+      "zh": "{#1} {#2}了解更多 >{/#2} {/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-d7df5e2393642de794ebdd67",
+      "source_sha256": "d7df5e2393642de794ebdd67b246b85e4e962a27704f347450e710abccc81692",
+      "source": "A thrown pot will set 7 tiles {#1}{#2}{#3/}{/#2}{/#1} {#4}On Fire{/#4}",
+      "zh": "投出后，使 7 格地面{#1}{#2}{#3/}{/#2}{/#1} {#4}燃烧{/#4}。",
+      "status": "reviewed",
+      "page_ids": [
+        13791
+      ]
+    },
+    {
+      "id": "u-d7e1cfb3be2a8c60c516a19b",
+      "source_sha256": "d7e1cfb3be2a8c60c516a19bd0f322f25c64c32c2b7bbf15ab20a082769fbc22",
+      "source": "Battle Retreat",
+      "zh": "战斗撤退",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-d7f9f56deca3c914a125f260",
+      "source_sha256": "d7f9f56deca3c914a125f2604fc70eac2762261db6b81f40a124e4d7dedf1bf0",
+      "source": "Developer Archives",
+      "zh": "开发日志档案",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-d83ce8cb25f03cf45eaf31ec",
+      "source_sha256": "d83ce8cb25f03cf45eaf31ec10ace74ffcd8ecf3299e101eee27ab94dc8edbe7",
+      "source": "{#1}{#2}Fornicating fruit? {#3}Otherbro{/#3}, tar this fool!{/#2}{/#1}",
+      "zh": "{#1}{#2}拿瓜做那种事？{#3}另一名弟兄{/#3}，往这蠢货身上泼焦油！{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7011
+      ]
+    },
+    {
+      "id": "u-d87f0379f4c176df2240cf3e",
+      "source_sha256": "d87f0379f4c176df2240cf3e3b2f218209b84c8ca96f2395546ff3783653458d",
+      "source": "{#1}Essential Perks:{/#1} ThrowM, Duellist, B&B",
+      "zh": "{#1}必要特长：{/#1}投掷精通、决斗家、行囊与腰带。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-d87fa1d3f15ec133ce7c24c8",
+      "source_sha256": "d87fa1d3f15ec133ce7c24c82ec14dd6d0271591095c2a1dfc94865cc31430f5",
+      "source": "No definitely please no.",
+      "zh": "不，绝对不要，求你了。",
+      "status": "reviewed",
+      "page_ids": [
+        3651
+      ]
+    },
+    {
+      "id": "u-d897f0cc5ffe5d313c104528",
+      "source_sha256": "d897f0cc5ffe5d313c104528d786b18c432c2252ea0d4e5beb8a6bda0ef4271b",
+      "source": "He stops and looks up.",
+      "zh": "他停下来，抬起头。",
+      "status": "reviewed",
+      "page_ids": [
+        8318
+      ]
+    },
+    {
+      "id": "u-d8ac057eed3c64adf44ec132",
+      "source_sha256": "d8ac057eed3c64adf44ec1322c198c5e4d4e3396ee9387269c15d0f20450e4a2",
+      "source": "{#1}{#2}3{/#2} {#3}{#4}How to Fight with this company{/#4}{/#3}{/#1}",
+      "zh": "{#1}{#2}3{/#2} {#3}{#4}如何用这支战团作战{/#4}{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-d8b71798470ff779d9f7982b",
+      "source_sha256": "d8b71798470ff779d9f7982bb1f4a0759df5a1e97975aeaa60e2730dd821f718",
+      "source": "{#1}Sprayed with Acid{#2/}(Acid Flask){/#1}",
+      "zh": "{#1}酸液侵蚀{#2/}（酸液瓶）{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11362
+      ]
+    },
+    {
+      "id": "u-d971617ffe5f9bdf100eda0a",
+      "source_sha256": "d971617ffe5f9bdf100eda0a02d5eb933204ca1788ba46b866e4b96416d1f4fb",
+      "source": "{#1}{#2}5.5{/#2} {#3}>> vs Barbarians/Chosen <<{/#3}{/#1}",
+      "zh": "{#1}{#2}5.5{/#2} {#3}>> 对抗蛮族／神选战士 <<{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-d98f9368005162c81c37310a",
+      "source_sha256": "d98f9368005162c81c37310a21d93a646e25061e6a006dbf339017e47f9cbec5",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Ground Grains{/#4} and {#5}{#6}{#7/}{/#6}{/#5}{#8}Bread{/#8}{#9/}Attracts {#10}{#11}{#12/}{/#11}{/#10}{#13}Farmhands{/#13}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}杂粮粉{/#4}和{#5}{#6}{#7/}{/#6}{/#5}{#8}面包{/#8}{#9/}吸引{#10}{#11}{#12/}{/#11}{/#10}{#13}农场帮工{/#13}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-d9b5a7c29a5a2d4eeac0578e",
+      "source_sha256": "d9b5a7c29a5a2d4eeac0578e667972741281857fe177213862536a7342abfe70",
+      "source": "{#1}Raider{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}劫掠者{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        11530
+      ]
+    },
+    {
+      "id": "u-d9c37878086a6d81345bf23c",
+      "source_sha256": "d9c37878086a6d81345bf23cec07ed7e8475cdd5a03e20203e8f4a30458cf151",
+      "source": "As loot after clearing the {#1}Watermill{/#1} legendary location.",
+      "zh": "攻克{#1}水磨坊{/#1}传奇地点后，作为战利品获得。",
+      "status": "reviewed",
+      "page_ids": [
+        17168
+      ]
+    },
+    {
+      "id": "u-d9cad2d4efac6b82e99b076a",
+      "source_sha256": "d9cad2d4efac6b82e99b076af4707d5b71c53cdab13df654e27c93615ca965b3",
+      "source": "Start (continued)",
+      "zh": "开端（续）",
+      "status": "reviewed",
+      "page_ids": [
+        7025
+      ]
+    },
+    {
+      "id": "u-d9f7bce4bbeb5b1b93fee5f5",
+      "source_sha256": "d9f7bce4bbeb5b1b93fee5f5c0ee21fb8fb2405669b164541ce11e3a2e6fb226",
+      "source": "Barbarian or Houndmaster",
+      "zh": "蛮族或驯犬师",
+      "status": "reviewed",
+      "page_ids": [
+        9878
+      ]
+    },
+    {
+      "id": "u-da09fef89ea649e117b22607",
+      "source_sha256": "da09fef89ea649e117b22607d8558a961b3a648ec44a0e70f264a55f706a5e1a",
+      "source": "Some people can't be helped. (the event ends)",
+      "zh": "有些人就是帮不了。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8985
+      ]
+    },
+    {
+      "id": "u-da1d36e61401726eeec65d2f",
+      "source_sha256": "da1d36e61401726eeec65d2f8ceb51b7d3f600b329749297c908c1cb3d277347",
+      "source": "Increases the availability{#1/} of light {#2}Armor{/#2}",
+      "zh": "轻型{#2}护甲{/#2}{#1/}供应增加",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-da3fa535be6509d2165b3d6b",
+      "source_sha256": "da3fa535be6509d2165b3d6b927bb8594d87c270dcdaeb629020583ec25f183d",
+      "source": "{#1}{#2}1.6{/#2} {#3}After you return with the hides{/#3}{/#1}",
+      "zh": "{#1}{#2}1.6{/#2} {#3}带着兽皮返回后{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10903
+      ]
+    },
+    {
+      "id": "u-da565452b01afa6880a078ac",
+      "source_sha256": "da565452b01afa6880a078acf4c8b7b086d3057cd453633209cf8ba93c23b851",
+      "source": "{#1}{/#1}{#2}>> Overwhelming Whipper <<{/#2}",
+      "zh": "{#1}{/#1}{#2}>> 压制鞭手 <<{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-da9fd888e78fe55f938c5afd",
+      "source_sha256": "da9fd888e78fe55f938c5afd79d58cdb7d42ec29ff02a3939f80c089bcc06177",
+      "source": "{#1}Observe1{/#1}",
+      "zh": "{#1}观察分支一{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        9859
+      ]
+    },
+    {
+      "id": "u-dab04ac7ced01fad344a5196",
+      "source_sha256": "dab04ac7ced01fad344a51969c75699b1ffb045fcee52b8a93dc2362a86e93a7",
+      "source": "Path 1 (No trick)",
+      "zh": "分支 1（没有诡计）",
+      "status": "reviewed",
+      "page_ids": [
+        8074
+      ]
+    },
+    {
+      "id": "u-dab3f9568acb73d344b293b1",
+      "source_sha256": "dab3f9568acb73d344b293b1baf77712be5cd328b0f69ab8fe91342979634015",
+      "source": "Good shot, sir! (the event ends)",
+      "zh": "好箭法，长官！（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8266
+      ]
+    },
+    {
+      "id": "u-daf1906c6d89c8e30b671003",
+      "source_sha256": "daf1906c6d89c8e30b6710031b4c9f323a900845c23f007901f3a54d6f7d0baf",
+      "source": "Locations and Relations",
+      "zh": "地点与关系",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-db030265093b958998196dff",
+      "source_sha256": "db030265093b958998196dff2c048db38b962245a008839da40089f9d4a7b5a9",
+      "source": "Effect lasts for a maximum of 3 turns.",
+      "zh": "效果最多持续 3 回合。",
+      "status": "reviewed",
+      "page_ids": [
+        6040
+      ]
+    },
+    {
+      "id": "u-db39addb57d31d662c7c3946",
+      "source_sha256": "db39addb57d31d662c7c39461d299d545c3368dad56b5e3721766be9cad90125",
+      "source": "2-4 hybrid Polearm/Archers.",
+      "zh": "2-4 名长柄武器与弓箭双修手。",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-db3a9c8d6d6932166a2836e4",
+      "source_sha256": "db3a9c8d6d6932166a2836e4059e381e998453e52969c961321e1d48e2ff4955",
+      "source": "{#1}Rotation{/#1} may refer to one of the following:",
+      "zh": "{#1}换位{/#1}可能指下列内容之一：",
+      "status": "reviewed",
+      "page_ids": [
+        16875
+      ]
+    },
+    {
+      "id": "u-db6f2fe8173d387202ba595f",
+      "source_sha256": "db6f2fe8173d387202ba595f2d78ed0ade466471bf1767ac2f3d81eb7b1830fa",
+      "source": "Batter: 92 – 138",
+      "zh": "猛击：92 – 138",
+      "status": "reviewed",
+      "page_ids": [
+        7735
+      ]
+    },
+    {
+      "id": "u-db99f0ff85af0fd006dff6f0",
+      "source_sha256": "db99f0ff85af0fd006dff6f0ea5e28495ad8a4f5efc855308bb374585e674217",
+      "source": "{#1}Score{/#1}",
+      "zh": "{#1}得分{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6430
+      ]
+    },
+    {
+      "id": "u-dbb66084270c04aab283488c",
+      "source_sha256": "dbb66084270c04aab283488c4c6b2179de6b1142e3253147f51da3b87ed4ec21",
+      "source": "Sacrifice's token",
+      "zh": "祭品分支",
+      "status": "reviewed",
+      "page_ids": [
+        12046
+      ]
+    },
+    {
+      "id": "u-dbfa9938123a25b3c6d4084e",
+      "source_sha256": "dbfa9938123a25b3c6d4084eb34e809cbce1f1daa937258eb1c55301699c89c1",
+      "source": "Another 20% of everyone else, except {#1}Ratcatcher{/#1}, are sick",
+      "zh": "除{#1}捕鼠人{/#1}外，其他成员中另有 20% 患病。",
+      "status": "reviewed",
+      "page_ids": [
+        12078
+      ]
+    },
+    {
+      "id": "u-dc2d426114662572fc0f5827",
+      "source_sha256": "dc2d426114662572fc0f5827575cfc8d548f736adfed88dac07aa5889668d1e8",
+      "source": "Nailed it. (the event ends)",
+      "zh": "正中目标。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7927
+      ]
+    },
+    {
+      "id": "u-dc2d829bfe88a5f36f98d1b7",
+      "source_sha256": "dc2d829bfe88a5f36f98d1b7fe19789b8c2ee97c32bc60b6727997f86b556951",
+      "source": "{#1}Some{/#1} trainees gain +0-2 Melee Defense",
+      "zh": "{#1}部分{/#1}受训者获得 +0-2 近战防御。",
+      "status": "reviewed",
+      "page_ids": [
+        7977
+      ]
+    },
+    {
+      "id": "u-dc36a0605d2ad3b6ac2f780d",
+      "source_sha256": "dc36a0605d2ad3b6ac2f780dfdee8f1e15e1219939a0efe9fd02da15d903588c",
+      "source": "One of them shouts and they charge.",
+      "zh": "其中一人大喊一声，他们便冲了上来。",
+      "status": "reviewed",
+      "page_ids": [
+        8151
+      ]
+    },
+    {
+      "id": "u-dc551ff0dec03bb25eb21011",
+      "source_sha256": "dc551ff0dec03bb25eb21011d4e7d8478bb613f6b1dcbe2665f0c3621c1f6c70",
+      "source": "{#1}{#2}2.3{/#2} {#3}>> High-Functioning Mushroom Addict <<{/#3}{/#1}",
+      "zh": "{#1}{#2}2.3{/#2} {#3}>> 高效嗑菇手 <<{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-dc6d2cef1950328deafed134",
+      "source_sha256": "dc6d2cef1950328deafed134b935ba680d3bacd67c317980372660090b32a7c0",
+      "source": "Messenger's token",
+      "zh": "信使分支",
+      "status": "reviewed",
+      "page_ids": [
+        12071
+      ]
+    },
+    {
+      "id": "u-dc79509cea9348a004035632",
+      "source_sha256": "dc79509cea9348a0040356325af0be7ba0be1d61c45106fafd6f44af96555847",
+      "source": "{#1}{/#1}{#2}Path 2 (130+ Initiative){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（130+ 先攻）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        12718
+      ]
+    },
+    {
+      "id": "u-dc98ffb6717d12b83d8486d2",
+      "source_sha256": "dc98ffb6717d12b83d8486d2bb1376667600aaef2e82a1d11205089b51af221b",
+      "source": "\"Gimp.\"",
+      "zh": "“皮奴。”",
+      "status": "reviewed",
+      "page_ids": [
+        8074
+      ]
+    },
+    {
+      "id": "u-dcb122925c2c3e3df0bc11b2",
+      "source_sha256": "dcb122925c2c3e3df0bc11b2ab2389bb629e7ac2ddc6c981ffc4dfc26a015c2f",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Sellsword's{#6/}Armor{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}佣兵{#6/}甲{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        10941
+      ]
+    },
+    {
+      "id": "u-dcbf1fcae0e2308215365803",
+      "source_sha256": "dcbf1fcae0e230821536580337ed98852cb2ccd5d763a7ee89e70ac79abce7c2",
+      "source": "{#1}2 2handed warriors for flanking and damage.{/#1}",
+      "zh": "{#1}2 名双手武器战士，负责侧翼与输出。{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-dcda748348bdb48767c0528f",
+      "source_sha256": "dcda748348bdb48767c0528fdf4a81a9e96c44932bc7d3afeec209c9c2b72108",
+      "source": "We'd rather not get involved. (the event ends)",
+      "zh": "我们还是别掺和了。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7801
+      ]
+    },
+    {
+      "id": "u-dcfe5b8ede104b61f284db6f",
+      "source_sha256": "dcfe5b8ede104b61f284db6fc4892b47ccf8fe3b268f170bd90fed888babe8cd",
+      "source": "{#1}Optional Stats:{/#1} Melee Skill",
+      "zh": "{#1}可选属性：{/#1}近战命中。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-dd7e2ec72202c4aa2af8736e",
+      "source_sha256": "dd7e2ec72202c4aa2af8736e08f0aa88b246f81a15cc430080bfb8a23364c0cc",
+      "source": "{#1}Forums{/#1}",
+      "zh": "{#1}论坛{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-dd7fb4e9bf2ff02b0e39036e",
+      "source_sha256": "dd7fb4e9bf2ff02b0e39036e236e90acad5b7af5d770e01eefef9545daeb900a",
+      "source": "Veteran Dismissed",
+      "zh": "老兵被解雇",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-dda58ed89680f5ed317502d5",
+      "source_sha256": "dda58ed89680f5ed317502d535ed710aee0f0040d402c1c014aa7b25704131b8",
+      "source": "{#1}The White Company{/#1}",
+      "zh": "{#1}白色战团{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-ddd01323eb31e2c7112b25b3",
+      "source_sha256": "ddd01323eb31e2c7112b25b358cbe359dcd14720dba73c2fc5efb2bec3db9771",
+      "source": "2 Heavy Troopers - flankers",
+      "zh": "2 名重装战士，负责侧翼。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-de2fb3086a628b4ede10889b",
+      "source_sha256": "de2fb3086a628b4ede10889bfdf4cf064cd6ef3b2e36f69ffe434f5a16a0ac87",
+      "source": "Elixir Of Enlightenment?",
+      "zh": "启迪灵药？",
+      "status": "reviewed",
+      "page_ids": [
+        16957
+      ]
+    },
+    {
+      "id": "u-de53dacff6e6766da07485c0",
+      "source_sha256": "de53dacff6e6766da07485c0b5222e2d772803d889fe87811b8eecf4de3df302",
+      "source": "\"You agree? You'll pay six-thousand crowns, really?\"",
+      "zh": "“你答应了？真愿意付六千克朗？”",
+      "status": "reviewed",
+      "page_ids": [
+        8298
+      ]
+    },
+    {
+      "id": "u-de9703bc2e25806f33f2cdff",
+      "source_sha256": "de9703bc2e25806f33f2cdff3615db0b0dc027b435ce561095bfdb8f26a4518e",
+      "source": "You spend {#1}{#2}X{/#2}{/#1} Crowns",
+      "zh": "花费 {#1}{#2}X{/#2}{/#1} 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        7025
+      ]
+    },
+    {
+      "id": "u-dea7c5f917a32b081a53ba9c",
+      "source_sha256": "dea7c5f917a32b081a53ba9c459c6089d0b14a4e019337878927cb87c5df42eb",
+      "source": "You lose 200-400 crowns",
+      "zh": "失去 200-400 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        7801
+      ]
+    },
+    {
+      "id": "u-decc585be1de35a64eb5d5eb",
+      "source_sha256": "decc585be1de35a64eb5d5ebfab1b624776ef2afbad0f43454eed9ba4324a4e3",
+      "source": "{#1}Davkul Cultists{/#1}, {#2}Manhunters{/#2} origins starting weapon.",
+      "zh": "{#1}达夫库尔信徒{/#1}、{#2}捕奴者{/#2}起源的初始武器。",
+      "status": "reviewed",
+      "page_ids": [
+        10777
+      ]
+    },
+    {
+      "id": "u-df07fbf216bcf05c4ae04f21",
+      "source_sha256": "df07fbf216bcf05c4ae04f21c2f7951695d6e1ebda040018c5f01f7274003e21",
+      "source": "We are but simple creatures. (the event ends)",
+      "zh": "我们不过是些头脑简单的家伙。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8228
+      ]
+    },
+    {
+      "id": "u-df27fcdabeb3d33f70c4cf63",
+      "source_sha256": "df27fcdabeb3d33f70c4cf63852b085ac823b87d7cb72a00ba593c6eedbd16dc",
+      "source": "Received Permanent Injury",
+      "zh": "受到永久伤势",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-df2c90aae387073958baff59",
+      "source_sha256": "df2c90aae387073958baff5917bf70d23ba11c62484924e46601a0297b2df8c0",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Throwing Mastery{/#4} perk grants these bonuses:",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}投掷精通{/#4}特长提供以下加成：",
+      "status": "reviewed",
+      "page_ids": [
+        4297
+      ]
+    },
+    {
+      "id": "u-df57e079528c91d7b29985f0",
+      "source_sha256": "df57e079528c91d7b29985f0940e09b3fed9726f51b9cae9fcaf71de508f98cf",
+      "source": "\"Make sure to hit the apple!\"",
+      "zh": "“可得瞄准苹果！”",
+      "status": "reviewed",
+      "page_ids": [
+        7927
+      ]
+    },
+    {
+      "id": "u-df58156de066518d87b07e8e",
+      "source_sha256": "df58156de066518d87b07e8e1c17a19c16d7bbc449c6c0e0a48092d3bdc9d635",
+      "source": "Obtained in the {#1}Sunken Library{/#1} legendary location.",
+      "zh": "在{#1}沉没图书馆{/#1}传奇地点获得。",
+      "status": "reviewed",
+      "page_ids": [
+        13988
+      ]
+    },
+    {
+      "id": "u-df79965927a3ff3f6a2d553b",
+      "source_sha256": "df79965927a3ff3f6a2d553ba322e485f351cee63902c952cee3d4ef2558dfeb",
+      "source": "Can be gained in the {#1}Civilwar Refugees{/#1} event.",
+      "zh": "可在{#1}贵族战争：难民{/#1}事件中获得。",
+      "status": "reviewed",
+      "page_ids": [
+        4400
+      ]
+    },
+    {
+      "id": "u-df87657d7f6c2108d7509986",
+      "source_sha256": "df87657d7f6c2108d750998683e6f7c72fc0bf537c053d8705d8d3d8f7330cb7",
+      "source": "The initially confused onlookers burst into laughter.",
+      "zh": "起初还一头雾水的围观者，顿时哄堂大笑。",
+      "status": "reviewed",
+      "page_ids": [
+        12075
+      ]
+    },
+    {
+      "id": "u-df89163f8cae3136ec1b2fc8",
+      "source_sha256": "df89163f8cae3136ec1b2fc8a5966e9e462e0e7c6c1619e250aac3ea9049e01d",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Tools and Supplies{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}工具与修缮物资{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-dfd87e1bdad332a485e01a4e",
+      "source_sha256": "dfd87e1bdad332a485e01a4e3b9f26a145626c817dde9c4d03f8539cdc20227a",
+      "source": "Possible starting gear of new mercenaries: {#1}Gladiator{/#1}.",
+      "zh": "新雇佣兵可能穿戴的初始装备：{#1}角斗士{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13535
+      ]
+    },
+    {
+      "id": "u-dfe3c73b3fd53d5c1a8a8e49",
+      "source_sha256": "dfe3c73b3fd53d5c1a8a8e49a67b75326fed7535af4037dad4c1ff2a038360fd",
+      "source": "no {#1}{#2}{#3/}{/#2}{/#1} checks triggered upon losing {#4}{#5}{#6/}{/#5}{/#4}",
+      "zh": "损失{#4}{#5}{#6/}{/#5}{/#4}时，不会触发{#1}{#2}{#3/}{/#2}{/#1}检定。",
+      "status": "reviewed",
+      "page_ids": [
+        6032
+      ]
+    },
+    {
+      "id": "u-dff38e58d54ef11df087c725",
+      "source_sha256": "dff38e58d54ef11df087c725759dd3b6a3aebeade3d90024540f1178fa051b31",
+      "source": "{#1}{/#1}{#2}Path 2 (Athletic){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（健步如飞）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        11501
+      ]
+    },
+    {
+      "id": "u-dfffcda8a086bfbd738cdd29",
+      "source_sha256": "dfffcda8a086bfbd738cdd2918c87cdf63f29c19481625bf2c4f95509583712c",
+      "source": "You lose Dried Fruits",
+      "zh": "失去果干。",
+      "status": "reviewed",
+      "page_ids": [
+        7784
+      ]
+    },
+    {
+      "id": "u-e001c4265ab3b606c41ba342",
+      "source_sha256": "e001c4265ab3b606c41ba3426ff5ba5259340b6a6329c3ff547bfc93b5356f98",
+      "source": "{#1}Noble{/#1} is now paid {#2}more{/#2} crowns a day",
+      "zh": "{#1}贵族{/#1}现在每天领取{#2}更多{/#2}克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        15181
+      ]
+    },
+    {
+      "id": "u-e017977f9da5dd117a324c6c",
+      "source_sha256": "e017977f9da5dd117a324c6ccd85433ed79e5a1a463ba069138f11d9e589c33a",
+      "source": "Orc Prisoner",
+      "zh": "兽人俘虏",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-e04cc55e15b795effaa1b0dd",
+      "source_sha256": "e04cc55e15b795effaa1b0dde126e91341257cbc3cc4a165a08ccc0e36284cac",
+      "source": "{#1}Butcher{/#1} can only shrug again.",
+      "zh": "{#1}屠夫{/#1}只能再次耸耸肩。",
+      "status": "reviewed",
+      "page_ids": [
+        12043
+      ]
+    },
+    {
+      "id": "u-e0bf9dd844be5be64917b4a8",
+      "source_sha256": "e0bf9dd844be5be64917b4a8e1805eaf3f7dd717bf8f51ced749fc7796e1e767",
+      "source": "Dastard's token",
+      "zh": "胆小鬼分支",
+      "status": "reviewed",
+      "page_ids": [
+        8394
+      ]
+    },
+    {
+      "id": "u-e0f73f1d124c4d11f86eaa26",
+      "source_sha256": "e0f73f1d124c4d11f86eaa26f79e4da5c836fe3cb111b2ef79b40dafdfddee82",
+      "source": "Indestructible {#1}{#2}{#3/}{/#2}{/#1}",
+      "zh": "无法摧毁 {#1}{#2}{#3/}{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10910
+      ]
+    },
+    {
+      "id": "u-e1383a0b51989321b2814457",
+      "source_sha256": "e1383a0b51989321b2814457a1baa9e65c3ea181f531e4154c98fa24db328df5",
+      "source": "To arms! (you fight 25 Cultists)",
+      "zh": "拿起武器！（与 25 名邪教徒交战）",
+      "status": "reviewed",
+      "page_ids": [
+        8151
+      ]
+    },
+    {
+      "id": "u-e1531919a974e566cc80b220",
+      "source_sha256": "e1531919a974e566cc80b2202c61b243d96bbb5e846428e660bb3b4e979d953b",
+      "source": "{#1}{#2}4{/#2} {#3}Hedge Knight/Sellsword/Raider{/#3}{/#1}",
+      "zh": "{#1}{#2}4{/#2} {#3}流浪骑士／佣兵／劫掠者{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15834
+      ]
+    },
+    {
+      "id": "u-e1b0f160a614fc016cabf972",
+      "source_sha256": "e1b0f160a614fc016cabf97207d66d6b24f2a239dcf30c0d473115bed677c29a",
+      "source": "The butcher scoffs.",
+      "zh": "屠夫嗤笑一声。",
+      "status": "reviewed",
+      "page_ids": [
+        7937
+      ]
+    },
+    {
+      "id": "u-e1b371145e48d24a77cddba8",
+      "source_sha256": "e1b371145e48d24a77cddba83d753a4dda757fe98e0c4e5ce012d5c6b4caa4bf",
+      "source": "{#1}Killerontherun{/#1} suffers 2 {#2}injuries{/#2}",
+      "zh": "{#1}在逃杀人犯{/#1}受到 2 处{#2}伤势{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        12065
+      ]
+    },
+    {
+      "id": "u-e1ba4be4d62dfa91c60787f4",
+      "source_sha256": "e1ba4be4d62dfa91c60787f4967efb06c0aa06826db5c23950d1d62b1f0cb42e",
+      "source": "Used by {#1}Ancient Legionaries{/#1} and {#2}Ancient Honor Guards{/#2}.",
+      "zh": "由{#1}古代军团兵{/#1}和{#2}古代荣誉卫士{/#2}使用。",
+      "status": "reviewed",
+      "page_ids": [
+        4486
+      ]
+    },
+    {
+      "id": "u-e1c888ad0831291fc6bc0aed",
+      "source_sha256": "e1c888ad0831291fc6bc0aedf170327719ffd87bc915c66d162e140c640f8c2f",
+      "source": "{#1}{/#1}{#2}Path 2 (Fat){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（肥胖）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15191
+      ]
+    },
+    {
+      "id": "u-e1f1a36a64a64862fe18d705",
+      "source_sha256": "e1f1a36a64a64862fe18d705cd8acedbf0ef34364419703418e979949f26f954",
+      "source": "Hiring new mercenaries: {#1}Assassin (southern){/#1}.",
+      "zh": "招募新雇佣兵时获得：{#1}南方刺客{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13726
+      ]
+    },
+    {
+      "id": "u-e20cbbbaa4fcaa24f00fb17b",
+      "source_sha256": "e20cbbbaa4fcaa24f00fb17bd1c7e897ba7fc4ae5c345c3a16af5d34de823e1c",
+      "source": "The raider nods.",
+      "zh": "劫掠者点了点头。",
+      "status": "reviewed",
+      "page_ids": [
+        11530
+      ]
+    },
+    {
+      "id": "u-e224554b50cebfda27445270",
+      "source_sha256": "e224554b50cebfda2744527003a2a8d49dfbc82cbfc1f5a1f87f5989ebe40771",
+      "source": "\"Because he is weak.\"",
+      "zh": "“因为他太弱了。”",
+      "status": "reviewed",
+      "page_ids": [
+        9424
+      ]
+    },
+    {
+      "id": "u-e264d25aaefd443a3aea04a9",
+      "source_sha256": "e264d25aaefd443a3aea04a9cf188bdab34cfa9af90fd09f5839248945f161e6",
+      "source": "Orc's Charge skill.",
+      "zh": "兽人的冲锋技能。",
+      "status": "reviewed",
+      "page_ids": [
+        4987
+      ]
+    },
+    {
+      "id": "u-e280906d695de558469576b1",
+      "source_sha256": "e280906d695de558469576b11dca9582327331f5ab41ec3f6ea540465290575f",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Gold and Black{#6/}Turban{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}金黑{#6/}缠头盔{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        15460
+      ]
+    },
+    {
+      "id": "u-e281127f66a35ae37a6a6843",
+      "source_sha256": "e281127f66a35ae37a6a684372e5c8e4226d9a4a5611788cb7a1608a6a9bb054",
+      "source": "{#1}{#2}1.3{/#2} {#3}Path 4 (monk){/#3}{/#1}",
+      "zh": "{#1}{#2}1.3{/#2} {#3}分支 4（僧侣）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7072
+      ]
+    },
+    {
+      "id": "u-e2bb92ed861057ce0d7db49e",
+      "source_sha256": "e2bb92ed861057ce0d7db49e82103d25ed0752577851cf81017addbbf9b8695e",
+      "source": "Items: + value × 0.002 per item, in addition to:",
+      "zh": "物品：每件计分 + 价值 × 0.002，此外还有：",
+      "status": "reviewed",
+      "page_ids": [
+        6430
+      ]
+    },
+    {
+      "id": "u-e2ca00de106e706b32a9084e",
+      "source_sha256": "e2ca00de106e706b32a9084ec235c8067f10841a1e1d8eb72d442d06621c62a1",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Nose Horned{#6/}Helmet{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}鼻角{#6/}盔{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        10918
+      ]
+    },
+    {
+      "id": "u-e2fd01a3094d37a50755bd1d",
+      "source_sha256": "e2fd01a3094d37a50755bd1d5f296453639a8f5c32313e7dda0fa22a6056fb87",
+      "source": "{#1}Secondary Skills:{/#1} HP (around 60)",
+      "zh": "{#1}次要属性：{/#1}生命值，约 60。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-e2ff952f19eb7b7d8ee2ac63",
+      "source_sha256": "e2ff952f19eb7b7d8ee2ac634e9ecf3f81b1ae36756990c02a05f1fb36a57aff",
+      "source": "Don't challenge the {#1}Companyname{/#1}! (the event ends)",
+      "zh": "别来挑衅{#1}我们战团{/#1}！（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12069
+      ]
+    },
+    {
+      "id": "u-e3526309544f75b1c1b8424c",
+      "source_sha256": "e3526309544f75b1c1b8424c8b054e9b54e737d174dca408d08a12afdc4eb9f1",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Signet Ring{#5/}Base worth: 245{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}印章戒指{#5/}基础价值：245{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-e36a7b7f01a7a8b51d7e20e6",
+      "source_sha256": "e36a7b7f01a7a8b51d7e20e63b6c23fbfec76dbc3c2b63f4d8b770c2a28b9c3c",
+      "source": "Suicide",
+      "zh": "自杀",
+      "status": "reviewed",
+      "page_ids": [
+        16934
+      ]
+    },
+    {
+      "id": "u-e36e4ea0bec7e16f992fb7f5",
+      "source_sha256": "e36e4ea0bec7e16f992fb7f54052ea7e4d60ce38443b3fbfd396b5562df61d78",
+      "source": "Plus any reserve you see fit.",
+      "zh": "另外按需安排预备队员。",
+      "status": "reviewed",
+      "page_ids": [
+        4788
+      ]
+    },
+    {
+      "id": "u-e3890de6ff689b2675ff3d8d",
+      "source_sha256": "e3890de6ff689b2675ff3d8dbc5cc316b9375efe43c7dc6c755ee7786b1e8f6d",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Sword Mastery{/#4} perk gives these bonuses:",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}剑术精通{/#4}特长提供以下加成：",
+      "status": "reviewed",
+      "page_ids": [
+        3725
+      ]
+    },
+    {
+      "id": "u-e3955b9db00b6a07b0ed5eb6",
+      "source_sha256": "e3955b9db00b6a07b0ed5eb64b0159fdbaf2866568dbd055cf78545db2c57498",
+      "source": "Can be looted from: {#1}Mercenary{/#1}, {#2}Nomad Executioner{/#2}.",
+      "zh": "可从{#1}佣兵{/#1}、{#2}游牧刽子手{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        2450
+      ]
+    },
+    {
+      "id": "u-e3b0325da699e502d8a29379",
+      "source_sha256": "e3b0325da699e502d8a29379337f9056286f51a86102f5878d5e73eaa52aaeae",
+      "source": "Iron sharpens iron. (the event ends)",
+      "zh": "铁器相磨，才能锋利。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        15231
+      ]
+    },
+    {
+      "id": "u-e3b1d2a07bbc930944239f56",
+      "source_sha256": "e3b1d2a07bbc930944239f56da37c059219bd570b022f66da9003b7cf7894d4f",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Cloth Rolls{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}布卷{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-e3b8c55bf0e06a15d8d7a815",
+      "source_sha256": "e3b8c55bf0e06a15d8d7a81552cedf9bd0696aaaeb2448a089f002e26f4cb380",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Sabertooth{#5/}Base worth: 250{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}剑齿{#5/}基础价值：250{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-e42427bf6de518c211858e3d",
+      "source_sha256": "e42427bf6de518c211858e3d76f0a8e96bb8d57d5a4502044b61caa1e7212e70",
+      "source": "Can be found in {#1}Hidden Cache Forest{/#1}.",
+      "zh": "可在{#1}森林中的秘密藏物{/#1}事件中找到。",
+      "status": "reviewed",
+      "page_ids": [
+        2975
+      ]
+    },
+    {
+      "id": "u-e42ef14e2b22a75cf2cd053e",
+      "source_sha256": "e42ef14e2b22a75cf2cd053e8e4f17c7524ba38b5cff2fbc1f358ade20d62b24",
+      "source": "{#1}{#2}Welcome to the {#3}Companyname{/#3} then.{/#2}{/#1}",
+      "zh": "{#1}{#2}那就欢迎你加入{#3}我们的战团{/#3}。{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8435
+      ]
+    },
+    {
+      "id": "u-e4781f31facdbf828525f644",
+      "source_sha256": "e4781f31facdbf828525f644f4bc690d97588c2bba01713881c39f302bb630e9",
+      "source": "The crucified man is dead.",
+      "zh": "被钉在十字架上的人已经死了。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-e4adb52657455a7308f21cfc",
+      "source_sha256": "e4adb52657455a7308f21cfc5f7b0d758e7f8cdb40eb44a1b274bd7c3c41f5b5",
+      "source": "{#1}Assassin{/#1} may refer to one of the following:",
+      "zh": "{#1}刺客{/#1}可能指下列内容之一：",
+      "status": "reviewed",
+      "page_ids": [
+        16681
+      ]
+    },
+    {
+      "id": "u-e4b8294b6e1cddc1c8eb720d",
+      "source_sha256": "e4b8294b6e1cddc1c8eb720dbe2dd8b16fabc43174a966d13505e07b6d42e925",
+      "source": "{#1}{#2}1.2{/#2} {#3}Path 1 Alternative Success{/#3}{/#1}",
+      "zh": "{#1}{#2}1.2{/#2} {#3}分支 1：另一种成功结果{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        9003
+      ]
+    },
+    {
+      "id": "u-e4f3d739d5908e0328fc8fa5",
+      "source_sha256": "e4f3d739d5908e0328fc8fa5d7ddafccd563e2e0920e82f4f7cfc4228c0a4274",
+      "source": "You nod, then wonder aloud.",
+      "zh": "你点了点头，随后问出了心中的疑惑。",
+      "status": "reviewed",
+      "page_ids": [
+        7041
+      ]
+    },
+    {
+      "id": "u-e51e477ec77a799904ca5759",
+      "source_sha256": "e51e477ec77a799904ca5759825004aea9d0225a589e3ab5866604e9cee57d8e",
+      "source": "{#1}{/#1}{#2}>> Fatigue-Neutral Shield Tank <<{/#2}",
+      "zh": "{#1}{/#1}{#2}>> 疲劳平衡盾卫 <<{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-e52581571c4f7c97a7ad6ca7",
+      "source_sha256": "e52581571c4f7c97a7ad6ca7cb26c43542e3e4c79c420c5837d879396eb14c71",
+      "source": "Cheeky little git. (the event ends)",
+      "zh": "厚脸皮的小混蛋。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7924
+      ]
+    },
+    {
+      "id": "u-e533da9274b00b6d8c923f46",
+      "source_sha256": "e533da9274b00b6d8c923f4639a2abc859a0cd71ef0f981f242d9c94d69d4676",
+      "source": "You cross your arms.",
+      "zh": "你抱起双臂。",
+      "status": "reviewed",
+      "page_ids": [
+        9327
+      ]
+    },
+    {
+      "id": "u-e5582a177970c333e00ecdc9",
+      "source_sha256": "e5582a177970c333e00ecdc982096de7f94eb18d2d3e9dd8616deeb20d075176",
+      "source": "{#1}Secondary Skills:{/#1} HP (around 60), Ranged defense (around 20)",
+      "zh": "{#1}次要属性：{/#1}生命值约 60，远程防御约 20。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-e577c990e64d6685f40f43c8",
+      "source_sha256": "e577c990e64d6685f40f43c8b32ad70223930d5d9aee787692928a24ef0a5d63",
+      "source": "{#1}Essential Perks:{/#1} Rally, Fortified Mind, Recover",
+      "zh": "{#1}必要特长：{/#1}重振士气、坚定心智、恢复体力。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-e5b812d09b85594e035a3d86",
+      "source_sha256": "e5b812d09b85594e035a3d868ae8bd3873f2f57305b8ea8427298dc270bcd213",
+      "source": "Gifted. Max stat rolls. Hell yeah, more resolve !",
+      "zh": "天赋异禀：最高属性成长。太棒了，意志又能提高！",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-e627363c61db86e79b815883",
+      "source_sha256": "e627363c61db86e79b81588385bdd2cd42c3703c3a34ace0659cd1401f8924a4",
+      "source": "Finally, it's over. (the event ends)",
+      "zh": "终于结束了。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        6989
+      ]
+    },
+    {
+      "id": "u-e628a7b474d09cd1db93bc4c",
+      "source_sha256": "e628a7b474d09cd1db93bc4c256995387c36a9ed961d9576ac3590d6e9b80422",
+      "source": "You lose a random stack of food",
+      "zh": "随机失去一堆食物。",
+      "status": "reviewed",
+      "page_ids": [
+        7784
+      ]
+    },
+    {
+      "id": "u-e62b86359ffebc75a089f78b",
+      "source_sha256": "e62b86359ffebc75a089f78bf6780da578fb5375d09dd68f4d075461c3e703c4",
+      "source": "\"Please, no more!\"",
+      "zh": "“求你了，别再来了！”",
+      "status": "reviewed",
+      "page_ids": [
+        7112
+      ]
+    },
+    {
+      "id": "u-e635a6d9739a3a05f4c374b0",
+      "source_sha256": "e635a6d9739a3a05f4c374b0621968314ebca9ee4d2544e74222a49566037afa",
+      "source": "Path 5 Fail",
+      "zh": "分支 5：失败",
+      "status": "reviewed",
+      "page_ids": [
+        12069
+      ]
+    },
+    {
+      "id": "u-e63d0223d3c28f8c91c9f9fa",
+      "source_sha256": "e63d0223d3c28f8c91c9f9fa446c7637b9678cf04fb9df491107970c3d19e2ab",
+      "source": "{#1}Gladiators{/#1} origin starting equipment.",
+      "zh": "{#1}角斗士{/#1}起源的初始装备。",
+      "status": "reviewed",
+      "page_ids": [
+        13471
+      ]
+    },
+    {
+      "id": "u-e6456f418aeea82b5cd4eabe",
+      "source_sha256": "e6456f418aeea82b5cd4eabe3385ed705858b854cfe8bcbcd95bb6093d47e903",
+      "source": "{#1}Quarter to Three{/#1}{#2/}",
+      "zh": "{#1}Quarter to Three{/#1}{#2/}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-e64aae10593bfaba0ed59d32",
+      "source_sha256": "e64aae10593bfaba0ed59d326a769784a281d6163421fe30813766c37e140c77",
+      "source": "Such is the life of a sellsword.",
+      "zh": "佣兵的生活就是如此。",
+      "status": "reviewed",
+      "page_ids": [
+        3651
+      ]
+    },
+    {
+      "id": "u-e668b1c3c2410342ae8c0aa0",
+      "source_sha256": "e668b1c3c2410342ae8c0aa00ecfb01d21b498299d1109d8236788a0c6154224",
+      "source": "Brother Died",
+      "zh": "弟兄阵亡",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-e66c2473e87410d98620e193",
+      "source_sha256": "e66c2473e87410d98620e193fd902833cf9550b1ba1b8fc13a8fdc383c7ef11f",
+      "source": "{#1}Special:DoubleRedirects{/#1}",
+      "zh": "{#1}双重重定向{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        4131
+      ]
+    },
+    {
+      "id": "u-e66c34b99bbacd243dc67b61",
+      "source_sha256": "e66c34b99bbacd243dc67b6169b926d15645fc142332fefae97f25c8ef4424d6",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Gemstones{#5/}Base worth: 1120{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}宝石{#5/}基础价值：1120{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-e66d476bd770fea7af937beb",
+      "source_sha256": "e66d476bd770fea7af937beb03c5b2b5866e7a4d5547e51e2b14cf23346cd061",
+      "source": "{#1}Houndmaster{/#1} gains +1 Resolve",
+      "zh": "{#1}驯犬师{/#1}获得 +1 意志。",
+      "status": "reviewed",
+      "page_ids": [
+        7877
+      ]
+    },
+    {
+      "id": "u-e6948489f5845349aeaddf46",
+      "source_sha256": "e6948489f5845349aeaddf4679d919a289fffd79afbc787c468bf8cc2b920ad6",
+      "source": "{#1}Militia Barracks{/#1} and {#2}Stone Watchtower{/#2} increase availability.",
+      "zh": "{#1}民兵营地{/#1}和{#2}石制哨塔{/#2}会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        13771
+      ]
+    },
+    {
+      "id": "u-e6cc78db0d2694eeb1e1384c",
+      "source_sha256": "e6cc78db0d2694eeb1e1384c74cf0ced926a87bb33e993d1922c264cfc631ea0",
+      "source": "50% of everyone else gets a {#1}good mood{/#1}",
+      "zh": "其他成员中有 50% {#1}心情改善{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        7781
+      ]
+    },
+    {
+      "id": "u-e728fe2a45c806691bf2a16b",
+      "source_sha256": "e728fe2a45c806691bf2a16b1d0864c8df866a512147ab61f3695aa0dd6e20d8",
+      "source": "{#1} {#2} Read more >{/#2} {/#1}",
+      "zh": "{#1} {#2}了解更多 >{/#2} {/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        1461
+      ]
+    },
+    {
+      "id": "u-e76016b958ed24a1112d4204",
+      "source_sha256": "e76016b958ed24a1112d420450cc9957d338986fb1cc343536b4d9aab211c904",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} Split Shield damage is increased by {#4}50%{/#4}.",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 破盾伤害提高 {#4}50%{/#4}。",
+      "status": "reviewed",
+      "page_ids": [
+        4032
+      ]
+    },
+    {
+      "id": "u-e778cf0306d72ccc61c786da",
+      "source_sha256": "e778cf0306d72ccc61c786daffb36685438e48c7d95c8e87d236bff91da566a6",
+      "source": "Suck it up! ({#1}{#2}30% success{/#2}{/#1}, {#3}{#4}70% failure{/#4}{/#3})",
+      "zh": "忍着点！（{#1}{#2}30% 成功{/#2}{/#1}，{#3}{#4}70% 失败{/#4}{/#3}）",
+      "status": "reviewed",
+      "page_ids": [
+        15231
+      ]
+    },
+    {
+      "id": "u-e791f1439293961e5516ebfb",
+      "source_sha256": "e791f1439293961e5516ebfbbedd7f1e40bd9bb80e8dd9757479bc5152cf30c4",
+      "source": "Surcoat",
+      "zh": "罩袍",
+      "status": "reviewed",
+      "page_ids": [
+        5273
+      ]
+    },
+    {
+      "id": "u-e7c5351bdc01383f753e4faa",
+      "source_sha256": "e7c5351bdc01383f753e4faa312949983aa1610a2657be851b42ccc079f5b347",
+      "source": "\"Yes, yes...\"",
+      "zh": "“是，是……”",
+      "status": "reviewed",
+      "page_ids": [
+        12060
+      ]
+    },
+    {
+      "id": "u-e7d4803b8c8a3cf5dee34027",
+      "source_sha256": "e7d4803b8c8a3cf5dee3402756a0b5e02f03082817094dc892c3302ed47b2ef6",
+      "source": "Not Paid",
+      "zh": "未领到薪酬",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-e7d96e258a631b93b827114e",
+      "source_sha256": "e7d96e258a631b93b827114eeb3f636633b41bf2b78541e6bafeb16013f2a86a",
+      "source": "{#1}{/#1}{#2}Path 3 (Belly Dancer){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 3（肚皮舞者）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        16125
+      ]
+    },
+    {
+      "id": "u-e7f8f3e10c3a2bafd28e5810",
+      "source_sha256": "e7f8f3e10c3a2bafd28e58104dc9d42e9552887c3600980570e1abef37fc66a7",
+      "source": "starting armor for {#1}Monk{/#1}.",
+      "zh": "{#1}僧侣{/#1}的初始护甲。",
+      "status": "reviewed",
+      "page_ids": [
+        4401
+      ]
+    },
+    {
+      "id": "u-e836477cb7db86b97bf57208",
+      "source_sha256": "e836477cb7db86b97bf5720883a7f1b9b00ded0b7fdcccc37249e9c7e60fdc8c",
+      "source": "I appreciate the offer, nontheless. (the event ends)",
+      "zh": "不管怎样，还是谢谢你的好意。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        15166
+      ]
+    },
+    {
+      "id": "u-e859fd5a02f6e4631df78adb",
+      "source_sha256": "e859fd5a02f6e4631df78adbf2af57237ecfcf3a619463160376c8519e8563ec",
+      "source": "notice Killing Frenzy for increase of damage output",
+      "zh": "注意：杀戮狂热能提高伤害输出。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-e864a6731e0df2fb8ec05772",
+      "source_sha256": "e864a6731e0df2fb8ec057727a58fc76a1e15199fd2cfe766fa82ded1c10f9cc",
+      "source": "You can continue the contract.",
+      "zh": "可以继续委托。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-e87864bf7c7f8b2f3ed06e73",
+      "source_sha256": "e87864bf7c7f8b2f3ed06e730dda3ae39bd74512a52895ac4da450c7b73ed0d7",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Undead Kite{#6/}Shield{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}亡灵鸢形{#6/}盾{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        3543
+      ]
+    },
+    {
+      "id": "u-e880b6a9bf2f7fdee1353f71",
+      "source_sha256": "e880b6a9bf2f7fdee1353f711452ce8326aca2e9fbab041299e39b5508848cb5",
+      "source": "Close inventory screen",
+      "zh": "关闭物品栏",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-e890de8aae868fb6fd641be4",
+      "source_sha256": "e890de8aae868fb6fd641be486b21bccc042a212cca80ec9ce625029a88f2768",
+      "source": "{#1}{/#1}{#2}Path 2 (Fisherman){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 2（渔夫）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15221
+      ]
+    },
+    {
+      "id": "u-e904885e21766ca1c0cdc846",
+      "source_sha256": "e904885e21766ca1c0cdc84688a7044d3f5721245225413aeb3cc3eed6ea29f9",
+      "source": "Master of the Realm",
+      "zh": "王国之主",
+      "status": "reviewed",
+      "page_ids": [
+        5843
+      ]
+    },
+    {
+      "id": "u-e911c9670a07578a6cc1ee4d",
+      "source_sha256": "e911c9670a07578a6cc1ee4d8800819c2ca7689c2c8b173fe57ccb8c19202f0c",
+      "source": "Mortgul staggers and staggers and falls.",
+      "zh": "莫特古尔踉跄着，又踉跄了一下，倒了下去。",
+      "status": "reviewed",
+      "page_ids": [
+        3651
+      ]
+    },
+    {
+      "id": "u-e930c275dd5e2fa09d3299c2",
+      "source_sha256": "e930c275dd5e2fa09d3299c27ed3e662fc9539ec343c345c7640426f2c6e217c",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Goat Cheese{#5/}Base worth: 85{#6}{#7}{#8/}{/#7}{/#6}{#9/}Spoil time: 11 days",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}山羊奶酪{#5/}基础价值：85{#6}{#7}{#8/}{/#7}{/#6}{#9/}保质期：11 天",
+      "status": "reviewed",
+      "page_ids": [
+        2501
+      ]
+    },
+    {
+      "id": "u-e9dc4d966bc9a399e978c227",
+      "source_sha256": "e9dc4d966bc9a399e978c227c2d781acd4277d2ab47c0d3219582477c7c152f7",
+      "source": "Requirements for the event:",
+      "zh": "事件触发条件：",
+      "status": "reviewed",
+      "page_ids": [
+        4853
+      ]
+    },
+    {
+      "id": "u-ea46c874ce8069ee82642bf1",
+      "source_sha256": "ea46c874ce8069ee82642bf112313cb1155025df706d8030db7aa0a0a1254975",
+      "source": "Can be looted from {#1}Master Archer{/#1}, {#2}Arbalester{/#2}.",
+      "zh": "可从{#1}神射手{/#1}、{#2}劲弩手{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        4463
+      ]
+    },
+    {
+      "id": "u-ea4871315aec99eb19291296",
+      "source_sha256": "ea4871315aec99eb19291296d64355370f2bcd9f6f7dcf1b170e3aa88ff22511",
+      "source": "You have to fight the {#1}{#2}{#3/}{/#2}{/#1} {#4}brigands{/#4}.",
+      "zh": "必须与{#1}{#2}{#3/}{/#2}{/#1} {#4}强盗{/#4}交战。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-ea4eebe0051171099334f2b5",
+      "source_sha256": "ea4eebe0051171099334f2b5091dfeed01e3ac62ad0e6f8a840a588209627193",
+      "source": "{#1}Witchhunter{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}猎巫人{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        7062
+      ]
+    },
+    {
+      "id": "u-ea5366b46c635290a3d7c144",
+      "source_sha256": "ea5366b46c635290a3d7c144a5598026bd0e14fc5fe8b8bc80cc88b37f1bbd6d",
+      "source": "\"Is it fighting you want?\"",
+      "zh": "“你想打架是吧？”",
+      "status": "reviewed",
+      "page_ids": [
+        15165
+      ]
+    },
+    {
+      "id": "u-ea9d0277f10a1b57e8272ee8",
+      "source_sha256": "ea9d0277f10a1b57e8272ee88cefbdfdbc859cfd7a03459452990d2b21cc53b9",
+      "source": "\"I've killed many, many people.\"",
+      "zh": "“我杀过很多、很多人。”",
+      "status": "reviewed",
+      "page_ids": [
+        8074
+      ]
+    },
+    {
+      "id": "u-eaaf758d3ad052813cdfa849",
+      "source_sha256": "eaaf758d3ad052813cdfa84984160e37aa4f4c57d86544583c68b3f43529cb6d",
+      "source": "{#1}Bowyer{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}制弓匠{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        8093
+      ]
+    },
+    {
+      "id": "u-eaca68a380cd334d8c0f12f6",
+      "source_sha256": "eaca68a380cd334d8c0f12f6d5199de468bea07babc85d8fbfc8ff4e3eea9f8d",
+      "source": "{#1}Randombrother{/#1} comes up, shaking his head.",
+      "zh": "{#1}一名弟兄{/#1}摇着头走上前来。",
+      "status": "reviewed",
+      "page_ids": [
+        8151
+      ]
+    },
+    {
+      "id": "u-eb1f8285d13ca46987c4f0e1",
+      "source_sha256": "eb1f8285d13ca46987c4f0e10ca89c0533477064b44ed6faa36db6037278fbfe",
+      "source": "Messenger/Vagabond/Refugee",
+      "zh": "信使／流浪汉／难民",
+      "status": "reviewed",
+      "page_ids": [
+        6992
+      ]
+    },
+    {
+      "id": "u-eb4027eb525472546fddfdd7",
+      "source_sha256": "eb4027eb525472546fddfdd7aa8aebf25d2fcd68e22f1c8cbed2f7d589da5bbd",
+      "source": "Possible starting weapon of new mercenaries: {#1}Assassin (southern){/#1}.",
+      "zh": "新雇佣兵可能携带的初始武器：{#1}南方刺客{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13436
+      ]
+    },
+    {
+      "id": "u-eb6d0d3ff47b7e1735daed84",
+      "source_sha256": "eb6d0d3ff47b7e1735daed8482a5736ba11bc33491880cfdb6b0a5000eed1d53",
+      "source": "A noble tale, stranger. (the event ends)",
+      "zh": "真是个高尚的故事，陌生人。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-eb8958beb9c75c46d90bd8f1",
+      "source_sha256": "eb8958beb9c75c46d90bd8f144e419052734d7980efb63229595cec1f0db1d6f",
+      "source": "{#1}{#2}2.4{/#2} {#3}Map seeds{/#3}{/#1}",
+      "zh": "{#1}{#2}2.4{/#2} {#3}地图种子{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-ebb7faf52cfdca4fb58e21d8",
+      "source_sha256": "ebb7faf52cfdca4fb58e21d8aafec17ae50647f510d9d32e3b984e2bf6654c9c",
+      "source": "\"Would you look at this? Old scripts!\"",
+      "zh": "“快看看这个！古代文字！”",
+      "status": "reviewed",
+      "page_ids": [
+        8318
+      ]
+    },
+    {
+      "id": "u-ebdfea16c5a8ea6d8ec15f29",
+      "source_sha256": "ebdfea16c5a8ea6d8ec15f294aee5031e2dd5a87f38189b3b0b97fd62594f63f",
+      "source": "\"I-it's not a mere dog, though!\"",
+      "zh": "“可、可它不只是一条狗！”",
+      "status": "reviewed",
+      "page_ids": [
+        7877
+      ]
+    },
+    {
+      "id": "u-ec0b4a90d306f7d4833a2238",
+      "source_sha256": "ec0b4a90d306f7d4833a2238092fa095944ceb2c7c1c6557e76f38cf6c5bc888",
+      "source": "{#1}Trainee{/#1} gains +2-4 Hitpoints",
+      "zh": "{#1}受训者{/#1}获得 +2-4 生命值。",
+      "status": "reviewed",
+      "page_ids": [
+        9424
+      ]
+    },
+    {
+      "id": "u-ec0b82f9263dbf117cdd1f01",
+      "source_sha256": "ec0b82f9263dbf117cdd1f0170640f1591bde17d46eb4384b1b56d28b26b15cf",
+      "source": "{#1}{#2}1.4{/#2} {#3}Path 2 Failure Version 1{/#3}{/#1}",
+      "zh": "{#1}{#2}1.4{/#2} {#3}分支 2：失败版本 1{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8287
+      ]
+    },
+    {
+      "id": "u-ec112807777269c59496f480",
+      "source_sha256": "ec112807777269c59496f480aa4e9addef3c11244bb5c7dfacbdf71cd88f3e25",
+      "source": "{#1}{#2}2{/#2} {#3}Speak About Oaths{/#3}{/#1}",
+      "zh": "{#1}{#2}2{/#2} {#3}谈谈誓约{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15938
+      ]
+    },
+    {
+      "id": "u-ec2f85f558132c1cdb5bebae",
+      "source_sha256": "ec2f85f558132c1cdb5bebaefc1d54a8ab01c20715fa5cf6c2ffd55b8266613e",
+      "source": "Let's see what you can do! ({#1}{#2}70% success{/#2}{/#1}, {#3}{#4}30% failure{/#4}{/#3})",
+      "zh": "让我看看你的本事！（{#1}{#2}70% 成功{/#2}{/#1}，{#3}{#4}30% 失败{/#4}{/#3}）",
+      "status": "reviewed",
+      "page_ids": [
+        11543
+      ]
+    },
+    {
+      "id": "u-ec504bacf8d58d87e78b23c7",
+      "source_sha256": "ec504bacf8d58d87e78b23c76b21668e46d3a20dca172dbda3cfd9dae1040385",
+      "source": "{#1}Fishing Huts{/#1} increase availability.",
+      "zh": "{#1}渔民小屋{/#1}会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        3426
+      ]
+    },
+    {
+      "id": "u-ec65c7e6e0a417ffbccc088c",
+      "source_sha256": "ec65c7e6e0a417ffbccc088ceb5ffeea1ff73e6e381e907ab08bfd781a1689fd",
+      "source": "{#1}Clown{/#1} gets a {#2}bad mood{/#2}",
+      "zh": "{#1}顶苹果的弟兄{/#1}{#2}心情变差{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        7927
+      ]
+    },
+    {
+      "id": "u-ecc37339bf4e434007bfb5f4",
+      "source_sha256": "ecc37339bf4e434007bfb5f4076589bb5829a0cce89f212ae1b432149db56bbe",
+      "source": "{#1}{#2}2{/#2} {#3}Events by Trait{/#3}{/#1}",
+      "zh": "{#1}{#2}2{/#2} {#3}按特性分类的事件{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-ecd08e144020ba546a74d1ed",
+      "source_sha256": "ecd08e144020ba546a74d1ed8c6af57300feea3f112e52a8df0795a8f85682f3",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Spices{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}香料{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-ed32676f6aaea3b99642aec1",
+      "source_sha256": "ed32676f6aaea3b99642aec1ac51a5c706a2961c0881763f7835b8f16f66a6d0",
+      "source": "Bladed Staff, Bladed Lance",
+      "zh": "刃杖、刃枪",
+      "status": "reviewed",
+      "page_ids": [
+        15390
+      ]
+    },
+    {
+      "id": "u-ed7ab765013b252a9ff72459",
+      "source_sha256": "ed7ab765013b252a9ff72459436d3fe3385f856fd22dd1a5c3187459b8d0acc4",
+      "source": "{#1}Archer2{/#1} gets a {#2}bad mood{/#2}",
+      "zh": "{#1}弓手乙{/#1}{#2}心情变差{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        9882
+      ]
+    },
+    {
+      "id": "u-ed858d6b309b4e7cf14c32ae",
+      "source_sha256": "ed858d6b309b4e7cf14c32aeb28f73806f89ea262e5eca9035a63487bd640865",
+      "source": "{#1}Juggler{/#1} gains +2 Ranged Defense",
+      "zh": "{#1}杂耍艺人{/#1}获得 +2 远程防御。",
+      "status": "reviewed",
+      "page_ids": [
+        11543
+      ]
+    },
+    {
+      "id": "u-edcd6768230d38f3f53a6add",
+      "source_sha256": "edcd6768230d38f3f53a6add842821cc9c4e16d30950aeab1288f652bf27213e",
+      "source": "{#1}{#2}1.2{/#2} {#3}Path 3 Success{/#3}{/#1}",
+      "zh": "{#1}{#2}1.2{/#2} {#3}分支 3：成功{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15888
+      ]
+    },
+    {
+      "id": "u-eddd50d4e600f45dd7286ddf",
+      "source_sha256": "eddd50d4e600f45dd7286ddfa2984c72c1b9426a0c18b827db91808c85a29ffd",
+      "source": "Bow skills require {#1}25%{/#1} less{#2}{#3}{#4/}{/#3}{/#2}.",
+      "zh": "弓类技能消耗的{#2}{#3}{#4/}{/#3}{/#2}减少 {#1}25%{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        4294
+      ]
+    },
+    {
+      "id": "u-ee0763e66e10d4375d8ea66d",
+      "source_sha256": "ee0763e66e10d4375d8ea66d487930f406e180a623f025a81d2edfb2a76b34a6",
+      "source": "Playing as the {#1}Anatomists{/#1} origin slay the {#2}Rachegeist{/#2}.",
+      "zh": "使用{#1}解剖学家{/#1}起源，杀死{#2}复仇怨魂{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        15796
+      ]
+    },
+    {
+      "id": "u-ee1fdacc9c0572b6cfd81f78",
+      "source_sha256": "ee1fdacc9c0572b6cfd81f78880dc25757668a33f6a6dbafe47e312f8e43cb15",
+      "source": "Can be looted from {#1}Barbarian Thrall{/#1}, {#2}Orc Young{/#2}",
+      "zh": "可从{#1}蛮族奴兵{/#1}、{#2}兽人青年{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        3485
+      ]
+    },
+    {
+      "id": "u-ee6ec2ffc5886a09232130c0",
+      "source_sha256": "ee6ec2ffc5886a09232130c0b8c8b91542cf822eab37a3f1ca5af89b8911f384",
+      "source": "The assortment of goods is following:",
+      "zh": "出售的商品如下：",
+      "status": "reviewed",
+      "page_ids": [
+        15491
+      ]
+    },
+    {
+      "id": "u-eeb5342029f692cad7f8c2c0",
+      "source_sha256": "eeb5342029f692cad7f8c2c07dbb1a50322948c3f2b06ff2da6fe071fdc815e2",
+      "source": "{#1}{#2}2.2{/#2} {#3}Damage calculator{/#3}{/#1}",
+      "zh": "{#1}{#2}2.2{/#2} {#3}伤害计算器{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-eedab9912a1b0bad624fcf37",
+      "source_sha256": "eedab9912a1b0bad624fcf3748b6ad2249b3b21aa4991133030afa12db143712",
+      "source": "{#1}Hunter's Cabin{/#1}, {#2}Orchard{/#2}, {#3}Wool Spinner{/#3} increase availability.",
+      "zh": "{#1}猎人小屋{/#1}、{#2}果园{/#2}、{#3}纺毛坊{/#3}会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        2288
+      ]
+    },
+    {
+      "id": "u-eeec9345751092856b6c16a1",
+      "source_sha256": "eeec9345751092856b6c16a15d7d001649df8a43574b9257d11e7f62fe168020",
+      "source": "{#1}S3{/#1}",
+      "zh": "{#1}分支 S3{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-eeffcd7cf7db7fa4a333c597",
+      "source_sha256": "eeffcd7cf7db7fa4a333c5976b08779cce6dbaa4a6e6aa445b79562f4a469453",
+      "source": "Can be looted from {#1}Brigand Thug{/#1}, {#2}Militia{/#2}.",
+      "zh": "可从{#1}强盗打手{/#1}、{#2}民兵{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        3414
+      ]
+    },
+    {
+      "id": "u-ef09ae633bcb30ebea2a4734",
+      "source_sha256": "ef09ae633bcb30ebea2a4734d70ebf0dae05381ead003fd1b24c93e0cddbd9a3",
+      "source": "{#1}Poisoned{#2/}(Goblin){/#1}",
+      "zh": "{#1}中毒{#2/}（地精）{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11359
+      ]
+    },
+    {
+      "id": "u-ef12bbc52da28aae89b5a730",
+      "source_sha256": "ef12bbc52da28aae89b5a730ebaa10057a72cda43632346e66a336adec61b294",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Mushrooms{#5/}Base worth: 70{#6}{#7}{#8/}{/#7}{/#6}{#9/}Spoil time: 9 days",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}蘑菇{#5/}基础价值：70{#6}{#7}{#8/}{/#7}{/#6}{#9/}保质期：9 天",
+      "status": "reviewed",
+      "page_ids": [
+        2501
+      ]
+    },
+    {
+      "id": "u-ef1f72a9b7a6db446a27492b",
+      "source_sha256": "ef1f72a9b7a6db446a27492b4d9edf0ba47fc8576f3d057cb8bf248a0c9ea127",
+      "source": "Starting weapon of new mercenaries: {#1}Companion (1Hand southern){/#1}.",
+      "zh": "新雇佣兵的初始武器：{#1}老战友（南方单手）{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13793
+      ]
+    },
+    {
+      "id": "u-ef3b09ab88c244e6416674a0",
+      "source_sha256": "ef3b09ab88c244e6416674a0b68617b80f6a27bd091a528f51c35870178fa3e7",
+      "source": "Shield skills build up additional 5 Fatigue for humans.",
+      "zh": "人类使用盾牌技能时，额外积累 5 疲劳。",
+      "status": "reviewed",
+      "page_ids": [
+        2399
+      ]
+    },
+    {
+      "id": "u-ef3c979665bf815ba8db3964",
+      "source_sha256": "ef3c979665bf815ba8db39646916fa7849a38cda9eee85a014cdb85f2a11b97f",
+      "source": "{#1}{#2}2{/#2} {#3}Mood State{/#3}{/#1}",
+      "zh": "{#1}{#2}2{/#2} {#3}心情状态{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-ef91608ed39c2b19c0d1e2f0",
+      "source_sha256": "ef91608ed39c2b19c0d1e2f0abfc6cecc5df05c3c39601b8337c82887c39cfa4",
+      "source": "Can be looted from {#1}Man at Arms{/#1}, {#2}Knight{/#2}.",
+      "zh": "可从{#1}重装军士{/#1}、{#2}骑士{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        17129
+      ]
+    },
+    {
+      "id": "u-ef994c42ac8c98c21cf9a3a3",
+      "source_sha256": "ef994c42ac8c98c21cf9a3a33fb4179723d17ed5a275080d643b892e755c945f",
+      "source": "{#1}{#2}1.2{/#2} {#3}Path 2 (Athletic){/#3}{/#1}",
+      "zh": "{#1}{#2}1.2{/#2} {#3}分支 2（健步如飞）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11501
+      ]
+    },
+    {
+      "id": "u-ef9eef59ec5e538e0c9c0924",
+      "source_sha256": "ef9eef59ec5e538e0c9c0924367c441207fd775bb260d1696b5d70d4c709c6af",
+      "source": "Target's token",
+      "zh": "被误伤弟兄分支",
+      "status": "reviewed",
+      "page_ids": [
+        7796
+      ]
+    },
+    {
+      "id": "u-efa6e0ca58f83467dc3eac33",
+      "source_sha256": "efa6e0ca58f83467dc3eac3311f9f8d1d604f5ddb0931ac74712fd57c8dad9cd",
+      "source": "Hiring new southern mercenaries: {#1}Gladiator{/#1}.",
+      "zh": "招募新南方雇佣兵时获得：{#1}角斗士{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        13471
+      ]
+    },
+    {
+      "id": "u-efce22f7129ced52cc609972",
+      "source_sha256": "efce22f7129ced52cc6099726af45b1e57b1f015cb426d099e08d356fb72a396",
+      "source": "\"Well I'll be damned. Let's throw again!\"",
+      "zh": "“真见鬼了。再掷一把！”",
+      "status": "reviewed",
+      "page_ids": [
+        9327
+      ]
+    },
+    {
+      "id": "u-efda26f6f8621470882dab7e",
+      "source_sha256": "efda26f6f8621470882dab7ea371d41b2d88bcb1b8bacc9f9ff5c73c2b2027c7",
+      "source": "Downside of this formation:",
+      "zh": "这个阵形的缺点：",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-efe5d93b55d687d36164f07d",
+      "source_sha256": "efe5d93b55d687d36164f07d3c1ab0cd9316a2c4b01028807ae2b71070d614bd",
+      "source": "{#1}{#2}4{/#2} {#3}Utilitarian Character Builds{/#3}{/#1}",
+      "zh": "{#1}{#2}4{/#2} {#3}辅助角色配点{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-f0053a0ef8c5c74ddfff215d",
+      "source_sha256": "f0053a0ef8c5c74ddfff215d12237a018b145a188fc6b563ef67492d2c1c1c18",
+      "source": "{#1}Trainee{/#1} gains +2-4 Max Fatigue",
+      "zh": "{#1}受训者{/#1}获得 +2-4 疲劳上限。",
+      "status": "reviewed",
+      "page_ids": [
+        9424
+      ]
+    },
+    {
+      "id": "u-f01b077cd29ddd04a564de9e",
+      "source_sha256": "f01b077cd29ddd04a564de9ee5215a80397c26eea79f2653d4745de897ca4176",
+      "source": "You approach the man. His head tilts up.",
+      "zh": "你走近那人，他抬起头来。",
+      "status": "reviewed",
+      "page_ids": [
+        7708
+      ]
+    },
+    {
+      "id": "u-f04778651ae47fb463012aa3",
+      "source_sha256": "f04778651ae47fb463012aa38bbe615e945148b037bad28ae73e3abb4da425f8",
+      "source": "{#1}Squire{/#1} gets a {#2}bad mood{/#2}",
+      "zh": "{#1}骑士侍从{/#1}{#2}心情变差{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        8008
+      ]
+    },
+    {
+      "id": "u-f04b18642433894e55534df0",
+      "source_sha256": "f04b18642433894e55534df00d544ad99878e12f3354f0afa9e43da2707dbc4e",
+      "source": "Damn thieves! (the event ends)",
+      "zh": "该死的小偷！（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7065
+      ]
+    },
+    {
+      "id": "u-f05207159d825666ec8b7af0",
+      "source_sha256": "f05207159d825666ec8b7af0ac7b70df44adb6966ec0f223340b4b0b76f8d262",
+      "source": "{#1}Cripple{/#1} gains +1-3 Resolve",
+      "zh": "{#1}残疾人{/#1}获得 +1-3 意志。",
+      "status": "reviewed",
+      "page_ids": [
+        8120
+      ]
+    },
+    {
+      "id": "u-f06477fcc170db3fdfc72e98",
+      "source_sha256": "f06477fcc170db3fdfc72e9804d5ede345aaa15deea775de391c28ccc644a471",
+      "source": "\"Sleight of hand.\"",
+      "zh": "“障眼法。”",
+      "status": "reviewed",
+      "page_ids": [
+        7801
+      ]
+    },
+    {
+      "id": "u-f067177cc970914b535e042b",
+      "source_sha256": "f067177cc970914b535e042b00862ad73459f2f841421e3f56ced6a8321a8a84",
+      "source": "{#1}Hedgeknight1{/#1} suffers an {#2}injury{/#2}",
+      "zh": "{#1}流浪骑士甲{/#1}受到一处{#2}伤势{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        6989
+      ]
+    },
+    {
+      "id": "u-f06d04f499baed8b89f72567",
+      "source_sha256": "f06d04f499baed8b89f72567c5a99bdefc2c35d401f11370b33421ed2db1a7fa",
+      "source": "{#1}Crossbow and Firearms Mastery{/#1} perk:",
+      "zh": "{#1}弩与火器精通{/#1}特长：",
+      "status": "reviewed",
+      "page_ids": [
+        13802
+      ]
+    },
+    {
+      "id": "u-f0999d1e56db998e4fe2c066",
+      "source_sha256": "f0999d1e56db998e4fe2c0664ed683f36cef7db5feb40047e04707e4980d81cc",
+      "source": "{#1}WinB{/#1}",
+      "zh": "{#1}获胜分支 B{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7049
+      ]
+    },
+    {
+      "id": "u-f0e13df8a49c3329a1b2b9f7",
+      "source_sha256": "f0e13df8a49c3329a1b2b9f7334871e3776b1168e536d33f3b70c9ba3ff65c3b",
+      "source": "Lost Confidence in Your Leadership",
+      "zh": "对你的领导失去信心",
+      "status": "reviewed",
+      "page_ids": [
+        5845
+      ]
+    },
+    {
+      "id": "u-f13c29606df9865f288f69a4",
+      "source_sha256": "f13c29606df9865f288f69a434b5e86fec86ac504736720932120d1eb90d7193",
+      "source": "{#1}Essential Perks:{/#1} Adren, Recover, Indom, SwordM, Underdog",
+      "zh": "{#1}必要特长：{/#1}肾上腺素、恢复体力、不屈、剑术精通、以少敌多。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-f17a072743199962d3dd9f1c",
+      "source_sha256": "f17a072743199962d3dd9f1c4fc06bd6c880e105e0e093d4a3bba5464ce252b1",
+      "source": "{#1}Speak About Oaths{/#1}",
+      "zh": "{#1}谈谈誓约{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        15938
+      ]
+    },
+    {
+      "id": "u-f187c1d16dc91636d4810d79",
+      "source_sha256": "f187c1d16dc91636d4810d792741c12bbb1b60da474a78522e196d864c2871c9",
+      "source": "Core of any late company. Great damage output.",
+      "zh": "任何后期战团的核心，伤害输出出色。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-f18e975396f8c4361989608e",
+      "source_sha256": "f18e975396f8c4361989608efb159689314f28f9ed68db86de9b36d43885dedf",
+      "source": "You gain 30-150 crowns",
+      "zh": "获得 30-150 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        8089
+      ]
+    },
+    {
+      "id": "u-f1bb43d84cf1c290c4b3abe3",
+      "source_sha256": "f1bb43d84cf1c290c4b3abe36374089635c1262bbaab09771c373286a0c762e1",
+      "source": "\"Did he say a flail?\"",
+      "zh": "“他说的是连枷吗？”",
+      "status": "reviewed",
+      "page_ids": [
+        11543
+      ]
+    },
+    {
+      "id": "u-f1c2d576846408be109b3303",
+      "source_sha256": "f1c2d576846408be109b330343fbf5a9cecb14bf1e56d4f157c1564fac93f5c3",
+      "source": "{#1}{#2}4{/#2} {#3}Blazing Deserts{/#3}{/#1}",
+      "zh": "{#1}{#2}4{/#2} {#3}烈日沙漠{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11754
+      ]
+    },
+    {
+      "id": "u-f1ed1bd644dc59eb3ca83ae5",
+      "source_sha256": "f1ed1bd644dc59eb3ca83ae568366faa0d31a6f5356934f9ff27002ea6d2181f",
+      "source": "{#1}{/#1}{#2}Path 3 (Thief){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 3（盗贼）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        9192
+      ]
+    },
+    {
+      "id": "u-f1f2fcdf20eca9d23d0bac65",
+      "source_sha256": "f1f2fcdf20eca9d23d0bac65a271964744fd88e1952e92c0cce0045db6e3e34c",
+      "source": "Retire before completing the 'Make Nobles Aware' {#1}Ambition{/#1}",
+      "zh": "完成“引起贵族注意”{#1}抱负{/#1}之前退役。",
+      "status": "reviewed",
+      "page_ids": [
+        6430
+      ]
+    },
+    {
+      "id": "u-f1fa299814032dd636d308f7",
+      "source_sha256": "f1fa299814032dd636d308f7c73814b8d62537da7b4f43b3e15be41b2894c09f",
+      "source": "{#1}Bro{/#1} winces when you decline the suggestion.",
+      "zh": "听到你拒绝建议，{#1}这名弟兄{/#1}不禁一缩。",
+      "status": "reviewed",
+      "page_ids": [
+        12134
+      ]
+    },
+    {
+      "id": "u-f21f74dc7acac60303972bb9",
+      "source_sha256": "f21f74dc7acac60303972bb98cc4d629bb6a5b89e4fde19e07c881e9c8317881",
+      "source": "Can be looted from: {#1}Gunner{/#1}, {#2}Engineer{/#2}.",
+      "zh": "可从{#1}火铳手{/#1}、{#2}工程师{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        13756
+      ]
+    },
+    {
+      "id": "u-f2330ced3b3a64359717a47a",
+      "source_sha256": "f2330ced3b3a64359717a47a20789aa0e76e2c93172ce7ccf553567c9bc65b9b",
+      "source": "Errr, right. (the event ends)",
+      "zh": "呃，好吧。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8266
+      ]
+    },
+    {
+      "id": "u-f237f43137b62cb2d795edc1",
+      "source_sha256": "f237f43137b62cb2d795edc166224e5f5303593c39c619682d76e8b0b25dc480",
+      "source": "{#1}Tieba.Baidu{/#1} (forum in Mandarin){#2/}",
+      "zh": "{#1}百度贴吧{/#1}（中文论坛）{#2/}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-f246e6da5d27c29e06bb0c94",
+      "source_sha256": "f246e6da5d27c29e06bb0c947069cce05547fa3167d5af4eca5b7ae006bcb30d",
+      "source": "Can be gained in the {#1}Imprisoned Wildman{/#1} event.",
+      "zh": "可在{#1}被囚禁的荒野人{/#1}事件中获得。",
+      "status": "reviewed",
+      "page_ids": [
+        4615
+      ]
+    },
+    {
+      "id": "u-f25ac08857d9a01f9500cbe5",
+      "source_sha256": "f25ac08857d9a01f9500cbe51ef007bf4ffa4b839a3778309db9a603f4b46ed9",
+      "source": "{#1}Beast Slayers{/#1} origin starting gear (1 item).",
+      "zh": "{#1}猎兽者{/#1}起源的初始装备，数量为 1。",
+      "status": "reviewed",
+      "page_ids": [
+        8869
+      ]
+    },
+    {
+      "id": "u-f25ef39d76c37d52f74928f1",
+      "source_sha256": "f25ef39d76c37d52f74928f15a48e2d6ad466d93d20c876996aeee70fb9456c2",
+      "source": "Much appreciated. (the event ends)",
+      "zh": "感激不尽。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        7877
+      ]
+    },
+    {
+      "id": "u-f288e19af299ea21c531c364",
+      "source_sha256": "f288e19af299ea21c531c364a6050594d732b0e526e2d8922e5adac6c10b4441",
+      "source": "Can be bought in the {#1}Gunpowder Wagon{/#1} event.",
+      "zh": "可在{#1}火药车{/#1}事件中购买。",
+      "status": "reviewed",
+      "page_ids": [
+        13801
+      ]
+    },
+    {
+      "id": "u-f2c7c70dd1ece134b20be7ba",
+      "source_sha256": "f2c7c70dd1ece134b20be7ba05fcc087bc217fc4fceb65b501a14fa3436d3022",
+      "source": "Hear, hear! (the event ends)",
+      "zh": "说得好！（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12115
+      ]
+    },
+    {
+      "id": "u-f3329965ffe63b5e62dad88d",
+      "source_sha256": "f3329965ffe63b5e62dad88dbde90b93e0094cc9f613b36a20b6f9426e0126d4",
+      "source": "{#1}Most Vital Stats:{/#1} Melee Defence, Initiative, Melee Skill",
+      "zh": "{#1}最重要的属性：{/#1}近战防御、先攻、近战命中。",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-f360160c5480901293ba41c7",
+      "source_sha256": "f360160c5480901293ba41c7600acf7b027a240a2c51c66491748caaf36a9ce6",
+      "source": "\"It would be my privilege.\"",
+      "zh": "“那是我的荣幸。”",
+      "status": "reviewed",
+      "page_ids": [
+        12134
+      ]
+    },
+    {
+      "id": "u-f3e4d77684b272d784408a27",
+      "source_sha256": "f3e4d77684b272d784408a27c06065dba0b7c282bf58a1f673ba1826a6eb7e1b",
+      "source": "{#1}Green Vial{/#1} from the event",
+      "zh": "事件中获得的{#1}绿色小瓶{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7834
+      ]
+    },
+    {
+      "id": "u-f3ed9a389edfdf7c968c52e7",
+      "source_sha256": "f3ed9a389edfdf7c968c52e7a27377deeb9d25ca7c160353e75b7908fffd3d6b",
+      "source": "Had to endure several rounds of Miasma.",
+      "zh": "不得不硬扛好几回合瘴气。",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-f43f197a3fbb9e5a8bc717af",
+      "source_sha256": "f43f197a3fbb9e5a8bc717afafbc24489b50f83a6a16c3d3ec8db2bd53212049",
+      "source": "Rick.",
+      "zh": "Rick。",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-f44908428f45ded2a0aaabea",
+      "source_sha256": "f44908428f45ded2a0aaabeabca7153f4f1d43b4512899cc0192133b0e228e5f",
+      "source": "\"The sun is dying.\"",
+      "zh": "“太阳正在死去。”",
+      "status": "reviewed",
+      "page_ids": [
+        8266
+      ]
+    },
+    {
+      "id": "u-f45691d9cc17106609ea299e",
+      "source_sha256": "f45691d9cc17106609ea299e99d5fcd71f90a414bd4c53703a7a40abba42df67",
+      "source": "While confronting the {#1}{#2}{#3/}{/#2}{/#1} {#4}unholds{/#4} you get the option:",
+      "zh": "面对{#1}{#2}{#3/}{/#2}{/#1} {#4}巨魔{/#4}时，会出现以下选项：",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-f470bdfb78dc5f8178b25312",
+      "source_sha256": "f470bdfb78dc5f8178b25312c1f98810608548a00d1b1bcb6f31122ced8a082d",
+      "source": "{#1}{#2}4{/#2} {#3}Shield Bearer{/#3}{/#1}",
+      "zh": "{#1}{#2}4{/#2} {#3}持盾卫士{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-f4925182460332d6e7deb508",
+      "source_sha256": "f4925182460332d6e7deb50832d923aaee58fdbb86f4d48140bf7c82746f25c0",
+      "source": "{#1}Dumb{/#1} gets a {#2}good mood{/#2}",
+      "zh": "{#1}愚笨的弟兄{/#1}{#2}心情改善{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        8232
+      ]
+    },
+    {
+      "id": "u-f49e64558fc07a1df602113c",
+      "source_sha256": "f49e64558fc07a1df602113c09aec99d76bc51f0b4d7432681adfdf6a4fad680",
+      "source": "You gain 1-2 Pitchforks",
+      "zh": "获得 1-2 把草叉。",
+      "status": "reviewed",
+      "page_ids": [
+        15227
+      ]
+    },
+    {
+      "id": "u-f4a4e452f3e25271959c8ca5",
+      "source_sha256": "f4a4e452f3e25271959c8ca5495de58ec8928a7dc6897c556fecb8bc9a9f116f",
+      "source": "{#1}{/#1}{#2}Path 4 (Flagellant){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 4（苦修者）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        8005
+      ]
+    },
+    {
+      "id": "u-f4aa6253f64040baaff96f11",
+      "source_sha256": "f4aa6253f64040baaff96f119a8234bbfed98006104e52434d725180b5fdd977",
+      "source": "You are attacked by {#1}{#2}{#3/}{/#2}{/#1} {#4}necrosavants{/#4}. You can choose:",
+      "zh": "遭到{#1}{#2}{#3/}{/#2}{/#1} {#4}死灵剑士{/#4}袭击。可以选择：",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-f4cda2ce4f0a5e731e52f491",
+      "source_sha256": "f4cda2ce4f0a5e731e52f49155bdec7a9c8a2364617c2590ccddca1be7445407",
+      "source": "{#1}{#2}Reddit{/#2} discord{/#1}{#3/}",
+      "zh": "{#1}{#2}Reddit{/#2} 社区的 Discord{/#1}{#3/}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-f4eb6c4fbc41e31f8018dd49",
+      "source_sha256": "f4eb6c4fbc41e31f8018dd4950d77715be986ee772c639b375eb9ebecffa2499",
+      "source": "{#1}Optional Perks: {/#1}Pathfinder, Gifted, Backstabber",
+      "zh": "{#1}可选特长：{/#1}寻路者、天赋异禀、背刺者。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-f4fa849cdf75a75f986a6647",
+      "source_sha256": "f4fa849cdf75a75f986a664788de4e0f2019694d97531816f85220687a25d559",
+      "source": "{#1}Trainee{/#1} gains +1-2 Melee Defence",
+      "zh": "{#1}受训者{/#1}获得 +1-2 近战防御。",
+      "status": "reviewed",
+      "page_ids": [
+        9424
+      ]
+    },
+    {
+      "id": "u-f507ef36656643d96faa6c8f",
+      "source_sha256": "f507ef36656643d96faa6c8fc3a0791e726e9450040e8b780b231ad4bb959621",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} Destroy Armor: 101 – 135",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 摧毁护甲：101 – 135",
+      "status": "reviewed",
+      "page_ids": [
+        3439
+      ]
+    },
+    {
+      "id": "u-f50bd929f6bd15f9aa30b273",
+      "source_sha256": "f50bd929f6bd15f9aa30b2730e13928e096dc8c4ab5393734fb992baf33f2998",
+      "source": "{#1}Swordmaster{/#1} is now paid {#2}50% less{/#2} crowns a day",
+      "zh": "{#1}剑术大师{/#1}现在每天领取的克朗{#2}减少 50%{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        7791
+      ]
+    },
+    {
+      "id": "u-f51a52fc1a330f8013280247",
+      "source_sha256": "f51a52fc1a330f8013280247bfe9af13c0e9bd03ad33484d8bd780b94ebf1efe",
+      "source": "Seeing you, the woman shouts for help.",
+      "zh": "女人看见你，便大声求救。",
+      "status": "reviewed",
+      "page_ids": [
+        7062
+      ]
+    },
+    {
+      "id": "u-f51f5960efb38a67045e9cd1",
+      "source_sha256": "f51f5960efb38a67045e9cd1cda2cfdafe03d80388999ee259d9d50a52e02090",
+      "source": "{#1}Settlements{/#1}",
+      "zh": "{#1}聚落{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-f53462ca379c17c94128a807",
+      "source_sha256": "f53462ca379c17c94128a807a0f8390854a24c0627747805e0d120233c3e7f5b",
+      "source": "{#1}{#2}3.3{/#2} {#3}>> Dodge/Overwhelm Shield Tank <<{/#3}{/#1}",
+      "zh": "{#1}{#2}3.3{/#2} {#3}>> 闪避／压制盾卫 <<{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-f554a00749667cb1efeac2a2",
+      "source_sha256": "f554a00749667cb1efeac2a2ad9f5e635c265b82c1cab8254dc4f7f954b7389d",
+      "source": "\"As you wish, master.\"",
+      "zh": "“遵命，主人。”",
+      "status": "reviewed",
+      "page_ids": [
+        8074
+      ]
+    },
+    {
+      "id": "u-f57865336d60b7d82a4c875f",
+      "source_sha256": "f57865336d60b7d82a4c875fcc6f8fa0d4535518b968033666e25f4b96c24956",
+      "source": "{#1}Pig Farm{/#1} increases availability.",
+      "zh": "{#1}养猪场{/#1}会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        3437
+      ]
+    },
+    {
+      "id": "u-f5dfca86d98e55522d3ea5c2",
+      "source_sha256": "f5dfca86d98e55522d3ea5c2311c40d2573c03e8a45deb50d26239eb440032c4",
+      "source": "highest minimum damage",
+      "zh": "伤害下限的最高值",
+      "status": "reviewed",
+      "page_ids": [
+        3464
+      ]
+    },
+    {
+      "id": "u-f5e033a07f69170fc41c44ca",
+      "source_sha256": "f5e033a07f69170fc41c44ca79b767f773ab6ce4a3c58c58fe093916f3a57663",
+      "source": "Witchhunter's token",
+      "zh": "猎巫人分支",
+      "status": "reviewed",
+      "page_ids": [
+        7062
+      ]
+    },
+    {
+      "id": "u-f5e885388463d6c65a0d7879",
+      "source_sha256": "f5e885388463d6c65a0d7879cad87cb5022f9d3ff641c4b16fbbdea6adcec13e",
+      "source": "{#1}{#2}1.6{/#2} {#3}When task is done{/#3}{/#1}",
+      "zh": "{#1}{#2}1.6{/#2} {#3}完成任务后{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        10902
+      ]
+    },
+    {
+      "id": "u-f5ebe55279d359fdff8b0429",
+      "source_sha256": "f5ebe55279d359fdff8b042920472b6253b8e9192fb9fc2eec738b44fdc69327",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Enhanced Coat{#6/}of Plates{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}强化{#6/}铁片战衣{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        5272
+      ]
+    },
+    {
+      "id": "u-f6063816d53f8241a094b556",
+      "source_sha256": "f6063816d53f8241a094b556561d625fea8dfe3a87f911f4ddf967eb0bb6eace",
+      "source": "{#1}Savedgames editor{/#1}",
+      "zh": "{#1}存档编辑器{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-f62d2229fa411e5531e0dc79",
+      "source_sha256": "f62d2229fa411e5531e0dc7973af6d436f8993f95f6b67edfd8a81dbc6989d99",
+      "source": "{#1}{#2}2.1{/#2} {#3}Perk calculator{/#3}{/#1}",
+      "zh": "{#1}{#2}2.1{/#2} {#3}特长计算器{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-f64c9c1e9fa3ef0445757dbf",
+      "source_sha256": "f64c9c1e9fa3ef0445757dbf2997270479b09c3be6c902311b109a6fdefe35c5",
+      "source": "{#1}{#2}Welcome to the company.{/#2}{/#1} ({#3}Wildman{/#3} joins you)",
+      "zh": "{#1}{#2}欢迎加入战团。{/#2}{/#1}（{#3}荒野人{/#3}加入）",
+      "status": "reviewed",
+      "page_ids": [
+        7020
+      ]
+    },
+    {
+      "id": "u-f660da503f7e858852506936",
+      "source_sha256": "f660da503f7e85885250693642941d729c5d246049345f78faeae0085f737d57",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Relic Heater{#6/}Shield{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}圣物{#6/}熨斗形盾{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        5299
+      ]
+    },
+    {
+      "id": "u-f66a520a3c6ba981812de4c0",
+      "source_sha256": "f66a520a3c6ba981812de4c0b605df311dd14ffe32df39bd56f1152a7aa017fc",
+      "source": "You shake your head no.",
+      "zh": "你摇头拒绝。",
+      "status": "reviewed",
+      "page_ids": [
+        12043
+      ]
+    },
+    {
+      "id": "u-f672c22de20261c86b66adc5",
+      "source_sha256": "f672c22de20261c86b66adc507cccef4de7332b203418b2d36db09a304146f96",
+      "source": "{#1}{#2}1{/#2} {#3}Encounter{/#3}{/#1}",
+      "zh": "{#1}{#2}1{/#2} {#3}遭遇{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8174
+      ]
+    },
+    {
+      "id": "u-f6ae98523f450ed7e0de3b42",
+      "source_sha256": "f6ae98523f450ed7e0de3b4267b16f78ac8d911f61f469f7915979d6f6246c2f",
+      "source": "Leaving a Legacy",
+      "zh": "留下功业",
+      "status": "reviewed",
+      "page_ids": [
+        6430
+      ]
+    },
+    {
+      "id": "u-f6b1f0d49dbe23f426bb853d",
+      "source_sha256": "f6b1f0d49dbe23f426bb853d6d6bc1dfb71d76a6c934204aec7d63b3cd9bd22a",
+      "source": "Archers eliminate or weaken berserkers or orc young.",
+      "zh": "弓手消灭或削弱兽人狂战士、兽人青年。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-f6b6093d712affbf6b74aae7",
+      "source_sha256": "f6b6093d712affbf6b74aae73393cbb34491d8b4f5ac75aa6398d535ec2b756a",
+      "source": "{#1}Ctrl{/#1}+{#2}Click on a neutral party{/#2}",
+      "zh": "{#1}Ctrl{/#1}+{#2}点击中立队伍{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-f6e5551592a094dc26719eca",
+      "source_sha256": "f6e5551592a094dc26719eca15cb0eef79fa11850107fd67146dd5fb0c31a4ec",
+      "source": "\"Being drunk.\"",
+      "zh": "“喝醉。”",
+      "status": "reviewed",
+      "page_ids": [
+        9126
+      ]
+    },
+    {
+      "id": "u-f6ec81796f118b270386d76f",
+      "source_sha256": "f6ec81796f118b270386d76f986e6e45a42b44e3965107062185a7624d48798d",
+      "source": "{#1}{/#1}{#2}Path 1C (Gladiator){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 1C（角斗士）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15089
+      ]
+    },
+    {
+      "id": "u-f74a6ff08c9cdc9f3c1e5233",
+      "source_sha256": "f74a6ff08c9cdc9f3c1e52330663cca4a3c021eb0ba83cc52248d284d48b3477",
+      "source": "You get a big reputation boost.",
+      "zh": "声誉大幅提升。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-f7787b776f3b6e495b506240",
+      "source_sha256": "f7787b776f3b6e495b50624057c72d0a739cbf5f5e7bda18b98bdff274b62036",
+      "source": "{#1}{#2}1.1.2{/#2} {#3}Path 1B{/#3}{/#1}",
+      "zh": "{#1}{#2}1.1.2{/#2} {#3}分支 1B{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        14773
+      ]
+    },
+    {
+      "id": "u-f78c20bc6f9c96823be69810",
+      "source_sha256": "f78c20bc6f9c96823be69810b5ef1e84740c59126178a8049905f1ed1aab37a1",
+      "source": "{#1}{#2}1{/#2} {#3}Company of New Order{/#3}{/#1}",
+      "zh": "{#1}{#2}1{/#2} {#3}新秩序战团{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-f793a8caf0365d3978e285dc",
+      "source_sha256": "f793a8caf0365d3978e285dcc46a36b53194165fe1d0ce3d4a286bea9eeb6c96",
+      "source": "The crowd cheers to this.",
+      "zh": "人群为此欢呼起来。",
+      "status": "reviewed",
+      "page_ids": [
+        7011
+      ]
+    },
+    {
+      "id": "u-f79bea3ea817115c57da25ed",
+      "source_sha256": "f79bea3ea817115c57da25edfd73d5855b810f517a45d9a1930485e9c9341d0a",
+      "source": "Make/Break camp",
+      "zh": "扎营／收营",
+      "status": "reviewed",
+      "page_ids": [
+        2816
+      ]
+    },
+    {
+      "id": "u-f7d982b3c46c4b1bc7ecfdf6",
+      "source_sha256": "f7d982b3c46c4b1bc7ecfdf60e1f5cdf3497418a7447f9c3647c5a197d2b1a21",
+      "source": "We'll keep an eye out. (the event ends)",
+      "zh": "我们会留意的。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-f8003a8bbc1d3a64562468d5",
+      "source_sha256": "f8003a8bbc1d3a64562468d53c466447e7153d86dd36f6e2337d61f8fdb69fad",
+      "source": "Laughing, {#1}Raider{/#1} gets to his feet.",
+      "zh": "{#1}劫掠者{/#1}笑着站起身。",
+      "status": "reviewed",
+      "page_ids": [
+        12081
+      ]
+    },
+    {
+      "id": "u-f8012db026f12866bc41e470",
+      "source_sha256": "f8012db026f12866bc41e470d0121d9ab0a26261e8e095452f480a809ea542fb",
+      "source": "{#1}{/#1}{#2}Tactics/Formations{/#2}",
+      "zh": "{#1}{/#1}{#2}战术与阵形{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-f8113b79d85a4f351a9ba393",
+      "source_sha256": "f8113b79d85a4f351a9ba3938c32fbc1b7fad216eb8f2ac8225ed101c5b1e083",
+      "source": "{#1}Rookie{/#1} loses -3 Resolve",
+      "zh": "{#1}新兵{/#1}的意志 -3。",
+      "status": "reviewed",
+      "page_ids": [
+        15231
+      ]
+    },
+    {
+      "id": "u-f82e2c7802a6702e460c3a3d",
+      "source_sha256": "f82e2c7802a6702e460c3a3d56d8246ca676c3f257cd88327b5cc5c783416bf0",
+      "source": "{#1}Rookie{/#1} gains +3 Resolve",
+      "zh": "{#1}新兵{/#1}获得 +3 意志。",
+      "status": "reviewed",
+      "page_ids": [
+        15231
+      ]
+    },
+    {
+      "id": "u-f86021f961bfbe3379da837b",
+      "source_sha256": "f86021f961bfbe3379da837ba8e3604a40870198a62cfd4ed8b3ed89fd4d9744",
+      "source": "{#1}{#2}1.2.1{/#2} {#3}Path 1.1.1{/#3}{/#1}",
+      "zh": "{#1}{#2}1.2.1{/#2} {#3}分支 1.1.1{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7823
+      ]
+    },
+    {
+      "id": "u-f892951ade5cbd88a9599fb8",
+      "source_sha256": "f892951ade5cbd88a9599fb8bb5b7f4ffd72d56b4c8b56dab4d01dfcd9595d75",
+      "source": "Can be looted from {#1}Goblin Skirmisher{/#1}, {#2}Goblin Wolfrider{/#2}.",
+      "zh": "可从{#1}地精散兵{/#1}、{#2}地精狼骑兵{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        3410
+      ]
+    },
+    {
+      "id": "u-f8a20b22a7c540afcb4ef7a0",
+      "source_sha256": "f8a20b22a7c540afcb4ef7a006f41d7554329a389b4095dac7b2b9de44ba2713",
+      "source": "{#1}{#2}2.2{/#2} {#3}Specialized Shops and Marketplace assortment{/#3}{/#1}",
+      "zh": "{#1}{#2}2.2{/#2} {#3}专门店铺与集市货品{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-f8bcd97d40d7cdc975181604",
+      "source_sha256": "f8bcd97d40d7cdc975181604f45fb7d113b65c0e3d5836a7d9aeacdfb60cb7b5",
+      "source": "{#1}Entertainer{/#1}",
+      "zh": "{#1}艺人{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6996
+      ]
+    },
+    {
+      "id": "u-f8f222f5e1181fc626928a1b",
+      "source_sha256": "f8f222f5e1181fc626928a1bb8d58dc78c31d6752abec96f7ab616b8affb9a0a",
+      "source": "{#1}{#2}Optional perks (not tested myself yet): {/#2}{/#1}",
+      "zh": "{#1}{#2}可选特长（本人尚未测试）：{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        5049
+      ]
+    },
+    {
+      "id": "u-f920428c269f82ab8c876344",
+      "source_sha256": "f920428c269f82ab8c876344830f4260f0ae9c1a2014d8f8829082342ae7f1cc",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Cured Venison{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}腌鹿肉{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-f92222020b6f5003ffd2eec7",
+      "source_sha256": "f92222020b6f5003ffd2eec72c776ab75d72926ba46e02fe40bbf09c75c997f8",
+      "source": "{#1}{#2}1{/#2} {#3}Links to external guides{/#3}{/#1}",
+      "zh": "{#1}{#2}1{/#2} {#3}外部攻略链接{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-f9256dc29be8f76a4f7372a1",
+      "source_sha256": "f9256dc29be8f76a4f7372a15aca980b07245dc4c75ae42309f6813cace2bdaa",
+      "source": "You gain a Wardog",
+      "zh": "获得一条战犬。",
+      "status": "reviewed",
+      "page_ids": [
+        7020
+      ]
+    },
+    {
+      "id": "u-f93a206930b46146fb0bb4ca",
+      "source_sha256": "f93a206930b46146fb0bb4ca14f185395585732815de0817802f6e5c754a964b",
+      "source": "{#1}Oldgods{/#1} loses -1 Resolve",
+      "zh": "{#1}旧神信徒{/#1}的意志 -1。",
+      "status": "reviewed",
+      "page_ids": [
+        7826
+      ]
+    },
+    {
+      "id": "u-f959dd8ef0950a1e6a66daa8",
+      "source_sha256": "f959dd8ef0950a1e6a66daa8d30bff4b556b291557e54ffb024bb6bcd6d090b1",
+      "source": "{#1}{#2}1.1.2{/#2} {#3}Path 1.1.1 (Fail){/#3}{/#1}",
+      "zh": "{#1}{#2}1.1.2{/#2} {#3}分支 1.1.1（失败）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        13936
+      ]
+    },
+    {
+      "id": "u-f9658887ea5a28567b42fe59",
+      "source_sha256": "f9658887ea5a28567b42fe5962f9973ffc52c5115062e2b65fb03fb6eb9e8dd6",
+      "source": "1 2-handed great sword",
+      "zh": "1 名双手巨剑手",
+      "status": "reviewed",
+      "page_ids": [
+        4788
+      ]
+    },
+    {
+      "id": "u-f96b619f5ae3131d10faf46a",
+      "source_sha256": "f96b619f5ae3131d10faf46aab6e525f4a531e6dddd6c6c9ffda9c9b970bca13",
+      "source": "{#1}Taunt{/#1} may refer to one of the following:",
+      "zh": "{#1}挑衅{/#1}可能指下列内容之一：",
+      "status": "reviewed",
+      "page_ids": [
+        16876
+      ]
+    },
+    {
+      "id": "u-f970dcd44ac1ec99d4e04eb3",
+      "source_sha256": "f970dcd44ac1ec99d4e04eb32ecd16020d11fdf453a3f3ab9d1a641dac8d5fc1",
+      "source": "{#1}{#2}Ohh...{/#2}{/#1}",
+      "zh": "{#1}{#2}哦……{/#2}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7049
+      ]
+    },
+    {
+      "id": "u-f9717b14d0430927870a980d",
+      "source_sha256": "f9717b14d0430927870a980d4a3aff32df04e97c74207da541f1e7e622941858",
+      "source": "\"Hey, hey!\"",
+      "zh": "“喂，喂！”",
+      "status": "reviewed",
+      "page_ids": [
+        8304
+      ]
+    },
+    {
+      "id": "u-f9b5f48666ab69a43567c33c",
+      "source_sha256": "f9b5f48666ab69a43567c33cfc2c0b3357c3ba7513d0847212332b3ec3ab2b2c",
+      "source": "Can be looted from {#1}Barbarian Reaver{/#1}, {#2}Barbarian Beastmaster{/#2}.",
+      "zh": "可从{#1}蛮族掠夺者{/#1}、{#2}蛮族驯兽师{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        9444
+      ]
+    },
+    {
+      "id": "u-f9ea9475ce4102edddc7228d",
+      "source_sha256": "f9ea9475ce4102edddc7228d4805ee8c3a7b42d8a46a9a2823aacaa45323cf94",
+      "source": "Bleeding Damage effects are similar to one-handed Cleavers.",
+      "zh": "流血伤害效果与单手斩刀相似。",
+      "status": "reviewed",
+      "page_ids": [
+        4031
+      ]
+    },
+    {
+      "id": "u-f9fb599b4f30ea5b695d5eff",
+      "source_sha256": "f9fb599b4f30ea5b695d5eff69c15f977c43af8eaa0234744552e75dee2c6a25",
+      "source": "They accept after you paid them ~3000 {#1}{#2}{#3/}{/#2}{/#1}.",
+      "zh": "支付约 3000 {#1}{#2}{#3/}{/#2}{/#1}后，他们会接受。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-fa25202f06d56c95170d9c80",
+      "source_sha256": "fa25202f06d56c95170d9c803dcddaf37e31ccbead4639a0f3657896426076b1",
+      "source": "Can be looted from {#1}Barbarian Reaver{/#1}, {#2}Barbarian Drummer{/#2}.",
+      "zh": "可从{#1}蛮族掠夺者{/#1}、{#2}蛮族鼓手{/#2}身上缴获。",
+      "status": "reviewed",
+      "page_ids": [
+        9447
+      ]
+    },
+    {
+      "id": "u-fa2660b8eab6b24c7c2160d2",
+      "source_sha256": "fa2660b8eab6b24c7c2160d29e294f02a88eadcd88e04e78fda7b28a4877c7f8",
+      "source": "{#1}{/#1}{#2}Path 4 (Farmhand){/#2}",
+      "zh": "{#1}{/#1}{#2}分支 4（农场帮工）{/#2}",
+      "status": "reviewed",
+      "page_ids": [
+        15893
+      ]
+    },
+    {
+      "id": "u-fa4fa1fe92e839cbc5795b95",
+      "source_sha256": "fa4fa1fe92e839cbc5795b9578b9244f2187e5b816d25dbf09bc73269cc02ad2",
+      "source": "{#1}{#2}2.2.2{/#2} {#3}Supplies{/#3}{/#1}",
+      "zh": "{#1}{#2}2.2.2{/#2} {#3}补给品{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-fa62440d6bb9058a4b3c2f37",
+      "source_sha256": "fa62440d6bb9058a4b3c2f37deb77c377be588a4d83dc819f8183fcd17688481",
+      "source": "You spend 400 crowns",
+      "zh": "花费 400 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        8985
+      ]
+    },
+    {
+      "id": "u-fa775b6c6b8a1378ea1afe4d",
+      "source_sha256": "fa775b6c6b8a1378ea1afe4d7515bfb02fce65ff21ea17f5c6a66ea00da3c13f",
+      "source": "Armor damage (Double Grip):",
+      "zh": "护甲伤害（双手握持）：",
+      "status": "reviewed",
+      "page_ids": [
+        3439
+      ]
+    },
+    {
+      "id": "u-fa7a14a653c51d8527ee205f",
+      "source_sha256": "fa7a14a653c51d8527ee205f9ec8e289b149007d1589fb9fc53c8d7a9efb4c51",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Copper Ingots{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}铜锭{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-fa937800ec44804759e598f6",
+      "source_sha256": "fa937800ec44804759e598f6b4d648cc43e1182dad38f07b465ff7982efe6121",
+      "source": "{#1}Recommended Traits:{/#1} Iron Lungs, Hawkeye",
+      "zh": "{#1}推荐特性：{/#1}铁肺、鹰眼。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-fa99465c1e6195ea54d818e4",
+      "source_sha256": "fa99465c1e6195ea54d818e41bf38504625b7d9b5d0a0faf98d5b9a913335b69",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Minted Silver Coins{#5/}Base worth: 300{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}铸造银币{#5/}基础价值：300{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-fafc5be0a6377f5808a0b2ad",
+      "source_sha256": "fafc5be0a6377f5808a0b2adcab2e4308b060c73020b6e8ce3a8694b3431cd43",
+      "source": "{#1}{#2}1.4{/#2} {#3}Path 3 (Tiny){/#3}{/#1}",
+      "zh": "{#1}{#2}1.4{/#2} {#3}分支 3（矮小）{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        8543
+      ]
+    },
+    {
+      "id": "u-fb1b60099fc8b6686e5f2214",
+      "source_sha256": "fb1b60099fc8b6686e5f221404c47375c8ebd2e9bc029727afb9c0f7f2e89e1d",
+      "source": "{#1}Damage calculator{/#1}",
+      "zh": "{#1}伤害计算器{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-fb2d9f1957bc22ddf31f8e9a",
+      "source_sha256": "fb2d9f1957bc22ddf31f8e9a9332c67f71e30b1485747f116120c78321c6de65",
+      "source": "Huh. Interesting story. (the event ends)",
+      "zh": "唔，有意思的故事。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-fb34c2f4fb1c2072c7b9bb9d",
+      "source_sha256": "fb34c2f4fb1c2072c7b9bb9d6cf144fa1b126779c3de2a6f1db22983b6fac320",
+      "source": "\"Yes, I can see that.\"",
+      "zh": "“嗯，我看出来了。”",
+      "status": "reviewed",
+      "page_ids": [
+        12061
+      ]
+    },
+    {
+      "id": "u-fb6077c5c563100991623f66",
+      "source_sha256": "fb6077c5c563100991623f66120cde71a45079f8343859a459591d261b5d8cf4",
+      "source": "\"The foot leads, the body follows. Again!\"",
+      "zh": "“脚先动，身子跟上。再来！”",
+      "status": "reviewed",
+      "page_ids": [
+        7793
+      ]
+    },
+    {
+      "id": "u-fb768de3e65b804db423e3a4",
+      "source_sha256": "fb768de3e65b804db423e3a491bfc8d889d0ed3584d21dca98379d694a3fee60",
+      "source": "{#1}Sacrifice{/#1} has {#2}died{/#2}",
+      "zh": "{#1}祭品{/#1}已经{#2}死亡{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        12046
+      ]
+    },
+    {
+      "id": "u-fba4b3388e4cff651b0ee00a",
+      "source_sha256": "fba4b3388e4cff651b0ee00aeaa0ea3ca70b93e7f43e2d5a6afe14e184f22ab6",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}Bladed Pike{/#5}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}{#5}刃枪{/#5}",
+      "status": "reviewed",
+      "page_ids": [
+        10956
+      ]
+    },
+    {
+      "id": "u-fbc2d991cb63754fb396f90a",
+      "source_sha256": "fbc2d991cb63754fb396f90a0418da7e82fe03cd07d20f7c415529cad0db8e99",
+      "source": "You have completed the contract.",
+      "zh": "已完成委托。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-fbc6bddf2b887f843f909eb0",
+      "source_sha256": "fbc6bddf2b887f843f909eb0f43fdd0724eb804a10be1557d5e6a2f6e71e75e3",
+      "source": "{#1}PB{/#1}",
+      "zh": "{#1}分支 PB{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7049
+      ]
+    },
+    {
+      "id": "u-fc029e3104152f5cc6fa0f97",
+      "source_sha256": "fc029e3104152f5cc6fa0f973a269958257ab10dfa64b6aeda3c8d764c511719",
+      "source": "{#1}Randombrother{/#1} nods.",
+      "zh": "{#1}一名弟兄{/#1}点了点头。",
+      "status": "reviewed",
+      "page_ids": [
+        15195
+      ]
+    },
+    {
+      "id": "u-fc36421ac63e949e0798498e",
+      "source_sha256": "fc36421ac63e949e0798498e8dee44b57d695fb7b0d4c2657b103b2394019fef",
+      "source": "{#1}{#2}{#3}Entertainer{/#3}, what say you?{/#2}{/#1} (requires Juggler or Minstrel)",
+      "zh": "{#1}{#2}{#3}艺人{/#3}，你怎么说？{/#2}{/#1}（需要杂耍艺人或吟游诗人）",
+      "status": "reviewed",
+      "page_ids": [
+        6996
+      ]
+    },
+    {
+      "id": "u-fc49d50364f71caf9cafe209",
+      "source_sha256": "fc49d50364f71caf9cafe2097131806d2ed3c837190d15c3051c06446656dc13",
+      "source": "You fight 1vs1 against a {#1}{#2}{#3/}{/#2}{/#1} {#4}Barbarian Chosen{/#4}.",
+      "zh": "与一名{#1}{#2}{#3/}{/#2}{/#1} {#4}蛮族神选战士{/#4}进行 1vs1 决斗。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    },
+    {
+      "id": "u-fc79aab3443593c88a198df2",
+      "source_sha256": "fc79aab3443593c88a198df23afdb62905ba280f660779e7cc8864acd816a61b",
+      "source": "\"That shall be great on the battlefield!\"",
+      "zh": "“这东西上了战场肯定好用！”",
+      "status": "reviewed",
+      "page_ids": [
+        12079
+      ]
+    },
+    {
+      "id": "u-fca3de5b39541181f55b5805",
+      "source_sha256": "fca3de5b39541181f55b580583c3473c4c8d7a24401ab64d9d722077d9b146aa",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Beasts & Exploration DLC{/#4}.",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}野兽与探索 DLC{/#4}。",
+      "status": "reviewed",
+      "page_ids": [
+        7651
+      ]
+    },
+    {
+      "id": "u-fca424596bc71a96ff337159",
+      "source_sha256": "fca424596bc71a96ff3371592e0f5bcb56c1b389ab6363ef0c4890babd3f383c",
+      "source": "Can be used in conjunction with {#1}Poisoned Oil{/#1}.",
+      "zh": "可与{#1}淬毒油{/#1}同时使用。",
+      "status": "reviewed",
+      "page_ids": [
+        6022
+      ]
+    },
+    {
+      "id": "u-fcc4965cdb9be747504659b8",
+      "source_sha256": "fcc4965cdb9be747504659b893cecf2030aa076104d6f45aef72311410d43208",
+      "source": "{#1}Goat Pens{/#1}, {#2}Gatherer's Hut{/#2} increase availability.",
+      "zh": "{#1}山羊圈{/#1}、{#2}采集者小屋{/#2}会增加供应。",
+      "status": "reviewed",
+      "page_ids": [
+        3472
+      ]
+    },
+    {
+      "id": "u-fccace518a4461f3e5d714f7",
+      "source_sha256": "fccace518a4461f3e5d714f785688a542a3f45f65867b6835afbf77ced2de391",
+      "source": "{#1}{#2}5{/#2} {#3}Of Flesh and Faith{/#3}{/#1}",
+      "zh": "{#1}{#2}5{/#2} {#3}血肉与信仰{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        11754
+      ]
+    },
+    {
+      "id": "u-fd2a5393f22bcb6bf4bb6a12",
+      "source_sha256": "fd2a5393f22bcb6bf4bb6a1252ada95b50c3031173788aba4302081a106c9da8",
+      "source": "Settlement Marketplace.",
+      "zh": "聚落集市。",
+      "status": "reviewed",
+      "page_ids": [
+        2283
+      ]
+    },
+    {
+      "id": "u-fd2b407a1e2558638f1b2ced",
+      "source_sha256": "fd2b407a1e2558638f1b2ced3c68a0aad2b624d2f69007af826de8d47c9d4b6a",
+      "source": "Glad you're staying with us. (the event ends)",
+      "zh": "很高兴你能留下。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        12083
+      ]
+    },
+    {
+      "id": "u-fd33b43e053249b3d385fefd",
+      "source_sha256": "fd33b43e053249b3d385fefd22dc5a49ea7c71d49cd2e74ff50d3a28674f0a17",
+      "source": "Mutates the body, causing {#1}sickness{/#1}.",
+      "zh": "使身体变异，并导致{#1}患病{/#1}。",
+      "status": "reviewed",
+      "page_ids": [
+        15794
+      ]
+    },
+    {
+      "id": "u-fd4122ba6990ed568df0c343",
+      "source_sha256": "fd4122ba6990ed568df0c3433c71545c761dbb51aa5126ae2da97d900ee9e8b6",
+      "source": "You lose 8-18 Provisions",
+      "zh": "失去 8-18 口粮。",
+      "status": "reviewed",
+      "page_ids": [
+        12080
+      ]
+    },
+    {
+      "id": "u-fd5c927742d9ab8140a7224d",
+      "source_sha256": "fd5c927742d9ab8140a7224daf871ae7b22b947991c28c2fcbe948e2029a649b",
+      "source": "\"Unless it gets you in the stomach.\"",
+      "zh": "“除非它扎进你的肚子。”",
+      "status": "reviewed",
+      "page_ids": [
+        8394
+      ]
+    },
+    {
+      "id": "u-fd6c371b127406879fc89a93",
+      "source_sha256": "fd6c371b127406879fc89a9396ff289f4f3079afb2c241c2b6dfad2dd727a7a7",
+      "source": "{#1}Bro{/#1} is now paid {#2}{#3}Newpay{/#3}{/#2} crowns a day",
+      "zh": "{#1}这名弟兄{/#1}的日薪现为 {#2}{#3}新薪额{/#3}{/#2} 克朗。",
+      "status": "reviewed",
+      "page_ids": [
+        12134
+      ]
+    },
+    {
+      "id": "u-fd6d80d327b08f4400193992",
+      "source_sha256": "fd6d80d327b08f4400193992ea98257430e78cd96bb4c667dbd4b1652f063e2f",
+      "source": "The man's brow furrows.",
+      "zh": "男人皱起眉头。",
+      "status": "reviewed",
+      "page_ids": [
+        8370
+      ]
+    },
+    {
+      "id": "u-fd7323cb6e9d24915cc2abfd",
+      "source_sha256": "fd7323cb6e9d24915cc2abfde6f44a901518e1fcc53b9ff4b532aadeeb4482a3",
+      "source": "\"Alright, but this isn't happening again, understand?\"",
+      "zh": "“好吧，不过下不为例，明白吗？”",
+      "status": "reviewed",
+      "page_ids": [
+        6989
+      ]
+    },
+    {
+      "id": "u-fd89128accbdeda564457cd9",
+      "source_sha256": "fd89128accbdeda564457cd90c3c94e6a557104542064f0072bab0a5c9553038",
+      "source": "\"Really, really good sleight of hand.\"",
+      "zh": "“非常、非常高明的障眼法。”",
+      "status": "reviewed",
+      "page_ids": [
+        7801
+      ]
+    },
+    {
+      "id": "u-fd968f0709b51b7ff5224b83",
+      "source_sha256": "fd968f0709b51b7ff5224b831570d42bc6cb1166c836d43ef80c40182888e25b",
+      "source": "{#1}Utilitarian Character Builds{/#1}",
+      "zh": "{#1}辅助角色配点{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        7159
+      ]
+    },
+    {
+      "id": "u-fdb990bcc39bcbaf4c4dc9be",
+      "source_sha256": "fdb990bcc39bcbaf4c4dc9be919ac43dd2360f634830afe026a8b65b8ea33807",
+      "source": "{#1}{#2}3.1{/#2} {#3}Forums{/#3}{/#1}",
+      "zh": "{#1}{#2}3.1{/#2} {#3}论坛{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        6382
+      ]
+    },
+    {
+      "id": "u-fdc5d1362063216514ba3400",
+      "source_sha256": "fdc5d1362063216514ba3400b6f9eff336fd1ef6a01ed1d25180852245e936aa",
+      "source": "Produces {#1}{#2}{#3/}{/#2}{/#1} {#4}Roots and Berries{/#4}",
+      "zh": "出产{#1}{#2}{#3/}{/#2}{/#1} {#4}根茎与浆果{/#4}",
+      "status": "reviewed",
+      "page_ids": [
+        2603
+      ]
+    },
+    {
+      "id": "u-fded8a1c31633613dfbd8d3c",
+      "source_sha256": "fded8a1c31633613dfbd8d3c2c831dcb239f28b058301a95fbd5a30e52410dfa",
+      "source": "Take care you bastard. (the event ends)",
+      "zh": "保重，你这混蛋。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        8298
+      ]
+    },
+    {
+      "id": "u-fdfafd92a0c48b514f62644a",
+      "source_sha256": "fdfafd92a0c48b514f62644ae5683865ceb6be26ea78360505cb7cbd778ced84",
+      "source": "{#1}Archer2{/#1} gains +1 Ranged Skill",
+      "zh": "{#1}弓手乙{/#1}获得 +1 远程命中。",
+      "status": "reviewed",
+      "page_ids": [
+        9882
+      ]
+    },
+    {
+      "id": "u-fec81d8fb1641c03836989a7",
+      "source_sha256": "fec81d8fb1641c03836989a79f1b65ef170fd13b7d209fc24d1ecc9e596d5aa4",
+      "source": "We've been had. (the event ends)",
+      "zh": "我们被骗了。（事件结束）",
+      "status": "reviewed",
+      "page_ids": [
+        6999
+      ]
+    },
+    {
+      "id": "u-fed3c4aa86d3358f5e0ff60d",
+      "source_sha256": "fed3c4aa86d3358f5e0ff60d0069153027e736c2ed9d21c7dadc6035a736fb0a",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}Rainbow Scale{#5/}Base worth: 200{#6}{#7}{#8/}{/#7}{/#6}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4/}虹彩鳞片{#5/}基础价值：200{#6}{#7}{#8/}{/#7}{/#6}",
+      "status": "reviewed",
+      "page_ids": [
+        12902
+      ]
+    },
+    {
+      "id": "u-ff0d89997fee2bb40bbc3162",
+      "source_sha256": "ff0d89997fee2bb40bbc3162208ee344b06dc83a327330046f3537c7360ffd50",
+      "source": "{#1}Lowborn{/#1} gets a {#2}bad mood{/#2}",
+      "zh": "{#1}平民出身的弟兄{/#1}{#2}心情变差{/#2}。",
+      "status": "reviewed",
+      "page_ids": [
+        9868
+      ]
+    },
+    {
+      "id": "u-ff14f7550c1050a0ae59fb07",
+      "source_sha256": "ff14f7550c1050a0ae59fb0727649a350bb15c906c3d1896eaffb79559a73885",
+      "source": "Core of any starting company. Solid versatile trooper.",
+      "zh": "任何初建战团的核心，可靠而全面的战士。",
+      "status": "reviewed",
+      "page_ids": [
+        3767
+      ]
+    },
+    {
+      "id": "u-ff4ace3c8dee342d76e44f50",
+      "source_sha256": "ff4ace3c8dee342d76e44f5080bee564f14e3cdaedeb671bad07a0de5bbe48d1",
+      "source": "Count me in! ({#1}{#2}70% success{/#2}{/#1}, {#3}{#4}30% failure{/#4}{/#3})",
+      "zh": "算我一个！（{#1}{#2}70% 成功{/#2}{/#1}，{#3}{#4}30% 失败{/#4}{/#3}）",
+      "status": "reviewed",
+      "page_ids": [
+        12076
+      ]
+    },
+    {
+      "id": "u-ff6f17e309e710fc15a9ee47",
+      "source_sha256": "ff6f17e309e710fc15a9ee4743e2e8c25311c4158726ffbd5cc78aabdbe118a5",
+      "source": "{#1}Spartan{/#1} suffers Severe Concussion (50%) or light wounds (50%)",
+      "zh": "{#1}节俭的弟兄{/#1}受到严重脑震荡（50%），或受到轻伤（50%）。",
+      "status": "reviewed",
+      "page_ids": [
+        9397
+      ]
+    },
+    {
+      "id": "u-ff806847cdb38cf0821b0e79",
+      "source_sha256": "ff806847cdb38cf0821b0e7911760bf11133198f7a13601a41d535ae77d1b95f",
+      "source": "Starting gear for {#1}Cultist{/#1}.",
+      "zh": "{#1}邪教徒{/#1}的初始装备。",
+      "status": "reviewed",
+      "page_ids": [
+        9351
+      ]
+    },
+    {
+      "id": "u-ff8b134c4d27161e05bbe636",
+      "source_sha256": "ff8b134c4d27161e05bbe636ed8b4c90a3a3cfa47689f50d05108ca28c313726",
+      "source": "\"Ya gotta strong nose for shit, sir.\"",
+      "zh": "“长官，你闻屎的鼻子可真灵。”",
+      "status": "reviewed",
+      "page_ids": [
+        15195
+      ]
+    },
+    {
+      "id": "u-ff8ed9d23698fa768dc66b71",
+      "source_sha256": "ff8ed9d23698fa768dc66b7130bdfd184a725aaa1c6bac3e8dd8317196db4f14",
+      "source": "{#1}{#2}1.4{/#2} {#3}Path 1.1.1B{/#3}{/#1}",
+      "zh": "{#1}{#2}1.4{/#2} {#3}分支 1.1.1B{/#3}{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        12431
+      ]
+    },
+    {
+      "id": "u-ff8f643134d858106c9d6808",
+      "source_sha256": "ff8f643134d858106c9d6808fe0c0f0161714f8729dc3e69a4759886b233ff6f",
+      "source": "The hedge knight pauses to glare about.",
+      "zh": "流浪骑士停下来，怒视四周。",
+      "status": "reviewed",
+      "page_ids": [
+        7016
+      ]
+    },
+    {
+      "id": "u-ffde66327fe3ce4016266722",
+      "source_sha256": "ffde66327fe3ce40162667224d7f79a9540d516e5f7940b421275f81eddcdeb9",
+      "source": "You fight the hexe.",
+      "zh": "与女巫交战。",
+      "status": "reviewed",
+      "page_ids": [
+        2817
+      ]
+    }
+  ]
+}

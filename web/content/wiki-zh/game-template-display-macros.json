@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "kind": "wiki_units",
+  "page_revisions": {
+    "7074": 46307,
+    "7084": 46321,
+    "7811": 46153,
+    "7815": 46290,
+    "8435": 46577,
+    "16956": 45661
+  },
+  "units": [
+    {
+      "id": "u-96bc03e7960cd3acafdf2bc5",
+      "source_sha256": "96bc03e7960cd3acafdf2bc525037fa4c9c8b3afe8a0b6043e0b8f92c76156d9",
+      "source": "You find an abandoned wagon amongst some tall reeds. {#1}Randombrother{/#1} checks it out and barks back.",
+      "zh": "你在高高的芦苇丛中发现一辆废弃货车。{#1}某位弟兄{/#1}上前检查，回头喊道。",
+      "status": "reviewed",
+      "page_ids": [
+        7811
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "You find an abandoned wagon amongst some tall reeds. %randombrother% checks it out and barks back.",
+        "wiki_bindings": {
+          "%randombrother%": "Randombrother"
+        },
+        "game_entries": [
+          {
+            "entry_id": "865972245f7e4f3cc1b8",
+            "translation": "你在高高的芦苇丛中发现一辆废弃货车。%randombrother%上前检查，回头喊道。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 3,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-255fdee39b264f69cf43eef6",
+      "source_sha256": "255fdee39b264f69cf43eef6fc18fcc35ddaee5c523c5c9ac215adc95e392d5a",
+      "source": "While heading toward your destination, {#1}Volunteer{/#1} runs up to you with a bundle of herbs in hand. Now you know this fool knows nothing about plants or wildlife, but he seems rather persistent in wanting to try them out. Something about 'hearing' of magical powers to be found in the essence of herbs. This talk gets the attention of a few others in the company. Soon, a number of them are asking to try out the 'medicine' for the good of their brothers.",
+      "zh": "赶路时，{#1}自告奋勇的弟兄{/#1}手捧一束草药跑过来。你明知这傻子对草木鸟兽一窍不通，他却执意要尝尝，说是“听说”草药精华里藏着神奇力量。这番话引来几个弟兄围观。很快，便有好些人请求试试这份“药”，号称是为了弟兄们的福祉。",
+      "status": "reviewed",
+      "page_ids": [
+        7815
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "While heading toward your destination, %volunteer% runs up to you with a bundle of herbs in hand. Now you know this fool knows nothing about plants or wildlife, but he seems rather persistent in wanting to try them out. Something about 'hearing' of magical powers to be found in the essence of herbs. This talk gets the attention of a few others in the company. Soon, a number of them are asking to try out the 'medicine' for the good of their brothers.",
+        "wiki_bindings": {
+          "%volunteer%": "Volunteer"
+        },
+        "game_entries": [
+          {
+            "entry_id": "9548ed3c1a55655de16f",
+            "translation": "赶路时，%volunteer%手捧一束草药跑过来。你明知这傻子对草木鸟兽一窍不通，他却执意要尝尝，说是“听说”草药精华里藏着神奇力量。这番话引来几个弟兄围观。很快，便有好些人请求试试这份“药”，号称是为了弟兄们的福祉。",
+            "match_kind": "whole_entry"
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-afecf217bdee889f091da2db",
+      "source_sha256": "afecf217bdee889f091da2dbfde1f300a811aef4b315ebd2a8743ca40f0fa91a",
+      "source": "It appears that the herbs are not just harmless, but rather even proactive in taking care of some nagging issues with the men. {#1}Volunteer{/#1}'s cold seems to have lifted, and the stomach pains of {#2}Otherguy{/#2} have abated. After trying some yourself, you see a splinter wiggle its way out of your thumb. Amazing!",
+      "zh": "这些草药不仅无害，似乎还治好了弟兄们的一些老毛病。{#1}自告奋勇的弟兄{/#1}的风寒好像退了，{#2}另一名弟兄{/#2}的胃痛也缓解了。你自己尝了些，竟看见拇指里的一根木刺蠕动着钻了出来。神了！",
+      "status": "reviewed",
+      "page_ids": [
+        7815
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "It appears that the herbs are not just harmless, but rather even proactive in taking care of some nagging issues with the men. %volunteer%'s cold seems to have lifted, and the stomach pains of %otherguy% have abated. After trying some yourself, you see a splinter wiggle its way out of your thumb. Amazing!",
+        "wiki_bindings": {
+          "%volunteer%": "Volunteer",
+          "%otherguy%": "Otherguy"
+        },
+        "game_entries": [
+          {
+            "entry_id": "95d887cb24b9b69d33e4",
+            "translation": "这些草药不仅无害，似乎还治好了弟兄们的一些老毛病。%volunteer%的风寒好像退了，%otherguy%的胃痛也缓解了。你自己尝了些，竟看见拇指里的一根木刺蠕动着钻了出来。神了！",
+            "match_kind": "whole_entry"
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-c201a56eb860ee28f2056b11",
+      "source_sha256": "c201a56eb860ee28f2056b11717db2b3a6972df8c46aff3c59a78ec9a24ae10e",
+      "source": "Walking about {#1}Townname{/#1} with a few sellswords, you turn a corner to find an opulent man surrounded by thieves and bandits. They look over their shoulders and widen their eyes. One nicks the merchant on the cheek.",
+      "zh": "你带着几个弟兄在{#1}〈城镇名〉{/#1}闲逛，拐过街角，正撞见一个衣着华贵的男人被一群贼匪围住。他们回头看见你们，顿时瞪大了眼。其中一个在商人脸上划了一刀。",
+      "status": "reviewed",
+      "page_ids": [
+        7074
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "Walking about %townname% with a few sellswords, you turn a corner to find an opulent man surrounded by thieves and bandits. They look over their shoulders and widen their eyes. One nicks the merchant on the cheek.",
+        "wiki_bindings": {
+          "%townname%": "Townname"
+        },
+        "game_entries": [
+          {
+            "entry_id": "5d106d631409c36f7cdc",
+            "translation": "你带着几个弟兄在%townname%闲逛，拐过街角，正撞见一个衣着华贵的男人被一群贼匪围住。他们回头看见你们，顿时瞪大了眼。其中一个在商人脸上划了一刀。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 5,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-6c4a001d7a297147346817fe",
+      "source_sha256": "6c4a001d7a297147346817fe13d8c9970902842e256e66f7b18442689f1fe384",
+      "source": "While walking about {#1}Townname{/#1}, you run into an old man dragging a youthful man by the ear.",
+      "zh": "你在{#1}〈城镇名〉{/#1}闲逛时，遇见一个老人揪着年轻人的耳朵，一路拖着走。",
+      "status": "reviewed",
+      "page_ids": [
+        7084
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "While walking about %townname%, you run into an old man dragging a youthful man by the ear.",
+        "wiki_bindings": {
+          "%townname%": "Townname"
+        },
+        "game_entries": [
+          {
+            "entry_id": "82fd5718345999541e46",
+            "translation": "你在%townname%闲逛时，遇见一个老人揪着年轻人的耳朵，一路拖着走。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 7,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-f5e2c45218162e2981b5d9f8",
+      "source_sha256": "f5e2c45218162e2981b5d9f80214f9669a6b622994de2d5a2d2e9837189b4af2",
+      "source": "A strange sight: one dead man pinned to the earth with spears. His own blood has been used to circle his corpse and other strange ritualistic rites have been painted by way of his lifeblood. {#1}Otherbrother{/#1} starts retrieving the spears. You try and tell him to stop, but it's already too late. He holds one of the weapons up.",
+      "zh": "眼前景象诡异：一具男尸被长矛钉在地上，自己的鲜血在尸身周围画成圆圈，还绘出了其他古怪的仪式符号。{#1}一名弟兄{/#1}开始拔矛，你想叫停，却已来不及。他举起一把。",
+      "status": "reviewed",
+      "page_ids": [
+        8435
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "A strange sight: one dead man pinned to the earth with spears. His own blood has been used to circle his corpse and other strange ritualistic rites have been painted by way of his lifeblood. %otherbrother% starts retrieving the spears. You try and tell him to stop, but it's already too late. He holds one of the weapons up.",
+        "wiki_bindings": {
+          "%otherbrother%": "Otherbrother"
+        },
+        "game_entries": [
+          {
+            "entry_id": "58ec01cdd31a8bf9af2a",
+            "translation": "眼前景象诡异：一具男尸被长矛钉在地上，自己的鲜血在尸身周围画成圆圈，还绘出了其他古怪的仪式符号。%otherbrother%开始拔矛，你想叫停，却已来不及。他举起一把。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 3,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-c8a305a498b58cb5212aeb09",
+      "source_sha256": "c8a305a498b58cb5212aeb0968448f52e92e75f15d70a796db766fe2f108f37b",
+      "source": "Before you can leave, {#1}Cultist{/#1} bends low to the sacrificed man and whispers into his ear. A moment later, the dead man's head lurches. His eyes widen and nostrils flare. The cultist looks over to you.",
+      "zh": "你还没来得及离开，{#1}邪教徒{/#1}便俯身凑到祭品耳边，低声说了几句。片刻后，死人的头猛然一动，眼睛睁大，鼻翼翕张。教徒转向你。",
+      "status": "reviewed",
+      "page_ids": [
+        8435
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "Before you can leave, %cultist% bends low to the sacrificed man and whispers into his ear. A moment later, the dead man's head lurches. His eyes widen and nostrils flare. The cultist looks over to you.",
+        "wiki_bindings": {
+          "%cultist%": "Cultist"
+        },
+        "game_entries": [
+          {
+            "entry_id": "56cfdac60fa68f3d3802",
+            "translation": "你还没来得及离开，%cultist%便俯身凑到祭品耳边，低声说了几句。片刻后，死人的头猛然一动，眼睛睁大，鼻翼翕张。教徒转向你。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 7,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-93fd5bbd4c8984640886d936",
+      "source_sha256": "93fd5bbd4c8984640886d9365f42c1efc44ce7e595a193a7644f1a944ebbef2e",
+      "source": "You decide to take the man in. {#1}Otherbrother{/#1} stands by the wayside, a couple of spears in hand.",
+      "zh": "你决定收下这个人。{#1}一名弟兄{/#1}拿着两把长矛站在一旁。",
+      "status": "reviewed",
+      "page_ids": [
+        8435
+      ],
+      "provenance": {
+        "method": "Full-unit bilingual manual review of exact static game template after audited image-only macros are omitted; all real variables bound explicitly",
+        "game_source": "You decide to take the man in. %otherbrother% stands by the wayside, a couple of spears in hand.",
+        "wiki_bindings": {
+          "%otherbrother%": "Otherbrother"
+        },
+        "game_entries": [
+          {
+            "entry_id": "a5a7481e07a34bd431bd",
+            "translation": "你决定收下这个人。%otherbrother%拿着几把长矛站在一旁。",
+            "match_kind": "aligned_speech_segment",
+            "speech_segment_index": 0,
+            "speech_segment_count": 3,
+            "paragraph_index": 0,
+            "paragraph_count": 1
+          }
+        ],
+        "source_engine_evidence": "scripts/events/event.nut:236-315,374-379; terrainImage and townImage contain only [img] markup or an empty string"
+      }
+    },
+    {
+      "id": "u-09067074529bf78c130c67fb",
+      "source_sha256": "09067074529bf78c130c67fb3d072ec0338b5dd102b59e311e98382a3779dca0",
+      "source": "{#1}This serum, extracted from the bone marrow of the so-called \\'greater\\' flesh golems, can fashion even the most infirm into the pinnacle of physical health. Behold, the twisted vision of the Grand Diviner, untangled and made reality!{/#1}",
+      "zh": "{#1}这种从所谓“巨型”血肉魔像骨髓中提取的血清，能让最虚弱的人也拥有巅峰体魄。看吧，大先知扭曲的构想，终于被理顺并化为了现实！{/#1}",
+      "status": "reviewed",
+      "page_ids": [
+        16956
+      ],
+      "provenance": {
+        "method": "exact_reviewed_game_prose",
+        "game_matches": [
+          {
+            "entry_id": "0a4ed4320a6446a9ff4a",
+            "translation": "这种从所谓“巨型”血肉魔像骨髓中提取的血清，能让最虚弱的人也拥有巅峰体魄。看吧，大先知扭曲的构想，终于被理顺并化为了现实！",
+            "match_kind": "whole_entry"
+          }
+        ],
+        "wiki_source_normalization": "Manually confirmed printed apostrophe escape only; complete English and Chinese sentence re-read, no other text change."
+      }
+    }
+  ]
+}

@@ -59,6 +59,14 @@ class WikiRenderingTests(SimpleTestCase):
         self.assertNotIn('color:white',' '.join(styles.values()))
         self.assertIn('巨剑',result['html'])
 
+    def test_transparent_background_does_not_hide_nested_attribute_table(self):
+        result,_=self.render_source('''<table><tr><td>
+          <table style="background-color:transparent"><tr><td>Melee Skill</td></tr></table>
+          </td><td><span style="COLOR : TRANSPARENT">0005</span>5</td></tr></table>''')
+        soup=BeautifulSoup(result['html'],'html.parser')
+        self.assertNotIn('w-sort-label',soup.find_all('table')[1].get('class',[]))
+        self.assertIn('w-sort-label',soup.find('span').get('class',[]))
+
     def test_video_references_are_links_instead_of_missing_illustrations(self):
         result=render_article({'title':'Preview','text':'<img data-image-name="Trailer" src="https://external/video">'},
             {},{},{'Trailer':{'mime':'video/youtube','description_url':'https://battlebrothers.fandom.com/wiki/File:Trailer'}},{})

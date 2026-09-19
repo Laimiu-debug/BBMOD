@@ -1,0 +1,600 @@
+{
+  "schema_version": 1,
+  "kind": "wiki_translation_scope",
+  "retained_english": {
+    "source_category": "Developer Posts",
+    "reason": "历史开发日志按用户选择保留英文，不纳入游戏资料汉化完成率。",
+    "pages": [
+      {
+        "id": 6911,
+        "title": "Developer Posts",
+        "revision": 26179
+      },
+      {
+        "id": 6912,
+        "title": "News and Dev Blogs",
+        "revision": 45619
+      },
+      {
+        "id": 11590,
+        "title": "Dev Blog 125: The Ifrit",
+        "revision": 40752
+      },
+      {
+        "id": 11596,
+        "title": "Switch Announcement",
+        "revision": 40753
+      },
+      {
+        "id": 11602,
+        "title": "Dev Blog 124: New Lands",
+        "revision": 40754
+      },
+      {
+        "id": 11609,
+        "title": "‘Blazing Deserts’ DLC Announcement",
+        "revision": 40755
+      },
+      {
+        "id": 11612,
+        "title": "A Prophecy Fulfilled",
+        "revision": 40756
+      },
+      {
+        "id": 11614,
+        "title": "Update 1.3.0.25",
+        "revision": 25937
+      },
+      {
+        "id": 11616,
+        "title": "Alp Rework",
+        "revision": 25941
+      },
+      {
+        "id": 11620,
+        "title": "Update 1.3.0.22",
+        "revision": 25946
+      },
+      {
+        "id": 11621,
+        "title": "Update 1.3.0.21",
+        "revision": 25948
+      },
+      {
+        "id": 11622,
+        "title": "Update 1.3.0.20",
+        "revision": 25950
+      },
+      {
+        "id": 11623,
+        "title": "Update 1.3.0.19",
+        "revision": 25952
+      },
+      {
+        "id": 11624,
+        "title": "Update 1.3.0.18",
+        "revision": 25954
+      },
+      {
+        "id": 11625,
+        "title": "Update 1.3.0.17",
+        "revision": 25956
+      },
+      {
+        "id": 11626,
+        "title": "Update 1.3.0.16",
+        "revision": 25958
+      },
+      {
+        "id": 11628,
+        "title": "Update 1.3.0.15",
+        "revision": 25961
+      },
+      {
+        "id": 11629,
+        "title": "Update 1.3.0.14",
+        "revision": 25963
+      },
+      {
+        "id": 11630,
+        "title": "Update 1.3.0.13",
+        "revision": 25965
+      },
+      {
+        "id": 11633,
+        "title": "Warriors of the North Release",
+        "revision": 40757
+      },
+      {
+        "id": 11636,
+        "title": "Update 1.3.0.12",
+        "revision": 25977
+      },
+      {
+        "id": 11638,
+        "title": "Battling the Barbarians",
+        "revision": 40765
+      },
+      {
+        "id": 11647,
+        "title": "Dev Blog 123: Tools of Death",
+        "revision": 40758
+      },
+      {
+        "id": 11649,
+        "title": "Release Date Announcement",
+        "revision": 40759
+      },
+      {
+        "id": 11653,
+        "title": "Dev Blog 122: The Ijirok",
+        "revision": 40760
+      },
+      {
+        "id": 11654,
+        "title": "Dev Blog 121: Champions",
+        "revision": 40761
+      },
+      {
+        "id": 11659,
+        "title": "Dev Blog 120: The Barbarians, Part III",
+        "revision": 40763
+      },
+      {
+        "id": 11661,
+        "title": "Dev Blog 119: Tunes from the North",
+        "revision": 40764
+      },
+      {
+        "id": 11665,
+        "title": "Dev Blog 118: The Barbarians, Part II",
+        "revision": 40766
+      },
+      {
+        "id": 11670,
+        "title": "Dev Blog 117: Named Equipment",
+        "revision": 40767
+      },
+      {
+        "id": 11674,
+        "title": "Dev Blog 116: The Barbarians, Part I",
+        "revision": 40768
+      },
+      {
+        "id": 11680,
+        "title": "Dev Blog 115: Nordic Equipment",
+        "revision": 45643
+      },
+      {
+        "id": 11684,
+        "title": "Dev Blog 114: Company Origins, Part II",
+        "revision": 40770
+      },
+      {
+        "id": 11688,
+        "title": "Dev Blog 113: Company Origins, Part I",
+        "revision": 26044
+      },
+      {
+        "id": 11690,
+        "title": "‘Warriors of the North’ DLC Announcement",
+        "revision": 26047
+      },
+      {
+        "id": 11693,
+        "title": "Something Stirs in the North",
+        "revision": 26051
+      },
+      {
+        "id": 11694,
+        "title": "Update 1.2.0.25",
+        "revision": 26054
+      },
+      {
+        "id": 11700,
+        "title": "Update 1.2.0.24",
+        "revision": 26064
+      },
+      {
+        "id": 11701,
+        "title": "Update 1.2.0.23",
+        "revision": 26066
+      },
+      {
+        "id": 11702,
+        "title": "Update 1.2.0.22",
+        "revision": 26068
+      },
+      {
+        "id": 11705,
+        "title": "Update 1.2.0.21",
+        "revision": 26072
+      },
+      {
+        "id": 11706,
+        "title": "Update 1.2.0.20",
+        "revision": 26075
+      },
+      {
+        "id": 11707,
+        "title": "Update 1.2.0.19",
+        "revision": 26077
+      },
+      {
+        "id": 11708,
+        "title": "Update 1.2.0.18",
+        "revision": 26079
+      },
+      {
+        "id": 11710,
+        "title": "Beasts & Exploration Release",
+        "revision": 26082
+      },
+      {
+        "id": 11711,
+        "title": "Update 1.2.0.17",
+        "revision": 26084
+      },
+      {
+        "id": 11714,
+        "title": "Dev Blog 112: Almost There!",
+        "revision": 26089
+      },
+      {
+        "id": 11716,
+        "title": "Let’s Play ‘Beasts & Exploration’ DLC",
+        "revision": 26092
+      },
+      {
+        "id": 11721,
+        "title": "Dev Blog 111: Psychology & Resilience",
+        "revision": 26098
+      },
+      {
+        "id": 11727,
+        "title": "Dev Blog 110: More Things",
+        "revision": 26105
+      },
+      {
+        "id": 11731,
+        "title": "Dev Blog 109: The Kraken",
+        "revision": 26118
+      },
+      {
+        "id": 11738,
+        "title": "Dev Blog 126: Alchemy",
+        "revision": 40751
+      },
+      {
+        "id": 11746,
+        "title": "Release Date Announcement (B&E)",
+        "revision": 26136
+      },
+      {
+        "id": 11752,
+        "title": "Dev Blog 108: Consumables",
+        "revision": 26143
+      },
+      {
+        "id": 11764,
+        "title": "Dev Blog 107: The Alp",
+        "revision": 26156
+      },
+      {
+        "id": 11768,
+        "title": "Dev Blog 106: Legendary Locations",
+        "revision": 26161
+      },
+      {
+        "id": 11784,
+        "title": "Dev Blog 105: Additions & Changes",
+        "revision": 26200
+      },
+      {
+        "id": 11794,
+        "title": "Dev Blog 104: The Schrat",
+        "revision": 26212
+      },
+      {
+        "id": 11801,
+        "title": "Dev Blog 103: Crafting",
+        "revision": 26220
+      },
+      {
+        "id": 11806,
+        "title": "Dev Blog 127: The Retinue, Part I",
+        "revision": 40750
+      },
+      {
+        "id": 11837,
+        "title": "Dev Blog 128: The Retinue, Part II",
+        "revision": 40749
+      },
+      {
+        "id": 11918,
+        "title": "Dev Blog 129: City States, Part I",
+        "revision": 40748
+      },
+      {
+        "id": 11946,
+        "title": "Dev Blog 130: Southern Arms",
+        "revision": 40728
+      },
+      {
+        "id": 11977,
+        "title": "Dev Blog 131: City States, Part II",
+        "revision": 40727
+      },
+      {
+        "id": 12001,
+        "title": "Dev Blog 132: Gunpowder Weapons",
+        "revision": 40726
+      },
+      {
+        "id": 12039,
+        "title": "Dev Blog 133: City States, Part III",
+        "revision": 40725
+      },
+      {
+        "id": 12086,
+        "title": "Situation Update",
+        "revision": 27061
+      },
+      {
+        "id": 12133,
+        "title": "Dev Blog 134: Soundtrack of the South",
+        "revision": 40724
+      },
+      {
+        "id": 12149,
+        "title": "Dev Blog 135: Location Environments",
+        "revision": 40723
+      },
+      {
+        "id": 12174,
+        "title": "Dev Blog 136: Smaller Things",
+        "revision": 40722
+      },
+      {
+        "id": 12205,
+        "title": "Dev Blog 137: The Hyena",
+        "revision": 40721
+      },
+      {
+        "id": 12260,
+        "title": "Dev Blog 138: More Smaller Things",
+        "revision": 40720
+      },
+      {
+        "id": 12291,
+        "title": "Dev Blog 139: The Serpent",
+        "revision": 40719
+      },
+      {
+        "id": 12319,
+        "title": "Dev Blog 140: New Origins",
+        "revision": 40717
+      },
+      {
+        "id": 12338,
+        "title": "Dev Blog 141: Holy War",
+        "revision": 40716
+      },
+      {
+        "id": 12358,
+        "title": "Dev Blog 142: The Arena",
+        "revision": 40715
+      },
+      {
+        "id": 12416,
+        "title": "Release Date Announcement ‘Blazing Deserts’",
+        "revision": 40714
+      },
+      {
+        "id": 12583,
+        "title": "Dev Blog 143: Nomads",
+        "revision": 40713
+      },
+      {
+        "id": 12714,
+        "title": "Dev Blog 144: Even More Smaller Things",
+        "revision": 40712
+      },
+      {
+        "id": 12794,
+        "title": "Blazing Deserts Preview, Part I",
+        "revision": 40709
+      },
+      {
+        "id": 12865,
+        "title": "Blazing Deserts Preview, Part II",
+        "revision": 40708
+      },
+      {
+        "id": 13326,
+        "title": "Blazing Deserts Preview, Part III",
+        "revision": 40707
+      },
+      {
+        "id": 13342,
+        "title": "Blazing Deserts Release",
+        "revision": 40706
+      },
+      {
+        "id": 13344,
+        "title": "Update 1.4",
+        "revision": 30996
+      },
+      {
+        "id": 13346,
+        "title": "Update 1.4.0.33",
+        "revision": 30999
+      },
+      {
+        "id": 13480,
+        "title": "Update 1.4.0.34",
+        "revision": 31453
+      },
+      {
+        "id": 13481,
+        "title": "Update 1.4.0.35",
+        "revision": 31454
+      },
+      {
+        "id": 13482,
+        "title": "Update 1.4.0.36",
+        "revision": 31457
+      },
+      {
+        "id": 13584,
+        "title": "Update 1.4.0.37",
+        "revision": 31639
+      },
+      {
+        "id": 13673,
+        "title": "Update 1.4.0.38",
+        "revision": 31907
+      },
+      {
+        "id": 13846,
+        "title": "Update 1.4.0.39",
+        "revision": 32346
+      },
+      {
+        "id": 14064,
+        "title": "Update 1.4.0.40",
+        "revision": 32924
+      },
+      {
+        "id": 14715,
+        "title": "Update 1.4.0.41",
+        "revision": 35306
+      },
+      {
+        "id": 15069,
+        "title": "Update 1.4.0.42",
+        "revision": 35561
+      },
+      {
+        "id": 15167,
+        "title": "Update 1.4.0.43",
+        "revision": 35763
+      },
+      {
+        "id": 15317,
+        "title": "Update 1.4.0.44",
+        "revision": 36148
+      },
+      {
+        "id": 15413,
+        "title": "Update 1.4.0.45",
+        "revision": 36382
+      },
+      {
+        "id": 15484,
+        "title": "Update 1.4.0.46",
+        "revision": 36756
+      },
+      {
+        "id": 15485,
+        "title": "Update 1.4.0.47",
+        "revision": 36757
+      },
+      {
+        "id": 15549,
+        "title": "Update 1.4.0.48",
+        "revision": 37633
+      },
+      {
+        "id": 15594,
+        "title": "Update 1.4.0.49",
+        "revision": 38998
+      },
+      {
+        "id": 15666,
+        "title": "‘Of Flesh and Faith’ DLC Announcement",
+        "revision": 38997
+      },
+      {
+        "id": 15676,
+        "title": "Dev Blog 145: The Anatomists",
+        "revision": 38995
+      },
+      {
+        "id": 15722,
+        "title": "Dev Blog 146: The Oathtakers",
+        "revision": 38993
+      },
+      {
+        "id": 15727,
+        "title": "Update 1.5.0.8",
+        "revision": 39240
+      },
+      {
+        "id": 15820,
+        "title": "'Of Flesh and Faith' DLC Release",
+        "revision": 39227
+      },
+      {
+        "id": 15823,
+        "title": "Update 1.5.0.9",
+        "revision": 39232
+      },
+      {
+        "id": 15825,
+        "title": "Update 1.5.0.10",
+        "revision": 39237
+      },
+      {
+        "id": 15927,
+        "title": "Update 1.5.0.11",
+        "revision": 39748
+      },
+      {
+        "id": 15953,
+        "title": "Update 1.5.0.12",
+        "revision": 39899
+      },
+      {
+        "id": 16011,
+        "title": "Update 1.5.0.13",
+        "revision": 40694
+      },
+      {
+        "id": 16032,
+        "title": "Update 1.5.0.14",
+        "revision": 40693
+      },
+      {
+        "id": 16038,
+        "title": "Dev Blog 102: The Webknecht",
+        "revision": 40729
+      },
+      {
+        "id": 16048,
+        "title": "Dev Blog 101: New Weapons",
+        "revision": 40739
+      },
+      {
+        "id": 16053,
+        "title": "Dev Blog 100: The Unhold",
+        "revision": 40746
+      },
+      {
+        "id": 16062,
+        "title": "Update 1.5.0.15",
+        "revision": 40890
+      },
+      {
+        "id": 16942,
+        "title": "Update 1.5.1 / 1.5.1.4",
+        "revision": 45598
+      },
+      {
+        "id": 16943,
+        "title": "Update 1.5.1.5",
+        "revision": 45617
+      }
+    ]
+  }
+}

@@ -1,0 +1,2086 @@
+{
+  "schema_version": 1,
+  "kind": "wiki_units",
+  "license": "CC-BY-SA-3.0",
+  "source": "https://battlebrothers.fandom.com",
+  "translation_method": "Independently authored and sentence reviewed against the pinned source and current game terminology.",
+  "page_revisions": {
+    "17005": 46266,
+    "2603": 46596,
+    "2501": 45636,
+    "2816": 42010,
+    "5845": 41848,
+    "11980": 41917,
+    "2173": 45385,
+    "17006": 46258,
+    "4615": 42067,
+    "4046": 46380,
+    "2183": 41567,
+    "3724": 46468,
+    "16317": 46655,
+    "6382": 42207,
+    "13214": 41918,
+    "3725": 46376,
+    "3245": 45587,
+    "3599": 8340,
+    "4031": 41700,
+    "3993": 42196,
+    "4039": 41720,
+    "6430": 42007,
+    "4297": 46037,
+    "5843": 41854,
+    "4032": 41698,
+    "4028": 46613,
+    "4292": 41724,
+    "10702": 29489
+  },
+  "units": [
+    {
+      "id": "u-4a8edb6f5c08507a2c373782",
+      "source_sha256": "4a8edb6f5c08507a2c37378240d0c4d1a0d7a031aa19b47d2b3e52de669fcb94",
+      "source": "{#1}Corpse Explosion{/#1} makes a corpse or a {#2}Flesh Cradle{/#2} explode, dealing 25-50{#3}{#4}{#5/}{/#4}{/#3} to anyone adjacent and 30-60{#6}{#7}{#8/}{/#7}{/#6} to the entity standing on the corpse. Damage is dealt to the body with 75% {#9}{#10}{#11/}{/#10}{/#9} and 20% {#12}{#13}{#14/}{/#13}{/#12} and ignores Nimble. Creates miasma on affected tiles. Spell range is 1-99 tiles.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "{#1}尸爆{/#1}会引爆一具尸体或一个{#2}血肉摇篮{/#2}，对相邻单位造成 25-50{#3}{#4}{#5/}{/#4}{/#3}伤害，对站在尸体上的单位造成 30-60{#6}{#7}{#8/}{/#7}{/#6}伤害。伤害命中身体，护甲伤害系数为 75%{#9}{#10}{#11/}{/#10}{/#9}，穿甲比例为 20%{#12}{#13}{#14/}{/#13}{/#12}，并且无视轻灵。受影响的格子会产生瘴气。施法距离为 1-99 格。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3b8e199b92396290c7768521",
+      "source_sha256": "3b8e199b92396290c77685219a962a49f2ce6772f6339dd37d7eeebdf9179846",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Adrenaline{/#4}{#5/}{#6}{#7}{#8/}{/#7}{/#6} {#9}Anticipation{/#9}{#10/}{#11}{#12}{#13/}{/#12}{/#11} {#14}Fearsome{/#14}{#15/}{#16}{#17}{#18/}{/#17}{/#16} {#19}Footwork{/#19}{#20/}{#21}{#22}{#23/}{/#22}{/#21} {#24}Nimble{/#24}{#25/}{#26}{#27}{#28/}{/#27}{/#26} {#29}Pathfinder{/#29}{#30/}{#31}{#32}{#33/}{/#32}{/#31} {#34}Reach Advantage{/#34}{#35/}{#36}{#37}{#38/}{/#37}{/#36} {#39}Relentless{/#39}{#40/}{#41}{#42}{#43/}{/#42}{/#41} {#44}Hand-To-Hand Attack{/#44}{#45/}",
+      "page_ids": [
+        17005
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}肾上腺素{/#4}{#5/}{#6}{#7}{#8/}{/#7}{/#6} {#9}预判{/#9}{#10/}{#11}{#12}{#13/}{/#12}{/#11} {#14}威慑{/#14}{#15/}{#16}{#17}{#18/}{/#17}{/#16} {#19}灵活步法{/#19}{#20/}{#21}{#22}{#23/}{/#22}{/#21} {#24}轻灵{/#24}{#25/}{#26}{#27}{#28/}{/#27}{/#26} {#29}寻路者{/#29}{#30/}{#31}{#32}{#33/}{/#32}{/#31} {#34}长兵优势{/#34}{#35/}{#36}{#37}{#38/}{/#37}{/#36} {#39}不懈{/#39}{#40/}{#41}{#42}{#43/}{/#42}{/#41} {#44}徒手攻击{/#44}{#45/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-85e7aa7789814859d05f30a5",
+      "source_sha256": "85e7aa7789814859d05f30a5fb9d20dabffbaf1d0a148e9d653ffb2f72dfb05a",
+      "source": "The Grand Diviner is the boss of the {#1}Artifact Reliquary{/#1} legendary location.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "大先知是传奇地点{#1}圣物宝库{/#1}的首领。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ae90ab4eefd6daeed707cd04",
+      "source_sha256": "ae90ab4eefd6daeed707cd04f6d1c3a968feb3f3aca4cbc4e046ce278d05a66b",
+      "source": "Grand Diviner will use {#1}Adrenaline{/#1} to strike first. He has {#2}Footwork{/#2} and can use it offensively to reach and strike someone vulnerable.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "大先知会使用{#1}肾上腺素{/#1}抢先行动。他还拥有{#2}灵活步法{/#2}，能够主动脱离接战，接近并攻击防御薄弱的目标。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9e8ba99812cc3c9430cbb182",
+      "source_sha256": "9e8ba99812cc3c9430cbb182bf2b3de296896c747df8033d8412d914e8cce96d",
+      "source": "When he dies and any {#1}Fault Finders{/#1} are present, one of them is chosen to resurrect the Diviner. The Fault Finder dies and the Diviner respawns on his tile, has his equipment repaired and {#2}morale{/#2} set to confident, and a miasma cloud is created on the tile where he was originally killed. If no Fault Finders remain and you kill him, none of this happens and he does not respawn.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "大先知死亡时，若场上还有{#1}寻隙者{/#1}，其中一个就会被选中用于复活他。被选中的寻隙者会死亡，大先知则在其所在格重生，装备得到修复，{#2}士气{/#2}恢复为斗志昂扬；他原先死亡的位置会生成一片瘴气。若所有寻隙者都已被消灭，再杀死大先知，就不会发生上述情况，他也不会复活。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ff0c6ede7e54fb17dd9d1952",
+      "source_sha256": "ff0c6ede7e54fb17dd9d195269f9b45c3de6a04c1ad48ce73e18a391f87463eb",
+      "source": "His flail does not drop, you get it in the event after the battle. Armor and helmet drop normally, no matter how damaged they were or how many times you killed the Grand Diviner.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "他的连枷不会作为普通战利品掉落，而是在战后的事件中获得。身甲与头盔会正常掉落，无论装备受损多严重，也无论你杀死过大先知多少次。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-8d8349adde536b5bb774dce9",
+      "source_sha256": "8d8349adde536b5bb774dce9655c8814e03ab2bcb7e236cd9862117364ec7eb7",
+      "source": "Can move two steps and attack at polearm range, or strike twice per turn, and has Adrenaline. This is likely to grant him the first strike, and not preventing him from attacking can sometimes result in double headshots. Less deadly than normal two-handed flails because the attack lacks bonus armor penetration, but you should be prepared for it.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "他能移动两格后在长柄武器的距离上攻击，也能每回合攻击两次，还拥有肾上腺素，因此很可能抢到先手。若未能阻止他出手，有时会接连遭到两次爆头。由于这种攻击没有额外穿甲加成，其致命程度低于普通双手连枷，但依然需要做好应对。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-afb0d368dfe48022dd10fe37",
+      "source_sha256": "afb0d368dfe48022dd10fe3741817ca322651a437c8933dff3238483004f1330",
+      "source": "Obviously, kill Fault Finders first, otherwise you will have to fight him multiple times.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "显然，应先杀死寻隙者，否则你就得反复对付大先知。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-110fddc08f42e7ddd1017450",
+      "source_sha256": "110fddc08f42e7ddd101745074f21eb52cea08604fef8cb3db0caddece91a1c0",
+      "source": "Control him by {#1}stunning{/#1}, don't let him attack at all. {#2}Disarm{/#2} is less reliable and still allows him to break free from nets and use Adrenaline, which, combined with waiting, can allow him to negate one turn of status effects. Successful stuns or disarms means no heavy attacks on you and no miasma. Stuns also allow you to move away from existing miasma.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "用{#1}眩晕{/#1}控制他，尽量不给他任何出手机会。{#2}缴械{/#2}可靠性稍差，而且不能阻止他挣脱捕网或使用肾上腺素；肾上腺素配合等待，还可能让他抵消一回合状态效果的影响。成功施加眩晕或缴械，便能避免他的重击和随之产生的瘴气。眩晕也能让你的队员安全离开已有的瘴气。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-fa2fb180d1f9682e3b15aaec",
+      "source_sha256": "fa2fb180d1f9682e3b15aaec77ad5e5da95854d7600f9159de5d9fd96634a49e",
+      "source": "You can throw a {#1}net{/#1} at him when he ends his turn early without using Adrenaline and act before him on the next turn.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "当他未使用肾上腺素便提前结束回合时，可以向他投掷{#1}捕网{/#1}，争取在下一回合先于他行动。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-096827eab1076a9313886940",
+      "source_sha256": "096827eab1076a931388694024c1ce2ea55a7f86e1b0b940e900e3b3cc79dc23",
+      "source": "Unlike most high tier human enemies, he doesn't have increased fatigue regen or {#1}Recover{/#1}, it's possible to limit him to one basic attack per turn. Hitting him a lot with {#2}maces{/#2} and {#3}triple flails{/#3} will cap him on fatigue.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "与大多数高阶人类敌人不同，他没有额外的疲劳恢复，也没有{#1}恢复体力{/#1}特长，因此可以将他的行动限制为每回合一次普通攻击。用{#2}钉锤类{/#2}和{#3}三头连枷{/#3}频繁命中他，就能让他的疲劳达到上限。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2634ec9fb8958ae57ce994e5",
+      "source_sha256": "2634ec9fb8958ae57ce994e59d50845420b17953a02bdfb9301ec38ce8184d62",
+      "source": "While having good resolve, he is not immune to morale checks. You can even bully him into fleeing morale, though it is impractical.",
+      "page_ids": [
+        17005
+      ],
+      "zh": "尽管意志很高，他并不免疫士气检定。你甚至能把他逼到溃逃，只是实战中这样做并不划算。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-eb69e9770c720bb7acafc243",
+      "source_sha256": "eb69e9770c720bb7acafc24355aa3e03caa02cb36136d87d125482496766937b",
+      "source": "These are civilian Settlements, from smallest to largest. As with Fortifications, size has an influence on {#1}prices{/#1}. {#2}Weapons{/#2} and {#3}Armor{/#3} are usually lower in quality{#4}{#5}{#6}[{/#6}1{#7}]{/#7}{/#5}{/#4} as Towns tend to focus on {#8}Trade{/#8}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "以下是民用聚落，按规模从小到大排列。与军事据点一样，规模也会影响{#1}价格{/#1}。城镇偏重{#8}贸易{/#8}，出售的{#2}武器{/#2}和{#3}护甲{/#3}品质通常较低。{#4}{#5}{#6}[{/#6}1{#7}]{/#7}{/#5}{/#4}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-52c1614ccbef7cf3a2451d48",
+      "source_sha256": "52c1614ccbef7cf3a2451d48f4251f1ef134762a49f4a7264b53a499a0492a9d",
+      "source": "Kennels and Specialized Shops can be found.{#1/}No military attached locations.{#2/}",
+      "page_ids": [
+        2603
+      ],
+      "zh": "可能设有犬舍和专门商店。{#1/}没有军事附属地点。{#2/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-babca730acf4d00d93502c92",
+      "source_sha256": "babca730acf4d00d93502c921c278feb25b0ef7a9aaa9a497f8f1b8876ab4032",
+      "source": "Tavern is guaranteed.{#1/}Possible military attached locations:{#2/}{#3}Wooden Watchtower{/#3}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "必定设有酒馆。{#1/}可能拥有的军事附属地点：{#2/}{#3}木制瞭望塔{/#3}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-74491d99f75c2e68f6de6a4c",
+      "source_sha256": "74491d99f75c2e68f6de6a4ccc82190cb8bba21d8d3edc418dd3c3ad60ca3ad7",
+      "source": "Tavern and Temple are guaranteed.{#1/}Possible military attached locations:{#2/}{#3}Wooden Watchtower{/#3}, {#4}Militia Barracks{/#4}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "必定设有酒馆和神殿。{#1/}可能拥有的军事附属地点：{#2/}{#3}木制瞭望塔{/#3}、{#4}民兵营房{/#4}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-7b9e5f8259fd996cc604ccf5",
+      "source_sha256": "7b9e5f8259fd996cc604ccf5313082e2bc2fb05ce1c1fca3fad32d47333acd79",
+      "source": "These are military Settlements, from smallest to largest. As with Towns, size has an influence on {#1}prices{/#1}. They are more likely to offer high grade {#2}Weapons{/#2} and {#3}Armor{/#3}{#4}{#5}{#6}[{/#6}1{#7}]{/#7}{/#5}{/#4} in Specialized Shops{#8}{#9}{#10}[{/#10}2{#11}]{/#11}{/#9}{/#8} as well as experienced recruits{#12}{#13}{#14}[{/#14}3{#15}]{/#15}{/#13}{/#12}. They house stronger regiments.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "以下是军事聚落，按规模从小到大排列。与城镇一样，规模也会影响{#1}价格{/#1}。这些地方的专门商店{#8}{#9}{#10}[{/#10}2{#11}]{/#11}{/#9}{/#8}更有可能出售高品质{#2}武器{/#2}和{#3}护甲{/#3}{#4}{#5}{#6}[{/#6}1{#7}]{/#7}{/#5}{/#4}，也更容易招到经验丰富的人员{#12}{#13}{#14}[{/#14}3{#15}]{/#15}{/#13}{/#12}。当地驻军也更强。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-41b5211e98c3cd1daec60f66",
+      "source_sha256": "41b5211e98c3cd1daec60f660393bcd0d93c15477960413698c83234575edad7",
+      "source": "Specialized Shops can be found.{#1/}Kennels are more likely to be found.{#2}{#3}{#4}[{/#4}2{#5}]{/#5}{/#3}{/#2}{#6/}Possible military attached locations:{#7/}{#8}Wooden Watchtower{/#8}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "可能设有专门商店。{#1/}更容易出现犬舍。{#2}{#3}{#4}[{/#4}2{#5}]{/#5}{/#3}{/#2}{#6/}可能拥有的军事附属地点：{#7/}{#8}木制瞭望塔{/#8}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-856d1e8403a5ec3ab94d9174",
+      "source_sha256": "856d1e8403a5ec3ab94d91744d9e3c3fa14dd7429f50f63fb1f9b6c923cfc95a",
+      "source": "Armorer and Weaponsmith are guaranteed.*{#1/}Kennels can appear.{#2/}Possible military attached locations:{#3/}{#4}Stone Watchtower{/#4}, {#5}Barracks{/#5}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "必定设有铠甲铺和武器铺。*{#1/}可能出现犬舍。{#2/}可能拥有的军事附属地点：{#3/}{#4}石制瞭望塔{/#4}、{#5}营房{/#5}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-4012389c6c9dc55a178a39ed",
+      "source_sha256": "4012389c6c9dc55a178a39ede1374295c141bf998d40bae42702a6662dbebaac",
+      "source": "Armorer and Weaponsmith are guaranteed.*{#1/}Kennels never appear.{#2/}Possible military attached locations:{#3/}{#4}Stone Watchtower{/#4}, {#5}Barracks{/#5}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "必定设有铠甲铺和武器铺。*{#1/}不会出现犬舍。{#2/}可能拥有的军事附属地点：{#3/}{#4}石制瞭望塔{/#4}、{#5}营房{/#5}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-a0bc14d365e5176cec6523b1",
+      "source_sha256": "a0bc14d365e5176cec6523b130a47fac037852c003d361688aae5c16f9c18135",
+      "source": "{#1/}* (exclusions) Coastal Citadel/Keep: either Armorer or Weaponsmith can appear. Steppe Citadel: either Fletcher or Weaponsmith; Armorer is guaranteed. Forest Keep: either Armorer or Weaponsmith; Fletcher is guaranteed.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "{#1/}* 例外：沿海城堡或要塞只会出现铠甲铺、武器铺中的一种；草原城堡必定有铠甲铺，并可能出现弓弩铺或武器铺；森林要塞必定有弓弩铺，并可能出现铠甲铺或武器铺。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9d8deff7b16ba22bc7dd6c48",
+      "source_sha256": "9d8deff7b16ba22bc7dd6c481ca5843063b5f16868addd2b5220dd0a770778c4",
+      "source": "{#1}Attached locations are small specialized locations outside a settlement that influence heavily the available goods, services and recruitment options of that settlement.{#2}{#3}{#4}[{/#4}4{#5}]{/#5}{/#3}{/#2}{/#1}",
+      "page_ids": [
+        2603
+      ],
+      "zh": "{#1}附属地点位于聚落外围，各有专门用途，会显著影响该聚落的货物、服务以及可招募人员。{#2}{#3}{#4}[{/#4}4{#5}]{/#5}{/#3}{/#2}{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-dd590adfb70233f66bd9c1a5",
+      "source_sha256": "dd590adfb70233f66bd9c1a50da76ee3f307acbf040b28901f66cdaffbcb42ae",
+      "source": "Most locations produce goods that can be found in the Settlement marketplace. The settlement's market {#1}prices{/#1} also increase with the number of its attached locations. Some Attached Locations also attract recruits of certain Backgrounds (see {#2}Character Backgrounds (sources){/#2}). Attached Locations as well as other elements of the {#3}world map{/#3} are randomly generated: as a result, some locations may not appear on a given map.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "大多数附属地点会生产货物，供聚落市场出售。附属地点越多，市场{#1}价格{/#1}也越高。有些附属地点还会吸引特定背景的人员前来应募，详见{#2}人物背景：招募来源{/#2}。附属地点与{#3}世界地图{/#3}上的其他要素一样，都是随机生成的，因此某张地图上可能完全没有某类地点。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-49f1345cca2470ff25055210",
+      "source_sha256": "49f1345cca2470ff25055210923947e43ce0fd6d2bee5534d2a93d1dcc0b1da2",
+      "source": "House militia or soldiers. More {#1}Militia{/#1}, {#2}Deserters{/#2} and {#3}Retired Soldiers{/#3} appear for recruitment. (Fortified) Barracks also attract {#4}Sellswords{/#4} and {#5}Hedge Knights{/#5}.",
+      "page_ids": [
+        2603
+      ],
+      "zh": "供民兵或士兵驻扎。会增加可招募的{#1}民兵{/#1}、{#2}逃兵{/#2}和{#3}退伍军人{/#3}。营房及加固营房还会吸引{#4}佣兵{/#4}和{#5}流浪骑士{/#5}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-bd9c00282011ea1db09ec9ec",
+      "source_sha256": "bd9c00282011ea1db09ec9ecac34d80c88f14809e9e347fa3166be705b76de0e",
+      "source": "{#1}↑ {#2}{#3}1.0{/#3}{/#2} {#4}{#5}1.1{/#5}{/#4}{/#1} {#6}{#7}{#8}Dev Blog #37: Progress Update – Village Screen and Mercenary Contracts{/#8}{/#7}{/#6}",
+      "page_ids": [
+        2603
+      ],
+      "zh": "{#1}↑ {#2}{#3}1.0{/#3}{/#2} {#4}{#5}1.1{/#5}{/#4}{/#1} {#6}{#7}{#8}开发日志 #37：进度更新——村庄界面与佣兵委托{/#8}{/#7}{/#6}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3decfeec495e652cfd2bfd59",
+      "source_sha256": "3decfeec495e652cfd2bfd591e76ef4b8892291e209537cffdaf52cbe830284e",
+      "source": "{#1}The total amount of provisions you carry. The average man requires 2 provisions per day and more on difficult terrain. Running out of provisions will lower morale and will eventually lead to your people deserting you before dying of starvation.{/#1}",
+      "page_ids": [
+        2501
+      ],
+      "zh": "{#1}当前携带的口粮总量。普通队员每天需要 2 份口粮，在难行地形上还会消耗更多。口粮耗尽会降低士气；若持续挨饿，队员最终会在饿死前离开战团。{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b93330f904436042179d7861",
+      "source_sha256": "b93330f904436042179d78617e95862aa835776fffad3445285ea50165044832",
+      "source": "Provisions are food items in {#1}Battle Brothers{/#1}. By default, hired characters require two units of provisions per day. The {#2}Gluttonous{/#2} and {#3}Spartan{/#3} traits affect this amount. Each type of provision will spoil after a specific amount of time. More expensive provisions usually take longer to spoil than cheaper provisions. Your mercenaries will always consume provisions with the least spoil time.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "口粮是{#1}《战场兄弟》{/#1}中的食物。默认情况下，每名受雇队员每天需要两份口粮；{#2}贪食{/#2}和{#3}节俭{/#3}特性会改变消耗量。每种口粮都有自己的保质期，昂贵口粮通常比廉价口粮更耐放。队员会优先吃掉最接近腐坏的口粮。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-11dcbaab6de30ab16f56c433",
+      "source_sha256": "11dcbaab6de30ab16f56c433acbd75227b387b52607fe3c6d4c75ac5825f7ecd",
+      "source": "If you fail to feed your mercenaries, their {#1}mood{/#1} will decrease and after a while and if angered enough they may decide to desert your company.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "若无法为佣兵提供食物，他们的{#1}心情{/#1}会下降。过一段时间，如果积累了足够的不满，他们可能离开战团。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-76c1feec67340e79259375b9",
+      "source_sha256": "76c1feec67340e79259375b9219dfecd441b45a0854eeae217166c30f5ead136",
+      "source": "Food variety may affect your company's mood in different ways. The {#1}Good Food Variety{/#1} event will boost the mood of your men; the {#2}No Food Variety{/#2} event, on the contrary, can result in the mood penalty for the mercenaries; {#3}Fat{/#3} and {#4}Gluttonous{/#4} are affected stronger than others, while {#5}Spartan{/#5} brothers are indifferent to provisions variety in any way. {#6}Gladiators{/#6} require high priced provisions to {#7}maintain{/#7} their adequate mood, while {#8}lowborn{/#8} mercenaries are well used to the most basic food around (ground grains). A wide variety of provision types is required to be able to hire the {#9}follower cook{/#9}, while all provision types are necessary for one of the company's {#10}ambition{/#10} completion.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "食物种类会通过不同方式影响战团心情。{#1}丰富的伙食{/#1}事件会改善队员心情，{#2}伙食单调{/#2}事件则可能降低心情；{#3}肥胖{/#3}和{#4}贪食{/#4}队员受影响更大，{#5}节俭{/#5}队员则完全不在意食物种类。{#6}角斗士{/#6}需要昂贵口粮，才能{#7}维持{/#7}较好的心情；{#8}平民出身{/#8}的佣兵则早已习惯最朴素的食物，例如磨碎的谷物。招募{#9}随行厨师{/#9}需要备齐多种口粮，而某项{#10}战团抱负{/#10}更要求备齐所有种类。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-489886c857c686d97378a4c6",
+      "source_sha256": "489886c857c686d97378a4c6ef5fd052ae518c068b3714731ee8ec579eab4a52",
+      "source": "Base worth is indicated for a provision of 25 units at their highest spoil time value.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "基础价值按 25 份、保质期最长时的口粮计算。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6461b292ab4dfadc3b629ef8",
+      "source_sha256": "6461b292ab4dfadc3b629ef862dc8359caf64a14079add02d69d17ad3a0d114c",
+      "source": "Spoil time is the best value provided for provisions bought at the {#1}Marketplace{/#1} or looted from greenskins and beasts in the case of Strange Meat.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "保质期列出的是在{#1}市场{/#1}买到的口粮所能拥有的最长保存时间；古怪肉块则按从绿皮或野兽身上获得时计算。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2ef5fcb95378dab2d2c48efd",
+      "source_sha256": "2ef5fcb95378dab2d2c48efde38f78e6ef6525bc0ea6ebbd3ccf45dd0a9f2b3c",
+      "source": "Provisions looted from defeated enemies vary dramatically in their remaining spoil time. This is especially true for Strange Meat which most commonly will have only a day or two before spoiling.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "击败敌人后缴获的口粮，剩余保质期可能相差很大。古怪肉块尤其如此，通常只剩一两天就会腐坏。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b63f625e819635202d74e26b",
+      "source_sha256": "b63f625e819635202d74e26b04f5cad47618c1c514971343e2dc954f7612fec8",
+      "source": "{#1}The follower Cook{/#1} makes all provisions last 3 extra days.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "{#1}随行厨师{/#1}会使所有口粮的保质期延长 3 天。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b67bef79ae41a1221f62bd96",
+      "source_sha256": "b67bef79ae41a1221f62bd96c4feebb085fa0b10fbd981eb1113e4f08a9b7b5d",
+      "source": "To see some of the world terrain tiles images, see: {#1}Global Map{/#1}.",
+      "page_ids": [
+        2501
+      ],
+      "zh": "部分世界地形格的图片可参阅{#1}世界地图{/#1}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6af382ff75ba7e22ceb249be",
+      "source_sha256": "6af382ff75ba7e22ceb249befe11e0746313428183253f32a8ad28c4693c8169",
+      "source": "Center map at and zoom in on Battle Brothers unit",
+      "page_ids": [
+        2816
+      ],
+      "zh": "以战团所在位置为中心显示地图，并拉近视角。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2af9e1f4ec7c8569be242f09",
+      "source_sha256": "2af9e1f4ec7c8569be242f094db5be958f299aae5b2d657dc6496af2fcaa0df0",
+      "source": "Open game menus/exit menus/close open city/shop/inventory window",
+      "page_ids": [
+        2816
+      ],
+      "zh": "打开或退出游戏菜单，关闭当前的城镇、商店或物品栏窗口。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-77804525271d5d979957ebc3",
+      "source_sha256": "77804525271d5d979957ebc3acf94816ba438d39804b041c65b48ca42f7f0d50",
+      "source": "Attack neutral parties like {#1}mercenaries{/#1}, {#2}caravans{/#2}, {#3}peasants{/#3}, etc.{#4/}(Requires you to {#5}not{/#5} have an active {#6}contract{/#6})",
+      "page_ids": [
+        2816
+      ],
+      "zh": "攻击{#1}佣兵{/#1}、{#2}商队{/#2}、{#3}农民{/#3}等中立队伍。{#4/}必须{#5}没有{/#5}正在进行的{#6}委托{/#6}才能使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6d8ac5a8455b43d2ac14e717",
+      "source_sha256": "6d8ac5a8455b43d2ac14e7171892d610fc602763e46bcfeb46331f0d9849ac7c",
+      "source": "{#1}Wait Turn{/#1}: Active character's turn is pushed to the end of the queue. If Wait Turn isn't possible, ends turn for the unit. (Hint: Waiting this turn will also make the character act later next round.)",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}等待{/#1}：将当前角色的行动顺序推迟至队列末尾。若无法等待，则结束该角色的行动。（提示：本回合等待，也会使该角色在下一回合更晚行动。）",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-cb242841c3e7f2149c70d1db",
+      "source_sha256": "cb242841c3e7f2149c70d1dbdb8a70a9b1cc16e604155e335713b9446a069f3e",
+      "source": "{#1}End Turn{/#1}: End the active character's turn and have the next character in line act.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}结束行动{/#1}：结束当前角色的行动，轮到队列中的下一名角色。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-125b3137fe08212c86d770cc",
+      "source_sha256": "125b3137fe08212c86d770cc47a1d60629d7222d806fdc4ab118d49399f1f9d1",
+      "source": "{#1}End Round{/#1}: End the current round and have all your men skip their turn until the next round starts.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}结束回合{/#1}：让所有己方队员跳过本回合剩余行动，直接进入下一回合。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-36c077613b85d9f999b8ce52",
+      "source_sha256": "36c077613b85d9f999b8ce5296a6f7dc3b305361d9740b280678e6b6212784d0",
+      "source": "{#1}Show/Hide Hitpoint Bars{/#1}: Toggle between showing and hiding armor and hitpoint bars, as well as status effect icons, ontop every visible character.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}显示／隐藏生命条{/#1}：切换所有可见角色头顶的护甲条、生命条和状态效果图标。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b83290f138ec17aee2dcc632",
+      "source_sha256": "b83290f138ec17aee2dcc632692917a5cc2fb32ff498c2597ddb3a544f92c30e",
+      "source": "{#1}Raise camera level{/#1}: Raise camera level to see the more elevated parts of the map.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}提高镜头层级{/#1}：提高镜头显示层级，以查看地图上的高处。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3334e5b22bf5c46516f8abe0",
+      "source_sha256": "3334e5b22bf5c46516f8abe043fd23b403e6b27ce72bfa1e3b05018e2c7cc4f1",
+      "source": "{#1}Lower camera level{/#1}: Lower camera level and hide elevated parts of the map.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}降低镜头层级{/#1}：降低镜头显示层级，隐藏地图上的高处。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3c538aba3009128c036b41e0",
+      "source_sha256": "3c538aba3009128c036b41e0ae55c1557bc0fe68157d573d0a2c8783fffb9525",
+      "source": "On your character's turn, it allows you to open the currently acting character's inventory to switch equipped gear and access weapons on the current tile's ground; and inspect your other characters",
+      "page_ids": [
+        2816
+      ],
+      "zh": "在己方角色行动时，打开当前角色的物品栏，以更换装备或取用脚下的武器；也可查看其他己方角色。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-4832ee7b2e350a455766c7d9",
+      "source_sha256": "4832ee7b2e350a455766c7d97b5edd4b4f5b07fe529e1da48ead5d44f9dee559",
+      "source": "{#1}Show/Hide Highlights for Blocked Tiles{/#1}: Toggle between showing and hiding red overlays that indicate tiles blocked with environmental objects (such as trees) that characters can not move onto.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}显示／隐藏不可通行格标记{/#1}：切换红色覆盖标记，用于显示被树木等环境物体占据、角色无法进入的格子。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-429a13f85663f8ed9ca5b4df",
+      "source_sha256": "429a13f85663f8ed9ca5b4df8005cdbc6919c2055945c773412d8aaeeacff3f3",
+      "source": "{#1}Show/Hide Trees{/#1}: Toggle between showing and hiding trees and other large objects on the map.",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}显示／隐藏树木{/#1}：切换地图上的树木及其他大型物体是否可见。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b0401276a47797905038be3f",
+      "source_sha256": "b0401276a47797905038be3f8bf28e02d474a531a10f34e84e644d96b29e0718",
+      "source": "Repair item in inventory at a {#1}Weaponsmith{/#1} or {#2}Armorer{/#2}",
+      "page_ids": [
+        2816
+      ],
+      "zh": "在{#1}武器铺{/#1}或{#2}铠甲铺{/#2}修理物品栏中的装备。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-784211020bb5576909fd37fd",
+      "source_sha256": "784211020bb5576909fd37fd508eff3ca5513b2f6b47ba1fcadf70d987621245",
+      "source": "{#1}Drag & Drop a Character Icon into a Formation Slot{/#1}",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}将角色图标拖到阵型中的位置{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-171d7b1397d51ffbe707f15a",
+      "source_sha256": "171d7b1397d51ffbe707f15a3064ed5ff17429d6e44810099c6addf86320dc36",
+      "source": "The selected character will start battles in this position of the formation. If the slot was occupied, the characters will swap places with one another",
+      "page_ids": [
+        2816
+      ],
+      "zh": "选中的角色将在战斗开始时站在该阵型位置。若该位置已有角色，两人会交换位置。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b35c8d92ac1f8dfcd35136e8",
+      "source_sha256": "b35c8d92ac1f8dfcd35136e8045c723dba6373a71bca78e00460aa2329ef3b94",
+      "source": "{#1}Drag & Drop a Character Icon into a Reserve Slot{/#1}",
+      "page_ids": [
+        2816
+      ],
+      "zh": "{#1}将角色图标拖到预备队位置{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-13dcfed4e330c6c09ec6c148",
+      "source_sha256": "13dcfed4e330c6c09ec6c148f5d0d3b827c75ddfaeae4ad4019895f17a7566f2",
+      "source": "The selected character will not take part in battles. If the slot was occupied, the characters will swap places with one another",
+      "page_ids": [
+        2816
+      ],
+      "zh": "选中的角色不会参与战斗。若该预备队位置已有角色，两人会交换位置。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-82a324c1458deba88c8e0a8e",
+      "source_sha256": "82a324c1458deba88c8e0a8e4175b425f7736f26a07c79574339a25ea38e4b96",
+      "source": "Moods affect starting morale of men in combat and are influenced by various events. The common positive ones being winning battles, gaining confidence in leadership (completed an ambition) and the common negative ones being lost a brother in battle, dismissed men without compensation. Every day, in the absence of other factors/events, mood slowly trends towards 50% or Content.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "心情会影响队员进入战斗时的士气，并受各种事件影响。常见的积极因素包括战斗胜利，以及完成战团抱负后对团长更有信心；常见的消极因素包括战友阵亡、解雇队员却不给补偿。在没有其他因素或事件影响时，心情每天都会逐渐趋近于 50%，即“满意”。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-513f221819cfbc98a5bba8b8",
+      "source_sha256": "513f221819cfbc98a5bba8b8b5a023279e4b3d712724f00fe9c519583e5e43ab",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Euphoric (86% to 100%){/#4}{#5/} • Recent events have left this character in a state of euphoria, happy to spend his time in the service of the company and sure of victory against any foe. Its bordering on the annoying really.{#6/} • Has a 75% chance of starting at confident morale.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}欣喜若狂（86% 至 100%）{/#4}{#5/} • 最近发生的事令这名队员欣喜若狂。他乐于为战团效力，并坚信能战胜任何敌人。说实话，这股兴奋劲儿都快让人受不了了。{#6/} • 有 75% 的概率以斗志昂扬状态进入战斗。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-473ef7bd9488711cfcd6e9ff",
+      "source_sha256": "473ef7bd9488711cfcd6e9ff3a495e3832c8f53310360f48559e08cd6bba5d65",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Eager (73% to 85%){/#4}{#5/} • Recent events have left this character eager to fight with the company, pleased with how things are going and motivating to those around him.{#6/} • Has a 50% chance of starting at confident morale.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}振奋（73% 至 85%）{/#4}{#5/} • 最近发生的事令这名队员渴望与战团并肩作战。他对现状很满意，也鼓舞着身边的人。{#6/} • 有 50% 的概率以斗志昂扬状态进入战斗。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-41d002c17d8fe027a7503bd3",
+      "source_sha256": "41d002c17d8fe027a7503bd3d9133f4332b96fc8adb30a88df6a773bfd506dec",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}In Good Spirits (58% to 72%){/#4}{#5/} • Recent events have left this character in good spirit. It will probably pass as reality takes a grip again, but for now, things are looking well.{#6/} • Has a 25% chance of starting at confident morale.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}心情良好（58% 至 72%）{/#4}{#5/} • 最近发生的事令这名队员心情不错。等现实再次迎头压来，这种感觉或许就会消退；但至少眼下，一切都很好。{#6/} • 有 25% 的概率以斗志昂扬状态进入战斗。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-63db55587efe9477cd30ccca",
+      "source_sha256": "63db55587efe9477cd30cccaec3093e7430c27d8f9712ffef0138b2bd69c6fb0",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Content (43% to 57%){/#4}{#5/} • The character is content with how things are going. Could be better, could be worse.{#6/} • Mood will always trend to this state over time.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}满意（43% 至 57%）{/#4}{#5/} • 这名队员对现状还算满意。日子可以更好，也可能更糟。{#6/} • 随着时间推移，心情总会逐渐回归这一状态。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-da7f06c480aee92bece3e9d4",
+      "source_sha256": "da7f06c480aee92bece3e9d4135827c389d9136cffa80948944e0804604a2ec5",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Dissatisfied (31% to 42%){/#4}{#5/} • Not uncommon for someone living the hardships of mercenary life, this character isn't quite satisfied and is hoping for things to improve.{#6/} • Can only have steady morale or worse.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}心怀不满（31% 至 42%）{/#4}{#5/} • 佣兵生活艰苦，心生不满并不稀奇。这名队员对现状不太满意，希望日子能有所改善。{#6/} • 士气最高只能达到镇定。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d8d6a261e3ed7ea96104745c",
+      "source_sha256": "d8d6a261e3ed7ea96104745c8f2c6d5cb54cb18fefc9cd9d9f8c6070b211cb2c",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Disgruntled (16% to 30%){/#4}{#5/} • Recent events have left his character disgruntled and disappointed how things are going. It may fade, or it may get a lot worse if other events tip him over the edge.{#6/} • Can only have wavering morale or worse.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}不满（16% 至 30%）{/#4}{#5/} • 最近发生的事令这名队员满腹怨气，对现状失望。情绪也许会自行平复，也可能因其他事情火上浇油而进一步恶化。{#6/} • 士气最高只能达到动摇。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-22211e80aa7f06921d9c8ece",
+      "source_sha256": "22211e80aa7f06921d9c8ece2342c6e98ed18a86c5db54639b2d2f2dd7dac529",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Angry (0% to 15%){/#4}{#5/} • Recent events have left this character angry and vengeful towards around him. If things don't improve very quickly, this character may decide to desert the company.{#6/} • Can only have breaking morale or worse.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} {#4}愤怒（0% 至 15%）{/#4}{#5/} • 最近发生的事令这名队员怒火中烧，想向周围的人报复。如果情况不能迅速好转，他可能离开战团。{#6/} • 士气最高只能达到濒临崩溃。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ee488ae4f2253068d3d5267b",
+      "source_sha256": "ee488ae4f2253068d3d5267bc2b0cef872655bd2a0179fa39c59a691b7bbb772",
+      "source": "Below is a List of common actions that can change a brothers mood. There are also {#1}Events{/#1} that change the mood, but the change is different for each {#2}Event{/#2}. Too many to list them here anyway.",
+      "page_ids": [
+        5845
+      ],
+      "zh": "下表列出会改变队员心情的常见行为。此外，许多{#1}事件{/#1}也会影响心情，不过每个{#2}事件{/#2}的变化都不相同，数量太多，无法在此一一列出。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-231d3be44049a78eaac97e26",
+      "source_sha256": "231d3be44049a78eaac97e268a847086498751f198fe214b3ff2192ca3553b52",
+      "source": "{#1}{#2/}{/#1} <a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/2/21/Tools_and_Supplies.png/revision/latest?cb=20200710124222\"><img alt=\"Tools and Supplies\" class=\"w-thumbimage\" data-image-key=\"Tools_and_Supplies.png\" data-image-name=\"Tools and Supplies.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/2/21/Tools_and_Supplies.png/revision/latest/scale-to-width-down/270?cb=20200710124222\" decoding=\"async\" height=\"151\" loading=\"lazy\" src=\"/wiki/media/d7df6aed6b28f81fcb5e10aab3b237b00e09cc58314dd396ae13fdaeb7ed752c.webp\" title=\"工具与修缮物资 / Tools and Supplies\" width=\"270\"/></a>",
+      "page_ids": [
+        11980
+      ],
+      "zh": "{#1}{#2/}{/#1}",
+      "status": "reviewed",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/2/21/Tools_and_Supplies.png/revision/latest?cb=20200710124222\"><img alt=\"Tools and Supplies\" class=\"w-thumbimage\" data-image-key=\"Tools_and_Supplies.png\" data-image-name=\"Tools and Supplies.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/2/21/Tools_and_Supplies.png/revision/latest/scale-to-width-down/270?cb=20200710124222\" decoding=\"async\" height=\"151\" loading=\"lazy\" src=\"/wiki/media/d7df6aed6b28f81fcb5e10aab3b237b00e09cc58314dd396ae13fdaeb7ed752c.webp\" title=\"工具与修缮物资 / Tools and Supplies\" width=\"270\"/></a>",
+        "reason": "The source repeats the same protected image as escaped HTML. Retain the actual image and omit only the identical serialized duplicate."
+      }
+    },
+    {
+      "id": "u-d95963466889001dd60ff0e1",
+      "source_sha256": "d95963466889001dd60ff0e1b9d6129908ecc4bb7250d9b356212417da6b1c12",
+      "source": "{#1}Assorted tools and supplies to keep your weapons, armor, helmets and shields in good condition.{/#1}",
+      "page_ids": [
+        11980
+      ],
+      "zh": "{#1}各种工具和修缮物资，用于维护武器、身甲、头盔与盾牌，使其保持良好状态。{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3d5ae19b3bcecc07fb00bf15",
+      "source_sha256": "3d5ae19b3bcecc07fb00bf15847dd5d4c6adfef99abdadd114a805e50ae45837",
+      "source": "{#1}Surface Copper Vein{/#1}, {#2}Surface Iron Vein{/#2}, {#3}Blast Furnace{/#3} and {#4}Ore Smelters{/#4} can slightly increase availability.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "{#1}露天铜矿{/#1}、{#2}露天铁矿{/#2}、{#3}高炉{/#3}和{#4}矿石冶炼厂{/#4}会略微增加供应量。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-861efc71d9142ba4c28083e2",
+      "source_sha256": "861efc71d9142ba4c28083e234e63a789849e8b345e2fcc321a851e863e56211",
+      "source": "Can be gained in {#1}Broken Cart{/#1}, {#2}Broken Wagon{/#2}, {#3}Broken Wagon in Swamp{/#3}, {#4}Holywar Ill Southerners{/#4}, {#5}Holywar Sand Storm{/#5} events.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "可在{#1}破损手推车{/#1}、{#2}破损货车{/#2}、{#3}陷在沼泽中的货车{/#3}、{#4}圣战：患病的南方人{/#4}和{#5}圣战：沙尘暴{/#5}事件中获得。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2da44e4207fcc7c163d87393",
+      "source_sha256": "2da44e4207fcc7c163d873935ebcbda76a14e313a0fad17896d3daf16bf29530",
+      "source": "{#1}The Scavenger{/#1} recovers some {#2}Tools and Supplies{/#2} from every armor completely destroyed by the player during battle.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "战斗中，每彻底摧毁一件护甲，{#1}拾荒者{/#1}都能从中回收一些{#2}工具与修缮物资{/#2}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6ed40cbf70242ee4d1177a9e",
+      "source_sha256": "6ed40cbf70242ee4d1177a9ef54dbcc2b323de9a6a164dd8dd1132cf8ae5fa09",
+      "source": "One point of {#1}Tools and Supplies{/#1} is required to repair 15 points of item durability.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "每份{#1}工具与修缮物资{/#1}可修复 15 点装备耐久。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3f67b1a0fa825e7e2e2673b6",
+      "source_sha256": "3f67b1a0fa825e7e2e2673b6d8a144a216ec584d49982e517f829f3434212220",
+      "source": "Items which are equipped or carried in the bag slots of the brothers are automatically repaired.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "队员身上已装备的物品，以及随身背包栏里的物品，都会自动修理。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-396e1bee03f7412370827677",
+      "source_sha256": "396e1bee03f7412370827677ebbcc9739abe0d36b705e3ea4a758ae21972dec2",
+      "source": "In your stash, you can mark/unmark items to be repaired with Alt+Right-Click.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "在战团仓库中，按 Alt 并用鼠标右键点击物品，可标记或取消标记修理。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-320b11f23f74b6a188b69d99",
+      "source_sha256": "320b11f23f74b6a188b69d994ed0ad649ad58e96ed27a0d93cc3461ce50a0551",
+      "source": "Maximum carrying capacity is determined by Economic Difficulty of the game: 150 - for Veteran and Expert; 200 - for Beginner. {#1}The Quartermaster{/#1} will increase carrying capacity by 50.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "携带上限取决于经济难度：老练和专家为 150，初学者为 200。{#1}军需官{/#1}会使上限增加 50。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-492a5e07e12bc43a8423fb7c",
+      "source_sha256": "492a5e07e12bc43a8423fb7cc74de6f156ee437f6084e64b3a9d57a61f36716f",
+      "source": "{#1}The Scavenger{/#1} is capable of recovering {#2}Tools and Supplies{/#2} from every armor destroyed by the player during battle (body armor and helmets need to be completely destroyed to be salvageable).",
+      "page_ids": [
+        11980
+      ],
+      "zh": "{#1}拾荒者{/#1}可以从战斗中被玩家彻底摧毁的护甲里回收{#2}工具与修缮物资{/#2}；身甲和头盔必须完全损毁才能回收。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-a5de0bc00f45b6738409139e",
+      "source_sha256": "a5de0bc00f45b6738409139e931463e321c488773e6c6e9060a2f5d33395a3c1",
+      "source": "Items are repaired at 3 points of durability per hour (tick) rate. {#1}The Blacksmith{/#1} increases repair speed by {#2}33%{/#2}. When {#3}Camped{/#3} or {#4}Escorting Caravan{/#4} (contract) {#5}repair rate{/#5} is {#6}doubled{/#6} for the the same time interval. Making a {#7}Camp{/#7} comes at the expense of having less vision range and also being more visible to roaming enemies (more dangerous parties are often attracted at night).",
+      "page_ids": [
+        11980
+      ],
+      "zh": "装备每小时（一次结算）修复 3 点耐久。{#1}铁匠{/#1}会使修理速度提高 {#2}33%{/#2}。{#3}扎营{/#3}或执行{#4}护送商队{/#4}委托时，同一时间内的{#5}修理速度{/#5}会{#6}翻倍{/#6}。不过，{#7}扎营{/#7}会缩小视野，并让游荡的敌人更容易发现战团；夜间还常会吸引更危险的敌方队伍。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-bc2c3e0612527ff3e3df4c7b",
+      "source_sha256": "bc2c3e0612527ff3e3df4c7b87a3d604efb091b24a55e4629b470a4d91f97133",
+      "source": "It is also possible to preserve {#1}Tools and Supplies{/#1} by repairing damaged equipment at settlements' {#2}Weaponsmith{/#2} or {#3}Armorer{/#3}, though at a higher cost (repair cost heavily depends on the item's worth value). {#4}{#5}{#6/}{/#5}{/#4} {#7}Battle Forged{/#7} perk can be considered as a tools-saving means to some extent.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "也可以在聚落的{#2}武器铺{/#2}或{#3}铠甲铺{/#3}修理受损装备，节省{#1}工具与修缮物资{/#1}，但花费更高；修理价格很大程度上取决于物品价值。{#4}{#5}{#6/}{/#5}{/#4}{#7}久经战阵{/#7}特长在一定程度上也能节省工具。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-222a4e1de3a311e71ab83fea",
+      "source_sha256": "222a4e1de3a311e71ab83fea4baa7d7226434031272de59afa730d4234ea5db0",
+      "source": "Some amount can be lost or used in the {#1}Deserter Origin Volunteer{/#1}, {#2}Thief Caught{/#2}, {#3}Treasure in Rock{/#3} events.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "在{#1}逃兵起源：自愿加入者{/#1}、{#2}盗贼被抓{/#2}和{#3}岩石中的宝藏{/#3}事件中，可能失去或消耗一些物资。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2294172ce061499f01fbc967",
+      "source_sha256": "2294172ce061499f01fbc96723152485ffb7380cc055ed0eb79428e213c46dd1",
+      "source": "Running out of supplies will result in inability to repair weapons and armor. Weapons which lost all their durability will break in combat (and be lost forever), completely damaged armor will be useless (but can be repaired afterwards). {#1}The Blacksmith{/#1} will prevent weapons and other equipment from being lost due to complete depletion of durability.",
+      "page_ids": [
+        11980
+      ],
+      "zh": "修缮物资耗尽后，就无法再修理武器和护甲。武器耐久归零会在战斗中损毁并永久丢失；完全损毁的护甲则失去防护作用，但战后仍可修理。{#1}铁匠{/#1}可以防止武器及其他装备因耐久耗尽而永久丢失。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b900e2ea8f35bdfce32fa6ed",
+      "source_sha256": "b900e2ea8f35bdfce32fa6ed5c4959e54803814c4f0baaf640f30c84a7f14a9b",
+      "source": "Flesh Cradle is an object that appears in the {#1}Artifact Reliquary{/#1} {#2}legendary location{/#2}.",
+      "page_ids": [
+        17006
+      ],
+      "zh": "血肉摇篮是{#2}传奇地点{/#2}{#1}圣物宝库{/#1}中出现的一种场景物体。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9607a76874897ec49c2a69ef",
+      "source_sha256": "9607a76874897ec49c2a69ef4283dbbee9a855b8a49f22a8c5c463e46848b9b5",
+      "source": "The only purpose of Flesh Cradles is to be exploded by {#1}Fault Finders{/#1} when a brother is nearby. However, Flesh Pull does not pull you to Flesh Cradles on purpose.",
+      "page_ids": [
+        17006
+      ],
+      "zh": "血肉摇篮唯一的用途，是在队员靠近时被{#1}寻隙者{/#1}引爆。不过，“血肉牵引”不会特意把队员拉到血肉摇篮旁。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-57b760c706d57f7f6af873c2",
+      "source_sha256": "57b760c706d57f7f6af873c2409e0512659f26f62aa7ec1c7204437c766e790e",
+      "source": "They block your movement, but enemies freely walk through them. An exploded Flesh Cradle no longer occupies its tile.",
+      "page_ids": [
+        17006
+      ],
+      "zh": "血肉摇篮会阻挡你的队员移动，敌人却能自由穿过。爆炸后，摇篮不再占据所在格。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-92f735c71b12e0b5344b422f",
+      "source_sha256": "92f735c71b12e0b5344b422f571b86fc694b1965c1b1c0700e5ec5ab477330e1",
+      "source": "When retreating your {#1}Nimble{/#1} brother with a broken body armor, don't end up near one of these. Explosion ignores Nimble.",
+      "page_ids": [
+        17006
+      ],
+      "zh": "让身甲已损毁的{#1}轻灵{/#1}队员后撤时，别停在血肉摇篮附近，因为爆炸会无视轻灵。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-cb43cf9c8a36dc12708cb746",
+      "source_sha256": "cb43cf9c8a36dc12708cb7467c04e36687b811e2656e478d1752ddba9c367444",
+      "source": "{#1}Flesh Golem{/#1} • {#2}Greater Flesh Golem{/#2} • {#3}Fault Finder{/#3} • {#4}Grand Diviner{/#4} • {#5}Flesh Cradle{/#5}",
+      "page_ids": [
+        17006
+      ],
+      "zh": "{#1}血肉魔像{/#1} • {#2}巨型血肉魔像{/#2} • {#3}寻隙者{/#3} • {#4}大先知{/#4} • {#5}血肉摇篮{/#5}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2e8ef7be1f56a88a3f182a90",
+      "source_sha256": "2e8ef7be1f56a88a3f182a90e255c533245cc9363ecdd38b2e9ab7d5d5877f5b",
+      "source": "Costs 3 AP and builds up {#1}15{/#1} fatigue to release the Falcon",
+      "page_ids": [
+        4615
+      ],
+      "zh": "放出猎隼消耗 3 行动点，并积累 {#1}15{/#1} 点疲劳。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2fe37c884501d2bd94fd2c8d",
+      "source_sha256": "2fe37c884501d2bd94fd2c8d50fc7b369e6d9f9cba65ef10f6c612a4d833ae55",
+      "source": "{#1}{#2/}{/#1} <a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/7/74/Falcon-0.png/revision/latest?cb=20200708150300\"><img alt=\"Falcon-0\" class=\"w-thumbimage\" data-image-key=\"Falcon-0.png\" data-image-name=\"Falcon-0.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/7/74/Falcon-0.png/revision/latest/scale-to-width-down/280?cb=20200708150300\" decoding=\"async\" height=\"137\" loading=\"lazy\" src=\"/wiki/media/e3422e1d8888c294c23db00c683688db78fad60f79cab7dd74654cb28a601f9a.webp\" title=\"Falcon-0.png\" width=\"280\"/></a>",
+      "page_ids": [
+        4615
+      ],
+      "zh": "{#1}{#2/}{/#1}",
+      "status": "reviewed",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/7/74/Falcon-0.png/revision/latest?cb=20200708150300\"><img alt=\"Falcon-0\" class=\"w-thumbimage\" data-image-key=\"Falcon-0.png\" data-image-name=\"Falcon-0.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/7/74/Falcon-0.png/revision/latest/scale-to-width-down/280?cb=20200708150300\" decoding=\"async\" height=\"137\" loading=\"lazy\" src=\"/wiki/media/e3422e1d8888c294c23db00c683688db78fad60f79cab7dd74654cb28a601f9a.webp\" title=\"Falcon-0.png\" width=\"280\"/></a>",
+        "reason": "The source repeats the same protected image as escaped HTML. Retain the actual image and omit only the identical serialized duplicate."
+      }
+    },
+    {
+      "id": "u-958595ca0b6ae5dfdf4d73e8",
+      "source_sha256": "958595ca0b6ae5dfdf4d73e82cd41a6a7da946579a855a0398c92e2b4a87a443",
+      "source": "{#1}{#2/}{/#1} <a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/8/8c/Release_Falcon.png/revision/latest?cb=20171106233611\"><img alt=\"Release Falcon\" class=\"w-thumbimage\" data-image-key=\"Release_Falcon.png\" data-image-name=\"Release Falcon.png\" data-relevant=\"0\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/8/8c/Release_Falcon.png/revision/latest/scale-to-width-down/280?cb=20171106233611\" decoding=\"async\" height=\"112\" loading=\"lazy\" src=\"/wiki/media/9bb844a1e50ccc3c9cde7273a9cdda29ba3d0414a2c5e65150a318dc13f91c7e.webp\" title=\"放出猎鹰 / Release Falcon\" width=\"280\"/></a>",
+      "page_ids": [
+        4615
+      ],
+      "zh": "{#1}{#2/}{/#1}",
+      "status": "reviewed",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/8/8c/Release_Falcon.png/revision/latest?cb=20171106233611\"><img alt=\"Release Falcon\" class=\"w-thumbimage\" data-image-key=\"Release_Falcon.png\" data-image-name=\"Release Falcon.png\" data-relevant=\"0\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/8/8c/Release_Falcon.png/revision/latest/scale-to-width-down/280?cb=20171106233611\" decoding=\"async\" height=\"112\" loading=\"lazy\" src=\"/wiki/media/9bb844a1e50ccc3c9cde7273a9cdda29ba3d0414a2c5e65150a318dc13f91c7e.webp\" title=\"放出猎鹰 / Release Falcon\" width=\"280\"/></a>",
+        "reason": "The source repeats the same protected image as escaped HTML. Retain the actual image and omit only the identical serialized duplicate."
+      }
+    },
+    {
+      "id": "u-ec2db0f902130ba6e8f0312a",
+      "source_sha256": "ec2db0f902130ba6e8f0312a073cb1a69787875d9098dd2a3214d852a94b9764",
+      "source": "{#1}{#2/}{/#1} <a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/f/f6/Falcon_Released.png/revision/latest?cb=20200723164151\"><img alt=\"Falcon Released\" class=\"w-thumbimage\" data-image-key=\"Falcon_Released.png\" data-image-name=\"Falcon Released.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/f/f6/Falcon_Released.png/revision/latest/scale-to-width-down/280?cb=20200723164151\" decoding=\"async\" height=\"135\" loading=\"lazy\" src=\"/wiki/media/188b6497c3dbbd421e504838b462c6e8412bd4e587502e126618d0c5a68ccbef.webp\" title=\"Falcon Released.png\" width=\"280\"/></a>",
+      "page_ids": [
+        4615
+      ],
+      "zh": "{#1}{#2/}{/#1}",
+      "status": "reviewed",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/f/f6/Falcon_Released.png/revision/latest?cb=20200723164151\"><img alt=\"Falcon Released\" class=\"w-thumbimage\" data-image-key=\"Falcon_Released.png\" data-image-name=\"Falcon Released.png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/f/f6/Falcon_Released.png/revision/latest/scale-to-width-down/280?cb=20200723164151\" decoding=\"async\" height=\"135\" loading=\"lazy\" src=\"/wiki/media/188b6497c3dbbd421e504838b462c6e8412bd4e587502e126618d0c5a68ccbef.webp\" title=\"Falcon Released.png\" width=\"280\"/></a>",
+        "reason": "The source repeats the same protected image as escaped HTML. Retain the actual image and omit only the identical serialized duplicate."
+      }
+    },
+    {
+      "id": "u-a2aad6ba7dbc484501333dae",
+      "source_sha256": "a2aad6ba7dbc484501333daebcce57814907262727c639d5eeb9e65155281c71",
+      "source": "Can be rarely bought at a {#1}Marketplace{/#1} in size 3+ settlements or settlements of any size with a {#2}military attached location{/#2}.",
+      "page_ids": [
+        4615
+      ],
+      "zh": "规模达到 3 或以上的聚落，或任何设有{#2}军事附属地点{/#2}的聚落，都有较低概率在{#1}市场{/#1}出售猎隼。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ca9f3be6e7b8162f36283559",
+      "source_sha256": "ca9f3be6e7b8162f3628355939f27516f8fe47aa699a0eacf4958d09696e1aaa",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        4046
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-389e328d1aaf9583502c99ee",
+      "source_sha256": "389e328d1aaf9583502c99ee50429e942b780e33fcf7802a42a86461501e37ce",
+      "source": "Polearms are two-handed {#1}weapons{/#1} which have an attack range of 1-2 tiles, making it possible to attack from behind the front-line. Attacking adjacent enemies has -15% chance to hit.",
+      "page_ids": [
+        4046
+      ],
+      "zh": "长柄武器是攻击距离为 1-2 格的双手{#1}武器{/#1}，可以从前排队员身后攻击。攻击相邻敌人时，命中率受到 -15% 惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2d6527c40fa2e00487b78986",
+      "source_sha256": "2d6527c40fa2e00487b78986042fe5a8ffb7de0d00906e908c957f787b50374a",
+      "source": "Polearms can be divided into 2 types, depending on the type of damage they inflict: piercing or cutting. Impale and Rupture skill deal piercing damage (skeletons, {#1}Alps{/#1} and {#2}Ifrits{/#2} are somewhat resistant to it). Strike and Reap deal cutting damage and, thus, possess decapitate properties (useful in fights vs {#3}Necromancers{/#3} and during the Undead Scourge crisis).",
+      "page_ids": [
+        4046
+      ],
+      "zh": "按伤害类型，长柄武器可分为穿刺和切割 2 类。贯刺、撕裂技能造成穿刺伤害，骷髅、{#1}梦魇{/#1}和{#2}沙魔{/#2}对其有一定抗性。打击、收割技能造成切割伤害，能够斩首，因此在对付{#3}亡灵法师{/#3}及亡灵灾祸危机时很有用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-57e3ed84ce944594cb07fc80",
+      "source_sha256": "57e3ed84ce944594cb07fc80681cd5c2239fac3ffaa486f3ee84a4aa64c7375f",
+      "source": "{#1}Pollaxe{/#1} has a range of 1, despite being a polearm. It can deal all three damage types: blunt with Smite, piercing with Assault and cutting with Assault second attack on staggered targets.",
+      "page_ids": [
+        4046
+      ],
+      "zh": "{#1}骑士斧戟{/#1}虽属于长柄武器，攻击距离却只有 1 格。它能造成全部三类伤害：重击造成钝击伤害，猛攻造成穿刺伤害，而对踉跄目标发动猛攻时，第二次攻击造成切割伤害。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-e0a85e25804fb5fd7c915ede",
+      "source_sha256": "e0a85e25804fb5fd7c915edef9e13da88e6191e5d777060c99a9f0f29e660fbe",
+      "source": "The AP cost of all skills is reduced from 6 to 5.",
+      "page_ids": [
+        4046
+      ],
+      "zh": "所有技能的行动点消耗从 6 降至 5。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-8355dbd5e1896b26ed9bb4f7",
+      "source_sha256": "8355dbd5e1896b26ed9bb4f766bc7ec52a60c9c8cfd1d9d984ae31fd5b3aa502",
+      "source": "Polearms no longer have hit chance penalty for hitting targets directly adjacent.",
+      "page_ids": [
+        4046
+      ],
+      "zh": "用长柄武器攻击相邻目标时，不再受到命中惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-00ecc8de3a405431bed72c8e",
+      "source_sha256": "00ecc8de3a405431bed72c8efbc566f402c386bd87a54b91dfcbbf25551424f9",
+      "source": "Allows the wearer to see at night and negates any penalties due to {#1}nighttime{/#1}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "让佩戴者能够在夜间看清周围，并免受{#1}夜间{/#1}惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-e09f493515743ff0dd4fd3c1",
+      "source_sha256": "e09f493515743ff0dd4fd3c1ba91cfdad28d2bfaedb5858dbc35a01db2b4763d",
+      "source": "Worn by {#1}Anatomists{/#1}.{#2/}Only take 50% of damage inflicted by {#3}Miasma{/#3}.",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}解剖学者{/#1}穿戴。{#2/}受到的{#3}瘴气{/#3}伤害降为 50%。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-fc641c807133406c9d5e29e0",
+      "source_sha256": "fc641c807133406c9d5e29e0e3f0d0f37421c50fdbdd2443eee8f19c1359fe11",
+      "source": "Used by {#1}Mercenaries{/#1}, {#2}Bounty Hunters{/#2}, {#3}Noble House Forces{/#3}, {#4}Armored Wiedergangers{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}佣兵{/#1}、{#2}赏金猎人{/#2}、{#3}贵族家族军队{/#3}和{#4}披甲行尸{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-287f429850d1c518e1a31ddf",
+      "source_sha256": "287f429850d1c518e1a31ddff04b284dd09e1d679378b29ca48624efd8bc1f68",
+      "source": "Used by {#1}Brigand Raiders{/#1}, {#2}Mercenaries{/#2}, {#3}Bounty Hunters{/#3}, {#4}Noble House Forces{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗劫掠者{/#1}、{#2}佣兵{/#2}、{#3}赏金猎人{/#3}和{#4}贵族家族军队{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6a0de289b13454978430636e",
+      "source_sha256": "6a0de289b13454978430636e8f42238c5528acb57cbb0d6f4dafe8cd27e979b6",
+      "source": "Sold at {#1}Armorer{/#1}.{#2/}Best regular head armor for archers without {#3}{#4}{#5/}{/#4}{/#3} {#6}trait{/#6}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "在{#1}铠甲铺{/#1}出售。{#2/}对没有{#3}{#4}{#5/}{/#4}{/#3}{#6}鹰眼特性{/#6}的弓手而言，这是最好的普通头部装备。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b1b92e48592a31a3a7cfe445",
+      "source_sha256": "b1b92e48592a31a3a7cfe4455c0e27baeda4204bd2ca5e5bf7a49d69e58a0c8c",
+      "source": "Used by {#1}Brigand Leaders{/#1}, {#2}Mercenaries{/#2}, {#3}Noble House Forces{/#3}, {#4}Armored Wiedergangers{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗头目{/#1}、{#2}佣兵{/#2}、{#3}贵族家族军队{/#3}和{#4}披甲行尸{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ab46167c0ea282d3a62997e9",
+      "source_sha256": "ab46167c0ea282d3a62997e94f1d088e778ca32ca8df74c40a73bd0a6394a8be",
+      "source": "Used by {#1}Brigand Leaders{/#1}, {#2}Mercenaries{/#2}, {#3}Bounty Hunters{/#3}, {#4}Swordmasters{/#4}, {#5}Noble House Forces{/#5}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗头目{/#1}、{#2}佣兵{/#2}、{#3}赏金猎人{/#3}、{#4}剑术大师{/#4}和{#5}贵族家族军队{/#5}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-44cd8d099f272f74c7b2184d",
+      "source_sha256": "44cd8d099f272f74c7b2184df0ba1b89e31e9e7c9aeb7c3daf37632c43b07412",
+      "source": "Used by {#1}Brigand Leaders{/#1}, {#2}Mercenaries{/#2}, {#3}Bounty Hunters{/#3}, {#4}Noble House Forces{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗头目{/#1}、{#2}佣兵{/#2}、{#3}赏金猎人{/#3}和{#4}贵族家族军队{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-80f2875f7954fefea3dfedc4",
+      "source_sha256": "80f2875f7954fefea3dfedc40dfd28108300a471f981490480fdba2ab8f161ed",
+      "source": "Obtainable via {#1}Allied Nobles{/#1} ambition and some {#2}War of the Noble Houses{/#2} crisis events, used by {#3}Noble House Knights{/#3}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "可通过{#1}贵族盟友{/#1}战团抱负，以及{#2}贵族战争{/#2}危机中的部分事件获得；{#3}贵族骑士{/#3}也会使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c99198d59b6d965f1bfa1883",
+      "source_sha256": "c99198d59b6d965f1bfa188332970d57820550cf9345138dfc10f6198dfc92d3",
+      "source": "Usually paired with either {#1}Padded Armor Pieces{/#1} (+60 {#2}{#3}{#4/}{/#3}{/#2}, -4 {#5}{#6}{#7/}{/#6}{/#5}) or {#8}Metal Armor Pieces{/#8} (+115 {#9}{#10}{#11/}{/#10}{/#9}, -10 {#12}{#13}{#14/}{/#13}{/#12}) armor attachment, which are replaceable but not refundable. The total worth value is affected by the attachment.",
+      "page_ids": [
+        2183
+      ],
+      "zh": "通常附带{#1}衬垫护具{/#1}（+60 {#2}{#3}{#4/}{/#3}{/#2}耐久，-4 {#5}{#6}{#7/}{/#6}{/#5}最大疲劳）或{#8}金属甲片{/#8}（+115 {#9}{#10}{#11/}{/#10}{/#9}耐久，-10 {#12}{#13}{#14/}{/#13}{/#12}最大疲劳）。这些附件可以替换，但无法拆下回收；附件也会影响装备的总价值。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2ce52feb9cd22cdf461e9ec8",
+      "source_sha256": "2ce52feb9cd22cdf461e9ec82f16bf976ec620a0f4225f5905678cb6a1005172",
+      "source": "Used by {#1}Mercenaries{/#1}, {#2}Swordmaster{/#2}, {#3}Noble House Forces{/#3}, {#4}Armored Wiedergangers{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}佣兵{/#1}、{#2}剑术大师{/#2}、{#3}贵族家族军队{/#3}和{#4}披甲行尸{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-91e49447ca8819a52f747822",
+      "source_sha256": "91e49447ca8819a52f747822154af0b5e5cef861c5cdee07dc25899d84b36f28",
+      "source": "Used by {#1}Brigand Leaders{/#1}, {#2}Mercenaries{/#2}, {#3}Swordmaster{/#3}, {#4}Noble House Forces{/#4}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗头目{/#1}、{#2}佣兵{/#2}、{#3}剑术大师{/#3}和{#4}贵族家族军队{/#4}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-bec3309556a506ba855c340c",
+      "source_sha256": "bec3309556a506ba855c340c9a5d6aa8d82a179e2e971b25d88370252ba40ec2",
+      "source": "Used by {#1}Brigand Leaders{/#1}, {#2}Mercenaries{/#2}, {#3}Hedge Knights{/#3}, {#4}Zweihanders{/#4}, {#5}Sergeants{/#5}, {#6}Knights{/#6}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}强盗头目{/#1}、{#2}佣兵{/#2}、{#3}流浪骑士{/#3}、{#4}双手剑士{/#4}、{#5}军士{/#5}和{#6}骑士{/#6}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-eeb87dda2e1c377bd7497858",
+      "source_sha256": "eeb87dda2e1c377bd74978580aea4c0cff0be91745ed7d9558aeacd42dbc99d9",
+      "source": "Obtainable via the {#1}Allied Nobles{/#1} ambition, gained in the {#2}Civilwar Wounded Soldier{/#2} event",
+      "page_ids": [
+        2183
+      ],
+      "zh": "可通过{#1}贵族盟友{/#1}战团抱负获得，也可在{#2}贵族战争：伤兵{/#2}事件中取得。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-487f1428f6d957f613ef70fd",
+      "source_sha256": "487f1428f6d957f613ef70fd9086bb4594d0bdd07957fe7e130ac63e39593f6e",
+      "source": "Used by {#1}Goblin Skirmishers{/#1}.{#2/}{#3}{#4}{#5/}{/#4}{/#3}{#6}Knock Back{/#6} skill is unavailable",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}地精游击兵{/#1}使用。{#2/}无法使用{#3}{#4}{#5/}{/#4}{/#3}{#6}击退{/#6}技能。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2d4379249803b9feac08f33e",
+      "source_sha256": "2d4379249803b9feac08f33ea28b3937d0c4220785263390b803f542870b945f",
+      "source": "Used by {#1}Barbarian Thralls{/#1} and {#2}Reavers{/#2}, bodyguard {#3}Armored Wiedergangers{/#3}",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}蛮族奴兵{/#1}、{#2}蛮族掠夺者{/#2}和担任护卫的{#3}披甲行尸{/#3}使用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-a3c7863ec1cba3e0a62c8c95",
+      "source_sha256": "a3c7863ec1cba3e0a62c8c9515d660b1ecd65d2f66e5e49c2dc3239a42d812fe",
+      "source": "A common type of shield used by different human factions",
+      "page_ids": [
+        2183
+      ],
+      "zh": "多个人类势力都会使用的一种常见盾牌。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-efeb68fd90b61ce2bd8d95e0",
+      "source_sha256": "efeb68fd90b61ce2bd8d95e08ebbd352756b7105b7b0a49aff08e324c8aa2f39",
+      "source": "Used by {#1}Orc Warriors{/#1}.{#2/}Shield skills build up additional 5 {#3}{#4}{#5/}{/#4}{/#3} for humans",
+      "page_ids": [
+        2183
+      ],
+      "zh": "由{#1}兽人战士{/#1}使用。{#2/}人类使用其盾牌技能时，额外积累 5 {#3}{#4}{#5/}{/#4}{/#3}疲劳。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-48ed8d95d6142c1170982843",
+      "source_sha256": "48ed8d95d6142c11709828436e947d71c90fd2c1d73eef8acf5bd02b626db6c5",
+      "source": "A common type of shield used by southern factions",
+      "page_ids": [
+        2183
+      ],
+      "zh": "南方势力普遍使用的一种盾牌。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-896009cd1cfd6495f0804590",
+      "source_sha256": "896009cd1cfd6495f0804590b092c3093638f9aae1874eb5c80dd58fdaea71cb",
+      "source": "{#1}Crafted{/#1} shield.{#2/}Regenerates by 50% of its maximum durability each turn",
+      "page_ids": [
+        2183
+      ],
+      "zh": "可{#1}制作{/#1}的盾牌。{#2/}每回合恢复相当于最大耐久 50% 的耐久。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c8821a0a0324ecdc81ce869e",
+      "source_sha256": "c8821a0a0324ecdc81ce869ec18b3f320ab6fc162d0aeb341436cfbd2ba23078",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        3724
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-75dc097388db4f6067f284df",
+      "source_sha256": "75dc097388db4f6067f284dfbe49c343fbb41ecec75be1ed673a6682e6c4d3d4",
+      "source": "Daggers are small stabbing {#1}weapons{/#1}, useful as a secondary weapon for ranged focused characters (or poorly equipped bandits). They are also useful when trying to loot armor from opponents.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "匕首是小型穿刺{#1}武器{/#1}，适合远程专精角色作为备用武器，装备简陋的强盗也常使用。想从敌人身上缴获护甲时，匕首同样很有用。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ab9f8e08d94c381671112064",
+      "source_sha256": "ab9f8e08d94c381671112064e503ad30278e6aabc084c4dc37adb24209d7b0d1",
+      "source": "Daggers do little damage but also have no {#1}{#2}{#3/}{/#2}{/#1} {#4}Fatigue{/#4} penalty to carry and give access to the {#5}Puncture{/#5} skill. {#6}Puncture{/#6} can be useful against armored opponents as it will completely ignore armor, but is also unable to make a critical hit, hence it hits only body.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "匕首伤害较低，但携带时不会降低{#1}{#2}{#3/}{/#2}{/#1}{#4}最大疲劳{/#4}，还能使用{#5}穿刺{/#5}技能。{#6}穿刺{/#6}完全无视护甲，适合对付披甲敌人；但它不能暴击，因此只会命中身体。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c2b4911ea7f39b230935b208",
+      "source_sha256": "c2b4911ea7f39b230935b2082c4d569375b1863e110242dabd48ef34a8bcf690",
+      "source": "Surrounding well-armored opponents, like {#1}Knights{/#1} or {#2}Brigand Leaders{/#2}, and puncturing them to death is a great way to obtain high-end armor for free.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "围住{#1}骑士{/#1}或{#2}强盗头目{/#2}等重甲敌人，再用穿刺将其杀死，是免费获取高级护甲的好办法。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-31f436806421090d63c6fddd",
+      "source_sha256": "31f436806421090d63c6fddd654de84c6cb4219829924bfc4a05b690ed2e552c",
+      "source": "{#1}Stab{/#1}, {#2}Puncture{/#2} or {#3}Deathblow{/#3} AP cost is reduced to 3, effectively allowing 3 attacks per turn.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "{#1}刺击{/#1}、{#2}穿刺{/#2}或{#3}致命一击{/#3}的行动点消耗降至 3，因此每回合可以攻击 3 次。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-142342bf8b7bcc92e9356a31",
+      "source_sha256": "142342bf8b7bcc92e9356a314e3b4a108fbb95a41c31dd9813b7d2a51c4fcda0",
+      "source": "{#1}Estoc{/#1} is the only two-handed dagger in the game. It can be used to either repeatedly stab a target, adding more stabs if it's {#2}injured{/#2}, or attack with high armor penetration that depends on the user's {#3}{#4}{#5/}{/#4}{/#3} {#6}Initiative{/#6}. If 100% {#7}{#8}{#9/}{/#8}{/#7} threshold is reached, the armor is ignored completely, similarly to {#10}Puncture{/#10} skill, but without restriction to only body hits.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "{#1}穿甲刺剑{/#1}是游戏中唯一的双手匕首。它可以对目标连续刺击，目标若{#2}受伤{/#2}还会增加刺击次数；也可发动高穿甲攻击，穿甲比例取决于使用者的{#3}{#4}{#5/}{/#4}{/#3}{#6}先攻{/#6}。若{#7}{#8}{#9/}{/#8}{/#7}穿甲比例达到 100%，便会像{#10}穿刺{/#10}技能一样完全无视护甲，但没有只能命中身体的限制。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-e44f4c064d74e2a6da3a088c",
+      "source_sha256": "e44f4c064d74e2a6da3a088c9b87b615786a0eec00f3412c00c6e514ece5938e",
+      "source": "AP cost of attacks is reduced by 1, allowing to do one extra basic {#1}Stab{/#1} each turn.",
+      "page_ids": [
+        3724
+      ],
+      "zh": "攻击的行动点消耗减少 1，因此每回合可额外发动一次普通{#1}刺击{/#1}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3948146a73fa54075d3ba625",
+      "source_sha256": "3948146a73fa54075d3ba62570bac4e3518553b1bd694de136bb39a89b8f258e",
+      "source": "The Battle Brothers community spans a good number of forums on the internet and it is nice to have the links all in one place to facilitate searching for information. Listed below are official forums/threads with substantial activity and various popular guides/playing aids.",
+      "page_ids": [
+        6382
+      ],
+      "zh": "《战场兄弟》社区分布在不少互联网论坛。将链接集中整理，能让查找资料更方便。下面列出了较活跃的官方论坛及讨论串，以及一些受欢迎的攻略和辅助工具。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-f1357e208d89289ace213864",
+      "source_sha256": "f1357e208d89289ace21386472374979079e8e88377d035b5f199927a3822ca1",
+      "source": "{#1}{#2}In-Depth Perks Guide{/#2}{/#1} by turtle225 and Abel (also contains links to other useful resources){#3/}",
+      "page_ids": [
+        6382
+      ],
+      "zh": "turtle225 与 Abel 编写的{#1}{#2}特长深入指南{/#2}{/#1}，其中也附有其他实用资源的链接。{#3/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-0f1d35aac93135f2b7521ad4",
+      "source_sha256": "0f1d35aac93135f2b7521ad428bda98b3fb2fb01826646a2ded0c7469ee5a3c8",
+      "source": "{#1}2H Flail Buffs, Head Hunter, and Brute: Calculations{/#1} by turtle225 (the study of 2H Flails and perks after the game updates {#2}1.5.0.8{/#2} and {#3}1.5.0.10{/#3} in 2022)",
+      "page_ids": [
+        6382
+      ],
+      "zh": "turtle225 的{#1}双手连枷加强、猎头者与蛮力：数值计算{/#1}，研究了 2022 年游戏 {#2}1.5.0.8{/#2}、{#3}1.5.0.10{/#3} 更新后的双手连枷及相关特长。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-e516c037e8e3bb9a84170e5f",
+      "source_sha256": "e516c037e8e3bb9a84170e5f5858e0c339a2174a38c6f98b50e386f2c16cb914",
+      "source": "{#1}{#2}Battle Brothers Planner{/#2}{/#1} by Unislash (also contains links to other useful resources)",
+      "page_ids": [
+        6382
+      ],
+      "zh": "Unislash 制作的{#1}{#2}《战场兄弟》配装规划器{/#2}{/#1}，其中也附有其他实用资源的链接。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b58e41c041ae45c34f92a040",
+      "source_sha256": "b58e41c041ae45c34f92a0406db05226277e3b891e16a7ba45639ed04c501db8",
+      "source": "{#1}{#2}Battle Brothers Damage Calculator{/#2}{/#1} by turtle225 (source code) and Osgboy (web-app GUI){#3/}",
+      "page_ids": [
+        6382
+      ],
+      "zh": "{#1}{#2}《战场兄弟》伤害计算器{/#2}{/#1}：源码由 turtle225 编写，网页界面由 Osgboy 制作。{#3/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d978866b3a60edc6556bc3fa",
+      "source_sha256": "d978866b3a60edc6556bc3fa1081fff8a34228aebca66423479e9bb627604427",
+      "source": "{#1}{#2}Battle Brothers Planner{/#2}{/#1} by Unislash (also contains links to other useful resources){#3/}",
+      "page_ids": [
+        6382
+      ],
+      "zh": "Unislash 制作的{#1}{#2}《战场兄弟》配装规划器{/#2}{/#1}，其中也附有其他实用资源的链接。{#3/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-18570243f29b221449584a84",
+      "source_sha256": "18570243f29b221449584a84f7e3c345270299d689937a4e194bf048c831cd1e",
+      "source": "{#1}{#2/}{/#1} <a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/b/b6/Medical_Supplies_%28item%29.png/revision/latest?cb=20200805144904\"><img alt=\"Medical Supplies (item)\" class=\"w-thumbimage\" data-image-key=\"Medical_Supplies_%28item%29.png\" data-image-name=\"Medical Supplies (item).png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/b/b6/Medical_Supplies_%28item%29.png/revision/latest/scale-to-width-down/270?cb=20200805144904\" decoding=\"async\" height=\"166\" loading=\"lazy\" src=\"/wiki/media/4069e44532daf5c24e70f473f06401f6cc449307b941a5b2cecc79285ba60fdc.webp\" title=\"Medical Supplies (item).png\" width=\"270\"/></a>",
+      "page_ids": [
+        13214
+      ],
+      "zh": "{#1}{#2/}{/#1}",
+      "status": "reviewed",
+      "source_exception": {
+        "kind": "escaped_image_markup",
+        "source": "<a class=\"w-mw-file-description w-image\" href=\"https://static.wikia.nocookie.net/battlebrothers/images/b/b6/Medical_Supplies_%28item%29.png/revision/latest?cb=20200805144904\"><img alt=\"Medical Supplies (item)\" class=\"w-thumbimage\" data-image-key=\"Medical_Supplies_%28item%29.png\" data-image-name=\"Medical Supplies (item).png\" data-relevant=\"1\" data-src=\"https://static.wikia.nocookie.net/battlebrothers/images/b/b6/Medical_Supplies_%28item%29.png/revision/latest/scale-to-width-down/270?cb=20200805144904\" decoding=\"async\" height=\"166\" loading=\"lazy\" src=\"/wiki/media/4069e44532daf5c24e70f473f06401f6cc449307b941a5b2cecc79285ba60fdc.webp\" title=\"Medical Supplies (item).png\" width=\"270\"/></a>",
+        "reason": "The source repeats the same protected image as escaped HTML. Retain the actual image and omit only the identical serialized duplicate."
+      }
+    },
+    {
+      "id": "u-e28d546c76b7707b65babdff",
+      "source_sha256": "e28d546c76b7707b65babdff78f71b278a845da7e22442e5f125cb9ab81a1be1",
+      "source": "{#1}Medical supplies consist of bandages, herbs, salves and the like, and are used to heal the more severe injuries sustained by your men in battle.{/#1}",
+      "page_ids": [
+        13214
+      ],
+      "zh": "{#1}医疗物资包括绷带、草药、药膏等，用于治疗队员在战斗中遭受的较严重伤势。{/#1}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-88cdb11952224150054c73a0",
+      "source_sha256": "88cdb11952224150054c73a0af8b7724fe941cac87c9925122655879437f9b0c",
+      "source": "{#1}Mushroom Grove{/#1} and {#2}Gatherer's Hut{/#2} increase availability (to a lesser extent).",
+      "page_ids": [
+        13214
+      ],
+      "zh": "{#1}蘑菇林{/#1}和{#2}采集者小屋{/#2}会略微增加供应量。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-883f051409d80952fb3d6f40",
+      "source_sha256": "883f051409d80952fb3d6f40e3a2743321695d1371cdc8740dac27cd6155d590",
+      "source": "Can be gained in the {#1}Broken Cart{/#1}, {#2}Herbs Along the Way{/#2}, {#3}March Wear and Tear{/#3} events.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "可在{#1}破损手推车{/#1}、{#2}沿途草药{/#2}和{#3}行军损耗{/#3}事件中获得。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c08cd562fd3ac9300db19317",
+      "source_sha256": "c08cd562fd3ac9300db19317c5209e2df764e52153843417d6f2f1363bb2b95b",
+      "source": "One point of {#1}Medical Supplies{/#1} is required each day for every injury to improve and ultimately heal. Lost hitpoints heal on their own.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "每处伤势每天需要消耗一份{#1}医疗物资{/#1}，才能逐渐好转并最终痊愈。损失的生命值则会自行恢复。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-43519aa7428102678c35fc23",
+      "source_sha256": "43519aa7428102678c35fc23df4b197f687fbebe7b694c5efb71b0df3e31aec5",
+      "source": "Running out of {#1}Medical Supplies{/#1} will leave your men unable to recover from {#2}Temporary Injuries{/#2}, with the exception of injuries healed in events.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "{#1}医疗物资{/#1}耗尽后，队员的{#2}暂时伤势{/#2}将无法恢复，通过事件治愈的情况除外。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ccb4d0c5afa7abec2cd0875c",
+      "source_sha256": "ccb4d0c5afa7abec2cd0875c8578eb1551cb0ea0f3006f6bbfa9f410009b56c3",
+      "source": "Maximum carrying capacity is determined by Economic Difficulty of the game: 100 - for Veteran, Expert; 150 - for Beginner.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "携带上限取决于经济难度：老练和专家为 100，初学者为 150。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-0d9c9ed2d53007efc033b388",
+      "source_sha256": "0d9c9ed2d53007efc033b388520f6e2f643104a6830222e2f84a5511df17329c",
+      "source": "{#1}The Scout{/#1} will prevent {#2}Sickness{/#2} and other {#3}Temporary Injuries{/#3} caused by traversing terrain.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "{#1}斥候{/#1}可以避免穿越地形时引发{#2}生病{/#2}及其他{#3}暂时伤势{/#3}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-1337374a3aeee85c564c898e",
+      "source_sha256": "1337374a3aeee85c564c898ebc4fe921ce7d5088a405f3567c0fd97f761bce32",
+      "source": "Some amount can be lost or used in the {#1}Deserter Origin Volunteer{/#1}, {#2}Greenskins Pet Goblin{/#2}, {#3}March Wear and Tear{/#3}, {#4}Thief Caught{/#4} events.",
+      "page_ids": [
+        13214
+      ],
+      "zh": "在{#1}逃兵起源：自愿加入者{/#1}、{#2}绿皮入侵：宠物地精{/#2}、{#3}行军损耗{/#3}和{#4}盗贼被抓{/#4}事件中，可能失去或消耗一些医疗物资。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-100ad49a0268a59f444a7ea6",
+      "source_sha256": "100ad49a0268a59f444a7ea678601d879a33ff113584efa52b4b9df10ab24734",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        3725
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-82ef3f0ef21515ef4d1825fa",
+      "source_sha256": "82ef3f0ef21515ef4d1825faba4834b955a3b1042e6775e746136d59f618a60a",
+      "source": "Swords are {#1}melee weapons{/#1} with comparatively low {#2}{#3}{#4/}{/#3}{/#2} penalty and consistent damage. However, they are not as effective against armor as some other weapons. Due to the additional accuracy of the {#5}Slash{/#5} attack, a sword can be a mercenary's best friend.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "剑是{#1}近战武器{/#1}，对{#2}{#3}{#4/}{/#3}{/#2}最大疲劳的惩罚相对较低，伤害也较稳定。不过，它们对护甲的效果不及某些其他武器。{#5}挥斩{/#5}攻击有额外命中加成，因此剑往往是佣兵可靠的伙伴。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-2654edb8bd63bc6bf01d3046",
+      "source_sha256": "2654edb8bd63bc6bf01d304666415d9c02a0172db5553c39823039ef7c4fbe06",
+      "source": "Brothers with high Melee Defense can use the {#1}Riposte{/#1} ability to counter every miss, though with a less accurate slash attack. This works well with perks like {#2}{#3}{#4/}{/#3}{/#2} {#5}Shield Expert{/#5} and {#6}{#7}{#8/}{/#7}{/#6} {#9}Lone Wolf{/#9}.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "近战防御高的队员可以用{#1}还击架势{/#1}反击每次落空的攻击，但反击使用的挥斩命中较低。它与{#2}{#3}{#4/}{/#3}{/#2}{#5}盾牌精通{/#5}及{#6}{#7}{#8/}{/#7}{/#6}{#9}孤狼{/#9}等特长配合良好。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d65f74475436d2f1d3f2db76",
+      "source_sha256": "d65f74475436d2f1d3f2db76cd75377b76378da730ecdbc678cc6b206631b237",
+      "source": "{#1}Riposte{/#1} skill no longer has penalty to hit chance.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "{#1}还击架势{/#1}不再受到命中惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-443e608f943979e042fe8142",
+      "source_sha256": "443e608f943979e042fe81425dfe68402e5213ec875f35ff3c68b950aa87d961",
+      "source": "{#1}Gash{/#1} skill threshold to inflict {#2}injuries{/#2} is lowered to {#3}50%{/#3}.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "{#1}割裂{/#1}造成{#2}伤势{/#2}的伤害阈值降至 {#3}50%{/#3}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-172fb431e18de93e220dc57d",
+      "source_sha256": "172fb431e18de93e220dc57dbb294b606b5e791664f53b611906d4ee96b35a30",
+      "source": "Two-Handed Swords are some of the most powerful weapons in the game in terms of raw damage. However, their AoE attacks consume a lot of {#1}{#2}{#3/}{/#2}{/#1} and cost more AP than one-handed weapons.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "论原始伤害，双手剑属于游戏中最强的一类武器。不过，它们的范围攻击会积累大量{#1}{#2}{#3/}{/#2}{/#1}疲劳，行动点消耗也比单手武器高。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d005b9922dff0710d208e367",
+      "source_sha256": "d005b9922dff0710d208e367ffec60cd05f39a81e5e1fd7b58236528780b5d7a",
+      "source": "If you take {#1}{#2}{#3/}{/#2}{/#1} {#4}Sword Mastery{/#4} perk, {#5}Split{/#5} and {#6}Swing{/#6} will gain a {#7}+5%{/#7} chance to hit, and all weapon skills will require {#8}25%{/#8} less{#9}{#10}{#11/}{/#10}{/#9}.",
+      "page_ids": [
+        3725
+      ],
+      "zh": "选择{#1}{#2}{#3/}{/#2}{/#1}{#4}剑术精通{/#4}后，{#5}劈开{/#5}和{#6}挥击{/#6}的命中率获得 {#7}+5%{/#7} 加成，所有武器技能的{#9}{#10}{#11/}{/#10}{/#9}疲劳消耗降低 {#8}25%{/#8}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-1308c77125d63b8c40ffd627",
+      "source_sha256": "1308c77125d63b8c40ffd627299d36d1b69a647b517232c196c180424fbc9cbe",
+      "source": "These green little c****aren't your typical weak low level monster like goblins in another stories. Oh nooooo.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "这些绿色小混蛋可不是别的故事里那种弱得可怜的低级地精怪。噢，不不不，差远了。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-78466b862a395d3c10e75473",
+      "source_sha256": "78466b862a395d3c10e7547328f28c368f7dc36f95369f12eb4f00bd205d331b",
+      "source": "The best and most scientific words for defining these pesky subhuman scums are \"annoying little fuckers\".",
+      "page_ids": [
+        3245
+      ],
+      "zh": "要给这帮烦人的小杂种一个最准确、最科学的定义，那就是“惹人烦的小王八蛋”。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-5418bc84d79bd38b3d13eefa",
+      "source_sha256": "5418bc84d79bd38b3d13eefa95a7cbf56e684db302aeff56b5f78ee118d96c0f",
+      "source": "Wait until you meet them with your greenhorn band of soon be dead losers who thought that a mercenary job is an easy way to earn a living.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "等你带着那群以为当佣兵能轻松糊口、其实马上就要送命的菜鸟碰上它们，就知道厉害了。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9d3fb892e184ff8f907a330c",
+      "source_sha256": "9d3fb892e184ff8f907a330c378745f2f12cc607a2576fa36b64429509cbf113",
+      "source": "The Wolfriders will catch your running like little bitches sukahs and overwhelm them with a massive amount of attacks.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "狼骑兵会追上你那些吓得屁滚尿流的倒霉蛋，再用铺天盖地的攻击把他们淹没。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-fdc192aadf9874412b59c6d2",
+      "source_sha256": "fdc192aadf9874412b59c6d2b010a41fba075ffb75ac3e215588793d22749886",
+      "source": "Skirmishers will throw bolas and nets and then stab you in the face with their pikes so your soldiers will bleed to death if they are lucky enough to survive 1 hit.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "散兵会先扔流星索和捕网，再拿长枪往你脸上捅。你的士兵就算侥幸挺过 1 击，也会接着流血流到死。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-caeb2b0d7124f11aa417a71f",
+      "source_sha256": "caeb2b0d7124f11aa417a71f01ba494b995206065389e4cf2e1e6ccc97f12331",
+      "source": "Ambushers called Ninja Commando Rangers will snipe your meatshields with their 360 no scope skills and when cornered, they will pull a curved knife from their ass and proceed to stab your heavy armored guys to death.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "那些号称“忍者突击游骑兵”的伏击者，会用 360 度转身不开镜的神技狙杀你的肉盾；真被逼到角落，它们就从屁股后面掏出一把弯刀，把你披着重甲的壮汉活活捅死。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-fdc76209e9ce91224f8c55d7",
+      "source_sha256": "fdc76209e9ce91224f8c55d777640e61f7d882161afdbb6cc51c4f9f307c1a0b",
+      "source": "If you think that is enough, you are mistaken. Just wait for Shamans and Overseers to shit your stuff up.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "你要觉得这就够受了，那可就错了。等萨满和督军登场，还能把你的队伍搅得更惨。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-83688b60e6d5aa4368fec67f",
+      "source_sha256": "83688b60e6d5aa4368fec67f30bcb8d11884524e9628d54e28c846f3ae239f02",
+      "source": "The only way to win is to not fight.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "唯一的获胜方法，就是别打。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-5ece10d8b98927b4b80db28c",
+      "source_sha256": "5ece10d8b98927b4b80db28c140a960f3a9fb49101fa47e5ce33f6b15533e195",
+      "source": "Or bring big shields, heavy armours and attack them at night or field high leveled archers with big shieldwall cover and eat them at their own game.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "或者带上大盾和重甲，趁夜进攻；也可以派出高级弓手，让厚实的盾墙掩护他们，用地精最擅长的那一套反过来收拾地精。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-78fdf3230e576fbd10e83e86",
+      "source_sha256": "78fdf3230e576fbd10e83e86bbf30f20fb46f155ca8a48bdeab3018431f2cf64",
+      "source": "Remember kids that you can always outgoblin the goblins, but the outgoblins will always goblin you.",
+      "page_ids": [
+        3245
+      ],
+      "zh": "记住，孩子们：你总能比地精还地精，但那些更地精的地精，也总能反过来把你“地精”一遍。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-208e75aac2db3f7df77405e2",
+      "source_sha256": "208e75aac2db3f7df77405e2d078fcec168ca84989497ab18c470cd5af9e80e9",
+      "source": "The Battle Brothers Wiki has the chat function enabled for the users of this wiki to talk with other players about the game and other topics in general. We ask that you please be respectful of all the rules and guidelines listed on this page. We want chat to be a thing everyone can enjoy!",
+      "page_ids": [
+        3599
+      ],
+      "zh": "原 Battle Brothers Wiki 为用户开设了聊天室，方便大家交流游戏及其他话题。请尊重并遵守本页列出的规则，让每个人都能愉快聊天。以下是原站聊天守则。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-cc0c614b5c04fc4df1a08379",
+      "source_sha256": "cc0c614b5c04fc4df1a0837902daaafb2afacb2aba3be2db87a398ab844dfb1d",
+      "source": "Do not seriously threaten, harass, insult, or otherwise make another user feel uncomfortable in chat.{#1/}(If you are a sarcastic guy, make sure you are understood as one.)",
+      "page_ids": [
+        3599
+      ],
+      "zh": "不要在聊天中威胁、骚扰、侮辱其他用户，或以其他方式让对方感到不适。{#1/}如果你是在反讽，请确保别人能够理解你的意思。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-add1bc5d8e61be582bd68151",
+      "source_sha256": "add1bc5d8e61be582bd68151c5da9e0629b38620e85240a4b372bf5922642485",
+      "source": "Do not seriously use racial, homophobic or other derogatory words/statements.{#1/}(If you are a sarcastic guy, make sure you are understood as one.)",
+      "page_ids": [
+        3599
+      ],
+      "zh": "不要使用种族歧视、恐同或其他贬损性的词语和言论。{#1/}如果你是在反讽，请确保别人能够理解你的意思。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d345489200f2231002070d7d",
+      "source_sha256": "d345489200f2231002070d7dbcc217552d7bbb1b3720a14c1ffc60955a7472a2",
+      "source": "Do not link to photos, videos, or websites that are adult in nature.{#1/}(We aren't a porn wiki, after all.)",
+      "page_ids": [
+        3599
+      ],
+      "zh": "不要发送成人向照片、视频或网站的链接。{#1/}毕竟，这里不是色情 Wiki。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-435d0f81026ce75a7aa0ca27",
+      "source_sha256": "435d0f81026ce75a7aa0ca27de9e5331352a01b3797048528b5478531df4d842",
+      "source": "Do not spam or advertise paid services in the chat room.",
+      "page_ids": [
+        3599
+      ],
+      "zh": "不要在聊天室刷屏，也不要为付费服务做广告。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-43fc51f5466bfb860841bf41",
+      "source_sha256": "43fc51f5466bfb860841bf4167bb2f46c4fd0c41beaebb1b49f78d020d2a83ca",
+      "source": "Please respect other users as you would like to be respected.",
+      "page_ids": [
+        3599
+      ],
+      "zh": "请以自己希望被对待的方式尊重其他用户。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ba6965bba1340a8b2ae83b4e",
+      "source_sha256": "ba6965bba1340a8b2ae83b4ef79502e832e29636ead73f8fe94ddffd0db43671",
+      "source": "Failure to follow these guidelines maybe will result in either a warning, kick, or ban from chat depending on the severity of the infraction and the history of the user. Punishments are dealt with accordingly by an available chat mod or administrator and can range anywhere from a few hours to infinite. Requests to delete a chat ban must be made on the talk page/message wall of the user who banned you.",
+      "page_ids": [
+        3599
+      ],
+      "zh": "违反上述守则可能受到警告、被踢出聊天室或被封禁，具体取决于违规程度及既往记录。在线的聊天版主或管理员会酌情处理，处罚时间可从数小时到永久不等。如需申请解除聊天封禁，请前往实施封禁者的讨论页或留言墙提出请求。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-1b10e8880a3745bc9f76aa20",
+      "source_sha256": "1b10e8880a3745bc9f76aa2015f02fd141cf7b6b2a3910819267db77877ddcf6",
+      "source": "Orc Weapons require 5 additional fatigue per skill use for humans.",
+      "page_ids": [
+        4031,
+        4032,
+        4028
+      ],
+      "zh": "人类使用兽人武器时，每次施放技能都额外积累 5 点疲劳。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-5740b2bf68424c65c6b97413",
+      "source_sha256": "5740b2bf68424c65c6b97413c9e0bbb9bae193fe83cae48ef6277a68e5791c00",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        4031
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-7406adf99464c264bcc7da81",
+      "source_sha256": "7406adf99464c264bcc7da812ede2868fd9caca72cdc304d6aa01da4d4b30279",
+      "source": "Cleavers are {#1}weapons{/#1} dedicated to cutting off body parts and inflicting devastating bleeding wounds (5 bleeding damage each turn for 2 turns, or 10 bleeding damage with the {#2}Cleaver Mastery{/#2} perk).",
+      "page_ids": [
+        4031
+      ],
+      "zh": "斩刀是专门用于砍下肢体、造成严重流血伤口的{#1}武器{/#1}。流血持续 2 回合，每回合造成 5 点伤害；拥有{#2}斩刀精通{/#2}后，每回合流血伤害提高至 10。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-43ba4dce1d9d61127e52dbe0",
+      "source_sha256": "43ba4dce1d9d61127e52dbe0d401e2e29e3f23e21676c127479cdc67e89d8e9b",
+      "source": "Their \"Decapitate\" attack is guaranteed to behead the opponent if it is a killing blow, which can be extremely effective against {#1}Wiedergangers{/#1}. Decapitate also does additional damage depending on the amount of HP the opponent has lost.",
+      "page_ids": [
+        4031
+      ],
+      "zh": "“斩首”攻击若杀死目标，就必定将其斩首，对{#1}行尸{/#1}尤其有效。斩首还会根据目标已损失的生命值，造成额外伤害。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-4d9c65d26d4df04d145e5e3d",
+      "source_sha256": "4d9c65d26d4df04d145e5e3df642456aceddb4946271446f4a7d1bd2a25f2f7e",
+      "source": "Bleeding damage inflicted by Cleavers and Whips is doubled to 10 and 20 per turn, respectively.",
+      "page_ids": [
+        4031
+      ],
+      "zh": "斩刀和鞭子造成的流血伤害翻倍，每回合分别提高至 10 和 20。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-fa52bfdc10a4f852bd3ece99",
+      "source_sha256": "fa52bfdc10a4f852bd3ece99a1632b37a7f96aaeabff61f1bfbdbd17b18c8b43",
+      "source": "Whips' Disarm skill has -10% penalty to hit down from -20%.",
+      "page_ids": [
+        4031
+      ],
+      "zh": "鞭子缴械技能的命中惩罚从 -20% 降为 -10%。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-0f2a32021af396f73b0b92fc",
+      "source_sha256": "0f2a32021af396f73b0b92fc74c9c693d641dd51cc79f74a9d71e8d1ca8f584f",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        3993
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ebb352144c20dcedfc3ef03a",
+      "source_sha256": "ebb352144c20dcedfc3ef03a51340ef4b6cbb64f091e5bc48130effcf4dba67e",
+      "source": "One-Handed Spears are extremely accurate {#1}weapons{/#1}, but have low damage compared to most other weapons. Spears are unique in that they give access to the {#2}Spearwall{/#2} ability, which can be effective in holding a formation's flanks.",
+      "page_ids": [
+        3993
+      ],
+      "zh": "单手矛是命中极高的{#1}武器{/#1}，但伤害低于大多数其他武器。矛的独特之处在于{#2}矛墙{/#2}，可有效保护阵型侧翼。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-0731f94af9cf7a265cf3b668",
+      "source_sha256": "0731f94af9cf7a265cf3b6683d593d0592a2844d8ed1e98200ca15c09e9615e5",
+      "source": "{#1}Spearwall{/#1} can only be activated if there is no enemy next to the wielder. Each enemy that moves next to the wielder gets attacked automatically. When hit, the enemy gets knocked back and takes half damage. If the automatic attack fails, the skill becomes inactive.",
+      "page_ids": [
+        3993
+      ],
+      "zh": "只有使用者身旁没有敌人时，才能开启{#1}矛墙{/#1}。每当敌人移动到使用者身旁，都会自动遭到攻击；命中后，敌人被击退并受到一半伤害。自动攻击一旦落空，矛墙便会失效。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-212a35c90bceed2f54497926",
+      "source_sha256": "212a35c90bceed2f544979268c3f1f9eea3b882cfc0851bbca64f14706308f23",
+      "source": "{#1}Spearwall{/#1} is no longer cancelled when its attack fails, {#2}Spearwall{/#2} continues auto-attacking enemies coming to other free tiles around the user. If the engaged enemy unit dies or is knocked back, {#3}Spearwall{/#3} will resume auto-attacking the freed tile until another failure or till the start of the next turn of the skill user.",
+      "page_ids": [
+        3993
+      ],
+      "zh": "{#1}矛墙{/#1}不再因攻击落空而取消，仍会自动攻击走进使用者周围其他空格的敌人。{#2}矛墙{/#2}使用者身旁已经接战的敌人若死亡或被击退，{#3}矛墙{/#3}也会重新对刚腾出的格子生效，直到再次落空，或使用者的下一回合开始。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-a0e6738c97dd8939b9ae8c8e",
+      "source_sha256": "a0e6738c97dd8939b9ae8c8e33128fb5cdb5a845fdcf9f96b1a207604fc71ea6",
+      "source": "{#1}Spearwall{/#1} can be activated when being already adjacent to opponents.",
+      "page_ids": [
+        3993
+      ],
+      "zh": "即使身旁已有敌人，也能开启{#1}矛墙{/#1}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-39ca37d7653fbb1fa62e1682",
+      "source_sha256": "39ca37d7653fbb1fa62e1682ce55bccf3bd0706b333fd6bd1de00105aab774f3",
+      "source": "{#1}{#2}{#3/}{/#2}{/#1} {#4}Spear Mastery{/#4} perk bonuses are the same for Two-Handed Spears.",
+      "page_ids": [
+        3993
+      ],
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4}长矛精通{/#4}对双手矛提供相同加成。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d8eb51069cc72ed80c3b51d1",
+      "source_sha256": "d8eb51069cc72ed80c3b51d18a8ad617daad8e2985c9f89833fea95fe4723918",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        4039
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-a0fedba098e25cd156cf387c",
+      "source_sha256": "a0fedba098e25cd156cf387c7a83177d4d7ae47caf1f12618ffebe23e21ab03b",
+      "source": "One-Handed Hammers always deal minimum 10 health damage on hit, which effectively synergizes with the {#1}Fearsome Perk{/#1}, although hits that proc Fearsome effect don't guarantee enemies' morale drop (especially at full health).",
+      "page_ids": [
+        4039
+      ],
+      "zh": "单手战锤命中后至少造成 10 点生命值伤害，因此与{#1}威慑特长{/#1}配合良好。不过，触发威慑并不保证敌人士气下降，尤其是对方仍接近满血时。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-8bf3cb7e7aa24cc2b3446035",
+      "source_sha256": "8bf3cb7e7aa24cc2b34460356920ccb179ddf3a4ea80493928fa40ee77587dee",
+      "source": "With {#1}Hammer Mastery Perk{/#1}, Destroy Armor inflicts {#2}33%{/#2} more damage against armor.",
+      "page_ids": [
+        4039
+      ],
+      "zh": "拥有{#1}战锤精通{/#1}后，破甲技能对护甲造成的伤害增加 {#2}33%{/#2}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-f6df1cf1a7ab715dce685437",
+      "source_sha256": "f6df1cf1a7ab715dce6854379eccb92d31348209d4a3e78cfef2d5ddc39e727e",
+      "source": "Skill and perk benefits stack multiplicatively. Example: Warhammers have base damage of 30-40 and will do 67-90 armor damage (225%) on Batter. If Destroy Armor is used, armor damage goes up to 101-135 (225%*1.5). If Destroy Armor is used by a character with Hammer Mastery, armor damage goes up to 135-180 (225%*1.5*1.33).",
+      "page_ids": [
+        4039
+      ],
+      "zh": "技能和特长的加成以乘法叠加。例如，战锤基础伤害为 30-40，使用锤击时造成 67-90 点护甲伤害（225%）；使用破甲时，提高至 101-135（225%*1.5）；若使用者还拥有战锤精通，破甲伤害进一步提高至 135-180（225%*1.5*1.33）。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-39e07e8ac722f78bcc909105",
+      "source_sha256": "39e07e8ac722f78bcc909105188b721303e32ba14b4cfabbbc642dbc299a5c79",
+      "source": "Two-Handed Hammers (except the Polehammer) cause the Stagger status effects on targets they hit, greatly cutting down on their initiative.",
+      "page_ids": [
+        4039
+      ],
+      "zh": "双手战锤命中时，会使目标陷入踉跄，大幅降低先攻；长柄战锤除外。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-457048deb7cd96cd09dae9ca",
+      "source_sha256": "457048deb7cd96cd09dae9caffddac1ee7ed00e6e759d5acd2a177efe0caadda",
+      "source": "The {#1}Polehammer{/#1} is not a {#2}polearm{/#2}, contrary to what its name suggests, so it will not receive bonuses from Polearm Mastery. Polehammer has {#3}-15%{/#3} accuracy penalty for hitting adjacent targets, which can be negated by acquiring Hammer Mastery perk.",
+      "page_ids": [
+        4039
+      ],
+      "zh": "{#1}长柄战锤{/#1}虽然名字如此，却不属于{#2}长柄武器{/#2}，因此不能享受长柄武器精通加成。它攻击相邻目标时有 {#3}-15%{/#3} 命中惩罚，学习战锤精通后可消除。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6261133af8ac3a13de28e8fa",
+      "source_sha256": "6261133af8ac3a13de28e8fad908c4c6be55de0d6293b207ced36e6ed954d9df",
+      "source": "With {#1}Hammer Mastery Perk{/#1}, Shatter gains {#2}+5%{/#2} chance to hit.",
+      "page_ids": [
+        4039
+      ],
+      "zh": "拥有{#1}战锤精通{/#1}后，粉碎技能的命中率增加 {#2}+5%{/#2}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-4e26e543f87661797af7d65b",
+      "source_sha256": "4e26e543f87661797af7d65bf937fb0b4b9238c6b25ee1725603f9b3c433a424",
+      "source": "Retirement is a late development feature which introduces an optional form of closure to the campaign. Five different endings as well as a score reflect how far the company progressed into the campaign and how successful it was.{#1}{#2}{#3}[{/#3}1{#4}]{/#4}{/#2}{/#1}{#5/}",
+      "page_ids": [
+        6430
+      ],
+      "zh": "退休是在开发后期加入的功能，为战役提供一种可自行选择的结束方式。五种不同结局以及最终分数，会反映战团在本轮战役中走了多远、取得了多大成功。{#1}{#2}{#3}[{/#3}1{#4}]{/#4}{/#2}{/#1}{#5/}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ea26b562722efee43d2f5dee",
+      "source_sha256": "ea26b562722efee43d2f5deee934dd87482211269202e8c4bbcda11d0ac0a01e",
+      "source": "Renown ≥ 1,100 and completed the 'Make Nobles Aware' {#1}ambition{/#1} (two epilogue variants)",
+      "page_ids": [
+        6430
+      ],
+      "zh": "声望 ≥ 1,100，且已完成“引起贵族注意”的{#1}战团抱负{/#1}；结局后记有两种变化。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-d1f3a189d0914aa0604403b0",
+      "source_sha256": "d1f3a189d0914aa0604403b0c2575335c71d1722dccaf54812c279eadbd0806d",
+      "source": "One {#1}late game crisis{/#1} ended (different epilogue for each)",
+      "page_ids": [
+        6430
+      ],
+      "zh": "已结束一次{#1}后期危机{/#1}；不同危机对应不同后记。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3c7d9589a27b49f821bcd978",
+      "source_sha256": "3c7d9589a27b49f821bcd978e95350ce3d4fc46e21ebd261b6109928ea1b381d",
+      "source": "In the first three endings, the company is destroyed and in the last two endings, the company carries on after the captain has left. In addition, Early Retirement and Bitter End has your surviving brothers having a depressing ending as they either die or fall into poverty while Leaving a Mark/Legacy ensures the surviving brothers have a promising future after they leave the company.",
+      "page_ids": [
+        6430
+      ],
+      "zh": "前三种结局中，战团最终覆灭；后两种结局中，团长离开后，战团仍会继续存在。此外，在“过早退休”和“悲惨结局”中，幸存的队员下场凄凉，不是死去便是陷入贫困；而在“留下印记”与“留下传奇”中，幸存队员离开战团后仍有光明的未来。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9a8a545f204cc0910b6de4e1",
+      "source_sha256": "9a8a545f204cc0910b6de4e1b462864fddfeac87ef1a7981e83a8bf62f1a654b",
+      "source": "Regular Throwing Weapon bundles have a maximum of 5 shots (6 for {#1}Bolas{/#1}). Named Throwing bundles may have more. Those shots are also called \"ammo\" and each is equivalent to 3 pieces of Ammunition, besides {#2}Throwing Spear{/#2}, which is destroyed after use.",
+      "page_ids": [
+        4297
+      ],
+      "zh": "普通投掷武器一束最多可使用 5 次，{#1}流星索{/#1}则为 6 次；名贵版本可能更多。这些使用次数也称为“弹药”，每次补充相当于消耗 3 份战团弹药。{#2}投矛{/#2}例外，它在使用后就会损毁。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-7fccec5d0c8f7f5f5eb5e715",
+      "source_sha256": "7fccec5d0c8f7f5f5eb5e7156f2104b9a7c0fa17440a6dc16c41cec93b47669e",
+      "source": "Throwing Weapons have greater range, than their standard maximum range, if you are throwing them downhill. The minimum range is 2, except for Slings.",
+      "page_ids": [
+        4297
+      ],
+      "zh": "向低处投掷时，投掷武器的射程可超出通常的最大距离。除投石索外，最小攻击距离为 2 格。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-4bf2632d74d94a47184b4e2d",
+      "source_sha256": "4bf2632d74d94a47184b4e2d0599ee5033a7b06ddb14889e7b4dcc698cc6cb08",
+      "source": "One-handed Throwing Weapons (i.e. all, except Slings) benefit from {#1}{#2}{#3/}{/#2}{/#1} {#4}Duelist{/#4} perk.",
+      "page_ids": [
+        4297
+      ],
+      "zh": "单手投掷武器，也就是除投石索之外的所有投掷武器，都能享受{#1}{#2}{#3/}{/#2}{/#1}{#4}决斗家{/#4}特长加成。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ebb3ef8db20e138830fd0a7c",
+      "source_sha256": "ebb3ef8db20e138830fd0a7cd8cf204970ef5a296a9936bf4276cb9dc4acf231",
+      "source": "Damage is increased by {#1}30%{/#1} when attacking at 2 tiles of distance;",
+      "page_ids": [
+        4297
+      ],
+      "zh": "攻击距离为 2 格的目标时，伤害增加 {#1}30%{/#1}；",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-de0ad05d599204202e78e6a0",
+      "source_sha256": "de0ad05d599204202e78e6a04a72c4b5bd1e096bfa62f36491dbd57615a6ba77",
+      "source": "Damage is increased by {#1}20%{/#1} when attacking at 3 tiles of distance.",
+      "page_ids": [
+        4297
+      ],
+      "zh": "攻击距离为 3 格的目标时，伤害增加 {#1}20%{/#1}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-6a964da99593a31af34c64bb",
+      "source_sha256": "6a964da99593a31af34c64bbb1e27af9a93ba32c3144dd4569d7daab79b57dd2",
+      "source": "Titles are meaningful words added to a character name. Some titles can be granted after certain {#1}Events{/#1}. But most titles are set from the start. In that case, {#2}Traits{/#2} and {#3}Character Backgrounds{/#3} determine what titles can be given. It is thus possible to guess some of the traits a recruit can possess without having to resort to the tryout option.",
+      "page_ids": [
+        5843
+      ],
+      "zh": "称号是附加在人物姓名上的词语，带有特定含义。某些称号可在{#1}事件{/#1}后获得，但大多数在角色生成时就已确定，并由{#2}特性{/#2}和{#3}人物出身{/#3}决定。因此，有时不用试用，也能通过称号推测应募者可能具有哪些特性。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-e725b1d69f33d2d48a369366",
+      "source_sha256": "e725b1d69f33d2d48a3693666ef1c9f7316d2f9ecfca849c58dbdfbdb18f6dd1",
+      "source": "Note that not all traits have associated titles. And the association is not always logical. For example, the Eagle Eyes title is not linked to the {#1}Eagle Eyes{/#1} trait. It's still possible to get it but having the title doesn't make it more likely. If a title can be associated with both a trait and a background and if the recruit is of this background then the recruit will not necessarily get the associated trait.",
+      "page_ids": [
+        5843
+      ],
+      "zh": "并非所有特性都有对应称号，而且两者的联系也未必直观。例如，“鹰眼”称号与{#1}鹰眼{/#1}特性并不关联；角色仍可能同时拥有两者，但有这个称号不会提高具备该特性的概率。如果一个称号既能来自某项特性，也能来自某种背景，而应募者恰好属于该背景，就不能据此认定他也有那项特性。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-899b52a13e7b9186a5f191d7",
+      "source_sha256": "899b52a13e7b9186a5f191d77ead4c2b484e1491d590a6a29e14ebce3b93b83f",
+      "source": "The following is a complete list of all titles based on {#1}Traits{/#1} and {#2}Character Backgrounds{/#2}. It can be sorted or searched (Ctrl + F shortcut).",
+      "page_ids": [
+        5843
+      ],
+      "zh": "下表列出所有由{#1}特性{/#1}和{#2}人物出身{/#2}产生的称号。表格支持排序，也可用 Ctrl + F 搜索。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-1379b3eb08936ede4cae318c",
+      "source_sha256": "1379b3eb08936ede4cae318c43be1581b64c2840250e89351a5650dc1589757b",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        4032
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}钉锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c7a078054ec7d1073f003981",
+      "source_sha256": "c7a078054ec7d1073f0039815d86777c0adc76e814935d239d935b320fcf1023",
+      "source": "Axes are versatile {#1}weapons{/#1}. From a utility perspective, they can deal direct damage to shields with the Split Shield attack, which can be effective against shield-carrying opponents or {#2}Schrats{/#2}.",
+      "page_ids": [
+        4032
+      ],
+      "zh": "斧是用途多样的{#1}武器{/#1}。在功能上，它们可用劈盾攻击直接损伤盾牌，适合对付持盾敌人或{#2}树妖{/#2}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-ee1a1d9663efa34e9685c557",
+      "source_sha256": "ee1a1d9663efa34e9685c557dda9e88eba51f5bded5087232096088041c27fc4",
+      "source": "Offensively, 1-handed axes do 50% additional damage to HP on a hit to the head, which compounds with the normal head shot bonus (of +50% HP damage).",
+      "page_ids": [
+        4032
+      ],
+      "zh": "进攻时，单手斧命中头部会额外造成 50% 生命值伤害，并与普通爆头的 +50% 生命值伤害加成叠加。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-03096a9aadf7b7de6253472a",
+      "source_sha256": "03096a9aadf7b7de6253472a6c68ce1d4126aceaa7128fbcb6f89843918540ce",
+      "source": "{#1}Longaxe{/#1} has an attack range of 1-2 tiles, making it possible to attack from behind the frontline. Note that the Longaxe is not considered a {#2}polearm{/#2}, so it will not receive bonuses from Polearm Mastery. Longaxe has {#3}-15%{/#3} accuracy penalty for hitting adjacent targets.",
+      "page_ids": [
+        4032
+      ],
+      "zh": "{#1}长柄斧{/#1}的攻击距离为 1-2 格，可以从前排身后攻击。它不属于{#2}长柄武器{/#2}，因此不能享受长柄武器精通加成。攻击相邻目标时，长柄斧有 {#3}-15%{/#3} 命中惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-185ec879517849a175cf99f7",
+      "source_sha256": "185ec879517849a175cf99f70335ac7f4cf0fc6c24fe27034860c61697bc35bd",
+      "source": "{#1}Longaxe{/#1} no longer has penalty for hitting targets directly adjacent.",
+      "page_ids": [
+        4032
+      ],
+      "zh": "{#1}长柄斧{/#1}攻击相邻目标时，不再受到命中惩罚。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-f82ec1e521787d9bb59e22d8",
+      "source_sha256": "f82ec1e521787d9bb59e22d85666a1b05b13588d7e56758ccd941ff61f4cc86d",
+      "source": "{#1}Daggers{/#1} • {#2}Swords{/#2} • {#3}Maces{/#3} • {#4}Spears{/#4} • {#5}Axes{/#5} • {#6}Flails{/#6} • {#7}Cleavers{/#7} • {#8}Hammers{/#8} • {#9}Polearms{/#9}",
+      "page_ids": [
+        4028
+      ],
+      "zh": "{#1}匕首类{/#1} • {#2}剑类{/#2} • {#3}锤类{/#3} • {#4}长矛类{/#4} • {#5}斧类{/#5} • {#6}连枷类{/#6} • {#7}斩刀类{/#7} • {#8}战锤类{/#8} • {#9}长柄武器{/#9}",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-3645e3413b1354466137d947",
+      "source_sha256": "3645e3413b1354466137d9472a7aa7cbd584fdb4b99e3020eefed76c6888f6d2",
+      "source": "Maces are heavy {#1}weapons{/#1} that can deliver a lot of utility to the company. Their heavy blows are capable of crushing through armor and stunning opponents, and every one of their attacks adds additional fatigue to their opponent.",
+      "page_ids": [
+        4028
+      ],
+      "zh": "锤是一类重型{#1}武器{/#1}，能为战团提供多种实用能力。沉重的打击可以破坏护甲、击晕敌人，而且每次攻击都会使对手额外积累疲劳。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-b5d67f2a1d0ecd306e110a9b",
+      "source_sha256": "b5d67f2a1d0ecd306e110a9b10530fd6051403c931e04e6286e1c33a6d01b5c3",
+      "source": "{#1}Knock Out{/#1} skill has a 100% chance to stun the target, if it isn't immune.",
+      "page_ids": [
+        4028
+      ],
+      "zh": "若目标不免疫眩晕，{#1}击昏{/#1}命中后有 100% 的概率将其击晕。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c709e28173568fa575c50c58",
+      "source_sha256": "c709e28173568fa575c50c5887636b16c69b75b22c3d514454d0fbda630f3f01",
+      "source": "Two-Handed Maces (except the Polemace and Goedendag) Daze the targets they hit, debuffing their fatigue, initiative and damage.",
+      "page_ids": [
+        4028
+      ],
+      "zh": "双手锤命中时，会使目标陷入恍惚，降低最大疲劳、先攻和伤害；长柄钉锤及尖头棍除外。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-9e924cc5535860ff2b6ab75e",
+      "source_sha256": "9e924cc5535860ff2b6ab75eb9b066f2a2ecbe318d655d77b8cac02763dd8515",
+      "source": "{#1}Mace Mastery{/#1} perk for Two-Handed Maces gives these bonuses:",
+      "page_ids": [
+        4028
+      ],
+      "zh": "双手锤从{#1}锤术精通{/#1}获得以下加成：",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-621afba7dce0c6df4971e3d1",
+      "source_sha256": "621afba7dce0c6df4971e3d18f37b6a722d46c9acd38590ee975980e127eee3c",
+      "source": "{#1}Strike Down{/#1}, {#2}Knock Out{/#2} and {#3}Knock Over{/#3} skills have a 100% chance to stun the target, if it isn't immune.",
+      "page_ids": [
+        4028
+      ],
+      "zh": "若目标不免疫眩晕，{#1}击倒{/#1}、{#2}击昏{/#2}和{#3}撞倒{/#3}命中后有 100% 的概率将其击晕。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-cacb66c5d54371b79c8080a7",
+      "source_sha256": "cacb66c5d54371b79c8080a7c676263de833b00988de33d61fbd7795c054fbfd",
+      "source": "Crossbows use ammo from an equipped bolt quiver. One quiver can hold a maximum of 10 ammo (14 for crafted quiver). Every mercenary can carry 1 quiver in a special item slot, and, just like a regular item, it can be dropped on the ground. Ammo for quivers is automatically refilled after combat from your global ammo stockpile.",
+      "page_ids": [
+        4292
+      ],
+      "zh": "弩使用已装备弩矢袋里的弹药。普通弩矢袋最多容纳 10 支弩矢，制作所得的版本可装 14 支。每名佣兵可在专用栏位携带 1 个弩矢袋，也能像普通物品一样将其丢到地上。战斗结束后，弩矢袋会自动从战团弹药储备中补充。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-76619065360c463b3f7f2e05",
+      "source_sha256": "76619065360c463b3f7f2e05d39cbf69681d2068a90767de0712584dda6c5c74",
+      "source": "Crossbows' range is affected by height level difference between crossbowman and its target. Shooting downhill increases range by 1 for each height level above target; opposite effect is applied for uphill shooting. Also see {#1}Vision{/#1}.",
+      "page_ids": [
+        4292
+      ],
+      "zh": "弩手与目标之间的高度差会影响射程。向低处射击时，每高出目标一个高度等级，射程增加 1 格；向高处射击则相反。另见{#1}视野{/#1}。",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-c5b8235228ba02592ba5f0b5",
+      "source_sha256": "c5b8235228ba02592ba5f0b5ab2d3b44636656d9305b0bfaf084bd5613e77fd0",
+      "source": "cannot be reloaded while engaged in melee, but can be shot;",
+      "page_ids": [
+        4292
+      ],
+      "zh": "近战接敌时无法装填，但仍可发射已装填的弩矢；",
+      "status": "reviewed"
+    },
+    {
+      "id": "u-5bcd45794e097ac9bb258ae8",
+      "source_sha256": "5bcd45794e097ac9bb258ae8f63af129183162cae1f2886064ee91b00107d48f",
+      "source": "are automatically loaded at the start of each battle if equipped (carried in hands).",
+      "page_ids": [
+        4292
+      ],
+      "zh": "如果战斗开始时已装备在手中，就会自动完成装填。",
+      "status": "reviewed"
+    }
+  ]
+}
