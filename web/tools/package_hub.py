@@ -18,7 +18,7 @@ target = OUT / f'{PREFIX}.tar.gz'
 files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py']
 files += [ROOT / 'app' / name for name in ['core/paths.py', 'core/gamelog.py',
     'core/seedgen/config_emitter.py', 'core/seedgen/log_watcher.py', 'core/seedgen/presentation.py',
-    'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'data/seed_traits.json']]
+    'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'core/seedgen/weapons.py', 'data/seed_traits.json']]
 web = ROOT / 'web'
 for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'requirements-wiki.txt', 'Dockerfile', 'compose.yml', 'compose.https.yml', 'compose.gateway.yml', '.env.example', 'README.md']:
     files.append(web / name)

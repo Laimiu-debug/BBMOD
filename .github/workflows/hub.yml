@@ -1,7 +1,7 @@
 name: Self-hosted MOD hub
 on:
   push:
-    paths: ['web/**', 'app/core/archive_safety.py', '.dockerignore', '.github/workflows/hub.yml']
+    paths: ['web/**', 'app/core/archive_safety.py', 'app/core/paths.py', 'app/core/gamelog.py', 'app/core/seedgen/**', 'app/data/seed_traits.json', '.dockerignore', '.github/workflows/hub.yml']
   workflow_dispatch:
 permissions:
   contents: read
