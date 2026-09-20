@@ -18,7 +18,7 @@ this.afei_fear_afei <- this.inherit("scripts/skills/skill", {
 		if (this.getContainer().getActor().getFlags().get("afei_fear_triggered")) { return; }
 		local actor = this.getContainer().getActor();
 		actor.getFlags().set("afei_fear_triggered", true);
-		local recover = ::AfeiExpedition.consumeFatigueRecoverBudget(8);
+		local recover = ::AfeiExpedition.consumeFatigueRecoverBudget(8, actor);
 		actor.setFatigue(this.Math.max(0, actor.getFatigue() - recover));
 		this.m.Armed = true;
 	}

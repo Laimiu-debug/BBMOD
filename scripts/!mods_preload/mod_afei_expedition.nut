@@ -3,12 +3,14 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.8,
+	Version = 2.9,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
 	FatigueRecoverUsed = 0,
 	FatigueRecoverCap = 20,
+	FatigueRecoverByActor = {},
+	FatigueRecoverRound = -1,
 	Flags = {
 		PaidContracts = "afei_paid_contracts",
 		M01Done = "afei_m01_done",
@@ -101,6 +103,8 @@
 		this.OrderBudget = this.OrderBudgetMax;
 		this.LastOrderRound = -1;
 		this.FatigueRecoverUsed = 0;
+		this.FatigueRecoverByActor = {};
+		this.FatigueRecoverRound = -1;
 	},
 
 	function getRound()
@@ -149,22 +153,47 @@
 		return true;
 	},
 
-	function consumeFatigueRecoverBudget(_n)
+	function resetFatigueRecoverRound()
 	{
-		local left = this.FatigueRecoverCap - this.FatigueRecoverUsed;
+		local round = this.getRound();
+		if (round != this.FatigueRecoverRound)
+		{
+			this.FatigueRecoverByActor = {};
+			this.FatigueRecoverRound = round;
+		}
+	},
 
+	function consumeFatigueRecoverBudget(_n, _actor = null)
+	{
+		this.resetFatigueRecoverRound();
+		local key = "global";
+		if (_actor != null)
+		{
+			try { key = "" + _actor.getID(); } catch (error) { key = "global"; }
+		}
+		local used = 0;
+		if (key in this.FatigueRecoverByActor)
+		{
+			used = this.FatigueRecoverByActor[key];
+		}
+		local left = this.FatigueRecoverCap - used;
 		if (left <= 0)
 		{
 			return 0;
 		}
-
 		local take = _n;
-
 		if (take > left)
 		{
 			take = left;
 		}
-
+		if (key in this.FatigueRecoverByActor)
+		{
+			this.FatigueRecoverByActor[key] = used + take;
+		}
+		else
+		{
+			this.FatigueRecoverByActor[key] <- used + take;
+		}
 		this.FatigueRecoverUsed += take;
 		return take;
 	},
@@ -213,6 +242,11 @@
 	function recordJiahao(_namedId)
 	{
 		if (!this.isAfeiOrigin() || _namedId == null || _namedId == "" || _namedId == "C01")
+		{
+			return false;
+		}
+
+		if (this.World.Flags.get(this.Flags.AfeiDead))
 		{
 			return false;
 		}
@@ -275,6 +309,23 @@
 		}
 
 		return removed >= _n;
+	},
+
+	function trySpendToolsApprox(_n)
+	{
+		local gt = getroottable();
+		local assets = gt.World.Assets;
+		if (!("getArmorParts" in assets))
+		{
+			return false;
+		}
+		local have = assets.getArmorParts();
+		if (have < _n)
+		{
+			return false;
+		}
+		assets.addArmorParts(-_n);
+		return true;
 	},
 
 	function isBicycleItem(_it)
@@ -2204,6 +2255,7 @@
 					{
 						if (a == null) continue;
 						a.getFlags().set("afei_mentorship", false);
+						a.getFlags().set("afei_tiles_moved_round", 0);
 						local nid = a.getFlags().get(::AfeiExpedition.Flags.NamedId);
 						if (nid != null && nid != "" && a.getLevel() < 7 && a.getLevel() <= med - 3)
 						{
@@ -2408,6 +2460,48 @@
 				if (mark != null)
 				{
 					mark.removeSelf();
+				}
+
+				local user = this.getContainer().getActor();
+				if (user != null && user.isAlive())
+				{
+					local cut = user.getFlags().getAsInt("afei_cup_fat_cut");
+					if (cut > 0)
+					{
+						user.getFlags().set("afei_cup_fat_cut", 0);
+					}
+				}
+			}
+
+			// 看懂：敌方连续两次使用同一武器攻击技时，四格内童猪获得 1 层
+			if (_skill == this && ::AfeiExpedition.isAfeiOrigin() && this.isAttack())
+			{
+				try
+				{
+					local user = this.getContainer().getActor();
+					if (user != null && user.isAlive() && user.getFaction() != this.Const.Faction.Player)
+					{
+						local sid = this.getID();
+						local last = user.getFlags().get("afei_last_weapon_skill");
+						user.getFlags().set("afei_last_weapon_skill", sid);
+						if (last != null && last == sid)
+						{
+							local ut = user.getTile();
+							foreach (a in this.Tactical.Entities.getInstancesOfFaction(this.Const.Faction.Player))
+							{
+								if (a == null || !a.isAlive()) continue;
+								local know = a.getSkills().getSkillByID("actives.afei_know_rules");
+								if (know == null) continue;
+								if (a.getTile().getDistanceTo(ut) <= 4)
+								{
+									know.tryGainStack();
+								}
+							}
+						}
+					}
+				}
+				catch (error)
+				{
 				}
 			}
 
@@ -2880,6 +2974,8 @@
 
 				try
 				{
+					::AfeiExpedition.FatigueRecoverByActor = {};
+					::AfeiExpedition.FatigueRecoverRound = ::AfeiExpedition.getRound();
 					local all = this.Tactical.Entities.getAllInstancesAsArray();
 
 					foreach (a in all)
@@ -2888,12 +2984,49 @@
 						{
 							a.getFlags().set("afei_hit_by_ally_id", 0);
 						}
+						if (a != null)
+						{
+							a.getFlags().set("afei_tiles_moved_round", 0);
+						}
 					}
 				}
 				catch (error)
 				{
 				}
 
+				return result;
+			};
+		}
+	});
+
+	// 回头箭 / 探路：统计本轮普通移动格数
+	::mods_hookExactClass("entity/tactical/actor", function(o)
+	{
+		if ("onMovementFinish" in o)
+		{
+			local onMovementFinish = o.onMovementFinish;
+			o.onMovementFinish = function(_tile)
+			{
+				local result = onMovementFinish(_tile);
+				if (::AfeiExpedition.isAfeiOrigin())
+				{
+					try
+					{
+						this.getFlags().set("afei_tiles_moved_round", this.getFlags().getAsInt("afei_tiles_moved_round") + 1);
+						if (this.getSkills().hasSkill("actives.afei_scout_path") && !this.getFlags().get("afei_scout_move_heal"))
+						{
+							local heal = ::AfeiExpedition.consumeFatigueRecoverBudget(2, this);
+							if (heal > 0)
+							{
+								this.setFatigue(this.Math.max(0, this.getFatigue() - heal));
+								this.getFlags().set("afei_scout_move_heal", true);
+							}
+						}
+					}
+					catch (error)
+					{
+					}
+				}
 				return result;
 			};
 		}
@@ -3041,25 +3174,40 @@
 
 			local actor = this.getContainer().getActor();
 
-			if (actor == null || !this.isAttack() || this.isRanged())
+			if (actor == null)
 			{
 				return;
 			}
 
-			local lift = actor.getSkills().getSkillByID("actives.afei_together_lift");
-
-			if (lift != null && ("hasFormation" in lift) && lift.hasFormation())
+			if (this.isAttack() && !this.isRanged())
 			{
-				if (!("afei_base_fatigue" in this.m))
+				local lift = actor.getSkills().getSkillByID("actives.afei_together_lift");
+
+				if (lift != null && ("hasFormation" in lift) && lift.hasFormation())
 				{
-					this.m.afei_base_fatigue <- this.m.FatigueCost;
+					if (!("afei_base_fatigue" in this.m))
+					{
+						this.m.afei_base_fatigue <- this.m.FatigueCost;
+					}
+					else
+					{
+						this.m.afei_base_fatigue = this.Math.max(this.m.afei_base_fatigue, this.m.FatigueCost);
+					}
+
+					this.m.FatigueCost = this.Math.max(0, this.m.afei_base_fatigue - 2);
 				}
-				else
+			}
+
+			local fatCut = actor.getFlags().getAsInt("afei_cup_fat_cut");
+
+			if (fatCut > 0 && (this.isAttack() || this.m.IsActive == true))
+			{
+				if (!("afei_cup_base_fatigue" in this.m))
 				{
-					this.m.afei_base_fatigue = this.Math.max(this.m.afei_base_fatigue, this.m.FatigueCost);
+					this.m.afei_cup_base_fatigue <- this.m.FatigueCost;
 				}
 
-				this.m.FatigueCost = this.Math.max(0, this.m.afei_base_fatigue - 2);
+				this.m.FatigueCost = this.Math.max(0, this.m.afei_cup_base_fatigue - fatCut);
 			}
 		};
 	});

@@ -13,7 +13,7 @@ this.afei_drum_effect <- this.inherit("scripts/skills/skill", {
 		if (this.m.Pending)
 		{
 			local actor = this.getContainer().getActor();
-			local recover = ::AfeiExpedition.consumeFatigueRecoverBudget(8);
+			local recover = ::AfeiExpedition.consumeFatigueRecoverBudget(8, actor);
 			actor.setFatigue(this.Math.max(0, actor.getFatigue() - recover));
 			this.m.Pending = false;
 		}

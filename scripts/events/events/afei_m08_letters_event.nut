@@ -7,7 +7,7 @@ this.afei_m08_letters_event <- this.inherit("scripts/events/event", {
 		this.m.Cooldown = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
 			ID = "A",
-			Text = "%terrainImage%{旧营地求助：先「送补给」，再「护送滞留者」——两份可开战契约，中间可休整。全部完成后磨合 +6，记录终章，并尝试阿飞终极觉醒。}",
+			Text = "%terrainImage%{约第 90 日起，旧营地来信求助。终章不强迫全员到齐：先完成一份送补给，再护送滞留者——两份可开战契约，中间可以休整。\n\n全部成功后磨合 +6，记下终章书信，并在条件满足时尝试阿飞终极觉醒。失败可七日后再试。}",
 			Image = "",
 			List = [],
 			Characters = [],

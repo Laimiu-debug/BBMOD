@@ -7,7 +7,7 @@ this.afei_m04_blue_event <- this.inherit("scripts/events/event", {
 		this.m.Cooldown = 7.0 * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
 			ID = "A",
-			Text = "%terrainImage%{联合护送邀请。接受后生成「蓝旗联合护送」契约：世界地图上出现伏击点，进入后可开战。成功则开放 R08–R10，磨合 +4。失败可七日后重试。}",
+			Text = "%terrainImage%{蓝旗送来联合护送邀请。匿名护卫会与你们同行——他们不是可招的具名伙伴，也不会被写成可误杀的永久角色。\n\n接受后生成「蓝旗联合护送」契约：地图上出现伏击点，进入后开战。成功则磨合 +4，并开放川神、小虎、大鹅的邀请；失败可七日后再试。}",
 			Image = "",
 			List = [],
 			Characters = [],

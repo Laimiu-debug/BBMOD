@@ -1,10 +1,12 @@
 this.afei_gaga_charge <- this.inherit("scripts/skills/skill", {
-	m = { CooldownUntil = 0, IsSpent = false },
+	m = {
+		CooldownUntil = 0
+	},
 	function create()
 	{
 		this.m.ID = "actives.afei_gaga_charge";
 		this.m.Name = "嘎嘎冲";
-		this.m.Description = "向邻接敌人推进姿态：下一次近战命中+8，自身近防-3 一轮。";
+		this.m.Description = "推进预备：下一次单手近战护甲伤害 +10%，命中 -5（成长后不降命中）。完整「先走一格再推」受引擎限制，本版做攻击预备近似。";
 		this.m.Icon = "skills/active_119.png";
 		this.m.IconDisabled = "skills/active_119_sw.png";
 		this.m.Type = this.Const.SkillType.Active;
@@ -12,32 +14,32 @@ this.afei_gaga_charge <- this.inherit("scripts/skills/skill", {
 		this.m.IsActive = true;
 		this.m.IsTargeted = false;
 		this.m.IsAttack = false;
-		this.m.ActionPointCost = 4;
-		this.m.FatigueCost = 18;
+		this.m.ActionPointCost = 6;
+		this.m.FatigueCost = 22;
 		this.m.MinRange = 0;
 		this.m.MaxRange = 0;
 	}
 	function isUsable()
 	{
-		if (!this.skill.isUsable()) return false;
-		if (this.m.IsSpent) return false;
-		if (::AfeiExpedition.getRound() < this.m.CooldownUntil) return false;
-		
-		return true;
-	}
-	function onVerifyTarget(_originTile, _targetTile)
-	{
-		if (!this.m.IsTargeted) return true;
-		if (!this.skill.onVerifyTarget(_originTile, _targetTile)) return false;
-		local t = _targetTile.getEntity();
-		return t != null && t.isAlive() && t.isAlliedWith(this.getContainer().getActor()) == true;
+		if (!this.skill.isUsable())
+		{
+			return false;
+		}
+		return ::AfeiExpedition.getRound() >= this.m.CooldownUntil;
 	}
 	function onUse(_user, _targetTile)
 	{
-		
-		_user.getSkills().add(this.new("scripts/skills/effects/afei_bottle_breakthrough_ready"));
-		this.m.CooldownUntil = ::AfeiExpedition.getRound() + 2;
+		local old = _user.getSkills().getSkillByID("effects.afei_gaga_ready");
+		if (old != null)
+		{
+			old.removeSelf();
+		}
+		_user.getSkills().add(this.new("scripts/skills/effects/afei_gaga_ready_effect"));
+		this.m.CooldownUntil = ::AfeiExpedition.getRound() + 3;
 		return true;
 	}
-	function onCombatStarted() { this.m.CooldownUntil = 0; this.m.IsSpent = false; }
+	function onCombatStarted()
+	{
+		this.m.CooldownUntil = 0;
+	}
 });

@@ -41,7 +41,7 @@ this.afei_full_circle <- this.inherit("scripts/skills/skill", {
 		local my=_user.getTile();
 		foreach(a in this.Tactical.Entities.getInstancesOfFaction(_user.getFaction())){
 			if(!a.isAlive()||a.getTile().getDistanceTo(my)>4) continue;
-			local rec=::AfeiExpedition.consumeFatigueRecoverBudget(20);
+			local rec=::AfeiExpedition.consumeFatigueRecoverBudget(20, a);
 			a.setFatigue(this.Math.max(0,a.getFatigue()-rec));
 			local e=this.new("scripts/skills/effects/afei_wawa_effect"); e.setBonus(20); a.getSkills().add(e);
 		}
