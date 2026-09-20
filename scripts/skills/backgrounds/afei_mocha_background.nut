@@ -46,7 +46,7 @@ this.afei_mocha_background <- this.inherit("scripts/skills/backgrounds/character
 		local items = this.getContainer().getActor().getItems();
 		items.equip(this.new("scripts/items/weapons/short_bow"));
 		items.equip(this.new("scripts/items/weapons/knife"));
-		items.equip(this.new("scripts/items/armor/tattered_surcoat"));
-		items.equip(this.new("scripts/items/helmets/aketon_cap"));
+		items.equip(this.new("scripts/items/armor/leather_tunic"));
+		items.equip(this.new("scripts/items/helmets/hood"));
 	}
 });

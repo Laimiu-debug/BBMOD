@@ -233,7 +233,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			this.Music.setTrackList([
 				this.Const.Music.NewCampaignTracks[0]
 			], this.Const.Music.CrossFadeTime);
-			this.World.Events.fire("event.afei_m01_captains");
+			this.World.Events.fire("event.afei_expedition_scenario_intro");
 		}, null);
 	}
 

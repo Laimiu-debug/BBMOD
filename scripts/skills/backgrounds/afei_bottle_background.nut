@@ -47,6 +47,6 @@ this.afei_bottle_background <- this.inherit("scripts/skills/backgrounds/characte
 		items.equip(this.new("scripts/items/weapons/militia_spear"));
 		items.equip(this.new("scripts/items/shields/wooden_shield"));
 		items.equip(this.new("scripts/items/armor/padded_surcoat"));
-		items.equip(this.new("scripts/items/helmets/aketon_cap"));
+		items.equip(this.new("scripts/items/helmets/hood"));
 	}
 });

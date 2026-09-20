@@ -44,9 +44,9 @@ this.afei_captain_background <- this.inherit("scripts/skills/backgrounds/charact
 	function onAddEquipment()
 	{
 		local items = this.getContainer().getActor().getItems();
-		items.equip(this.new("scripts/items/weapons/wooden_stick"));
+		items.equip(this.new("scripts/items/weapons/bludgeon"));
 		items.equip(this.new("scripts/items/shields/wooden_shield"));
-		items.equip(this.new("scripts/items/armor/tattered_surcoat"));
-		items.equip(this.new("scripts/items/helmets/aketon_cap"));
+		items.equip(this.new("scripts/items/armor/leather_tunic"));
+		items.equip(this.new("scripts/items/helmets/hood"));
 	}
 });

@@ -1,28 +1,25 @@
 # 阶段 1 垂直切片说明
 
-## 已实现（静态骨架）
+## 参考对齐（2026-09-20）
 
-- 新增起源 `scenario.afei_expedition`（大飞午远征团），Legacy `mod_hooks` 注册
-- 开局三队长：阿飞 / 抹茶 / 王大谋（固定八维、星级、日薪、中文背景）
-- 起步资源：1800 克朗、55 食物、30 工具、15 药品、25 弹药；磨合 flag=25；名册上限 20
-- 阿飞：`IsPlayerCharacter` + 专属 flag；战斗失败条件绑定阿飞仍在名册；解雇钩子占位
-- 团队号令：全局预算 2 / 每轮最多 1（`::AfeiExpedition`）
-- 核心主动（简化）：哇哇叫、蛤蟆、幕后队长、地精算盘、大哥借我
-- M01 事件：可接/拒安全送账（接则 +180 并计 1 次有报酬契约）
-- R01 事件：第 2 日+ 且已有 ≥1 次有报酬契约 → 可花 200 招小酒瓶
+以用户提供的 **Fate.zip**（`media/ref-fate-origin.zip`）为优先对照；沙匪包已自 BBMOD 历史找回作辅证。
 
-## 未实现 / Stub
+| | Fate | 沙匪 | 本 MOD |
+|--|------|------|--------|
+| Hooks | Legacy `mods_hook*` | Legacy register+queue | **Legacy**（保持） |
+| Modern/MSU | 无 | 无 | 不做 |
+| scenario | 新增 `fate_cultists_scenario.nut` | 新增 `desert_bandits_scenario.nut` | 新增 `afei_expedition_scenario.nut` |
+| 注册 | 无 `addScenario` | 无 `addScenario` | **已去掉** `scenario_manager` hook |
+| 开场事件 | 复用官方 cultists intro | `events/events/scenario/` + `IsSpecial` + `fire` | 同沙匪路径：`afei_expedition_intro_event` |
+| 官方同路径覆盖 | 无 | 无 | 无 |
 
-- 幕后队长双目标与真实疲劳减免结算
-- 地精算盘命中 +10 的完整攻击钩
-- 安全送账作为真正世界契约（当前为事件即时结算）
-- 小酒瓶完整 C04 八维/技能页
-- 嘉豪 / 磨合修正 / 带教 / 31 人其余内容
-- 种子远征 `ORIGIN_LABELS`（明确不做）
+## 已实现
 
-## 待沙匪 ZIP 校正
+- 起源可选、三队长固定数据、起步资源、中文文案
+- 阿飞解雇防护占位；号令 2/场、1/轮
+- M01 开场（接/拒送账）；R01 瓶队（日≥2 + 有报酬契约≥1）
+- ZIP 构建：`python3 tools/build_zip.py` → `dist/mod_afei_expedition.zip`
 
-- scenario_manager / event_manager 精确 API（`addScenario`、Events 数组字段名）
-- 解雇 UI 函数名
-- 物品脚本路径（木棍/盾/甲）是否与 1.5.2.3 一致
-- 若参考包为 Modern Hooks/MSU，需改 preload 代际
+## Stub / 未做
+
+幕后队长双目标与真实疲劳减免、算盘命中钩、送账真契约、C04 完整页、嘉豪/磨合/带教、31 人其余、种子远征、实机验收。

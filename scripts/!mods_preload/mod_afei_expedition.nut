@@ -1,9 +1,10 @@
-// Legacy Modding Script Hooks entry (mod_hooks 21.x).
-// Package id: mod_afei_expedition · Game target: Battle Brothers 1.5.2.3
+// Legacy Modding Script Hooks（与 Fate / 沙匪起源同代际；非 Modern/MSU）
+// 参考：Fate.zip 用 ::mods_hookNewObject；沙匪用 mods_registerMod + mods_queue。
+// scenario 靠新增 scripts/scenarios/world/*_scenario.nut 自出现在列表（Fate/沙匪均未 hook scenario_manager）。
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 1.0,
+	Version = 1.1,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -102,20 +103,9 @@
 
 ::mods_registerMod(::AfeiExpedition.ID, ::AfeiExpedition.Version, ::AfeiExpedition.Name);
 
-::mods_queue(::AfeiExpedition.ID, "mod_hooks(>=20)", function()
+::mods_queue(::AfeiExpedition.ID, null, function()
 {
-	// Register origin without replacing any vanilla *_scenario path.
-	::mods_hookExactClass("scenarios/scenario_manager", function(o)
-	{
-		local create = o.create;
-		o.create = function()
-		{
-			create();
-			this.addScenario(this.new("scripts/scenarios/world/afei_expedition_scenario"));
-		};
-	});
-
-	// Count successful paid contracts (best-effort; full contract taxonomy pending ZIP校准).
+	// 有报酬契约成功结算计数（R01 门控）
 	::mods_hookExactClass("contracts/contract", function(o)
 	{
 		local onClear = o.onClear;
@@ -141,13 +131,9 @@
 				{
 				}
 
-				if (payment > 0 || (this.getType() != "contract.tutorial"))
+				if (payment > 0)
 				{
-					// Prefer payment>0; still count most non-tutorial successes as paid for stage-1 gate.
-					if (payment > 0)
-					{
-						::AfeiExpedition.addPaidContract(1);
-					}
+					::AfeiExpedition.addPaidContract(1);
 				}
 			}
 
@@ -155,12 +141,9 @@
 		};
 	});
 
-	// Prevent dismissing 阿飞 (named captain flag).
+	// 阿飞不可解雇（UI 路径名因版本而异，尽力挂钩）
 	::mods_hookExactClass("entity/tactical/player", function(o)
 	{
-		local isReallyKilled = o.isReallyKilled;
-		// UI dismiss path checks IsPlayerCharacter in several builds; also block via getTryoutCost? 
-		// Provide an explicit helper used by our hooks below.
 		o.afei_isUndismissable <- function()
 		{
 			return this.getFlags().get(::AfeiExpedition.Flags.CaptainAfei) == true;
@@ -169,7 +152,6 @@
 
 	::mods_hookExactClass("ui/screens/world/modules/world_character_screen/world_character_screen", function(o)
 	{
-		// Soft guard: if dismissBrother exists, wrap it. Not all builds expose the same name.
 		if ("dismissBrother" in o)
 		{
 			local dismissBrother = o.dismissBrother;
@@ -185,7 +167,7 @@
 		}
 	});
 
-	// Shared 号令 budget: reset each combat; per-round gate lives in ::AfeiExpedition.
+	// 团队号令：每场重置；每轮闸门在 ::AfeiExpedition
 	::mods_hookExactClass("states/tactical_state", function(o)
 	{
 		local onInit = o.onInit;
@@ -198,26 +180,13 @@
 				::AfeiExpedition.resetOrders();
 			}
 		};
-
-		local onBattleEnded = ("onBattleEnded" in o) ? o.onBattleEnded : null;
-
-		if (onBattleEnded != null)
-		{
-			o.onBattleEnded = function()
-			{
-				::AfeiExpedition.resetOrders();
-				return onBattleEnded();
-			};
-		}
 	});
 
-	// Round boundary: allow one 号令 per round again (budget is combat-scoped).
 	::mods_hookExactClass("tactical/turn_sequence_bar", function(o)
 	{
-		local initNextRound = ("initNextRound" in o) ? o.initNextRound : null;
-
-		if (initNextRound != null)
+		if ("initNextRound" in o)
 		{
+			local initNextRound = o.initNextRound;
 			o.initNextRound = function()
 			{
 				local result = initNextRound();
@@ -227,14 +196,13 @@
 		}
 	});
 
-	// Event manager: inject M01 / R01 skeletons.
+	// R01 为普通可评分事件，需注入 event_manager（沙匪开场用 IsSpecial + fire，不走评分）
 	::mods_hookExactClass("events/event_manager", function(o)
 	{
 		local create = o.create;
 		o.create = function()
 		{
 			create();
-			this.m.Events.push(this.new("scripts/events/events/afei_m01_captains_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r01_bottle_event"));
 		};
 	});

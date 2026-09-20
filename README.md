@@ -53,11 +53,19 @@ scripts/skills/special/...
 scripts/events/events/...
 ```
 
+## 参考包与 Hooks 选型
+
+| 参考 | 路径 / 来源 | Hooks | scenario 注册 |
+|------|-------------|-------|---------------|
+| **Fate（优先）** | Context `media/ref-fate-origin.zip` | Legacy（`::mods_hookNewObject`） | 仅新增 `*_scenario.nut`，**无** hook `scenario_manager` |
+| 沙匪起源 | Context `media/ref-mod_desertBandits-沙匪起源.zip`（自 BBMOD git 历史抽出，SHA 与兼容性记录一致）；原作 [Nexus #588](https://www.nexusmods.com/battlebrothers/mods/588) | Legacy（`mods_registerMod` + `mods_queue`） | 同上；开场事件在 `events/events/scenario/` + `IsSpecial` |
+
+**本 MOD 选型：** 保持 **Legacy `mod_hooks`**（Fate/沙匪一致，非 Modern/MSU）。结构对齐 Fate/沙匪：新增 scenario 文件自注册；开场用 special intro；preload 用沙匪式 `registerMod`+`queue` 挂玩法钩子。
+
 ## 状态说明
 
 - Cloud Agent **无法**在 Linux 上实机启动 Windows 客户端验收。
-- 沙匪等参考起源 ZIP **尚未**提供；目录与 hooks 按社区「新增 scenario」惯例 + 计划文档实现，**待 ZIP 校正**。
-- 若本仓尚未出现在 GitHub：请维护者在 `Laimiu-debug` 下手动创建空仓后 `git remote add` + `git push`（机器人 token 无建仓权限）。
+- GitHub 仓已建：https://github.com/Laimiu-debug/afei-expedition-origin — 若 `cursor[bot]` 无 write，需维护者授权后才能由 Agent push。
 
 ## 许可
 

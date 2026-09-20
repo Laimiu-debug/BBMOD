@@ -47,6 +47,6 @@ this.afei_damou_background <- this.inherit("scripts/skills/backgrounds/character
 		items.equip(this.new("scripts/items/weapons/militia_spear"));
 		items.equip(this.new("scripts/items/shields/wooden_shield"));
 		items.equip(this.new("scripts/items/armor/padded_leather"));
-		items.equip(this.new("scripts/items/helmets/padded_cap"));
+		items.equip(this.new("scripts/items/helmets/padded_nasal_helmet"));
 	}
 });
