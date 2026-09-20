@@ -180,6 +180,7 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 						bro.setTitle("瓶队");
 						bro.getFlags().set(::AfeiExpedition.Flags.NamedId, "C04");
 						bro.getSkills().add(this.new("scripts/skills/special/afei_named_brother"));
+						bro.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 						local b = bro.getBaseProperties();
 						// C04 设定八维
 						b.Hitpoints = 60;

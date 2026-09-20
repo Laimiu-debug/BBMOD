@@ -1,10 +1,12 @@
 this.afei_shadow_captain <- this.inherit("scripts/skills/skill", {
-	m = {},
+	m = {
+		AwaitingSecond = false
+	},
 	function create()
 	{
 		this.m.ID = "actives.afei_shadow_captain";
 		this.m.Name = "幕后队长";
-		this.m.Description = "消耗 1 次团队号令。指定四格内一名可行动友军，并自动再选最近的另一名四格内友军（若有）：其下一次武器技能疲劳成本减少 8。";
+		this.m.Description = "消耗 1 次团队号令。指定四格内可行动友军，其下一次武器技能疲劳 -8。可在同一轮内再点选第二名友军（不再耗号令）。若只点一人，也会自动尝试附加最近的另一名友军。";
 		this.m.Icon = "skills/active_119.png";
 		this.m.IconDisabled = "skills/active_119_sw.png";
 		this.m.Overlay = "active_119";
@@ -21,6 +23,20 @@ this.afei_shadow_captain <- this.inherit("scripts/skills/skill", {
 		this.m.MaxRange = 4;
 	}
 
+	function onAfterUpdate(_properties)
+	{
+		if (this.m.AwaitingSecond)
+		{
+			this.m.ActionPointCost = 0;
+			this.m.FatigueCost = 0;
+		}
+		else
+		{
+			this.m.ActionPointCost = 4;
+			this.m.FatigueCost = 15;
+		}
+	}
+
 	function getTooltip()
 	{
 		local ret = this.skill.getDefaultUtilityTooltip();
@@ -28,14 +44,24 @@ this.afei_shadow_captain <- this.inherit("scripts/skills/skill", {
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "剩余团队号令：" + ::AfeiExpedition.OrderBudget + "（本轮已用则不可再施放）"
+			text = "剩余团队号令：" + ::AfeiExpedition.OrderBudget + (this.m.AwaitingSecond ? "（正在选第二目标）" : "（全队共享；每轮最多 1 次）")
 		});
 		return ret;
 	}
 
 	function isUsable()
 	{
-		return this.skill.isUsable() && ::AfeiExpedition.canUseOrder();
+		if (!this.skill.isUsable())
+		{
+			return false;
+		}
+
+		if (this.m.AwaitingSecond)
+		{
+			return true;
+		}
+
+		return ::AfeiExpedition.canUseOrder();
 	}
 
 	function onVerifyTarget(_originTile, _targetTile)
@@ -51,15 +77,24 @@ this.afei_shadow_captain <- this.inherit("scripts/skills/skill", {
 
 	function onUse(_user, _targetTile)
 	{
+		local primary = _targetTile.getEntity();
+
+		if (this.m.AwaitingSecond)
+		{
+			primary.getSkills().add(this.new("scripts/skills/effects/afei_shadow_captain_effect"));
+			this.m.AwaitingSecond = false;
+			return true;
+		}
+
 		if (!::AfeiExpedition.consumeOrder())
 		{
 			return false;
 		}
 
-		local primary = _targetTile.getEntity();
 		primary.getSkills().add(this.new("scripts/skills/effects/afei_shadow_captain_effect"));
+		this.m.AwaitingSecond = true;
 
-		// 无双目标 UI：自动附加最近的另一名四格内可行动友军
+		// 自动附加最近第二人（仍可再手动点选覆盖式追加）
 		local myTile = _user.getTile();
 		local best;
 		local bestDist = 99;
@@ -84,8 +119,19 @@ this.afei_shadow_captain <- this.inherit("scripts/skills/skill", {
 		if (best != null)
 		{
 			best.getSkills().add(this.new("scripts/skills/effects/afei_shadow_captain_effect"));
+			this.m.AwaitingSecond = false;
 		}
 
 		return true;
+	}
+
+	function onCombatStarted()
+	{
+		this.m.AwaitingSecond = false;
+	}
+
+	function onTurnEnd()
+	{
+		this.m.AwaitingSecond = false;
 	}
 });

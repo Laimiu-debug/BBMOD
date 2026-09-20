@@ -99,6 +99,8 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		], 6, "C01", true);
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_wawa_call"));
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_toad_escape"));
+		afei.getSkills().add(this.new("scripts/skills/actives/afei_jiahao"));
+		afei.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 
 		// C02 抹茶 · 远程谋士 / 副队长
 		local mocha = makeCaptain("afei_mocha_background", "抹茶", "副队长", 13, [
@@ -126,6 +128,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		], 12, "C02", false);
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_shadow_captain"));
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_abacus_mark"));
+		mocha.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 
 		// C03 王大谋 · 前排 / 副队长
 		local damou = makeCaptain("afei_damou_background", "王大谋", "副队长", 3, [
@@ -152,6 +155,8 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			]
 		], 16, "C03", false);
 		damou.getSkills().add(this.new("scripts/skills/actives/afei_borrow_strike"));
+		damou.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
+		damou.getFlags().set(::AfeiExpedition.Flags.ProxyCaptain, true);
 
 		// 起步资源（设定表）
 		this.World.Assets.m.BusinessReputation = 0;
@@ -162,6 +167,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		this.World.Assets.m.Ammo = 25;
 		// 食物以补给物品近似 55：多份谷物（待实机校准 Food 字段）
 		this.World.Flags.set("afei_cohesion", 25);
+		this.World.Flags.set(::AfeiExpedition.Flags.JiahaoCount, 0);
 		this.World.Flags.set(::AfeiExpedition.Flags.PaidContracts, 0);
 		this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryActive, 0);
 		this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryDone, 0);

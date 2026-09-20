@@ -17,17 +17,17 @@
 - 首版**不**要求 Modern Hooks / MSU
 - 首版**不**接入 BBMOD 种子远征 / `ORIGIN_LABELS`
 
-## 阶段 1 范围（当前 · v1.2）
+## 阶段 1 范围（当前 · v1.3）
 
-三队长开局（设定八维/装备/阿飞不可解雇）+ 团队号令（全队共享 2、每轮最多 1）+ M01 安全送账（邻镇交付）+ R01 小酒瓶（演练门控 + C04 数值/技能骨架）。  
-不做 31 人全量、不做种子远征。细节见 [STAGE1.md](./STAGE1.md)。
+三队长开局 + 号令/嘉豪·磨合骨架 + M01/R01 + **黑队 R02–R07（C05–C10）**。  
+不做 31 人全量、不做种子远征。黑队七人招募已接入。细节见 [STAGE1.md](./STAGE1.md)。
 
 ## 包内 ID
 
 - 安装文件名：`mod_afei_expedition.zip`
 - mod id：`mod_afei_expedition`
 - scenario id：`scenario.afei_expedition`
-- Legacy 版本号：`1.2`（纯数字）
+- Legacy 版本号：`1.3`（纯数字）
 
 ## 构建
 

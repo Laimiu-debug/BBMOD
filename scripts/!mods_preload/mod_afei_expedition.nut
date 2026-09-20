@@ -1,13 +1,14 @@
 // Legacy Modding Script Hooks（与 Fate / 沙匪起源同代际；非 Modern/MSU）
-// 参考：Fate.zip 用 ::mods_hookNewObject；沙匪用 mods_registerMod + mods_queue。
-// scenario 靠新增 scripts/scenarios/world/*_scenario.nut 自出现在列表（Fate/沙匪均未 hook scenario_manager）。
+// scenario 靠新增 scripts/scenarios/world/*_scenario.nut 自出现在列表。
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 1.2,
+	Version = 1.3,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
+	FatigueRecoverUsed = 0,
+	FatigueRecoverCap = 20,
 	Flags = {
 		PaidContracts = "afei_paid_contracts",
 		M01Done = "afei_m01_done",
@@ -16,14 +17,30 @@
 		SafeDeliveryHome = "afei_safe_delivery_home",
 		R01Done = "afei_r01_done",
 		R01Offered = "afei_r01_offered",
+		R02Done = "afei_r02_done",
+		R02Offered = "afei_r02_offered",
+		R03Done = "afei_r03_done",
+		R03Offered = "afei_r03_offered",
+		R04Done = "afei_r04_done",
+		R04Offered = "afei_r04_offered",
+		R05Done = "afei_r05_done",
+		R05Offered = "afei_r05_offered",
+		R06Done = "afei_r06_done",
+		R06Offered = "afei_r06_offered",
+		R07Done = "afei_r07_done",
+		R07Offered = "afei_r07_offered",
 		CaptainAfei = "afei_captain_afei",
-		NamedId = "afei_named_id"
+		NamedId = "afei_named_id",
+		ProxyCaptain = "afei_proxy_captain",
+		JiahaoCount = "afei_jiahao_count",
+		JiahaoSeen = "afei_jiahao_seen_"
 	},
 
 	function resetOrders()
 	{
 		this.OrderBudget = this.OrderBudgetMax;
 		this.LastOrderRound = -1;
+		this.FatigueRecoverUsed = 0;
 	},
 
 	function getRound()
@@ -72,6 +89,26 @@
 		return true;
 	},
 
+	function consumeFatigueRecoverBudget(_n)
+	{
+		local left = this.FatigueRecoverCap - this.FatigueRecoverUsed;
+
+		if (left <= 0)
+		{
+			return 0;
+		}
+
+		local take = _n;
+
+		if (take > left)
+		{
+			take = left;
+		}
+
+		this.FatigueRecoverUsed += take;
+		return take;
+	},
+
 	function isAfeiOrigin()
 	{
 		if (!("World" in getroottable()) || this.World.Assets == null)
@@ -101,6 +138,199 @@
 		}
 
 		this.World.Flags.set(this.Flags.PaidContracts, this.getPaidContracts() + _n);
+	},
+
+	function getJiahaoCount()
+	{
+		if (!this.isAfeiOrigin())
+		{
+			return 0;
+		}
+
+		return this.World.Flags.getAsInt(this.Flags.JiahaoCount);
+	},
+
+	function recordJiahao(_namedId)
+	{
+		if (!this.isAfeiOrigin() || _namedId == null || _namedId == "" || _namedId == "C01")
+		{
+			return false;
+		}
+
+		local key = this.Flags.JiahaoSeen + _namedId;
+
+		if (this.World.Flags.get(key))
+		{
+			return false;
+		}
+
+		local n = this.getJiahaoCount();
+
+		if (n >= 16)
+		{
+			return false;
+		}
+
+		this.World.Flags.set(key, 1);
+		this.World.Flags.set(this.Flags.JiahaoCount, n + 1);
+		return true;
+	},
+
+	function hasNamed(_namedId)
+	{
+		if (!("World" in getroottable()) || this.World.getPlayerRoster == null)
+		{
+			return false;
+		}
+
+		local roster = this.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			if (bro.getFlags().get(this.Flags.NamedId) == _namedId)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	},
+
+	function trySpendFoodApprox(_n)
+	{
+		local gt = getroottable();
+		local stash = gt.World.Assets.getStash();
+		local removed = 0;
+		local items = stash.getItems();
+
+		for (local i = items.len() - 1; i >= 0 && removed < _n; i--)
+		{
+			local it = items[i];
+
+			if (it != null && it.isItemType(gt.Const.Items.ItemType.Food))
+			{
+				stash.remove(it);
+				removed += 1;
+			}
+		}
+
+		return removed >= _n;
+	},
+
+	function hireNamed(_ctx, _def)
+	{
+		local gt = getroottable();
+		local bro = gt.World.getPlayerRoster().create("scripts/entity/tactical/player");
+		bro.setStartValuesEx([
+			_def.Background
+		]);
+		bro.setName(_def.Name);
+		bro.setTitle(_def.Title);
+		bro.getFlags().set(this.Flags.NamedId, _def.NamedId);
+		bro.getSkills().add(_ctx.new("scripts/skills/special/afei_named_brother"));
+		bro.getSkills().add(_ctx.new("scripts/skills/actives/afei_cohesion_rule"));
+		local b = bro.getBaseProperties();
+		local a = _def.Attrs;
+		b.Hitpoints = a[0];
+		b.Stamina = a[1];
+		b.Bravery = a[2];
+		b.Initiative = a[3];
+		b.MeleeSkill = a[4];
+		b.RangedSkill = a[5];
+		b.MeleeDefense = a[6];
+		b.RangedDefense = a[7];
+		bro.m.Level = 1;
+		bro.m.XP = gt.Const.LevelXP[0];
+		bro.m.LevelUps = 0;
+		bro.m.DailyWage = _def.Wage;
+		bro.setPlaceInFormation(_def.Place);
+
+		if ("Skills" in _def)
+		{
+			foreach (sid in _def.Skills)
+			{
+				bro.getSkills().add(_ctx.new("scripts/skills/actives/" + sid));
+			}
+		}
+
+		bro.getSkills().update();
+		return bro;
+	},
+
+	function clearProxyFlags()
+	{
+		local roster = this.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			bro.getFlags().set(this.Flags.ProxyCaptain, false);
+		}
+	},
+
+	function setProxyByNamedId(_namedId)
+	{
+		local roster = this.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			if (bro.getFlags().get(this.Flags.NamedId) == _namedId)
+			{
+				bro.getFlags().set(this.Flags.ProxyCaptain, true);
+				return true;
+			}
+		}
+
+		return false;
+	},
+
+	function ensureProxyCaptain()
+	{
+		if (!this.isAfeiOrigin())
+		{
+			return;
+		}
+
+		local roster = this.World.getPlayerRoster().getAll();
+		local hasProxy = false;
+
+		foreach (bro in roster)
+		{
+			if (bro.getFlags().get(this.Flags.ProxyCaptain))
+			{
+				hasProxy = true;
+				break;
+			}
+		}
+
+		if (hasProxy)
+		{
+			return;
+		}
+
+		// 默认：怼怼(C10) > 大谋(C03) > 任意非阿飞命名
+		local order = [
+			"C10",
+			"C03",
+			"C02",
+			"C08",
+			"C09",
+			"C06",
+			"C04",
+			"C05",
+			"C07"
+		];
+
+		foreach (cid in order)
+		{
+			foreach (bro in roster)
+			{
+				if (bro.getFlags().get(this.Flags.NamedId) == cid)
+				{
+					bro.getFlags().set(this.Flags.ProxyCaptain, true);
+					return;
+				}
+			}
+		}
 	},
 
 	function tryCompleteSafeDelivery(_settlement)
@@ -258,8 +488,36 @@
 			if (::AfeiExpedition.isAfeiOrigin())
 			{
 				::AfeiExpedition.resetOrders();
+				::AfeiExpedition.ensureProxyCaptain();
 			}
 		};
+
+		if ("onCombatFinished" in o)
+		{
+			local onCombatFinished = o.onCombatFinished;
+			o.onCombatFinished = function()
+			{
+				local result = onCombatFinished();
+
+				if (::AfeiExpedition.isAfeiOrigin())
+				{
+					try
+					{
+						local c = this.World.Flags.getAsInt("afei_cohesion");
+
+						if (c < 100)
+						{
+							this.World.Flags.set("afei_cohesion", this.Math.min(100, c + 1));
+						}
+					}
+					catch (error)
+					{
+					}
+				}
+
+				return result;
+			};
+		}
 	});
 
 	// 地精算盘：友军对该目标的下一次单体武器攻击命中 +10（命中/未中均消耗）
@@ -433,7 +691,14 @@
 		{
 			create();
 			this.m.Events.push(this.new("scripts/events/events/afei_r01_bottle_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r02_lili_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r03_yujiu_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r04_yueya_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r05_xiaoyu_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r06_shuaizi_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_r07_duidui_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_safe_delivery_complete_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_proxy_captain_event"));
 		};
 	});
 });

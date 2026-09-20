@@ -65,6 +65,12 @@ this.afei_wawa_call <- this.inherit("scripts/skills/skill", {
 				local effect = this.new("scripts/skills/effects/afei_wawa_effect");
 				effect.setBonus(bonus);
 				a.getSkills().add(effect);
+				local fear = a.getSkills().getSkillByID("actives.afei_fear_afei");
+
+				if (fear != null)
+				{
+					fear.triggerFromAfeiOrder();
+				}
 			}
 		}
 
