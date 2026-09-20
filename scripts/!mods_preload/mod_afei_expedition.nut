@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.3,
+	Version = 2.4,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -65,8 +65,6 @@
 		R19Offered = "afei_r19_offered",
 		R20Done = "afei_r20_done",
 		R20Offered = "afei_r20_offered",
-		R21Done = "afei_r21_done",
-		R21Offered = "afei_r21_offered",
 		R22Done = "afei_r22_done",
 		R22Offered = "afei_r22_offered",
 		R23Done = "afei_r23_done",
@@ -421,8 +419,14 @@
 	{
 		local n = 0;
 
+		// C01–C31 编号保留；C24 糕糕已按用户要求移除，不计入
 		for (local i = 1; i <= 31; i++)
 		{
+			if (i == 24)
+			{
+				continue;
+			}
+
 			local cid = i < 10 ? "C0" + i : "C" + i;
 
 			if (this.World.Flags.get(this.Flags.EverRecruited + cid) || this.hasNamed(cid))
@@ -652,7 +656,7 @@
 			local map = {
 				"01": "C04", "02": "C05", "03": "C06", "04": "C07", "05": "C08", "06": "C09", "07": "C10",
 				"08": "C11", "09": "C12", "10": "C13", "11": "C14", "12": "C15", "13": "C16", "14": "C17",
-				"15": "C18", "16": "C19", "17": "C20", "18": "C21", "19": "C22", "20": "C23", "21": "C24",
+				"15": "C18", "16": "C19", "17": "C20", "18": "C21", "19": "C22", "20": "C23",
 				"22": "C25", "23": "C26", "24": "C27", "25": "C28", "26": "C29", "27": "C30", "28": "C31"
 			};
 			targetCid = map[picks[0]];
@@ -1494,6 +1498,12 @@
 			return false;
 		}
 
+		// 糕糕（C24）已移除
+		if (_cid == "C24")
+		{
+			return false;
+		}
+
 		if (_cid == "C02")
 		{
 			return this.getFlagInt("afei_sign_witness_count") >= 3 && contracts >= 4 && reviews >= 2;
@@ -1604,10 +1614,6 @@
 			return bf.getAsInt("afei_sprint_win") >= 6;
 		}
 
-		if (_cid == "C24")
-		{
-			return wins >= 6 && bf.getAsInt("afei_late_hit_win") >= 3;
-		}
 
 		if (_cid == "C25")
 		{
@@ -1736,10 +1742,6 @@
 		else if (_cid == "C23")
 		{
 			_bro.getFlags().set("afei_sprint_fat10", true);
-		}
-		else if (_cid == "C24")
-		{
-			_bro.getFlags().set("afei_late_no_r1pen", true);
 		}
 		else if (_cid == "C25")
 		{
@@ -2734,7 +2736,6 @@
 			this.m.Events.push(this.new("scripts/events/events/afei_r18_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r19_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r20_event"));
-			this.m.Events.push(this.new("scripts/events/events/afei_r21_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r22_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r23_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_r24_event"));
