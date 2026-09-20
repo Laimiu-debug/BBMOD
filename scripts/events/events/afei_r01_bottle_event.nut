@@ -186,15 +186,15 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 						bro.getSkills().add(this.new("scripts/skills/special/afei_named_brother"));
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 						local b = bro.getBaseProperties();
-						// C04 设定八维
-						b.Hitpoints = 60;
-						b.Stamina = 101;
-						b.Bravery = 35;
-						b.Initiative = 109;
-						b.MeleeSkill = 61;
-						b.RangedSkill = 28;
-						b.MeleeDefense = 1;
-						b.RangedDefense = 0;
+						// C04 五人大哥 · 9 星晚游向
+						b.Hitpoints = 75;
+						b.Stamina = 118;
+						b.Bravery = 48;
+						b.Initiative = 120;
+						b.MeleeSkill = 72;
+						b.RangedSkill = 32;
+						b.MeleeDefense = 10;
+						b.RangedDefense = 4;
 						local talents = bro.getTalents();
 						talents.resize(this.Const.Attributes.COUNT, 0);
 
@@ -203,14 +203,14 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 							talents[i] = 0;
 						}
 
-						talents[this.Const.Attributes.Fatigue] = 2;
-						talents[this.Const.Attributes.Initiative] = 1;
+						talents[this.Const.Attributes.Fatigue] = 3;
+						talents[this.Const.Attributes.Initiative] = 3;
 						talents[this.Const.Attributes.MeleeSkill] = 3;
 						bro.getSkills().update();
 						bro.m.Level = 1;
 						bro.m.XP = this.Const.LevelXP[0];
 						bro.m.LevelUps = 0;
-						bro.m.DailyWage = 13;
+						bro.m.DailyWage = 24;
 						bro.setPlaceInFormation(4);
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_bottle_breakthrough"));
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_teammate_ball"));

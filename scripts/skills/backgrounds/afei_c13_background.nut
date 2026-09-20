@@ -10,7 +10,7 @@ this.afei_c13_background <- this.inherit("scripts/skills/backgrounds/character_b
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";
 		this.m.HiringCost = 650;
-		this.m.DailyCost = 15;
+		this.m.DailyCost = 28;
 		this.m.Excluded = ["trait.greedy","trait.disloyal"];
 		this.m.Faces = this.Const.Faces.AllMale;
 		this.m.Hairs = this.Const.Hair.AllMale;

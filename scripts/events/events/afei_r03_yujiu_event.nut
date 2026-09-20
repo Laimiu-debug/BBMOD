@@ -151,17 +151,17 @@ this.afei_r03_yujiu_event <- this.inherit("scripts/events/event", {
 							Name = "余初九",
 							Title = "余九",
 							NamedId = "C06",
-							Attrs = [58, 104, 45, 102, 52, 31, 6, 3],
-							Wage = 10,
+							Attrs = [70, 118, 58, 110, 60, 35, 14, 8],
+							Wage = 20,
 							Place = 5,
 							Skills = ["afei_dog_bark", "afei_loyalty", "afei_guard_swap"]
 						});
 						local talents = bro.getTalents();
 						talents.resize(this.Const.Attributes.COUNT, 0);
 						for (local i = 0; i < this.Const.Attributes.COUNT; i++) { talents[i] = 0; }
-						talents[this.Const.Attributes.Fatigue] = 1;
+						talents[this.Const.Attributes.Fatigue] = 3;
 						talents[this.Const.Attributes.Bravery] = 3;
-						talents[this.Const.Attributes.MeleeDefense] = 2;
+						talents[this.Const.Attributes.MeleeDefense] = 3;
 						bro.getSkills().update();
 						this.World.Flags.set(::AfeiExpedition.Flags.R03Done, 1);
 						this.World.Flags.set(::AfeiExpedition.Flags.R03Offered, 1);

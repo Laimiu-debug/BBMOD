@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.4,
+	Version = 2.5,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -89,7 +89,11 @@
 		Camped = "afei_camped",
 		GrowthDone = "afei_growth_done_",
 		WinCount = "afei_win_count",
-		EverRecruited = "afei_ever_"
+		EverRecruited = "afei_ever_",
+		BicycleXp = "afei_bicycle_xp",
+		BicyclePromptDone = "afei_bicycle_prompt_done",
+		BicycleItemId = "accessory.afei_bicycle",
+		EcigItemId = "accessory.afei_ecig"
 	},
 
 	function resetOrders()
@@ -271,6 +275,168 @@
 		}
 
 		return removed >= _n;
+	},
+
+	function isBicycleItem(_it)
+	{
+		return _it != null && _it.getID() == this.Flags.BicycleItemId;
+	},
+
+	function hasBicycleItem()
+	{
+		local gt = getroottable();
+		local stashItems = gt.World.Assets.getStash().getItems();
+
+		foreach (it in stashItems)
+		{
+			if (this.isBicycleItem(it))
+			{
+				return true;
+			}
+		}
+
+		local roster = gt.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			try
+			{
+				local all = bro.getItems().getAllItems();
+
+				foreach (it in all)
+				{
+					if (this.isBicycleItem(it))
+					{
+						return true;
+					}
+				}
+			}
+			catch (error)
+			{
+				local acc = bro.getItems().getItemAtSlot(gt.Const.ItemSlot.Accessory);
+
+				if (this.isBicycleItem(acc))
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	},
+
+	function removeAllBicycles()
+	{
+		local gt = getroottable();
+		local stash = gt.World.Assets.getStash();
+		local stashItems = stash.getItems();
+
+		for (local i = stashItems.len() - 1; i >= 0; i--)
+		{
+			local it = stashItems[i];
+
+			if (this.isBicycleItem(it))
+			{
+				stash.remove(it);
+			}
+		}
+
+		local roster = gt.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			local inv = bro.getItems();
+
+			try
+			{
+				local all = inv.getAllItems();
+				local toDrop = [];
+
+				foreach (it in all)
+				{
+					if (this.isBicycleItem(it))
+					{
+						toDrop.push(it);
+					}
+				}
+
+				foreach (it in toDrop)
+				{
+					inv.unequip(it);
+				}
+			}
+			catch (error)
+			{
+				local acc = inv.getItemAtSlot(gt.Const.ItemSlot.Accessory);
+
+				if (this.isBicycleItem(acc))
+				{
+					inv.unequip(acc);
+				}
+			}
+		}
+	},
+
+	function abandonBicycleForXp()
+	{
+		local gt = getroottable();
+
+		if (gt.World.Flags.get(this.Flags.BicycleXp))
+		{
+			return false;
+		}
+
+		this.removeAllBicycles();
+		gt.World.Flags.set(this.Flags.BicycleXp, 1);
+		gt.World.Flags.set(this.Flags.BicyclePromptDone, 1);
+
+		local roster = gt.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			if (bro.getFlags().get(this.Flags.CaptainAfei) == true)
+			{
+				bro.getFlags().set(this.Flags.BicycleXp, true);
+			}
+		}
+
+		return true;
+	},
+
+	function keepBicycleNoXp()
+	{
+		local gt = getroottable();
+		gt.World.Flags.set(this.Flags.BicyclePromptDone, 1);
+		return true;
+	},
+
+	function tryOfferBicycleAbandonAfterBottleLeave()
+	{
+		local gt = getroottable();
+
+		if (!this.isAfeiOrigin())
+		{
+			return;
+		}
+
+		if (gt.World.Flags.get(this.Flags.BicyclePromptDone) || gt.World.Flags.get(this.Flags.BicycleXp))
+		{
+			return;
+		}
+
+		if (!this.hasBicycleItem())
+		{
+			gt.World.Flags.set(this.Flags.BicyclePromptDone, 1);
+			return;
+		}
+
+		try
+		{
+			gt.World.Events.fire("event.afei_bottle_leave_bicycle");
+		}
+		catch (error)
+		{
+		}
 	},
 
 	function hireNamed(_ctx, _def)
@@ -1956,7 +2122,15 @@
 					return;
 				}
 
-				return dismissBrother(_brother);
+				local bottleLeaving = _brother != null && _brother.getFlags().get(::AfeiExpedition.Flags.NamedId) == "C04";
+				local result = dismissBrother(_brother);
+
+				if (bottleLeaving)
+				{
+					::AfeiExpedition.tryOfferBicycleAbandonAfterBottleLeave();
+				}
+
+				return result;
 			};
 		}
 
@@ -1987,7 +2161,15 @@
 					return;
 				}
 
-				return onDismissBrother(_data);
+				local bottleLeaving = bro != null && bro.getFlags().get(::AfeiExpedition.Flags.NamedId) == "C04";
+				local result = onDismissBrother(_data);
+
+				if (bottleLeaving)
+				{
+					::AfeiExpedition.tryOfferBicycleAbandonAfterBottleLeave();
+				}
+
+				return result;
 			};
 		}
 	});
@@ -2669,9 +2851,17 @@
 			local addXP = o.addXP;
 			o.addXP = function(_xp, _show = true)
 			{
-				if (::AfeiExpedition.isAfeiOrigin() && this.getFlags().get("afei_mentorship") && _xp > 0)
+				if (::AfeiExpedition.isAfeiOrigin() && _xp > 0)
 				{
-					_xp = this.Math.floor(_xp * 1.5);
+					if (this.getFlags().get("afei_mentorship"))
+					{
+						_xp = this.Math.floor(_xp * 1.5);
+					}
+
+					if (this.getFlags().get(::AfeiExpedition.Flags.CaptainAfei) == true && this.World.Flags.get(::AfeiExpedition.Flags.BicycleXp))
+					{
+						_xp = this.Math.floor(_xp * 1.2);
+					}
 				}
 
 				return addXP(_xp, _show);
@@ -2758,6 +2948,7 @@
 			this.m.Events.push(this.new("scripts/events/events/afei_camp_review_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_steal_bro_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_rope_train_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_bottle_leave_bicycle_event"));
 		};
 	});
 

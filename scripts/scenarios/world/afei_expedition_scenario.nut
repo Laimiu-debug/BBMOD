@@ -4,7 +4,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 	{
 		this.m.ID = "scenario.afei_expedition";
 		this.m.Name = "大飞午远征团";
-		this.m.Description = "[p=c][img]gfx/ui/events/event_65.png[/img][/p][p]烟港酒馆里，三名队长把一面还没写满名字的黑旗挂上车：阿飞签下团约，抹茶算清口粮，王大谋扛起最重的箱子。\n\n[color=#bcad8c]三队长开局：[/color] 阿飞、抹茶、王大谋共同起家；阿飞为固定团长，不可主动解雇。\n[color=#bcad8c]团队号令：[/color] 每场战斗全队共享 2 次号令，每轮最多施放 1 次。\n[color=#bcad8c]招募节奏：[/color] 完成首份有报酬契约后，可遇瓶队小酒瓶（R01）。[/p]";
+		this.m.Description = "[p=c][img]gfx/ui/events/event_65.png[/img][/p][p]烟港酒馆里，三名队长把一面还没写满名字的黑旗挂上车：阿飞签下团约，抹茶算清口粮，王大谋扛起最重的箱子。\n\n[color=#bcad8c]三队长开局：[/color] 阿飞、抹茶、王大谋共同起家；阿飞为固定团长，不可主动解雇。\n[color=#bcad8c]阿飞饰品：[/color] 电子烟（战斗回血，无限次）；自行车（小酒瓶离队时可遗弃，换经验获取 ×1.2，仅一次）。\n[color=#bcad8c]团队号令：[/color] 每场战斗全队共享 2 次号令，每轮最多施放 1 次。\n[color=#bcad8c]招募节奏：[/color] 完成首份有报酬契约后，可遇瓶队小酒瓶（R01）。[/p]";
 		this.m.Difficulty = 2;
 		this.m.Order = 86;
 		this.m.IsFixedLook = true;
@@ -101,6 +101,10 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_toad_escape"));
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_jiahao"));
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
+		// 电子烟：阿飞饰品栏（战斗回血，无限次）
+		afei.getItems().equip(this.new("scripts/items/accessory/afei_ecig_item"));
+		this.World.Flags.set(::AfeiExpedition.Flags.BicycleXp, 0);
+		this.World.Flags.set(::AfeiExpedition.Flags.BicyclePromptDone, 0);
 
 		// C02 抹茶 · 远程谋士 / 副队长
 		local mocha = makeCaptain("afei_mocha_background", "抹茶", "副队长", 13, [
@@ -180,6 +184,9 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		{
 			this.World.Assets.getStash().add(this.new("scripts/items/supplies/ground_grains_item"));
 		}
+
+		// 自行车入行囊（扩容后）；小酒瓶离队时可遗弃换经验倍率
+		this.World.Assets.getStash().add(this.new("scripts/items/accessory/afei_bicycle_item"));
 	}
 
 	function onSpawnPlayer()

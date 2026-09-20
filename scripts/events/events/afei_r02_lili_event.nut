@@ -151,16 +151,16 @@ this.afei_r02_lili_event <- this.inherit("scripts/events/event", {
 							Name = "李李超欧",
 							Title = "超巨",
 							NamedId = "C05",
-							Attrs = [48, 89, 27, 115, 39, 46, 3, 6],
-							Wage = 10,
+							Attrs = [58, 102, 38, 122, 45, 58, 8, 12],
+							Wage = 20,
 							Place = 14,
 							Skills = ["afei_unselectable", "afei_chaoju", "afei_ouqi"]
 						});
 						local talents = bro.getTalents();
 						talents.resize(this.Const.Attributes.COUNT, 0);
 						for (local i = 0; i < this.Const.Attributes.COUNT; i++) { talents[i] = 0; }
-						talents[this.Const.Attributes.Bravery] = 1;
-						talents[this.Const.Attributes.Initiative] = 2;
+						talents[this.Const.Attributes.Bravery] = 3;
+						talents[this.Const.Attributes.Initiative] = 3;
 						talents[this.Const.Attributes.RangedSkill] = 3;
 						bro.getSkills().update();
 						this.World.Flags.set(::AfeiExpedition.Flags.R02Done, 1);

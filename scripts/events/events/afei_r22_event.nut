@@ -45,17 +45,17 @@ this.afei_r22_event <- this.inherit("scripts/events/event", {
 							Name = "玩蛇",
 							Title = "玩蛇",
 							NamedId = "C25",
-							Attrs = [57, 103, 48, 115, 59, 40, 7, 4],
-							Wage = 22,
+							Attrs = [70, 118, 58, 122, 70, 48, 14, 10],
+							Wage = 32,
 							Place = 4,
 							Skills = ["afei_snake_trial", "afei_next_path", "afei_snake_read"]
 						});
 						local talents = bro.getTalents();
 						talents.resize(this.Const.Attributes.COUNT, 0);
 						for (local i = 0; i < this.Const.Attributes.COUNT; i++) { talents[i] = 0; }
-						talents[this.Const.Attributes.Fatigue] = 1;
+						talents[this.Const.Attributes.Fatigue] = 3;
 						talents[this.Const.Attributes.MeleeSkill] = 3;
-						talents[this.Const.Attributes.MeleeDefense] = 2;
+						talents[this.Const.Attributes.MeleeDefense] = 3;
 						bro.getSkills().update();
 						this.World.Flags.set(::AfeiExpedition.Flags.R22Done, 1);
 						this.World.Flags.set(::AfeiExpedition.Flags.R22Offered, 1);

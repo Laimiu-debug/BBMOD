@@ -45,17 +45,17 @@ this.afei_r10_event <- this.inherit("scripts/events/event", {
 							Name = "大鹅",
 							Title = "大鹅",
 							NamedId = "C13",
-							Attrs = [68, 110, 42, 94, 55, 27, 6, 0],
-							Wage = 15,
+							Attrs = [85, 125, 52, 100, 65, 30, 14, 4],
+							Wage = 28,
 							Place = 4,
 							Skills = ["afei_goose_bully", "afei_gaga_charge", "afei_guard_nest"]
 						});
 						local talents = bro.getTalents();
 						talents.resize(this.Const.Attributes.COUNT, 0);
 						for (local i = 0; i < this.Const.Attributes.COUNT; i++) { talents[i] = 0; }
-						talents[this.Const.Attributes.Hitpoints] = 2;
-						talents[this.Const.Attributes.Fatigue] = 1;
-						talents[this.Const.Attributes.MeleeDefense] = 2;
+						talents[this.Const.Attributes.Hitpoints] = 3;
+						talents[this.Const.Attributes.Fatigue] = 3;
+						talents[this.Const.Attributes.MeleeDefense] = 3;
 						bro.getSkills().update();
 						this.World.Flags.set(::AfeiExpedition.Flags.R10Done, 1);
 						this.World.Flags.set(::AfeiExpedition.Flags.R10Offered, 1);
