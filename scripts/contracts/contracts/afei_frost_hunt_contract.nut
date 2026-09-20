@@ -157,6 +157,7 @@ this.afei_frost_hunt_contract <- this.inherit("scripts/contracts/contract", {
 					{
 						this.World.Flags.set("afei_active_contract_combat", "contract.afei_frost_hunt");
 						this.World.Flags.set("afei_m07_combat", 1);
+						this.World.Flags.set("afei_spawn_frost_roster", 1);
 						this.World.State.getLastLocation().setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
 						this.World.Contracts.showCombatDialog();
 						return 0;

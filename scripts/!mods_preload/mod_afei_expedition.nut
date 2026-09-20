@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.2,
+	Version = 2.3,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -929,7 +929,398 @@
 		return true;
 	},
 
-	function tryOfferAfeiContract(_ctx, _scriptPath, _activate = true)
+
+	function spawnBlueEscorts(_ctx)
+	{
+		local gt = getroottable();
+
+		if (!gt.World.Flags.get("afei_spawn_blue_escorts"))
+		{
+			return 0;
+		}
+
+		gt.World.Flags.set("afei_spawn_blue_escorts", 0);
+		local spawned = 0;
+
+		try
+		{
+			local players = gt.Tactical.Entities.getInstancesOfFaction(gt.Const.Faction.Player);
+
+			if (players == null || players.len() == 0)
+			{
+				return 0;
+			}
+
+			local anchor = players[0];
+
+			for (local n = 0; n < 2; n++)
+			{
+				local tile = null;
+
+				foreach (p in players)
+				{
+					if (p == null || !p.isPlacedOnMap())
+					{
+						continue;
+					}
+
+					local myTile = p.getTile();
+
+					for (local dir = 0; dir < 6; dir++)
+					{
+						if (!myTile.hasNextTile(dir))
+						{
+							continue;
+						}
+
+						local t = myTile.getNextTile(dir);
+
+						if (t != null && t.IsEmpty)
+						{
+							tile = t;
+							break;
+						}
+					}
+
+					if (tile != null)
+					{
+						break;
+					}
+				}
+
+				if (tile == null)
+				{
+					break;
+				}
+
+				local path = "scripts/entity/tactical/humans/afei_blue_guard";
+				local e = null;
+
+				try
+				{
+					e = gt.Tactical.spawnEntity(path, tile.Coords.X, tile.Coords.Y);
+				}
+				catch (errorSpawn)
+				{
+					try
+					{
+						e = gt.Tactical.spawnEntity("scripts/entity/tactical/humans/militia_guest", tile.Coords.X, tile.Coords.Y);
+					}
+					catch (error2)
+					{
+					}
+				}
+
+				if (e == null)
+				{
+					continue;
+				}
+
+				try
+				{
+					e.setFaction(gt.Const.Faction.Player);
+				}
+				catch (errorFac)
+				{
+				}
+
+				try
+				{
+					e.setName("匿名蓝旗");
+					e.getFlags().set("afei_blue_temp", true);
+					e.getFlags().set("afei_anonymous_blue", true);
+				}
+				catch (errorFlag)
+				{
+				}
+
+				spawned += 1;
+			}
+		}
+		catch (errorAll)
+		{
+		}
+
+		return spawned;
+	},
+
+	function spawnFrostRosterFallback(_ctx)
+	{
+		local gt = getroottable();
+
+		if (!gt.World.Flags.get("afei_spawn_frost_roster"))
+		{
+			return 0;
+		}
+
+		gt.World.Flags.set("afei_spawn_frost_roster", 0);
+		local spawned = 0;
+
+		try
+		{
+			local enemies = gt.Tactical.Entities.getHostileActors(gt.Const.Faction.Player);
+			local alreadyFrost = 0;
+			local alreadyUnhold = 0;
+
+			if (enemies != null)
+			{
+				foreach (e in enemies)
+				{
+					if (e == null)
+					{
+						continue;
+					}
+
+					if (e.getFlags().get("afei_frost_unhold"))
+					{
+						alreadyFrost += 1;
+					}
+
+					local n = e.getName();
+
+					if (n != null && (n.find("Unhold") != null || n.find("巨兽") != null || n.find("unhold") != null))
+					{
+						alreadyUnhold += 1;
+					}
+				}
+			}
+
+			// 若地点 spawnlist 已给出足够巨兽，则不再硬塞
+			if (alreadyFrost >= 1 || alreadyUnhold >= 3)
+			{
+				return 0;
+			}
+
+			local beastFaction = gt.Const.Faction.Beasts;
+			local tiles = [];
+
+			try
+			{
+				local all = gt.Tactical.Entities.getInstancesOfFaction(beastFaction);
+
+				if (all != null && all.len() > 0)
+				{
+					foreach (a in all)
+					{
+						if (a != null && a.isPlacedOnMap())
+						{
+							tiles.push(a.getTile());
+						}
+					}
+				}
+			}
+			catch (errorTiles)
+			{
+			}
+
+			local near = tiles.len() > 0 ? tiles[0] : null;
+			local paths = [
+				"scripts/entity/tactical/enemies/afei_frost_unhold",
+				"scripts/entity/tactical/enemies/unhold_frost",
+				"scripts/entity/tactical/enemies/unhold"
+			];
+
+			if (alreadyFrost < 1)
+			{
+				foreach (path in paths)
+				{
+					local tile = null;
+
+					if (near != null)
+					{
+						for (local dir = 0; dir < 6; dir++)
+						{
+							if (!near.hasNextTile(dir))
+							{
+								continue;
+							}
+
+							local t = near.getNextTile(dir);
+
+							if (t != null && t.IsEmpty)
+							{
+								tile = t;
+								break;
+							}
+						}
+					}
+
+					if (tile == null)
+					{
+						continue;
+					}
+
+					local frost = null;
+
+					try
+					{
+						frost = gt.Tactical.spawnEntity(path, tile.Coords.X, tile.Coords.Y);
+					}
+					catch (errorS)
+					{
+						frost = null;
+					}
+
+					if (frost == null)
+					{
+						continue;
+					}
+
+					try
+					{
+						frost.setFaction(beastFaction);
+					}
+					catch (errorF)
+					{
+					}
+
+					frost.getFlags().set("afei_frost_unhold", true);
+
+					try
+					{
+						frost.setName("冰霜巨兽");
+					}
+					catch (errorN)
+					{
+					}
+
+					spawned += 1;
+					break;
+				}
+			}
+
+			local needEscorts = 2;
+
+			if (alreadyUnhold > alreadyFrost)
+			{
+				needEscorts = 2 - (alreadyUnhold - alreadyFrost);
+			}
+
+			if (needEscorts < 0)
+			{
+				needEscorts = 0;
+			}
+
+			if (needEscorts > 2)
+			{
+				needEscorts = 2;
+			}
+
+			for (local i = 0; i < needEscorts; i++)
+			{
+				local tile = null;
+
+				if (near != null)
+				{
+					for (local dir = 0; dir < 6; dir++)
+					{
+						if (!near.hasNextTile(dir))
+						{
+							continue;
+						}
+
+						local t = near.getNextTile(dir);
+
+						if (t != null && t.IsEmpty)
+						{
+							tile = t;
+							break;
+						}
+					}
+				}
+
+				if (tile == null)
+				{
+					break;
+				}
+
+				local u = null;
+
+				try
+				{
+					u = gt.Tactical.spawnEntity("scripts/entity/tactical/enemies/unhold", tile.Coords.X, tile.Coords.Y);
+				}
+				catch (errorU)
+				{
+					break;
+				}
+
+				if (u == null)
+				{
+					break;
+				}
+
+				try
+				{
+					u.setFaction(beastFaction);
+					u.setName("巨兽护卫");
+				}
+				catch (errorU2)
+				{
+				}
+
+				spawned += 1;
+			}
+		}
+		catch (errorAll)
+		{
+		}
+
+		return spawned;
+	},
+
+	function resolveCoverProtector(_target)
+	{
+		if (_target == null)
+		{
+			return null;
+		}
+
+		local cover = _target.getSkills().getSkillByID("effects.afei_cover_up");
+
+		if (cover == null || cover.m.Consumed || cover.m.ProtectorID == 0)
+		{
+			return null;
+		}
+
+		local protector = null;
+
+		try
+		{
+			foreach (a in getroottable().Tactical.Entities.getAllInstancesAsArray())
+			{
+				if (a != null && a.getID() == cover.m.ProtectorID && a.isAlive())
+				{
+					protector = a;
+					break;
+				}
+			}
+		}
+		catch (error)
+		{
+		}
+
+		if (protector == null || protector.getID() == _target.getID())
+		{
+			return null;
+		}
+
+		try
+		{
+			if (protector.getTile().getDistanceTo(_target.getTile()) > 1)
+			{
+				return null;
+			}
+		}
+		catch (error2)
+		{
+			return null;
+		}
+
+		return protector;
+	},
+
+	function tryOfferAfeiContract(_ctx, _scriptPath, _activate)
 	{
 		if (!this.isAfeiOrigin())
 		{
@@ -1531,6 +1922,9 @@
 					if (ctype == "contract.afei_frost_hunt")
 					{
 						::AfeiExpedition.tryCompleteM07FromCombat();
+						this.World.Flags.set("afei_spawn_blue_escorts", 0);
+						this.World.Flags.set("afei_spawn_frost_roster", 0);
+						this.World.Flags.set("afei_active_contract_combat", "");
 					}
 				}
 			}
@@ -1609,6 +2003,8 @@
 				::AfeiExpedition.resetOrders();
 				::AfeiExpedition.ensureProxyCaptain();
 				::AfeiExpedition.tryAwakenAfei();
+				::AfeiExpedition.spawnBlueEscorts(this);
+				::AfeiExpedition.spawnFrostRosterFallback(this);
 				// 带教标记
 				try
 				{
@@ -1658,6 +2054,9 @@
 					{
 						::AfeiExpedition.bumpCohesion(1);
 						::AfeiExpedition.tryCompleteM07FromCombat();
+						this.World.Flags.set("afei_spawn_blue_escorts", 0);
+						this.World.Flags.set("afei_spawn_frost_roster", 0);
+						this.World.Flags.set("afei_active_contract_combat", "");
 						local roster = this.World.getPlayerRoster().getAll();
 
 						foreach (bro in roster)
@@ -2005,12 +2404,133 @@
 		}
 	});
 
+
+	// 顶上去：攻击管线改目标（优先于受击承伤）
+	::mods_hookExactClass("skills/skill", function(o)
+	{
+		if (!("attackEntity" in o))
+		{
+			return;
+		}
+
+		local attackEntity = o.attackEntity;
+		o.attackEntity = function(_user, _targetEntity)
+		{
+			if (::AfeiExpedition.isAfeiOrigin() && _targetEntity != null && this.isAttack() && !this.isRanged())
+			{
+				local protector = ::AfeiExpedition.resolveCoverProtector(_targetEntity);
+
+				if (protector != null)
+				{
+					local canHit = true;
+
+					try
+					{
+						local dist = _user.getTile().getDistanceTo(protector.getTile());
+						local maxr = this.getMaxRange();
+						local minr = this.getMinRange();
+
+						if (dist < minr || dist > maxr)
+						{
+							canHit = false;
+						}
+					}
+					catch (errorRange)
+					{
+					}
+
+					if (canHit)
+					{
+						local cover = _targetEntity.getSkills().getSkillByID("effects.afei_cover_up");
+
+						if (cover != null)
+						{
+							cover.m.Consumed = true;
+							protector.getFlags().set("afei_cover_intercept", protector.getFlags().getAsInt("afei_cover_intercept") + 1);
+							cover.removeSelf();
+
+							local covering = protector.getSkills().getSkillByID("effects.afei_covering");
+
+							if (covering != null)
+							{
+								covering.removeSelf();
+							}
+						}
+
+						_targetEntity = protector;
+						protector.getFlags().set("afei_cover_dr_pending", true);
+					}
+				}
+			}
+
+			return attackEntity(_user, _targetEntity);
+		};
+	});
+
+	// 顶上去承伤减免（改目标后打在守护者上）
+	::mods_hookExactClass("entity/tactical/actor", function(o)
+	{
+		local onBeforeDamageReceived = "onBeforeDamageReceived" in o ? o.onBeforeDamageReceived : null;
+
+		if (onBeforeDamageReceived != null)
+		{
+			o.onBeforeDamageReceived = function(_attacker, _skill, _hitInfo)
+			{
+				if (::AfeiExpedition.isAfeiOrigin() && this.getFlags().get("afei_cover_dr_pending"))
+				{
+					this.getFlags().set("afei_cover_dr_pending", false);
+					local dr = 0.85;
+
+					if (this.getFlags().get("afei_cover_dr25") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C08"))
+					{
+						dr = 0.75;
+					}
+
+					try
+					{
+						if ("DamageInflictedHitpoints" in _hitInfo)
+						{
+							_hitInfo.DamageInflictedHitpoints = this.Math.floor(_hitInfo.DamageInflictedHitpoints * dr);
+						}
+					}
+					catch (error)
+					{
+					}
+				}
+
+				return onBeforeDamageReceived(_attacker, _skill, _hitInfo);
+			};
+		}
+	});
+
 	// 队友给的球 + 顶上去改目标（单体近战，尝试即消耗）
 	::mods_hookExactClass("entity/tactical/actor", function(o)
 	{
 		local onDamageReceived = o.onDamageReceived;
 		o.onDamageReceived = function(_attacker, _skill, _hitInfo)
 		{
+			if (::AfeiExpedition.isAfeiOrigin() && this.getFlags().get("afei_cover_dr_pending"))
+			{
+				this.getFlags().set("afei_cover_dr_pending", false);
+				local dr = 0.85;
+
+				if (this.getFlags().get("afei_cover_dr25") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C08"))
+				{
+					dr = 0.75;
+				}
+
+				try
+				{
+					if ("DamageInflictedHitpoints" in _hitInfo)
+					{
+						_hitInfo.DamageInflictedHitpoints = this.Math.floor(_hitInfo.DamageInflictedHitpoints * dr);
+					}
+				}
+				catch (errorDr)
+				{
+				}
+			}
+
 			if (::AfeiExpedition.isAfeiOrigin() && _attacker != null && _skill != null && _skill.isAttack() && !_skill.isRanged())
 			{
 				local cover = this.getSkills().getSkillByID("effects.afei_cover_up");

@@ -155,6 +155,7 @@ this.afei_blue_escort_contract <- this.inherit("scripts/contracts/contract", {
 					function getResult()
 					{
 						this.World.Flags.set("afei_active_contract_combat", "contract.afei_blue_escort");
+						this.World.Flags.set("afei_spawn_blue_escorts", 1);
 						this.World.State.getLastLocation().setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
 						this.World.Contracts.showCombatDialog();
 						return 0;
