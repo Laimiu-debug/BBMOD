@@ -53,11 +53,20 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 					Text = "让她演示绳阵。",
 					function getResult(_event)
 					{
+						local day = this.World.getTime().Days;
+						local last = this.World.Flags.getAsInt("afei_rope_train_day");
+
+						if (last > 0 && day - last < 3)
+						{
+							return "NoFood";
+						}
 
 						if (!::AfeiExpedition.trySpendFoodApprox(3))
 						{
 							return "NoFood";
 						}
+
+						::AfeiExpedition.recordRopeTrain();
 						return "DrillB";
 					}
 				},
@@ -87,7 +96,6 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 						{
 							return "Poor";
 						}
-						::AfeiExpedition.addFlagInt("afei_rope_train", 1);
 						return "Hire";
 					}
 				},
@@ -120,7 +128,6 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 						{
 							return "Poor";
 						}
-						::AfeiExpedition.addFlagInt("afei_rope_train", 1);
 						return "Hire";
 					}
 				},

@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.1,
+	Version = 2.2,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -751,9 +751,248 @@
 		return 1;
 	},
 
-	function completeM04FromContract()
+
+	function isEscortContractType(_type)
 	{
-		if (!this.World.Flags.get("afei_m04_pending") || this.World.Flags.get(this.Flags.M04Done))
+		if (_type == null || _type == "")
+		{
+			return false;
+		}
+
+		if (_type == "contract.escort_caravan" || _type == "contract.escort_envoy" || _type == "contract.afei_blue_escort" || _type == "contract.afei_m08_escort")
+		{
+			return true;
+		}
+
+		return false;
+	},
+
+	function tryRopeTrain()
+	{
+		if (!this.isAfeiOrigin() || !this.hasNamed("C07"))
+		{
+			return false;
+		}
+
+		local day = this.World.getTime().Days;
+		local last = this.getFlagInt("afei_rope_train_day");
+
+		if (last > 0 && day - last < 3)
+		{
+			return false;
+		}
+
+		if (!this.trySpendFoodApprox(3))
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_rope_train_day", day);
+		this.addFlagInt("afei_rope_train", 1);
+		return true;
+	},
+
+	function recordRopeTrain()
+	{
+		if (!this.isAfeiOrigin())
+		{
+			return false;
+		}
+
+		local day = this.World.getTime().Days;
+		local last = this.getFlagInt("afei_rope_train_day");
+
+		if (last > 0 && day - last < 3)
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_rope_train_day", day);
+		this.addFlagInt("afei_rope_train", 1);
+		return true;
+	},
+
+	function findContractHome()
+	{
+		local home = null;
+
+		try
+		{
+			local list = this.World.EntityManager.getSettlements();
+			local pt = this.World.State.getPlayer().getTile();
+			local best = 99999;
+
+			foreach (s in list)
+			{
+				if (s == null)
+				{
+					continue;
+				}
+
+				try
+				{
+					if (s.isMilitary())
+					{
+						continue;
+					}
+				}
+				catch (error)
+				{
+				}
+
+				local d = s.getTile().getDistanceTo(pt);
+
+				if (d < best)
+				{
+					best = d;
+					home = s;
+				}
+			}
+		}
+		catch (error2)
+		{
+		}
+
+		return home;
+	},
+
+	function bindContractEmployer(_contract, _home)
+	{
+		try
+		{
+			if (_home != null && ("setHome" in _contract))
+			{
+				_contract.setHome(_home);
+			}
+		}
+		catch (error)
+		{
+		}
+
+		local fac = null;
+
+		try
+		{
+			if (_home != null)
+			{
+				fac = _home.getOwner();
+			}
+		}
+		catch (error2)
+		{
+		}
+
+		if (fac == null)
+		{
+			try
+			{
+				fac = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Settlement);
+			}
+			catch (error3)
+			{
+				try
+				{
+					fac = this.World.FactionManager.getFactionOfType(this.Const.FactionType.NobleHouse);
+				}
+				catch (error4)
+				{
+				}
+			}
+		}
+
+		if (fac == null)
+		{
+			return false;
+		}
+
+		try
+		{
+			_contract.setFaction(fac.getID());
+		}
+		catch (error5)
+		{
+		}
+
+		try
+		{
+			local ch = fac.getRandomCharacter();
+
+			if (ch != null)
+			{
+				_contract.setEmployerID(ch.getID());
+			}
+		}
+		catch (error6)
+		{
+		}
+
+		return true;
+	},
+
+	function tryOfferAfeiContract(_ctx, _scriptPath, _activate = true)
+	{
+		if (!this.isAfeiOrigin())
+		{
+			return false;
+		}
+
+		local c = null;
+
+		try
+		{
+			c = _ctx.new(_scriptPath);
+		}
+		catch (error)
+		{
+			return false;
+		}
+
+		local home = this.findContractHome();
+		this.bindContractEmployer(c, home);
+
+		try
+		{
+			if (("start" in c))
+			{
+				c.start();
+			}
+		}
+		catch (error2)
+		{
+		}
+
+		try
+		{
+			this.World.Contracts.addContract(c);
+		}
+		catch (error3)
+		{
+			return false;
+		}
+
+		if (_activate)
+		{
+			try
+			{
+				this.World.Contracts.setActiveContract(c);
+				c.setState("Running");
+			}
+			catch (error4)
+			{
+			}
+		}
+
+		return true;
+	},
+
+	function completeM04FromContract(_type)
+	{
+		if (_type != "contract.afei_blue_escort")
+		{
+			return false;
+		}
+
+		if (this.World.Flags.get(this.Flags.M04Done))
 		{
 			return false;
 		}
@@ -761,35 +1000,71 @@
 		this.World.Flags.set("afei_m04_pending", 0);
 		this.World.Flags.set(this.Flags.M04Done, 1);
 		this.bumpCohesion(4);
-		this.World.Assets.addMoney(200);
 		return true;
 	},
 
-	function completeM08StepFromContract()
+	function completeM08StepFromContract(_type, _ctx)
 	{
 		if (!this.World.Flags.get("afei_m08_pending") || this.World.Flags.get(this.Flags.M08Done))
 		{
 			return false;
 		}
 
-		local left = this.getFlagInt("afei_m08_left") - 1;
-		this.World.Flags.set("afei_m08_left", left);
+		if (_type == "contract.afei_m08_supply")
+		{
+			if (this.World.Flags.get("afei_m08_supply_done"))
+			{
+				return false;
+			}
 
-		if (left > 0)
+			this.World.Flags.set("afei_m08_supply_done", 1);
+
+			if (_ctx != null)
+			{
+				this.tryOfferAfeiContract(_ctx, "scripts/contracts/contracts/afei_m08_escort_contract", true);
+			}
+		}
+		else if (_type == "contract.afei_m08_escort")
+		{
+			if (this.World.Flags.get("afei_m08_escort_done"))
+			{
+				return false;
+			}
+
+			this.World.Flags.set("afei_m08_escort_done", 1);
+		}
+		else
 		{
 			return false;
 		}
 
-		this.World.Flags.set("afei_m08_pending", 0);
-		this.World.Flags.set(this.Flags.M08Done, 1);
-		this.bumpCohesion(6);
-		this.tryAwakenAfei();
-		return true;
+		if (this.World.Flags.get("afei_m08_supply_done") && this.World.Flags.get("afei_m08_escort_done"))
+		{
+			this.World.Flags.set("afei_m08_pending", 0);
+			this.World.Flags.set(this.Flags.M08Done, 1);
+			this.bumpCohesion(6);
+			this.tryAwakenAfei();
+			return true;
+		}
+
+		return false;
 	},
 
 	function tryCompleteM07FromCombat()
 	{
-		if (!this.World.Flags.get("afei_m07_pending") || this.World.Flags.get(this.Flags.M07Done))
+		if (this.World.Flags.get(this.Flags.M07Done))
+		{
+			return false;
+		}
+
+		local combat = this.World.Flags.get("afei_active_contract_combat");
+
+		if (combat != "contract.afei_frost_hunt" && !this.World.Flags.get("afei_m07_combat"))
+		{
+			return false;
+		}
+
+		if (!this.World.Flags.get("afei_m07_pending") && combat != "contract.afei_frost_hunt")
 		{
 			return false;
 		}
@@ -800,6 +1075,8 @@
 		}
 
 		this.World.Flags.set("afei_m07_pending", 0);
+		this.World.Flags.set("afei_m07_combat", 0);
+		this.World.Flags.set("afei_active_contract_combat", "");
 		this.World.Flags.set(this.Flags.M07Done, 1);
 		this.World.Assets.addMoney(800);
 		this.bumpCohesion(6);
@@ -1224,27 +1501,37 @@
 				{
 				}
 
-				if (payment > 0)
+				local ctype = "";
+
+				try
+				{
+					if ("getType" in this)
+					{
+						ctype = this.getType();
+					}
+				}
+				catch (errorType)
+				{
+				}
+
+				local isAfeiPaid = ctype.find("contract.afei_") == 0;
+
+				if (payment > 0 || isAfeiPaid)
 				{
 					::AfeiExpedition.addPaidContract(1);
 
-					try
+					if (::AfeiExpedition.isEscortContractType(ctype))
 					{
-						local id = ("getType" in this) ? this.getType() : "";
-						local title = ("getTitle" in this) ? this.getTitle() : "";
-						local blob = (id + " " + title).tolower();
-
-						if (blob.find("escort") != null || blob.find("护送") != null || blob.find("caravan") != null)
-						{
-							::AfeiExpedition.addFlagInt("afei_escort_contracts", 1);
-						}
-					}
-					catch (error)
-					{
+						::AfeiExpedition.addFlagInt("afei_escort_contracts", 1);
 					}
 
-					::AfeiExpedition.completeM04FromContract();
-					::AfeiExpedition.completeM08StepFromContract();
+					::AfeiExpedition.completeM04FromContract(ctype);
+					::AfeiExpedition.completeM08StepFromContract(ctype, this);
+
+					if (ctype == "contract.afei_frost_hunt")
+					{
+						::AfeiExpedition.tryCompleteM07FromCombat();
+					}
 				}
 			}
 
@@ -1949,6 +2236,7 @@
 			this.m.Events.push(this.new("scripts/events/events/afei_growth_check_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_camp_review_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_steal_bro_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_rope_train_event"));
 		};
 	});
 
@@ -2064,18 +2352,18 @@
 		};
 	});
 
-	// 超市里：食物 getValue 折扣（当日未用且报价开启）
-	::mods_hookExactClass("items/item", function(o)
+	// 超市里：食物买入价 getBuyPrice（当日未用且报价开启）
+	local afei_shop_buy_hook = function(o)
 	{
-		if (!("getValue" in o))
+		if (!("getBuyPrice" in o))
 		{
 			return;
 		}
 
-		local getValue = o.getValue;
-		o.getValue = function()
+		local getBuyPrice = o.getBuyPrice;
+		o.getBuyPrice = function()
 		{
-			local v = getValue();
+			local v = getBuyPrice();
 
 			if (!::AfeiExpedition.isAfeiOrigin() || !::AfeiExpedition.hasNamed("C07"))
 			{
@@ -2106,9 +2394,16 @@
 
 			local save = this.Math.min(30, this.Math.floor(v * 0.15));
 			this.World.Flags.set("afei_market_pending", 1);
-			return this.Math.max(1, this.Math.ceil((v - save) * 1.0));
+			return this.Math.max(1, this.Math.ceil(v - save));
 		};
-	});
+	};
+
+	::mods_hookExactClass("items/item", afei_shop_buy_hook);
+
+	if ("mods_hookDescendants" in getroottable())
+	{
+		::mods_hookDescendants("items/item", afei_shop_buy_hook);
+	}
 
 	// 成交后消耗超市次数：仅在食物报价被读取后的扣款
 	::mods_hookExactClass("states/world/asset_manager", function(o)

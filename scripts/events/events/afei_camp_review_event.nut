@@ -17,10 +17,6 @@ this.afei_camp_review_event <- this.inherit("scripts/events/event", {
 					local c=this.World.Flags.getAsInt("afei_cohesion");
 					this.World.Flags.set("afei_cohesion", this.Math.min(100,c+5));
 					this.World.Flags.set(::AfeiExpedition.Flags.ReviewCount, this.World.Flags.getAsInt(::AfeiExpedition.Flags.ReviewCount)+1);
-					if (::AfeiExpedition.hasNamed("C07"))
-					{
-						::AfeiExpedition.addFlagInt("afei_rope_train", 1);
-					}
 					local peak = this.World.Flags.getAsInt("afei_cohesion_peak");
 					local cur = this.World.Flags.getAsInt("afei_cohesion");
 					if (cur > peak) this.World.Flags.set("afei_cohesion_peak", cur);

@@ -7,17 +7,24 @@ this.afei_m08_letters_event <- this.inherit("scripts/events/event", {
 		this.m.Cooldown = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
 			ID = "A",
-			Text = "%terrainImage%{旧营地求助：补给与护送两份实约。接受后需连续成功结算两份有报酬契约；全部完成后磨合 +6，记录终章，并尝试阿飞终极觉醒。失败可七日后重试未完成部分。}",
+			Text = "%terrainImage%{旧营地求助：先「送补给」，再「护送滞留者」——两份可开战契约，中间可休整。全部完成后磨合 +6，记录终章，并尝试阿飞终极觉醒。}",
 			Image = "",
 			List = [],
 			Characters = [],
 			Options = [
 				{
-					Text = "接下两份任务（契约结算推进）",
+					Text = "接下两份任务（先生成送补给契约）",
 					function getResult(_event)
 					{
 						this.World.Flags.set("afei_m08_pending", 1);
-						this.World.Flags.set("afei_m08_left", 2);
+						this.World.Flags.set("afei_m08_supply_done", 0);
+						this.World.Flags.set("afei_m08_escort_done", 0);
+
+						if (!::AfeiExpedition.tryOfferAfeiContract(this, "scripts/contracts/contracts/afei_m08_supply_contract", true))
+						{
+							return "Fail";
+						}
+
 						return "Ok";
 					}
 				},
@@ -35,7 +42,7 @@ this.afei_m08_letters_event <- this.inherit("scripts/events/event", {
 		});
 		this.m.Screens.push({
 			ID = "Ok",
-			Text = "%terrainImage%{两份委托已挂上名册。每成功结算一份有报酬契约，进度减一；归零时终章信件落下。}",
+			Text = "%terrainImage%{送补给契约已挂上。完成后会自动接上护送滞留者。}",
 			Image = "",
 			List = [],
 			Characters = [],
@@ -44,6 +51,26 @@ this.afei_m08_letters_event <- this.inherit("scripts/events/event", {
 					Text = "给下一次远行写信。",
 					function getResult(_event)
 					{
+						return 0;
+					}
+				}
+			],
+			function start(_event)
+			{
+			}
+		});
+		this.m.Screens.push({
+			ID = "Fail",
+			Text = "%terrainImage%{一时无法挂上契约。条件仍在，可稍后再试。}",
+			Image = "",
+			List = [],
+			Characters = [],
+			Options = [
+				{
+					Text = "知道了。",
+					function getResult(_event)
+					{
+						this.World.Flags.set("afei_m08_pending", 0);
 						return 0;
 					}
 				}

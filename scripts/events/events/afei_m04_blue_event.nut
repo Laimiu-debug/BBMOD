@@ -7,16 +7,22 @@ this.afei_m04_blue_event <- this.inherit("scripts/events/event", {
 		this.m.Cooldown = 7.0 * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
 			ID = "A",
-			Text = "%terrainImage%{联合护送邀请。接受后进入待完成状态：下一次成功结算的有报酬契约视为蓝旗同行完成（报酬 +200、磨合 +4，开放 R08–R10）。失败可七日后重试。}",
+			Text = "%terrainImage%{联合护送邀请。接受后生成「蓝旗联合护送」契约：世界地图上出现伏击点，进入后可开战。成功则开放 R08–R10，磨合 +4。失败可七日后重试。}",
 			Image = "",
 			List = [],
 			Characters = [],
 			Options = [
 				{
-					Text = "接受同行护送（完成下一份有报酬契约）",
+					Text = "接受并生成护送契约",
 					function getResult(_event)
 					{
 						this.World.Flags.set("afei_m04_pending", 1);
+
+						if (!::AfeiExpedition.tryOfferAfeiContract(this, "scripts/contracts/contracts/afei_blue_escort_contract", true))
+						{
+							return "Fail";
+						}
+
 						return "Ok";
 					}
 				},
@@ -34,7 +40,7 @@ this.afei_m04_blue_event <- this.inherit("scripts/events/event", {
 		});
 		this.m.Screens.push({
 			ID = "Ok",
-			Text = "%terrainImage%{蓝旗已与你们约好合流。下一份有报酬契约成功结算时，记入 M04。}",
+			Text = "%terrainImage%{蓝旗联合护送已挂上名册。前往地图上的伏击点开战。}",
 			Image = "",
 			List = [],
 			Characters = [],
@@ -43,6 +49,26 @@ this.afei_m04_blue_event <- this.inherit("scripts/events/event", {
 					Text = "上路。",
 					function getResult(_event)
 					{
+						return 0;
+					}
+				}
+			],
+			function start(_event)
+			{
+			}
+		});
+		this.m.Screens.push({
+			ID = "Fail",
+			Text = "%terrainImage%{一时无法挂上契约（雇主或城镇未就绪）。七日后可再试。}",
+			Image = "",
+			List = [],
+			Characters = [],
+			Options = [
+				{
+					Text = "知道了。",
+					function getResult(_event)
+					{
+						this.World.Flags.set("afei_m04_pending", 0);
 						return 0;
 					}
 				}
