@@ -1,0 +1,4 @@
+mod_afei_expedition
+- 可被 BBMOD 桌面军械库安装（ZIP 根目录含 scripts/）。
+- 与 BBMOD 独立汉化同装时：本 MOD 使用新增路径，不覆盖官方 *_scenario。
+- 源码仓独立于 Laimiu-debug/BBMOD；BBMOD 仅作安装/分发工具。

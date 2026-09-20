@@ -1,0 +1,5 @@
+大飞午远征团起源 MOD（mod_afei_expedition）
+版权与授权由项目维护者另行声明。
+本仓库为社区同人设定落地工程；团播素材改编请遵守项目自定许可。
+目标游戏：《战场兄弟》1.5.2.3（Overhype Studios）。
+依赖：Modding Script Hooks（Legacy，俗称 mod_hooks）。
