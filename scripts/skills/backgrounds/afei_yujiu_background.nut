@@ -5,7 +5,7 @@ this.afei_yujiu_background <- this.inherit("scripts/skills/backgrounds/character
 		this.character_background.create();
 		this.m.ID = "background.afei_yujiu";
 		this.m.Name = "渡口守夜";
-		this.m.Icon = "ui/backgrounds/background_19.png";
+		this.m.Icon = "ui/backgrounds/afei_c06.png";
 		this.m.BackgroundDescription = "听见车轮就点灯。少收一枚钱要赔，多放一辆超载的车也要赔。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

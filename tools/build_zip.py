@@ -10,8 +10,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 OUT = DIST / "mod_afei_expedition.zip"
-INCLUDE_ROOTS = ("scripts",)
+INCLUDE_ROOTS = ("scripts", "gfx")
 ROOT_SIDE_FILES = ("README.md", "LICENSE.txt", "BBMOD_ATTRIBUTION.txt", "STAGE1.md")
+SCRIPT_SUFFIXES = {".nut", ".cnut", ".txt", ".md", ".json"}
+GFX_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 
 
 def main() -> int:
@@ -23,10 +25,14 @@ def main() -> int:
         for root_name in INCLUDE_ROOTS:
             base = ROOT / root_name
             if not base.exists():
-                print(f"missing {base}", file=sys.stderr)
-                return 1
+                # gfx optional only if absent; scripts required
+                if root_name == "scripts":
+                    print(f"missing {base}", file=sys.stderr)
+                    return 1
+                continue
+            allowed = SCRIPT_SUFFIXES if root_name == "scripts" else GFX_SUFFIXES | SCRIPT_SUFFIXES
             for path in sorted(base.rglob("*")):
-                if path.is_file() and path.suffix.lower() in {".nut", ".cnut", ".txt", ".md", ".json"}:
+                if path.is_file() and path.suffix.lower() in allowed:
                     arc = path.relative_to(ROOT).as_posix()
                     zf.write(path, arcname=arc)
         for name in ROOT_SIDE_FILES:

@@ -5,7 +5,7 @@ this.afei_shuaizi_background <- this.inherit("scripts/skills/backgrounds/charact
 		this.character_background.create();
 		this.m.ID = "background.afei_shuaizi";
 		this.m.Name = "守门鼓手";
-		this.m.Icon = "ui/backgrounds/background_19.png";
+		this.m.Icon = "ui/backgrounds/afei_c09.png";
 		this.m.BackgroundDescription = "四拍走一车，八拍再开另一边。横杆磨出的掌茧能握住鼓槌。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

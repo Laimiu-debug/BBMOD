@@ -5,7 +5,7 @@ this.afei_captain_background <- this.inherit("scripts/skills/backgrounds/charact
 		this.character_background.create();
 		this.m.ID = "background.afei_captain";
 		this.m.Name = "远征团长";
-		this.m.Icon = "ui/backgrounds/background_15.png";
+		this.m.Icon = "ui/backgrounds/afei_c01.png";
 		this.m.BackgroundDescription = "靠讲战报换晚饭的团长。旗面很大，名册只有三行——他把墨擦在裤子上签字：少了什么先找我。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

@@ -5,7 +5,7 @@ this.afei_duidui_background <- this.inherit("scripts/skills/backgrounds/characte
 		this.character_background.create();
 		this.m.ID = "background.afei_duidui";
 		this.m.Name = "传令护卫";
-		this.m.Icon = "ui/backgrounds/background_19.png";
+		this.m.Icon = "ui/backgrounds/afei_c10.png";
 		this.m.BackgroundDescription = "谁去，带什么，到了等谁——三个问题写在传令牌背面。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

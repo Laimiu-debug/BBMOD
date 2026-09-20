@@ -5,7 +5,7 @@ this.afei_lili_background <- this.inherit("scripts/skills/backgrounds/character_
 		this.character_background.create();
 		this.m.ID = "background.afei_lili";
 		this.m.Name = "巡演射手";
-		this.m.Icon = "ui/backgrounds/background_19.png";
+		this.m.Icon = "ui/backgrounds/afei_c05.png";
 		this.m.BackgroundDescription = "灯下能让观众抬头，散场却总要先数有没有人替自己收道具。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

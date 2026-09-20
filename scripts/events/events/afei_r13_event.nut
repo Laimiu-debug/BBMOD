@@ -8,7 +8,7 @@ this.afei_r13_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{涂涂说可以暂时告别，但候选资格保留。签约 [color=#8f2525]550[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "", List = [], Characters = [],
+			Image = "ui/events/afei_portrait_c16.png", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R13Offered, 1); return 0; } }

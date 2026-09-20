@@ -8,7 +8,7 @@ this.afei_r11_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{小杰花两小时检查锁与钥匙。签约 [color=#8f2525]500[/color] 克朗；入队后会触发 M06。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "", List = [], Characters = [],
+			Image = "ui/events/afei_portrait_c14.png", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R11Offered, 1); return 0; } }

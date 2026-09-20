@@ -8,7 +8,7 @@ this.afei_r20_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{英灵殿 003 号来信。签约 [color=#8f2525]280[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "", List = [], Characters = [],
+			Image = "ui/events/afei_portrait_c23.png", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R20Offered, 1); return 0; } }

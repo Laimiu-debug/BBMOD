@@ -8,7 +8,7 @@ this.afei_r02_lili_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{夜市散场后，李李还在收那把叫超巨的高背椅。她说可以花两小时安全试射，再谈签约——告示 [color=#8f2525]240[/color] 克朗。不判随机成败。}",
-			Image = "",
+			Image = "ui/events/afei_portrait_c05.png",
 			List = [],
 			Characters = [],
 			Options = [

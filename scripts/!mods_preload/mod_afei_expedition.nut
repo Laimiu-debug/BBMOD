@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.5,
+	Version = 2.6,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,

@@ -8,7 +8,7 @@ this.afei_r05_xiaoyu_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{短栈桥外侧，小鱼贝壳已把自己的盾立过去。她要先确认你们做过有报酬的短途搬运（已计入契约计数），再花时间检查掩护，然后付 [color=#8f2525]240[/color] 克朗。}",
-			Image = "",
+			Image = "ui/events/afei_portrait_c08.png",
 			List = [],
 			Characters = [],
 			Options = [

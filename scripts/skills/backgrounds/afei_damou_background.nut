@@ -5,7 +5,7 @@ this.afei_damou_background <- this.inherit("scripts/skills/backgrounds/character
 		this.character_background.create();
 		this.m.ID = "background.afei_damou";
 		this.m.Name = "驿站牵线人";
-		this.m.Icon = "ui/backgrounds/background_06.png";
+		this.m.Icon = "ui/backgrounds/afei_c03.png";
 		this.m.BackgroundDescription = "总说认识一个大哥的前排。来了算谁的人，走的时候能不能把钱结清——两条都写在团约上。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

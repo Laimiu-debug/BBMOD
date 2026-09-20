@@ -8,7 +8,7 @@ this.afei_r19_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{粮铺碎饼委托后，陈知含可签约 [color=#8f2525]260[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "", List = [], Characters = [],
+			Image = "ui/events/afei_portrait_c22.png", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R19Offered, 1); return 0; } }
