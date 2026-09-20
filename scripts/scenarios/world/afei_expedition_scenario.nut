@@ -128,6 +128,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		], 12, "C02", false);
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_shadow_captain"));
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_abacus_mark"));
+		mocha.getSkills().add(this.new("scripts/skills/actives/afei_scrap_parts"));
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 
 		// C03 王大谋 · 前排 / 副队长
@@ -155,6 +156,8 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			]
 		], 16, "C03", false);
 		damou.getSkills().add(this.new("scripts/skills/actives/afei_borrow_strike"));
+		damou.getSkills().add(this.new("scripts/skills/actives/afei_steal_bro"));
+		damou.getSkills().add(this.new("scripts/skills/actives/afei_together_lift"));
 		damou.getSkills().add(this.new("scripts/skills/actives/afei_cohesion_rule"));
 		damou.getFlags().set(::AfeiExpedition.Flags.ProxyCaptain, true);
 

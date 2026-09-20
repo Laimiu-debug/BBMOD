@@ -87,6 +87,7 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 						{
 							return "Poor";
 						}
+						::AfeiExpedition.addFlagInt("afei_rope_train", 1);
 						return "Hire";
 					}
 				},
@@ -119,6 +120,7 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 						{
 							return "Poor";
 						}
+						::AfeiExpedition.addFlagInt("afei_rope_train", 1);
 						return "Hire";
 					}
 				},
@@ -151,7 +153,11 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 						{
 							return 0;
 						}
-						this.World.Assets.addMoney(-180);
+						if (!::AfeiExpedition.tryChargeHire("C07", 180))
+						{
+							return "Poor";
+						}
+
 						local bro = ::AfeiExpedition.hireNamed(this, {
 							Background = "afei_yueya_background",
 							Name = "小月牙",

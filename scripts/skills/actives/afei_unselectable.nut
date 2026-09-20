@@ -4,7 +4,7 @@ this.afei_unselectable <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "actives.afei_unselectable";
 		this.m.Name = "无法选中";
-		this.m.Description = "每战一次。无邻接敌人时发动：至下次自身行动开始，获得近防/远防 +15 近似「难以被单体点名」。[color=#8f2525]TODO：[/color] 完整 AI 选取排除需实机钩。";
+		this.m.Description = "每战一次。无邻接敌人时：至下次自身行动开始，TargetAttraction 极低（AI 优先点选其他合法友军）。G05 后费用降为 3AP/16 疲劳。";
 		this.m.Icon = "skills/active_42.png";
 		this.m.IconDisabled = "skills/active_42_sw.png";
 		this.m.Type = this.Const.SkillType.Active;
@@ -14,6 +14,14 @@ this.afei_unselectable <- this.inherit("scripts/skills/skill", {
 		this.m.IsTargeted = false;
 		this.m.ActionPointCost = 4;
 		this.m.FatigueCost = 20;
+	}
+	function onAfterUpdate(_properties)
+	{
+		if (this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C05"))
+		{
+			this.m.ActionPointCost = 3;
+			this.m.FatigueCost = 16;
+		}
 	}
 	function isUsable()
 	{

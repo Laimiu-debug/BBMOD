@@ -35,7 +35,11 @@ this.afei_r11_event <- this.inherit("scripts/events/event", {
 			Image = "", List = [], Characters = [],
 			Options = [{ Text = "欢迎入队。", function getResult(_event) {
 						if (::AfeiExpedition.hasNamed("C14")) return 0;
-						this.World.Assets.addMoney(-500);
+						if (!::AfeiExpedition.tryChargeHire("C14", 500))
+						{
+							return "Poor";
+						}
+
 						local bro = ::AfeiExpedition.hireNamed(this, {
 							Background = "afei_c14_background",
 							Name = "小杰",

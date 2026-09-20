@@ -6,7 +6,7 @@ this.afei_abacus_mark <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "actives.afei_abacus_mark";
 		this.m.Name = "地精算盘";
-		this.m.Description = "给四格内一名可见敌人记账。下一次友军对该目标的单体武器攻击命中 +10。不消耗团队号令。冷却两轮。同时只保留一组记账。";
+		this.m.Description = "给四格内一名可见敌人记账。下一次友军对该目标的单体武器攻击命中 +10。不消耗团队号令。冷却两轮。G02 前同时只保留一组；G02 后每组最多两个不同敌人。";
 		this.m.Icon = "skills/active_70.png";
 		this.m.IconDisabled = "skills/active_70_sw.png";
 		this.m.Overlay = "active_70";
@@ -42,14 +42,27 @@ this.afei_abacus_mark <- this.inherit("scripts/skills/skill", {
 	function onUse(_user, _targetTile)
 	{
 		local target = _targetTile.getEntity();
-		// 抹茶同时只保留一组记账：清除场上旧标记
-		try
-		{
-			local all = this.Tactical.Entities.getAllInstancesAsArray();
+		local dual = this.World.Flags.get("afei_abacus_dual") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C02");
 
-			foreach (a in all)
+		if (!dual)
+		{
+			try
 			{
-				local old = a.getSkills().getSkillByID("effects.afei_abacus_mark");
+				local all = this.Tactical.Entities.getAllInstancesAsArray();
+
+				foreach (a in all)
+				{
+					local old = a.getSkills().getSkillByID("effects.afei_abacus_mark");
+
+					if (old != null)
+					{
+						old.removeSelf();
+					}
+				}
+			}
+			catch (error)
+			{
+				local old = target.getSkills().getSkillByID("effects.afei_abacus_mark");
 
 				if (old != null)
 				{
@@ -57,17 +70,51 @@ this.afei_abacus_mark <- this.inherit("scripts/skills/skill", {
 				}
 			}
 		}
-		catch (error)
+		else
 		{
-			local old = target.getSkills().getSkillByID("effects.afei_abacus_mark");
+			local marked = 0;
 
-			if (old != null)
+			try
 			{
-				old.removeSelf();
+				foreach (a in this.Tactical.Entities.getAllInstancesAsArray())
+				{
+					if (a != null && a.getSkills().hasSkill("effects.afei_abacus_mark"))
+					{
+						marked += 1;
+					}
+				}
+			}
+			catch (error2)
+			{
+			}
+
+			if (marked >= 2 && !target.getSkills().hasSkill("effects.afei_abacus_mark"))
+			{
+				// 去掉最早的一个近似：清掉任一旧标记腾名额
+				try
+				{
+					foreach (a in this.Tactical.Entities.getAllInstancesAsArray())
+					{
+						local old = a.getSkills().getSkillByID("effects.afei_abacus_mark");
+
+						if (old != null)
+						{
+							old.removeSelf();
+							break;
+						}
+					}
+				}
+				catch (error3)
+				{
+				}
 			}
 		}
 
-		target.getSkills().add(this.new("scripts/skills/effects/afei_abacus_mark_effect"));
+		if (!target.getSkills().hasSkill("effects.afei_abacus_mark"))
+		{
+			target.getSkills().add(this.new("scripts/skills/effects/afei_abacus_mark_effect"));
+		}
+
 		this.m.CooldownUntil = ::AfeiExpedition.getRound() + 2;
 		return true;
 	}

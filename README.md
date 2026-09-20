@@ -12,7 +12,7 @@
 - Legacy Modding Script Hooks（`mod_hooks`）
 - **不**要求 Modern/MSU；**不**接种子远征
 
-## 内容范围（v2.0 完整内容包）
+## 内容范围（v2.1 完整内容包）
 
 | 模块 | 状态 |
 |------|------|
@@ -27,7 +27,7 @@
 
 ## 包内 ID
 
-- ZIP：`mod_afei_expedition.zip` · mod id：`mod_afei_expedition` · scenario：`scenario.afei_expedition` · 版本：**2.0**
+- ZIP：`mod_afei_expedition.zip` · mod id：`mod_afei_expedition` · scenario：`scenario.afei_expedition` · 版本：**2.1**
 
 ## 构建
 

@@ -29,7 +29,11 @@ this.afei_bottle_breakthrough_ready <- this.inherit("scripts/skills/skill", {
 			this.m.Pending = false;
 			local actor = this.getContainer().getActor();
 			this.removeSelf();
-			actor.getSkills().add(this.new("scripts/skills/effects/afei_bottle_breakthrough_penalty"));
+
+			if (!actor.getFlags().get("afei_bottle_no_md_pen") && !this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C04"))
+			{
+				actor.getSkills().add(this.new("scripts/skills/effects/afei_bottle_breakthrough_penalty"));
+			}
 		}
 	}
 });

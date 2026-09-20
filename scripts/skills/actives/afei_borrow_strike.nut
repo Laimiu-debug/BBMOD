@@ -4,7 +4,7 @@ this.afei_borrow_strike <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "actives.afei_borrow_strike";
 		this.m.Name = "大哥借我";
-		this.m.Description = "向三格内一名永久近攻高于自己的友军借招。接下来两次单体近战武器攻击命中增加双方永久近攻差（最多 +10）。不消耗团队号令。";
+		this.m.Description = "向三格内一名永久近攻高于自己的友军借招。接下来两次（G03 后三次）单体近战武器攻击命中增加双方永久近攻差（最多 +10，G03 后 +15）。不消耗团队号令。";
 		this.m.Icon = "skills/active_06.png";
 		this.m.IconDisabled = "skills/active_06_sw.png";
 		this.m.Overlay = "active_06";
@@ -42,9 +42,12 @@ this.afei_borrow_strike <- this.inherit("scripts/skills/skill", {
 	function onUse(_user, _targetTile)
 	{
 		local target = _targetTile.getEntity();
-		local diff = this.Math.min(10, target.getBaseProperties().MeleeSkill - _user.getBaseProperties().MeleeSkill);
+		local cap = this.World.Flags.get("afei_borrow_g03") ? 15 : 10;
+		local hits = this.World.Flags.get("afei_borrow_g03") ? 3 : 2;
+		local diff = this.Math.min(cap, target.getBaseProperties().MeleeSkill - _user.getBaseProperties().MeleeSkill);
 		local effect = this.new("scripts/skills/effects/afei_borrow_strike_effect");
 		effect.setBonus(diff);
+		effect.m.HitsLeft = hits;
 		_user.getSkills().add(effect);
 		return true;
 	}

@@ -141,7 +141,11 @@ this.afei_r07_duidui_event <- this.inherit("scripts/events/event", {
 						{
 							return 0;
 						}
-						this.World.Assets.addMoney(-200);
+						if (!::AfeiExpedition.tryChargeHire("C10", 200))
+						{
+							return "Poor";
+						}
+
 						local bro = ::AfeiExpedition.hireNamed(this, {
 							Background = "afei_duidui_background",
 							Name = "王怼怼",

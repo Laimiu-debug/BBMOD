@@ -32,7 +32,9 @@ this.afei_loyalty <- this.inherit("scripts/skills/skill", {
 	{
 		local center = this.findCenter();
 		if (center == null) { return; }
-		if (this.getContainer().getActor().getTile().getDistanceTo(center.getTile()) <= 2)
+		local range = this.getContainer().getActor().getFlags().get("afei_loyalty_range3") ? 3 : 2;
+
+		if (this.getContainer().getActor().getTile().getDistanceTo(center.getTile()) <= range)
 		{
 			_properties.Bravery += 10;
 		}

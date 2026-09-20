@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.0,
+	Version = 2.1,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -313,6 +313,12 @@
 
 		bro.getSkills().update();
 		this.markEverRecruited(_def.NamedId);
+
+		if (this.hasNamed("C02"))
+		{
+			this.noteUniqueFlag("afei_sign_witness_", _def.NamedId);
+		}
+
 		return bro;
 	},
 
@@ -530,6 +536,575 @@
 		return false;
 	},
 
+
+	function getFlagInt(_key)
+	{
+		return this.World.Flags.getAsInt(_key);
+	},
+
+	function addFlagInt(_key, _n)
+	{
+		this.World.Flags.set(_key, this.getFlagInt(_key) + _n);
+	},
+
+	function noteUniqueFlag(_prefix, _id)
+	{
+		if (_id == null || _id == "")
+		{
+			return false;
+		}
+
+		local key = _prefix + _id;
+
+		if (this.World.Flags.get(key))
+		{
+			return false;
+		}
+
+		this.World.Flags.set(key, 1);
+		this.addFlagInt(_prefix + "count", 1);
+		return true;
+	},
+
+	function bumpBroFlag(_bro, _key, _n = 1)
+	{
+		if (_bro == null)
+		{
+			return;
+		}
+
+		_bro.getFlags().set(_key, _bro.getFlags().getAsInt(_key) + _n);
+	},
+
+	function getRosterAvgLevelDeployable()
+	{
+		local roster = this.World.getPlayerRoster().getAll();
+		local sum = 0;
+		local n = 0;
+
+		foreach (bro in roster)
+		{
+			if (bro.getFlags().get(this.Flags.Camped))
+			{
+				continue;
+			}
+
+			sum += bro.getLevel();
+			n += 1;
+		}
+
+		if (n <= 0)
+		{
+			return 0;
+		}
+
+		return sum * 1.0 / n;
+	},
+
+	function countDeployable()
+	{
+		local n = 0;
+		local roster = this.World.getPlayerRoster().getAll();
+
+		foreach (bro in roster)
+		{
+			if (!bro.getFlags().get(this.Flags.Camped))
+			{
+				n += 1;
+			}
+		}
+
+		return n;
+	},
+
+	function tryStartStealDiscount()
+	{
+		if (!this.isAfeiOrigin() || !this.hasNamed("C03"))
+		{
+			return false;
+		}
+
+		if (this.World.getTime().Days < this.getFlagInt("afei_steal_ready_day"))
+		{
+			return false;
+		}
+
+		// 选一名已开门、未签约的候选人（R01–R28）
+		local picks = [];
+
+		for (local i = 1; i <= 28; i++)
+		{
+			local ri = i < 10 ? "0" + i : "" + i;
+			local offered = this.World.Flags.get("afei_r" + ri + "_offered");
+			local done = this.World.Flags.get("afei_r" + ri + "_done");
+
+			if (offered && !done)
+			{
+				picks.push(ri);
+			}
+		}
+
+		// 若无 Offered，仍允许对尚未招募的 C04–C31 预留（按序号找第一个未在队）
+		local targetCid = null;
+
+		if (picks.len() > 0)
+		{
+			local map = {
+				"01": "C04", "02": "C05", "03": "C06", "04": "C07", "05": "C08", "06": "C09", "07": "C10",
+				"08": "C11", "09": "C12", "10": "C13", "11": "C14", "12": "C15", "13": "C16", "14": "C17",
+				"15": "C18", "16": "C19", "17": "C20", "18": "C21", "19": "C22", "20": "C23", "21": "C24",
+				"22": "C25", "23": "C26", "24": "C27", "25": "C28", "26": "C29", "27": "C30", "28": "C31"
+			};
+			targetCid = map[picks[0]];
+		}
+		else
+		{
+			for (local c = 4; c <= 31; c++)
+			{
+				local cid = c < 10 ? "C0" + c : "C" + c;
+
+				if (!this.hasNamed(cid) && !this.World.Flags.get(this.Flags.EverRecruited + cid))
+				{
+					targetCid = cid;
+					break;
+				}
+			}
+		}
+
+		if (targetCid == null || this.hasNamed(targetCid))
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_steal_target", targetCid);
+		return true;
+	},
+
+	function getHireCostFor(_namedId, _baseCost)
+	{
+		local cost = _baseCost;
+		local target = this.World.Flags.get("afei_steal_target");
+
+		if (target == _namedId)
+		{
+			local M = getroottable().Math;
+			local save = M.min(200, M.floor(_baseCost * 0.2));
+			cost = _baseCost - save;
+		}
+
+		return cost;
+	},
+
+	function tryChargeHire(_namedId, _baseCost)
+	{
+		local cost = this.getHireCostFor(_namedId, _baseCost);
+
+		if (this.World.Assets.getMoney() < cost)
+		{
+			return false;
+		}
+
+		this.World.Assets.addMoney(-cost);
+
+		if (this.World.Flags.get("afei_steal_target") == _namedId)
+		{
+			this.World.Flags.set("afei_steal_target", "");
+			this.World.Flags.set("afei_steal_ready_day", this.World.getTime().Days + 7);
+			this.noteUniqueFlag("afei_steal_hire_", _namedId);
+			this.addFlagInt("afei_steal_hire_total", 1);
+		}
+
+		return true;
+	},
+
+	function onScrapToolsSpent(_n)
+	{
+		if (!this.isAfeiOrigin() || !this.hasNamed("C02") || _n <= 0)
+		{
+			return;
+		}
+
+		local prog = this.getFlagInt("afei_scrap_progress") + _n;
+
+		while (prog >= 7 && this.getFlagInt("afei_scrap_charges") < 3)
+		{
+			prog -= 7;
+			this.addFlagInt("afei_scrap_charges", 1);
+		}
+
+		this.World.Flags.set("afei_scrap_progress", prog);
+	},
+
+	function tryConsumeScrapCharge(_neededTools)
+	{
+		if (_neededTools < 2)
+		{
+			return 0;
+		}
+
+		if (this.getFlagInt("afei_scrap_charges") <= 0)
+		{
+			return 0;
+		}
+
+		this.World.Flags.set("afei_scrap_charges", this.getFlagInt("afei_scrap_charges") - 1);
+		return 1;
+	},
+
+	function completeM04FromContract()
+	{
+		if (!this.World.Flags.get("afei_m04_pending") || this.World.Flags.get(this.Flags.M04Done))
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_m04_pending", 0);
+		this.World.Flags.set(this.Flags.M04Done, 1);
+		this.bumpCohesion(4);
+		this.World.Assets.addMoney(200);
+		return true;
+	},
+
+	function completeM08StepFromContract()
+	{
+		if (!this.World.Flags.get("afei_m08_pending") || this.World.Flags.get(this.Flags.M08Done))
+		{
+			return false;
+		}
+
+		local left = this.getFlagInt("afei_m08_left") - 1;
+		this.World.Flags.set("afei_m08_left", left);
+
+		if (left > 0)
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_m08_pending", 0);
+		this.World.Flags.set(this.Flags.M08Done, 1);
+		this.bumpCohesion(6);
+		this.tryAwakenAfei();
+		return true;
+	},
+
+	function tryCompleteM07FromCombat()
+	{
+		if (!this.World.Flags.get("afei_m07_pending") || this.World.Flags.get(this.Flags.M07Done))
+		{
+			return false;
+		}
+
+		if (this.countDeployable() < 8 || this.getRosterAvgLevelDeployable() < 7)
+		{
+			return false;
+		}
+
+		this.World.Flags.set("afei_m07_pending", 0);
+		this.World.Flags.set(this.Flags.M07Done, 1);
+		this.World.Assets.addMoney(800);
+		this.bumpCohesion(6);
+		this.World.Flags.set("afei_m07_medal", 1);
+		return true;
+	},
+
+	function growthCond(_cid, _bro)
+	{
+		local wins = _bro.getFlags().getAsInt(this.Flags.WinCount);
+		local level = _bro.getLevel();
+		local contracts = this.getPaidContracts();
+		local reviews = this.getFlagInt(this.Flags.ReviewCount);
+		local jiahao = this.getJiahaoCount();
+		local bf = _bro.getFlags();
+
+		if (_cid == "C01")
+		{
+			return level >= 7 && wins >= 8 && jiahao >= 6;
+		}
+
+		if (level < 5)
+		{
+			return false;
+		}
+
+		if (_cid == "C02")
+		{
+			return this.getFlagInt("afei_sign_witness_count") >= 3 && contracts >= 4 && reviews >= 2;
+		}
+
+		if (_cid == "C03")
+		{
+			return wins >= 5 && (this.getFlagInt("afei_steal_hire_count") >= 3 || jiahao >= 6);
+		}
+
+		if (_cid == "C04")
+		{
+			return bf.getAsInt("afei_ball_win") >= 5 && this.getFlagInt("afei_ball_partner_count") >= 3;
+		}
+
+		if (_cid == "C05")
+		{
+			return wins >= 6 && bf.getAsInt("afei_spotlight2_win") >= 3;
+		}
+
+		if (_cid == "C06")
+		{
+			return this.getFlagInt("afei_swap_partner_count") >= 3 && wins >= 3;
+		}
+
+		if (_cid == "C07")
+		{
+			return this.getFlagInt("afei_rope_train") >= 2 && bf.getAsInt("afei_biantai_win") >= 3;
+		}
+
+		if (_cid == "C08")
+		{
+			return bf.getAsInt("afei_cover_intercept") >= 5 || wins >= 10;
+		}
+
+		if (_cid == "C09")
+		{
+			return wins >= 5 && bf.getAsInt("afei_drum_heal_win") >= 2;
+		}
+
+		if (_cid == "C10")
+		{
+			return bf.getAsInt("afei_order_win") >= 4 && bf.getAsInt("afei_proxy_win") >= 1;
+		}
+
+		if (_cid == "C11")
+		{
+			return bf.getAsInt("afei_proxy_win") >= 3 && reviews >= 2;
+		}
+
+		if (_cid == "C12")
+		{
+			return this.getFlagInt("afei_escort_contracts") >= 3 || contracts >= 6;
+		}
+
+		if (_cid == "C13")
+		{
+			return wins >= 5 && bf.getAsInt("afei_goose_win") >= 3;
+		}
+
+		if (_cid == "C14")
+		{
+			return this.World.Flags.get(this.Flags.M06Done) && (bf.getAsInt("afei_net_free") >= 3 || wins >= 8);
+		}
+
+		if (_cid == "C15")
+		{
+			return (this.getFlagInt("afei_escort_contracts") >= 2 || contracts >= 4) && bf.getAsInt("afei_halfstep_win") >= 5;
+		}
+
+		if (_cid == "C16")
+		{
+			return (this.getFlagInt("afei_escort_contracts") >= 3 || contracts >= 6) && bf.getAsInt("afei_return_road") >= 2;
+		}
+
+		if (_cid == "C17")
+		{
+			return wins >= 6 && this.getFlagInt("afei_pokemon_partner_count") >= 3;
+		}
+
+		if (_cid == "C18")
+		{
+			return bf.getAsInt("afei_understand2_win") >= 3;
+		}
+
+		if (_cid == "C19")
+		{
+			return bf.getAsInt("afei_mouth_win") >= 3;
+		}
+
+		if (_cid == "C20")
+		{
+			return wins >= 6;
+		}
+
+		if (_cid == "C21")
+		{
+			return bf.getAsInt("afei_king_dance_total") >= 8 && bf.getAsInt("afei_curtain_use") >= 3;
+		}
+
+		if (_cid == "C22")
+		{
+			return this.getFlagInt("afei_moon_cake") >= 4 && wins >= 6;
+		}
+
+		if (_cid == "C23")
+		{
+			return bf.getAsInt("afei_sprint_win") >= 6;
+		}
+
+		if (_cid == "C24")
+		{
+			return wins >= 6 && bf.getAsInt("afei_late_hit_win") >= 3;
+		}
+
+		if (_cid == "C25")
+		{
+			return bf.getAsInt("afei_qin_win") >= 6;
+		}
+
+		if (_cid == "C26")
+		{
+			return wins >= 6 && bf.getAsInt("afei_curtain_leave_win") >= 3;
+		}
+
+		if (_cid == "C27")
+		{
+			return wins >= 6 && bf.getAsInt("afei_look_flag") >= 6;
+		}
+
+		if (_cid == "C28")
+		{
+			return bf.getAsInt("afei_bell_win") >= 6;
+		}
+
+		if (_cid == "C29")
+		{
+			return bf.getAsInt("afei_baton_hit") >= 8 && wins >= 6;
+		}
+
+		if (_cid == "C30")
+		{
+			return bf.getAsInt("afei_door_block") >= 8 && wins >= 6;
+		}
+
+		if (_cid == "C31")
+		{
+			return contracts >= 8;
+		}
+
+		return wins >= 5;
+	},
+
+	function applyGrowthReward(_cid, _bro)
+	{
+		local b = _bro.getBaseProperties();
+
+		if (_cid == "C01")
+		{
+			b.Hitpoints += 8;
+			_bro.getFlags().set("afei_wawa_range4", true);
+		}
+		else if (_cid == "C02")
+		{
+			this.World.Flags.set("afei_abacus_dual", 1);
+		}
+		else if (_cid == "C03")
+		{
+			this.World.Flags.set("afei_borrow_g03", 1);
+		}
+		else if (_cid == "C04")
+		{
+			_bro.getFlags().set("afei_bottle_no_md_pen", true);
+		}
+		else if (_cid == "C06")
+		{
+			_bro.getFlags().set("afei_loyalty_range3", true);
+		}
+		else if (_cid == "C08")
+		{
+			_bro.getFlags().set("afei_cover_dr25", true);
+		}
+		else if (_cid == "C09")
+		{
+			_bro.getFlags().set("afei_small_heart_ok", true);
+		}
+		else if (_cid == "C10")
+		{
+			_bro.getFlags().set("afei_fear_no_hit_pen", true);
+		}
+		else if (_cid == "C11")
+		{
+			_bro.getFlags().set("afei_steady_five", true);
+		}
+		else if (_cid == "C12")
+		{
+			_bro.getFlags().set("afei_late_aim_1", true);
+		}
+		else if (_cid == "C13")
+		{
+			_bro.getFlags().set("afei_gaga_no_hit_pen", true);
+		}
+		else if (_cid == "C14")
+		{
+			_bro.getFlags().set("afei_lock_first_free", true);
+		}
+		else if (_cid == "C15")
+		{
+			_bro.getFlags().set("afei_move_fatigue_2", true);
+		}
+		else if (_cid == "C16")
+		{
+			_bro.getFlags().set("afei_return_twice", true);
+		}
+		else if (_cid == "C17")
+		{
+			_bro.getFlags().set("afei_pokemon_md4", true);
+		}
+		else if (_cid == "C18")
+		{
+			_bro.getFlags().set("afei_understand_3", true);
+		}
+		else if (_cid == "C19")
+		{
+			b.Bravery += 8;
+			_bro.getFlags().set("afei_shrink_fat14", true);
+		}
+		else if (_cid == "C20")
+		{
+			_bro.getFlags().set("afei_long_watch_7", true);
+		}
+		else if (_cid == "C21")
+		{
+			_bro.getFlags().set("afei_king_dance_3", true);
+		}
+		else if (_cid == "C22")
+		{
+			_bro.getFlags().set("afei_guard_self_15", true);
+		}
+		else if (_cid == "C23")
+		{
+			_bro.getFlags().set("afei_sprint_fat10", true);
+		}
+		else if (_cid == "C24")
+		{
+			_bro.getFlags().set("afei_late_no_r1pen", true);
+		}
+		else if (_cid == "C25")
+		{
+			_bro.getFlags().set("afei_snake_90", true);
+		}
+		else if (_cid == "C26")
+		{
+			_bro.getFlags().set("afei_hold_md5", true);
+		}
+		else if (_cid == "C27")
+		{
+			_bro.getFlags().set("afei_breach_no_pen", true);
+		}
+		else if (_cid == "C28")
+		{
+			_bro.getFlags().set("afei_detour_fat9", true);
+		}
+		else if (_cid == "C29")
+		{
+			_bro.getFlags().set("afei_baton_range3", true);
+		}
+		else if (_cid == "C30")
+		{
+			_bro.getFlags().set("afei_door_fat12", true);
+		}
+		else if (_cid == "C31")
+		{
+			_bro.getFlags().set("afei_budget_two", true);
+		}
+
+		_bro.getSkills().update();
+	},
+
 	function trySettleAllGrowths()
 	{
 		local done = [];
@@ -551,21 +1126,7 @@
 				continue;
 			}
 
-			local needLevel = cid == "C01" ? 7 : 5;
-
-			if (bro.getLevel() < needLevel)
-			{
-				continue;
-			}
-
-			local wins = bro.getFlags().getAsInt(this.Flags.WinCount);
-
-			if (cid == "C01" && (wins < 8 || this.getJiahaoCount() < 6))
-			{
-				continue;
-			}
-
-			if (cid != "C01" && wins < 3)
+			if (!this.growthCond(cid, bro))
 			{
 				continue;
 			}
@@ -578,13 +1139,7 @@
 				this.recordJiahao(cid);
 			}
 
-			if (cid == "C01")
-			{
-				local b = bro.getBaseProperties();
-				b.Hitpoints += 8;
-				bro.getSkills().update();
-			}
-
+			this.applyGrowthReward(cid, bro);
 			done.push(cid == "C01" ? "G01" : ("G" + cid.slice(1)));
 		}
 
@@ -672,6 +1227,24 @@
 				if (payment > 0)
 				{
 					::AfeiExpedition.addPaidContract(1);
+
+					try
+					{
+						local id = ("getType" in this) ? this.getType() : "";
+						local title = ("getTitle" in this) ? this.getTitle() : "";
+						local blob = (id + " " + title).tolower();
+
+						if (blob.find("escort") != null || blob.find("护送") != null || blob.find("caravan") != null)
+						{
+							::AfeiExpedition.addFlagInt("afei_escort_contracts", 1);
+						}
+					}
+					catch (error)
+					{
+					}
+
+					::AfeiExpedition.completeM04FromContract();
+					::AfeiExpedition.completeM08StepFromContract();
 				}
 			}
 
@@ -797,6 +1370,7 @@
 					try
 					{
 						::AfeiExpedition.bumpCohesion(1);
+						::AfeiExpedition.tryCompleteM07FromCombat();
 						local roster = this.World.getPlayerRoster().getAll();
 
 						foreach (bro in roster)
@@ -804,6 +1378,99 @@
 							if (bro.getFlags().get(::AfeiExpedition.Flags.NamedId) && !bro.getFlags().get(::AfeiExpedition.Flags.Camped))
 							{
 								bro.getFlags().set(::AfeiExpedition.Flags.WinCount, bro.getFlags().getAsInt(::AfeiExpedition.Flags.WinCount) + 1);
+
+								local f = bro.getFlags();
+
+								if (f.get("afei_combat_ball"))
+								{
+									f.set("afei_ball_win", f.getAsInt("afei_ball_win") + 1);
+								}
+
+								if (f.getAsInt("afei_combat_spotlight") >= 2)
+								{
+									f.set("afei_spotlight2_win", f.getAsInt("afei_spotlight2_win") + 1);
+								}
+
+								if (f.get("afei_combat_biantai"))
+								{
+									f.set("afei_biantai_win", f.getAsInt("afei_biantai_win") + 1);
+								}
+
+								if (f.get("afei_combat_drum_heal"))
+								{
+									f.set("afei_drum_heal_win", f.getAsInt("afei_drum_heal_win") + 1);
+								}
+
+								if (f.get("afei_combat_order"))
+								{
+									f.set("afei_order_win", f.getAsInt("afei_order_win") + 1);
+								}
+
+								if (f.get(::AfeiExpedition.Flags.ProxyCaptain))
+								{
+									f.set("afei_proxy_win", f.getAsInt("afei_proxy_win") + 1);
+								}
+
+								if (f.get("afei_combat_goose"))
+								{
+									f.set("afei_goose_win", f.getAsInt("afei_goose_win") + 1);
+								}
+
+								if (f.get("afei_combat_halfstep"))
+								{
+									f.set("afei_halfstep_win", f.getAsInt("afei_halfstep_win") + 1);
+								}
+
+								if (f.get("afei_combat_understand2"))
+								{
+									f.set("afei_understand2_win", f.getAsInt("afei_understand2_win") + 1);
+								}
+
+								if (f.get("afei_combat_mouth"))
+								{
+									f.set("afei_mouth_win", f.getAsInt("afei_mouth_win") + 1);
+								}
+
+								if (f.get("afei_combat_sprint"))
+								{
+									f.set("afei_sprint_win", f.getAsInt("afei_sprint_win") + 1);
+								}
+
+								if (f.get("afei_combat_late_hit"))
+								{
+									f.set("afei_late_hit_win", f.getAsInt("afei_late_hit_win") + 1);
+								}
+
+								if (f.get("afei_combat_qin"))
+								{
+									f.set("afei_qin_win", f.getAsInt("afei_qin_win") + 1);
+								}
+
+								if (f.get("afei_combat_curtain_leave"))
+								{
+									f.set("afei_curtain_leave_win", f.getAsInt("afei_curtain_leave_win") + 1);
+								}
+
+								if (f.get("afei_combat_bell"))
+								{
+									f.set("afei_bell_win", f.getAsInt("afei_bell_win") + 1);
+								}
+
+								// clear combat temp flags
+								f.set("afei_combat_ball", false);
+								f.set("afei_combat_spotlight", 0);
+								f.set("afei_combat_biantai", false);
+								f.set("afei_combat_drum_heal", false);
+								f.set("afei_combat_order", false);
+								f.set("afei_combat_goose", false);
+								f.set("afei_combat_halfstep", false);
+								f.set("afei_combat_understand2", false);
+								f.set("afei_combat_mouth", false);
+								f.set("afei_combat_sprint", false);
+								f.set("afei_combat_late_hit", false);
+								f.set("afei_combat_qin", false);
+								f.set("afei_combat_curtain_leave", false);
+								f.set("afei_combat_bell", false);
 							}
 
 							if (bro.getFlags().get("afei_need_full_circle") && !bro.getSkills().hasSkill("actives.afei_full_circle"))
@@ -874,6 +1541,121 @@
 				}
 			}
 
+			if (_skill == this && ::AfeiExpedition.isAfeiOrigin())
+			{
+				local user = this.getContainer().getActor();
+				local sid = this.getID();
+
+				if (user != null && user.isAlive())
+				{
+					local f = user.getFlags();
+
+					if (sid == "actives.afei_teammate_ball" || sid.find("teammate_ball") != null)
+					{
+						f.set("afei_combat_ball", true);
+					}
+
+					if (sid == "actives.afei_biantai")
+					{
+						f.set("afei_combat_biantai", true);
+					}
+
+					if (sid == "actives.afei_guard_swap" && _targetEntity != null)
+					{
+						local tid = _targetEntity.getFlags().get(::AfeiExpedition.Flags.NamedId);
+						if (tid == null || tid == "") { tid = "" + _targetEntity.getID(); }
+						::AfeiExpedition.noteUniqueFlag("afei_swap_partner_", tid);
+					}
+
+					if (sid == "actives.afei_chaoju")
+					{
+						f.set("afei_combat_spotlight", f.getAsInt("afei_combat_spotlight") + 1);
+					}
+
+					if (sid == "actives.afei_drum")
+					{
+						f.set("afei_combat_drum_heal", true);
+					}
+
+					if (sid == "actives.afei_dui_sentence" || sid == "actives.afei_wawa_call" || sid == "actives.afei_full_circle")
+					{
+						f.set("afei_combat_order", true);
+					}
+
+					if (sid == "actives.afei_goose_bully")
+					{
+						f.set("afei_combat_goose", true);
+					}
+
+					if (sid == "actives.afei_half_step")
+					{
+						f.set("afei_combat_halfstep", true);
+					}
+
+					if (sid == "actives.afei_return_road")
+					{
+						f.set("afei_return_road", f.getAsInt("afei_return_road") + 1);
+					}
+
+					if (sid == "actives.afei_pokemon" && _targetEntity != null)
+					{
+						local tid = _targetEntity.getFlags().get(::AfeiExpedition.Flags.NamedId);
+						if (tid == null || tid == "") { tid = "" + _targetEntity.getID(); }
+						::AfeiExpedition.noteUniqueFlag("afei_pokemon_partner_", tid);
+					}
+
+					if (sid == "actives.afei_mouth_strong")
+					{
+						f.set("afei_combat_mouth", true);
+					}
+
+					if (sid == "actives.afei_short_sprint")
+					{
+						f.set("afei_combat_sprint", true);
+					}
+
+					if (sid == "actives.afei_qin_god" || sid == "actives.afei_curve_force")
+					{
+						f.set("afei_combat_qin", true);
+					}
+
+					if (sid == "actives.afei_bell_lead")
+					{
+						f.set("afei_combat_bell", true);
+					}
+
+					if (sid == "actives.afei_look_flag")
+					{
+						f.set("afei_look_flag", f.getAsInt("afei_look_flag") + 1);
+					}
+
+					if (sid == "actives.afei_door_block")
+					{
+						f.set("afei_door_block", f.getAsInt("afei_door_block") + 1);
+					}
+
+					if (sid == "actives.afei_catch_baton")
+					{
+						f.set("afei_baton_hit", f.getAsInt("afei_baton_hit") + 1);
+					}
+
+					if (sid == "actives.afei_king_dance")
+					{
+						f.set("afei_king_dance_total", f.getAsInt("afei_king_dance_total") + 1);
+					}
+
+					if (sid == "actives.afei_curtain_yield")
+					{
+						f.set("afei_curtain_use", f.getAsInt("afei_curtain_use") + 1);
+					}
+
+					if (sid == "actives.afei_spare_key" || sid == "actives.afei_lock_wagon")
+					{
+						f.set("afei_net_free", f.getAsInt("afei_net_free") + 1);
+					}
+				}
+			}
+
 			return result;
 		};
 	});
@@ -936,12 +1718,78 @@
 		}
 	});
 
-	// 队友给的球：记录本轮命中该敌人的友军 ID
+	// 队友给的球 + 顶上去改目标（单体近战，尝试即消耗）
 	::mods_hookExactClass("entity/tactical/actor", function(o)
 	{
 		local onDamageReceived = o.onDamageReceived;
 		o.onDamageReceived = function(_attacker, _skill, _hitInfo)
 		{
+			if (::AfeiExpedition.isAfeiOrigin() && _attacker != null && _skill != null && _skill.isAttack() && !_skill.isRanged())
+			{
+				local cover = this.getSkills().getSkillByID("effects.afei_cover_up");
+
+				if (cover != null && !cover.m.Consumed && cover.m.ProtectorID != 0)
+				{
+					local protector = null;
+
+					try
+					{
+						foreach (a in this.Tactical.Entities.getAllInstancesAsArray())
+						{
+							if (a != null && a.getID() == cover.m.ProtectorID && a.isAlive())
+							{
+								protector = a;
+								break;
+							}
+						}
+					}
+					catch (error)
+					{
+					}
+
+					if (protector != null && protector.getID() != this.getID())
+					{
+						local adj = false;
+
+						try
+						{
+							adj = protector.getTile().getDistanceTo(this.getTile()) <= 1;
+						}
+						catch (error2)
+						{
+						}
+
+						if (adj)
+						{
+							cover.m.Consumed = true;
+							local dr = 0.85;
+
+							if (protector.getFlags().get("afei_cover_dr25") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C08"))
+							{
+								dr = 0.75;
+							}
+
+							// G08 后拦截生命减伤 25%
+
+							try
+							{
+								if ("DamageInflictedHitpoints" in _hitInfo)
+								{
+									_hitInfo.DamageInflictedHitpoints = this.Math.floor(_hitInfo.DamageInflictedHitpoints * dr);
+								}
+							}
+							catch (error3)
+							{
+							}
+
+							protector.getFlags().set("afei_cover_intercept", protector.getFlags().getAsInt("afei_cover_intercept") + 1);
+							cover.removeSelf();
+							return protector.onDamageReceived(_attacker, _skill, _hitInfo);
+						}
+					}
+				}
+			}
+
 			local result = onDamageReceived(_attacker, _skill, _hitInfo);
 
 			if (::AfeiExpedition.isAfeiOrigin() && _attacker != null && _skill != null && _skill.isAttack())
@@ -954,6 +1802,72 @@
 
 			return result;
 		};
+
+		if ("checkMorale" in o)
+		{
+			local checkMorale = o.checkMorale;
+			o.checkMorale = function(_change, _difficulty, _type = null, _showIconBeforeMoraleChange = true, _noNewLine = false)
+			{
+				local before = this.getMoraleState();
+				local result = checkMorale(_change, _difficulty, _type, _showIconBeforeMoraleChange, _noNewLine);
+
+				if (!::AfeiExpedition.isAfeiOrigin() || _change >= 0 || result)
+				{
+					return result;
+				}
+
+				local opt = this.getSkills().getSkillByID("actives.afei_optimist");
+
+				if (opt != null && "m" in opt && opt.m.Used < opt.m.MaxUses && !this.getFlags().get("afei_optimist_round"))
+				{
+					opt.m.Used += 1;
+					this.getFlags().set("afei_optimist_round", true);
+
+					try
+					{
+						this.setMoraleState(before);
+					}
+					catch (error)
+					{
+					}
+
+					return true;
+				}
+
+				local ouqi = this.getSkills().getSkillByID("actives.afei_ouqi");
+
+				if (ouqi != null && "m" in ouqi && !ouqi.m.Used)
+				{
+					ouqi.m.Used = true;
+
+					try
+					{
+						this.setMoraleState(before);
+					}
+					catch (error2)
+					{
+					}
+
+					return checkMorale(_change, _difficulty, _type, _showIconBeforeMoraleChange, _noNewLine);
+				}
+
+				return result;
+			};
+		}
+
+		if ("addXP" in o)
+		{
+			local addXP = o.addXP;
+			o.addXP = function(_xp, _show = true)
+			{
+				if (::AfeiExpedition.isAfeiOrigin() && this.getFlags().get("afei_mentorship") && _xp > 0)
+				{
+					_xp = this.Math.floor(_xp * 1.5);
+				}
+
+				return addXP(_xp, _show);
+			};
+		}
 	});
 
 	::mods_hookExactClass("tactical/turn_sequence_bar", function(o)
@@ -1034,6 +1948,7 @@
 			this.m.Events.push(this.new("scripts/events/events/afei_camp_assign_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_growth_check_event"));
 			this.m.Events.push(this.new("scripts/events/events/afei_camp_review_event"));
+			this.m.Events.push(this.new("scripts/events/events/afei_steal_bro_event"));
 		};
 	});
 
@@ -1050,6 +1965,242 @@
 				{
 					cost = this.Math.max(2, this.Math.ceil(cost * 0.35));
 				}
+				return cost;
+			};
+		}
+	});
+
+	// 无法选中：场上另有合法友军时，禁止敌人单体点名
+	::mods_hookExactClass("skills/skill", function(o)
+	{
+		local onVerifyTarget = o.onVerifyTarget;
+		o.onVerifyTarget = function(_originTile, _targetTile)
+		{
+			local ok = onVerifyTarget(_originTile, _targetTile);
+
+			if (!ok || !::AfeiExpedition.isAfeiOrigin() || _targetTile == null || !this.isAttack())
+			{
+				return ok;
+			}
+
+			local target = _targetTile.getEntity();
+			local user = this.getContainer().getActor();
+
+			if (target == null || user == null || user.isAlliedWith(target))
+			{
+				return ok;
+			}
+
+			if (!target.getSkills().hasSkill("effects.afei_unselectable"))
+			{
+				return ok;
+			}
+
+			try
+			{
+				local allies = this.Tactical.Entities.getInstancesOfFaction(target.getFaction());
+				local range = this.getMaxRange();
+
+				foreach (a in allies)
+				{
+					if (a == null || a.getID() == target.getID() || !a.isAlive())
+					{
+						continue;
+					}
+
+					if (a.getSkills().hasSkill("effects.afei_unselectable"))
+					{
+						continue;
+					}
+
+					if (user.getTile().getDistanceTo(a.getTile()) <= range)
+					{
+						return false;
+					}
+				}
+			}
+			catch (error)
+			{
+			}
+
+			return ok;
+		};
+
+		local onAfterUpdate = "onAfterUpdate" in o ? o.onAfterUpdate : null;
+		o.onAfterUpdate <- function(_properties)
+		{
+			if (onAfterUpdate != null)
+			{
+				onAfterUpdate(_properties);
+			}
+
+			if (!::AfeiExpedition.isAfeiOrigin() || this.getContainer() == null)
+			{
+				return;
+			}
+
+			local actor = this.getContainer().getActor();
+
+			if (actor == null || !this.isAttack() || this.isRanged())
+			{
+				return;
+			}
+
+			local lift = actor.getSkills().getSkillByID("actives.afei_together_lift");
+
+			if (lift != null && ("hasFormation" in lift) && lift.hasFormation())
+			{
+				if (!("afei_base_fatigue" in this.m))
+				{
+					this.m.afei_base_fatigue <- this.m.FatigueCost;
+				}
+				else
+				{
+					this.m.afei_base_fatigue = this.Math.max(this.m.afei_base_fatigue, this.m.FatigueCost);
+				}
+
+				this.m.FatigueCost = this.Math.max(0, this.m.afei_base_fatigue - 2);
+			}
+		};
+	});
+
+	// 超市里：食物 getValue 折扣（当日未用且报价开启）
+	::mods_hookExactClass("items/item", function(o)
+	{
+		if (!("getValue" in o))
+		{
+			return;
+		}
+
+		local getValue = o.getValue;
+		o.getValue = function()
+		{
+			local v = getValue();
+
+			if (!::AfeiExpedition.isAfeiOrigin() || !::AfeiExpedition.hasNamed("C07"))
+			{
+				return v;
+			}
+
+			local isFood = false;
+
+			try
+			{
+				isFood = this.isItemType(this.Const.Items.ItemType.Food);
+			}
+			catch (error)
+			{
+			}
+
+			if (!isFood)
+			{
+				return v;
+			}
+
+			local day = this.World.getTime().Days;
+
+			if (this.World.Flags.getAsInt("afei_market_day") == day || !this.World.Flags.get("afei_market_quote"))
+			{
+				return v;
+			}
+
+			local save = this.Math.min(30, this.Math.floor(v * 0.15));
+			this.World.Flags.set("afei_market_pending", 1);
+			return this.Math.max(1, this.Math.ceil((v - save) * 1.0));
+		};
+	});
+
+	// 成交后消耗超市次数：仅在食物报价被读取后的扣款
+	::mods_hookExactClass("states/world/asset_manager", function(o)
+	{
+		local addMoney = o.addMoney;
+		o.addMoney = function(_money)
+		{
+			if (::AfeiExpedition.isAfeiOrigin() && _money < 0 && this.World.Flags.get("afei_market_pending"))
+			{
+				local day = this.World.getTime().Days;
+				this.World.Flags.set("afei_market_day", day);
+				this.World.Flags.set("afei_market_quote", 0);
+				this.World.Flags.set("afei_market_pending", 0);
+			}
+
+			return addMoney(_money);
+		};
+
+		if ("addArmorParts" in o)
+		{
+			local addArmorParts = o.addArmorParts;
+			o.addArmorParts = function(_v)
+			{
+				if (::AfeiExpedition.isAfeiOrigin() && _v < 0)
+				{
+					local need = -_v;
+					local rebate = ::AfeiExpedition.tryConsumeScrapCharge(need);
+
+					if (rebate > 0)
+					{
+						_v = _v + rebate;
+					}
+
+					if (_v < 0)
+					{
+						::AfeiExpedition.onScrapToolsSpent(-_v);
+					}
+				}
+
+				return addArmorParts(_v);
+			};
+		}
+	});
+
+	// 进城镇开启超市报价
+	::mods_hookExactClass("states/world/world_state", function(o)
+	{
+		if ("showTownScreen" in o)
+		{
+			// 已在上方 hook 过 showTownScreen，再包一层
+			local showTownScreen = o.showTownScreen;
+			o.showTownScreen = function()
+			{
+				if (::AfeiExpedition.isAfeiOrigin() && ::AfeiExpedition.hasNamed("C07"))
+				{
+					local day = this.World.getTime().Days;
+
+					if (this.World.Flags.getAsInt("afei_market_day") != day)
+					{
+						this.World.Flags.set("afei_market_quote", 1);
+					}
+				}
+
+				return showTownScreen();
+			};
+		}
+	});
+
+
+	::mods_hookExactClass("states/world/asset_manager", function(o)
+	{
+		if ("getDailyMoneyCost" in o)
+		{
+			local getDailyMoneyCost = o.getDailyMoneyCost;
+			o.getDailyMoneyCost = function()
+			{
+				local cost = getDailyMoneyCost();
+
+				if (::AfeiExpedition.isAfeiOrigin() && this.World.Flags.get(::AfeiExpedition.Flags.CampEnabled))
+				{
+					local roster = this.World.getPlayerRoster().getAll();
+
+					foreach (bro in roster)
+					{
+						if (bro.getFlags().get(::AfeiExpedition.Flags.Camped))
+						{
+							cost += 30;
+							break;
+						}
+					}
+				}
+
 				return cost;
 			};
 		}

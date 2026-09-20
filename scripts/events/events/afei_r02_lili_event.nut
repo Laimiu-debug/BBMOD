@@ -141,7 +141,11 @@ this.afei_r02_lili_event <- this.inherit("scripts/events/event", {
 						{
 							return 0;
 						}
-						this.World.Assets.addMoney(-240);
+						if (!::AfeiExpedition.tryChargeHire("C05", 240))
+						{
+							return "Poor";
+						}
+
 						local bro = ::AfeiExpedition.hireNamed(this, {
 							Background = "afei_lili_background",
 							Name = "李李超欧",

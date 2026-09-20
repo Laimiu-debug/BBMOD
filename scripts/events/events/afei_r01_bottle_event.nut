@@ -171,7 +171,11 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 					Text = "欢迎入队。",
 					function getResult(_event)
 					{
-						this.World.Assets.addMoney(-200);
+						if (!::AfeiExpedition.tryChargeHire("C04", 200))
+						{
+							return "Poor";
+						}
+
 						local bro = this.World.getPlayerRoster().create("scripts/entity/tactical/player");
 						bro.setStartValuesEx([
 							"afei_bottle_background"

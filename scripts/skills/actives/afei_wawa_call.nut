@@ -52,6 +52,7 @@ this.afei_wawa_call <- this.inherit("scripts/skills/skill", {
 		local bonus = this.Math.max(6, this.Math.min(20, 6 + this.Math.floor((bravery - 20) / 5)));
 		local myTile = _user.getTile();
 		local actors = this.Tactical.Entities.getInstancesOfFaction(_user.getFaction());
+		local range = (_user.getFlags().get("afei_wawa_range4") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C01")) ? 4 : 3;
 
 		foreach (a in actors)
 		{
@@ -60,7 +61,7 @@ this.afei_wawa_call <- this.inherit("scripts/skills/skill", {
 				continue;
 			}
 
-			if (a.getTile().getDistanceTo(myTile) <= 3)
+			if (a.getTile().getDistanceTo(myTile) <= range)
 			{
 				local effect = this.new("scripts/skills/effects/afei_wawa_effect");
 				effect.setBonus(bonus);

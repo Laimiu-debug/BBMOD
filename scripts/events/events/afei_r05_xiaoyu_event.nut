@@ -141,7 +141,11 @@ this.afei_r05_xiaoyu_event <- this.inherit("scripts/events/event", {
 						{
 							return 0;
 						}
-						this.World.Assets.addMoney(-240);
+						if (!::AfeiExpedition.tryChargeHire("C08", 240))
+						{
+							return "Poor";
+						}
+
 						local bro = ::AfeiExpedition.hireNamed(this, {
 							Background = "afei_xiaoyu_background",
 							Name = "小鱼贝壳",
