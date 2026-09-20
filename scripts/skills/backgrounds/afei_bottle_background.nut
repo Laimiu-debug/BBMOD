@@ -5,7 +5,7 @@ this.afei_bottle_background <- this.inherit("scripts/skills/backgrounds/characte
 		this.character_background.create();
 		this.m.ID = "background.afei_bottle";
 		this.m.Name = "瓶队前锋";
-		this.m.Icon = "ui/backgrounds/afei_c04.png";
+		this.m.Icon = "ui/backgrounds/background_19.png";
 		this.m.BackgroundDescription = "烟港泥地球场上第一个往人缝里冲的人。护具裂了也不肯先退。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

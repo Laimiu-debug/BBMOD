@@ -5,7 +5,7 @@ this.afei_c26_background <- this.inherit("scripts/skills/backgrounds/character_b
 		this.character_background.create();
 		this.m.ID = "background.afei_c26";
 		this.m.Name = "芷芷";
-		this.m.Icon = "ui/backgrounds/afei_c26.png";
+		this.m.Icon = "ui/backgrounds/background_19.png";
 		this.m.BackgroundDescription = "大飞午远征团命名伙伴 C26 · 芷芷。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

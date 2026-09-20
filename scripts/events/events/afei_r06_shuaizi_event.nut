@@ -8,7 +8,7 @@ this.afei_r06_shuaizi_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{门柱边，白小帅子手已经在盾沿上敲拍子。他说可以做两小时守门演练，再谈 [color=#8f2525]240[/color] 克朗——不能只靠一句胆子大一点。}",
-			Image = "ui/events/afei_portrait_c09.png",
+			Image = "",
 			List = [],
 			Characters = [],
 			Options = [

@@ -5,7 +5,7 @@ this.afei_mocha_background <- this.inherit("scripts/skills/backgrounds/character
 		this.character_background.create();
 		this.m.ID = "background.afei_mocha";
 		this.m.Name = "地精账房";
-		this.m.Icon = "ui/backgrounds/afei_c02.png";
+		this.m.Icon = "ui/backgrounds/background_20.png";
 		this.m.BackgroundDescription = "在地精商路账房长大的谋士。第一页记口粮，第二页记每个人已经领到的工钱。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

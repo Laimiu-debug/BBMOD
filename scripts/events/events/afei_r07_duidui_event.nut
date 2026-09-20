@@ -8,7 +8,7 @@ this.afei_r07_duidui_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{王怼怼站在原处，没有跑。她要做两小时传令演练——保留一次问清楚——再付 [color=#8f2525]200[/color] 克朗。太子只是绰号，代理须战前指定。}",
-			Image = "ui/events/afei_portrait_c10.png",
+			Image = "",
 			List = [],
 			Characters = [],
 			Options = [

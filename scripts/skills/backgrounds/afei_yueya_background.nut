@@ -5,7 +5,7 @@ this.afei_yueya_background <- this.inherit("scripts/skills/backgrounds/character
 		this.character_background.create();
 		this.m.ID = "background.afei_yueya";
 		this.m.Name = "货摊投手";
-		this.m.Icon = "ui/backgrounds/afei_c07.png";
+		this.m.Icon = "ui/backgrounds/background_19.png";
 		this.m.BackgroundDescription = "招牌写得像能装下整座城。滞销的东西她总能找到新用法。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

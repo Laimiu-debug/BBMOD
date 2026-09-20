@@ -5,7 +5,7 @@ this.afei_xiaoyu_background <- this.inherit("scripts/skills/backgrounds/characte
 		this.character_background.create();
 		this.m.ID = "background.afei_xiaoyu";
 		this.m.Name = "栈桥盾手";
-		this.m.Icon = "ui/backgrounds/afei_c08.png";
+		this.m.Icon = "ui/backgrounds/background_19.png";
 		this.m.BackgroundDescription = "最重的木箱她先上肩。替脱力的人多要一刻钟。";
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";

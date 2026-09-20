@@ -8,7 +8,7 @@ this.afei_r03_yujiu_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{渡口雾里，余初九把船桨横在车前。她说可以花两小时重画路线，再谈签约——[color=#8f2525]180[/color] 克朗。}",
-			Image = "ui/events/afei_portrait_c06.png",
+			Image = "",
 			List = [],
 			Characters = [],
 			Options = [

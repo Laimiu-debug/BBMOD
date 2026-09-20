@@ -8,7 +8,7 @@ this.afei_r04_yueya_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{招牌很大的小货摊边，小月牙说可以花 3 食物与两小时做投掷练习，再付 [color=#8f2525]180[/color] 克朗签约。}",
-			Image = "ui/events/afei_portrait_c07.png",
+			Image = "",
 			List = [],
 			Characters = [],
 			Options = [

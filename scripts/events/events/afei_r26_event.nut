@@ -8,7 +8,7 @@ this.afei_r26_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{联合营地反应试训。签约 [color=#8f2525]420[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "ui/events/afei_portrait_c29.png", List = [], Characters = [],
+			Image = "", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R26Offered, 1); return 0; } }

@@ -10,7 +10,7 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{烟港泥地的气味还没散尽，小酒瓶已经站在车边。他说可以花两小时演练两人配合，再谈签约——告示上的数字是 [color=#8f2525]200[/color] 克朗。\n\n大谋拍了拍矛杆：你可以让我接应他，也可以让他跟匿名试训伙伴对练。结果不靠投点。}",
-			Image = "ui/events/afei_portrait_c04.png",
+			Image = "",
 			List = [],
 			Characters = [],
 			Options = [

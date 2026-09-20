@@ -8,7 +8,7 @@ this.afei_r24_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{修车铺长柄斧线索。签约 [color=#8f2525]500[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "ui/events/afei_portrait_c27.png", List = [], Characters = [],
+			Image = "", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R24Offered, 1); return 0; } }

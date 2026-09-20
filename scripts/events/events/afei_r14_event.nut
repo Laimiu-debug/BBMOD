@@ -8,7 +8,7 @@ this.afei_r14_event <- this.inherit("scripts/events/event", {
 		this.m.Screens.push({
 			ID = "A",
 			Text = "%terrainImage%{磨合够了就聚餐：消耗约 6 食物。再付 [color=#8f2525]600[/color] 克朗。\n\n暂缓不消失；满员或缺钱时可晚些再见。}",
-			Image = "ui/events/afei_portrait_c17.png", List = [], Characters = [],
+			Image = "", List = [], Characters = [],
 			Options = [
 				{ Text = "开始相遇/演练。", function getResult(_event) { return "B"; } },
 				{ Text = "线索留着。", function getResult(_event) { this.World.Flags.set(::AfeiExpedition.Flags.R14Offered, 1); return 0; } }

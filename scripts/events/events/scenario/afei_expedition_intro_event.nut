@@ -6,8 +6,8 @@ this.afei_expedition_intro_event <- this.inherit("scripts/events/event", {
 		this.m.IsSpecial = true;
 		this.m.Screens.push({
 			ID = "A",
-			Text = "[img]gfx/ui/events/afei_portrait_c01.png[/img]{烟港酒馆里，阿飞把团约按在桌上签字。抹茶用旧尺量完旗布与口粮，王大谋检查车轮与箱扣。\n\n雇主托付的账本还在抹茶手里——送到邻近友好城镇即可，报酬 [color=#8f2525]180[/color] 克朗，不生成强制战斗。拒绝也无妨，之后用普通有报酬契约同样能打开招募节奏。黑旗名册此刻只有三行。}",
-			Image = "ui/events/afei_portrait_c01.png",
+			Text = "[img]gfx/ui/events/event_65.png[/img]{烟港酒馆里，阿飞把团约按在桌上签字。抹茶用旧尺量完旗布与口粮，王大谋检查车轮与箱扣。\n\n雇主托付的账本还在抹茶手里——送到邻近友好城镇即可，报酬 [color=#8f2525]180[/color] 克朗，不生成强制战斗。拒绝也无妨，之后用普通有报酬契约同样能打开招募节奏。黑旗名册此刻只有三行。}",
+			Image = "",
 			Banner = "",
 			List = [],
 			Characters = [],
