@@ -1,6 +1,9 @@
 this.afei_shadow_captain_effect <- this.inherit("scripts/skills/skill", {
 	m = {
-		TurnsLeft = 2
+		TurnsLeft = 2,
+		Pending = true,
+		PatchedSkill = null,
+		OriginalFatigue = 0
 	},
 	function create()
 	{
@@ -14,30 +17,50 @@ this.afei_shadow_captain_effect <- this.inherit("scripts/skills/skill", {
 		this.m.IsRemovedAfterBattle = true;
 	}
 
-	function onAfterUpdate(_properties)
+	function onBeforeAnySkillExecuted(_skill, _targetTile, _targetEntity, _user)
 	{
-		// Soft stub: real weapon-skill fatigue discount needs per-skill hooks (待 ZIP/实机校正).
-		_properties.FatigueRecoveryRate += 0;
+		if (!this.m.Pending || _skill == null)
+		{
+			return;
+		}
+
+		if (!_skill.isAttack() && !_skill.isActive())
+		{
+			return;
+		}
+
+		// 仅优惠武器类主动技（攻击或带武器费用的技能）
+		if (!_skill.isAttack())
+		{
+			return;
+		}
+
+		this.m.PatchedSkill = _skill;
+		this.m.OriginalFatigue = _skill.m.FatigueCost;
+		_skill.m.FatigueCost = this.Math.max(0, _skill.m.FatigueCost - 8);
+	}
+
+	function onAnySkillExecuted(_skill, _targetTile, _targetEntity, _forFree)
+	{
+		if (this.m.PatchedSkill != null && _skill == this.m.PatchedSkill)
+		{
+			_skill.m.FatigueCost = this.m.OriginalFatigue;
+			this.m.PatchedSkill = null;
+			this.m.Pending = false;
+			this.removeSelf();
+		}
 	}
 
 	function onTurnEnd()
 	{
 		if (--this.m.TurnsLeft <= 0)
 		{
-			this.removeSelf();
-		}
-	}
-
-	function onAnySkillUsed(_skill, _targetEntity, _properties)
-	{
-		if (_skill != null && _skill.isAttack() && this.m.TurnsLeft > 0)
-		{
-			_properties.FatigueDealtPerHitMult = 1.0;
-			local actor = this.getContainer().getActor();
-			// Approximate: refund-like by lowering skill fatigue via actor property if available.
-			if ("FatigueCostMult" in _properties)
+			if (this.m.PatchedSkill != null)
 			{
+				this.m.PatchedSkill.m.FatigueCost = this.m.OriginalFatigue;
+				this.m.PatchedSkill = null;
 			}
+
 			this.removeSelf();
 		}
 	}

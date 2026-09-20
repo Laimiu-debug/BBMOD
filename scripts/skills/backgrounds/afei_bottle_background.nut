@@ -10,7 +10,7 @@ this.afei_bottle_background <- this.inherit("scripts/skills/backgrounds/characte
 		this.m.GoodEnding = "黑旗上仍写着他的名字。";
 		this.m.BadEnding = "名册上的这一行被墨水轻轻划去。";
 		this.m.HiringCost = 200;
-		this.m.DailyCost = 10;
+		this.m.DailyCost = 13;
 		this.m.Excluded = [
 			"trait.greedy",
 			"trait.disloyal"
@@ -30,23 +30,48 @@ this.afei_bottle_background <- this.inherit("scripts/skills/backgrounds/characte
 	function onChangeAttributes()
 	{
 		return {
-			Hitpoints = [0, 0],
-			Bravery = [0, 0],
-			Stamina = [0, 0],
-			MeleeSkill = [0, 0],
-			RangedSkill = [0, 0],
-			MeleeDefense = [0, 0],
-			RangedDefense = [0, 0],
-			Initiative = [0, 0]
+			Hitpoints = [
+				0,
+				0
+			],
+			Bravery = [
+				0,
+				0
+			],
+			Stamina = [
+				0,
+				0
+			],
+			MeleeSkill = [
+				0,
+				0
+			],
+			RangedSkill = [
+				0,
+				0
+			],
+			MeleeDefense = [
+				0,
+				0
+			],
+			RangedDefense = [
+				0,
+				0
+			],
+			Initiative = [
+				0,
+				0
+			]
 		};
 	}
 
 	function onAddEquipment()
 	{
+		// 设定：短剑与木盾；身甲60、头盔30
 		local items = this.getContainer().getActor().getItems();
-		items.equip(this.new("scripts/items/weapons/militia_spear"));
+		items.equip(this.new("scripts/items/weapons/shortsword"));
 		items.equip(this.new("scripts/items/shields/wooden_shield"));
-		items.equip(this.new("scripts/items/armor/padded_surcoat"));
-		items.equip(this.new("scripts/items/helmets/hood"));
+		items.equip(this.new("scripts/items/armor/padded_leather"));
+		items.equip(this.new("scripts/items/helmets/padded_nasal_helmet"));
 	}
 });

@@ -19,7 +19,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 	{
 		local roster = this.World.getPlayerRoster();
 
-		local function makeCaptain(_background, _name, _title, _place, _attrs, _talents, _wage, _isAfei)
+		local function makeCaptain(_background, _name, _title, _place, _attrs, _talents, _wage, _namedId, _isAfei)
 		{
 			local bro = roster.create("scripts/entity/tactical/player");
 			bro.setStartValuesEx([
@@ -60,6 +60,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			bro.m.XP = this.Const.LevelXP[0];
 			bro.m.DailyWage = _wage;
 			bro.m.HireTime = this.Time.getVirtualTimeF();
+			bro.getFlags().set(::AfeiExpedition.Flags.NamedId, _namedId);
 
 			if (_isAfei)
 			{
@@ -72,7 +73,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			return bro;
 		}
 
-		// 阿飞 · 后排团长
+		// C01 阿飞 · 后排团长（设定八维/星级/日薪）
 		local afei = makeCaptain("afei_captain_background", "阿飞", "团长", 12, [
 			36,
 			70,
@@ -95,12 +96,12 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 				this.Const.Attributes.Bravery,
 				3
 			]
-		], 6, true);
+		], 6, "C01", true);
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_wawa_call"));
 		afei.getSkills().add(this.new("scripts/skills/actives/afei_toad_escape"));
 
-		// 抹茶 · 远程谋士
-		local mocha = makeCaptain("afei_mocha_background", "抹茶", "账房", 13, [
+		// C02 抹茶 · 远程谋士 / 副队长
+		local mocha = makeCaptain("afei_mocha_background", "抹茶", "副队长", 13, [
 			46,
 			85,
 			48,
@@ -122,11 +123,11 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 				this.Const.Attributes.RangedSkill,
 				2
 			]
-		], 12, false);
+		], 12, "C02", false);
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_shadow_captain"));
 		mocha.getSkills().add(this.new("scripts/skills/actives/afei_abacus_mark"));
 
-		// 王大谋 · 前排
+		// C03 王大谋 · 前排 / 副队长
 		local damou = makeCaptain("afei_damou_background", "王大谋", "副队长", 3, [
 			66,
 			112,
@@ -149,7 +150,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 				this.Const.Attributes.MeleeSkill,
 				2
 			]
-		], 16, false);
+		], 16, "C03", false);
 		damou.getSkills().add(this.new("scripts/skills/actives/afei_borrow_strike"));
 
 		// 起步资源（设定表）
@@ -162,6 +163,8 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		// 食物以补给物品近似 55：多份谷物（待实机校准 Food 字段）
 		this.World.Flags.set("afei_cohesion", 25);
 		this.World.Flags.set(::AfeiExpedition.Flags.PaidContracts, 0);
+		this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryActive, 0);
+		this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryDone, 0);
 
 		for (local i = 0; i < 6; i++)
 		{
@@ -228,6 +231,16 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		this.World.State.m.Player = this.World.spawnEntity("scripts/entity/world/player_party", randomVillageTile.Coords.X, randomVillageTile.Coords.Y);
 		this.World.Assets.updateLook(1);
 		this.World.getCamera().setPos(this.World.State.m.Player.getPos());
+
+		try
+		{
+			this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryHome, randomVillage.getID());
+		}
+		catch (error)
+		{
+			this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryHome, "");
+		}
+
 		this.Time.scheduleEvent(this.TimeUnit.Real, 1000, function ( _tag )
 		{
 			this.Music.setTrackList([

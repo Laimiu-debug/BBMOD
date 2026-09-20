@@ -1,25 +1,47 @@
-# 阶段 1 垂直切片说明
+# 阶段 1 垂直切片说明（v1.2）
 
-## 参考对齐（2026-09-20）
-
-以用户提供的 **Fate.zip**（`media/ref-fate-origin.zip`）为优先对照；沙匪包已自 BBMOD 历史找回作辅证。
+## 参考对齐
 
 | | Fate | 沙匪 | 本 MOD |
 |--|------|------|--------|
-| Hooks | Legacy `mods_hook*` | Legacy register+queue | **Legacy**（保持） |
+| Hooks | Legacy | Legacy | **Legacy** |
 | Modern/MSU | 无 | 无 | 不做 |
-| scenario | 新增 `fate_cultists_scenario.nut` | 新增 `desert_bandits_scenario.nut` | 新增 `afei_expedition_scenario.nut` |
-| 注册 | 无 `addScenario` | 无 `addScenario` | **已去掉** `scenario_manager` hook |
-| 开场事件 | 复用官方 cultists intro | `events/events/scenario/` + `IsSpecial` + `fire` | 同沙匪路径：`afei_expedition_intro_event` |
-| 官方同路径覆盖 | 无 | 无 | 无 |
+| scenario | 新增 | 新增 | 新增 `afei_expedition_scenario.nut` |
+| `scenario_manager` hook | 无 | 无 | **无** |
+| 开场 | cultists intro | special + fire | `afei_expedition_intro_event` |
+| 官方同路径覆盖 | 无 | 无 | **无** |
 
-## 已实现
+## 已实现（较 v1.1 加深）
 
-- 起源可选、三队长固定数据、起步资源、中文文案
-- 阿飞解雇防护占位；号令 2/场、1/轮
-- M01 开场（接/拒送账）；R01 瓶队（日≥2 + 有报酬契约≥1）
-- ZIP 构建：`python3 tools/build_zip.py` → `dist/mod_afei_expedition.zip`
+| 项 | 状态 |
+|----|------|
+| 起源可选 / 三队长八维与星级 / 起步资源 | 按设定表 |
+| 装备近似 | 阿飞木棍+小圆盾+身甲40/盔20；抹茶猎弓+刀+40/20；大谋矛+木盾+80/40；瓶队短剑+木盾+60/30 |
+| 阿飞不可解雇 | `IsPlayerCharacter` + trait + 解雇 UI 双路径拦截；团灭绑阿飞 |
+| 团队号令 | 全队共享 2/场；`canUseOrder` 每轮最多 1；技能 tooltip 显示剩余 |
+| 哇哇叫 / 蛤蟆 | 可用（决心公式 / 每战一次位移） |
+| 幕后队长 | 消耗号令；主目标 + 自动最近第二友军；疲劳 −8 临改 `FatigueCost` |
+| 地精算盘 | 标记 + preload 命中 +10；命中/未中消耗；冷却 2；同时一组 |
+| 大哥借我 | 近攻差命中加成（最多 +10，两次） |
+| M01 送账 | **接取后邻镇交付**（非开局秒给钱）；进镇结算 +180 与契约 +1；专用完成事件 |
+| R01 瓶队 | 日≥2 + 有报酬契约≥1；演练（大谋/匿名）→ 签约；拒签/缺钱可再遇（7 日冷却）；C04 八维/日薪13/技能骨架 |
+| ZIP | `python3 tools/build_zip.py` → `dist/mod_afei_expedition.zip` |
 
-## Stub / 未做
+## 仍 Stub / 未做
 
-幕后队长双目标与真实疲劳减免、算盘命中钩、送账真契约、C04 完整页、嘉豪/磨合/带教、31 人其余、种子远征、实机验收。
+| 项 | 说明 |
+|----|------|
+| 送账真契约类 | 无独立 `contracts/*` 脚本；现为 flag + 进镇钩近似，文案已标明 |
+| 瓶队突破完整武器技 | 现为「预备命中 +10」近似，非替换基础攻击结算 |
+| 幕后队长双目标 UI | 无第二点选，自动最近友军 |
+| 地精出身余料 / 偷大哥 / 一起抬 | 未做 |
+| 嘉豪 / 磨合 / 带教 / G 线 | 未做 |
+| R02–R28、M02+、31 人其余 | 阶段 2+ |
+| 种子远征 | 不做 |
+| 实机验收 | 需 Windows 1.5.2.3 |
+
+## 构建
+
+```bash
+python3 tools/build_zip.py
+```

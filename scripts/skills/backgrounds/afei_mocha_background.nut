@@ -30,23 +30,49 @@ this.afei_mocha_background <- this.inherit("scripts/skills/backgrounds/character
 	function onChangeAttributes()
 	{
 		return {
-			Hitpoints = [0, 0],
-			Bravery = [0, 0],
-			Stamina = [0, 0],
-			MeleeSkill = [0, 0],
-			RangedSkill = [0, 0],
-			MeleeDefense = [0, 0],
-			RangedDefense = [0, 0],
-			Initiative = [0, 0]
+			Hitpoints = [
+				0,
+				0
+			],
+			Bravery = [
+				0,
+				0
+			],
+			Stamina = [
+				0,
+				0
+			],
+			MeleeSkill = [
+				0,
+				0
+			],
+			RangedSkill = [
+				0,
+				0
+			],
+			MeleeDefense = [
+				0,
+				0
+			],
+			RangedDefense = [
+				0,
+				0
+			],
+			Initiative = [
+				0,
+				0
+			]
 		};
 	}
 
 	function onAddEquipment()
 	{
+		// 设定：猎弓、备用短刀；身甲40、头盔20
 		local items = this.getContainer().getActor().getItems();
 		items.equip(this.new("scripts/items/weapons/short_bow"));
-		items.equip(this.new("scripts/items/weapons/knife"));
-		items.equip(this.new("scripts/items/armor/leather_tunic"));
-		items.equip(this.new("scripts/items/helmets/hood"));
+		items.addToBag(this.new("scripts/items/weapons/knife"));
+		items.equip(this.new("scripts/items/armor/gambeson"));
+		items.equip(this.new("scripts/items/helmets/aketon_cap"));
+		items.equip(this.new("scripts/items/ammo/quiver_of_arrows"));
 	}
 });

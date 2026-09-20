@@ -30,23 +30,48 @@ this.afei_damou_background <- this.inherit("scripts/skills/backgrounds/character
 	function onChangeAttributes()
 	{
 		return {
-			Hitpoints = [0, 0],
-			Bravery = [0, 0],
-			Stamina = [0, 0],
-			MeleeSkill = [0, 0],
-			RangedSkill = [0, 0],
-			MeleeDefense = [0, 0],
-			RangedDefense = [0, 0],
-			Initiative = [0, 0]
+			Hitpoints = [
+				0,
+				0
+			],
+			Bravery = [
+				0,
+				0
+			],
+			Stamina = [
+				0,
+				0
+			],
+			MeleeSkill = [
+				0,
+				0
+			],
+			RangedSkill = [
+				0,
+				0
+			],
+			MeleeDefense = [
+				0,
+				0
+			],
+			RangedDefense = [
+				0,
+				0
+			],
+			Initiative = [
+				0,
+				0
+			]
 		};
 	}
 
 	function onAddEquipment()
 	{
+		// 设定：短矛与木盾；身甲80、头盔40
 		local items = this.getContainer().getActor().getItems();
 		items.equip(this.new("scripts/items/weapons/militia_spear"));
 		items.equip(this.new("scripts/items/shields/wooden_shield"));
-		items.equip(this.new("scripts/items/armor/padded_leather"));
-		items.equip(this.new("scripts/items/helmets/padded_nasal_helmet"));
+		items.equip(this.new("scripts/items/armor/basic_mail_shirt"));
+		items.equip(this.new("scripts/items/helmets/nasal_helmet"));
 	}
 });

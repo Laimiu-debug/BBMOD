@@ -30,23 +30,49 @@ this.afei_captain_background <- this.inherit("scripts/skills/backgrounds/charact
 	function onChangeAttributes()
 	{
 		return {
-			Hitpoints = [0, 0],
-			Bravery = [0, 0],
-			Stamina = [0, 0],
-			MeleeSkill = [0, 0],
-			RangedSkill = [0, 0],
-			MeleeDefense = [0, 0],
-			RangedDefense = [0, 0],
-			Initiative = [0, 0]
+			Hitpoints = [
+				0,
+				0
+			],
+			Bravery = [
+				0,
+				0
+			],
+			Stamina = [
+				0,
+				0
+			],
+			MeleeSkill = [
+				0,
+				0
+			],
+			RangedSkill = [
+				0,
+				0
+			],
+			MeleeDefense = [
+				0,
+				0
+			],
+			RangedDefense = [
+				0,
+				0
+			],
+			Initiative = [
+				0,
+				0
+			]
 		};
 	}
 
 	function onAddEquipment()
 	{
+		// 设定：木棍、小圆盾；身甲40、头盔20；黑旗先收在行囊
 		local items = this.getContainer().getActor().getItems();
 		items.equip(this.new("scripts/items/weapons/bludgeon"));
-		items.equip(this.new("scripts/items/shields/wooden_shield"));
-		items.equip(this.new("scripts/items/armor/leather_tunic"));
-		items.equip(this.new("scripts/items/helmets/hood"));
+		items.equip(this.new("scripts/items/shields/buckler_shield"));
+		items.equip(this.new("scripts/items/armor/gambeson"));
+		items.equip(this.new("scripts/items/helmets/aketon_cap"));
+		// 黑旗：阶段1收在公司行囊（scenario 添加），不占个人栏
 	}
 });

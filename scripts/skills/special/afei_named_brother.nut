@@ -14,7 +14,7 @@ this.afei_named_brother <- this.inherit("scripts/skills/skill", {
 
 	function getTooltip()
 	{
-		return [
+		local ret = [
 			{
 				id = 1,
 				type = "title",
@@ -26,5 +26,30 @@ this.afei_named_brother <- this.inherit("scripts/skills/skill", {
 				text = this.getDescription()
 			}
 		];
+		local actor = this.getContainer().getActor();
+
+		if (actor.getFlags().get(::AfeiExpedition.Flags.CaptainAfei))
+		{
+			ret.push({
+				id = 10,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "固定团长：不可主动解雇（可进替补休养）"
+			});
+		}
+
+		local namedId = actor.getFlags().get(::AfeiExpedition.Flags.NamedId);
+
+		if (namedId != null && namedId != "")
+		{
+			ret.push({
+				id = 11,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "身份编号：" + namedId
+			});
+		}
+
+		return ret;
 	}
 });

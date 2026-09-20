@@ -6,8 +6,9 @@
 
 | | |
 |--|--|
-| **本仓库** | 起源 MOD **源码**（独立 Git 仓） |
-| **[Laimiu-debug/BBMOD](https://github.com/Laimiu-debug/BBMOD)** | 桌面安装器 / 独立汉化 / Hub；**不是**本 MOD 源码仓 |
+| **源码真相（当前）** | [BBMOD `mirror/afei-expedition-origin`](https://github.com/Laimiu-debug/BBMOD/tree/mirror/afei-expedition-origin) |
+| **独立仓** | https://github.com/Laimiu-debug/afei-expedition-origin（空仓；Cursor App 未授权，暂不推） |
+| **[Laimiu-debug/BBMOD](https://github.com/Laimiu-debug/BBMOD)** | 桌面安装器 / 独立汉化 / Hub；**不是**本 MOD 日常开发树 |
 | 安装 | 将构建出的 ZIP 放入游戏 `data/`，或用 BBMOD 军械库安装 |
 
 ## 依赖
@@ -16,9 +17,9 @@
 - 首版**不**要求 Modern Hooks / MSU
 - 首版**不**接入 BBMOD 种子远征 / `ORIGIN_LABELS`
 
-## 阶段 1 范围（当前）
+## 阶段 1 范围（当前 · v1.2）
 
-三队长开局 + 团队号令 + M01/安全送账 + R01（小酒瓶入口）。  
+三队长开局（设定八维/装备/阿飞不可解雇）+ 团队号令（全队共享 2、每轮最多 1）+ M01 安全送账（邻镇交付）+ R01 小酒瓶（演练门控 + C04 数值/技能骨架）。  
 不做 31 人全量、不做种子远征。细节见 [STAGE1.md](./STAGE1.md)。
 
 ## 包内 ID
@@ -26,7 +27,7 @@
 - 安装文件名：`mod_afei_expedition.zip`
 - mod id：`mod_afei_expedition`
 - scenario id：`scenario.afei_expedition`
-- Legacy 版本号：`1.0`（纯数字）
+- Legacy 版本号：`1.2`（纯数字）
 
 ## 构建
 
@@ -37,7 +38,7 @@ python3 tools/build_zip.py
 
 **构建产物路径：** `dist/mod_afei_expedition.zip`
 
-该 ZIP 根目录直接含 `scripts/`（无外层套娃），可通过 BBMOD `inspect_archive` 结构校验。在本环境若能 import BBMOD 的 `archive_safety`，构建脚本会自动跑一遍。
+该 ZIP 根目录直接含 `scripts/`（无外层套娃），可通过 BBMOD `inspect_archive` 结构校验。
 
 安装：复制到 `<Battle Brothers>/data/mod_afei_expedition.zip`。
 
@@ -51,21 +52,22 @@ scripts/skills/actives/...
 scripts/skills/effects/...
 scripts/skills/special/...
 scripts/events/events/...
+scripts/events/events/scenario/...
 ```
 
 ## 参考包与 Hooks 选型
 
-| 参考 | 路径 / 来源 | Hooks | scenario 注册 |
-|------|-------------|-------|---------------|
-| **Fate（优先）** | Context `media/ref-fate-origin.zip` | Legacy（`::mods_hookNewObject`） | 仅新增 `*_scenario.nut`，**无** hook `scenario_manager` |
-| 沙匪起源 | Context `media/ref-mod_desertBandits-沙匪起源.zip`（自 BBMOD git 历史抽出，SHA 与兼容性记录一致）；原作 [Nexus #588](https://www.nexusmods.com/battlebrothers/mods/588) | Legacy（`mods_registerMod` + `mods_queue`） | 同上；开场事件在 `events/events/scenario/` + `IsSpecial` |
+| 参考 | Hooks | scenario 注册 |
+|------|-------|---------------|
+| **Fate（优先）** | Legacy | 仅新增 `*_scenario.nut`，**无** hook `scenario_manager` |
+| 沙匪起源 | Legacy | 同上；开场 `IsSpecial` + `fire` |
 
-**本 MOD 选型：** 保持 **Legacy `mod_hooks`**（Fate/沙匪一致，非 Modern/MSU）。结构对齐 Fate/沙匪：新增 scenario 文件自注册；开场用 special intro；preload 用沙匪式 `registerMod`+`queue` 挂玩法钩子。
+**本 MOD：** Legacy；新增 scenario；special intro；preload `registerMod`+`queue`。禁止覆盖官方同路径。
 
 ## 状态说明
 
 - Cloud Agent **无法**在 Linux 上实机启动 Windows 客户端验收。
-- GitHub 仓已建：https://github.com/Laimiu-debug/afei-expedition-origin — 若 `cursor[bot]` 无 write，需维护者授权后才能由 Agent push。
+- 独立仓推送需维护者把 Cursor GitHub App / 环境仓库列表加上 `afei-expedition-origin`。
 
 ## 许可
 

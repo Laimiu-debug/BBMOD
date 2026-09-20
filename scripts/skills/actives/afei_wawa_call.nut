@@ -31,7 +31,7 @@ this.afei_wawa_call <- this.inherit("scripts/skills/skill", {
 			id = 6,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "剩余团队号令：" + ::AfeiExpedition.OrderBudget
+			text = "剩余团队号令：" + ::AfeiExpedition.OrderBudget + "（全队共享；每轮最多 1 次）"
 		});
 		return ret;
 	}
