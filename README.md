@@ -12,7 +12,7 @@
 - Legacy Modding Script Hooks（`mod_hooks`）
 - **不**要求 Modern/MSU；**不**接种子远征
 
-## 内容范围（v2.9）
+## 内容范围（v3.0）
 
 | 模块 | 状态 |
 |------|------|
@@ -20,7 +20,7 @@
 | 五人大哥 | 小酒瓶/李李/余初九/大鹅/玩蛇 → **9 星**晚游向八维与日薪 |
 | 阿飞饰品 | **电子烟**：战斗回血 20（无限次）；**自行车**：小酒瓶离队可选遗弃 → 阿飞经验获取 **×1.2**（仅一次，非移速） |
 | 头像 / 立绘 | **已剥离**：改回原版 Faces / 默认背景 Icon；包内无自定义 portrait gfx |
-| R08+ / 专属技 | v2.9 加厚招募文案；后续团员技能能钩则钩（见缺口审计） |
+| R08+ / 专属技 | v3.0 加厚招募文案；后续团员技能能钩则钩（见缺口审计） |
 | G 成长 | 对应在队人物；无 G24 |
 | M01–M09 | 自定义契约开战等 |
 
@@ -28,7 +28,7 @@
 
 ## 包内 ID
 
-- ZIP：`mod_afei_expedition.zip` · mod id：`mod_afei_expedition` · scenario：`scenario.afei_expedition` · 版本：**2.9**
+- ZIP：`mod_afei_expedition.zip` · mod id：`mod_afei_expedition` · scenario：`scenario.afei_expedition` · 版本：**3.0**
 
 ## 构建
 

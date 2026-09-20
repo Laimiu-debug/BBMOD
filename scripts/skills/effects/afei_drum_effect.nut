@@ -7,6 +7,7 @@ this.afei_drum_effect <- this.inherit("scripts/skills/skill", {
 		this.m.Icon = "skills/status_effect_73.png";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsRemovedAfterBattle = true;
+		this.m.IsStacking = false;
 	}
 	function onTurnStart()
 	{
@@ -20,7 +21,11 @@ this.afei_drum_effect <- this.inherit("scripts/skills/skill", {
 	}
 	function onUpdate(_properties)
 	{
-		if (!this.m.Pending) { _properties.Bravery += 5; }
+		if (!this.m.Pending)
+		{
+			_properties.Bravery += 5;
+			::AfeiExpedition.noteOriginOrderBravery(this.getContainer().getActor(), 5);
+		}
 	}
 	function onTurnEnd()
 	{

@@ -21,6 +21,17 @@ this.afei_m09_camp_event <- this.inherit("scripts/events/event", {
 					this.World.Flags.set(::AfeiExpedition.Flags.M09Done,1);
 					this.World.Flags.set(::AfeiExpedition.Flags.CampEnabled,1);
 					this.World.Assets.m.BrothersMax = 39;
+					try {
+						local player = this.World.State.getPlayer();
+						local best = null;
+						local bestD = 999;
+						foreach (s in this.World.EntityManager.getSettlements()) {
+							if (s == null || s.isMilitary()) continue;
+							local d = s.getTile().getDistanceTo(player.getTile());
+							if (d < bestD) { bestD = d; best = s; }
+						}
+						if (best != null) this.World.Flags.set("afei_camp_home_id", best.getID());
+					} catch (errorHome) {}
 					return "Ok";
 				}},
 				{ Text = "先看别处", function getResult(_event) { return 0; }}

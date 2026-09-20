@@ -11,11 +11,18 @@ this.afei_steady_hand_effect <- this.inherit("scripts/skills/skill", {
 		this.m.Icon = "skills/status_effect_34.png";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsRemovedAfterBattle = true;
+		this.m.IsStacking = false;
 	}
 	function onUpdate(_properties)
 	{
 		_properties.MeleeDefense += 6;
 		_properties.Bravery += 6;
+		::AfeiExpedition.noteOriginOrderMeleeDefense(this.getContainer().getActor(), 6);
+		::AfeiExpedition.noteOriginOrderBravery(this.getContainer().getActor(), 6);
+		if (this.m.PushImmuneLeft > 0)
+		{
+			_properties.IsImmuneToKnockBackAndGrab = true;
+		}
 	}
 	function onTurnEnd()
 	{

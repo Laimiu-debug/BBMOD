@@ -3,7 +3,7 @@
 ::AfeiExpedition <- {
 	ID = "mod_afei_expedition",
 	Name = "大飞午远征团",
-	Version = 2.9,
+	Version = 3.0,
 	OrderBudgetMax = 2,
 	OrderBudget = 2,
 	LastOrderRound = -1,
@@ -11,6 +11,7 @@
 	FatigueRecoverCap = 20,
 	FatigueRecoverByActor = {},
 	FatigueRecoverRound = -1,
+	LockTiles = [],
 	Flags = {
 		PaidContracts = "afei_paid_contracts",
 		M01Done = "afei_m01_done",
@@ -105,6 +106,34 @@
 		this.FatigueRecoverUsed = 0;
 		this.FatigueRecoverByActor = {};
 		this.FatigueRecoverRound = -1;
+		this.LockTiles = [];
+	},
+
+	function addLockTile(_x, _y)
+	{
+		this.LockTiles.push({ X = _x, Y = _y });
+	},
+
+	function isLockTile(_x, _y)
+	{
+		foreach (t in this.LockTiles)
+		{
+			if (t.X == _x && t.Y == _y) return true;
+		}
+		return false;
+	},
+
+	function consumeLockTile(_x, _y)
+	{
+		for (local i = this.LockTiles.len() - 1; i >= 0; i--)
+		{
+			if (this.LockTiles[i].X == _x && this.LockTiles[i].Y == _y)
+			{
+				this.LockTiles.remove(i);
+				return true;
+			}
+		}
+		return false;
 	},
 
 	function getRound()
@@ -196,6 +225,204 @@
 		}
 		this.FatigueRecoverUsed += take;
 		return take;
+	},
+
+
+	function clearOriginTempBuckets(_actor)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		f.set("afei_ot_ms", 0);
+		f.set("afei_ot_rs", 0);
+		f.set("afei_ot_md", 0);
+		f.set("afei_ot_rd", 0);
+		f.set("afei_ot_br_other", 0);
+		f.set("afei_ot_ini_other", 0);
+		f.set("afei_ot_ord_br", 0);
+		f.set("afei_ot_ord_md", 0);
+		f.set("afei_ot_ord_ini", 0);
+		f.set("afei_ot_hit_neg", 0);
+	},
+
+	function noteOriginHit(_actor, _melee, _ranged)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		if (_melee > 0) f.set("afei_ot_ms", f.getAsInt("afei_ot_ms") + _melee);
+		if (_ranged > 0) f.set("afei_ot_rs", f.getAsInt("afei_ot_rs") + _ranged);
+		if (_melee < 0) f.set("afei_ot_hit_neg", f.getAsInt("afei_ot_hit_neg") + _melee);
+		if (_ranged < 0) f.set("afei_ot_hit_neg", f.getAsInt("afei_ot_hit_neg") + _ranged);
+	},
+
+	function noteOriginDefense(_actor, _melee, _ranged)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		if (_melee != 0) f.set("afei_ot_md", f.getAsInt("afei_ot_md") + _melee);
+		if (_ranged != 0) f.set("afei_ot_rd", f.getAsInt("afei_ot_rd") + _ranged);
+	},
+
+	function noteOriginOrderBravery(_actor, _v)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		local cur = f.getAsInt("afei_ot_ord_br");
+		if (_v > cur) f.set("afei_ot_ord_br", _v);
+	},
+
+	function noteOriginOrderMeleeDefense(_actor, _v)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		local cur = f.getAsInt("afei_ot_ord_md");
+		if (_v > cur) f.set("afei_ot_ord_md", _v);
+	},
+
+	function noteOriginBraveryOther(_actor, _v)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		f.set("afei_ot_br_other", f.getAsInt("afei_ot_br_other") + _v);
+	},
+
+	function noteOriginInitiative(_actor, _v, _isOrder = false)
+	{
+		if (_actor == null) return;
+		local f = _actor.getFlags();
+		if (_isOrder)
+		{
+			local cur = f.getAsInt("afei_ot_ord_ini");
+			if (_v > cur) f.set("afei_ot_ord_ini", _v);
+		}
+		else
+		{
+			f.set("afei_ot_ini_other", f.getAsInt("afei_ot_ini_other") + _v);
+		}
+	},
+
+	function clampOriginTempsOnto(_properties, _actor)
+	{
+		if (_actor == null || _properties == null) return;
+		local f = _actor.getFlags();
+		local ms = f.getAsInt("afei_ot_ms");
+		local rs = f.getAsInt("afei_ot_rs");
+		local hitPos = ms + rs;
+		if (hitPos > 15)
+		{
+			local over = hitPos - 15;
+			local cutMs = this.Math.min(ms, over);
+			_properties.MeleeSkill -= cutMs;
+			over -= cutMs;
+			if (over > 0) _properties.RangedSkill -= over;
+		}
+		local hitNeg = f.getAsInt("afei_ot_hit_neg");
+		if (hitNeg < -15)
+		{
+			local fix = -15 - hitNeg;
+			_properties.MeleeSkill += fix;
+			_properties.RangedSkill += fix;
+		}
+		local md = f.getAsInt("afei_ot_md") + f.getAsInt("afei_ot_ord_md");
+		if (md > 15)
+		{
+			_properties.MeleeDefense -= (md - 15);
+		}
+		local rd = f.getAsInt("afei_ot_rd");
+		if (rd > 15)
+		{
+			_properties.RangedDefense -= (rd - 15);
+		}
+		local br = f.getAsInt("afei_ot_ord_br") + f.getAsInt("afei_ot_br_other");
+		if (br > 30)
+		{
+			_properties.Bravery -= (br - 30);
+		}
+		local ini = f.getAsInt("afei_ot_ord_ini") + f.getAsInt("afei_ot_ini_other");
+		if (ini > 20)
+		{
+			_properties.Initiative -= (ini - 20);
+		}
+	},
+
+	function tryKnockBackAway(_user, _target)
+	{
+		if (_user == null || _target == null || !_target.isAlive()) return false;
+		try
+		{
+			local props = _target.getCurrentProperties();
+			if (props.IsImmuneToKnockBackAndGrab) return false;
+		}
+		catch (errorImm) {}
+		local userTile = _user.getTile();
+		local targetTile = _target.getTile();
+		if (userTile == null || targetTile == null) return false;
+		local dir = userTile.getDirectionTo(targetTile);
+		if (!targetTile.hasNextTile(dir)) return false;
+		local dest = targetTile.getNextTile(dir);
+		if (dest == null || !dest.IsEmpty) return false;
+		if (dest.Level > targetTile.Level + 1 || dest.Level < targetTile.Level - 1) return false;
+		try
+		{
+			this.Tactical.getNavigator().teleport(_target, dest, null, null, false);
+			return true;
+		}
+		catch (errorTp)
+		{
+			try
+			{
+				_target.setTile(dest);
+				return true;
+			}
+			catch (errorSet)
+			{
+				return false;
+			}
+		}
+	},
+
+	function tryStepAdjacentTo(_user, _targetTile)
+	{
+		if (_user == null || _targetTile == null) return true;
+		local my = _user.getTile();
+		if (my.getDistanceTo(_targetTile) <= 1) return true;
+		local best = null;
+		for (local dir = 0; dir < 6; dir++)
+		{
+			if (!_targetTile.hasNextTile(dir)) continue;
+			local t = _targetTile.getNextTile(dir);
+			if (t == null || !t.IsEmpty) continue;
+			if (t.Level != my.Level) continue;
+			if (my.getDistanceTo(t) == 1)
+			{
+				best = t;
+				break;
+			}
+			if (best == null && my.getDistanceTo(t) <= 2) best = t;
+		}
+		if (best == null) return false;
+		try
+		{
+			this.Tactical.getNavigator().teleport(_user, best, null, null, false);
+			return true;
+		}
+		catch (error)
+		{
+			return false;
+		}
+	},
+
+	function ensureOriginTempSkills(_actor)
+	{
+		if (_actor == null) return;
+		local skills = _actor.getSkills();
+		if (!skills.hasSkill("effects.afei_origin_temp_reset"))
+		{
+			skills.add(this.new("scripts/skills/effects/afei_origin_temp_reset_effect"));
+		}
+		if (!skills.hasSkill("effects.afei_origin_temp_cap"))
+		{
+			skills.add(this.new("scripts/skills/effects/afei_origin_temp_cap_effect"));
+		}
 	},
 
 	function isAfeiOrigin()
@@ -1267,6 +1494,43 @@
 
 	function spawnFrostRosterFallback(_ctx)
 	{
+		return this.spawnFrostRosterExact(_ctx);
+	},
+
+	function findEmptyTileNearPlayers()
+	{
+		local gt = getroottable();
+		local players = gt.Tactical.Entities.getInstancesOfFaction(gt.Const.Faction.Player);
+		if (players == null) return null;
+		foreach (p in players)
+		{
+			if (p == null || !p.isPlacedOnMap()) continue;
+			local my = p.getTile();
+			for (local d = 0; d < 6; d++)
+			{
+				if (!my.hasNextTile(d)) continue;
+				local t = my.getNextTile(d);
+				if (t != null && t.IsEmpty) return t;
+			}
+		}
+		foreach (p in players)
+		{
+			if (p == null || !p.isPlacedOnMap()) continue;
+			local my = p.getTile();
+			for (local d = 0; d < 6; d++)
+			{
+				if (!my.hasNextTile(d)) continue;
+				local mid = my.getNextTile(d);
+				if (mid == null || !mid.hasNextTile(d)) continue;
+				local t = mid.getNextTile(d);
+				if (t != null && t.IsEmpty) return t;
+			}
+		}
+		return null;
+	},
+
+	function spawnFrostRosterExact(_ctx)
+	{
 		local gt = getroottable();
 
 		if (!gt.World.Flags.get("afei_spawn_frost_roster"))
@@ -1279,208 +1543,100 @@
 
 		try
 		{
-			local enemies = gt.Tactical.Entities.getHostileActors(gt.Const.Faction.Player);
-			local alreadyFrost = 0;
-			local alreadyUnhold = 0;
+			local beastFaction = gt.Const.Faction.Beasts;
+			local hostiles = gt.Tactical.Entities.getHostileActors(gt.Const.Faction.Player);
+			local frost = null;
+			local unholds = [];
 
-			if (enemies != null)
+			if (hostiles != null)
 			{
-				foreach (e in enemies)
+				foreach (e in hostiles)
 				{
-					if (e == null)
-					{
-						continue;
-					}
-
+					if (e == null || !e.isAlive()) continue;
 					if (e.getFlags().get("afei_frost_unhold"))
 					{
-						alreadyFrost += 1;
+						frost = e;
+						continue;
 					}
-
 					local n = e.getName();
-
-					if (n != null && (n.find("Unhold") != null || n.find("巨兽") != null || n.find("unhold") != null))
+					local isUnhold = false;
+					try
 					{
-						alreadyUnhold += 1;
+						if (("getType" in e) && e.getType() == gt.Const.EntityType.Unhold) isUnhold = true;
 					}
-				}
-			}
-
-			// 若地点 spawnlist 已给出足够巨兽，则不再硬塞
-			if (alreadyFrost >= 1 || alreadyUnhold >= 3)
-			{
-				return 0;
-			}
-
-			local beastFaction = gt.Const.Faction.Beasts;
-			local tiles = [];
-
-			try
-			{
-				local all = gt.Tactical.Entities.getInstancesOfFaction(beastFaction);
-
-				if (all != null && all.len() > 0)
-				{
-					foreach (a in all)
+					catch (errorT) {}
+					if (!isUnhold && n != null && (n.find("Unhold") != null || n.find("巨兽") != null || n.find("unhold") != null))
 					{
-						if (a != null && a.isPlacedOnMap())
+						isUnhold = true;
+					}
+					if (isUnhold)
+					{
+						unholds.push(e);
+					}
+					else
+					{
+						try { e.kill(null, null, gt.Const.FatalityType.None); } catch (errorK)
 						{
-							tiles.push(a.getTile());
+							try { e.die(); } catch (errorD) {}
 						}
 					}
 				}
 			}
-			catch (errorTiles)
+
+			while (unholds.len() > 2)
 			{
+				local extra = unholds.pop();
+				try { extra.kill(null, null, gt.Const.FatalityType.None); } catch (errorX) {}
 			}
 
-			local near = tiles.len() > 0 ? tiles[0] : null;
-			local paths = [
-				"scripts/entity/tactical/enemies/afei_frost_unhold",
-				"scripts/entity/tactical/enemies/unhold_frost",
-				"scripts/entity/tactical/enemies/unhold"
+			if (frost == null)
+			{
+				local tile = this.findEmptyTileNearPlayers();
+				local paths = [
+					"scripts/entity/tactical/enemies/afei_frost_unhold",
+					"scripts/entity/tactical/enemies/unhold_frost",
+					"scripts/entity/tactical/enemies/unhold"
+				];
+				if (tile != null)
+				{
+					foreach (path in paths)
+					{
+						local e = null;
+						try { e = gt.Tactical.spawnEntity(path, tile.Coords.X, tile.Coords.Y); } catch (errorS) { e = null; }
+						if (e == null) continue;
+						try { e.setFaction(beastFaction); } catch (errorF) {}
+						e.getFlags().set("afei_frost_unhold", true);
+						try { e.setName("冰霜巨兽"); } catch (errorN) {}
+						frost = e;
+						spawned += 1;
+						break;
+					}
+				}
+			}
+
+			local need = 2 - unholds.len();
+			local escortPaths = [
+				"scripts/entity/tactical/enemies/unhold",
+				"scripts/entity/tactical/enemies/unhold_frost"
 			];
-
-			if (alreadyFrost < 1)
+			for (local i = 0; i < need; i++)
 			{
-				foreach (path in paths)
+				local tile = this.findEmptyTileNearPlayers();
+				if (tile == null) break;
+				local made = false;
+				foreach (path in escortPaths)
 				{
-					local tile = null;
-
-					if (near != null)
-					{
-						for (local dir = 0; dir < 6; dir++)
-						{
-							if (!near.hasNextTile(dir))
-							{
-								continue;
-							}
-
-							local t = near.getNextTile(dir);
-
-							if (t != null && t.IsEmpty)
-							{
-								tile = t;
-								break;
-							}
-						}
-					}
-
-					if (tile == null)
-					{
-						continue;
-					}
-
-					local frost = null;
-
-					try
-					{
-						frost = gt.Tactical.spawnEntity(path, tile.Coords.X, tile.Coords.Y);
-					}
-					catch (errorS)
-					{
-						frost = null;
-					}
-
-					if (frost == null)
-					{
-						continue;
-					}
-
-					try
-					{
-						frost.setFaction(beastFaction);
-					}
-					catch (errorF)
-					{
-					}
-
-					frost.getFlags().set("afei_frost_unhold", true);
-
-					try
-					{
-						frost.setName("冰霜巨兽");
-					}
-					catch (errorN)
-					{
-					}
-
+					local e = null;
+					try { e = gt.Tactical.spawnEntity(path, tile.Coords.X, tile.Coords.Y); } catch (errorS2) { e = null; }
+					if (e == null) continue;
+					try { e.setFaction(beastFaction); } catch (errorF2) {}
+					try { e.setName("普通巨兽"); } catch (errorN2) {}
+					e.getFlags().set("afei_frost_escort", true);
 					spawned += 1;
+					made = true;
 					break;
 				}
-			}
-
-			local needEscorts = 2;
-
-			if (alreadyUnhold > alreadyFrost)
-			{
-				needEscorts = 2 - (alreadyUnhold - alreadyFrost);
-			}
-
-			if (needEscorts < 0)
-			{
-				needEscorts = 0;
-			}
-
-			if (needEscorts > 2)
-			{
-				needEscorts = 2;
-			}
-
-			for (local i = 0; i < needEscorts; i++)
-			{
-				local tile = null;
-
-				if (near != null)
-				{
-					for (local dir = 0; dir < 6; dir++)
-					{
-						if (!near.hasNextTile(dir))
-						{
-							continue;
-						}
-
-						local t = near.getNextTile(dir);
-
-						if (t != null && t.IsEmpty)
-						{
-							tile = t;
-							break;
-						}
-					}
-				}
-
-				if (tile == null)
-				{
-					break;
-				}
-
-				local u = null;
-
-				try
-				{
-					u = gt.Tactical.spawnEntity("scripts/entity/tactical/enemies/unhold", tile.Coords.X, tile.Coords.Y);
-				}
-				catch (errorU)
-				{
-					break;
-				}
-
-				if (u == null)
-				{
-					break;
-				}
-
-				try
-				{
-					u.setFaction(beastFaction);
-					u.setName("巨兽护卫");
-				}
-				catch (errorU2)
-				{
-				}
-
-				spawned += 1;
+				if (!made) break;
 			}
 		}
 		catch (errorAll)
@@ -2034,6 +2190,46 @@
 		return done;
 	},
 
+
+	function tryOfferSafeDelivery(_ctx)
+	{
+		this.World.Flags.set(this.Flags.SafeDeliveryActive, 1);
+		return this.tryOfferAfeiContract(_ctx, "scripts/contracts/contracts/afei_safe_delivery_contract", true);
+	},
+
+
+	function isNearCampTown()
+	{
+		try
+		{
+			local player = this.World.State.getPlayer();
+			if (player == null) return false;
+			local home = this.World.Flags.get("afei_camp_home_id");
+			local settlements = this.World.EntityManager.getSettlements();
+			foreach (s in settlements)
+			{
+				if (s == null || s.isMilitary()) continue;
+				if (s.getTile().getDistanceTo(player.getTile()) > 1) continue;
+				if (home == null || home == "" || s.getID() == home) return true;
+			}
+		}
+		catch (error) {}
+		return false;
+	},
+
+	function completeSafeDeliveryFromContract()
+	{
+		if (!this.isAfeiOrigin()) return false;
+		if (this.World.Flags.get(this.Flags.SafeDeliveryDone)) return false;
+		this.World.Flags.set(this.Flags.SafeDeliveryDone, 1);
+		this.World.Flags.set(this.Flags.SafeDeliveryActive, 0);
+		this.World.Flags.set(this.Flags.M01Done, 1);
+		this.addPaidContract(1);
+		try { this.World.Assets.addMoney(180); } catch (error) {}
+		this.bumpCohesion(2);
+		return true;
+	},
+
 	function tryCompleteSafeDelivery(_settlement)
 	{
 		if (!this.isAfeiOrigin())
@@ -2080,6 +2276,36 @@
 		return true;
 	}
 };
+
+
+	// 探路：小虎在常备名册时世界移动略快
+	::mods_hookExactClass("entity/world/player_party", function(o)
+	{
+		if (!("getMovementSpeed" in o) && !("getBaseMovementSpeed" in o))
+		{
+			return;
+		}
+		if ("getMovementSpeed" in o)
+		{
+			local getMovementSpeed = o.getMovementSpeed;
+			o.getMovementSpeed = function()
+			{
+				local s = getMovementSpeed();
+				if (::AfeiExpedition.isAfeiOrigin() && ::AfeiExpedition.hasNamed("C12"))
+				{
+					local roster = this.World.getPlayerRoster().getAll();
+					foreach (bro in roster)
+					{
+						if (bro.getFlags().get(::AfeiExpedition.Flags.NamedId) == "C12" && !bro.getFlags().get(::AfeiExpedition.Flags.Camped))
+						{
+							return s * 1.05;
+						}
+					}
+				}
+				return s;
+			};
+		}
+	});
 
 ::mods_registerMod(::AfeiExpedition.ID, ::AfeiExpedition.Version, ::AfeiExpedition.Name);
 
@@ -2141,6 +2367,10 @@
 					if (ctype == "contract.afei_frost_hunt")
 					{
 						::AfeiExpedition.tryCompleteM07FromCombat();
+						if (this.World.Flags.get("afei_active_contract_combat") == "contract.afei_safe_delivery")
+						{
+							::AfeiExpedition.completeSafeDeliveryFromContract();
+						}
 						this.World.Flags.set("afei_spawn_blue_escorts", 0);
 						this.World.Flags.set("afei_spawn_frost_roster", 0);
 						this.World.Flags.set("afei_active_contract_combat", "");
@@ -2261,6 +2491,7 @@
 						{
 							a.getFlags().set("afei_mentorship", true);
 						}
+						::AfeiExpedition.ensureOriginTempSkills(a);
 						if (a.getFlags().get("afei_need_full_circle") && !a.getSkills().hasSkill("actives.afei_full_circle"))
 						{
 							a.getSkills().add(this.new("scripts/skills/actives/afei_full_circle"));
@@ -2999,7 +3230,7 @@
 		}
 	});
 
-	// 回头箭 / 探路：统计本轮普通移动格数
+	// 回头箭 / 探路 / 锁车绳扣 / 撤步标记消耗
 	::mods_hookExactClass("entity/tactical/actor", function(o)
 	{
 		if ("onMovementFinish" in o)
@@ -3021,6 +3252,24 @@
 								this.setFatigue(this.Math.max(0, this.getFatigue() - heal));
 								this.getFlags().set("afei_scout_move_heal", true);
 							}
+						}
+						if (_tile != null && ::AfeiExpedition.isLockTile(_tile.Coords.X, _tile.Coords.Y))
+						{
+							if (!this.isAlliedWith(this.Const.Faction.Player) || this.getFaction() != this.Const.Faction.Player)
+							{
+								if (::AfeiExpedition.consumeLockTile(_tile.Coords.X, _tile.Coords.Y))
+								{
+									local old = this.getSkills().getSkillByID("effects.afei_lock_wagon");
+									if (old != null) old.removeSelf();
+									this.getSkills().add(this.new("scripts/skills/effects/afei_lock_wagon_effect"));
+								}
+							}
+						}
+						local wmark = this.getSkills().getSkillByID("effects.afei_withdraw_mark");
+						if (wmark != null)
+						{
+							wmark.removeSelf();
+							this.getFlags().set("afei_withdraw_enemy", 0);
 						}
 					}
 					catch (error)

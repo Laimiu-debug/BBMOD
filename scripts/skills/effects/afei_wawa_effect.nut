@@ -14,22 +14,19 @@ this.afei_wawa_effect <- this.inherit("scripts/skills/skill", {
 		this.m.IsStacking = false;
 		this.m.IsRemovedAfterBattle = true;
 	}
-
 	function getDescription()
 	{
 		return "决心检定 +" + this.m.Bonus + "，剩余 " + this.m.TurnsLeft + " 轮。";
 	}
-
 	function setBonus(_v)
 	{
 		this.m.Bonus = _v;
 	}
-
 	function onUpdate(_properties)
 	{
 		_properties.Bravery += this.m.Bonus;
+		::AfeiExpedition.noteOriginOrderBravery(this.getContainer().getActor(), this.m.Bonus);
 	}
-
 	function onTurnEnd()
 	{
 		if (--this.m.TurnsLeft <= 0)

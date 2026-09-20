@@ -43,6 +43,7 @@ this.afei_return_arrow <- this.inherit("scripts/skills/skill", {
 			return;
 		}
 		_properties.RangedSkill += 7;
+		::AfeiExpedition.noteOriginHit(this.getContainer().getActor(), 0, 7);
 	}
 	function onAnySkillExecuted(_skill, _targetTile, _targetEntity, _forFree)
 	{

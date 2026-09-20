@@ -7,7 +7,7 @@ this.afei_lock_wagon <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "actives.afei_lock_wagon";
 		this.m.Name = "锁车";
-		this.m.Description = "对邻接敌人布置绳扣：打断其移动一轮（仍可原地攻击）。每战第一次布置在成长后免 2 工具，否则耗 2 工具；第二次仍耗工具。";
+		this.m.Description = "在邻接空格布置绳扣：敌人踏入或试图经过该格时中断移动（可原地攻击）。每战第一次布置成长后免 2 工具，否则耗 2 工具。";
 		this.m.Icon = "skills/active_119.png";
 		this.m.IconDisabled = "skills/active_119_sw.png";
 		this.m.Type = this.Const.SkillType.Active;
@@ -22,47 +22,31 @@ this.afei_lock_wagon <- this.inherit("scripts/skills/skill", {
 	}
 	function isUsable()
 	{
-		if (!this.skill.isUsable())
-		{
-			return false;
-		}
+		if (!this.skill.isUsable()) return false;
 		return ::AfeiExpedition.getRound() >= this.m.CooldownUntil;
 	}
 	function onVerifyTarget(_originTile, _targetTile)
 	{
-		if (!this.skill.onVerifyTarget(_originTile, _targetTile))
-		{
-			return false;
-		}
-		local t = _targetTile.getEntity();
-		return t != null && t.isAlive() && !t.isAlliedWith(this.getContainer().getActor());
+		if (_targetTile == null) return false;
+		if (!_targetTile.IsEmpty) return false;
+		return _originTile.getDistanceTo(_targetTile) == 1;
 	}
 	function needsTools()
 	{
 		local actor = this.getContainer().getActor();
 		local freeFirst = actor.getFlags().get("afei_lock_first_free") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C14");
-		if (freeFirst && this.m.Uses == 0)
-		{
-			return false;
-		}
+		if (freeFirst && this.m.Uses == 0) return false;
 		return true;
 	}
 	function onUse(_user, _targetTile)
 	{
 		if (this.needsTools())
 		{
-			if (!::AfeiExpedition.trySpendToolsApprox(2))
-			{
-				return false;
-			}
+			if (!::AfeiExpedition.trySpendToolsApprox(2)) return false;
 		}
-		local target = _targetTile.getEntity();
-		local old = target.getSkills().getSkillByID("effects.afei_lock_wagon");
-		if (old != null)
-		{
-			old.removeSelf();
-		}
-		target.getSkills().add(this.new("scripts/skills/effects/afei_lock_wagon_effect"));
+		::AfeiExpedition.addLockTile(_targetTile.Coords.X, _targetTile.Coords.Y);
+		_user.getFlags().set("afei_lock_x", _targetTile.Coords.X);
+		_user.getFlags().set("afei_lock_y", _targetTile.Coords.Y);
 		this.m.Uses += 1;
 		this.m.CooldownUntil = ::AfeiExpedition.getRound() + 1;
 		return true;

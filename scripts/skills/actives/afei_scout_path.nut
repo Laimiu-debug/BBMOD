@@ -4,7 +4,7 @@ this.afei_scout_path <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "actives.afei_scout_path";
 		this.m.Name = "探路";
-		this.m.Description = "熟悉路线：战斗中先攻 +6；每轮第一次普通移动后疲劳恢复 2（计入起源每轮恢复上限）。世界地图行军疲劳减免受引擎限制，本版以战斗效益近似。";
+		this.m.Description = "熟悉路线：战斗中先攻 +6；每轮第一次普通移动后疲劳恢复 2。世界地图上若小虎在常备队，战团移动略快（约 +5%）。";
 		this.m.Icon = "ui/orientation/shortsword_orientation.png";
 		this.m.Type = this.Const.SkillType.Special;
 		this.m.IsActive = false;
@@ -13,6 +13,7 @@ this.afei_scout_path <- this.inherit("scripts/skills/skill", {
 	function onUpdate(_properties)
 	{
 		_properties.Initiative += 6;
+		::AfeiExpedition.noteOriginInitiative(this.getContainer().getActor(), 6, false);
 	}
 	function onTurnStart()
 	{

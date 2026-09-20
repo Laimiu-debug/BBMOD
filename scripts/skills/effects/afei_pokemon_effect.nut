@@ -22,10 +22,13 @@ this.afei_pokemon_effect <- this.inherit("scripts/skills/skill", {
 	{
 		_properties.RangedDefense += 8;
 		local actor = this.getContainer().getActor();
+		local md = 0;
 		if (actor.getFlags().get("afei_pokemon_md4") || this.World.Flags.get(::AfeiExpedition.Flags.GrowthDone + "C17"))
 		{
 			_properties.MeleeDefense += 4;
+			md = 4;
 		}
+		::AfeiExpedition.noteOriginDefense(actor, md, 8);
 	}
 	function onDamageReceived(_attacker, _damageHitpoints, _damageArmor)
 	{
