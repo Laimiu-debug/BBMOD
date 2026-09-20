@@ -1,73 +1,39 @@
 # 大飞午远征团 · 起源 MOD（`mod_afei_expedition`）
 
-《战场兄弟》**1.5.2.3** 自定义战团起源。设定源稿：阿飞主题起源 v0.6.1（大飞午远征团 · 31 人精简版）。
+《战场兄弟》**1.5.2.3** 自定义战团起源。设定：阿飞主题起源 v0.6.1（31 人精简版）。
 
-## 与 BBMOD 的关系
+## 源码真相
 
-| | |
-|--|--|
-| **源码真相（当前）** | [BBMOD `mirror/afei-expedition-origin`](https://github.com/Laimiu-debug/BBMOD/tree/mirror/afei-expedition-origin) |
-| **独立仓** | https://github.com/Laimiu-debug/afei-expedition-origin（空仓；Cursor App 未授权，暂不推） |
-| **[Laimiu-debug/BBMOD](https://github.com/Laimiu-debug/BBMOD)** | 桌面安装器 / 独立汉化 / Hub；**不是**本 MOD 日常开发树 |
-| 安装 | 将构建出的 ZIP 放入游戏 `data/`，或用 BBMOD 军械库安装 |
+[BBMOD `mirror/afei-expedition-origin`](https://github.com/Laimiu-debug/BBMOD/tree/mirror/afei-expedition-origin)  
+独立仓 `afei-expedition-origin` 因 App 权限暂不推送。
 
 ## 依赖
 
-- **Legacy Modding Script Hooks**（`mod_hooks`，与 BBMOD 独立汉化常见附带版本兼容，如 21.1）
-- 首版**不**要求 Modern Hooks / MSU
-- 首版**不**接入 BBMOD 种子远征 / `ORIGIN_LABELS`
+- Legacy Modding Script Hooks（`mod_hooks`）
+- **不**要求 Modern/MSU；**不**接种子远征
 
-## 阶段 1 范围（当前 · v1.3）
+## 内容范围（v2.0 完整内容包）
 
-三队长开局 + 号令/嘉豪·磨合骨架 + M01/R01 + **黑队 R02–R07（C05–C10）**。  
-不做 31 人全量、不做种子远征。黑队七人招募已接入。细节见 [STAGE1.md](./STAGE1.md)。
+| 模块 | 状态 |
+|------|------|
+| C01–C31 命名人物 | 可入队（三队长开局 + R01–R28） |
+| R01–R28 招募 | 门控/签约/事件 |
+| G01–G31 成长 | 营地结算事件（简化条件 + 嘉豪/磨合） |
+| M01–M09 主线/并行 | 事件链（部分契约战斗为事件近似） |
+| 号令/嘉豪/磨合/带教/代理/驻营 | 已落地骨架与规则 |
+| 专属技能 | 条目齐；部分为可玩近似 + TODO |
+
+细节见 [STAGE1.md](./STAGE1.md)（现为完整包进度说明）。
 
 ## 包内 ID
 
-- 安装文件名：`mod_afei_expedition.zip`
-- mod id：`mod_afei_expedition`
-- scenario id：`scenario.afei_expedition`
-- Legacy 版本号：`1.3`（纯数字）
+- ZIP：`mod_afei_expedition.zip` · mod id：`mod_afei_expedition` · scenario：`scenario.afei_expedition` · 版本：**2.0**
 
 ## 构建
 
 ```bash
 python3 tools/build_zip.py
-# 或: make zip
 ```
-
-**构建产物路径：** `dist/mod_afei_expedition.zip`
-
-该 ZIP 根目录直接含 `scripts/`（无外层套娃），可通过 BBMOD `inspect_archive` 结构校验。
-
-安装：复制到 `<Battle Brothers>/data/mod_afei_expedition.zip`。
-
-## 目录结构
-
-```
-scripts/!mods_preload/mod_afei_expedition.nut
-scripts/scenarios/world/afei_expedition_scenario.nut   # 新增，不覆盖官方
-scripts/skills/backgrounds/...
-scripts/skills/actives/...
-scripts/skills/effects/...
-scripts/skills/special/...
-scripts/events/events/...
-scripts/events/events/scenario/...
-```
-
-## 参考包与 Hooks 选型
-
-| 参考 | Hooks | scenario 注册 |
-|------|-------|---------------|
-| **Fate（优先）** | Legacy | 仅新增 `*_scenario.nut`，**无** hook `scenario_manager` |
-| 沙匪起源 | Legacy | 同上；开场 `IsSpecial` + `fire` |
-
-**本 MOD：** Legacy；新增 scenario；special intro；preload `registerMod`+`queue`。禁止覆盖官方同路径。
-
-## 状态说明
-
-- Cloud Agent **无法**在 Linux 上实机启动 Windows 客户端验收。
-- 独立仓推送需维护者把 Cursor GitHub App / 环境仓库列表加上 `afei-expedition-origin`。
 
 ## 许可
 

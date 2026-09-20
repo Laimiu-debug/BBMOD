@@ -211,6 +211,7 @@ this.afei_r01_bottle_event <- this.inherit("scripts/events/event", {
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_bottle_breakthrough"));
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_teammate_ball"));
 						bro.getSkills().add(this.new("scripts/skills/actives/afei_finals_moment"));
+						::AfeiExpedition.markEverRecruited("C04");
 						this.World.Flags.set(::AfeiExpedition.Flags.R01Done, 1);
 						this.World.Flags.set(::AfeiExpedition.Flags.R01Offered, 1);
 						return 0;

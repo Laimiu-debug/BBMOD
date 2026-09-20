@@ -167,6 +167,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 		this.World.Assets.m.Ammo = 25;
 		// 食物以补给物品近似 55：多份谷物（待实机校准 Food 字段）
 		this.World.Flags.set("afei_cohesion", 25);
+		this.World.Flags.set("afei_cohesion_peak", 25);
 		this.World.Flags.set(::AfeiExpedition.Flags.JiahaoCount, 0);
 		this.World.Flags.set(::AfeiExpedition.Flags.PaidContracts, 0);
 		this.World.Flags.set(::AfeiExpedition.Flags.SafeDeliveryActive, 0);
@@ -273,6 +274,7 @@ this.afei_expedition_scenario <- this.inherit("scripts/scenarios/world/starting_
 			}
 		}
 
+		this.World.Flags.set(::AfeiExpedition.Flags.AfeiDead, 1);
 		return false;
 	}
 });
