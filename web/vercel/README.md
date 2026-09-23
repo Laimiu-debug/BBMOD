@@ -1,6 +1,6 @@
 # BBMOD 的 Vercel 入口
 
-公开地址目标：`https://bbmod.vercel.app`。Vercel 项目只部署本目录。`vercel.json` 把所有路径转发到 `https://sdhaohan.cn/bbmod-origin/`；地址栏仍显示 BBMOD。不要上传整个仓库或 `.env`。
+公开地址目标：`https://bbmod.vercel.app`。Vercel 项目只部署本目录。`vercel.json` 把所有路径转发到 `https://gongpro.cn/bbmod-origin/`；地址栏仍显示 BBMOD。不要上传整个仓库或 `.env`。
 
 ## Ubuntu 配置
 
@@ -16,7 +16,7 @@
    ```
 
 4. 执行 `docker compose -f compose.gateway.yml up -d --build`。只有 BBMOD 的容器及数据卷参与这个 Compose 项目。
-5. 备份已有 HTTPS 代理配置，在 `sdhaohan.cn` 的 HTTPS `server` 内引入 `deploy/bbmod-origin-location.conf`。现有代理必须能解析 Docker 网络中的 `bbmod_hub_gateway`，并使用 `resolver 127.0.0.11 valid=10s ipv6=off`。先运行 `nginx -t`，通过后 reload；保留原有其他路由。若代理配置由模板生成，同步模板与当前生效配置。
+5. 备份已有 HTTPS 代理配置，在 `gongpro.cn` 的 HTTPS `server` 内引入 `deploy/bbmod-origin-location.conf`。现有代理必须能解析 Docker 网络中的 `bbmod_hub_gateway`，并使用 `resolver 127.0.0.11 valid=10s ipv6=off`。先运行 `nginx -t`，通过后 reload；保留原有其他路由。若代理配置由模板生成，同步模板与当前生效配置。
 6. 检查源站 `/bbmod-origin/health/`、静态文件、目录 API、CSRF 登录和上传下载。内部网关信任上一级代理覆盖的 Host、X-Real-IP；不要给它映射公网端口。
 7. 使用 `docker compose -f compose.gateway.yml exec app python manage.py createsuperuser` 创建自己的管理员。正式数据库初始为空。
 

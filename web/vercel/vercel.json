@@ -14,7 +14,7 @@
   "rewrites": [
     {
       "source": "/:path*",
-      "destination": "https://sdhaohan.cn/bbmod-origin/:path*"
+      "destination": "https://gongpro.cn/bbmod-origin/:path*"
     }
   ]
 }
