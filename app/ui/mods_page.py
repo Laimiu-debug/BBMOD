@@ -256,7 +256,8 @@ class ModsPage(QWidget):
             return
         names = '\n'.join(f"{name}（{'已启用' if enabled else '已禁用'}）" for name, enabled in selected)
         if QMessageBox.question(self, '卸载 MOD', f'卸载以下 {len(selected)} 个 MOD？\n\n{names}\n\n'
-                '将删除安装文件并移出已安装列表，再次使用需要重新安装。\n仓库原包和游戏存档保留。',
+                '将删除安装文件并移出已安装列表，再次使用需要重新安装。\n'
+                '没有剩余安装副本时，关联汉化方案也会移除；方案中的其他安装文件保留。\n仓库原包和游戏存档保留。',
                 QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
             return
         if not self._can_modify():

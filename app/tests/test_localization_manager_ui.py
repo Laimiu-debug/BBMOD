@@ -172,3 +172,82 @@ def test_saved_package_without_active_files_is_not_reported_as_current(app, cont
     assert '未检测到已启用' in page.current_name.text()
     assert '尚未应用' in page.preview.toPlainText()
     assert page.plan.changed
+
+
+def test_uninstall_clears_saved_choice_and_does_not_offer_reinstall(app, context, tmp_path):
+    from core.modmanager import ModManager
+    saved = own_package(tmp_path / 'package/chinese.zip')
+    backend = LocalizationProfiles(context.game.root)
+    with patch('core.game.is_game_running', return_value=False):
+        backend.register('BBMOD 独立汉化', [saved], builtin=True)
+        backend.apply(backend.plan(BUILTIN))
+        backend.apply(backend.plan(NONE))
+    page = LocalizationManager(context, lambda: None)
+    page.select_profile(BUILTIN)
+    assert page.table.item(0, 0).text() == '已停用'
+    assert page.plan.changed
+    ModManager(context.game.root).uninstall(saved.name, from_disabled=True)
+    page.refresh()
+    assert page.table.rowCount() == 0
+    assert page.choice.findData(BUILTIN) == -1
+    assert page.choice.currentData() == CURRENT
+    assert page.plan is not None and not page.plan.changed
+    assert '未检测到已启用' in page.current_name.text()
+    assert context.settings.get('localization_choices')[str(context.game.root.resolve())] == CURRENT
+    reopened = LocalizationManager(context, lambda: None)
+    assert reopened.choice.currentData() == CURRENT and not reopened.plan.changed
+
+
+def test_delete_old_saved_scheme_from_ui_and_cancel_preserves_it(app, context, tmp_path):
+    saved = own_package(tmp_path / 'package/chinese.zip')
+    with patch('core.game.is_game_running', return_value=False):
+        backend = LocalizationProfiles(context.game.root)
+        backend.register('BBMOD 独立汉化', [saved], builtin=True)
+        page = LocalizationManager(context, lambda: None)
+        page.select_profile(BUILTIN)
+        assert not page.delete_btn.isHidden() and page.delete_btn.isEnabled()
+        with patch.object(QMessageBox, 'question', return_value=QMessageBox.No):
+            page.delete_btn.click()
+        assert BUILTIN in backend.profiles()
+        with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+            page.delete_btn.click()
+            wait_worker(page, app)
+    assert page.choice.findData(BUILTIN) == -1
+    assert page.choice.currentData() == CURRENT
+    assert page.delete_btn.isHidden()
+    assert backend.profiles() == {} and saved.exists()
+
+
+def test_delete_saved_scheme_obeys_operation_locks(app, context, tmp_path):
+    saved = own_package(tmp_path / 'package/chinese.zip')
+    with patch('core.game.is_game_running', return_value=False):
+        backend = LocalizationProfiles(context.game.root)
+        backend.register('BBMOD 独立汉化', [saved], builtin=True)
+    page = LocalizationManager(context, lambda: None)
+    page.select_profile(BUILTIN)
+    for attribute in ('management_busy', 'seedgen_active'):
+        setattr(context, attribute, True)
+        page.update_controls()
+        assert not page.delete_btn.isEnabled()
+        setattr(context, attribute, False)
+    context.game_session.observe(True)
+    assert not page.delete_btn.isEnabled()
+    context.game_session.observe(False)
+    backend.journal.write_text('{}')
+    page.refresh()
+    assert not page.delete_btn.isEnabled()
+
+
+def test_deleting_active_saved_scheme_keeps_current_game_launchable(app, context):
+    installed = own_package(context.game.data_dir / 'chinese.zip')
+    with patch('core.game.is_game_running', return_value=False):
+        backend = LocalizationProfiles(context.game.root)
+        backend.register('BBMOD 独立汉化', [installed], builtin=True)
+        page = LocalizationManager(context, lambda: None)
+        page.select_profile(BUILTIN)
+        with patch.object(QMessageBox, 'question', return_value=QMessageBox.Yes):
+            page.delete_btn.click()
+            wait_worker(page, app)
+    assert backend.profiles() == {} and installed.exists()
+    assert page.choice.currentData() == CURRENT
+    assert page.start_btn.isEnabled() and not page.plan.changed

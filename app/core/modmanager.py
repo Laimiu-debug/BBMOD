@@ -180,7 +180,7 @@ class ModManager:
         return destinations
 
     def uninstall(self, name: str, *, from_disabled: bool = False) -> Path:
-        """删除所选安装文件和在线记录；不删除仓库原包或存档。"""
+        """删除所选文件及关联在线/汉化记录；保留仓库原包和存档。"""
         validate_name(name)
         target = (self.disabled_dir if from_disabled else self.data) / name
         if not target.is_file():
@@ -192,6 +192,11 @@ class ModManager:
         other = (self.data if from_disabled else self.disabled_dir) / name
         keys = [key for key in state['mods'] if key.casefold() == name.casefold()]
         with tempfile.TemporaryDirectory(prefix='bbmod-uninstall-') as temporary:
+            from .localization_profiles import LocalizationProfiles
+            localizations = LocalizationProfiles(self.root)
+            record = localizations.stage_uninstall(target, Path(temporary))
+            if record is not None:
+                changes[localizations.registry] = record
             if keys and not other.exists():
                 for key in keys:
                     del state['mods'][key]

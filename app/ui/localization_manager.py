@@ -31,6 +31,7 @@ class LocalizationManager(QWidget):
         self.ctx, self._busy, self._root = ctx, False, None
         self.backend, self.plan = None, None
         self._active = []
+        self._profiles = {}
         self._legacy = False
         self._mixed = False
         self.session = ctx.game_session
@@ -63,6 +64,11 @@ class LocalizationManager(QWidget):
         self.choice = QComboBox()
         self.choice.setMinimumWidth(200)
         row.addWidget(self.choice, 1)
+        self.delete_btn = QPushButton('删除方案')
+        style_button(self.delete_btn, 'close')
+        self.delete_btn.setToolTip('移除所选的已保存方案；已安装文件可在 MOD 军械库卸载')
+        self.delete_btn.clicked.connect(self.delete_profile)
+        row.addWidget(self.delete_btn)
         self.keep_current_btn = QPushButton('取消切换，沿用当前')
         style_button(self.keep_current_btn, 'refresh')
         self.keep_current_btn.clicked.connect(lambda: self.choice.setCurrentIndex(self.choice.findData(CURRENT)))
@@ -139,19 +145,19 @@ class LocalizationManager(QWidget):
         self._root = key
         self.plan = None
         self._active = []
+        self._profiles = {}
         self._legacy = self._mixed = False
         self.choice.blockSignals(True)
         self.choice.clear()
         self.choice.addItem('保持当前汉化（不改动）', CURRENT)
-        self.choice.addItem('BBMOD 独立汉化（尚未制作）', BUILTIN)
         self.choice.addItem('停用已识别的汉化', NONE)
         self.table.setRowCount(0)
         try:
             self.backend = LocalizationProfiles(game.root) if game else None
             profiles = self.backend.profiles() if self.backend else {}
+            self._profiles = profiles
             for profile_id, profile in profiles.items():
-                if profile_id != BUILTIN:
-                    self.choice.addItem(profile['name'], profile_id)
+                self.choice.addItem('BBMOD 独立汉化（已保存方案）' if profile_id == BUILTIN else profile['name'], profile_id)
             rows = [item for item in self.backend.inventory() if item['candidate'] or item['managed']] if self.backend else []
             self.table.setRowCount(len(rows))
             for i, item in enumerate(rows):
@@ -174,10 +180,8 @@ class LocalizationManager(QWidget):
             else:
                 self.current_name.setText('未检测到已启用的汉化包' if game else '尚未选择游戏目录')
             self.current_name.setToolTip('\n'.join(str(item['path']) for item in self._active))
-            if BUILTIN in profiles:
-                self.choice.setItemText(self.choice.findData(BUILTIN), 'BBMOD 独立汉化（已保存方案）')
-            elif own:
-                self.choice.setItemText(self.choice.findData(BUILTIN), 'BBMOD 独立汉化（已安装，未存方案）')
+            if BUILTIN not in profiles and own:
+                self.choice.addItem('BBMOD 独立汉化（已安装，未存方案）', BUILTIN)
             index = self.choice.findData(selected)
             self.choice.setCurrentIndex(max(0, index))
         except Exception as error:
@@ -186,7 +190,10 @@ class LocalizationManager(QWidget):
             self.summary.setText(str(error))
         finally:
             self.choice.blockSignals(False)
-        self.update_plan()
+        if self.backend and selected != self.choice.currentData():
+            self._selection_changed()
+        else:
+            self.update_plan()
 
     def _selection_changed(self):
         if self._root:
@@ -209,6 +216,8 @@ class LocalizationManager(QWidget):
         try:
             if not self.backend:
                 self.preview.setPlainText('指定游戏目录后，即可选择汉化和启动游戏。')
+            elif self.choice.currentData() is None:
+                self.preview.setPlainText('所选汉化方案已不存在，请点击“重新检测”后选择。')
             elif self.choice.currentData() == BUILTIN and BUILTIN not in self.backend.profiles():
                 if any(item['own'] for item in self._active):
                     self.preview.setPlainText('BBMOD 独立汉化已经启用，只是尚未保存为可切换方案。点击“取消切换，沿用当前”即可继续使用，无需重新生成。')
@@ -262,6 +271,9 @@ class LocalizationManager(QWidget):
         self.keep_current_btn.setVisible(self.choice.currentData() != CURRENT and
                                          (self.plan is None or self.plan.changed))
         self.keep_current_btn.setEnabled(available)
+        self.delete_btn.setVisible(self.choice.currentData() in self._profiles)
+        self.delete_btn.setEnabled(available and not bool(self.backend and (
+            self.backend.journal.exists() or (self.backend.root / 'bbmod_disabled/operations/pending.json').exists())))
         self.recover_btn.setVisible(bool(self.backend and self.backend.journal.exists()))
         self.recover_btn.setEnabled(available)
         self.apply_btn.setEnabled(available and bool(self.plan and self.plan.changed))
@@ -311,6 +323,22 @@ class LocalizationManager(QWidget):
         if ok and title.strip():
             backend = self.backend
             self._run(lambda: backend.register(title, [Path(path) for path in paths]), self.select_profile)
+
+    def delete_profile(self):
+        profile_id = self.choice.currentData()
+        if not self.backend or profile_id not in self._profiles or not self.delete_btn.isEnabled():
+            return
+        title = self._profiles[profile_id]['name']
+        if QMessageBox.question(self, '删除汉化方案', f'删除已保存方案「{title}」？\n\n'
+                '将从切换列表移除。已安装或已停用的文件、原包和恢复备份保留；'
+                '需要删除安装文件时，请在 MOD 军械库卸载。',
+                QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
+            return
+        backend = self.backend
+        def done(_):
+            self.select_profile(CURRENT)
+            self.preview.setPlainText('已删除保存的汉化方案，当前游戏文件保持不变。')
+        self._run(lambda: backend.delete(profile_id), done)
 
     def import_packages(self):
         paths, _ = QFileDialog.getOpenFileNames(self, '选择一个或多个实际汉化 ZIP', '', '汉化包 (*.zip)')

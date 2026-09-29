@@ -72,6 +72,50 @@ def test_same_filename_keeps_old_bytes_and_restores_saved_profile(setup):
     assert old.read_bytes() == old_bytes
 
 
+def test_reenable_moves_identical_disabled_copy_and_uninstall_forgets_profile(setup):
+    from core.modmanager import ModManager
+    manager, tmp = setup
+    source = package(tmp / 'source/chinese.zip', own=True)
+    key = manager.register('自制汉化', [source], builtin=True)
+    manager.apply(manager.plan(key))
+    manager.apply(manager.plan(NONE))
+    assert key in manager.profiles()
+    assert (manager.root / 'bbmod_disabled/chinese.zip').exists()
+    manager.apply(manager.plan(key))
+    assert not (manager.root / 'bbmod_disabled/chinese.zip').exists()
+    ModManager(manager.root).uninstall(source.name)
+    assert manager.inventory() == []
+    assert manager.profiles() == {}
+    assert source.exists()
+
+
+def test_delete_saved_profile_keeps_installed_disabled_and_library_files(setup):
+    manager, tmp = setup
+    active = package(manager.data / 'chinese.zip')
+    disabled = package(manager.root / 'bbmod_disabled/other_chinese.zip')
+    key = manager.register('旧方案', [active])
+    other = manager.register('保留方案', [disabled])
+    before = {path: path.read_bytes() for path in manager.root.rglob('*.zip')}
+    manager.delete(key)
+    assert set(manager.profiles()) == {other}
+    assert all(path.read_bytes() == value for path, value in before.items())
+    with pytest.raises(ValueError, match='不存在'):
+        manager.delete(key)
+
+
+@pytest.mark.parametrize('pending', ['bbmod_localizations/pending-switch.json',
+                                     'bbmod_disabled/operations/pending.json'])
+def test_delete_profile_waits_for_pending_recovery(setup, pending):
+    manager, tmp = setup
+    key = manager.register('汉化', [package(tmp / 'chinese.zip')])
+    journal = manager.root / pending
+    journal.parent.mkdir(parents=True, exist_ok=True)
+    journal.write_text('{}')
+    with pytest.raises(RuntimeError, match='恢复'):
+        manager.delete(key)
+    assert key in manager.profiles()
+
+
 def test_case_only_filename_change_uses_one_target(setup):
     manager, tmp = setup
     old = package(manager.data / 'chinese.zip', {'ui/main.html': 'old'})

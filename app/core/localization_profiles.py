@@ -181,6 +181,49 @@ class LocalizationProfiles:
     def _fingerprint(self) -> dict[str, str]:
         return {path.name: digest(path) for path in sorted(self.data.glob('*.zip'))}
 
+    def delete(self, profile_id: str) -> None:
+        """Forget a saved choice without changing installed files or backups."""
+        self._ensure_idle()
+        if self.journal.exists():
+            raise RuntimeError('请先恢复上次未完成的切换')
+        profiles = self.profiles()
+        if profile_id not in profiles:
+            raise ValueError('汉化方案已不存在，请刷新。')
+        del profiles[profile_id]
+        _write_json(self.registry, {'schema': 1, 'profiles': profiles})
+
+    def stage_uninstall(self, target: Path, staging: Path) -> Path | None:
+        """Stage linked profile removal for the same transaction as the MOD."""
+        if self.journal.exists():
+            raise ValueError('汉化切换尚未恢复，请先在汉化管理中恢复上次切换。')
+        profiles = self.profiles()
+        if not profiles or target.suffix.lower() != '.zip':
+            return None
+        target_hash = digest(target)
+        remaining = [path for folder in (self.data, self.root / DISABLED_DIR)
+                     for path in folder.glob('*.zip') if path.resolve() != target.resolve()]
+        remaining_names = {path.name.casefold() for path in remaining}
+        remaining_hashes = None
+
+        def removed(item):
+            nonlocal remaining_hashes
+            if item['name'].casefold() != target.name.casefold() and item['sha256'] != target_hash:
+                return False
+            if item['name'].casefold() in remaining_names:
+                return False
+            # Switching can preserve an older ZIP under a collision-safe name.
+            if remaining_hashes is None:
+                remaining_hashes = {digest(path) for path in remaining}
+            return item['sha256'] not in remaining_hashes
+
+        kept = {key: profile for key, profile in profiles.items()
+                if not any(removed(item) for item in profile['files'])}
+        if kept == profiles:
+            return None
+        record = staging / 'localization-profiles.json'
+        _write_json(record, {'schema': 1, 'profiles': kept})
+        return record
+
     def plan(self, profile_id: str) -> SwitchPlan:
         if self.journal.exists():
             raise RuntimeError('上次切换未完成，请先点击“恢复上次切换”。')
@@ -254,6 +297,9 @@ class LocalizationProfiles:
         for name in plan.install:
             after[f'data/{name}'] = plan.sources[name][1]
             contents[f'data/{name}'] = plan.sources[name][0]
+            disabled = self._game_file(f'{DISABLED_DIR}/{name}')
+            if disabled.exists() and digest(disabled) == plan.sources[name][1]:
+                after[f'{DISABLED_DIR}/{name}'] = None
         transaction = uuid.uuid4().hex
         before = {}
         staged = {}

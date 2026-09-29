@@ -155,6 +155,100 @@ def test_receipt_failure_rolls_back_uninstall(manager):
     assert 'mod.zip' in json.loads(state.read_text())['mods']
 
 
+@pytest.mark.parametrize('disabled', [True, False])
+def test_uninstall_removes_linked_localization_profiles(manager, tmp_path, disabled):
+    from core.localization_profiles import LocalizationProfiles, BUILTIN
+    from core.l10n import BRAND_META, PACKAGE_ID
+    folder = manager.disabled_dir if disabled else manager.data
+    source = package(folder / 'custom.zip', {BRAND_META: json.dumps({'package_id': PACKAGE_ID}),
+                                            'ui/chinese.js': 'translation'})
+    font = package(manager.data / 'font.zip', {'gfx/fonts/example.png': 'font'})
+    unrelated = package(tmp_path / 'imported.zip', {'ui/unrelated.js': 'other translation'})
+    profiles = LocalizationProfiles(manager.root)
+    with patch('core.game.is_game_running', return_value=False):
+        profiles.register('BBMOD 独立汉化', [source], builtin=True)
+        linked = profiles.register('汉化与字体', [source, font])
+        keep = profiles.register('尚未应用的方案', [unrelated])
+    manager.uninstall(source.name, from_disabled=disabled)
+    assert set(profiles.profiles()) == {keep}
+    assert BUILTIN not in profiles.profiles() and linked not in profiles.profiles()
+    assert font.exists() and unrelated.exists()
+    assert len(list(profiles.store.rglob('*.zip'))) == 4
+
+
+def test_uninstall_preserves_profile_until_last_copy_is_removed(manager):
+    from core.localization_profiles import LocalizationProfiles
+    active = package(manager.data / 'chinese.zip')
+    disabled = package(manager.disabled_dir / 'chinese.zip')
+    profiles = LocalizationProfiles(manager.root)
+    with patch('core.game.is_game_running', return_value=False):
+        key = profiles.register('汉化', [active])
+    manager.uninstall(active.name)
+    assert key in profiles.profiles() and disabled.exists()
+    manager.uninstall(disabled.name, from_disabled=True)
+    assert profiles.profiles() == {}
+
+
+def test_uninstall_last_renamed_backup_removes_profile(manager):
+    from core.localization_profiles import LocalizationProfiles
+    source = package(manager.data / 'chinese.zip')
+    profiles = LocalizationProfiles(manager.root)
+    with patch('core.game.is_game_running', return_value=False):
+        key = profiles.register('汉化', [source])
+    renamed = manager.disabled_dir / 'chinese-backup.zip'
+    renamed.parent.mkdir(exist_ok=True)
+    renamed.write_bytes(source.read_bytes())
+    manager.uninstall(source.name)
+    assert key in profiles.profiles()
+    manager.uninstall(renamed.name, from_disabled=True)
+    assert profiles.profiles() == {}
+
+
+@pytest.mark.parametrize('interrupted', [False, True])
+def test_failed_localization_cleanup_recovers_mod_and_profile(manager, interrupted):
+    from core.localization_profiles import LocalizationProfiles
+    source = package(manager.data / 'chinese.zip')
+    profiles = LocalizationProfiles(manager.root)
+    with patch('core.game.is_game_running', return_value=False):
+        key = profiles.register('汉化', [source])
+    original = source.read_bytes()
+    import os
+    replace = os.replace
+
+    def fail(source, target):
+        if Path(target) == profiles.registry and str(source).endswith('.after'):
+            raise KeyboardInterrupt('interrupted') if interrupted else OSError('full disk')
+        return replace(source, target)
+
+    with patch('core.mod_transactions.os.replace', side_effect=fail):
+        with pytest.raises(KeyboardInterrupt if interrupted else OSError):
+            manager.uninstall(source.name)
+    if interrupted:
+        assert not source.exists() and manager.transaction.journal.exists()
+        ModManager(manager.root).transaction.recover()
+    assert source.read_bytes() == original
+    assert key in profiles.profiles()
+    assert not manager.transaction.journal.exists()
+
+
+def test_uninstall_waits_for_localization_recovery(manager):
+    source = package(manager.data / 'chinese.zip')
+    pending = manager.root / 'bbmod_localizations/pending-switch.json'
+    pending.parent.mkdir()
+    pending.write_text('{}')
+    with pytest.raises(ValueError, match='恢复'):
+        manager.uninstall(source.name)
+    assert source.exists()
+
+
+@pytest.mark.parametrize('relative', ['bbmod_localizations/other.json',
+                                     'bbmod_localizations/packages/mod.zip',
+                                     'bbmod_localizations/mod.zip'])
+def test_mod_transaction_only_allows_exact_localization_registry(manager, relative):
+    with pytest.raises(ValueError, match='路径'):
+        manager.transaction.target(relative)
+
+
 @pytest.mark.parametrize('requirement,version,expected', [
     ('mod_x >= 1.2.0', '1.10', True), ('mod_x(>=1.2)', '1.1.9', False),
     ('mod_x >= 1.2, < 2.0', '2.0', False), ('mod_x ^1.0', '1.2', None),

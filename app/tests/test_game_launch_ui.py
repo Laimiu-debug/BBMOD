@@ -1,6 +1,7 @@
 """Launch feedback regression coverage. Every actual game launch is blocked."""
 from types import SimpleNamespace
 from unittest.mock import patch
+import json
 import zipfile
 
 import pytest
@@ -8,6 +9,7 @@ from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QMessageBox
 
 from core.game import GameInfo
+from core import l10n
 from core.localization_profiles import BUILTIN, NONE, LocalizationProfiles
 from ui.game_session import GameSession
 from ui.main_window import MainWindow
@@ -146,7 +148,15 @@ def test_launch_failure_is_visible_and_retry_stays_on_current_page(app, window):
 
 def test_missing_selected_profile_opens_explanation_without_launch(app, window):
     page = window.l10n.management
-    page.choice.setCurrentIndex(page.choice.findData(BUILTIN))
+    source = window.ctx.game.root / 'saved.zip'
+    with zipfile.ZipFile(source, 'w') as archive:
+        archive.writestr('ui/main.html', 'fixture')
+        archive.writestr(l10n.BRAND_META, json.dumps({'package_id': l10n.PACKAGE_ID}))
+    page.backend.register('BBMOD 独立汉化', [source], builtin=True)
+    page.select_profile(BUILTIN)
+    # Simulate the saved record disappearing before the next UI refresh.
+    page.backend.delete(BUILTIN)
+    page.update_plan()
     window.select_page(0)
     with patch.object(LocalizationProfiles, 'launch') as launch:
         assert window.launch_btn.text() == '检查汉化配置'

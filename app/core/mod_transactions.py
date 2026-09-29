@@ -41,6 +41,9 @@ class ModTransaction:
         parent = path.parent.resolve()
         allowed = {self.root / 'data', self.root / 'bbmod_disabled'}
         metadata = path in {self.root / 'bbmod_disabled' / name for name in ('online-catalog.json', 'profiles.json')}
+        if path == self.root / 'bbmod_localizations' / 'profiles.json':
+            metadata = True
+            allowed.add(self.root / 'bbmod_localizations')
         if (parent not in allowed or path.is_symlink() or path.resolve().parent != parent
                 or (not metadata and path.suffix.lower() not in {'.zip', '.rar'})):
             raise ValueError('MOD 操作路径无效。')
