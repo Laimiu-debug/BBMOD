@@ -14,6 +14,7 @@ def selftest() -> int:
     from core.seedgen.traits import traits
     from core.seedgen.weapons import NAMED_WEAPONS, WEAPON_CHOICES
     from core.version import VERSION
+    from core.localization_profiles import CURRENT, NONE
     from ui.main_window import MainWindow, apply_dark_palette
 
     app = QApplication([])
@@ -24,7 +25,10 @@ def selftest() -> int:
     QTimer.singleShot(6000, app.quit)
     app.exec()
     errors = w.dashboard.report.error_count if w.dashboard.report else -1
-    manager_ready = w.l10n.sections.count() == 2 and w.l10n.management.choice.count() >= 3
+    manager_ready = (w.l10n.sections.count() == 2
+                     and all(w.l10n.management.choice.findData(key) >= 0 for key in (CURRENT, NONE)))
+    cleanup_ready = (hasattr(w.l10n.management, 'delete_btn')
+                     and callable(getattr(w.l10n.management, 'delete_profile', None)))
     guidance_ready = (bool(w.l10n.management.current_name.text())
                       and w.l10n.management.advanced_panel.isHidden())
     hooks_ready = len(hooks_assets()) == 4
@@ -55,13 +59,14 @@ def selftest() -> int:
     print(f"equipment_catalog: {'ready' if equipment_ready else 'missing'} entries={w.inspector.catalog_page.table.rowCount()}")
     print(f"game_launch_feedback: {'ready' if launch_ready else 'missing'} state={w.ctx.game_session.state}")
     print(f"localization_guidance: {'ready' if guidance_ready else 'missing'}")
+    print(f"localization_cleanup: {'ready' if cleanup_ready else 'missing'}")
     print(f"seed_share_queue: {'ready' if sharing_ready else 'missing'}")
     print(f"seed_code_copy: {'ready' if seed_copy_ready else 'missing'}")
     print(f"profile_sharing: {'ready' if profile_sharing_ready else 'missing'}")
     print(f"update_notice: {'ready' if update_notice_ready else 'missing'}")
     print(f"crash_reports: {'ready' if crash_reports_ready else 'missing'}")
     print(f"selftest: installed={w.mods.table.rowCount()} l10n_entries={len(w.l10n.entries)} diag_errors={errors} l10n_manager={'ready' if manager_ready else 'missing'} legacy_hooks={'ready' if hooks_ready else 'missing'} seed_traits={trait_count} seed_weapons={weapon_count if weapons_ready else 0} seed_ports={'ready' if ports_ready else 'missing'} version={VERSION} updater={'ready' if updater_ready else 'missing'} font_settings={'ready' if settings_ready else 'missing'}")
-    ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and guidance_ready and hooks_ready and trait_count == 58
+    ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and cleanup_ready and guidance_ready and hooks_ready and trait_count == 58
     if w.ctx.game:
         ok = ok and errors >= 0
     return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready else 1

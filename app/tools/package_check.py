@@ -137,6 +137,8 @@ def main() -> int:
             raise RuntimeError('EXE 未加载共享启动状态或未完成游戏进程检查')
         if result.returncode == 0 and b'localization_guidance: ready' not in result.stdout:
             raise RuntimeError('EXE 未加载当前汉化状态与默认收起的高级制作入口')
+        if result.returncode == 0 and b'localization_cleanup: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载汉化方案清理入口')
         if result.returncode == 0 and b'seed_share_queue: ready' not in result.stdout:
             raise RuntimeError('EXE 未加载种子批量分享队列')
         if result.returncode == 0 and b'seed_code_copy: ready' not in result.stdout:
@@ -163,6 +165,7 @@ def main() -> int:
             "equipment_catalog_ready": b'equipment_catalog: ready' in result.stdout,
             "game_launch_feedback_ready": b'game_launch_feedback: ready' in result.stdout,
             "localization_guidance_ready": b'localization_guidance: ready' in result.stdout,
+            "localization_cleanup_ready": b'localization_cleanup: ready' in result.stdout,
             "seed_share_queue_ready": b'seed_share_queue: ready' in result.stdout,
             "seed_code_copy_ready": b'seed_code_copy: ready' in result.stdout,
             "equipment_icon_files": len(equipment_icons['files']),
