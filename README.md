@@ -4,11 +4,13 @@
 
 **第一次使用？** 查看 [官网图文使用说明](https://bbmod.site/guide/)（含 PDF 下载，已更新至阿飞 v0.27.4）。仓库保留 [Markdown](BBMOD新手使用说明.md)、含内嵌截图的 [离线网页版](BBMOD新手使用说明.html) 和 [PDF](output/pdf/BBMOD新手使用说明.pdf)，方便发给朋友。升级阿飞主包后请新建战役。
 
+**rc.34 汉化方案清理**：卸载汉化的最后一份副本时同步移除关联方案，汉化页新增“删除方案”清理旧记录，不再显示空的 BBMOD 汉化选项。详见 [rc34 说明](app/releases/0.3.0-rc.34.md)。
+
 **rc.33 疑似闪退报告**：从 BBMOD 启动游戏后，检测本次日志并保留异常快照；可预览提交，也可在设置中开启自动上传（默认关闭）。失败报告可跨重启重试，官网后台仅管理员可见。详见 [rc33 说明](app/releases/0.3.0-rc.33.md)。
 
 ## 下载测试版
 
-官网已于 2026-09-28 发布 **0.3.0-rc.33**，详见[部署记录](web/deploy/deployment-crash-reports-rc33-2026-09-28.md)。已有用户可在「设置 → 检查更新」获取新版；自动检查沿用 6 小时间隔。独立汉化继续使用 **0.3.0-rc.9**，无需重新生成汉化包。
+官网已于 2026-09-29 发布 **0.3.0-rc.34**，详见[部署记录](web/deploy/deployment-localization-cleanup-rc34-2026-09-29.md)。已有用户可在「设置 → 检查更新」获取新版；自动检查沿用 6 小时间隔。独立汉化继续使用 **0.3.0-rc.9**，无需重新生成汉化包。
 
 [下载 BBMOD](https://bbmod.site/downloads/windows/) · [版本说明](https://bbmod.site/downloads/) · [独立汉化包](https://bbmod.site/mods/22c174ed-fc9d-4dbb-9642-44831ce694e8/)
 

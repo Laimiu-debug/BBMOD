@@ -1,5 +1,7 @@
 # BBMOD 社区军械库 · 0.3.6
 
+桌面管理器 **0.3.0-rc.34** 已于 2026-09-29 发布到下载页及更新接口，修复卸载汉化后残留方案名称，新增删除旧方案入口。独立汉化包保持 rc.9；本次仅发布桌面 EXE，无数据库迁移或网站容器更新。详见[发布记录](deploy/deployment-localization-cleanup-rc34-2026-09-29.md)。
+
 新手使用说明（2026-09-29）：[`/guide/`](https://bbmod.site/guide/) 提供 BBMOD rc.33、汉化 rc.9 与阿飞 v0.27.4 的完整安装图文及 11 页 PDF。首页、顶部导航、下载页均有入口；阿飞升级后须新建战役。网页模板与版本化静态资源由 `python web/tools/build_beginner_guide.py` 在仓库根目录生成，需要 `markdown-it-py`，输入为根目录 Markdown、`docs/images/` 截图和已检查的 `output/pdf/BBMOD新手使用说明.pdf`。发布步骤与验证见[部署记录](deploy/deployment-beginner-guide-2026-09-29.md)。
 
 错误报告收集（rc.32）：`POST /api/v1/suggestions/` 接受可选 `diagnostic_report` 文本，最多 60,000 字；GET 返回支持的长度。原有反馈客户端保持兼容，提交继续使用会话、CSRF、回执去重和限流。升级需执行迁移 `0008`。管理员在 `/manage/suggestions/?reports=1` 按日志内容、版本和 MOD ID 搜索报告，详情页支持私密 TXT 下载及处理状态、内部备注；报告随数据库备份。
