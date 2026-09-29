@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "checked_at": "2026-09-27",
+  "mods": [
+    {
+      "id": "ce170bce-dd19-51c8-a637-d73dad0423c7",
+      "slug": "script-hooks",
+      "archive": "mod_hooks.zip",
+      "version": "21.1-bbmod.1",
+      "notes": "免费署名整理版；所有游戏文件与来源包逐字节一致，仅附加许可和来源说明。未完成实机验证。",
+      "metadata": {
+        "install_name": "mod_hooks.zip",
+        "title": "旧版 MOD 框架 · Hooks",
+        "summary": "为旧接口 MOD 提供前置框架；BBMOD 汉化已包含相关运行文件，请勿重复安装。",
+        "description": "供未使用内置 Hooks 的汉化包、且目标 MOD 明确要求旧版 mod_hooks 的玩家使用。原作者为 Adam Milazzo，本次从 JC Sato 保留作者许可说明的 GitHub 镜像取得 21.1 原包。镜像文件名含 20.1，但发布说明及脚本注册版本均为 21.1。免费署名整理包保留全部游戏文件原字节。",
+        "category": "框架",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/42",
+        "original_author": "Adam Milazzo（Adam / AdamMil01）",
+        "license": "原作者 Nexus 页面允许署名转载；随包提供来源及许可说明。",
+        "game_version": "1.5.2.3 尚待实机验证",
+        "dlc": "",
+        "mod_ids": "mod_hooks",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "BBMOD 汉化 rc.7/rc.8 已包含 Hooks 运行文件，不要重复叠加独立包。独立包含 scripts/root_state.cnut 和 ui/main.html，会与改写这些文件的汉化或 MOD 重叠。Modern Hooks 不是旧 Hooks 的替代品；两者是否都需要取决于目标 MOD。 已检查 ZIP 结构、CRC、大小和 SHA-256，未完成游戏实机验证。"
+      },
+      "inspection": {
+        "sha256": "3727ee36f18f840e88b5f0355d523bb596bbcf4fba56e4ed6280669e6cb1a37f",
+        "size": 10782,
+        "entry_count": 7,
+        "uncompressed_size": 46715,
+        "script_count": 3,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "source_archive_sha256": "0461ea3f457a798e6af2082ecbe6e058f5917e70f4487a1298160161b0a8d38c",
+      "acquisition_url": "https://github.com/jcsato/modding_script_hooks/releases/tag/v21.1",
+      "original_files": {
+        "ui/main.html": "68f3e731ca9038fc2c21ae9f8d95cbd280aac69e8040b0cda372d7c65bf5a5ed",
+        "ui/mod_hooks.js": "46b771c2f64a7315f1641a5601c7e85f65fa38bf13ea879abeb69aa7d428d1f3",
+        "scripts/!mods_preload/!!redirect.nut": "4879f18dc75e74ec637c67750c64a91764c7f66ed9465f45fd8e719d9dc1f2ce",
+        "scripts/!mods_preload/~~finalize.nut": "e8cb22b55c46866259f8e78f149efb91a1af0e9d41e6db201dc240c9cd44f2e4",
+        "scripts/root_state.cnut": "f2e0b0fd70b497499035fa34bfc48672ab4815d49a1a31b54a862a83c5bc0640"
+      }
+    },
+    {
+      "id": "019d53b5-b9b3-5516-8f00-27eaa79bccfb",
+      "slug": "more-blood-compatible",
+      "archive": "mod_more_blood.zip",
+      "version": "0.5-bbmod.1",
+      "notes": "免费署名整理版；所有游戏文件与来源包逐字节一致，仅附加许可和来源说明。未完成实机验证。",
+      "metadata": {
+        "install_name": "mod_more_blood.zip",
+        "title": "更多血迹 · More Blood（兼容版）",
+        "summary": "增加战斗中的血液粒子与地面血迹，保留原作者兼容版脚本。",
+        "description": "采用 hackflow 编写的 Hooks 兼容版，增加血液粒子数量及血泊大小。本包仅包含该作者仓库中的脚本，不包含旧版 More Blood 的资源文件；原始概念来自 Poss。需要旧版 Modding Script Hooks 20 或以上，可能增加战斗特效开销。",
+        "category": "战斗与平衡",
+        "source_url": "https://github.com/Suor/battle-brothers-mods/tree/9f6a37a5dd9170c8f6693a6e23389bd39ee9240a/more_blood",
+        "original_author": "Alexander Schepanovski（hackflow / Suor）",
+        "license": "BSD-2-Clause；保留完整许可及署名，Nexus 作者页亦允许署名转载。",
+        "game_version": "1.5.2.3 尚待实机验证",
+        "dlc": "",
+        "mod_ids": "mod_more_blood",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "不要同时启用旧版 More Blood 或其他修改相同粒子参数的版本，以免效果叠加。作者说明可以中途增删；本站尚未验证其与汉化或其他特效 MOD 的组合。 已检查 ZIP 结构、CRC、大小和 SHA-256，未完成游戏实机验证。"
+      },
+      "inspection": {
+        "sha256": "b7f26f94a99566f6557a223e780cd0f99ed4f3b3ee2a3aec442e727ade270a3c",
+        "size": 3342,
+        "entry_count": 6,
+        "uncompressed_size": 5564,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "source_archive_sha256": "da727be98e975cba947c9134a715c850f8d278ff9935fbd0b919a9bfbaad96ed",
+      "acquisition_url": "https://www.nexusmods.com/battlebrothers/mods/756",
+      "original_files": {
+        "scripts/!mods_preload/mod_more_blood.nut": "8f03612d960e5324a533e731f1eafefe505044311c092f646f626a6516e22305"
+      }
+    }
+  ]
+}

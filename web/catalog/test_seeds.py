@@ -17,6 +17,23 @@ def payload(code='AbCdEfGhIj'):
 
 
 class SeedSharingTests(TestCase):
+    def test_desktop_import_only_exposes_public_seed_and_is_read_only(self):
+        page = self.publish().json()['page_path']
+        seed = SharedSeed.objects.get()
+        endpoint = f'/api/v1/seeds/{seed.pk}/'
+        self.assertEqual(self.client.get(endpoint).json(), payload())
+        self.assertContains(self.client.get(page), f'bbmod://seeds/{seed.pk}')
+        self.assertEqual(self.client.post(endpoint).status_code, 405)
+        seed.blocked = True
+        seed.save(update_fields=['blocked'])
+        self.assertEqual(self.client.get(endpoint).status_code, 404)
+
+    def test_first_time_download_guidance(self):
+        response = self.client.get('/downloads/')
+        self.assertContains(response, '第一次使用？按这三步来')
+        self.assertContains(response, 'screenshots/mod-manager.png')
+        self.assertContains(response, 'id="web-links"')
+
     def publish(self, value=None, **kwargs):
         return self.client.post('/api/v1/seeds/', value or payload(), content_type='application/json',
             HTTP_X_BBMOD_SEED_SHARE='1', **kwargs)

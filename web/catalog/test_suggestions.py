@@ -69,6 +69,48 @@ class DesktopSuggestionTests(TestCase):
         self.assertEqual(result['Retry-After'], '3600')
         self.assertEqual(Suggestion.objects.count(), 5)
 
+    def test_report_larger_than_description_limit_is_saved_once_and_private(self):
+        report = "the index 'Big' does not exist\n" + '游戏诊断\n' * 4000
+        self.assertEqual(self.ticket['diagnostic_report_max_length'], 60000)
+        result = self.post({**self.data, 'diagnostic_report': report})
+        self.assertEqual(result.status_code, 201)
+        self.assertEqual(Suggestion.objects.get().diagnostic_report, report.strip())
+        self.assertEqual(self.post({**self.data, 'diagnostic_report': 'retry'}).json()['reference'], result.json()['reference'])
+        self.assertEqual(Suggestion.objects.count(), 1)
+        self.assertEqual(Suggestion.objects.get().diagnostic_report, report.strip())
+        item = Suggestion.objects.get()
+        url = reverse('suggestion_report_download', args=[item.id])
+        self.assertEqual(self.client.get(url).status_code, 302)
+        author = User.objects.create_user('report-author', password='test-only-password')
+        self.client.force_login(author)
+        self.assertEqual(self.client.get(url).status_code, 302)
+        admin = User.objects.create_superuser('report-admin', password='test-only-password')
+        self.client.force_login(admin)
+        download = self.client.get(url)
+        self.assertEqual(download.status_code, 200)
+        self.assertEqual(download.content.decode(), report.strip())
+        self.assertEqual(download['Cache-Control'], 'private, no-store')
+        self.assertIn('attachment;', download['Content-Disposition'])
+
+    def test_oversize_or_wrong_type_report_is_rejected_before_saving(self):
+        self.assertEqual(self.post({**self.data, 'diagnostic_report': 'x' * 60001}).status_code, 400)
+        self.assertEqual(self.post({**self.data, 'diagnostic_report': {'unexpected': True}}).status_code, 400)
+        self.assertEqual(self.post({**self.data, 'diagnostic_report': 'x' * 300001}).status_code, 413)
+        self.assertFalse(Suggestion.objects.exists())
+
+    def test_report_filter_search_and_html_escaping(self):
+        self.post({**self.data, 'diagnostic_report': '<script>alert(1)</script>\nmod_problem_unique'})
+        item = Suggestion.objects.get()
+        Suggestion.objects.create(kind='bug', title='No report', details='no attachment')
+        self.client.force_login(User.objects.create_superuser('report-admin', password='test-only-password'))
+        listing = self.client.get('/manage/suggestions/?reports=1&q=mod_problem_unique')
+        self.assertEqual(listing.context['page'].paginator.count, 1)
+        self.assertContains(listing, '附带诊断报告')
+        detail = self.client.get(reverse('suggestion_detail', args=[item.id]))
+        self.assertContains(detail, '&lt;script&gt;alert(1)&lt;/script&gt;')
+        self.assertNotContains(detail, '<script>alert(1)</script>')
+        self.assertContains(detail, '下载 TXT')
+
 
 class SuggestionTests(TestCase):
     def form_data(self, client=None, **overrides):

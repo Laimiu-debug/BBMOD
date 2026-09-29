@@ -15,7 +15,7 @@ from django.core import signing
 from django.core.paginator import Paginator
 from django.db import OperationalError, transaction
 from django.db.models import Count, F, Q
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -38,7 +38,7 @@ class SuggestionForm(forms.ModelForm):
 
     class Meta:
         model = Suggestion
-        fields = ['kind', 'title', 'details', 'version', 'nickname', 'contact']
+        fields = ['kind', 'title', 'details', 'version', 'nickname', 'contact', 'diagnostic_report']
         widgets = {
             'title': forms.TextInput(attrs={'placeholder': '例如：希望能按 MOD 名称快速查找'}),
             'details': forms.Textarea(attrs={'rows': 7, 'placeholder': '你在什么场景遇到了问题，或希望增加什么功能？\n如果是问题反馈，请写下操作步骤、实际结果和期望结果。'}),
@@ -110,10 +110,11 @@ def api_submit(request):
             request.session['suggestion_browser'] = browser
         token = signing.dumps({'id': str(uuid.uuid4()), 'browser': browser}, salt=TOKEN_SALT)
         return reply({'submission': token, 'csrf_token': get_token(request),
+                      'diagnostic_report_max_length': 60000,
                       'kinds': list(Suggestion.Kind.choices)})
     if request.content_type != 'application/json':
         return reply({'error': '请使用 JSON 提交。'}, 415)
-    if len(request.body) > 40_000:
+    if len(request.body) > 300_000:
         return reply({'error': '填写内容过长。'}, 413)
     try:
         data = json.loads(request.body)
@@ -202,6 +203,7 @@ def management(request):
     query = Suggestion.objects.all()
     status = request.GET.get('status', '')
     kind = request.GET.get('kind', '')
+    reports = request.GET.get('reports') == '1'
     search = request.GET.get('q', '').strip()[:100]
     if status not in Suggestion.Status.values:
         status = ''
@@ -211,16 +213,29 @@ def management(request):
         query = query.filter(status=status)
     if kind:
         query = query.filter(kind=kind)
+    if reports:
+        query = query.exclude(diagnostic_report='')
     if search:
-        query = query.filter(Q(title__icontains=search) | Q(details__icontains=search) | Q(nickname__icontains=search))
+        query = query.filter(Q(title__icontains=search) | Q(details__icontains=search) | Q(nickname__icontains=search)
+                             | Q(diagnostic_report__icontains=search) | Q(version__icontains=search))
     totals = dict(Suggestion.objects.values_list('status').annotate(total=Count('pk')))
     return render(request, 'suggestion_management.html', {
         'page': Paginator(query, 20).get_page(request.GET.get('page')),
-        'status': status, 'kind': kind, 'q': search,
+        'status': status, 'kind': kind, 'q': search, 'reports': reports,
         'statuses': Suggestion.Status.choices, 'kinds': Suggestion.Kind.choices,
         'total': sum(totals.values()), 'new_count': totals.get(Suggestion.Status.NEW, 0),
         'reviewing_count': totals.get(Suggestion.Status.REVIEWING, 0),
     })
+
+
+@admin_required
+@require_GET
+def report_download(request, suggestion_id):
+    suggestion = get_object_or_404(Suggestion.objects.exclude(diagnostic_report=''), pk=suggestion_id)
+    response = HttpResponse(suggestion.diagnostic_report, content_type='text/plain; charset=utf-8')
+    response['Content-Disposition'] = f'attachment; filename="BBMOD-report-{suggestion.reference}.txt"'
+    response['Cache-Control'] = 'private, no-store'
+    return response
 
 
 @admin_required

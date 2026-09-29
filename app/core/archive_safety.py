@@ -9,11 +9,17 @@ from pathlib import PurePosixPath
 
 INSTALL_NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,94}\.zip\Z')
 ROOTS = {'scripts', 'ui', 'gfx', 'sounds', 'music', 'brushes', 'fonts'}
+# These namespaces are loaded with include()/IO.enumerateFiles() by reviewed
+# Battle Brothers MODs. Only Squirrel files are accepted outside resource roots.
+SCRIPT_ROOTS = {'modern_hooks', 'msu', 'eimo', 'swifter', 'prepare_for_battle',
+                'mod_better_obituary', 'mod_find_legendary_maps', 'vse',
+                'mod_well_trained_pets', 'mod_configurable_pause', 'mod_ws'}
 FORBIDDEN = {'.exe', '.dll', '.com', '.bat', '.cmd', '.ps1', '.vbs', '.msi', '.scr', '.lnk', '.jar', '.zip', '.rar', '.7z'}
 
 
 def valid_install_name(name):
-    return isinstance(name, str) and bool(INSTALL_NAME.fullmatch(name)) and not name.lower().startswith(('data_', 'bbmod_'))
+    return (isinstance(name, str) and bool(INSTALL_NAME.fullmatch(name))
+            and (name == 'data_fox_zhcn.zip' or not name.lower().startswith(('data_', 'bbmod_'))))
 
 
 def inspect_archive(stream, *, max_bytes=100 * 1024 * 1024):
@@ -55,6 +61,12 @@ def inspect_archive(stream, *, max_bytes=100 * 1024 * 1024):
                     raise ValueError('仅接受可直接放入 data 目录的 MOD ZIP，不接受程序、脚本安装器或套娃压缩包。')
                 if path.parts[0].lower() in ROOTS:
                     has_game_file = True
+                elif (path.parts[0].lower() in SCRIPT_ROOTS and len(path.parts) > 1
+                      and path.suffix.lower() in {'.nut', '.cnut'}):
+                    has_game_file = True
+                elif (path.parts[0].lower() == 'preload' and len(path.parts) == 2
+                      and path.suffix.lower() == '.txt'):
+                    pass
                 elif len(path.parts) != 1 or path.suffix.lower() not in {'.txt', '.md', '.json', '.png', '.jpg', '.jpeg'}:
                     raise ValueError('ZIP 需要直接包含 scripts、ui 或 gfx 等游戏目录；请移除外层文件夹。')
                 total += entry.file_size

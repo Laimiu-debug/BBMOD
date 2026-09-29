@@ -61,6 +61,8 @@ def catalog(request):
     source_kind = request.GET.get('source', '')
     if source_kind in ('hosted', 'original'):
         releases = [r for r in releases if r['source_kind'] == source_kind]
+    elif source_kind == 'direct':
+        releases = [r for r in releases if r['source_kind'] == 'original' and r['metadata'].get('official_downloads')]
     if request.GET.get('sort') == 'name':
         releases.sort(key=lambda r: r['metadata'].get('title', ''))
     return render(request, 'catalog.html', {'page': Paginator(releases, 12).get_page(request.GET.get('page')), 'count': count,
@@ -78,7 +80,7 @@ def detail(request, mod_id):
                                           'track_visit': True})
 
 
-@require_GET
+@require_safe
 def release_file(request, release_id, cover=False):
     release = get_object_or_404(Release.objects.select_related('mod', 'mod__owner'), pk=release_id)
     public = release.status == 'published' and not release.mod.blocked and release.mod.owner.is_active
@@ -87,16 +89,10 @@ def release_file(request, release_id, cover=False):
     field = release.cover if cover else release.archive
     if not field:
         raise Http404
-    try:
-        response = FileResponse(field.open('rb'), content_type='image/webp' if cover else 'application/zip',
-                                as_attachment=not cover, filename='cover.webp' if cover else release.mod.install_name)
-    except (FileNotFoundError, OSError):
-        raise Http404
-    # Delisting takes effect on the next request, even for previously public artifacts.
-    response['Cache-Control'] = 'private, no-store'
-    if not cover:
-        response['X-Checksum-SHA256'] = release.sha256
-    return response
+    from .downloads import mod_file_response
+    return mod_file_response(request, field, filename='cover.webp' if cover else release.mod.install_name,
+                             size=None if cover else release.size,
+                             sha256=None if cover else release.sha256, cover=cover)
 
 
 def _login_keys(request):

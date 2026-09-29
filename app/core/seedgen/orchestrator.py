@@ -70,6 +70,8 @@ class SeedGenOrchestrator:
     def prepare(self, cfg: SeedGenConfig) -> list[str]:
         """快照 + 净化 + 注入 payload + 写配置。返回给用户的提示列表。"""
         warnings: list[str] = []
+        if self.mm.transaction.journal.exists():
+            raise RuntimeError('请先在 MOD 军械库恢复上次未完成的操作。')
         if self.state.stage != "idle":
             raise RuntimeError(f"会话已在 {self.state.stage} 状态，请先 stop_and_restore")
         if game_mod.is_game_running():

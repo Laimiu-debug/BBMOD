@@ -1,0 +1,27 @@
+{% load static %}
+<section id="start" class="panel quickstart">
+  <p class="eyebrow">FIRST EXPEDITION</p><h2>第一次使用？按这三步来</h2>
+  <p><a class="button" href="{% url 'beginner_guide' %}">从零安装汉化与阿飞起源：图文教程和 PDF →</a></p>
+  <ol class="start-steps">
+    <li><h3>确认游戏目录</h3><p>运行 BBMOD，确认自动找到的《战场兄弟》目录；也可手动选择。当前针对 Windows 游戏版本 1.5.2.3。</p></li>
+    <li><h3>检查当前汉化</h3><p>进入「汉化管理」查看当前启用的包。已有可用汉化可直接使用，需要更换时导入新版 ZIP 并预览切换。</p></li>
+    <li><h3>安装你的第一个 MOD</h3><p>在「在线军械库」连接官网，查看前置、冲突与存档影响后安装；本地 ZIP 可在已安装页直接导入。</p></li>
+  </ol>
+  <p>禁用会保留文件，可再次启用；卸载会移除安装文件。仓库中的原始压缩包仍可用于重新安装。</p>
+  <details id="web-links"><summary>从网页打开 BBMOD</summary>
+    <p>使用 rc.26 或更新版，在软件「设置 → 官网联动」点击「启用『用 BBMOD 打开』」。之后，网页 MOD 会打开对应作品，网页种子会显示收藏预览。</p>
+    <p>浏览器询问是否打开 BBMOD 时，选择打开即可。没有弹出软件时，先启动新版并启用联动；移动 EXE 后需要重新启用。旧版仍可下载 ZIP 或复制种子码。</p>
+  </details>
+  <details><summary>常见问题：前置、旧存档与安装失败</summary>
+    <p>缺少前置时，先启用已安装的框架，或在营地诊断里点击「查找前置」。版本范围需满足作者要求，未支持的比较格式会提示人工确认。</p>
+    <p>安装失败后先阅读具体原因：压缩包损坏需重新下载，同名文件需先处理；意外中断时可在已安装页点击「恢复上次操作」。更换影响存档的 MOD 前请自行备份游戏存档。</p>
+  </details>
+</section>
+<section class="software-preview" aria-label="软件界面预览">
+  <h2>看看实际界面</h2>
+  <div class="software-shots">
+    <figure><a href="{% static 'screenshots/mod-manager.png' %}"><img src="{% static 'screenshots/mod-manager.png' %}" loading="lazy" width="1360" height="880" alt="BBMOD 已安装 MOD 列表，提供搜索、状态筛选、禁用和卸载"></a><figcaption>MOD 管理 · 启用、禁用与卸载各有明确状态</figcaption></figure>
+    <figure><a href="{% static 'screenshots/camp-overview.png' %}"><img src="{% static 'screenshots/camp-overview.png' %}" loading="lazy" width="1360" height="880" alt="BBMOD 营地总览，新手三步引导和健康诊断"></a><figcaption>营地总览 · 从游戏目录到第一次安装</figcaption></figure>
+  </div>
+  <p class="help">rc.26 界面预览；MOD 列表为演示数据。点击图片查看大图。</p>
+</section>

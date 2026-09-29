@@ -36,7 +36,9 @@ class RepoEntry:
 
     @property
     def display_name(self) -> str:
-        return self.name_cn or (self.info.registrations[0].name if self.info.registrations else self.info.primary_id)
+        return (self.info.package_name or self.name_cn
+                or (self.info.registrations[0].name if self.info.registrations else None)
+                or self.info.primary_id)
 
     @property
     def seed_sensitive(self) -> bool:
@@ -72,7 +74,7 @@ class ModStore:
     def _make_entry(self, f: Path, root: Path) -> RepoEntry:
         info = analyze_zip(f)
         meta = self._index.get(f.name, {})
-        category = meta.get("category") or self._infer_category(info, f, root)
+        category = '汉化' if info.package_id else meta.get("category") or self._infer_category(info, f, root)
         return RepoEntry(
             info=info,
             root=root,
@@ -84,8 +86,12 @@ class ModStore:
 
     @staticmethod
     def _infer_category(info: ModInfo, f: Path, root: Path) -> str:
+        if any(r.mod_id in ("mod_modern_hooks", "mod_msu", "mod_hooks") for r in info.registrations):
+            if any('汉化' in part for part in f.relative_to(root).parts):
+                return '汉化' if 'data' in f.name.lower() else '框架'
+            return '框架'
         # 依目录名推断
-        for part in f.parent.parts:
+        for part in reversed(f.relative_to(root).parent.parts):
             if "作弊" in part:
                 return "作弊"
             if "汉化" in part:

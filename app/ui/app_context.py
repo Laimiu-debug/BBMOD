@@ -13,6 +13,7 @@ from core.settings import Settings
 from .game_session import GameSession
 
 _COLLECTION_DIR = "狐狸汉化精选MOD合集"
+_ADAPTED_COLLECTION_DIR = "狐狸汉化精选MOD合集-BBMOD适配版"
 _COLLECTION_PARENT_PREFIX = "1.5.2.3游戏版本"
 
 
@@ -26,6 +27,10 @@ def _collection_candidates() -> list[Path]:
             anchors.append(p)
             p = p.parent
     for base in anchors:
+        adapted = base / _ADAPTED_COLLECTION_DIR
+        if adapted.is_dir():
+            out.append(adapted)
+            continue
         direct = base / _COLLECTION_DIR
         if direct.exists():
             out.append(direct)

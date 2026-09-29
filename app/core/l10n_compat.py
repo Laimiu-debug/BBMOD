@@ -20,8 +20,10 @@ HOOKS_FILES = (
 )
 # These screens can be translated by runtime.js without replacing game logic.
 # In particular, SR Alternative Standard owns this file and its three buttons.
+# Modern Hooks also owns the FPS module to display its version and settings.
 DISPLAY_ONLY_FILES = frozenset({
     'ui/screens/world/modules/world_town_screen/world_town_screen_hire_dialog_module.js',
+    'ui/screens/root/modules/fps_module.js',
 })
 HOOKS_CREDIT = '''Modding Script Hooks 21.1
 Author: Adam Milazzo (AdamMil01)

@@ -15,7 +15,7 @@ args = parser.parse_args()
 OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
 target = OUT / f'{PREFIX}.tar.gz'
-files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py']
+files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py', ROOT / 'app/core/profile_protocol.py']
 files += [ROOT / 'app' / name for name in ['core/paths.py', 'core/gamelog.py',
     'core/seedgen/config_emitter.py', 'core/seedgen/log_watcher.py', 'core/seedgen/presentation.py',
     'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'core/seedgen/weapons.py', 'data/seed_traits.json']]

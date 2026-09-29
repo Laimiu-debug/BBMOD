@@ -1,0 +1,9 @@
+<section class="compatibility-summary" aria-label="安装前确认">
+  <h3>安装前确认</h3>
+  <dl>
+    <dt>冲突 MOD</dt><dd>{% for id in release.metadata.conflicts %}{{ id }}{% if not forloop.last %}<br>{% endif %}{% empty %}作者未声明{% endfor %}</dd>
+    <dt>存档影响</dt><dd>{% if release.metadata.save_impact == 'yes' %}<strong>有影响，先阅读兼容说明并备份存档</strong>{% elif release.metadata.save_impact == 'no' %}作者声明无影响{% else %}尚未确认，请先查看作者说明{% endif %}</dd>
+    <dt>种子影响</dt><dd>{% if release.metadata.seed_impact == 'yes' %}影响开局生成{% elif release.metadata.seed_impact == 'no' %}作者声明无影响{% else %}尚未确认{% endif %}</dd>
+  </dl>
+  <p class="help">文件结构与完整性已检查，游戏运行兼容性以作者说明和实际验证为准。</p>
+</section>

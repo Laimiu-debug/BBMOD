@@ -17,6 +17,18 @@ class CommunityCatalogueTests(TestCase):
     setUp = quick_tests.QuickPublishTests.setUp
     upload = quick_tests.QuickPublishTests.upload
 
+    def test_hosted_collection_reuses_source_entry_and_keeps_original_url(self):
+        source = 'https://www.nexusmods.com/battlebrothers/mods/542'
+        self.upload(title='游戏加速 Swifter 收藏版', original_author='Enduriel', source_url=source)
+        release = Release.objects.get()
+        public = Client()
+        self.assertEqual(public.get('/', {'q':'Swifter'}).context['page'].paginator.count, 1)
+        self.assertRedirects(public.get('/mods/community/swifter/'), reverse('detail', args=[release.mod_id]))
+        self.assertContains(public.get(reverse('detail', args=[release.mod_id])), source)
+        release.status = 'withdrawn'
+        release.save(update_fields=['status'])
+        self.assertEqual(public.get('/mods/community/swifter/').status_code, 200)
+
     def test_original_creator_and_uploader_are_distinct_in_public_snapshot(self):
         response = self.upload(original_author='Original Creator', source_url='https://example.org/original-mod', license='Allowed with credit')
         self.assertEqual(response.status_code, 302)
@@ -46,7 +58,7 @@ class CommunityCatalogueTests(TestCase):
         hosted = public.get('/', {'source':'hosted'})
         self.assertEqual(hosted.context['page'].paginator.count, 1)
         external = public.get('/', {'source':'original', 'category':'框架'})
-        self.assertEqual(external.context['page'].paginator.count, 3)
+        self.assertEqual(external.context['page'].paginator.count, 2)
         first = public.get('/', {'source':'original'})
         second = public.get('/', {'source':'original','page':2})
         self.assertTrue(first.context['page'].has_next())
@@ -86,18 +98,35 @@ class CommunityCatalogueTests(TestCase):
             self.assertEqual(Client().get('/', {'q':'职业属性范围'}).context['page'].paginator.count, 0)
 
     def test_framework_ids_have_plain_language_links(self):
-        self.upload(requires='mod_msu\nmod_modern_hooks\nmod_unknown')
+        self.upload(requires='mod_msu\nmod_modern_hooks\nmod_hooks\nmod_unknown')
         release = Release.objects.get()
         page = Client().get(reverse('detail', args=[release.mod_id]))
         self.assertContains(page, 'MOD 设置库 · MSU')
         self.assertContains(page, reverse('community_detail', args=['modern-hooks']))
+        self.assertContains(page, reverse('detail', args=['ce170bce-dd19-51c8-a637-d73dad0423c7']))
         self.assertContains(page, 'mod_unknown')
+
+    def test_author_downloads_filter_preserves_search_and_excludes_desktop_api(self):
+        self.upload(title='Local MOD')
+        public = Client()
+        page = public.get('/', {'source': 'direct'})
+        self.assertEqual(page.context['page'].paginator.count, 16)
+        self.assertContains(page, '作者文件下载')
+        self.assertNotContains(page, 'Local MOD')
+        self.assertContains(page, 'source=direct')
+        search = public.get('/', {'source': 'direct', 'q': 'Tooltip Toggle'})
+        self.assertEqual(search.context['page'].paginator.count, 1)
+        self.assertContains(search, '提示信息开关')
+        detail = public.get(reverse('community_detail', args=['tooltip-toggle']))
+        self.assertContains(detail, 'https://github.com/jcsato/sato_tooltip_toggle/releases/download/v0.1/sato_tooltip_toggle_0.1.zip')
+        self.assertContains(detail, '暂不支持通过 BBMOD 桌面工具导入')
+        self.assertEqual(len(public.get('/api/v1/catalog/').json()['mods']), 1)
 
     def test_curated_introductions_have_sources_and_no_private_environment_claims(self):
         rows = community_data()['mods']
-        self.assertEqual(len(rows), 24)
+        self.assertEqual(len(rows), 37)
         self.assertEqual(len({r['slug'] for r in rows}), len(rows))
-        self.assertEqual(sum(bool(r.get('published_mod_id')) for r in rows), 3)
+        self.assertEqual(sum(bool(r.get('published_mod_id')) for r in rows), 4)
         for row in rows:
             self.assertTrue(row['author'])
             self.assertIn(row['category'], dict(CATEGORIES))
@@ -110,3 +139,24 @@ class CommunityCatalogueTests(TestCase):
         for row in audit['entries']:
             for digest in row['sha256']:
                 self.assertRegex(digest, r'^[0-9a-f]{64}$')
+
+    def test_requested_mods_keep_download_pages_distinct_from_files(self):
+        public = Client()
+        for slug in ('extra-keybinds', 'detailed-status-effects'):
+            row = next(r for r in community_data()['mods'] if r['slug'] == slug)
+            response = public.get(reverse('community_detail', args=[slug]))
+            self.assertContains(response, row['source_files_url'])
+            self.assertContains(response, '前往作者下载页')
+            self.assertNotContains(response, '作者原包由 GitHub 提供')
+            filtered = public.get('/', {'source': 'direct', 'q': row['english_name']})
+            self.assertEqual(filtered.context['page'].paginator.count, 0)
+        legends = public.get(reverse('community_detail', args=['legends']))
+        self.assertContains(legends, '/19.4.22/mod_legends-19.4.22.zip')
+        self.assertContains(legends, '/19.4.3/mod_legends-assets-19.4.3.zip')
+        self.assertContains(legends, '两包都需要')
+        self.assertContains(legends, 'Installation-Guide')
+        maxi = public.get(reverse('community_detail', args=['maxiqe-tooltips']))
+        self.assertContains(maxi, 'nested-tooltips/releases')
+        self.assertContains(maxi, '/536?tab=files')
+        self.assertContains(maxi, '安装方法')
+        self.assertEqual(public.get('/api/v1/catalog/').json()['mods'], [])

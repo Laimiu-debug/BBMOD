@@ -51,6 +51,10 @@ def main() -> int:
     if retired:
         raise RuntimeError('新版不得携带旧注入组件：' + '、'.join(retired))
     python_archive = archive.open_embedded_archive(next(name for name in archive.toc if name.startswith('PYZ')))
+    for module in ('core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
+                   'core.support_report', 'core.l10n_identity', 'ui.feedback_page', 'ui.support_dialog'):
+        if module not in python_archive.toc:
+            raise RuntimeError('EXE 缺少共享方案组件：' + module)
     if 'core.native_font' in python_archive.toc:
         raise RuntimeError('新版不得携带旧注入启动代码')
     if 'core.l10n_display' not in python_archive.toc:
@@ -139,6 +143,10 @@ def main() -> int:
             raise RuntimeError('EXE 未加载常驻种子码复制入口')
         if result.returncode == 0 and b'updater=ready' not in result.stdout:
             raise RuntimeError('EXE 未加载版本管理与更新组件')
+        if result.returncode == 0 and b'profile_sharing: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载共享方案界面或网页方案联动')
+        if result.returncode == 0 and b'update_notice: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载新版更新提示条')
         report = {
             "executable": str(executable),
             "sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
@@ -171,6 +179,9 @@ def main() -> int:
             "seed_weapon_choices": 50,
             "seed_port_filters_ready": b'seed_ports=ready' in result.stdout,
             "updater_ready": b'updater=ready' in result.stdout,
+            "update_notice_ready": b'update_notice: ready' in result.stdout,
+            "crash_reports_ready": b'crash_reports: ready' in result.stdout,
+            "profile_sharing_ready": b'profile_sharing: ready' in result.stdout,
         }
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

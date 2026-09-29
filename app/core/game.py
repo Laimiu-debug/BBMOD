@@ -297,14 +297,21 @@ def find_log_write_path() -> Path | None:
 
 def is_game_running() -> bool:
     try:
-        out = subprocess.run(
-            ["tasklist", "/FI", f"IMAGENAME eq {EXE_NAME}", "/FO", "CSV", "/NH"],
-            capture_output=True, text=True, timeout=10,
-            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-        ).stdout
-    except (OSError, subprocess.TimeoutExpired):
+        return probe_game_running()
+    except (OSError, subprocess.TimeoutExpired, RuntimeError):
         return False
-    return EXE_NAME.lower() in out.lower()
+
+
+def probe_game_running() -> bool:
+    """A failed process query must not be interpreted as a game exit."""
+    result = subprocess.run(
+        ["tasklist", "/FI", f"IMAGENAME eq {EXE_NAME}", "/FO", "CSV", "/NH"],
+        capture_output=True, text=True, errors='replace', timeout=10,
+        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+    )
+    if result.returncode:
+        raise RuntimeError('游戏进程查询失败，请稍后重试。')
+    return EXE_NAME.lower() in result.stdout.lower()
 
 
 def launch_executable(game: GameInfo) -> dict:

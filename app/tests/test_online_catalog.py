@@ -109,11 +109,15 @@ def test_catalog_host_and_filename_validation(tmp_path):
 
 def test_download_hash_and_cancellation(tmp_path):
     archive, item = package(tmp_path)
-    with patch('core.online_catalog._request', return_value=io.BytesIO(archive.read_bytes())):
+    def response(data):
+        stream = io.BytesIO(data)
+        stream.status, stream.headers = 200, {}
+        return stream
+    with patch('core.downloads._request', return_value=response(archive.read_bytes())):
         result = download_release('http://localhost:8765', item, tmp_path / 'cache')
     assert result.read_bytes() == archive.read_bytes()
     result.unlink()
     for data, cancel in [(b'tampered', False), (archive.read_bytes(), True)]:
-        with patch('core.online_catalog._request', return_value=io.BytesIO(data)):
+        with patch('core.downloads._request', return_value=response(data)), patch('core.downloads._pause'):
             with pytest.raises(ValueError): download_release('http://localhost:8765', item, tmp_path / 'cache', cancelled=lambda: cancel)
         assert not list((tmp_path / 'cache').iterdir())

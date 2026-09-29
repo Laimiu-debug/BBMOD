@@ -134,6 +134,8 @@ class LocalizationProfiles:
         return result
 
     def _ensure_idle(self, *, changing: bool = False) -> None:
+        if (self.root / 'bbmod_disabled/operations/pending.json').exists():
+            raise RuntimeError('请先在 MOD 军械库恢复上次未完成的操作。')
         if game_mod.is_game_running():
             raise RuntimeError('游戏正在运行，无需再次启动；切换汉化请先退出游戏。')
         if (self.root / 'bbmod_seedgen_session/session.json').exists():

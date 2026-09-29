@@ -1,0 +1,282 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}BBMOD 新手使用说明 · 阿飞起源 v0.27.4{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'beginner-guide-0274.css' %}">{% endblock %}
+{% block content %}<article class="beginner-guide" id="guide-top">
+<div class="guide-actions"><a class="button primary" href="{% static 'guides/0274/bbmod-beginner-guide-v0.27.4.pdf' %}" download>下载 PDF，离线照着操作</a><a class="button" href="{% url 'downloads' %}">下载 BBMOD 管理器</a><span class="guide-version">2026-09-29 更新 · rc.33 / MOD v0.27.4</span></div>
+<h1 id="guide-section-1">BBMOD 新手使用说明：从零玩上阿飞起源</h1>
+<p>不会装 MOD，也可以按顺序操作。本文会带你完成：<strong>安装正版游戏 → 打开 BBMOD → 停用旧 MOD → 换成 BBMOD 汉化 → 安装阿飞起源 → 新建战役。</strong></p>
+<p>本文按 <strong>2026 年 9 月 29 日</strong> 核对的版本编写：<strong>BBMOD 0.3.0-rc.33、阿飞远征团 0.27.4、BBMOD 独立汉化 0.3.0-rc.9</strong>。它们是三个不同的文件，版本号不需要相同。“阿飞起源”在软件和游戏里叫 <strong>「阿飞远征团」</strong>。</p>
+<blockquote>
+<p>第一次按本教程安装，最终只启用两个 MOD：<code>mod_bbmod_zhcn.zip</code> 和 <code>mod_afeix_expedition.zip</code>。先用这套组合开局，其他辅助 MOD 以后再逐个核对、添加。</p>
+</blockquote>
+<nav class="guide-toc" aria-label="使用说明目录"><h2>按顺序开始，或跳到遇到的问题</h2><div class="guide-toc-links"><a href="#guide-section-2">先看这里：没有 DLC 能不能用？</a><a href="#guide-section-3">第一步：安装正版《战场兄弟》</a><a href="#guide-section-4">第二步：下载并打开 BBMOD rc.33</a><a href="#guide-section-5">第三步：选对游戏文件夹</a><a href="#guide-section-6">第四步：停用已有的狐狸汉化和其他 MOD</a><a href="#guide-section-7">第五步：安装 BBMOD 独立汉化，替换狐狸汉化</a><a href="#guide-section-10">第六步：安装阿飞起源 v0.27.4</a><a href="#guide-section-11">第七步：检查组合，再保存下来</a><a href="#guide-section-12">第八步：启动游戏，新建「阿飞远征团」战役</a><a href="#guide-section-14">以后每次玩和更新，怎么操作？</a><a href="#guide-section-17">常见问题：卡在哪一步，就看哪一条</a><a href="#guide-section-29">出问题时，怎么把情况告诉作者？</a><a href="#guide-section-32">本教程检查到了什么？</a></div></nav><h2 id="guide-section-2">先看这里：没有 DLC 能不能用？</h2>
+<p><strong>BBMOD 管理器本身不要求买齐 DLC；但阿飞起源 v0.27.4 的目标环境是《战场兄弟》1.5.2.3 加官方 DLC，不能把“只有本体”当成已经验证可玩的环境。</strong> DLC 就是官方扩展内容，BBMOD 不会替游戏补装这些内容。</p>
+<p>阿飞起源目前公布的目标环境包含下面五项 DLC。只有 Steam 本体的玩家可以使用 BBMOD，但阿飞起源在无 DLC 环境下的开局、战斗和存读档尚未完成兼容测试。</p>
+<div class="guide-table"><table>
+<thead>
+<tr>
+<th>DLC 英文名</th>
+<th>方便辨认的中文称呼</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lindwurm</td>
+<td>林德蠕龙</td>
+</tr>
+<tr>
+<td>Beasts &amp; Exploration</td>
+<td>野兽与探索</td>
+</tr>
+<tr>
+<td>Warriors of the North</td>
+<td>北方勇士</td>
+</tr>
+<tr>
+<td>Blazing Deserts</td>
+<td>炽热沙漠</td>
+</tr>
+<tr>
+<td>Of Flesh and Faith</td>
+<td>血肉与信仰</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>已有 Steam 游戏的朋友</strong>：在 Steam 库里右键 Battle Brothers →「属性」→「DLC」，确认对应内容已安装；之后从第二步开始。需要核对游戏和 DLC，可查看 <a href="https://store.steampowered.com/app/365360/Battle_Brothers/">Steam 商店页</a>和 <a href="https://bbmod.site/mods/d64a00f6-1d60-4d8d-8d9b-de055fc0b748/">阿飞远征团作品页</a>。</p>
+<h2 id="guide-section-3">第一步：安装正版《战场兄弟》</h2>
+<p>本教程以 Windows 上的 Steam 正版为例。已经装好游戏的朋友，可以直接从第二步开始。</p>
+<ol>
+<li>打开 Steam，登录自己的账号。还没有 Steam，可从 <strong><a href="https://store.steampowered.com/about/">Steam 官网</a></strong> 下载安装。</li>
+<li>在 <strong><a href="https://store.steampowered.com/app/365360/Battle_Brothers/">《战场兄弟》商店页</a></strong> 找到 <strong>Battle Brothers</strong>；尚未拥有游戏时，通过商店购买。</li>
+<li>在 Steam 的「库」里找到 Battle Brothers，点击 <strong>「安装」</strong>，选择安装位置，等待下载完成。</li>
+<li>在库中右键游戏 →「属性」→「DLC」，查看已经拥有和安装的扩展内容。没有 DLC 的兼容说明见上一节。</li>
+<li>先从 Steam 启动一次游戏，确认能进入主菜单，再完全退出。</li>
+<li>在库中右键游戏 → <strong>「管理」→「浏览本地文件」</strong>，打开安装文件夹。这一层应能同时看到 <strong><code>data</code></strong> 和 <strong><code>win32</code></strong>。</li>
+</ol>
+<p>应该找到这样的结构：</p>
+<pre><code class="language-text">Battle Brothers              ← 这是要交给 BBMOD 的游戏文件夹
+├─ data
+│  ├─ data_001.dat            ← 游戏原有文件，保留
+│  ├─ data_003.dat 等         ← DLC 等游戏档案，保留
+│  └─ 各种 MOD 的 .zip 文件  ← 稍后由 BBMOD 管理
+└─ win32
+   └─ BattleBrothers.exe      ← 游戏程序
+</code></pre>
+<p><strong>后面下载的 MOD ZIP 保持原样，不用解压。</strong> 游戏 <code>data</code> 里的 <code>.dat</code> 是本体和 DLC 等原有档案，也不用解压或删除。</p>
+<p>旧玩家请先备份重要存档，方法见后面的常见问题。</p>
+<p><strong>这一步完成的标志：在普通文件夹窗口中，能看到同一层的 <code>data</code> 和 <code>win32</code>。</strong></p>
+<h2 id="guide-section-4">第二步：下载并打开 BBMOD rc.33</h2>
+<ol>
+<li>打开 <strong><a href="https://bbmod.site/downloads/">BBMOD 官方下载页</a></strong>。</li>
+<li>下载推荐的 Windows 程序 <strong><code>BBMOD-0.3.0-rc.33.exe</code></strong>。后续发布新版时，以官网推荐版本为准。</li>
+<li>把下载好的程序放到准备长期保留的位置，例如桌面的「BBMOD」文件夹。</li>
+<li>用鼠标左键连续点两下这个 <code>.exe</code> 文件，打开软件。</li>
+</ol>
+<p>看到 <strong>「BBMOD · 战团整备所」</strong> 窗口、左侧有「营地总览」「MOD 军械库」「汉化管理」等入口，就说明打开成功了。</p>
+<p>已有 BBMOD 的朋友，可以从右上角 <strong>「版本与更新」</strong> 检查更新，按提示下载、重启并更新。更新管理器后，仍要继续安装汉化和主 MOD；软件更新不会自动更新阿飞起源。</p>
+<h2 id="guide-section-5">第三步：选对游戏文件夹</h2>
+<p><strong>先把《战场兄弟》完全退出。</strong> 更换 MOD 时游戏不能开着。</p>
+<ol>
+<li>在文件夹窗口中打开第一步找到的游戏文件夹，确认能同时看见 <code>data</code> 和 <code>win32</code>。</li>
+<li>点击窗口上方的地址栏，按 <strong>Ctrl + C</strong> 复制地址。</li>
+<li>回到 BBMOD，点击上方 <strong>「更换目录」</strong>。</li>
+<li>在弹出的窗口里点击地址栏，按 <strong>Ctrl + V</strong> 粘贴地址，再按 <strong>Enter（回车）</strong>。</li>
+<li>点击 <strong>「选择文件夹」</strong>。选的是 <code>Battle Brothers</code> 这一层，不要再点进 <code>data</code> 或 <code>win32</code>。</li>
+<li>看 BBMOD 上方的 <strong>「游戏目录」</strong>，确认它指向 Steam「浏览本地文件」打开的那一份游戏。</li>
+</ol>
+<p><strong>Steam 玩家找目录的方法</strong>：Steam「库」→ 右键 Battle Brothers →「管理」→「浏览本地文件」。用打开的这份文件夹完成上面的步骤。</p>
+<p><img src="/static/guides/0274/bbmod-guide-camp.png" alt="BBMOD rc.33 营地总览：上方的更换目录按钮用于选择游戏位置。" loading="lazy" width="1360" height="880" /></p>
+<p><em>图 1：BBMOD rc.33 界面，展示尚未选择游戏目录的状态。</em></p>
+<p>电脑里有多份游戏时，要从头到尾使用同一份。安装 MOD 的目录与实际启动游戏的目录必须一致，才能看到安装效果。</p>
+<p><strong>这一步完成的标志：上方显示正确的游戏地址。</strong> 在「营地总览 → 显示目录与技术详情」还能查看游戏版本和 DLC 识别情况。</p>
+<h2 id="guide-section-6">第四步：停用已有的狐狸汉化和其他 MOD</h2>
+<p><strong>刚从 Steam 安装、还没有装过 MOD 的朋友，直接进入第五步。</strong> 如果已有狐狸汉化、加速、显星、敌人属性等 MOD，首次切换时先一起停用。它们可能互相依赖，只换掉狐狸汉化容易留下缺少前置的组件。</p>
+<ol>
+<li>点击左侧 <strong>「MOD 军械库」</strong>，再点 <strong>「已安装（启用 / 禁用）」</strong>。</li>
+<li>先点击 <strong>「保存为方案」</strong>，输入「我原来的组合」，保存一份组合记录。它便于恢复选择，但不能代替 MOD 文件和存档备份。</li>
+<li>清空列表上方的搜索框，右侧筛选选择 <strong>「全部状态」</strong>。</li>
+<li>鼠标点击列表中的任意一行，再按 <strong>Ctrl + A</strong>。这表示“全选”，应看到所有行都被选中；鼠标要先点列表，不能停在搜索框里。</li>
+<li>点击列表上方的 <strong>「禁用」</strong>。</li>
+<li>确认统计中的 <strong>「启用」为 0</strong>，各行状态变成 <strong>「已禁用」</strong>。图中示例原有 13 个 MOD，操作后是「共 13 个：启用 0 · 禁用 13」。</li>
+</ol>
+<p><img src="/static/guides/0274/bbmod-guide-disable-bundle.png" alt="示例：选中已有的 13 个旧 MOD，点击上方禁用。" loading="lazy" width="1360" height="880" /></p>
+<p><em>图 2：已有狐狸汉化及辅助 MOD 的全选示例。你的文件数量和游戏地址可能不同。</em></p>
+<p><strong>「禁用」会保留文件，以后还能恢复。</strong> 此处使用禁用即可；游戏本体和 DLC 的 <code>.dat</code> 文件不用动。原来的加速、显星等辅助功能会随旧 MOD 一起暂停。</p>
+<p>你电脑上的 MOD 数量可能不是 13。首次按本教程建立开局组合时，先停用自己的额外 MOD，完成基础组合后再逐个核对、添加。</p>
+<p>已经完成本教程、正在日常游玩的朋友，不用每次重复全选禁用。</p>
+<h2 id="guide-section-7">第五步：安装 BBMOD 独立汉化，替换狐狸汉化</h2>
+<h3 id="guide-section-8">先下载汉化 ZIP</h3>
+<ol>
+<li>打开 <strong><a href="https://bbmod.site/mods/22c174ed-fc9d-4dbb-9642-44831ce694e8/">BBMOD 独立汉化作品页</a></strong>。</li>
+<li>下载页面上的 <strong>0.3.0-rc.9</strong> 汉化包，得到 <strong><code>mod_bbmod_zhcn.zip</code></strong>。</li>
+<li>记住文件保存的位置；找不到就用浏览器 <strong>Ctrl + J</strong> 查看。</li>
+</ol>
+<p>这份 ZIP 保持原样，<strong>不用解压</strong>。它和第二步的 BBMOD <code>.exe</code> 程序是两个文件。</p>
+<h3 id="guide-section-9">在 BBMOD 里导入并应用</h3>
+<ol>
+<li>点击左侧 <strong>「汉化管理」</strong>，停留在 <strong>「当前汉化与切换」</strong>。</li>
+<li>点击 <strong>「添加方案 / 制作汉化（高级）」</strong>，展开后点击 <strong>「导入汉化包」</strong>。</li>
+<li>找到刚下载的 <code>mod_bbmod_zhcn.zip</code>，选中并打开。</li>
+<li>出现 <strong>「保存汉化方案」</strong> 时，把名称填为 <strong>「BBMOD 独立汉化 rc.9」</strong>，点击确定。</li>
+<li>等导入结束，在 <strong>「切换方案（可选）」</strong> 中确认选中的是刚保存的 <strong>「BBMOD 独立汉化 rc.9」</strong>，查看下方将安装的文件。</li>
+<li>点击右下方 <strong>「应用方案」</strong>，等提示 <strong>「汉化方案已应用」</strong>。这一阶段先完成汉化安装，下一步再装阿飞起源。</li>
+</ol>
+<p><img src="/static/guides/0274/bbmod-guide-localization.png" alt="汉化管理中已导入 BBMOD 独立汉化 rc.9，下方预览安装 mod_bbmod_zhcn.zip，右下角点击应用方案。" loading="lazy" width="1360" height="880" /></p>
+<p><em>图 3：导入后的预览状态。名字由你填写；按上面的名称填写就容易认。</em></p>
+<p>虽然入口上写着“高级”，这次只用里面的 <strong>「导入汉化包」</strong>。现成包已经做好了，无需进入译文编辑，也无需重新制作。</p>
+<p><strong>这一步完成的标志：<code>mod_bbmod_zhcn.zip</code> 已启用，狐狸汉化仍是已禁用。</strong> rc.9 汉化包自带阿飞起源需要的 Legacy Hooks 21.1，不必为了 Hooks 重新启用狐狸汉化，也不必另装一份重复的 Hooks。</p>
+<h2 id="guide-section-10">第六步：安装阿飞起源 v0.27.4</h2>
+<ol>
+<li>点击左侧 <strong>「MOD 军械库」</strong>。</li>
+<li>点击页面上方 <strong>「在线军械库」</strong>。</li>
+<li>点击 <strong>「连接 / 刷新」</strong>，等待列表加载。</li>
+<li>在搜索框输入 <strong>「阿飞」</strong>。</li>
+<li>点击作品 <strong>「阿飞远征团」</strong>，确认版本一栏是 <strong><code>0.27.4</code></strong>。</li>
+<li>点击下方 <strong>「下载并安装所选版本」</strong>，在确认窗口中确认安装。</li>
+<li>等待下载、校验、安装结束，看到 <strong>「已安装 阿飞远征团 v0.27.4」</strong> 再继续。</li>
+</ol>
+<p><img src="/static/guides/0274/bbmod-guide-install-afei.png" alt="在线军械库中搜索阿飞，选中阿飞远征团 0.27.4，再点击下载并安装所选版本。" loading="lazy" width="1360" height="880" /></p>
+<p><em>图 4：作品和版本信息取自 2026 年 9 月 29 日官网目录。</em></p>
+<p>作品信息也可以在 <strong><a href="https://bbmod.site/mods/d64a00f6-1d60-4d8d-8d9b-de055fc0b748/">阿飞远征团作品页</a></strong> 查看。</p>
+<h2 id="guide-section-11">第七步：检查组合，再保存下来</h2>
+<p>回到 <strong>「MOD 军械库 → 已安装（启用 / 禁用）」</strong>，点刷新，清空搜索框，核对：</p>
+<div class="guide-table"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>应有状态</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mod_bbmod_zhcn.zip</code></td>
+<td>已启用</td>
+<td>BBMOD 汉化，含 Legacy Hooks</td>
+</tr>
+<tr>
+<td><code>mod_afeix_expedition.zip</code></td>
+<td>已启用</td>
+<td>阿飞远征团 v0.27.4</td>
+</tr>
+<tr>
+<td>原来安装的其他 MOD（如有）</td>
+<td>已禁用</td>
+<td>原文件保留</td>
+</tr>
+</tbody>
+</table></div>
+<p>从未安装过 MOD 的游戏，统计应为 <strong>「共 2 个：启用 2 · 禁用 0」</strong>。如果原有 13 个 MOD，统计则为 <strong>「共 15 个：启用 2 · 禁用 13」</strong>。重点是只启用上面两个新包。</p>
+<ol>
+<li>点击左侧 <strong>「营地总览」</strong>，点击 <strong>「重新检测」</strong>。</li>
+<li>如果出现缺少前置、两套汉化同时启用等错误，先按后面的常见问题处理。</li>
+<li>「影响种子／地图生成」属于用途提示，并不表示安装失败；第一次玩可以先不用刷种子功能。</li>
+<li>点击 <strong>「方案管理 → 本地方案 → 保存当前组合」</strong>，起名为 <strong>「阿飞起源 v0.27.4 + BBMOD 汉化」</strong>。</li>
+</ol>
+<p>本教程的这套两 MOD 组合已经通过离线安装及静态冲突检查。<strong>这不能代替游戏内实测，也不表示游戏一定不会闪退。</strong> 后面的报告功能能帮助定位实际游玩中遇到的问题。</p>
+<h2 id="guide-section-12">第八步：启动游戏，新建「阿飞远征团」战役</h2>
+<ol>
+<li>点击 BBMOD 上方 <strong>「启动游戏」</strong>，等待游戏打开。</li>
+<li>在主菜单点击 <strong>「新建战役」</strong>，英文界面对应 <strong>New Campaign</strong>。</li>
+<li>在起源列表里找到 <strong>「阿飞远征团」</strong> 并选中，列表较长时向下滚动查找。</li>
+<li>填写战团名称、选择难度并开始。初次体验可以选择较低难度，保留手动存档。</li>
+<li>成功开局后，可看到阿飞、王大谋和午夜抹抹茶三位初始伙伴。</li>
+<li>到世界地图后按 <strong>F8</strong> 打开 <strong>「黑旗名册」</strong>。部分笔记本需要按 <strong>Fn + F8</strong>。</li>
+</ol>
+<p><strong>安装或更新到 v0.27.4 后，请新开战役。</strong> 不承诺旧版本存档迁移；读原版存档也不会把原来的起源变成阿飞起源。先备份旧存档和旧 MOD，保留原版本组合供旧档使用。</p>
+<h3 id="guide-section-13">启动时，提示「当前目录不是 Steam 注册的游戏目录」</h3>
+<p>这通常说明 BBMOD 选中的文件夹与 Steam 登记的安装位置不同，rc.33 的启动目录保护因此拦截了启动。</p>
+<p>回到 Steam「库」，右键 Battle Brothers →「管理」→「浏览本地文件」，再按第三步选择这个目录。核对这份游戏的 MOD 启用状态，完成安装后再启动。</p>
+<p>电脑上有多个安装目录时，旧快捷方式可能仍指向另一份游戏。使用 Steam 的「浏览本地文件」核对实际位置。</p>
+<h2 id="guide-section-14">以后每次玩和更新，怎么操作？</h2>
+<h3 id="guide-section-15">日常游玩</h3>
+<p>打开 BBMOD，确认游戏目录，点击 <strong>「启动游戏」</strong>，进入游戏后读取在当前 MOD 版本下建立的阿飞存档即可。也可以从 Steam 启动这份已经装好 MOD 的游戏。</p>
+<p><strong>不用每次重装汉化、重新下载 MOD 或应用方案。</strong> 想用 rc.33 的闪退日志收集功能时，从 BBMOD 启动游戏，并让 BBMOD 在游玩期间保持打开；装备鉴定小窗口也需要 BBMOD 保持运行。</p>
+<h3 id="guide-section-16">更新时分清三个版本</h3>
+<div class="guide-table"><table>
+<thead>
+<tr>
+<th>想更新什么</th>
+<th>去哪里操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BBMOD 管理器，本教程为 rc.33</td>
+<td>「版本与更新」，或官网下载新版 <code>.exe</code></td>
+</tr>
+<tr>
+<td>阿飞起源，本教程为 v0.27.4</td>
+<td>「MOD 军械库 → 在线军械库」，刷新、选中作品、下载并安装新版</td>
+</tr>
+<tr>
+<td>BBMOD 独立汉化，本教程为 rc.9</td>
+<td>汉化作品页下载新版 ZIP，再按第五步导入并应用</td>
+</tr>
+</tbody>
+</table></div>
+<p>更新前先退出游戏、备份重要存档，阅读作者的版本说明。更新完成后，检查启用状态，并重新保存当前组合。<strong>更新阿飞主 MOD 后要新建战役；同一版本内正常保存、读取不受影响。</strong></p>
+<p>更新 MOD 时，以作品页公布的版本和兼容说明为准。</p>
+<h2 id="guide-section-17">常见问题：卡在哪一步，就看哪一条</h2>
+<h3 id="guide-section-18">已经买了本体，但没有 DLC</h3>
+<p>可以用 BBMOD 管理本体游戏。阿飞 v0.27.4 的目标环境包含官方 DLC，纯本体环境的开局、战斗和存读档尚未完成兼容测试，因此目前不能保证正常游玩。</p>
+<h3 id="guide-section-19">BBMOD 提示「无效目录」</h3>
+<p>通过 Steam「库 → 管理 → 浏览本地文件」找到游戏。选择同时装着 <code>data</code> 和 <code>win32</code> 的文件夹，不能选压缩包、桌面快捷方式、BBMOD 所在文件夹，或内层 <code>data</code> 文件夹。</p>
+<h3 id="guide-section-20">MOD 数量和截图不同，正常吗？</h3>
+<p>正常。截图用原有 13 个 MOD 的情况演示，刚安装的 Steam 游戏可能一个 MOD 都没有。先清空搜索框，筛选改为「全部状态」，点击刷新，确认两个新包安装成功并已启用。</p>
+<p>判断重点是本教程这两个包启用、其他自装 MOD 暂时禁用，不需要凑到截图中的数量。</p>
+<h3 id="guide-section-21">提示狐狸汉化冲突，或缺少 MSU</h3>
+<p>请回到第四步，检查原有 MOD 是否全部禁用。若装过以下文件，特别留意它们的状态：</p>
+<ul>
+<li><code>data狐狸汉化+hooks 20260624.zip</code></li>
+<li><code>mod_nested_tooltips-0.5.3-1.zip</code></li>
+<li><code>mod_tooltips-敌人属性显示-1.2.zip</code></li>
+<li><code>狐狸汉化专用_cn_显星不带评价.zip</code></li>
+</ul>
+<p><strong>不要只关闭狐狸汉化，再把其他旧组件全部留下。</strong> 切换汉化时，部分带“汉化／中文”字样的组件也可能被停用；剩下的提示类 MOD 就可能缺 MSU。首次开局先使用第七步的两 MOD 组合。</p>
+<h3 id="guide-section-22">汉化下拉框显示「BBMOD 独立汉化（尚未制作）」</h3>
+<p>那是软件内置的制作入口。按第五步导入下载好的 ZIP 后，请选择你自己保存的 <strong>「BBMOD 独立汉化 rc.9」</strong>，再点应用方案，无需为了消除“尚未制作”去重新生成。</p>
+<h3 id="guide-section-23">游戏仍是英文、中文乱码，或没有「阿飞远征团」</h3>
+<p>依次检查：</p>
+<ol>
+<li>游戏是否完全退出后重新启动。</li>
+<li>两个新包是否都已启用，狐狸汉化是否仍已禁用。</li>
+<li>实际启动的游戏是否就是 BBMOD 上方选中的那一份。</li>
+<li>是否从「新建战役」查找起源，而不是读原版存档。</li>
+<li>「营地总览 → 重新检测」是否出现错误。</li>
+</ol>
+<p>需要调整 BBMOD 字体设置时，按设置页的「应用字体」操作；仍然异常就提交报告，保留具体错误和出现问题的界面信息。</p>
+<h3 id="guide-section-24">在线军械库没有 v0.27.4，或者下载失败</h3>
+<p>先点「连接 / 刷新」。确认浏览器能打开 <a href="https://bbmod.site/">BBMOD 官网</a>，软件使用的来源是 <code>https://bbmod.site</code>。若以前改过来源，可展开「自定义源（高级）」检查。</p>
+<p>下载失败先保留错误文字再重试；只有显示安装成功，才算完成。</p>
+<h3 id="guide-section-25">按钮灰色，或提示需要恢复上次操作</h3>
+<p>先确认已选择游戏目录、选中了要操作的那一行，并且游戏已退出。等待当前下载或安装结束；开着「种子远征」时先按页面提示停止并恢复。</p>
+<p>如出现待恢复操作，在「MOD 军械库 → 已安装（启用 / 禁用）」点击出现的 <strong>「恢复上次操作」</strong>，按提示完成后再继续。</p>
+<h3 id="guide-section-26">提示同名文件不能覆盖</h3>
+<p>先取消，不要通过随意改名让同一个主 MOD 留下两份。若出现这个提示，往往是之前已经装过别的版本或共享方案。</p>
+<p>先备份旧 MOD 文件和存档，保留提示文字，通过错误报告说明旧版本及安装来源，再处理更新。</p>
+<h3 id="guide-section-27">以前的阿飞存档能继续玩吗？</h3>
+<p><strong>升级到 v0.27.4 后请新开战役，不承诺旧版本存档迁移。</strong> 人物、招募、技能和事件均按新建战役验收。同一版本中建立的战役仍支持正常保存和读取。想继续旧存档，请保留原来匹配的 MOD 版本与组合。更新前先备份，并查看 <a href="https://bbmod.site/mods/d64a00f6-1d60-4d8d-8d9b-de055fc0b748/">当前版本说明</a>。</p>
+<p>本次 v0.27.4 说明仍把“食尸鬼战斗闪退”列为尚未确认修复的问题。换好汉化、没有静态冲突，也不能保证消除这个已有问题。</p>
+<h3 id="guide-section-28">怎么备份存档，或者恢复原来的组合？</h3>
+<p>退出游戏后，打开 Windows 的 <strong>「文档」</strong>，把里面的 <strong>「Battle Brothers」</strong> 文件夹 <strong>复制</strong> 到自己准备的备份位置，保留原文件。有些电脑的文档由 OneDrive 管理；找不到时，可在「营地总览 → 显示目录与技术详情」查看日志目录，帮助定位。</p>
+<p>要保留旧 MOD 文件，还可把游戏安装目录里的整个 <code>data</code> 文件夹复制备份。保存本地方案只记录组合，不能代替文件和存档备份。</p>
+<p>回到旧组合时，退出游戏，在「方案管理 → 本地方案」选择之前保存的「我原来的组合」，预览后应用。切换后继续使用与那个组合对应的存档；依赖阿飞 MOD 的存档不能当成原版存档继续玩。</p>
+<h2 id="guide-section-29">出问题时，怎么把情况告诉作者？</h2>
+<h3 id="guide-section-30">普通安装错误：手动提交</h3>
+<ol>
+<li>在 <strong>「营地总览」</strong> 点击 <strong>「重新检测」</strong>。</li>
+<li>点击 <strong>「提交错误报告…」</strong>。</li>
+<li>查看将提交的诊断内容，再点 <strong>「继续填写并提交…」</strong>。</li>
+<li>写明标题和经过，例如：“Steam 版换汉化后没有阿飞起源”；注明游戏版本、DLC 安装情况、在哪一步遇到问题、错误原文是什么。</li>
+<li>点击 <strong>「提交错误报告」</strong>，记下提交成功后的回执编号。</li>
+</ol>
+<h3 id="guide-section-31">游戏闪退：使用 rc.33 保存的日志</h3>
+<p>要让 BBMOD 收集这次游戏日志，请<strong>从 BBMOD 启动游戏，并一直保持 BBMOD 打开</strong>。发生异常退出后，等待 BBMOD 完成日志检查。</p>
+<p>到 <strong>「设置 → 游戏错误报告 → 查看已保存的错误报告…」</strong>，打开对应记录，先查看内容，再按窗口提示提交。<strong>「自动上传疑似闪退报告」默认关闭</strong>；想自动上传时再自行勾选。</p>
+<p>直接双击游戏 EXE 启动时，不会启用这次自动收集流程，可以使用上面的手动报告，并写清直接启动的方式。没有成功回执的报告不要当成已经提交。</p>
+<h2 id="guide-section-32">本教程检查到了什么？</h2>
+<p>本教程的离线检查环境为 <strong>游戏版本 1.5.2.3、五项官方 DLC 档案、13 个已有 MOD 的示例组合</strong>。所检查的游戏数据档案和 MOD ZIP 通过完整性检查；汉化所用的 2,319 份游戏源文件与目标版本匹配。</p>
+<p>在隔离副本中，按“停用全部旧 MOD → 应用 rc.9 汉化 → 安装 v0.27.4 主 MOD”的顺序执行后，两个新包启用，原 13 个包停用且内容保留，静态诊断为 <strong>0 错误、0 警告</strong>。</p>
+<p><strong>本次未完成新开局、战斗、存读档实机测试。</strong> 上述检查说明文件和安装组合通过了这些检查，不能据此承诺运行中绝对没有问题。截图来自 BBMOD rc.33 的隔离演示环境，不是游戏实机截图。</p>
+<a class="guide-back" href="#guide-top">回到目录 ↑</a></article>{% endblock %}

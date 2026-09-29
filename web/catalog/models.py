@@ -170,6 +170,7 @@ class Suggestion(models.Model):
     kind = models.CharField('建议类型', max_length=15, choices=Kind.choices)
     title = models.CharField('一句话概括', max_length=100)
     details = models.TextField('详细说明', max_length=5000)
+    diagnostic_report = models.TextField('诊断报告', max_length=60000, blank=True, default='', db_default='')
     version = models.CharField('相关版本', max_length=60, blank=True)
     nickname = models.CharField('怎么称呼你', max_length=40, blank=True)
     contact = models.CharField('联系方式', max_length=150, blank=True)
@@ -191,4 +192,40 @@ class SuggestionBudget(models.Model):
     # Short-lived keyed hashes only; never persist the visitor's IP address.
     key = models.CharField(max_length=64, primary_key=True)
     count = models.PositiveIntegerField(default=0)
+    since = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
+class SharedModFile(models.Model):
+    """Content-addressed files supplied by players, separate from author releases."""
+    sha256 = models.CharField(max_length=64, primary_key=True)
+    archive = models.FileField(upload_to='shared-mods/')
+    size = models.PositiveBigIntegerField()
+    inspection = models.JSONField(default=dict)
+    blocked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class SharedProfile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    fingerprint = models.CharField(max_length=64, unique=True)
+    manifest = models.JSONField()
+    blocked = models.BooleanField(default=False, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at', '-id']
+
+
+class SharedProfileFile(models.Model):
+    profile = models.ForeignKey(SharedProfile, on_delete=models.CASCADE, related_name='files')
+    sha256 = models.CharField(max_length=64, db_index=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['profile', 'sha256'], name='unique_profile_file')]
+
+
+class ProfileUploadBudget(models.Model):
+    key = models.CharField(max_length=64, primary_key=True)
+    count = models.PositiveIntegerField(default=0)
+    size = models.PositiveBigIntegerField(default=0)
     since = models.DateTimeField(auto_now_add=True, db_index=True)

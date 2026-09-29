@@ -23,6 +23,7 @@ class Command(BaseCommand):
             with closing(sqlite3.connect(settings.DATABASES['default']['NAME'])) as source, closing(sqlite3.connect(snapshot)) as target:
                 source.backup(target)
                 rows = target.execute('SELECT archive, cover FROM catalog_release').fetchall()
+                rows += target.execute('SELECT archive FROM catalog_sharedmodfile').fetchall()
                 desktop_rows = target.execute('SELECT file FROM catalog_desktoprelease').fetchall()
             try:
                 with tarfile.open(archive_path, 'x:gz') as out:

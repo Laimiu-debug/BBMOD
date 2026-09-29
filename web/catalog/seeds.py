@@ -124,6 +124,12 @@ def detail(request, seed_id):
         'record_text': format_seed(SeedResult(**seed.record), note=seed.note), 'track_visit': True})
 
 
+@require_GET
+def public_record(request, seed_id):
+    seed = get_object_or_404(SharedSeed, pk=seed_id, blocked=False)
+    return JsonResponse({'schema_version': 1, 'record': seed.record, 'note': seed.note})
+
+
 def _quota(request):
     now = timezone.now()
     SeedUploadBudget.objects.filter(since__lt=now - timedelta(days=2)).delete()

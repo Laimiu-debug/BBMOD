@@ -1,5 +1,5 @@
 {
-  "checked_on": "2026-09-19",
+  "checked_on": "2026-09-27",
   "mods": [
     {
       "slug": "swifter",
@@ -22,13 +22,22 @@
       "summary": "为其他 MOD 提供设置菜单、快捷键和通用功能。",
       "description": "MSU 是许多 MOD 共用的功能库。只有你安装的 MOD 要求它时，才需要一并安装；它本身不是加速或汉化功能。",
       "requirements": "Modern Hooks；其他要求以所选版本的原作者说明为准",
-      "compatibility": "本体汉化不会自动翻译 MSU 及其他 MOD 的新增菜单；与汉化 rc.7 的组合尚未实机验证。",
+      "compatibility": "1.9.0 的发布说明包含对游戏 1.5.2.2 的兼容更新；本体汉化不会自动翻译其新增菜单。与 BBMOD 汉化 rc.8 的组合尚未实机验证。",
       "category": "框架",
       "compatibility_label": "尚未实机验证",
       "author": "MSU Team",
       "source_url": "https://www.nexusmods.com/battlebrothers/mods/479",
-      "checked_on": "2026-09-19",
-      "mod_id": "mod_msu"
+      "checked_on": "2026-09-27",
+      "mod_id": "mod_msu",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.9.0",
+          "url": "https://github.com/MSUTeam/MSU/releases/download/1.9.0/mod_msu-1.9.0.zip"
+        }
+      ],
+      "community_url": "https://github.com/MSUTeam/MSU",
+      "download_note": "由开发团队 GitHub 发布。下载后按作者说明手动放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
     },
     {
       "slug": "modern-hooks",
@@ -37,13 +46,22 @@
       "summary": "让现代 MOD 接入游戏，并处理依赖与加载顺序。",
       "description": "Modern Hooks 是许多新 MOD 的基础框架，可与旧 Hooks 共存。请按目标 MOD 的要求选择框架版本。",
       "requirements": "按原作者安装说明配置",
-      "compatibility": "检查的 0.6.0 与汉化 rc.7 都修改同一界面文件，存在覆盖风险，组合仍需适配验证。",
+      "compatibility": "0.6.0 原包含 ui/main.html，与 BBMOD 汉化的界面入口重叠，需核对加载顺序。不要将 Modern Hooks 当作旧版 mod_hooks 的替代品；组合尚未实机验证。",
       "category": "框架",
       "compatibility_label": "需核对覆盖顺序",
       "author": "Enduriel and MSU Team",
       "source_url": "https://www.nexusmods.com/battlebrothers/mods/685",
-      "checked_on": "2026-09-19",
-      "mod_id": "mod_modern_hooks"
+      "checked_on": "2026-09-27",
+      "mod_id": "mod_modern_hooks",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "0.6.0",
+          "url": "https://github.com/MSUTeam/Modern-Hooks/releases/download/0.6.0/mod_modern_hooks-0.6.0.zip"
+        }
+      ],
+      "community_url": "https://github.com/MSUTeam/Modern-Hooks",
+      "download_note": "由开发团队 GitHub 发布。下载后按作者说明手动放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
     },
     {
       "slug": "script-hooks",
@@ -52,13 +70,14 @@
       "summary": "为使用旧接口的 MOD 提供脚本接入能力。",
       "description": "这是早期 MOD 常用的基础框架。它与 Modern Hooks 不是同一个文件，是否需要由具体 MOD 决定。",
       "requirements": "按目标 MOD 的要求选择",
-      "compatibility": "BBMOD 汉化 rc.7 已内置所需运行文件，不必重复装旧框架包；检查的独立 21.1 ZIP 含旧界面入口，会覆盖汉化。",
+      "compatibility": "BBMOD 汉化 rc.7/rc.8 已包含 Hooks 运行文件，无需重复安装。独立包会与汉化的界面入口等文件重叠。",
       "category": "框架",
-      "compatibility_label": "汉化 rc.7 已内置所需文件",
+      "compatibility_label": "汉化已包含；勿重复安装",
       "author": "Adam",
       "source_url": "https://www.nexusmods.com/battlebrothers/mods/42",
-      "checked_on": "2026-09-19",
-      "mod_id": "mod_hooks"
+      "checked_on": "2026-09-27",
+      "mod_id": "mod_hooks",
+      "published_mod_id": "ce170bce-dd19-51c8-a637-d73dad0423c7"
     },
     {
       "slug": "quick-swap",
@@ -257,7 +276,14 @@
       "compatibility_label": "新增内容未汉化",
       "author": "chopeks",
       "source_url": "https://github.com/chopeks/mod_find_legendary_maps",
-      "checked_on": "2026-09-19"
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "0.5.2",
+          "url": "https://github.com/chopeks/mod_find_legendary_maps/releases/download/0.5.2/mod_find_legendary_maps-0.5.2.zip"
+        }
+      ]
     },
     {
       "slug": "more-weapon-skins",
@@ -322,12 +348,19 @@
       "summary": "增加起源，并扩展誓言者与解剖学家的玩法。",
       "description": "新增三种起源，重做誓言者机制，并补充解剖学家事件。完整参与者署名见作者仓库。",
       "requirements": "Hooks 20 及以上、Of Flesh and Faith；各起源另需对应 DLC",
-      "compatibility": "新增剧情尚未汉化；2.0 起的存档在卸载 MOD 后不能继续加载。搭配 Legends 或 Reforged 另需作者补丁。",
+      "compatibility": "新增剧情尚未汉化；2.0 起的存档在卸载 MOD 后不能继续加载。4.x 需要游戏 1.5.2.x 或更高版本，并与此前 MOD 版本不兼容，不要直接用于旧版 MOD 的战役。搭配 Legends 或 Reforged 另需作者补丁。",
       "category": "起源与事件",
       "compatibility_label": "新增内容未适配",
       "author": "Sato（jcsato）",
       "source_url": "https://github.com/jcsato/of_flesh_and_faith_plus",
-      "checked_on": "2026-09-19"
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "4.0.6",
+          "url": "https://github.com/jcsato/of_flesh_and_faith_plus/releases/download/v4.0.6/of_flesh_and_faith_plus_4.0.6.zip"
+        }
+      ]
     },
     {
       "slug": "reforged",
@@ -341,8 +374,380 @@
       "compatibility_label": "本体汉化尚未适配",
       "author": "LordMidas、Uberbagel、Darxo、Enduriel、TaroEld、Houman",
       "source_url": "https://github.com/Battle-Modders/mod-reforged",
-      "checked_on": "2026-09-19",
+      "checked_on": "2026-09-27",
+      "download_note": "核心包和资源包都需要下载，并补齐作者安装指南中的前置。",
+      "official_downloads": [
+        {
+          "label": "下载核心包",
+          "version": "0.9.3",
+          "url": "https://github.com/Battle-Modders/mod-reforged/releases/download/0.9.3/mod_reforged_core-0.9.3.zip"
+        },
+        {
+          "label": "下载资源包",
+          "version": "0.1.4",
+          "url": "https://github.com/Battle-Modders/mod_reforged_assets/releases/download/0.1.4/mod_reforged_assets-0.1.4.zip"
+        }
+      ],
       "community_url": "https://steamcommunity.com/app/365360/discussions/3/4756452715167252567/"
+    },
+    {
+      "slug": "sato-additional-equipment",
+      "title": "装备扩展 · Sato",
+      "english_name": "Sato's Additional Equipment",
+      "summary": "增加多种头盔和护甲，让商店及敌人拥有更多装备选择。",
+      "description": "新增兜帽、南方头盔、面甲盔等装备。部分装备出现在商店、敌人或特定背景角色上；南方装备需要 Blazing Deserts DLC 才会出现。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "会向存档加入新物品，不建议在战役中途卸载。由 4.0 之前版本升级后，旧存档中的部分蒙面游牧轻盔可能变成透明，作者建议新开战役。Legends 等重做装备系统的 MOD 需另行核对。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "装备与外观",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/sato_additional_equipment_mod",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "4.0",
+          "url": "https://github.com/jcsato/sato_additional_equipment_mod/releases/download/v4.0/sato_additional_equipment_4.0.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "sato-equipment-variants",
+      "title": "装备外观变体 · Sato",
+      "english_name": "Sato's Equipment Variants",
+      "summary": "为原版护甲、头盔和盾牌增加颜色、披风及兜帽等外观。",
+      "description": "扩充多种原版装备的视觉变体，包括贵族纹章配色、誓言者配色和南方阵营配色。南方装备的变体需要相关 DLC。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "获得新外观的装备后卸载，可能使这些装备不可见。不推荐与 Legends 叠加；其他修改相同装备的 MOD 也可能冲突。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "装备与外观",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/sato_equipment_variants_mod",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.6",
+          "url": "https://github.com/jcsato/sato_equipment_variants_mod/releases/download/v1.6/sato_equipment_variants_1.6.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "company-details-screen",
+      "title": "佣兵团详情面板",
+      "english_name": "Company Details Screen",
+      "summary": "查看战团起源、已完成的野心及其他队伍信息。",
+      "description": "通过世界地图顶栏按钮或 K 键打开佣兵团详情，查看起源和完成的野心。作者要求游戏 1.5.1.x 或更高版本。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "新增文字主要为英文。自定义起源的图片或 MOD 野心名称可能显示不完整；与占用 K 键或改动同一界面的 MOD 需核对。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/company_details_screen",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "2.0",
+          "url": "https://github.com/jcsato/company_details_screen/releases/download/v2.0/company_details_screen_2.0.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "settlement-tooltips-lite",
+      "title": "城镇状态说明 · 轻量版",
+      "english_name": "Sato Settlement Tooltips",
+      "summary": "在城镇状态提示中补充影响说明，无需 MSU。",
+      "description": "为城镇状态添加简洁的机制说明，帮助理解状态的影响。本作不显示另一款 Settlement Situations MSU 那样的精确数值。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "不要与其他修改城镇状态提示的 MOD 同时使用。新增说明为英文；本体汉化不会自动翻译这些文本。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/sato_settlement_tooltips",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.0",
+          "url": "https://github.com/jcsato/sato_settlement_tooltips/releases/download/v1.0/sato_settlement_tooltips_1.0.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "tooltip-toggle",
+      "title": "提示信息开关",
+      "english_name": "Sato Tooltip Toggle",
+      "summary": "按 Y 键隐藏或恢复游戏提示，方便截图及查看画面。",
+      "description": "提供切换全部游戏提示信息显示状态的快捷键。默认按键为 Y。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "与其他占用 Y 键的功能可能冲突，安装后应先检查快捷键是否正常。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/sato_tooltip_toggle",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "0.1",
+          "url": "https://github.com/jcsato/sato_tooltip_toggle/releases/download/v0.1/sato_tooltip_toggle_0.1.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "tutorial-remover",
+      "title": "精简新手提醒",
+      "english_name": "Tutorial Remover",
+      "summary": "移除主菜单难度提醒及随从空位提醒事件。",
+      "description": "面向熟悉游戏的玩家，隐藏主菜单的难度提示，并停用随从空位提醒。不会删除或改变霍加特新手起源；随从相关效果涉及 Blazing Deserts DLC。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "其他修改主菜单提醒或随从提醒事件的 MOD 可能产生不同结果。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/tutorial_remover",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "0.2",
+          "url": "https://github.com/jcsato/tutorial_remover/releases/download/v0.2/sato_tutorial_remover_0.2.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "partially-explored-map",
+      "title": "局部已探索地图",
+      "english_name": "Partially Explored Map",
+      "summary": "新战役可选择仅揭示邻近阵营的城镇，保留其他区域的探索。",
+      "description": "新增开局探索选项，显示最近阵营的全部城镇；在南方开局时显示所有城邦。作者要求游戏 1.5.1.x 或更高版本，功能用于新建战役。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "可能与修改新战役菜单的其他 MOD 冲突。启用后不会自动替旧存档重新生成地图；建议在新战役中使用。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/partially_explored_map",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "2.0",
+          "url": "https://github.com/jcsato/partially_explored_map/releases/download/v2.0/partially_explored_map_2.0.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "expanded-markets",
+      "title": "市场商品扩展",
+      "english_name": "Sato's Expanded Markets",
+      "summary": "让城镇有机会出售阵营装备、野兽材料和冠名盾牌。",
+      "description": "按城镇区域和附属设施扩充商店货物，包括部分贵族、强盗、蛮族及游牧装备。拥有剥制师的城镇可能出售野兽材料，护甲店可出售冠名盾牌。",
+      "requirements": "Modding Script Hooks 20 或更高版本；已使用 BBMOD 汉化的玩家不要重复安装独立 Hooks 包。",
+      "compatibility": "改变商店货物与经济体验，与其他改写相同商店库存的 MOD 可能叠加。稀有物品不保证每次刷新都出现。 与 BBMOD 汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "战斗与平衡",
+      "compatibility_label": "尚未实机验证",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/sato_expanded_markets_mod",
+      "checked_on": "2026-09-27",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.5",
+          "url": "https://github.com/jcsato/sato_expanded_markets_mod/releases/download/v1.5/sato_expanded_markets_1.5.zip"
+        }
+      ],
+      "download_note": "下载后关闭游戏，将原 ZIP 放入游戏 data 目录，不要解压；此包暂不支持通过 BBMOD 桌面工具导入。"
+    },
+    {
+      "slug": "extra-keybinds",
+      "title": "扩展快捷键 · Extra Keybinds",
+      "english_name": "Extra Keybinds",
+      "summary": "用可自定义的快捷键使用技能和切换物品，减少重复操作。",
+      "description": "为常用技能与物品切换增加可重新绑定的快捷键，通过 MSU 配置。当前作者页面版本为 2.1.0，是 Additional Keybinds 的重写版本。",
+      "requirements": "Modern Hooks 和 MSU。",
+      "requirement_links": [
+        {
+          "label": "Modern Hooks 下载与说明",
+          "url": "/mods/community/modern-hooks/"
+        },
+        {
+          "label": "MSU 下载与说明",
+          "url": "/mods/community/msu/"
+        }
+      ],
+      "compatibility": "注意与战斗快捷换装及其他按键 MOD 的重复绑定；作者文件说明排除旧版 Autopilot。新增设置不会自动汉化，与 BBMOD 汉化 rc.8 的组合尚未实机验证。",
+      "category": "基础功能",
+      "author": "Enduriel（Endur1el）",
+      "source_url": "https://www.nexusmods.com/battlebrothers/mods/550",
+      "source_files_url": "https://www.nexusmods.com/battlebrothers/mods/550?tab=files",
+      "download_note": "按作者分发要求，通过 Nexus Files 页面获取，下载可能需要登录 Nexus 账号；本站不提供此文件的镜像。",
+      "installation_steps": [
+        "关闭游戏，先安装本页列出的前置。",
+        "将下载的原 ZIP 放入 Battle Brothers/data，不要解压，并移出同一 MOD 的旧版本。",
+        "先在独立测试战役中检查功能，再用于常用存档。"
+      ],
+      "checked_on": "2026-09-27",
+      "compatibility_label": "尚未实机验证"
+    },
+    {
+      "slug": "detailed-status-effects",
+      "title": "详细状态效果",
+      "english_name": "Detailed Status Effects",
+      "summary": "在战斗提示中查看敌我伤势、士气和各类状态的具体影响。",
+      "description": "补充战斗状态提示中的细节，包括士气、临时伤势、药剂及部分技能效果。可使用 F5–F11 分别切换信息类别。当前作者页面版本为 1.9，更新说明包含快捷键阻塞问题修复。",
+      "requirements": "旧版 Modding Script Hooks 11 或更高版本；汉化 rc.8 已包含 Hooks 21.1。",
+      "requirement_links": [
+        {
+          "label": "旧版 Hooks（汉化已内置，无需重复安装）",
+          "url": "/mods/ce170bce-dd19-51c8-a637-d73dad0423c7/"
+        }
+      ],
+      "compatibility": "不要与 MaxiQE 战斗信息增强同时启用，两者修改同类战术提示。留意 F5–F11 与其他功能的按键冲突。新增文字可能仍为英文，与汉化 rc.8 / 游戏 1.5.2.3 的组合尚未实机验证。",
+      "category": "基础功能",
+      "author": "AllanniaBB",
+      "source_url": "https://www.nexusmods.com/battlebrothers/mods/103",
+      "source_files_url": "https://www.nexusmods.com/battlebrothers/mods/103?tab=files",
+      "download_note": "通过 Nexus Files 页面获取作者原包，下载可能需要登录。本站暂未提供原包镜像。",
+      "installation_steps": [
+        "关闭游戏，先安装本页列出的前置。",
+        "将下载的原 ZIP 放入 Battle Brothers/data，不要解压，并移出同一 MOD 的旧版本。",
+        "先在独立测试战役中检查功能，再用于常用存档。"
+      ],
+      "checked_on": "2026-09-27",
+      "compatibility_label": "尚未实机验证"
+    },
+    {
+      "slug": "quicker",
+      "title": "轻量加速 · Quicker",
+      "english_name": "Quicker",
+      "summary": "通过快捷键调整世界地图与战斗速度，减少赶路和动画等待。",
+      "description": "战斗中 F1–F4 对应 1、2、3、4 倍速度；世界地图上 3、4、5 键对应 4、8、16 倍速度。适合需要简单速度控制、无需额外设置库的玩家。",
+      "requirements": "旧版 Modding Script Hooks 20 或更高版本；汉化 rc.8 已包含所需旧框架。",
+      "requirement_links": [
+        {
+          "label": "旧版 Hooks（汉化已内置，无需重复安装）",
+          "url": "/mods/ce170bce-dd19-51c8-a637-d73dad0423c7/"
+        }
+      ],
+      "compatibility": "与 Swifter、Faster 及其他加速 MOD 二选一，不要叠加。作者记录了高倍速下冰洞 Boss（Ijirok）可能隐形的问题，进行该战斗时恢复 1 倍速。与汉化 rc.8 的组合尚未实机验证。",
+      "category": "基础功能",
+      "author": "JC Sato",
+      "source_url": "https://github.com/jcsato/quicker",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.4",
+          "url": "https://github.com/jcsato/quicker/releases/download/v1.4/quicker_1.4.zip"
+        }
+      ],
+      "download_note": "按下方步骤手动安装原 ZIP；此包暂不支持通过 BBMOD 桌面工具导入。",
+      "installation_steps": [
+        "关闭游戏，先安装本页列出的前置。",
+        "将下载的原 ZIP 放入 Battle Brothers/data，不要解压，并移出同一 MOD 的旧版本。",
+        "先在独立测试战役中检查功能，再用于常用存档。"
+      ],
+      "checked_on": "2026-09-27",
+      "compatibility_label": "尚未实机验证"
+    },
+    {
+      "slug": "maxiqe-tooltips",
+      "title": "战斗信息增强 · MaxiQE",
+      "english_name": "MaxiQE informative tooltips",
+      "summary": "查看敌人技能与装备、命中因素，以及预计伤害和击杀概率。",
+      "description": "将敌我属性、敌人的装备和技能、命中率因素及伤害预测集中到战术提示中。会提供原版隐藏的敌人信息，改变战斗中的信息获取体验。伤害和击杀概率为预测结果，不是命中或击杀保证。",
+      "requirements": "Modern Hooks、MSU、Nested Tooltips 和 Tooltip Extension，四项均需要。",
+      "requirement_links": [
+        {
+          "label": "Modern Hooks 下载与说明",
+          "url": "/mods/community/modern-hooks/"
+        },
+        {
+          "label": "MSU 下载与说明",
+          "url": "/mods/community/msu/"
+        },
+        {
+          "label": "Nested Tooltips 作者发布页",
+          "url": "https://github.com/MSUTeam/nested-tooltips/releases"
+        },
+        {
+          "label": "Tooltip Extension 作者下载页",
+          "url": "https://www.nexusmods.com/battlebrothers/mods/536?tab=files"
+        }
+      ],
+      "compatibility": "作者说明不兼容其他战术提示 MOD，因此不要与 Detailed Status Effects 等同类作品叠加。修改伤害公式的大型 MOD 可能影响预测。新增提示未完成汉化适配，与 BBMOD 汉化 rc.8 的组合尚未实机验证。",
+      "category": "基础功能",
+      "author": "MaxiQE",
+      "source_url": "https://github.com/maxiQE/maxiqe_smart_tooltips",
+      "official_downloads": [
+        {
+          "label": "下载作者原包",
+          "version": "1.0.0",
+          "url": "https://github.com/maxiQE/maxiqe_smart_tooltips/releases/download/1.0.0/mod_maxi_tooltips.zip"
+        }
+      ],
+      "download_note": "先装齐四项前置，再手动安装原 ZIP；此包暂不支持通过 BBMOD 桌面工具导入。",
+      "installation_steps": [
+        "关闭游戏，先安装本页列出的前置。",
+        "将下载的原 ZIP 放入 Battle Brothers/data，不要解压，并移出同一 MOD 的旧版本。",
+        "先在独立测试战役中检查功能，再用于常用存档。"
+      ],
+      "checked_on": "2026-09-27",
+      "compatibility_label": "尚未实机验证"
+    },
+    {
+      "slug": "legends",
+      "title": "传奇大修 · Legends",
+      "english_name": "Legends",
+      "summary": "扩展起源、技能、装备与野营等系统，体验更大规模的玩法变化。",
+      "description": "由 Legends 团队维护的大型玩法重做。当前提供核心 19.4.22 与其发布说明指定的资源包 19.4.3，两包版本号不同是正常情况，必须同时安装。新接触 Legends 的玩家建议为它单独配置 MOD 并新开战役。",
+      "requirements": "游戏 1.5.1 或更高版本、全部常规官方 DLC（不需要赞助者 DLC）、Modern Hooks、MSU，以及本页两个 ZIP。Legends 已内置旧 Hooks。",
+      "requirement_links": [
+        {
+          "label": "Modern Hooks 下载与说明",
+          "url": "/mods/community/modern-hooks/"
+        },
+        {
+          "label": "MSU 下载与说明",
+          "url": "/mods/community/msu/"
+        },
+        {
+          "label": "Legends 官方安装指南",
+          "url": "https://github.com/Battle-Brothers-Legends/Legends-public/wiki/Installation-Guide"
+        }
+      ],
+      "compatibility": "不能与 Reforged 等其他大型重做同时启用。不要默认 BBMOD 原版汉化能覆盖 Legends 的新增文本和改动；需要对应 Legends 版本的汉化适配。19.4.22 发布说明仅标注兼容 19.4.0+ 的 Legends 存档，不代表可接续普通原版存档。本站尚未完成汉化或游戏实机验证。",
+      "category": "战斗与平衡",
+      "author": "Battle Brothers Legends Team",
+      "source_url": "https://github.com/Battle-Brothers-Legends/Legends-public",
+      "official_downloads": [
+        {
+          "label": "下载核心文件",
+          "version": "19.4.22",
+          "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.22/mod_legends-19.4.22.zip"
+        },
+        {
+          "label": "下载必需资源包",
+          "version": "19.4.3",
+          "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.3/mod_legends-assets-19.4.3.zip"
+        }
+      ],
+      "download_note": "两包都需要，资源包约 358 MB。按官方指南手动安装；此组文件暂不支持通过 BBMOD 桌面工具导入。",
+      "installation_steps": [
+        "准备全部常规官方 DLC，关闭游戏，为 Legends 单独配置 MOD。",
+        "安装 Modern Hooks、MSU；Legends 已内置旧 Hooks，不要再重复添加独立旧框架。",
+        "同时把核心 ZIP 和资源 ZIP 放入游戏 data 目录，不要解压；移出旧版 Legends 及旧补丁文件。",
+        "首次安装建议新开战役；更新已有 Legends 存档前，核对发布说明中的存档兼容范围。"
+      ],
+      "checked_on": "2026-09-27",
+      "compatibility_label": "尚未实机验证"
     }
   ]
 }

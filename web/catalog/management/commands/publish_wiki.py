@@ -1,4 +1,5 @@
 """Validate an immutable, locally staged snapshot before atomic activation."""
+from contextlib import closing
 import hashlib
 import json
 from pathlib import Path
@@ -31,7 +32,7 @@ class Command(BaseCommand):
             for name in manifest['assets']:
                 if not ASSET_PATTERN.fullmatch(name):raise ValueError('图片路径无效')
                 if hashlib.sha256((root/'assets'/name).read_bytes()).hexdigest()!=name.split('.')[0]:raise ValueError('图片校验失败')
-            with sqlite3.connect((release/'wiki.sqlite3').as_uri()+'?mode=ro&immutable=1',uri=True) as db:
+            with closing(sqlite3.connect((release/'wiki.sqlite3').as_uri()+'?mode=ro&immutable=1',uri=True)) as db:
                 if db.execute('PRAGMA integrity_check').fetchone()[0]!='ok':raise ValueError('数据库完整性校验失败')
                 report=json.loads(db.execute("SELECT value FROM metadata WHERE key='report'").fetchone()[0])
                 if report['snapshot']!=edition or report.get('missing_pages'):raise ValueError('来源记录不完整')

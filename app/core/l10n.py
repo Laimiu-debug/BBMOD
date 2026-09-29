@@ -17,11 +17,10 @@ from .full_l10n import CATEGORIES, load_full_catalog, write_full_patches
 from .l10n_tokens import validate_translation
 from .place_names import load_policy, original_names, preserve_inline_names
 from .l10n_compat import override_keys, write_hooks
+from .l10n_identity import BRAND_META, PACKAGE_ID, PACKAGE_BRAND
 
-BRAND_META = 'BBMOD_L10N.json'
-PACKAGE_ID = 'bbmod.independent.zh-CN'
 PACKAGE_NAME = 'mod_bbmod_zhcn.zip'
-VERSION = '0.3.0-rc.8'
+VERSION = '0.3.0-rc.9'
 CATALOG_FILE = resource_path('localization/catalog.json')
 UI_ROOT = 'ui/mods/bbmod_l10n/'
 FONT_ENTRY = UI_ROOT + 'NotoSansSC-Regular.ttf'
@@ -180,7 +179,7 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
         if not (source_dir / asset).is_file():
             raise FileNotFoundError(f'缺少独立汉化资源：{asset}')
     manifest = {
-        'package_id': PACKAGE_ID, 'brand': 'BBMOD 独立汉化', 'version': VERSION,
+        'package_id': PACKAGE_ID, 'brand': PACKAGE_BRAND, 'version': VERSION,
         'target_game_version': '1.5.2.3', 'language': 'zh-CN',
         'scope': meta['scope'] + ('；地名存档保留英文，Steam 与 BBMOD 启动均通过 MOD 界面显示中文地名' if policy else ''), 'provenance': meta['provenance'],
         'entry_count': len(entries), 'overrides_applied': len(overrides),

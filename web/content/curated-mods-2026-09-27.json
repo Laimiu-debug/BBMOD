@@ -1,0 +1,124 @@
+{
+  "schema": 1,
+  "checked_at": "2026-09-27",
+  "source_repository": "https://github.com/Suor/battle-brothers-mods",
+  "mods": [
+    {
+      "id": "5fb6de6f-36f9-5e2c-8710-ebe1804cfdcb",
+      "slug": "cheap-meat",
+      "archive": "mod_cheap_meat.zip",
+      "version": "0.2-bbmod.1",
+      "notes": "署名源码整理版。游戏脚本与固定源码提交逐字节一致；新增署名、原许可和作者说明。未进行实机游戏测试。",
+      "metadata": {
+        "install_name": "mod_cheap_meat.zip",
+        "title": "招募费用减半 · Cheap Meat",
+        "summary": "降低招募与试用费用，方便尝试不同背景；会明显降低经济难度。",
+        "description": "将基础招募与试用费用降为原来的 50%。雇用招募员后，招募费用约为原价的三分之一，试用费用约为四分之一。会改变经济平衡。招募员说明由原包提供，新增提示为英文。\n\n本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。",
+        "category": "基础功能",
+        "source_url": "https://github.com/Suor/battle-brothers-mods/tree/9f6a37a5dd9170c8f6693a6e23389bd39ee9240a/cheap_meat",
+        "original_author": "Alexander Schepanovski（hackflow / Suor）",
+        "license": "BSD-2-Clause；完整原许可与原作者署名随包保留。",
+        "game_version": "原版；1.5.2.3 尚待实机验证",
+        "dlc": "招募员效果需要 Blazing Deserts",
+        "mod_ids": "mod_cheap_meat",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "需要旧版 Modding Script Hooks；单独安装 Modern Hooks 不能替代。 费用相关 MOD 可能叠加或覆盖；首次启用请先备份存档。 本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。"
+      },
+      "inspection": {
+        "sha256": "75a092c7d075beb55ee9e65b4348862facee58bf38e622b24d31718e0b5709fe",
+        "size": 3082,
+        "entry_count": 5,
+        "uncompressed_size": 4544,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "source_commit": "9f6a37a5dd9170c8f6693a6e23389bd39ee9240a",
+      "source_archive_sha256": "da727be98e975cba947c9134a715c850f8d278ff9935fbd0b919a9bfbaad96ed",
+      "original_files": {
+        "scripts/!mods_preload/mod_cheap_meat.nut": "fb013f7211ffe76f7bfb66f83ac5663559db60247037460da672ce0f7bcf0882"
+      }
+    },
+    {
+      "id": "5eb4d247-8b51-5ebd-88a0-958656309e96",
+      "slug": "better-beast-loot",
+      "archive": "mod_beast_loot.zip",
+      "version": "0.11-bbmod.1",
+      "notes": "署名源码整理版。游戏脚本与固定源码提交逐字节一致；新增署名、原许可和作者说明。未进行实机游戏测试。",
+      "metadata": {
+        "install_name": "mod_beast_loot.zip",
+        "title": "更多野兽战利品 · Better Beast Loot",
+        "summary": "提高野兽材料掉落收益，让狩猎更有回报；改变掉落与经济平衡。",
+        "description": "增加野兽额外掉落几率。作者说明普通起源获得类似野兽杀手的额外收益，野兽杀手起源进一步提高收益。脚本在战役起源初始化时调整掉落参数；本次未验证旧存档即时生效情况。\n\n本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。",
+        "category": "战斗与平衡",
+        "source_url": "https://github.com/Suor/battle-brothers-mods/tree/9f6a37a5dd9170c8f6693a6e23389bd39ee9240a/mod_beast_loot",
+        "original_author": "Alexander Schepanovski（hackflow / Suor）",
+        "license": "BSD-2-Clause；完整原许可与原作者署名随包保留。",
+        "game_version": "原版；1.5.2.3 尚待实机验证",
+        "dlc": "",
+        "mod_ids": "mod_beast_loot",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "需要 Modding Script Hooks 19 或更高版本。 与修改起源初始化或野兽掉落的 MOD 可能叠加；建议先在独立测试战役中确认。 本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。"
+      },
+      "inspection": {
+        "sha256": "0d0d473f39098d3868368df264ac5a17cedffd7fb40a22d8168911887b5cc61f",
+        "size": 2733,
+        "entry_count": 5,
+        "uncompressed_size": 3566,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "source_commit": "9f6a37a5dd9170c8f6693a6e23389bd39ee9240a",
+      "source_archive_sha256": "da727be98e975cba947c9134a715c850f8d278ff9935fbd0b919a9bfbaad96ed",
+      "original_files": {
+        "scripts/!mods_preload/mod_beast_loot.nut": "082bb4f428b74d61bc93696d9b0aaa8d49d4500407ccd4b39a3b2de715e1c0fd"
+      }
+    },
+    {
+      "id": "edc8144f-82f6-578b-834d-403b2f447f31",
+      "slug": "bro-renamer",
+      "archive": "mod_renamer.zip",
+      "version": "0.2-bbmod.1",
+      "notes": "署名源码整理版。游戏脚本与固定源码提交逐字节一致；新增署名、原许可和作者说明。未进行实机游戏测试。",
+      "metadata": {
+        "install_name": "mod_renamer.zip",
+        "title": "背景编号称号 · Bro Renamer",
+        "summary": "为新招募的兄弟设置背景名称与罗马数字称号，方便区分同背景兵员。",
+        "description": "在新兵加入时，将其称号设为背景名称或简称加罗马数字，例如 Farmer II；统计同背景在队及阵亡成员，继续编号。修改的是角色称号，不是简单的界面显示。保留原作者英文、俄文简称表；中文背景及独立汉化组合尚待游戏内验证。\n\n本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。",
+        "category": "基础功能",
+        "source_url": "https://github.com/Suor/battle-brothers-mods/tree/9f6a37a5dd9170c8f6693a6e23389bd39ee9240a/renamer",
+        "original_author": "Alexander Schepanovski（hackflow / Suor）",
+        "license": "BSD-2-Clause；完整原许可与原作者署名随包保留。",
+        "game_version": "原版；1.5.2.3 尚待实机验证",
+        "dlc": "",
+        "mod_ids": "mod_renamer",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "需要 Modding Script Hooks 20 或更高版本。 称号会进入存档。停用后不会自动恢复已有称号；与自动起名、称号类 MOD 不建议同时使用。 本站按作者打包说明，从固定源码提交整理免费 ZIP；保留游戏脚本原字节，附原作者署名、完整 BSD-2-Clause 许可及原说明。已检查 ZIP 结构、CRC、大小和 SHA-256；没有启动游戏，不能视为 1.5.2.3 或全部汉化/MOD 组合已通过实机验证。"
+      },
+      "inspection": {
+        "sha256": "8d157919954ed01e42d330fba72684f266f069ac7bb0746669d3be84ed64e859",
+        "size": 3779,
+        "entry_count": 5,
+        "uncompressed_size": 6397,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "source_commit": "9f6a37a5dd9170c8f6693a6e23389bd39ee9240a",
+      "source_archive_sha256": "da727be98e975cba947c9134a715c850f8d278ff9935fbd0b919a9bfbaad96ed",
+      "original_files": {
+        "scripts/!mods_preload/mod_renamer.nut": "5964b2869ed73caa7c95f5898505d8f59b5413cf1a216e3912e7fd051e8dca0c"
+      }
+    }
+  ]
+}

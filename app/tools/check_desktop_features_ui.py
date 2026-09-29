@@ -33,9 +33,9 @@ def main():
             assert predicate(), 'UI operation did not complete'
         wait(lambda: not any(w.isRunning() for w in window.findChildren(Worker)))
         out = ROOT / 'build/review/desktop-234'; out.mkdir(parents=True, exist_ok=True)
-        assert window.tabs.count() == 7
+        assert window.tabs.count() == 8
         assert window.nav_buttons[4].y() == max(button.y() for button in window.nav_buttons)
-        assert window.nav_buttons[4].shortcut().toString() == 'Alt+7'
+        assert window.nav_buttons[4].shortcut().toString() == 'Alt+8'
         assert window.nav_buttons[5].text() == '装备百科' and window.nav_buttons[6].text() == '反馈与建议'
         QTest.mouseClick(window.nav_buttons[4], Qt.LeftButton)
         assert window.settings_page.updates.check.isVisible()

@@ -1,0 +1,2406 @@
+{
+  "schema": 1,
+  "mods": [
+    {
+      "id": "1a71471d-2899-5df9-9e4d-e05f34173679",
+      "archive": "mod_fox_001.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_001.zip",
+        "title": "1W 制作不老泉",
+        "summary": "狐狸合集适配版：1W 制作不老泉。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：1W制作不老泉.zip\n新增制作配方，没有与 rc.7 同路径覆盖；改变配方 / 经济规则，新增说明仍需单独汉化和实测。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n配方覆盖"
+      },
+      "inspection": {
+        "sha256": "edf1112651e23e628a8ff7f965e7f20802258d8112ebf01624fab19f577a7a8b",
+        "size": 1783,
+        "entry_count": 4,
+        "uncompressed_size": 1743,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "1W制作不老泉.zip",
+        "source_sha256": "748f1ac81ad33ad29293ffc925e35aa468b170818f4783177a84f49204c98b86",
+        "adapted_sha256": "b7a3cea6c741fc9d046a74b617e7d16c02105940eae36e1181492d327b59107f",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_001.zip",
+      "existing": false
+    },
+    {
+      "id": "b66e64c8-c437-50fc-919d-2cef15354079",
+      "archive": "mod_fox_002.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_002.zip",
+        "title": "5W 出技能药水",
+        "summary": "狐狸合集适配版：5W 出技能药水。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：5W出技能药水.zip\n新增药水配方，没有与 rc.7 同路径覆盖。需验证配方引用的物品是否存在、制作行为及存档兼容性。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n配方覆盖"
+      },
+      "inspection": {
+        "sha256": "97a12d57ef2d1ef2c49f4e2e3ea575b8882f5780f1f955a1c804dce71525d014",
+        "size": 1769,
+        "entry_count": 4,
+        "uncompressed_size": 1717,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "5W出技能药水.zip",
+        "source_sha256": "9cee87384a371a9b02e2cc0ef8de913903dc30b11b00b36cd387bd272d712737",
+        "adapted_sha256": "0655efd4706e98ab346237567c665d0a64bbd845f65b16132341d77e93ce841c",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_002.zip",
+      "existing": false
+    },
+    {
+      "id": "52e8e508-7414-5d3c-b819-ff41d8c1e370",
+      "archive": "mod_fox_003.zip",
+      "version": "1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_003.zip",
+        "title": "兵员对比 CompareBros",
+        "summary": "狐狸合集适配版：兵员对比 CompareBros。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：CompareBros-820-1-0-1741641816.zip\n使用旧 Hooks，没有与 rc.7 同路径覆盖。尚未验证与显星 / 属性界面叠加后的显示。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/820",
+        "original_author": "Azzinoth224",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_compare_bros",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "44a7dc5293f6d030ed95c212b690199655fd6620441119cd7df950e0ae62c62f",
+        "size": 3049,
+        "entry_count": 4,
+        "uncompressed_size": 5551,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "CompareBros-820-1-0-1741641816.zip",
+        "source_sha256": "f41cb37bb62626e27870e348eec13003074d2c9218f2b0b5f4c049a291e266c5",
+        "adapted_sha256": "fe19984b3d05454076b2d42588f10fc142c0c3f28ee32e185a22d4dc93680dc5",
+        "original_author": "Azzinoth224",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/820"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_003.zip",
+      "existing": false
+    },
+    {
+      "id": "ab56cfea-b5fa-51f0-89df-be4afe352653",
+      "archive": "mod_fox_004.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_004.zip",
+        "title": "精灵种族 EIF",
+        "summary": "狐狸合集适配版：精灵种族 EIF。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：EIF.zip\n包含额外种族 / 外观 / 语音资源和字体；没有与 rc.7 的脚本页面同路径覆盖。角色生成、语音素材来源和追加内容汉化均需另行核实。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "yes",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n新雇佣兵 20% 概率为精灵（+4 先攻，女声语音）；影响角色生成\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "5e8cf5386cc8e1be30d85981047bdddf56b36da057580062abf95c180a513bbf",
+        "size": 11225424,
+        "entry_count": 53,
+        "uncompressed_size": 20721634,
+        "script_count": 2,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "EIF.zip",
+        "source_sha256": "e1729d189901338e14545bcb8911e088769d6c5c43a7fb85bcf5bd0190b8b798",
+        "adapted_sha256": "9801e0d1475317c06487b2fe84d4cde165607f2b9f4b9a9b982c666e245984e5",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_004.zip",
+      "existing": false
+    },
+    {
+      "id": "756b808d-6b9c-5a31-924c-385d41311ddc",
+      "archive": "mod_armour_indicators.zip",
+      "version": "1.4.2-bbmod.2",
+      "metadata": {
+        "install_name": "mod_armour_indicators.zip",
+        "title": "装备损坏图标",
+        "summary": "狐狸合集适配版：装备损坏图标。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：m0d_03_（铠甲损坏标识）armour_indicators-96-1-4-2-1761145139.zip\n为装备增加损坏状态提示。本站提供 1.4.2 的免费署名整理包，已去掉压缩包里夹带的旧版，避免重复安装。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/96",
+        "original_author": "AllanniaBB；原始 Armour Indicator：gwtwind",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_armour_indicators",
+        "requires": "mod_modern_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n移除 ui 目录内夹带的旧 V2 完整包，避免安装第二套同名 MOD。\n\n声明的版本前置：mod_msu >= 1.7.0\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "65bbb9d7cab7f35db4633dbaa4847402549d0dc11b2034e31e404f804fe7cf5e",
+        "size": 248433,
+        "entry_count": 32,
+        "uncompressed_size": 310606,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "m0d_03_（铠甲损坏标识）armour_indicators-96-1-4-2-1761145139.zip",
+        "source_sha256": "c542faa298ac69fb3caa7a2daf6d8b038daab978e6c92b682db78dacacd8ff80",
+        "adapted_sha256": "8b8cd63c019a3979e7950c8e95167d2c7a9430c4f3907d1b897910788841a2a8",
+        "original_author": "AllanniaBB；原始 Armour Indicator：gwtwind",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/96"
+        ],
+        "source_permission_record": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_005.zip",
+      "existing": true
+    },
+    {
+      "id": "4f5cc93d-5a76-5c6d-ace9-3f1c3928c561",
+      "archive": "mod_fox_006.zip",
+      "version": "3.5.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_006.zip",
+        "title": "详细阵亡人员情报",
+        "summary": "狐狸合集适配版：详细阵亡人员情报。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：m0d_22_详细阵亡人员情报.zip\n直接替换 world_obituary_screen.js，与 rc.7 的阵亡名册页面冲突。还需 Modern Hooks 和 MSU ≥ 1.7.0；未合并页面并完成验证前，不作为已适配版本下载。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/108",
+        "original_author": "AllanniaBB",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_better_obituary",
+        "requires": "mod_hooks\nmod_modern_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\nBetter Obituary\n替换阵亡名册页面，与整包汉化存在同路径覆盖，组合显示待实机检查。\n声明的版本前置：mod_msu >= 1.7.0\n需要旧 Hooks；已有整包汉化提供时不重复安装。\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "2b2d5181b842d86d318e23e1f509642be3b87ab9b2ff15c6684d941820128274",
+        "size": 912432,
+        "entry_count": 14,
+        "uncompressed_size": 979096,
+        "script_count": 6,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。替换阵亡名册页面，与整包汉化存在同路径覆盖，组合显示待实机检查。",
+      "provenance": {
+        "source_name": "m0d_22_详细阵亡人员情报.zip",
+        "source_sha256": "4503e856d2152bd0f444dfcda30ff2e761329973c0da8f1183fe7d802575cf02",
+        "adapted_sha256": "1253391f72dff65b5055005ea7b7b14be8a20c586271c6da578cb56c8003617d",
+        "original_author": "AllanniaBB",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/108"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_006.zip",
+      "existing": false
+    },
+    {
+      "id": "fdafda61-3c1f-5f2d-ac54-d2e88c12f8dc",
+      "archive": "mod_prepare_carefully.zip",
+      "version": "0.9.2-bbmod.2",
+      "metadata": {
+        "install_name": "mod_prepare_carefully.zip",
+        "title": "战前自由布阵",
+        "summary": "狐狸合集适配版：战前自由布阵。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：m0d_24_（自由布阵）zhiyoubuzheng.zip\n提供战前布阵操作，减少开战后才调整队形的麻烦。本站提供 0.9.2 的免费署名整理包，游戏文件保持原样。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/571",
+        "original_author": "TaroEld",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_prepare_carefully",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n战前自由布阵\n本包是 0.9.2 历史版本；作者 0.9.3 修复了战犬先攻及部分地块高亮问题。\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "78a5d9156167d74681f91b4fd9f1345b362cc2eeab9c7f76d13bcf050ad6380b",
+        "size": 6152,
+        "entry_count": 7,
+        "uncompressed_size": 16891,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。本包是 0.9.2 历史版本；作者 0.9.3 修复了战犬先攻及部分地块高亮问题。",
+      "provenance": {
+        "source_name": "m0d_24_（自由布阵）zhiyoubuzheng.zip",
+        "source_sha256": "acf28030c70ee9be22a1468baa21e7b77eb0833d9b19b91700965c773c335515",
+        "adapted_sha256": "941c5caa703a990cbd415d15a2de4791c6cd29e89c8b3d70dc13dd02f303129b",
+        "original_author": "TaroEld",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/571"
+        ],
+        "source_permission_record": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_007.zip",
+      "existing": true
+    },
+    {
+      "id": "f4cf66dc-b38d-502a-a5c9-1880169b3acd",
+      "archive": "mod_fox_008.zip",
+      "version": "0.6.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_008.zip",
+        "title": "Modern Hooks 框架",
+        "summary": "狐狸合集适配版：Modern Hooks 框架。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：mod_modern_hooks-685-0-6-0-1748620177.zip\n可与旧 Hooks 共存，不能替代所有旧接口。它在 fps_module.js 中建立 MOD 界面连接，而 rc.7 也提供同名页面；必须保留 Modern Hooks 的连接逻辑，不能让汉化旧页面覆盖它。该组合仍需加载顺序与实机验收。\n原地址见下方来源链接。",
+        "category": "框架",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/685",
+        "original_author": "Enduriel and MSU Team",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_modern_hooks",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n新 API 根框架，把原版/DLC 注册为伪 mod；多数新 mod 的依赖\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "760d977ebe2e418fe435164883f866bc2e300793927ea829c21464b0e98ea4ca",
+        "size": 25264,
+        "entry_count": 25,
+        "uncompressed_size": 77746,
+        "script_count": 20,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "mod_modern_hooks-685-0-6-0-1748620177.zip",
+        "source_sha256": "18fbf059480a09483693b8eef9c97c3a32450885b1971dda49b5cc14a66d7ed1",
+        "adapted_sha256": "1a703d4e1f342b9491e62e9c91c3c7dd46fe7aaf950035a642ea3cfad982860d",
+        "original_author": "Enduriel and MSU Team",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/685"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "框架\\mod_fox_008.zip",
+      "existing": false
+    },
+    {
+      "id": "e4a98465-dc80-5bb3-8d15-3ec4e24d73d5",
+      "archive": "mod_fox_009.zip",
+      "version": "1.9.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_009.zip",
+        "title": "MSU 1.9.0（汉化版）",
+        "summary": "狐狸合集适配版：MSU 1.9.0（汉化版）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：mod_msu-1.9.0(汉化版).zip\n需要 Modern Hooks。本次检查的游戏目录未启用 MSU；这是 Swifter、装备图标等 MOD 的关键前置。本地汉化改版没有单独转载授权证据，只提供原作页面。\n原地址见下方来源链接。",
+        "category": "框架",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/479",
+        "original_author": "MSU Team",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_msu",
+        "requires": "mod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n模组开发标准与工具库，依赖 Modern Hooks；很多功能 mod 的前置\n\n声明的版本前置：vanilla\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "f55b5d1a87f72fb3e8b645e9b601d4970c44e5493badd5952a5c63c8233a268b",
+        "size": 8218104,
+        "entry_count": 219,
+        "uncompressed_size": 13309624,
+        "script_count": 161,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "mod_msu-1.9.0(汉化版).zip",
+        "source_sha256": "ccf966e67c3be85e0918c44cb043bb39b08803e8d793d51d021f218b5d4bbab9",
+        "adapted_sha256": "12b564fe5a1eb6b4806cb64ebf75c83cf64219bc4121e2efaaa874d663bc3de4",
+        "original_author": "MSU Team",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/479"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "框架\\mod_fox_009.zip",
+      "existing": false
+    },
+    {
+      "id": "0b8900d1-3985-5a56-82c5-fd8c93efad8a",
+      "archive": "mod_fox_010.zip",
+      "version": "1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_010.zip",
+        "title": "沙匪起源 Desert Bandits",
+        "summary": "狐狸合集适配版：沙匪起源 Desert Bandits。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：mod_沙匪起源.zip\n增加开局起源与开局事件，没有与 rc.7 同路径覆盖。追加剧情和角色文字未纳入本体汉化审校；来源尚不能唯一对应。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_desertBandits",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n新开局起源\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "01b316531e415d05f60336fac13bd504c81e36318fe6dfcde1ac57da939e56f4",
+        "size": 8218,
+        "entry_count": 6,
+        "uncompressed_size": 20650,
+        "script_count": 3,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "mod_沙匪起源.zip",
+        "source_sha256": "90e658a31c29ba9d58bedbee5de8c203de8fea3973f6f4b2c1e325df072ad9d0",
+        "adapted_sha256": "c76c3178dbfb3567f1b6b3f34b639f2d59fe137d0359999363c2bb92ef7193c8",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_010.zip",
+      "existing": false
+    },
+    {
+      "id": "ff1dcd88-9def-50e2-9a04-dd70e369e267",
+      "archive": "mod_fox_011.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_011.zip",
+        "title": "战术命中要素显示",
+        "summary": "狐狸合集适配版：战术命中要素显示。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：mod_（战术命中要素）tactical_hit_factors-283-6-1606037352.zip\n编译入口确认 mod_tactical_hit_factors。没有与 rc.7 同路径覆盖；具体战斗提示、换行与其他战斗提示 MOD 的组合尚待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/283",
+        "original_author": "MrBrut",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\ncnut 编译"
+      },
+      "inspection": {
+        "sha256": "84bd4b38d30a59433c03be48c06b44f48e07e17295c44e6bc350fe0751805bcc",
+        "size": 15604,
+        "entry_count": 4,
+        "uncompressed_size": 27825,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "mod_（战术命中要素）tactical_hit_factors-283-6-1606037352.zip",
+        "source_sha256": "e63c7df723926586be0fa521923e90602d95a4e089f9a1539907eeb3083a50db",
+        "adapted_sha256": "d698c10f0caaea0d9d367b13e4438b909ede404baad492c035100a518da56f83",
+        "original_author": "MrBrut",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/283"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_011.zip",
+      "existing": false
+    },
+    {
+      "id": "305b6266-9c95-52a3-942b-cb8ae1a977ce",
+      "archive": "mod_fox_012.zip",
+      "version": "1.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_012.zip",
+        "title": "发现传奇地点 Ctrl+U",
+        "summary": "狐狸合集适配版：发现传奇地点 Ctrl+U。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap012-发现传奇地点(Ctrl+U)-mod-uncover-legendary-locations-372-1-2-1626108860.zip\n旧 Hooks 入口，无同路径覆盖。会暴露世界地图地点，应单独使用并确认快捷键；未验证地图名称及新旧存档。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/372",
+        "original_author": "TaroEld",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_uncover_legendary_locations",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n揭秘传奇地点位置\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "29e7667d87c6114ce355c0255f071f7dc8da68b4bfdb8af996c9ec6bc49e059e",
+        "size": 2159,
+        "entry_count": 4,
+        "uncompressed_size": 2451,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap012-发现传奇地点(Ctrl+U)-mod-uncover-legendary-locations-372-1-2-1626108860.zip",
+        "source_sha256": "4a6b20603e2fe0b167246bb301c9199f406bc9ee52afbc1d3342d6b3538aa4da",
+        "adapted_sha256": "d9e50794c50e28b32aff911376f3c97edc1bc7c7ae76bf2d49a190e3ad3e2c3f",
+        "original_author": "TaroEld",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/372"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_012.zip",
+      "existing": false
+    },
+    {
+      "id": "53dfd891-1191-5af9-b086-6e1392b3eaa8",
+      "archive": "mod_fox_quickly_swap_items.zip",
+      "version": "1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_quickly_swap_items.zip",
+        "title": "快速切换道具（兼容控制宠物）",
+        "summary": "狐狸合集适配版：快速切换道具（兼容控制宠物）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip / zbigmap007-快速切换道具汉化(兼容控制宠物MOD).zip\n\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_quickly_swap_items",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n从 EIMO 内层包分离，可单独启停和卸载。\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "0d50f00f7407df885ea61e578aebd0439bf94136508d52724a05a50e8eeb2377",
+        "size": 3443,
+        "entry_count": 4,
+        "uncompressed_size": 6833,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip / zbigmap007-快速切换道具汉化(兼容控制宠物MOD).zip",
+        "source_sha256": "420ee5626d04c99667c4f19180ab1566b4f000863748edc5d3fdd44ae59b65d1",
+        "adapted_sha256": "03c0c547d8ea734d5dff665257e6d8e6e2336f298f741c447236dc359bb97219",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "未核实",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_quickly_swap_items.zip",
+      "existing": false
+    },
+    {
+      "id": "8ab5be5c-36b9-5335-8a2b-6e10510d105a",
+      "archive": "mod_fox_013.zip",
+      "version": "9.0.6-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_013.zip",
+        "title": "战利品管理 EIMO 9.06（MSU 汉化版）",
+        "summary": "狐狸合集适配版：战利品管理 EIMO 9.06（MSU 汉化版）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip\n需要 MSU ≥ 1.1.0 及兼容版本注册的框架。归档还夹带另一个快速切换物品 ZIP，可能与已装切换 MOD 重复。原站禁止转载，本站不提供本地改版文件。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/239",
+        "original_author": "Enduriel",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_EIMO",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n快速切换道具已拆为独立 ZIP，按需另选；依赖 MSU 和两套 Hooks。\n\n声明的版本前置：mod_msu(>=1.1.0)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "dcf2f2fe6c5fc15dd4623fbbe29f6ac16a55c61d3a3353bf1c26797d38592444",
+        "size": 60071,
+        "entry_count": 40,
+        "uncompressed_size": 100711,
+        "script_count": 14,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip",
+        "source_sha256": "80928130d72d8cf93005e32e24764ba4e546b42c82ca07c1d0e028f90ddfb29f",
+        "adapted_sha256": "f33f8cf9e168f44156ffe288fab21874f159b86a14bf07dee6ebc9660847ae0f",
+        "original_author": "Enduriel",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/239"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_013.zip",
+      "existing": false
+    },
+    {
+      "id": "a9de9364-6f58-5934-b48d-a0f48cbaaa00",
+      "archive": "mod_fox_014.zip",
+      "version": "1.0.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_014.zip",
+        "title": "自定义武将底座 MSU2.4",
+        "summary": "狐狸合集适配版：自定义武将底座 MSU2.4。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap033-自定义武将底座MSU2.4.zip\n需要 MSU 和兼容旧语义版本注册的框架。修改显示和界面翻译，尚未核实本地改作者的完整分发许可；与中文界面的组合待验证。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "Bigmap（脚本署名，原帖未核实）",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mus_custom_socket",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n声明的版本前置：mod_msu(>=1.0.0-beta)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "50407bac768f1d42875b514ebe01331d0c645c083115c17c67b2b647e10cfc4b",
+        "size": 4823,
+        "entry_count": 5,
+        "uncompressed_size": 13581,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap033-自定义武将底座MSU2.4.zip",
+        "source_sha256": "579ad33cf00b62c518e66fb7240985ae4d989fa2032edb0b08c87cea13a4e2c4",
+        "adapted_sha256": "b8c96cddcb4d9f6d14068ef96a17e03526bf10fe56b38fcc7e848a1207be4735",
+        "original_author": "Bigmap（脚本署名，原帖未核实）",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_014.zip",
+      "existing": false
+    },
+    {
+      "id": "ed48b2fe-7268-5357-a898-83b304c24f24",
+      "archive": "mod_fox_015.zip",
+      "version": "1.1.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_015.zip",
+        "title": "地图/战斗加速 Swifter（MSU 汉化版）",
+        "summary": "狐狸合集适配版：地图/战斗加速 Swifter（MSU 汉化版）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap043-更快的速度更快的事件频率(1-4地图加速、F1-F4战斗加速，不兼容06战斗加速)1.12-MSU汉化版1.12-swifter-542-1-1-2-1660927118.zip\n需配套 MSU 与版本兼容框架。与当前 1.1.3 使用相同 mod_swifter ID，只能安装一个版本；也与 Autopilot / Quicker / Faster / Fastest 冲突。本地汉化新增署名与授权不明。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/542",
+        "original_author": "Enduriel",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_swifter",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "mod_autopilot\nmod_quicker\nmod_faster\nmod_fastest",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\nF1-F4 战斗加速、地图加速；互斥 06 战斗加速/quickier 系列\n与旧版自动战斗 Autopilot、Quicker、Faster、Fastest 互斥。\n声明的版本前置：mod_msu(>=1.0.0-beta)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "8dbe9955794aef157191a928a18d3d25526605855b50b848b8f67fca9ad43691",
+        "size": 17988,
+        "entry_count": 26,
+        "uncompressed_size": 29616,
+        "script_count": 9,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。与旧版自动战斗 Autopilot、Quicker、Faster、Fastest 互斥。",
+      "provenance": {
+        "source_name": "zbigmap043-更快的速度更快的事件频率(1-4地图加速、F1-F4战斗加速，不兼容06战斗加速)1.12-MSU汉化版1.12-swifter-542-1-1-2-1660927118.zip",
+        "source_sha256": "1866e34ab5bcfa9fef5ccbf98f97cc01be9618449468076a512cbd23e4dabbfb",
+        "adapted_sha256": "be0f14b2651666e4202c62928aef218f00e6abbef9635578c2be0b8ed77b0aa0",
+        "original_author": "Enduriel",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/542"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_015.zip",
+      "existing": false
+    },
+    {
+      "id": "911d6645-eb06-5e02-9d24-7f507f5effe4",
+      "archive": "mod_fox_016.zip",
+      "version": "1.0.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_016.zip",
+        "title": "战前准备（MSU 汉化版）",
+        "summary": "狐狸合集适配版：战前准备（MSU 汉化版）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap046-战前准备1.01-MSU汉化版1.0-mod_prepare_for_battle-557-1-0-1-1652847896.zip\n要求 MSU ≥ 1.0.0-beta.4，本地语义版本注册还需兼容桥接。无同路径覆盖，战前面板与战斗切换仍待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/557",
+        "original_author": "Enduriel",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_prepare_for_battle",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n战前整备界面\n\n声明的版本前置：mod_msu(>=1.0.0-beta.4)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "929d152dc8db9a04ef4a575c27b538869987c47e6e5bf4374fef18f14d94e039",
+        "size": 4129,
+        "entry_count": 8,
+        "uncompressed_size": 6011,
+        "script_count": 3,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap046-战前准备1.01-MSU汉化版1.0-mod_prepare_for_battle-557-1-0-1-1652847896.zip",
+        "source_sha256": "1b70b2773ed237883b3965c81027dfc6cd5e2008667e0ca925385503ca343c40",
+        "adapted_sha256": "3b4cb2f0a232e1d6b60f81f21623ee31a23d1b550dfce8bbcfdd868c37959b43",
+        "original_author": "Enduriel",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/557"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_016.zip",
+      "existing": false
+    },
+    {
+      "id": "87cd359b-16d4-5c1c-befe-d4070dfa2c77",
+      "archive": "mod_fox_017.zip",
+      "version": "1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_017.zip",
+        "title": "可移除护甲配件（U）",
+        "summary": "狐狸合集适配版：可移除护甲配件（U）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap050-可移除护甲配件(快捷键U)-removableUpgradesVer2-444-1-1631955666.zip\n使用旧 Hooks，无同路径覆盖。会改变附件拆卸操作；需验证快捷键、附件保留和与装备鉴定的提示组合。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/444",
+        "original_author": "MrBrut",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_removableUpgradesVer2",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "b8eeb3659619ed0d9ce7247e361fa8fed1459d1bde36c4fb0cea4ca6c93bb60e",
+        "size": 3532,
+        "entry_count": 5,
+        "uncompressed_size": 5913,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "zbigmap050-可移除护甲配件(快捷键U)-removableUpgradesVer2-444-1-1631955666.zip",
+        "source_sha256": "4637cca0f9ba84fe035161c7ae9bb1f87e08e203dc368e77abcd80f1fc0d9fa3",
+        "adapted_sha256": "e3f00ff9c0ecef1319902b74fb99a4c4d2e308a572a2aa3c8343e3fdd4ba7102",
+        "original_author": "MrBrut",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/444"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_017.zip",
+      "existing": false
+    },
+    {
+      "id": "9ab161fb-300c-53eb-b9a9-e3a2df8b568b",
+      "archive": "mod_fox_018.zip",
+      "version": "1.2.3-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_018.zip",
+        "title": "自动战斗（MSU）",
+        "summary": "狐狸合集适配版：自动战斗（MSU）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：zbigmap060-自动战斗.zip\nSwifter 明确声明与 mod_autopilot 冲突，不能与当前加速 MOD 一起启用。本包还需要 MSU；本地汉化改版来源及授权未确认。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_autopilot",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "mod_swifter",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\nMSU 系自动战斗\n与 Swifter 加速互斥，不要一起启用。\n声明的版本前置：mod_msu\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "3fdc31635e9dfb19ee736f1f0c3b950256f18cdced7e6a94d878cd3cf71c38a0",
+        "size": 31566,
+        "entry_count": 10,
+        "uncompressed_size": 144215,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。与 Swifter 加速互斥，不要一起启用。",
+      "provenance": {
+        "source_name": "zbigmap060-自动战斗.zip",
+        "source_sha256": "c144f5a061191dfdafc0541a348b2f00246b0052d5e630fc7274d685ecf3b13d",
+        "adapted_sha256": "641eb156d5394d32d08e795c25a9a52ec18ce52001c868a9ce3216baec371393",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_018.zip",
+      "existing": false
+    },
+    {
+      "id": "109d4267-a9f5-5a55-a019-df6e4b4e7416",
+      "archive": "mod_fox_019.zip",
+      "version": "1.5-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_019.zip",
+        "title": "军团外套 Company Tabards",
+        "summary": "狐狸合集适配版：军团外套 Company Tabards。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：军团外套-附件.zip\n直接替换独狼起源脚本，与汉化版本冲突；版本号 1.5.2024 也不被旧 Hooks 21.1 接受。另与头像扩展、骨板显示器共用预载清单，不能整包盲目混装。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/107",
+        "original_author": "Pixel_and_Sarissofoi",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "sarisofoi_company_tabards",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n版本字面量规范为实际生效的 1.5；预载资源由管理器自动合并。 通过新版 BBMOD 自动合并预载清单。 移除与源码重复的编译脚本，避免重复预加载。\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "6a567635f372ab4f64ac712c563fb0b78cb529e909de1bab3bccf1ce1bbc22e5",
+        "size": 589418,
+        "entry_count": 69,
+        "uncompressed_size": 619962,
+        "script_count": 26,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "军团外套-附件.zip",
+        "source_sha256": "f49ae192495d53f1e75e265b72ee11a602262007a29c372f06240fb4a4a50f96",
+        "adapted_sha256": "da0d710f6b12aef29907f04c910cd5e7e6304f014be77ac5053bc89751800cf7",
+        "original_author": "Pixel_and_Sarissofoi",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/107"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_019.zip",
+      "existing": false
+    },
+    {
+      "id": "19639377-5085-5574-949e-d536cd383e88",
+      "archive": "mod_fox_020.zip",
+      "version": "1.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_020.zip",
+        "title": "刺客之王起源 Hassassin",
+        "summary": "狐狸合集适配版：刺客之王起源 Hassassin。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：刺客之王起源.zip\n增加起源、事件和装备，没有同路径覆盖。独立汉化只覆盖本体，新增起源剧情、装备文字和存档影响仍待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/805",
+        "original_author": "Niczada",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_hassassin",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n起源+专属武器装备\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "7fb3b66f91e4d27ca2083bfaf59429b526ebaab0523fc01dd20276de6b93663d",
+        "size": 14501,
+        "entry_count": 15,
+        "uncompressed_size": 36243,
+        "script_count": 12,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "刺客之王起源.zip",
+        "source_sha256": "afe84e53da21ee1a8e58cbda4a97454e6f6172532a325964a4e6f4bb9f9a5f96",
+        "adapted_sha256": "eea2e587a533bc1cd2aa405970f8452e39757922358e445e518c07c35b4d2028",
+        "original_author": "Niczada",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/805"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_020.zip",
+      "existing": false
+    },
+    {
+      "id": "bbaf5c16-cc90-5c63-8f43-4fd1fdda199a",
+      "archive": "mod_fox_021.zip",
+      "version": "1.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_021.zip",
+        "title": "商店出售红盾",
+        "summary": "狐狸合集适配版：商店出售红盾。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：商店出售红盾.zip\n旧 Hooks 入口，无同路径覆盖；会改变商店装备供给，不能由此推断种子和存档无影响。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_namedShieldsInShops",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "ad544f15720029d856508fd933cc22faff84fc0a58c5a3c98a794501f255db46",
+        "size": 1794,
+        "entry_count": 4,
+        "uncompressed_size": 2228,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "商店出售红盾.zip",
+        "source_sha256": "be052be733bd3e9bbc8aeb42ffa4973e0103acdd7ac7e6e3003b63e95e35db2b",
+        "adapted_sha256": "1940a0e26d29a30e24c4aa9ba4e981b13cf29dcfa4d36d0d79751d0c3f115485",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_021.zip",
+      "existing": false
+    },
+    {
+      "id": "9714fc37-94a8-5f7c-8b03-69b8b2be2ff1",
+      "archive": "mod_fox_022.zip",
+      "version": "1.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_022.zip",
+        "title": "原价回购物品",
+        "summary": "狐狸合集适配版：原价回购物品。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：回购-原价买回物品.zip\n通过 mod_ends_buyback 入口修改回购行为。未发现同路径覆盖，但与 EIMO 的回购功能可能重复，需组合验证。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "EndsBuyback",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "17d205523f3347fc028174f867dd473a29f13befddcfeb596040ca3cb28a5ac9",
+        "size": 2183,
+        "entry_count": 4,
+        "uncompressed_size": 3692,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "回购-原价买回物品.zip",
+        "source_sha256": "ed0b4049350b3ac59dffe761949a8b0f0435b7b89391daef251cc99a09fc5c3b",
+        "adapted_sha256": "2445f00949319fd2183828426c9cf913e81b4f4c657b5ef9589bb92923e28a8a",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_022.zip",
+      "existing": false
+    },
+    {
+      "id": "e0f29727-6299-58ca-9684-e4c73d6a9185",
+      "archive": "mod_fox_023.zip",
+      "version": "0.5.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_023.zip",
+        "title": "宝藏地图（红装位置提示）",
+        "summary": "狐狸合集适配版：宝藏地图（红装位置提示）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：宝藏地图（提示红装位置）.zip\n需要 Modern Hooks、MSU ≥ 1.2.6；声明不支持 Legends < 19.0.0。无同路径覆盖，但新增地图道具、事件和地点提示尚未纳入本体汉化。 原作说明指出不可安全地从已有存档移除此 MOD。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://github.com/chopeks/mod_find_legendary_maps",
+        "original_author": "chopeks；美术：Evie Nekomancer（原作 README 署名）",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_find_legendary_maps",
+        "requires": "mod_modern_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n声明的版本前置：mod_msu >= 1.2.6；mod_modern_hooks >= 0.4.0\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "d38c828411b7b8d5360a75e1d7d77da06b645dc1f55d148c34443dece3f47388",
+        "size": 54325,
+        "entry_count": 39,
+        "uncompressed_size": 95080,
+        "script_count": 33,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "宝藏地图（提示红装位置）.zip",
+        "source_sha256": "c7f38554c82a99268fbca3ec7a213537e7fd1a449dbd9c0c0d03dbc459518bf1",
+        "adapted_sha256": "323d0000c844d030c406155cb38e2b472a2dfc84fb3fa7fd85f4f3b66805ab48",
+        "original_author": "chopeks；美术：Evie Nekomancer（原作 README 署名）",
+        "source_urls": [
+          "https://github.com/chopeks/mod_find_legendary_maps"
+        ],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_023.zip",
+      "existing": false
+    },
+    {
+      "id": "52a800cb-ae21-5af2-88a5-5c9cdbc24684",
+      "archive": "mod_fox_024.zip",
+      "version": "7.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_024.zip",
+        "title": "战场敌人属性提示",
+        "summary": "狐狸合集适配版：战场敌人属性提示。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：战场敌人战斗属性.zip\n旧 Hooks，无同路径覆盖。原作允许署名转载，但本地脚本包含第三方中文改动，其改版授权未确认，所以只提供原作链接。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/266",
+        "original_author": "MrBrut（原作）；本地改作者未核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_tactical_tooltip",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "1a3a8b051ee0bd4750c9c00879279f4860c6d66349287268e0425d22370a0640",
+        "size": 411542,
+        "entry_count": 15,
+        "uncompressed_size": 421774,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "战场敌人战斗属性.zip",
+        "source_sha256": "6ef3583a553d380c6fc8e4311e763f123ed62083952da5ec99270f19a4d6102a",
+        "adapted_sha256": "e3d2fa588903d1c2023f7b46fe85ae77b85945da9e821f77add512c8f676fb4c",
+        "original_author": "MrBrut（原作）；本地改作者未核实",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/266"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_024.zip",
+      "existing": false
+    },
+    {
+      "id": "3c7921ae-f0a2-55fb-bec8-ba4ca440df33",
+      "archive": "mod_fox_025.zip",
+      "version": "6-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_025.zip",
+        "title": "城市交易价格/状态提示",
+        "summary": "狐狸合集适配版：城市交易价格/状态提示。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显示城市交易价格比例.zip\n归档包含价格和城镇状态两个入口；与独立“城市据点状态”可能重复显示。无汉化同路径覆盖，需验证中文提示布局。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/311",
+        "original_author": "MrBrut",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_settlement_prices_tooltip",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "d9d7e8e0efba51ea5d3153ebfa7cae06211cf2f6e856a1034f48abf9422faef3",
+        "size": 26646,
+        "entry_count": 17,
+        "uncompressed_size": 35573,
+        "script_count": 2,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "显示城市交易价格比例.zip",
+        "source_sha256": "01004a80ecd94889b32ff41a4d291496143327f8a9a6e0c5a785252e4d10ca5b",
+        "adapted_sha256": "f146f53d17737c57773f3fd7c850c764fa16082c1971935c96134c89af96a92f",
+        "original_author": "MrBrut",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/311"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_025.zip",
+      "existing": false
+    },
+    {
+      "id": "665b53c7-0d20-5074-818e-004b61277366",
+      "archive": "mod_fox_026.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_026.zip",
+        "title": "显示据点状态",
+        "summary": "狐狸合集适配版：显示据点状态。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显示城市据点状态.zip\n编译入口是 mod_settlement_situations_worldmap_tooltip。无同路径覆盖；与价格包内的城镇状态功能叠加待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/313",
+        "original_author": "MrBrut",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。"
+      },
+      "inspection": {
+        "sha256": "50a27ce3e90e2e03f36feb93feef45170121325f185f0e10d00495b255c64355",
+        "size": 4334,
+        "entry_count": 4,
+        "uncompressed_size": 6020,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "显示城市据点状态.zip",
+        "source_sha256": "b94c4030ee20e704dc319aa2ad46787e3bd040ea41ec42249637c06c05f55109",
+        "adapted_sha256": "775a5baa1b4de479ab1d6b324c2df3c70ca19b29daf8e592442512c29d59406d",
+        "original_author": "MrBrut",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/313"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_026.zip",
+      "existing": false
+    },
+    {
+      "id": "b2906641-03a9-5bb4-8db1-7032458f90d5",
+      "archive": "mod_fox_027.zip",
+      "version": "1.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_027.zip",
+        "title": "红装属性区间显示",
+        "summary": "狐狸合集适配版：红装属性区间显示。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显示红装属性范围.zip\n使用 Modern Hooks，并在 MSU 之后排队。无同路径覆盖；与 BBMOD 装备鉴定可能叠加提示。本地中文改版授权未确认，不转载。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/850",
+        "original_author": "sryanr（原作）；本地改作者未核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "namedItemStats",
+        "requires": "mod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "10f9bddb5fcdd62b423be374deced933a61fd163df3739c97e600f9fdcc2f59c",
+        "size": 4197,
+        "entry_count": 4,
+        "uncompressed_size": 46640,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "显示红装属性范围.zip",
+        "source_sha256": "5c505ef9edaaecca25b5928628f05da50f4926f3f70b60e2d7d7851ada80ac08",
+        "adapted_sha256": "63765af57852a94e36b8e66c7a0afb3115b27dffc1c67a59bafe630427f8d545",
+        "original_author": "sryanr（原作）；本地改作者未核实",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/850"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_027.zip",
+      "existing": false
+    },
+    {
+      "id": "301bf7da-49df-5d22-871f-bde719bcdd40",
+      "archive": "mod_fox_028.zip",
+      "version": "1.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_028.zip",
+        "title": "显示营地红装",
+        "summary": "狐狸合集适配版：显示营地红装。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显示营地红装.zip\n旧 Hooks 入口，无同路径覆盖。会揭示营地物品信息，营地刷新、中文地名和其他提示 MOD 的组合未验证。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "Lair_Info_Compilation",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "d917b0ecc29f983a571b17162cbd57ccea524ad5e4825eba520a9d8a784bfa53",
+        "size": 2414,
+        "entry_count": 4,
+        "uncompressed_size": 3196,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "显示营地红装.zip",
+        "source_sha256": "7f7288f3966ee1c10cab0a266089261dfc331ebee9c444b40a392b4e3b6fbc69",
+        "adapted_sha256": "2048ffa926e55dd4151a306d534524a6b418a14f19fa18328352e534babdf197",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_028.zip",
+      "existing": false
+    },
+    {
+      "id": "5abf6685-6c51-540f-b42a-467953e0a752",
+      "archive": "mod_fox_029.zip",
+      "version": "2.1.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_029.zip",
+        "title": "显示视野范围",
+        "summary": "狐狸合集适配版：显示视野范围。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显示视野范围.zip\n需要 MSU ≥ 1.1.1 及语义版本兼容框架。无同路径覆盖；地图圈层、DLC 和中文地图标签的叠加待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/487",
+        "original_author": "TaroEld",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_vision_radius",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n声明的版本前置：mod_msu(>=1.1.1)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "0bf015552d17d7ec2e6414796070e6f3c2e886a22f45fd267bbee64f9a2947fd",
+        "size": 278351,
+        "entry_count": 6,
+        "uncompressed_size": 303156,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "显示视野范围.zip",
+        "source_sha256": "5ac57625c6af68e121f3056d1136be7ef3618972c786e61637990d8598711876",
+        "adapted_sha256": "ea3f312392eb4b0953963078d09662024fe88bd7660e75670efb1a859002e073",
+        "original_author": "TaroEld",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/487"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_029.zip",
+      "existing": false
+    },
+    {
+      "id": "465eb022-c385-5c42-9e15-84e38e61f73a",
+      "archive": "mod_fox_030.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_030.zip",
+        "title": "炼金配方全开",
+        "summary": "狐狸合集适配版：炼金配方全开。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：炼金配方可见.zip\ntnf_allRecipes 入口，无同路径覆盖。改变配方可见性，额外配方的名称与可制作性仍需验证。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "73d0d7af9bbe4ed7d02a34b35104a91d7cf628dbcf677b3a1758048a52896b69",
+        "size": 1636,
+        "entry_count": 4,
+        "uncompressed_size": 1431,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "炼金配方可见.zip",
+        "source_sha256": "4a41358ff29dd042b0cbbfadc951078cadf430e7d37e9fd02f5e8ad9066e7ac1",
+        "adapted_sha256": "95ae74e7617acfacdfd666e4a6fd24e4de01c2402754d2f87f06489e7413ca01",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_030.zip",
+      "existing": false
+    },
+    {
+      "id": "4cea0914-a227-5391-ad18-9756040276b8",
+      "archive": "mod_fox_031.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_031.zip",
+        "title": "犬舍可购买狼",
+        "summary": "狐狸合集适配版：犬舍可购买狼。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：犬舍可购买狼.zip\n直接覆盖 kennel_building 脚本，与独立汉化同一脚本冲突。当前没有合并兼容补丁，不建议同时启用。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n纯覆盖，无注册"
+      },
+      "inspection": {
+        "sha256": "5f77b03150c1f6d869e6e09c9c7cad1945e1c6a62b5fecead023bc2b6424bdd3",
+        "size": 2529,
+        "entry_count": 4,
+        "uncompressed_size": 6810,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "犬舍可购买狼.zip",
+        "source_sha256": "d39bddfd5f75992b039b7383fcf20c95f897c347d8a8d0bd2dec1e1654f36403",
+        "adapted_sha256": "dece7bb57608efa11e4e5d9f6d726a3b7f4e5498ccf1aab7b4fb06e28abc4c0b",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_031.zip",
+      "existing": false
+    },
+    {
+      "id": "ff3d429c-3a7d-5dcf-86a7-99d734d60fc7",
+      "archive": "mod_fox_032.zip",
+      "version": "1.0.2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_032.zip",
+        "title": "猎头触发特效（VSE）",
+        "summary": "狐狸合集适配版：猎头触发特效（VSE）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：狂暴 猎头触发特效.zip\n需要 MSU 与语义版本兼容框架。无同路径覆盖；会改动战斗视觉表现和图集，需与其他技能外观 MOD 组合验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/548",
+        "original_author": "Enduriel",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_vse",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n声明的版本前置：mod_msu(>=1.0.0-beta)\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "2fdf149bb908069deb35a20be5c8e4ffcfb0b2a145f67e751ed765c7d9c2e27c",
+        "size": 11697,
+        "entry_count": 9,
+        "uncompressed_size": 14119,
+        "script_count": 4,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "狂暴 猎头触发特效.zip",
+        "source_sha256": "2bd367379befe0d09c3b150332fea6bfd364ccbadf03c438ea21e011f2317475",
+        "adapted_sha256": "082f6efcf42f75fc49a342ca192f8f846f0fa5e50df0f51cb4e1b4a9c717b5b7",
+        "original_author": "Enduriel",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/548"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_032.zip",
+      "existing": false
+    },
+    {
+      "id": "bb79a6dd-622a-5325-b8c0-6c1cd98ff9a2",
+      "archive": "mod_fox_033.zip",
+      "version": "2.9.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_033.zip",
+        "title": "玩家控制宠物",
+        "summary": "狐狸合集适配版：玩家控制宠物。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：玩家控制宠物（攻击快捷键点1）.zip\n入口自报 Well Trained Pets (Legends) 2.9.0。不能把它直接当成原版宠物控制包；需要对应 Legends / MSU 环境，原版汉化没有完成适配。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/317",
+        "original_author": "Necro（原作）；NgGH707（原站维护上传）",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_well_trained_pets",
+        "requires": "mod_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n攻击快捷键 1\n包内注册为 Well Trained Pets (Legends) 2.9.0；原版游戏的宠物操作仍待实机确认。\n声明的版本前置：mod_msu\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "9a21e46f23c9c78fdb13c48abb4a705febecb7b1da8a2ee1a0a5ef6a6f8e366a",
+        "size": 450184,
+        "entry_count": 90,
+        "uncompressed_size": 449571,
+        "script_count": 14,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。包内注册为 Well Trained Pets (Legends) 2.9.0；原版游戏的宠物操作仍待实机确认。",
+      "provenance": {
+        "source_name": "玩家控制宠物（攻击快捷键点1）.zip",
+        "source_sha256": "20199f360f78857eeb9cae3a778e3c026069ff526bcb9cddc3a49860c2f0c8cf",
+        "adapted_sha256": "8883eda10a73713cdfd053837d061df502e38d108d809d0c4e12919ec23cd432",
+        "original_author": "Necro（原作）；NgGH707（原站维护上传）",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/317"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_033.zip",
+      "existing": false
+    },
+    {
+      "id": "af26d5f2-7fea-5079-9223-d665cc8a8308",
+      "archive": "mod_fox_034.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_034.zip",
+        "title": "神殿治疗永久伤残",
+        "summary": "狐狸合集适配版：神殿治疗永久伤残。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：神殿治疗永久伤残.zip\n脚本入口标识为 mod_olto_v_temple_remove_injuries_perm。无同路径覆盖，但伤残恢复、价格及存档状态修改仍待验证；来源和许可未核实。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "ccb1db976e490983043cbd59ae232775990cc42169b74f0fb3534e7d6e6f68d2",
+        "size": 2827,
+        "entry_count": 4,
+        "uncompressed_size": 7445,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "神殿治疗永久伤残.zip",
+        "source_sha256": "ee6e53661ea21d0da468b71f00df8093f7552cac38a69c44362e9a413cb0a72a",
+        "adapted_sha256": "de5459a3d0565fcc17d678ef5fff3baca40d1e2f04b32a6d31b927f8c35a2e91",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_034.zip",
+      "existing": false
+    },
+    {
+      "id": "783bd935-b580-5bff-a566-cffbb18d6147",
+      "archive": "mod_backgrounds_attribute_ranges.zip",
+      "version": "2.0.0-bbmod.2",
+      "metadata": {
+        "install_name": "mod_backgrounds_attribute_ranges.zip",
+        "title": "职业属性范围",
+        "summary": "狐狸合集适配版：职业属性范围。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：职业属性能力范围显示.zip\n在人物背景提示中补充属性范围，便于判断招募潜力。本站提供 2.0.0 的免费署名整理包，游戏文件保持原样。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/287",
+        "original_author": "Vazl",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_backgrounds_attribute_ranges",
+        "requires": "mod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n新 API，需 Modern Hooks\n\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "446d51be7db5859b7f44f6ec88bb55133f510279d2ef747f6e657c5f1c551ff2",
+        "size": 123117,
+        "entry_count": 13,
+        "uncompressed_size": 164749,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "职业属性能力范围显示.zip",
+        "source_sha256": "7d8e20e11143ae42935e9d751313b21d9a239f2f69b8aaed8a524362146a3ef7",
+        "adapted_sha256": "50053fd6fba07dae11ce9393b3cc80a43f1233009aa54666fb4169b944952d9c",
+        "original_author": "Vazl",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/287"
+        ],
+        "source_permission_record": "原作允许署名转载；本站免费提供整理版，原作者、许可链接和具体整理改动均随包附带。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_035.zip",
+      "existing": true
+    },
+    {
+      "id": "159e134e-9c8d-56ea-96cb-29e6468c5e0f",
+      "archive": "mod_fox_036.zip",
+      "version": "1.0.6-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_036.zip",
+        "title": "自动暂停（可配置）",
+        "summary": "狐狸合集适配版：自动暂停（可配置）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：自动暂停-合集版.zip\n需要 Modern Hooks 和 MSU；与 mod_pause 冲突。无同路径覆盖，地图事件 / 自动暂停行为尚待验证。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/731",
+        "original_author": "Enduriel",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_configurable_pause",
+        "requires": "mod_modern_hooks\nmod_msu",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n声明的版本前置：mod_msu\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "965d1da35c18a793cfccc6d91cec70162f578f97ce5bc90072c388bea6c11016",
+        "size": 5843,
+        "entry_count": 7,
+        "uncompressed_size": 13556,
+        "script_count": 4,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "自动暂停-合集版.zip",
+        "source_sha256": "16a520cc7a6b654dc86bcce8741e746c833b252ef143bb30a91eebccd0589537",
+        "adapted_sha256": "7a9833a7bb4df56d805454ef2d6818c77e31ca403644ce4c8f801ef2172d4d2b",
+        "original_author": "Enduriel",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/731"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_036.zip",
+      "existing": false
+    },
+    {
+      "id": "60c5d446-3211-5365-abff-d1dae03e4a1f",
+      "archive": "mod_fox_037.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_037.zip",
+        "title": "人物头像扩展（合集原名：11级上限）",
+        "summary": "狐狸合集适配版：人物头像扩展（合集原名：11级上限）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：营地显示人物11级上限.zip\n文件名与内容不符：只包含 more_heads 图集、脸型配置、brush 和预载清单，没有 11 级潜力计算或属性展示脚本。不能当作潜力显示 MOD。与其他写入 preload/on_running.txt 的外观包存在覆盖风险。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n纯资源；含 preload 预载清单 通过新版 BBMOD 自动合并预载清单。\n实际内容是头像扩展，不是 11 级属性上限计算器。"
+      },
+      "inspection": {
+        "sha256": "b999505362c200b612cea5023ae211bbb0e241ddcad1bcd5a644b647a38e07ac",
+        "size": 417943,
+        "entry_count": 7,
+        "uncompressed_size": 431004,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。实际内容是头像扩展，不是 11 级属性上限计算器。",
+      "provenance": {
+        "source_name": "营地显示人物11级上限.zip",
+        "source_sha256": "c7d232ace6ee6fed367165ed690a1509b61e7697f385ac8bc809c199e5c71e3a",
+        "adapted_sha256": "41442adbf323b03beddbe9dc2fa19f0c812797da9f0e41159c951e96f27abd99",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_037.zip",
+      "existing": false
+    },
+    {
+      "id": "77c6f086-0080-53aa-98bc-743d1bfdd19a",
+      "archive": "mod_fox_038.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_038.zip",
+        "title": "轻度显星（仅成长星）",
+        "summary": "狐狸合集适配版：轻度显星（仅成长星）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：轻度显星-仅显示成长星.zip\n直接替换招募界面的 JS / CSS，与当前“显星、属性与评分”占用同一页面。两种显星方案只能选择一个。\n原地址见下方来源链接。",
+        "category": "基础功能",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/75",
+        "original_author": "Rule303",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n显星类互斥：与显星显属性带评价二选一\n与“显星显属性带评价”二选一。"
+      },
+      "inspection": {
+        "sha256": "59a50e225b43e0df0eaa3c0765951c1f459d266ba7bc89f057809a688b184e31",
+        "size": 14134,
+        "entry_count": 6,
+        "uncompressed_size": 63000,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。与“显星显属性带评价”二选一。",
+      "provenance": {
+        "source_name": "轻度显星-仅显示成长星.zip",
+        "source_sha256": "c0a67a3e793c02d402e30cc8ebd44f8cfa330424309e600f6c056f105dd37fa1",
+        "adapted_sha256": "ba0ae47a3ee0072093943576716bb81f6dc6ede3c11343d9bce5ca0be2303977",
+        "original_author": "Rule303",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/75"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_038.zip",
+      "existing": false
+    },
+    {
+      "id": "8f05255a-235b-5463-b502-e822f7702ea5",
+      "archive": "mod_fox_039.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_039.zip",
+        "title": "轻松制作遗忘药水",
+        "summary": "狐狸合集适配版：轻松制作遗忘药水。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：轻松制作遗忘药水-见见改.zip\n新增 potion_of_oblivion_02_blueprint，无同路径覆盖；配方成本、物品引用、文本和存档行为未验证。本地改作者许可未核实。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n配方覆盖"
+      },
+      "inspection": {
+        "sha256": "d77601d1f4e7ac16254004c980591912e683f427e5f6f8beaf878b86eddb9328",
+        "size": 1860,
+        "entry_count": 4,
+        "uncompressed_size": 2171,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "轻松制作遗忘药水-见见改.zip",
+        "source_sha256": "c09e7912b9f02b210566446c05734197dc39e133c46956f1f7fcf8823e6ee921",
+        "adapted_sha256": "6bfd6fa8a4ffe305cb70f3a07151b5610dc529ac538befe7e3dc5e4e45a5c37f",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_039.zip",
+      "existing": false
+    },
+    {
+      "id": "426082fb-a304-531c-928f-2065177b7f0c",
+      "archive": "mod_fox_040.zip",
+      "version": "2-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_040.zip",
+        "title": "1.5倍雇佣新人",
+        "summary": "狐狸合集适配版：1.5倍雇佣新人。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-1.5倍雇佣新人.zip\n旧 Hooks 入口，无同路径覆盖；改变城镇招募生成，不能标成不影响种子。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_moreRecruits",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "065ee9031c3bafa2de78b1357884c346203b40ed9248dc67011f359b29cc5edb",
+        "size": 1680,
+        "entry_count": 4,
+        "uncompressed_size": 1509,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "重命名英文使用-1.5倍雇佣新人.zip",
+        "source_sha256": "75d26e3ca40a5079430d5aeb5955bf10ea6d035814411dd0a4309c72622d742a",
+        "adapted_sha256": "987b1f4201f618379ce6f0d21e3ba5b90584002dcc49e5db9f5da28df8d6c996",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_040.zip",
+      "existing": false
+    },
+    {
+      "id": "73524803-2baf-5e3d-97d3-e124f6a35cfe",
+      "archive": "mod_fox_041.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_041.zip",
+        "title": "骨板显示器",
+        "summary": "狐狸合集适配版：骨板显示器。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：骨板显示器.zip\n未与汉化脚本直接重叠，但同时含源码 / 编译脚本和 preload/on_running.txt，与其他共享预载清单的外观包有覆盖风险。\n原地址尚未核实，没有编造来源链接。",
+        "category": "基础功能",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n含 preload 预载清单 通过新版 BBMOD 自动合并预载清单。 移除与源码重复的编译脚本，避免重复预加载。\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "2658c42c18b4982f9b052ba043d3ea9059fd426b83e7b695520e3da4aa4f0698",
+        "size": 89918,
+        "entry_count": 12,
+        "uncompressed_size": 90174,
+        "script_count": 2,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "骨板显示器.zip",
+        "source_sha256": "742d9798da420ce1581830ac0219fae3271109addfec6c0505a07b41a9897651",
+        "adapted_sha256": "77f008a76852409a7da8a62efeed071a9fe45aa7f61fe8b10cf2dee86ea8f9a4",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "基础功能\\mod_fox_041.zip",
+      "existing": false
+    },
+    {
+      "id": "90919e96-03be-5287-b977-1d3e25289b24",
+      "archive": "data_fox_zhcn.zip",
+      "version": "21.1-fox.1",
+      "metadata": {
+        "install_name": "data_fox_zhcn.zip",
+        "title": "狐狸汉化（内嵌旧版 hooks v21.1）",
+        "summary": "狐狸合集适配版：狐狸汉化（内嵌旧版 hooks v21.1）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：data狐狸汉化+hooks 20260624.zip\n与独立汉化有 2278 个不同内容的脚本 / 页面覆盖路径。两套完整汉化必须分开使用，不能叠加；本次仅查看归档目录，没有复用其译文或脚本。\n原地址尚未核实，没有编造来源链接。",
+        "category": "汉化",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_hooks",
+        "requires": "",
+        "conflicts": "mod_bbmod_zhcn",
+        "save_impact": "unknown",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n全量脚本翻译+中文字体+内嵌 mod_hooks 21.1；需英文原版基座\n与 BBMOD 独立汉化二选一；内含旧 Hooks 21.1，不要重复安装独立 Hooks。"
+      },
+      "inspection": {
+        "sha256": "e1b9ec55ac9f7162d87ab31f73dfce75da34ea5a3e49e91c0c079c74658faf81",
+        "size": 6840802,
+        "entry_count": 2477,
+        "uncompressed_size": 15233002,
+        "script_count": 2284,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。与 BBMOD 独立汉化二选一；内含旧 Hooks 21.1，不要重复安装独立 Hooks。",
+      "provenance": {
+        "source_name": "data狐狸汉化+hooks 20260624.zip",
+        "source_sha256": "720a6d127f6325d2186061f788410f10f0db0d3ee70a998f23a9ebd3947cad6f",
+        "adapted_sha256": "7089bbfc89f752eb2328a69f94259c30067da5d621bb0826e9719a7c344ec120",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "汉化二选一\\data_fox_zhcn.zip",
+      "existing": false
+    },
+    {
+      "id": "6a2a1123-993c-5ec3-9684-2e5cb3fceb7c",
+      "archive": "mod_fox_davkul_hotkey.zip",
+      "version": "2.0.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_davkul_hotkey.zip",
+        "title": "按 Y 随时献祭（达库尔专用）",
+        "summary": "狐狸合集适配版：按 Y 随时献祭（达库尔专用）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：按Y随时献祭-在城村附近使用-达库尔专用-mod_davkul_hotkey-975-2-0-1-1773469591.rar\nRAR 目录包含 mod_davkul_hotkey.nut。原作允许署名转载，但本次只完成该 RAR 的目录检查，未验证包内代码、快捷键和存档行为，不提供本站文件。\n原地址见下方来源链接。",
+        "category": "其他",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/975",
+        "original_author": "ReapingLife",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_davkul_hotkey",
+        "requires": "mod_hooks\nmod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n由 RAR 转成游戏可直接加载的 ZIP；需 Modern Hooks 和 Modding Script Hooks，仅适用于邪教徒起源。\n本地版本按 Y，原作者页面描述为 U，二者有差异。存档操作影响永久；献祭事件未关闭时不要重复按键。\n需要旧 Hooks；已有整包汉化提供时不重复安装。\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "d86edccea058ee54ad820f3baf99f33dc5e0ce353724d5a2150e818c87a1e3ab",
+        "size": 3067,
+        "entry_count": 4,
+        "uncompressed_size": 5460,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。本地版本按 Y，原作者页面描述为 U，二者有差异。存档操作影响永久；献祭事件未关闭时不要重复按键。",
+      "provenance": {
+        "source_name": "按Y随时献祭-在城村附近使用-达库尔专用-mod_davkul_hotkey-975-2-0-1-1773469591.rar",
+        "source_sha256": "cb77a3c2ddac5e98af20f4d64d51a3548aefcf6fc286a45f71184b9ed911d28c",
+        "adapted_sha256": "883722f88ceb76429e11ffaedc127c67819aa2685f0bd09975a9261dabc5a0ed",
+        "original_author": "ReapingLife",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/975"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_davkul_hotkey.zip",
+      "existing": false
+    },
+    {
+      "id": "d2b742a0-09f2-59da-9291-75c3dfed5569",
+      "archive": "mod_fox_043.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_043.zip",
+        "title": "显星显属性带评价",
+        "summary": "狐狸合集适配版：显星显属性带评价。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：显星显属性带评价（影响存档）.zip\n当前本地版本与 rc.7 的实际 Hooks 注册、重挂、属性 / 星级 / 评分和招募界面通过专项离线检查。汉化已为其招募页面让出覆盖路径。不要同时启用“轻度显星”；本地包标注影响存档。尚未进行游戏运行验收。\n原地址见下方来源链接。",
+        "category": "其他",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/172",
+        "original_author": "Leonion（原作）；本地改作者未核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n会写入存档；显星类互斥（与轻度显星二选一）\n与“轻度显星”二选一；改动招募界面和人物显示。\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "b216d39ccb6a52adcde6af2ea55d2963fc5587b45a58513d24e79f741c0b68cf",
+        "size": 11659,
+        "entry_count": 5,
+        "uncompressed_size": 55468,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。与“轻度显星”二选一；改动招募界面和人物显示。",
+      "provenance": {
+        "source_name": "显星显属性带评价（影响存档）.zip",
+        "source_sha256": "a993de21b58f6132f0339ecdf7141e56c0086a3f0c12d3f83e4b202749af4279",
+        "adapted_sha256": "af1b0910165e25c60699c3acff2720306404a02838e1c5a444c463f43cca44b2",
+        "original_author": "Leonion（原作）；本地改作者未核实",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/172"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_043.zip",
+      "existing": false
+    },
+    {
+      "id": "e2706d1a-7886-56cd-b362-6b08c078995d",
+      "archive": "mod_fox_044.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_044.zip",
+        "title": "角斗士 13 人",
+        "summary": "狐狸合集适配版：角斗士 13 人。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：角斗士13人.zip\n编译入口为 mod_plus_one_to_roster，无同路径覆盖；修改起源人数上限，需验证开局和读档。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n名额+1"
+      },
+      "inspection": {
+        "sha256": "9e57f9851838fec8e23308a5226f168cd10cd9de92fb33688118dcfa69f31228",
+        "size": 2816,
+        "entry_count": 4,
+        "uncompressed_size": 3495,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "角斗士13人.zip",
+        "source_sha256": "f56f67f3a97ee958dffc1acc3f1435dee1de599aa462fb3400150e0d66a8dd18",
+        "adapted_sha256": "701277497c69a8b85ca91af25a24d5a5745a2d61afde8095b3ad23d8c4f6d1c3",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_044.zip",
+      "existing": false
+    },
+    {
+      "id": "295d605a-44c6-5bd0-a4fb-40208500ffeb",
+      "archive": "mod_fox_045.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_045.zip",
+        "title": "25% 商店红装（必出红装）",
+        "summary": "狐狸合集适配版：25% 商店红装（必出红装）。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-25%商店红装(必出红装).zip\nmod_25_more_named_items 入口，无同路径覆盖。文件名中的“必出”未获行为验证；会改变商店生成规则。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "67eeeacda39b4790f2a02837e12eafb5001e1fca81d091ce3838476feb42e69c",
+        "size": 1671,
+        "entry_count": 4,
+        "uncompressed_size": 1421,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "重命名英文使用-25%商店红装(必出红装).zip",
+        "source_sha256": "bf5aef74b4fc62f3153e363a1d04021e01ea129e816cf287460be5f50388d1c8",
+        "adapted_sha256": "49ff6035f8d5d4a6ed211451f7a26bc6a22ec851c7b723d6b54b5a507ef2ee58",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_045.zip",
+      "existing": false
+    },
+    {
+      "id": "4c661374-6f7a-5690-b5e9-a10ab51502b3",
+      "archive": "mod_fox_046.zip",
+      "version": "0.1.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_046.zip",
+        "title": "BBForge 多功能修改器",
+        "summary": "狐狸合集适配版：BBForge 多功能修改器。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-SHIFT+E-多功能修改器.zip\n与下载目录的 BBForge 8.7.39 共用 mod_bbforge.nut 和界面路径，不能同时装入。需要 Modern Hooks；修改人物和存档，不作为原版汉化已适配作品分发。\n原地址见下方来源链接。",
+        "category": "其他",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/971",
+        "original_author": "Vortal（原作）；本地改作者未核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_bbforge_vanilla",
+        "requires": "mod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n游戏内兵员编辑器（SHIFT+E）\n本地原版分支 0.1.0，界面为英文；与其他 BBForge 修改器二选一。会修改人物和存档。\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "b83fb8d8d54afb01ff1eeb8de04d0f8880577a020f6cacf91580ba50c11989bb",
+        "size": 64699,
+        "entry_count": 8,
+        "uncompressed_size": 310108,
+        "script_count": 3,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。本地原版分支 0.1.0，界面为英文；与其他 BBForge 修改器二选一。会修改人物和存档。",
+      "provenance": {
+        "source_name": "重命名英文使用-SHIFT+E-多功能修改器.zip",
+        "source_sha256": "b2788adf63e6bbf100bb7ff0f5d864459d4b85c78e6d17ea23ca7552c05a6b7b",
+        "adapted_sha256": "88e0882da308a5819aeabea88fac1fa257600938c522d0d9b7ec494b8009861e",
+        "original_author": "Vortal（原作）；本地改作者未核实",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/971"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_046.zip",
+      "existing": false
+    },
+    {
+      "id": "1cdabaaf-c110-5337-ae9d-9901f0808358",
+      "archive": "mod_fox_047.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_047.zip",
+        "title": "先知永远是旗手",
+        "summary": "狐狸合集适配版：先知永远是旗手。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-先知永远是旗手（检查集结部队）.zip\nmod_prophet_always_bannerman 入口，无同路径覆盖。修改达库尔先知相关规则，需验证事件、技能和存档。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "f9f4c01912e614d98284b8d79926e68bddf15be9b7d2259ab3e55566e6df7fc9",
+        "size": 4581,
+        "entry_count": 4,
+        "uncompressed_size": 10252,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "重命名英文使用-先知永远是旗手（检查集结部队）.zip",
+        "source_sha256": "2fc5ed9d54234ffda8cecee7b64972997c18ec366c61ca1af88387342b83ce9c",
+        "adapted_sha256": "616016955c193bf2a52c330fe439d324036f1a8e12c45a207a9cad6f5b254d39",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_047.zip",
+      "existing": false
+    },
+    {
+      "id": "9a821916-eace-5396-af16-8dc44ff4086e",
+      "archive": "mod_fox_048.zip",
+      "version": "2026.9.27-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_048.zip",
+        "title": "无限竞技场次数",
+        "summary": "狐狸合集适配版：无限竞技场次数。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-无限竞技场次数.zip\n整文件覆盖 arena_contract.cnut，与独立汉化的竞技场委托脚本冲突。必须合并修改并验证才能搭配，本站不分发当前包。\n原地址尚未核实，没有编造来源链接。",
+        "category": "其他",
+        "source_url": "",
+        "original_author": "原作者待核实",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "",
+        "requires": "",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n修复与狐狸汉化的源码/编译脚本遮蔽：基于合集对应汉化脚本移除原 MOD 相同的 7 处冷却刷新；其余源码字节不变。\n依照合集中的狐狸汉化源码制作；只移除七处竞技场冷却刷新。与其他竞技场改版的组合未验证。"
+      },
+      "inspection": {
+        "sha256": "8cb42072aa3cf34a2be477cdaa37ea0dbd4e8504cefb1d7995c8f4f8b6816bb8",
+        "size": 13817,
+        "entry_count": 4,
+        "uncompressed_size": 51569,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。依照合集中的狐狸汉化源码制作；只移除七处竞技场冷却刷新。与其他竞技场改版的组合未验证。",
+      "provenance": {
+        "source_name": "重命名英文使用-无限竞技场次数.zip",
+        "source_sha256": "5bf4cdf6abfb5bcb2dbc18cfc2ecaccd25e408efd06f938d58e51dd2802ec232",
+        "adapted_sha256": "a7f0280be2582e2a268eea5efa0888d9ac5a29b271cc2b9d9a0ae8e404cf9808",
+        "original_author": "原作者待核实",
+        "source_urls": [],
+        "source_permission_record": "来源或分发授权未确认，本站不转载。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_048.zip",
+      "existing": false
+    },
+    {
+      "id": "c6dda6b9-1570-5cf7-a7a7-9196e9784c3e",
+      "archive": "mod_fox_049.zip",
+      "version": "0.8.0-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_049.zip",
+        "title": "武器皮肤包",
+        "summary": "狐狸合集适配版：武器皮肤包。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-美化-武器皮肤包（改变种子）.zip\n使用 Modern Hooks，MSU 队列关系需按原作说明处理。无同路径覆盖，但增加武器变体；本地文件也标注改变种子。装备图标 / 战斗模型和已有存档仍待验证。\n原地址见下方来源链接。",
+        "category": "其他",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/726",
+        "original_author": "KarldeCori",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_more_weapon_skins",
+        "requires": "mod_modern_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n美化向；会改变种子\n本地 0.8.0 历史版本；随机外观可能改变种子生成结果。\n需要 Modern Hooks；它不代替旧 Hooks。"
+      },
+      "inspection": {
+        "sha256": "0fe02d609a0e315c9b026242391a0fd500d3064ac74b2e4af6d9ad709c9ffc89",
+        "size": 4402002,
+        "entry_count": 784,
+        "uncompressed_size": 4568570,
+        "script_count": 4,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。本地 0.8.0 历史版本；随机外观可能改变种子生成结果。",
+      "provenance": {
+        "source_name": "重命名英文使用-美化-武器皮肤包（改变种子）.zip",
+        "source_sha256": "e9bc45cfe504b58023d0e69fe93e7ccc280d48e9b4008034223dba18bc00cbd9",
+        "adapted_sha256": "adb89b72ce3518cffb52239147c641f73f872d04d34594234e03aed3bd8d6911",
+        "original_author": "KarldeCori",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/726"
+        ],
+        "source_permission_record": "原作允许署名转载；本地改版许可或兼容验收尚未齐备，本站仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_049.zip",
+      "existing": false
+    },
+    {
+      "id": "3ea25820-a1e8-5359-a2d3-48ce08145eec",
+      "archive": "mod_fox_050.zip",
+      "version": "1.1-fox.1",
+      "metadata": {
+        "install_name": "mod_fox_050.zip",
+        "title": "随从上限 10",
+        "summary": "狐狸合集适配版：随从上限 10。仅完成离线验证。",
+        "description": "来自狐狸汉化精选MOD合集。保留原作与汉化署名，供收藏安装。\n原始归档：重命名英文使用-随从上限变为10个 .zip\n旧 Hooks 入口，无同路径覆盖。会修改随从上限及界面，本地版本与原作具体配置尚未逐字节核对。\n原地址见下方来源链接。",
+        "category": "其他",
+        "source_url": "https://www.nexusmods.com/battlebrothers/mods/281",
+        "original_author": "Flash2",
+        "license": "原作及汉化权利归各自作者；原许可见来源页面。本次用户收藏上传不授予额外再分发权。",
+        "game_version": "1.5.2.3；仅离线验证",
+        "dlc": "按原作要求及具体起源/配方使用官方 DLC。",
+        "mod_ids": "mod_more_followers",
+        "requires": "mod_hooks",
+        "conflicts": "",
+        "save_impact": "yes",
+        "seed_impact": "unknown",
+        "compatibility_notes": "2026-09-27 离线验证通过：ZIP/CRC、脚本编译或字节码读取、JavaScript 语法及管理器安装、启停、方案恢复、卸载。未启动游戏验证；不能据此保证战斗、界面和长期存档无错误。请使用 BBMOD 0.3.0-rc.28 或更新版本。\n\n\n需要旧 Hooks；已有整包汉化提供时不重复安装。"
+      },
+      "inspection": {
+        "sha256": "3ed41e3deacf1cba80b53528a331ea8a30512e3f2125525f55d36bf3228499ae",
+        "size": 2407,
+        "entry_count": 5,
+        "uncompressed_size": 3931,
+        "script_count": 1,
+        "method": "archive_structure_and_crc",
+        "game_tested": false
+      },
+      "notes": "狐狸合集适配发布。游戏文件与已验证适配包逐字节一致；仅附加来源、署名及离线检查记录。",
+      "provenance": {
+        "source_name": "重命名英文使用-随从上限变为10个 .zip",
+        "source_sha256": "8ecea1b5acd61dc454c5fb69cc29a9a35c2669cc81447f649c85a7753d9f1ec5",
+        "adapted_sha256": "7748c32de99ae6a8f52dd4277520575cd40817931fa19b24e2eec328d7b88a29",
+        "original_author": "Flash2",
+        "source_urls": [
+          "https://www.nexusmods.com/battlebrothers/mods/281"
+        ],
+        "source_permission_record": "原作禁止异站转载，仅提供原作链接。",
+        "checked_on": "2026-09-27",
+        "game_tested": false
+      },
+      "adapted_path": "可选作弊\\mod_fox_050.zip",
+      "existing": false
+    }
+  ],
+  "game_tested": false
+}

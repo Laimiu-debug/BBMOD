@@ -41,6 +41,7 @@ def window(app, tmp_path, monkeypatch):
     with patch('ui.app_context.game_mod.locate_game', return_value=game), \
             patch('core.game.find_log_write_path', return_value=None), \
             patch('core.game.is_game_running', side_effect=lambda: running.value), \
+            patch('core.game.probe_game_running', side_effect=lambda: running.value), \
             patch('core.game.launch_executable', side_effect=AssertionError('Real game launch forbidden')):
         view = MainWindow(auto_updates=False)
         until(app, lambda: view.ctx.game_session.state == 'idle')
@@ -178,3 +179,18 @@ def test_slow_launch_timeout_and_stale_check_do_not_report_success(app):
     session.observe(False)
     assert not session.occupied and '已退出' in session.message
     session.shutdown()
+
+
+def test_closing_during_periodic_probe_does_not_open_busy_dialog(app, window):
+    import threading
+    session = window.ctx.game_session
+    until(app, lambda: session._worker is None)
+    until(app, lambda: not any(worker.isRunning() for worker in window.findChildren(Worker)))
+    release = threading.Event()
+    session._probe = lambda: (release.wait(2), False)[1]
+    session.poll()
+    threading.Timer(0.15, release.set).start()
+    with patch.object(QMessageBox, 'information') as busy:
+        window.close()
+        busy.assert_not_called()
+    assert session._closed

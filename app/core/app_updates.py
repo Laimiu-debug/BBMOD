@@ -170,6 +170,23 @@ def write_json(path: Path, data):
     os.replace(temporary, path)
 
 
+def install_target(current: Path, version: str) -> Path:
+    """Advance official versioned names, including old runnable backups."""
+    version_key(version)
+    stem = re.sub(r'(?:\.previous-[a-f0-9]{8})+$', '', current.stem, flags=re.IGNORECASE)
+    if stem.lower() == 'bbmod':
+        return current.with_name('BBMOD.exe')
+    if stem.lower().startswith('bbmod-'):
+        try:
+            version_key(stem[6:])
+        except ValueError:
+            pass
+        else:
+            return current.with_name(f'BBMOD-{version.removeprefix("v")}.exe')
+    # Keep names explicitly chosen by the user.
+    return current
+
+
 def prepare_install(source: Path, release: Release, *, target: Path | None = None, parent_pid: int | None = None, restart=True) -> Path:
     if target is None:
         if not getattr(sys, 'frozen', False) or sys.platform != 'win32':
@@ -179,6 +196,9 @@ def prepare_install(source: Path, release: Release, *, target: Path | None = Non
     verify_download(source, release)
     if source == target or target.suffix.lower() != '.exe':
         raise ValueError('无效的程序更新位置')
+    destination = install_target(target, release.tag)
+    if destination != target and destination.exists():
+        raise ValueError('新版本文件名已存在，请先移走同名文件再更新：' + destination.name)
     # Check write permission before closing the application.
     probe = target.parent / ('.bbmod-write-' + uuid.uuid4().hex)
     with probe.open('xb'):
@@ -243,40 +263,79 @@ def _replace_with_retry(source, target):
             time.sleep(0.25)
 
 
+def _unlink_with_retry(path):
+    for attempt in range(40):
+        try:
+            path.unlink()
+            return
+        except PermissionError:
+            if attempt == 39:
+                raise
+            time.sleep(0.25)
+
+
+def _rename_with_retry(source, target):
+    """Windows rename fails if another file has claimed the new version name."""
+    for attempt in range(40):
+        try:
+            os.rename(source, target)
+            return
+        except PermissionError:
+            if attempt == 39:
+                raise
+            time.sleep(0.25)
+
+
 def install_request(request: Path, *, wait=wait_for_exit, launch=None, verify_mode=False) -> dict:
     """Run in a separate helper. Back up and replace only the selected app EXE."""
     request = request.resolve(strict=True)
     plan = json.loads(request.read_text(encoding='utf-8'))
-    source, target = Path(plan['source']).resolve(), Path(plan['target']).resolve()
-    if source.parent != request.parent or source == target or target.suffix.lower() != '.exe' or not re.fullmatch('[a-f0-9]{32}', plan['id']):
+    source, current = Path(plan['source']).resolve(), Path(plan['target']).resolve()
+    if source.parent != request.parent or source == current or current.suffix.lower() != '.exe' or not re.fullmatch('[a-f0-9]{32}', plan['id']):
         raise ValueError('无效的更新请求')
-    backup = target.with_name(f'{target.stem}.previous-{plan["id"][:8]}.exe')
-    staged = target.with_name(f'.{target.name}.{plan["id"]}.tmp')
-    lock = target.with_name(f'.{target.name}.update.lock')
+    target = install_target(current, plan['version'])
+    # The update cache may be on a different drive. Copy and verify the backup
+    # there before touching the current EXE; never leave runnable desktop copies.
+    backup = request.parent / 'previous.exe.bak'
+    staged = current.with_name(f'.{current.name}.{plan["id"]}.tmp')
+    locks = sorted({path.with_name(f'.{path.name}.update.lock') for path in (current, target)})
     result_path = request.parent / 'result.json'
-    result = {'version': plan['version'], 'target': str(target), 'backup': str(backup), 'time': datetime.now(timezone.utc).isoformat()}
-    locked, moved, staged_owned = False, False, False
+    result = {'version': plan['version'], 'target': str(target), 'original_target': str(current),
+              'backup': str(backup), 'time': datetime.now(timezone.utc).isoformat()}
+    locked, installed, removed, staged_owned = [], False, False, False
     try:
-        with lock.open('x') as stream:
-            stream.write(plan['id'])
-        locked = True
+        for lock in locks:
+            with lock.open('x') as stream:
+                stream.write(plan['id'])
+            locked.append(lock)
         if source.stat().st_size != plan['size'] or sha256_file(source) != plan['sha256']:
             raise ValueError('安装前校验失败，旧程序未修改')
         if verify_mode and plan['parent_pid'] == 0:
             pass
         else:
             wait(plan['parent_pid'])
-        if sha256_file(target) != plan['current_sha256']:
+        if sha256_file(current) != plan['current_sha256']:
             raise ValueError('程序已被其他操作更新，请重新检查版本')
+        if target != current and target.exists():
+            raise ValueError('新版本文件名已存在，未覆盖同名文件：' + target.name)
         if backup.exists() or staged.exists():
             raise ValueError('更新暂存文件已存在，请重新下载')
+        with current.open('rb') as old, backup.open('xb') as saved:
+            shutil.copyfileobj(old, saved)
+        if sha256_file(backup) != plan['current_sha256']:
+            raise ValueError('旧程序备份校验失败，旧程序未修改')
         staged_owned = True
         shutil.copy2(source, staged)
         if sha256_file(staged) != plan['sha256']:
             raise ValueError('复制校验失败')
-        _replace_with_retry(target, backup)
-        moved = True
-        _replace_with_retry(staged, target)
+        if target == current:
+            _replace_with_retry(staged, target)
+        else:
+            _rename_with_retry(staged, target)
+        installed = True
+        if target != current:
+            _unlink_with_retry(current)
+            removed = True
         if not plan.get('restart', True) and not verify_mode:
             result['restart'] = False
         elif launch:
@@ -289,11 +348,21 @@ def install_request(request: Path, *, wait=wait_for_exit, launch=None, verify_mo
                 if verify_mode and process.wait(timeout=60) != 0:
                     raise RuntimeError('新版本自检未通过')
         result['status'] = 'installed'
+        if target != current:
+            try:
+                from .web_links import retarget_protocol
+                retarget_protocol(current, target)
+            except OSError as error:
+                result['protocol_error'] = str(error)
     except Exception as error:
         result.update(status='failed', error=str(error))
-        if moved:
+        if installed:
             try:
-                _replace_with_retry(backup, target)
+                if target == current or removed:
+                    shutil.copy2(backup, staged)
+                    _replace_with_retry(staged, current)
+                if target != current:
+                    _unlink_with_retry(target)
                 result['rolled_back'] = True
             except OSError as rollback_error:
                 result['rollback_error'] = str(rollback_error)
@@ -301,6 +370,7 @@ def install_request(request: Path, *, wait=wait_for_exit, launch=None, verify_mo
         if locked:
             if staged_owned and staged.exists():
                 staged.unlink()
-            lock.unlink(missing_ok=True)
+            for lock in reversed(locked):
+                lock.unlink(missing_ok=True)
         write_json(result_path, result)
     return result

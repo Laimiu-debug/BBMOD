@@ -9,11 +9,14 @@ from __future__ import annotations
 
 import datetime
 import json
+import tempfile
 import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from .modinfo import ModInfo, analyze_zip
+from .local_mod_archive import staged_packages, validate_name
+from .mod_transactions import ModTransaction, atomic_json
 
 DISABLED_DIR = "bbmod_disabled"      # 用户手动禁用的 mod
 STASH_DIR = "bbmod_seedgen_stash"    # 刷种子期间临时移出的 mod（自动管理）
@@ -48,6 +51,7 @@ class ModManager:
         self.disabled_dir = self.root / DISABLED_DIR
         self.stash_dir = self.root / STASH_DIR
         self.audit_path = self.root.parent / "BBMOD_operations.log"
+        self.transaction = ModTransaction(self.root)
 
     # ---------------- 基础 ----------------
 
@@ -63,7 +67,10 @@ class ModManager:
     def scan(self, analyze: bool = True) -> list[InstalledMod]:
         """扫描 data 与禁用目录中的 mod。"""
         mods: list[InstalledMod] = []
+        from .preload_merge import FILENAME
         for f in sorted(self.data.glob("*.zip")):
+            if f.name == FILENAME:
+                continue
             mods.append(InstalledMod(path=f, enabled=True, info=analyze_zip(f) if analyze else _stub_info(f)))
         for f in sorted(self.data.glob("*.rar")):
             mods.append(InstalledMod(path=f, enabled=True, info=_stub_info(f)))
@@ -73,7 +80,34 @@ class ModManager:
         return mods
 
     def installed_zip_names(self) -> set[str]:
-        return {f.name for f in self.data.glob("*.zip")} | {f.name for f in self.data.glob("*.rar")}
+        from .preload_merge import FILENAME
+        return ({f.name for f in self.data.glob("*.zip")} | {f.name for f in self.data.glob("*.rar")}) - {FILENAME}
+
+    def _apply(self, changes, *, validate=False, keep_backups=False):
+        from .diagnostics import diagnose_mods
+        from .preload_merge import plan
+        if validate:
+            current = {m.path: m.info for m in self.scan() if m.enabled}
+            previous = {(i.source, i.title) for i in diagnose_mods(list(current.values())).issues if i.severity == 'error'}
+            incoming = set()
+            for destination, source in changes.items():
+                if destination.parent != self.data:
+                    continue
+                if source is None:
+                    current.pop(destination, None)
+                else:
+                    info = analyze_zip(source)
+                    info.file_name = destination.name
+                    current[destination] = info
+                    incoming.add(destination.name)
+            errors = [i for i in diagnose_mods(list(current.values())).issues
+                      if i.severity == 'error' and ((i.source, i.title) not in previous or i.source in incoming)]
+            if errors:
+                raise ValueError('MOD 组合未通过兼容检查，未更改文件：\n' + '\n'.join(
+                    f'{i.source}：{i.title}。{i.fix or ""}' for i in errors))
+        with tempfile.TemporaryDirectory(prefix='bbmod-preload-') as temporary:
+            plan(self.data, changes, Path(temporary))
+            return self.transaction.apply(changes, keep_backups=keep_backups)
 
     # ---------------- 安装 / 卸载 / 启用 / 禁用 ----------------
 
@@ -82,27 +116,33 @@ class ModManager:
 
         返回实际写入 data 的文件列表。
         """
-        src = Path(src)
-        written: list[Path] = []
-        dst = self.data / src.name
-        if dst.exists() and not overwrite:
-            raise FileExistsError(f"{src.name} 已存在于 data 目录")
-        self.data.mkdir(exist_ok=True)
-        dst.write_bytes(src.read_bytes())
-        self._audit("install", src, dst)
-        written.append(dst)
+        return self.install_many([src], overwrite=overwrite)
 
-        if src.suffix.lower() == ".zip":
-            with zipfile.ZipFile(src) as zf:
-                for entry in zf.namelist():
-                    if entry.lower().endswith(".zip"):
-                        inner_name = Path(entry).name
-                        inner_dst = self.data / inner_name
-                        if not inner_dst.exists() or overwrite:
-                            inner_dst.write_bytes(zf.read(entry))
-                            self._audit("install-nested", src / entry, inner_dst)
-                            written.append(inner_dst)
-        return written
+    def install_many(self, sources: list[Path], overwrite: bool = False) -> list[Path]:
+        """Validate the entire selection before committing any package."""
+        with tempfile.TemporaryDirectory(prefix='bbmod-install-') as temporary:
+            packages = []
+            for index, source in enumerate(sources):
+                staging = Path(temporary) / str(index)
+                staging.mkdir()
+                packages.extend(staged_packages(source, staging))
+            changes = {}
+            seen = set()
+            for package in packages:
+                if package.name.casefold() in seen:
+                    raise ValueError(f'所选 MOD 安装文件重名：{package.name}')
+                seen.add(package.name.casefold())
+                destination = self.data / package.name
+                if (self.disabled_dir / package.name).exists():
+                    raise FileExistsError(f'{package.name} 已安装但已禁用，请先启用或卸载。')
+                if destination.exists() and not overwrite:
+                    raise FileExistsError(f'{package.name} 已安装，已取消本次安装。')
+                changes[destination] = package
+            destinations = list(changes)
+            self._apply(changes, validate=True)
+        for destination in destinations:
+            self._audit('install', destination)
+        return destinations
 
     def _move(self, src: Path, dst_dir: Path) -> Path:
         dst_dir.mkdir(parents=True, exist_ok=True)
@@ -116,27 +156,56 @@ class ModManager:
 
     def disable(self, name: str) -> Path:
         """禁用：data/x.zip → bbmod_disabled/。"""
-        src = self.data / name
-        if not src.exists():
-            raise FileNotFoundError(name)
-        return self._move(src, self.disabled_dir)
+        return self.set_enabled_many([name], False)[0]
 
     def enable(self, name: str) -> Path:
         """启用：bbmod_disabled/x.zip → data/。"""
-        src = self.disabled_dir / name
-        if not src.exists():
-            raise FileNotFoundError(name)
-        return self._move(src, self.data)
+        return self.set_enabled_many([name], True)[0]
 
-    def uninstall(self, name: str) -> Path:
-        """卸载：从 data 移到禁用目录（可随时删档或再启用，不做永久删除）。"""
-        return self.disable(name)
+    def set_enabled_many(self, names: list[str], enabled: bool) -> list[Path]:
+        changes, destinations = {}, []
+        for name in dict.fromkeys(names):
+            validate_name(name)
+            src = (self.disabled_dir if enabled else self.data) / name
+            destination = (self.data if enabled else self.disabled_dir) / name
+            if not src.is_file():
+                raise FileNotFoundError(name)
+            if destination.exists():
+                raise FileExistsError(f'目标目录已有同名文件：{name}，请先处理重复文件。')
+            changes.update({destination: src, src: None})
+            destinations.append(destination)
+        self._apply(changes, validate=True)
+        for destination in destinations:
+            self._audit('enable' if enabled else 'disable', destination)
+        return destinations
+
+    def uninstall(self, name: str, *, from_disabled: bool = False) -> Path:
+        """删除所选安装文件和在线记录；不删除仓库原包或存档。"""
+        validate_name(name)
+        target = (self.disabled_dir if from_disabled else self.data) / name
+        if not target.is_file():
+            raise FileNotFoundError(f'{name} 已不存在，请刷新。')
+        changes = {target: None}
+        from .online_catalog import OnlineInstaller
+        installer = OnlineInstaller(self)
+        state = installer.state()
+        other = (self.data if from_disabled else self.disabled_dir) / name
+        keys = [key for key in state['mods'] if key.casefold() == name.casefold()]
+        with tempfile.TemporaryDirectory(prefix='bbmod-uninstall-') as temporary:
+            if keys and not other.exists():
+                for key in keys:
+                    del state['mods'][key]
+                receipt = Path(temporary) / 'record.json'
+                atomic_json(receipt, state)
+                changes[installer.state_path] = receipt
+            self._apply(changes, validate=True)
+        self._audit('uninstall', target)
+        return target
 
     def delete_permanently(self, name: str, from_disabled: bool = False) -> None:
-        p = (self.disabled_dir if from_disabled else self.data) / name
+        p = (self.disabled_dir if from_disabled else self.data) / validate_name(name)
         if p.exists():
-            p.unlink()
-            self._audit("delete", p)
+            self.uninstall(name, from_disabled=from_disabled)
 
     # ---------------- 快照（刷种子编排） ----------------
 
@@ -188,15 +257,60 @@ class ModManager:
 
     def save_profile(self, name: str) -> dict:
         """把当前 data 目录的 mod 集合保存为命名方案。"""
+        name = self._profile_name(name)
+        self._check_profile_write()
         profiles = self.load_profiles()
         profiles[name] = {
             "enabled": sorted(self.installed_zip_names()),
             "saved_at": datetime.datetime.now().isoformat(timespec="seconds"),
         }
         self._profiles_path().parent.mkdir(parents=True, exist_ok=True)
-        self._profiles_path().write_text(json.dumps(profiles, ensure_ascii=False, indent=2), encoding="utf-8")
+        atomic_json(self._profiles_path(), profiles)
         self._audit("profile-save", self._profiles_path(), None)
         return profiles[name]
+
+    @staticmethod
+    def _profile_name(name: str) -> str:
+        from .profile_protocol import text
+        return text(name, 100, required=True)
+
+    def _check_profile_write(self):
+        if self.transaction.journal.exists():
+            raise ValueError('请先恢复上次 MOD 操作。')
+
+    def rename_profile(self, name: str, new_name: str) -> None:
+        self._check_profile_write()
+        new_name = self._profile_name(new_name)
+        profiles = self.load_profiles()
+        if name not in profiles:
+            raise ValueError('方案已不存在，请刷新列表。')
+        if name == new_name:
+            return
+        if new_name in profiles:
+            raise ValueError('已有同名方案，请换一个名称。')
+        profiles = {new_name if key == name else key: value for key, value in profiles.items()}
+        atomic_json(self._profiles_path(), profiles)
+        self._audit('profile-rename', self._profiles_path(), None)
+
+    def delete_profile(self, name: str) -> None:
+        """Remove only the saved configuration, never installed files or hosted data."""
+        self._check_profile_write()
+        profiles = self.load_profiles()
+        if name not in profiles:
+            raise ValueError('方案已不存在，请刷新列表。')
+        del profiles[name]
+        atomic_json(self._profiles_path(), profiles)
+        self._audit('profile-delete', self._profiles_path(), None)
+
+    def record_profile_share(self, name: str, origin: str, identity: str) -> None:
+        from .online_catalog import site_origin
+        from .shared_profiles import profile_identity
+        self._check_profile_write()
+        profiles = self.load_profiles()
+        if name not in profiles:
+            raise ValueError('本地方案已不存在。')
+        profiles[name].update(published_id=profile_identity(identity, origin), published_origin=site_origin(origin))
+        atomic_json(self._profiles_path(), profiles)
 
     def load_profiles(self) -> dict:
         try:
@@ -204,27 +318,47 @@ class ModManager:
         except (OSError, json.JSONDecodeError):
             return {}
 
-    def apply_profile(self, name: str) -> tuple[int, int]:
-        """应用方案：启用清单内的 mod、禁用其余。返回 (启用数, 禁用数)。"""
+    def preview_profile(self, name: str) -> dict:
         profiles = self.load_profiles()
         if name not in profiles:
             raise KeyError(f"方案 {name} 不存在")
         want: set[str] = set(profiles[name]["enabled"])
-        enabled = 0
-        disabled = 0
-        # 先禁用不在清单中的
-        for f in list(self.data.glob("*.zip")) + list(self.data.glob("*.rar")):
-            if f.name not in want:
-                self.disable(f.name)
-                disabled += 1
-        # 再启用清单中的（从禁用目录找回来）
-        for name_want in want:
-            if not (self.data / name_want).exists():
-                if (self.disabled_dir / name_want).exists():
-                    self.enable(name_want)
-                    enabled += 1
+        for item in want:
+            validate_name(item)
+        mods = self.scan(analyze=False)
+        from .preload_merge import FILENAME
+        enabled = {m.path.name for m in mods if m.enabled and m.path.name != FILENAME}
+        disabled = {m.path.name for m in mods if not m.enabled}
+        missing = want - enabled - disabled
+        if missing:
+            raise FileNotFoundError('方案中的 MOD 已卸载或缺失：' + '、'.join(sorted(missing)))
+        if enabled & disabled:
+            raise ValueError('启用与禁用目录存在同名文件，请先处理：' + '、'.join(sorted(enabled & disabled)))
+        return {'enable': sorted(want - enabled), 'disable': sorted(enabled - want)}
+
+    def apply_profile(self, name: str, *, expected: dict | None = None) -> tuple[int, int]:
+        """预检后切换，失败回滚；中断时可从持久化记录恢复。"""
+        plan = self.preview_profile(name)
+        if expected is not None and plan != expected:
+            raise ValueError('MOD 状态已改变，请重新预览方案。')
+        changes = {}
+        for item in plan['enable']:
+            changes[self.data / item] = self.disabled_dir / item
+            changes[self.disabled_dir / item] = None
+        for item in plan['disable']:
+            changes[self.disabled_dir / item] = self.data / item
+            changes[self.data / item] = None
+        self._apply(changes, validate=True)
         self._audit("profile-apply", self._profiles_path(), self.data)
-        return enabled, disabled
+        return len(plan['enable']), len(plan['disable'])
+
+    def installation_states(self) -> dict[str, str]:
+        states = {}
+        for mod in self.scan(analyze=False):
+            key = mod.path.name.casefold()
+            value = '已启用' if mod.enabled else '已禁用'
+            states[key] = '同名重复安装' if key in states else value
+        return states
 
 
 def _stub_info(f: Path) -> ModInfo:

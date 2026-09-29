@@ -1,12 +1,23 @@
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 from . import seeds
 from . import visitors
 from . import suggestions
 from . import wiki
 from . import community
+from . import profiles
 
 urlpatterns = [
+    path('guide/', TemplateView.as_view(template_name='beginner_guide.html', extra_context={'track_visit': True}), name='beginner_guide'),
+    path('profiles/', profiles.gallery, name='profiles'),
+    path('profiles/<uuid:profile_id>/', profiles.detail, name='profile_detail'),
+    path('api/v1/profiles/plan/', profiles.negotiate, name='profile_plan'),
+    path('api/v1/profiles/files/<str:sha>/', profiles.upload_file, name='profile_upload_file'),
+    path('api/v1/profiles/', profiles.publish, name='profile_publish'),
+    path('api/v1/profiles/<uuid:profile_id>/', profiles.public_record, name='profile_public_record'),
+    path('api/v1/profiles/<uuid:profile_id>/files/<str:sha>/', profiles.download_file, name='profile_download'),
+    path('manage/profiles/', profiles.management, name='profile_management'),
     path('wiki/', wiki.home, name='wiki'),
     path('wiki/search/', wiki.search, name='wiki_search'),
     path('wiki/about/', wiki.about, name='wiki_about'),
@@ -22,10 +33,12 @@ urlpatterns = [
     path('suggestions/thanks/', suggestions.thanks, name='suggestion_thanks'),
     path('manage/suggestions/', suggestions.management, name='suggestion_management'),
     path('manage/suggestions/<uuid:suggestion_id>/', suggestions.detail, name='suggestion_detail'),
+    path('manage/suggestions/<uuid:suggestion_id>/report/', suggestions.report_download, name='suggestion_report_download'),
     path('api/v1/visitor/', visitors.visit, name='visitor_visit'),
     path('seeds/', seeds.gallery, name='seeds'),
     path('seeds/<uuid:seed_id>/', seeds.detail, name='seed_detail'),
     path('api/v1/seeds/', seeds.publish, name='seed_publish'),
+    path('api/v1/seeds/<uuid:seed_id>/', seeds.public_record, name='seed_public_record'),
     path('manage/seeds/', seeds.management, name='seed_management'),
     path('', views.catalog, name='catalog'), path('mods/<uuid:mod_id>/', views.detail, name='detail'),
     path('mods/community/<slug:slug>/', community.detail, name='community_detail'),

@@ -15,6 +15,7 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 
 from .archive_safety import inspect_archive, valid_install_name
 from .modinfo import analyze_zip
+from .downloads import download_verified
 
 MAX_DOWNLOAD = 100 * 1024 * 1024
 
@@ -88,28 +89,18 @@ def fetch_catalog(origin):
     return parse_catalog(json.loads(b''.join(parts)))
 
 
-def download_release(origin, item, cache, *, cancelled=lambda: False):
+def download_release(origin, item, cache, *, cancelled=lambda: False, progress=lambda _: None):
     # Validate one item again, including callers outside the UI.
     parse_catalog({'schema_version': 1, 'mods': [item]})
     origin = site_origin(origin)
     cache = Path(cache)
     cache.mkdir(parents=True, exist_ok=True)
     handle, name = tempfile.mkstemp(prefix='mod-', suffix='.zip', dir=cache)
+    os.close(handle)
     target = Path(name)
-    started = time.monotonic()
     try:
-        count = 0
-        sha = hashlib.sha256()
-        with os.fdopen(handle, 'wb') as out, _request(origin + item['download_path']) as response:
-            while block := response.read1(128 * 1024):
-                if cancelled() or time.monotonic() - started > 180:
-                    raise ValueError('下载已取消或超时。')
-                count += len(block)
-                if count > item['size']:
-                    raise ValueError('下载大小与目录不一致。')
-                out.write(block); sha.update(block)
-        if count != item['size'] or sha.hexdigest() != item['sha256']:
-            raise ValueError('下载校验失败，文件已丢弃。请刷新目录后重试。')
+        download_verified(origin + item['download_path'], target, size=item['size'], sha256=item['sha256'],
+                          cancelled=cancelled, progress=progress)
         with target.open('rb') as src:
             inspect_archive(src)
         return target
@@ -146,7 +137,7 @@ class OnlineInstaller:
         if not self.state_path.exists():
             return {'mods': {}}
         data = json.loads(self.state_path.read_text(encoding='utf-8'))
-        if not isinstance(data.get('mods'), dict):
+        if not isinstance(data, dict) or not isinstance(data.get('mods'), dict):
             raise ValueError('在线 MOD 安装记录损坏，请先恢复记录。')
         return data
 
@@ -180,6 +171,8 @@ class OnlineInstaller:
             raise ValueError('\n'.join(details))
 
     def install(self, origin, item, archive):
+        if self.mm.transaction.journal.exists():
+            raise ValueError('请先恢复上次未完成的 MOD 操作。')
         parse_catalog({'schema_version': 1, 'mods': [item]})
         origin = site_origin(origin)
         archive = Path(archive)
@@ -203,34 +196,26 @@ class OnlineInstaller:
         target = current or self.data / name
         self.disabled.mkdir(parents=True, exist_ok=True)
         self.backups.mkdir(parents=True, exist_ok=True)
-        backup = None
-        if current:
-            backup = self.backups / f'{uuid.uuid4().hex}.zip'
-            shutil.copy2(current, backup)
-        handle, stage = tempfile.mkstemp(prefix='.bbmod-download-', suffix='.tmp', dir=target.parent)
-        os.close(handle)
-        replaced = False
-        try:
-            shutil.copyfile(archive, stage)
-            if _hash(Path(stage)) != item['sha256']:
-                raise ValueError('暂存文件校验失败。')
-            os.replace(stage, target); replaced = True
+        with tempfile.TemporaryDirectory(prefix='bbmod-online-') as staging:
+            changes = {target: archive}
             entry = {'origin': origin, 'id': item['id'], 'version': item['version'], 'sha256': item['sha256']}
-            if backup:
+            if current:
+                backup = self.backups / f'{uuid.uuid4().hex}.zip'
+                shutil.copy2(current, backup)
+                if _hash(backup) != previous['sha256']:
+                    raise ValueError('更新前备份校验失败。')
                 entry['previous'] = {k: v for k, v in previous.items() if k != 'previous'}
                 entry['backup'] = backup.name
             state['mods'][name] = entry
-            _atomic_json(self.state_path, state)
-        except Exception:
-            if replaced:
-                if backup: shutil.copy2(backup, target)
-                else: target.unlink(missing_ok=True)
-            raise
-        finally:
-            Path(stage).unlink(missing_ok=True)
+            receipt = Path(staging) / 'online-catalog.json'
+            _atomic_json(receipt, state)
+            changes[self.state_path] = receipt
+            self.mm._apply(changes, validate=True)
         return f"已安装 {item['metadata']['title']} v{item['version']}" + ('（保持禁用）' if target.parent == self.disabled else '')
 
     def rollback(self, name):
+        if self.mm.transaction.journal.exists():
+            raise ValueError('请先恢复上次未完成的 MOD 操作。')
         state = self.state()
         entry = state['mods'].get(name, {})
         previous = entry.get('previous')
@@ -240,16 +225,9 @@ class OnlineInstaller:
         current = self._locations(name)
         if not current or _hash(current) != entry['sha256'] or not backup.is_file() or _hash(backup) != previous['sha256']:
             raise ValueError('当前文件或备份已被更改，已停止恢复。')
-        handle, saved = tempfile.mkstemp(dir=current.parent, prefix='.online-restore-', suffix='.tmp')
-        os.close(handle)
-        try:
-            shutil.copy2(current, saved)
-            shutil.copy2(backup, current)
+        with tempfile.TemporaryDirectory(prefix='bbmod-online-rollback-') as staging:
             state['mods'][name] = previous
-            _atomic_json(self.state_path, state)
-        except Exception:
-            shutil.copy2(saved, current)
-            raise
-        finally:
-            Path(saved).unlink(missing_ok=True)
+            receipt = Path(staging) / 'online-catalog.json'
+            _atomic_json(receipt, state)
+            self.mm._apply({current: backup, self.state_path: receipt}, validate=True)
         return f"已恢复 {name} v{previous['version']}"

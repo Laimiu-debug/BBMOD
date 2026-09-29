@@ -1,0 +1,171 @@
+{
+  "checked_on": "2026-09-27",
+  "note": "原包已完整下载并检查 CRC、规范化路径及哈希；不代表通过桌面安装规则或游戏实机验证。除 Hooks 外，本轮文件仅链接开发者 GitHub，不镜像。",
+  "files": [
+    {
+      "repo": "jcsato/modding_script_hooks",
+      "url": "https://github.com/jcsato/modding_script_hooks/releases/download/v21.1/mod_hooks.zip-42-20-1-1621709174.zip",
+      "size": 9936,
+      "sha256": "0461ea3f457a798e6af2082ecbe6e058f5917e70f4487a1298160161b0a8d38c",
+      "files": 5,
+      "backslash_paths": 0,
+      "roots": [
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "MSUTeam/MSU",
+      "url": "https://github.com/MSUTeam/MSU/releases/download/1.9.0/mod_msu-1.9.0.zip",
+      "size": 2453031,
+      "sha256": "617af64bd4b354408b91f8b8618f94f664491edcd2cf4649b8ad52673c81b37b",
+      "files": 213,
+      "backslash_paths": 0,
+      "roots": [
+        "brushes",
+        "gfx",
+        "msu",
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "MSUTeam/Modern-Hooks",
+      "url": "https://github.com/MSUTeam/Modern-Hooks/releases/download/0.6.0/mod_modern_hooks-0.6.0.zip",
+      "size": 25220,
+      "sha256": "18fbf059480a09483693b8eef9c97c3a32450885b1971dda49b5cc14a66d7ed1",
+      "files": 22,
+      "backslash_paths": 0,
+      "roots": [
+        "modern_hooks",
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/sato_additional_equipment_mod",
+      "url": "https://github.com/jcsato/sato_additional_equipment_mod/releases/download/v4.0/sato_additional_equipment_4.0.zip",
+      "size": 1829456,
+      "sha256": "8910600e6dde77ac0632b395f533583b46f7d573d7508cae27946c0b8f5dd3bb",
+      "files": 79,
+      "backslash_paths": 79,
+      "roots": [
+        "brushes",
+        "gfx",
+        "script_hooks",
+        "scripts"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/sato_equipment_variants_mod",
+      "url": "https://github.com/jcsato/sato_equipment_variants_mod/releases/download/v1.6/sato_equipment_variants_1.6.zip",
+      "size": 2541398,
+      "sha256": "22d5495ca2849a0bbdd72c04f460d896a1f435d9385257d165289c7898dd51c4",
+      "files": 109,
+      "backslash_paths": 109,
+      "roots": [
+        "brushes",
+        "gfx",
+        "script_hooks",
+        "scripts"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/tutorial_remover",
+      "url": "https://github.com/jcsato/tutorial_remover/releases/download/v0.2/sato_tutorial_remover_0.2.zip",
+      "size": 1777,
+      "sha256": "7c6ce515320b7745e26a929f637c0ce9e4a3d7e05d90808e0cc738045a5fab65",
+      "files": 3,
+      "backslash_paths": 3,
+      "roots": [
+        "script_hooks",
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/company_details_screen",
+      "url": "https://github.com/jcsato/company_details_screen/releases/download/v2.0/company_details_screen_2.0.zip",
+      "size": 29581,
+      "sha256": "ab9f84f0e4cb4574524f613d68d74d0afd027efa78de9dba8a5a3f456c562134",
+      "files": 10,
+      "backslash_paths": 10,
+      "roots": [
+        "gfx",
+        "script_hooks",
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/sato_settlement_tooltips",
+      "url": "https://github.com/jcsato/sato_settlement_tooltips/releases/download/v1.0/sato_settlement_tooltips_1.0.zip",
+      "size": 20862,
+      "sha256": "cef602b70b9230d4abbea5accbdce27181f17846ee6d605731f39bca4168572e",
+      "files": 3,
+      "backslash_paths": 3,
+      "roots": [
+        "script_hooks",
+        "scripts"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/sato_tooltip_toggle",
+      "url": "https://github.com/jcsato/sato_tooltip_toggle/releases/download/v0.1/sato_tooltip_toggle_0.1.zip",
+      "size": 5485,
+      "sha256": "d73c1dd472026bb1027c221a22ce676e3dd54bfb6e544d98ca891309c264067b",
+      "files": 2,
+      "backslash_paths": 2,
+      "roots": [
+        "script_hooks",
+        "scripts"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/partially_explored_map",
+      "url": "https://github.com/jcsato/partially_explored_map/releases/download/v2.0/partially_explored_map_2.0.zip",
+      "size": 8460,
+      "sha256": "3c576e1665b9c9df72018fc1441fb059bc0e92e7df36a44ed0125a2eaf04f686",
+      "files": 5,
+      "backslash_paths": 5,
+      "roots": [
+        "script_hooks",
+        "scripts",
+        "ui"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    },
+    {
+      "repo": "jcsato/sato_expanded_markets_mod",
+      "url": "https://github.com/jcsato/sato_expanded_markets_mod/releases/download/v1.5/sato_expanded_markets_1.5.zip",
+      "size": 14509,
+      "sha256": "caa062fd57b8a647fd7eb5c4f60cee05793b3962039610a279379f73480a5489",
+      "files": 1,
+      "backslash_paths": 1,
+      "roots": [
+        "scripts"
+      ],
+      "crc_ok": true,
+      "game_tested": false
+    }
+  ]
+}

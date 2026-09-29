@@ -9,10 +9,13 @@
 """
 from __future__ import annotations
 
+import json
 import re
 import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
+
+from .l10n_identity import BRAND_META, PACKAGE_ID, PACKAGE_BRAND
 
 # 单个 .nut 最大扫描字节数 / 单 zip 总扫描上限（防止大型 mod 拖慢分析）
 MAX_SCAN_BYTES_PER_FILE = 512 * 1024
@@ -20,7 +23,7 @@ MAX_SCAN_BYTES_TOTAL = 8 * 1024 * 1024
 
 # ---------------- 正则：mod 注册与依赖 ----------------
 # 参数可为：字符串字面量（双/单引号，允许内嵌另一种引号）、符号引用（::X.ID / ID）、数字字面量
-_ARG = r"(\"(?:[^\"]*)\"|'(?:[^']*)'|::?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*|-?\d[\d.]*)"
+_ARG = r"(\"(?:[^\"]*)\"|'(?:[^']*)'|(?:::)?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*|-?\d[\d.]*)"
 # legacy: mods_registerMod("mod_x", 1.2, "Name") 或 mods_registerMod(::X.ID, ::X.Version, ::X.Name)
 RE_LEGACY_REG = re.compile(
     r"\bmods_registerMod\s*\(\s*" + _ARG + r"\s*,\s*" + _ARG + r"\s*(?:,\s*" + _ARG + r"\s*)?[,)]"
@@ -29,7 +32,7 @@ RE_LEGACY_REG = re.compile(
 RE_MODERN_REG = re.compile(
     r"\bHooks\.register\s*\(\s*" + _ARG + r"\s*,\s*" + _ARG + r"\s*(?:,\s*" + _ARG + r"\s*)?[,)]"
 )
-RE_SYMBOL_ONLY = re.compile(r"^::?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$")
+RE_SYMBOL_ONLY = re.compile(r"^(?:::)?[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*$")
 RE_NUMBER_ONLY = re.compile(r"^-?\d[\d.]*$")
 # 字符串赋值（符号表来源）：ID = "x" / ::EIMO.Name <- "End's …"（允许内嵌另一种引号）
 RE_STRING_ASSIGN = re.compile(
@@ -48,12 +51,12 @@ RE_QUEUE_LEGACY = re.compile(
 # modern 队列：mod.queue(">mod_msu", fn)
 RE_QUEUE_MODERN = re.compile(r"\.queue\(\s*[\"']([^\"']+)[\"']")
 # 队列依赖 token：[>!]?id(版本比较)
-RE_QUEUE_TOKEN = re.compile(r"^([>!]?)([A-Za-z_][\w.]*)\s*(\([^)]*\))?$")
+RE_QUEUE_TOKEN = re.compile(r"^([<>!]?)([A-Za-z_][\w.]*)\s*(\([^)]*\))?$")
 
 # API 代际标记
-RE_MODERN_MARKERS = re.compile(r"::Hooks\.|\.require\(|\.conflictWith\(|\.asVersionString\(|::MSU\.")
+RE_MODERN_MARKERS = re.compile(r"\bHooks\.")
 RE_LEGACY_MARKERS = re.compile(
-    r"\bmods_registerMod\b|\bmods_queue\b|\bmods_hookClass\b|\bmods_hookExactClass\b|\bmods_override\b|\bmods_addField\b|\bmods_hookNewObject"
+    r"\bmods_registerMod\b|\bmods_queue\b|\bmods_hookClass\b|\bmods_hookBaseClass\b|\bmods_hookExactClass\b|\bmods_override\b|\bmods_addField\b|\bmods_hookNewObject"
 )
 
 # 版本格式：mod_hooks v21.1 要求非负纯数字（"1.1.3" 会被拒绝）
@@ -109,13 +112,14 @@ class Registration:
     version: str
     name: str | None
     api: str  # 'legacy' | 'modern'
+    version_is_string: bool = False
 
     @property
     def numeric_version_ok(self) -> bool:
         """legacy 注册的版本必须是非负数字，否则 mod_hooks v21.1 加载即拒。"""
         if self.api != "legacy":
             return True
-        return bool(RE_NUMERIC_VERSION.match(self.version.strip()))
+        return not self.version_is_string and bool(RE_NUMERIC_VERSION.match(self.version.strip()))
 
 
 @dataclass
@@ -137,10 +141,18 @@ class ModInfo:
     nut_count: int = 0
     api: str = "unknown"  # legacy | modern | mixed | resource | unknown
     analysis_errors: list[str] = field(default_factory=list)
+    uses_msu: bool = False
+    # Package metadata is for display; registrations remain the actual scripts
+    # used by dependency and duplicate-registration checks.
+    package_id: str = ""
+    package_name: str = ""
+    package_version: str = ""
 
     @property
     def primary_id(self) -> str:
-        """用于展示/关联的 mod 标识：优先注册 id，否则按文件名推断。"""
+        """展示/关联标识：优先包身份，再取注册 ID 或文件名。"""
+        if self.package_id:
+            return self.package_id
         if self.registrations:
             return self.registrations[0].mod_id
         stem = self.file_name
@@ -180,6 +192,7 @@ def analyze_zip(path: Path | str) -> ModInfo:
         return info
 
     with zf:
+        _read_package_identity(zf, info)
         # 第一阶段：收集条目分类 + 全部明文 .nut 文本（总量封顶）+ 符号表
         scanned = 0
         modern_hit = legacy_hit = False
@@ -212,11 +225,13 @@ def analyze_zip(path: Path | str) -> ModInfo:
                 try:
                     if zf.getinfo(entry).file_size > MAX_SCAN_BYTES_PER_FILE:
                         continue
-                    text = zf.read(entry).decode("utf-8", errors="replace")
-                except (OSError, zipfile.BadZipFile):
+                    text = _without_comments(zf.read(entry).decode("utf-8-sig", errors="replace"))
+                except (OSError, zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError) as exc:
+                    info.analysis_errors.append(f"无法读取 {norm}：{exc}")
                     continue
                 scanned += len(text)
                 texts.append(text)
+                info.uses_msu |= bool(re.search(r"\bMSU\.", text))
                 for m in RE_STRING_ASSIGN.finditer(text):
                     key, val = m.group(1), _assign_value(m)
                     symbols[key] = val
@@ -227,9 +242,17 @@ def analyze_zip(path: Path | str) -> ModInfo:
                 if RE_LEGACY_MARKERS.search(text):
                     legacy_hit = True
 
+        # Resolve table-qualified constants before bare field names. Unrelated
+        # item tables also contain ID/Name fields and must not rename a mod.
+        for text in texts:
+            symbols.update(_table_symbols(text))
+
         # 第二阶段：解析注册/依赖（符号引用跨文件解析）
         for text in texts:
-            _extract_markers(text, info, symbols, by_suffix)
+            local_symbols = dict(symbols)
+            local_symbols.update({m.group(1): _assign_value(m) for m in RE_STRING_ASSIGN.finditer(text)})
+            local_symbols.update(_table_symbols(text))
+            _extract_markers(text, info, local_symbols, by_suffix)
 
     if modern_hit and legacy_hit:
         info.api = "mixed"
@@ -244,6 +267,50 @@ def analyze_zip(path: Path | str) -> ModInfo:
     elif info.entry_count and info.preload_scripts == [] and not info.nut_count:
         info.api = "resource" if info.cnut_count == 0 else "unknown"
     return info
+
+
+def _read_package_identity(archive: zipfile.ZipFile, info: ModInfo) -> None:
+    try:
+        entry = archive.getinfo(BRAND_META)
+    except KeyError:
+        return
+    try:
+        if entry.file_size > 64 * 1024:
+            raise ValueError('包信息过大')
+        meta = json.loads(archive.read(entry).decode('utf-8-sig'))
+        if not isinstance(meta, dict) or meta.get('package_id') != PACKAGE_ID:
+            return
+        info.package_id = PACKAGE_ID
+        info.package_name = PACKAGE_BRAND
+        version = meta.get('version', '')
+        if isinstance(version, str) and len(version) <= 128 and not any(ord(c) < 32 for c in version):
+            info.package_version = version.strip()
+    except (OSError, ValueError, zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError) as exc:
+        info.analysis_errors.append(f'无法读取 {BRAND_META}：{exc}')
+
+
+def _without_comments(text: str) -> str:
+    tokens = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|//[^\n\r]*|/\*[\s\S]*?\*/')
+    return tokens.sub(lambda m: ' ' * len(m[0]) if m[0].startswith(('//', '/*')) else m[0], text)
+
+
+def _table_symbols(text: str) -> dict[str, str]:
+    masked = re.sub(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'',
+                    lambda m: ' ' * len(m[0]), text)
+    result = {}
+    for table in re.finditer(r'(?:::)?(\w+(?:\.\w+)*)\s*(?:<-|=)\s*\{', masked):
+        start = table.end()
+        depth, end = 1, start
+        while end < len(masked) and depth:
+            depth += (masked[end] == '{') - (masked[end] == '}')
+            end += 1
+        body = text[start:end - 1]
+        body_mask = masked[start:end - 1]
+        for assignment in RE_STRING_ASSIGN.finditer(body):
+            before = body_mask[:assignment.start()]
+            if before.count('{') == before.count('}'):
+                result[table[1] + '.' + assignment[1]] = _assign_value(assignment)
+    return result
 
 
 def _resolve(arg: str, symbols: dict[str, str], by_suffix: dict[str, set[str]]) -> str:
@@ -284,7 +351,7 @@ def _parse_queue_string(s: str, info: ModInfo) -> None:
         if not m:
             continue
         flag, ident, cmp_raw = m.groups()
-        if flag == ">":
+        if flag in (">", "<"):
             if ident not in info.queue_deps:
                 info.queue_deps.append(ident)
         elif flag == "!":
@@ -303,7 +370,13 @@ def _extract_markers(text: str, info: ModInfo, symbols: dict[str, str], by_suffi
         name = _resolve(m.group(3) or "", symbols, by_suffix) or None
         if not mod_id:
             continue
-        reg = Registration(mod_id=mod_id, version=version, name=name, api="legacy")
+        raw_version = m.group(2).strip()
+        if RE_NUMBER_ONLY.fullmatch(raw_version):
+            # Squirrel 3's decimal lexer consumes a malformed multi-dot token
+            # such as Company Tabards' 1.5.2024 as the effective float 1.5.
+            version = re.match(r'-?\d+(?:\.\d*)?', raw_version)[0]
+        reg = Registration(mod_id=mod_id, version=version, name=name, api="legacy",
+                           version_is_string=not bool(RE_NUMBER_ONLY.fullmatch(raw_version)))
         if not any(r.mod_id == reg.mod_id for r in info.registrations):
             info.registrations.append(reg)
     for m in RE_MODERN_REG.finditer(text):
@@ -315,20 +388,19 @@ def _extract_markers(text: str, info: ModInfo, symbols: dict[str, str], by_suffi
         reg = Registration(mod_id=mod_id, version=version, name=name, api="modern")
         if not any(r.mod_id == reg.mod_id for r in info.registrations):
             info.registrations.append(reg)
-    for m in RE_REQUIRE.finditer(text):
-        if m.group(1) not in info.requirements:
-            info.requirements.append(m.group(1))
-    for m in RE_CONFLICT.finditer(text):
-        if m.group(1) not in info.declared_conflicts:
-            info.declared_conflicts.append(m.group(1))
+    for method, destination in (("require", info.requirements), ("conflictWith", info.declared_conflicts), ("queue", info.queue_deps)):
+        # Modern Hooks accepts several literal arguments, including version
+        # parentheses inside a string. Stop before the callback expression.
+        pattern = r'\.' + method + r'\s*\(\s*((?:"[^"\n]*"|\'[^\'\n]*\')(?:\s*,\s*(?:"[^"\n]*"|\'[^\'\n]*\'))*)'
+        for call in re.finditer(pattern, text):
+            for argument in re.finditer(r'"([^"\n]*)"|\'([^\'\n]*)\'', call[1]):
+                value = argument[1] if argument[1] is not None else argument[2]
+                if method == 'queue':
+                    value = value.lstrip('<> ').strip()
+                if value and value not in destination:
+                    destination.append(value)
     for m in RE_QUEUE_LEGACY.finditer(text):
         _parse_queue_string(m.group(1), info)
-    for m in RE_QUEUE_MODERN.finditer(text):
-        tok = m.group(1).strip()
-        # 跳过函数体首参误匹配（如 queue(function() …)）已由正则排除；">x" 形式拆前缀
-        dep = tok.lstrip(">").strip()
-        if dep and dep not in info.queue_deps:
-            info.queue_deps.append(dep)
 
 
 def requirement_target(req: str) -> str:

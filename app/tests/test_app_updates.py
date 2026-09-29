@@ -86,15 +86,15 @@ def test_wrong_versioned_asset_rejected(filename):
     assert not parsed(row).installable
 
 
-def install_fixture(tmp_path):
+def install_fixture(tmp_path, filename='我的BBMOD.exe', version='v0.3.0-rc.5'):
     job = tmp_path / '缓存 & 中文' / 'job'
     job.mkdir(parents=True)
     source = job / 'BBMOD.exe'
     source.write_bytes(b'MZ-new')
-    target = tmp_path / '旧程序 & folder' / '我的BBMOD.exe'
+    target = tmp_path / '旧程序 & folder' / filename
     target.parent.mkdir()
     target.write_bytes(b'MZ-old')
-    release = parsed()
+    release = parsed(release_row(version))
     request = updates.prepare_install(source, release, target=target, parent_pid=1234)
     return source, target, request
 
@@ -109,6 +109,9 @@ def test_install_keeps_settings_and_backup(tmp_path):
     assert result['status'] == 'installed' and waited == [1234] and launched == [target]
     assert target.read_bytes() == source.read_bytes() == b'MZ-new'
     assert Path(result['backup']).read_bytes() == b'MZ-old'
+    assert Path(result['backup']).parent == request.parent
+    assert Path(result['backup']).suffix == '.bak'
+    assert list(target.parent.iterdir()) == [target]
     assert settings.path.read_bytes() == original_settings
     assert not list(target.parent.glob('*.lock'))
 
@@ -135,8 +138,128 @@ def test_failed_transaction_rolls_back(tmp_path, failure):
         if failure == 'launch': raise OSError('launch failed')
     with patch.object(updates, '_replace_with_retry', replace):
         result = updates.install_request(request, wait=lambda _: None, launch=launch)
-    assert result['status'] == 'failed' and result['rolled_back']
+    assert result['status'] == 'failed'
+    assert result.get('rolled_back', False) == (failure == 'launch')
     assert target.read_bytes() == b'MZ-old' and source.exists()
+
+
+@pytest.fixture
+def protocol_retargets(monkeypatch):
+    calls = []
+    monkeypatch.setattr('core.web_links.retarget_protocol', lambda old, new: calls.append((old, new)))
+    return calls
+
+
+@pytest.mark.parametrize('filename,expected', [
+    ('BBMOD-0.3.0-rc.28.exe', 'BBMOD-0.3.0-rc.29.exe'),
+    ('BBMOD-0.3.0-rc.28.previous-f45c2281.previous-058a78d2.exe', 'BBMOD-0.3.0-rc.29.exe'),
+    ('BBMOD.exe', 'BBMOD.exe'),
+    ('BBMOD.previous-f45c2281.exe', 'BBMOD.exe'),
+    ('我的BBMOD.exe', '我的BBMOD.exe'),
+    ('BBMOD-portable.exe', 'BBMOD-portable.exe'),
+])
+@pytest.mark.parametrize('restart', [True, False])
+def test_upgrade_filename_and_cache_backup(tmp_path, filename, expected, restart, protocol_retargets):
+    source, current, request = install_fixture(tmp_path, filename, 'v0.3.0-rc.29')
+    plan = json.loads(request.read_text(encoding='utf-8'))
+    plan['restart'] = restart
+    updates.write_json(request, plan)
+    launched = []
+    result = updates.install_request(request, wait=lambda _: None, launch=launched.append)
+    target = current.with_name(expected)
+    assert result['status'] == 'installed'
+    assert Path(result['target']) == target
+    assert target.read_bytes() == source.read_bytes()
+    assert Path(result['backup']) == request.parent / 'previous.exe.bak'
+    assert Path(result['backup']).read_bytes() == b'MZ-old'
+    assert list(current.parent.iterdir()) == [target]
+    assert launched == ([target] if restart else [])
+    assert protocol_retargets == ([(current, target)] if current != target else [])
+
+
+@pytest.mark.parametrize('failure', ['rename', 'remove_old', 'launch'])
+def test_versioned_upgrade_failure_restores_original_name(tmp_path, failure, monkeypatch, protocol_retargets):
+    source, current, request = install_fixture(tmp_path, 'BBMOD-0.3.0-rc.28.exe', 'v0.3.0-rc.29')
+    def fail(*_):
+        raise PermissionError('simulated locked file')
+    if failure == 'rename':
+        monkeypatch.setattr(updates, '_rename_with_retry', fail)
+    if failure == 'remove_old':
+        unlink = updates._unlink_with_retry
+        def remove(path):
+            if path == current:
+                fail()
+            unlink(path)
+        monkeypatch.setattr(updates, '_unlink_with_retry', remove)
+    result = updates.install_request(request, wait=lambda _: None, launch=fail)
+    assert result['status'] == 'failed'
+    assert current.read_bytes() == b'MZ-old'
+    assert Path(result['backup']).read_bytes() == b'MZ-old'
+    assert list(current.parent.iterdir()) == [current]
+    assert result.get('rolled_back', False) == (failure != 'rename')
+    assert not protocol_retargets
+
+
+def test_versioned_upgrade_preserves_colliding_file_and_lock(tmp_path, protocol_retargets):
+    source, current, request = install_fixture(tmp_path, 'BBMOD-0.3.0-rc.28.exe', 'v0.3.0-rc.29')
+    target = current.with_name('BBMOD-0.3.0-rc.29.exe')
+    target.write_bytes(b'user-file')
+    with pytest.raises(ValueError, match='已存在'):
+        updates.prepare_install(source, parsed(release_row('v0.3.0-rc.29')), target=current)
+    result = updates.install_request(request, wait=lambda _: None)
+    assert result['status'] == 'failed' and '同名' in result['error']
+    assert target.read_bytes() == b'user-file' and current.read_bytes() == b'MZ-old'
+    target.unlink()
+    lock = target.with_name(f'.{target.name}.update.lock')
+    lock.write_text('other-updater')
+    result = updates.install_request(request, wait=lambda _: None)
+    assert result['status'] == 'failed' and current.read_bytes() == b'MZ-old'
+    assert lock.read_text() == 'other-updater'
+    assert set(current.parent.iterdir()) == {current, lock}
+
+
+def test_backup_copy_failure_leaves_current_executable_untouched(tmp_path, monkeypatch):
+    source, current, request = install_fixture(tmp_path)
+    def corrupt_copy(old, saved):
+        saved.write(b'corrupt backup')
+    monkeypatch.setattr(updates.shutil, 'copyfileobj', corrupt_copy)
+    result = updates.install_request(request, wait=lambda _: None)
+    assert result['status'] == 'failed' and '备份校验' in result['error']
+    assert current.read_bytes() == b'MZ-old'
+    assert list(current.parent.iterdir()) == [current]
+
+
+def test_backup_does_not_require_a_same_drive_rename(tmp_path, monkeypatch):
+    source, current, request = install_fixture(tmp_path)
+    replace = updates.os.replace
+    def same_directory_only(old, new):
+        assert Path(old).parent == Path(new).parent
+        replace(old, new)
+    monkeypatch.setattr(updates.os, 'replace', same_directory_only)
+    result = updates.install_request(request, wait=lambda _: None, launch=lambda _: None)
+    assert result['status'] == 'installed'
+    assert current.read_bytes() == b'MZ-new'
+    assert Path(result['backup']).read_bytes() == b'MZ-old'
+
+
+@pytest.mark.parametrize('registered', ['current', 'other', 'missing'])
+def test_versioned_update_retargets_only_existing_protocol(tmp_path, monkeypatch, registered):
+    winreg = pytest.importorskip('winreg')
+    from unittest.mock import MagicMock
+    from core.web_links import retarget_protocol
+    current = tmp_path / 'BBMOD-0.3.0-rc.28.exe'
+    target = tmp_path / 'BBMOD-0.3.0-rc.29.exe'
+    existing = current if registered == 'current' else tmp_path / 'another.exe'
+    key = MagicMock()
+    monkeypatch.setattr(winreg, 'OpenKey', MagicMock(return_value=key, side_effect=FileNotFoundError if registered == 'missing' else None))
+    monkeypatch.setattr(winreg, 'QueryValueEx', lambda *_: (f'"{existing}" --open-url "%1"', winreg.REG_SZ))
+    save = MagicMock()
+    monkeypatch.setattr(winreg, 'SetValueEx', save)
+    retarget_protocol(current, target)
+    if registered == 'current':
+        save.assert_called_once_with(key, '', 0, winreg.REG_SZ, f'"{target}" --open-url "%1"')
+    else:
+        save.assert_not_called()
 
 
 def test_locked_update_and_existing_stage_are_preserved(tmp_path):

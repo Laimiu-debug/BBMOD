@@ -307,6 +307,9 @@ STYLESHEET += """
 #pageSubtitle { color:#c4b392; font-size:12px; }
 #brandName { color:#efddad; font-size:30px; }
 #versionBadge { background:rgba(29,27,22,190); border:1px solid #968052; color:#e8d3a0; font-size:9px; padding:4px 7px; }
+#updateNotice { background:#523b27; border:1px solid #bb9453; border-left:4px solid #e2bb72; }
+#updateNotice QLabel { color:#ffedc3; }
+#updateNotice QPushButton { padding:4px 10px; }
 #gameBar { background:#29251e; border:1px solid #716043; }
 #gameBar QLabel, #gamePath { color:#c7b795; }
 #gameBar QPushButton { padding:3px 9px; min-height:18px; }

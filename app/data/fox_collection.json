@@ -1,0 +1,500 @@
+[
+  {
+    "source_name": "1W制作不老泉.zip",
+    "source_sha256": "748f1ac81ad33ad29293ffc925e35aa468b170818f4783177a84f49204c98b86",
+    "install_name": "mod_fox_001.zip",
+    "name_cn": "1W 制作不老泉",
+    "category": "作弊",
+    "note": "配方覆盖",
+    "tags": []
+  },
+  {
+    "source_name": "5W出技能药水.zip",
+    "source_sha256": "9cee87384a371a9b02e2cc0ef8de913903dc30b11b00b36cd387bd272d712737",
+    "install_name": "mod_fox_002.zip",
+    "name_cn": "5W 出技能药水",
+    "category": "作弊",
+    "note": "配方覆盖",
+    "tags": []
+  },
+  {
+    "source_name": "CompareBros-820-1-0-1741641816.zip",
+    "source_sha256": "f41cb37bb62626e27870e348eec13003074d2c9218f2b0b5f4c049a291e266c5",
+    "install_name": "mod_fox_003.zip",
+    "name_cn": "兵员对比 CompareBros",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "EIF.zip",
+    "source_sha256": "e1729d189901338e14545bcb8911e088769d6c5c43a7fb85bcf5bd0190b8b798",
+    "install_name": "mod_fox_004.zip",
+    "name_cn": "精灵种族 EIF",
+    "category": "基础功能",
+    "note": "新雇佣兵 20% 概率为精灵（+4 先攻，女声语音）；影响角色生成",
+    "tags": [
+      "影响种子"
+    ]
+  },
+  {
+    "source_name": "m0d_03_（铠甲损坏标识）armour_indicators-96-1-4-2-1761145139.zip",
+    "source_sha256": "c542faa298ac69fb3caa7a2daf6d8b038daab978e6c92b682db78dacacd8ff80",
+    "install_name": "mod_fox_005.zip",
+    "name_cn": "铠甲损坏标识",
+    "category": "基础功能",
+    "note": "移除 ui 目录内夹带的旧 V2 完整包，避免安装第二套同名 MOD。",
+    "tags": []
+  },
+  {
+    "source_name": "m0d_22_详细阵亡人员情报.zip",
+    "source_sha256": "4503e856d2152bd0f444dfcda30ff2e761329973c0da8f1183fe7d802575cf02",
+    "install_name": "mod_fox_006.zip",
+    "name_cn": "详细阵亡人员情报",
+    "category": "基础功能",
+    "note": "Better Obituary",
+    "tags": []
+  },
+  {
+    "source_name": "m0d_24_（自由布阵）zhiyoubuzheng.zip",
+    "source_sha256": "acf28030c70ee9be22a1468baa21e7b77eb0833d9b19b91700965c773c335515",
+    "install_name": "mod_fox_007.zip",
+    "name_cn": "自由布阵",
+    "category": "基础功能",
+    "note": "战前自由布阵",
+    "tags": []
+  },
+  {
+    "source_name": "mod_modern_hooks-685-0-6-0-1748620177.zip",
+    "source_sha256": "18fbf059480a09483693b8eef9c97c3a32450885b1971dda49b5cc14a66d7ed1",
+    "install_name": "mod_fox_008.zip",
+    "name_cn": "Modern Hooks 框架",
+    "category": "框架",
+    "note": "新 API 根框架，把原版/DLC 注册为伪 mod；多数新 mod 的依赖",
+    "tags": [
+      "必需"
+    ]
+  },
+  {
+    "source_name": "mod_msu-1.9.0(汉化版).zip",
+    "source_sha256": "ccf966e67c3be85e0918c44cb043bb39b08803e8d793d51d021f218b5d4bbab9",
+    "install_name": "mod_fox_009.zip",
+    "name_cn": "MSU 1.9.0（汉化版）",
+    "category": "框架",
+    "note": "模组开发标准与工具库，依赖 Modern Hooks；很多功能 mod 的前置",
+    "tags": [
+      "MSU依赖"
+    ]
+  },
+  {
+    "source_name": "mod_沙匪起源.zip",
+    "source_sha256": "90e658a31c29ba9d58bedbee5de8c203de8fea3973f6f4b2c1e325df072ad9d0",
+    "install_name": "mod_fox_010.zip",
+    "name_cn": "沙匪起源 Desert Bandits",
+    "category": "基础功能",
+    "note": "新开局起源",
+    "tags": []
+  },
+  {
+    "source_name": "mod_（战术命中要素）tactical_hit_factors-283-6-1606037352.zip",
+    "source_sha256": "e63c7df723926586be0fa521923e90602d95a4e089f9a1539907eeb3083a50db",
+    "install_name": "mod_fox_011.zip",
+    "name_cn": "战术命中要素显示",
+    "category": "基础功能",
+    "note": "cnut 编译",
+    "tags": []
+  },
+  {
+    "source_name": "zbigmap012-发现传奇地点(Ctrl+U)-mod-uncover-legendary-locations-372-1-2-1626108860.zip",
+    "source_sha256": "4a6b20603e2fe0b167246bb301c9199f406bc9ee52afbc1d3342d6b3538aa4da",
+    "install_name": "mod_fox_012.zip",
+    "name_cn": "发现传奇地点 Ctrl+U",
+    "category": "基础功能",
+    "note": "揭秘传奇地点位置",
+    "tags": []
+  },
+  {
+    "source_name": "zbigmap013-战利品管理9.06-MSU汉化版1.4-eimo-239-9-0-6-1656322331.zip",
+    "source_sha256": "80928130d72d8cf93005e32e24764ba4e546b42c82ca07c1d0e028f90ddfb29f",
+    "install_name": "mod_fox_013.zip",
+    "name_cn": "战利品管理 EIMO 9.06（MSU 汉化版）",
+    "category": "基础功能",
+    "note": "快速切换道具已拆为独立 ZIP，按需另选；依赖 MSU 和两套 Hooks。",
+    "tags": [
+      "MSU依赖",
+      "内嵌zip"
+    ],
+    "split_quickswap": true
+  },
+  {
+    "source_name": "zbigmap033-自定义武将底座MSU2.4.zip",
+    "source_sha256": "579ad33cf00b62c518e66fb7240985ae4d989fa2032edb0b08c87cea13a4e2c4",
+    "install_name": "mod_fox_014.zip",
+    "name_cn": "自定义武将底座 MSU2.4",
+    "category": "基础功能",
+    "note": "",
+    "tags": [
+      "MSU依赖"
+    ]
+  },
+  {
+    "source_name": "zbigmap043-更快的速度更快的事件频率(1-4地图加速、F1-F4战斗加速，不兼容06战斗加速)1.12-MSU汉化版1.12-swifter-542-1-1-2-1660927118.zip",
+    "source_sha256": "1866e34ab5bcfa9fef5ccbf98f97cc01be9618449468076a512cbd23e4dabbfb",
+    "install_name": "mod_fox_015.zip",
+    "name_cn": "地图/战斗加速 Swifter（MSU 汉化版）",
+    "category": "基础功能",
+    "note": "F1-F4 战斗加速、地图加速；互斥 06 战斗加速/quickier 系列",
+    "tags": [
+      "MSU依赖",
+      "互斥"
+    ]
+  },
+  {
+    "source_name": "zbigmap046-战前准备1.01-MSU汉化版1.0-mod_prepare_for_battle-557-1-0-1-1652847896.zip",
+    "source_sha256": "1b70b2773ed237883b3965c81027dfc6cd5e2008667e0ca925385503ca343c40",
+    "install_name": "mod_fox_016.zip",
+    "name_cn": "战前准备（MSU 汉化版）",
+    "category": "基础功能",
+    "note": "战前整备界面",
+    "tags": [
+      "MSU依赖"
+    ]
+  },
+  {
+    "source_name": "zbigmap050-可移除护甲配件(快捷键U)-removableUpgradesVer2-444-1-1631955666.zip",
+    "source_sha256": "4637cca0f9ba84fe035161c7ae9bb1f87e08e203dc368e77abcd80f1fc0d9fa3",
+    "install_name": "mod_fox_017.zip",
+    "name_cn": "可移除护甲配件（U）",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "zbigmap060-自动战斗.zip",
+    "source_sha256": "c144f5a061191dfdafc0541a348b2f00246b0052d5e630fc7274d685ecf3b13d",
+    "install_name": "mod_fox_018.zip",
+    "name_cn": "自动战斗（MSU）",
+    "category": "基础功能",
+    "note": "MSU 系自动战斗",
+    "tags": [
+      "MSU依赖"
+    ]
+  },
+  {
+    "source_name": "军团外套-附件.zip",
+    "source_sha256": "f49ae192495d53f1e75e265b72ee11a602262007a29c372f06240fb4a4a50f96",
+    "install_name": "mod_fox_019.zip",
+    "name_cn": "军团外套 Company Tabards",
+    "category": "基础功能",
+    "note": "版本字面量规范为实际生效的 1.5；预载资源由管理器自动合并。 通过新版 BBMOD 自动合并预载清单。 移除与源码重复的编译脚本，避免重复预加载。",
+    "tags": [
+      "preload清单"
+    ],
+    "normalize_tabard_version": true
+  },
+  {
+    "source_name": "刺客之王起源.zip",
+    "source_sha256": "afe84e53da21ee1a8e58cbda4a97454e6f6172532a325964a4e6f4bb9f9a5f96",
+    "install_name": "mod_fox_020.zip",
+    "name_cn": "刺客之王起源 Hassassin",
+    "category": "基础功能",
+    "note": "起源+专属武器装备",
+    "tags": []
+  },
+  {
+    "source_name": "商店出售红盾.zip",
+    "source_sha256": "be052be733bd3e9bbc8aeb42ffa4973e0103acdd7ac7e6e3003b63e95e35db2b",
+    "install_name": "mod_fox_021.zip",
+    "name_cn": "商店出售红盾",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "回购-原价买回物品.zip",
+    "source_sha256": "ed0b4049350b3ac59dffe761949a8b0f0435b7b89391daef251cc99a09fc5c3b",
+    "install_name": "mod_fox_022.zip",
+    "name_cn": "原价回购物品",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "宝藏地图（提示红装位置）.zip",
+    "source_sha256": "c7f38554c82a99268fbca3ec7a213537e7fd1a449dbd9c0c0d03dbc459518bf1",
+    "install_name": "mod_fox_023.zip",
+    "name_cn": "宝藏地图（红装位置提示）",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "战场敌人战斗属性.zip",
+    "source_sha256": "6ef3583a553d380c6fc8e4311e763f123ed62083952da5ec99270f19a4d6102a",
+    "install_name": "mod_fox_024.zip",
+    "name_cn": "战场敌人属性提示",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "显示城市交易价格比例.zip",
+    "source_sha256": "01004a80ecd94889b32ff41a4d291496143327f8a9a6e0c5a785252e4d10ca5b",
+    "install_name": "mod_fox_025.zip",
+    "name_cn": "城市交易价格/状态提示",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "显示城市据点状态.zip",
+    "source_sha256": "b94c4030ee20e704dc319aa2ad46787e3bd040ea41ec42249637c06c05f55109",
+    "install_name": "mod_fox_026.zip",
+    "name_cn": "显示据点状态",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "显示红装属性范围.zip",
+    "source_sha256": "5c505ef9edaaecca25b5928628f05da50f4926f3f70b60e2d7d7851ada80ac08",
+    "install_name": "mod_fox_027.zip",
+    "name_cn": "红装属性区间显示",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "显示营地红装.zip",
+    "source_sha256": "7f7288f3966ee1c10cab0a266089261dfc331ebee9c444b40a392b4e3b6fbc69",
+    "install_name": "mod_fox_028.zip",
+    "name_cn": "显示营地红装",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "显示视野范围.zip",
+    "source_sha256": "5ac57625c6af68e121f3056d1136be7ef3618972c786e61637990d8598711876",
+    "install_name": "mod_fox_029.zip",
+    "name_cn": "显示视野范围",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "炼金配方可见.zip",
+    "source_sha256": "4a41358ff29dd042b0cbbfadc951078cadf430e7d37e9fd02f5e8ad9066e7ac1",
+    "install_name": "mod_fox_030.zip",
+    "name_cn": "炼金配方全开",
+    "category": "作弊",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "犬舍可购买狼.zip",
+    "source_sha256": "d39bddfd5f75992b039b7383fcf20c95f897c347d8a8d0bd2dec1e1654f36403",
+    "install_name": "mod_fox_031.zip",
+    "name_cn": "犬舍可购买狼",
+    "category": "基础功能",
+    "note": "纯覆盖，无注册",
+    "tags": []
+  },
+  {
+    "source_name": "狂暴 猎头触发特效.zip",
+    "source_sha256": "2bd367379befe0d09c3b150332fea6bfd364ccbadf03c438ea21e011f2317475",
+    "install_name": "mod_fox_032.zip",
+    "name_cn": "猎头触发特效（VSE）",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "玩家控制宠物（攻击快捷键点1）.zip",
+    "source_sha256": "20199f360f78857eeb9cae3a778e3c026069ff526bcb9cddc3a49860c2f0c8cf",
+    "install_name": "mod_fox_033.zip",
+    "name_cn": "玩家控制宠物",
+    "category": "基础功能",
+    "note": "攻击快捷键 1",
+    "tags": []
+  },
+  {
+    "source_name": "神殿治疗永久伤残.zip",
+    "source_sha256": "ee6e53661ea21d0da468b71f00df8093f7552cac38a69c44362e9a413cb0a72a",
+    "install_name": "mod_fox_034.zip",
+    "name_cn": "神殿治疗永久伤残",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "职业属性能力范围显示.zip",
+    "source_sha256": "7d8e20e11143ae42935e9d751313b21d9a239f2f69b8aaed8a524362146a3ef7",
+    "install_name": "mod_fox_035.zip",
+    "name_cn": "职业属性能力范围显示",
+    "category": "基础功能",
+    "note": "新 API，需 Modern Hooks",
+    "tags": [
+      "需ModernHooks"
+    ]
+  },
+  {
+    "source_name": "自动暂停-合集版.zip",
+    "source_sha256": "16a520cc7a6b654dc86bcce8741e746c833b252ef143bb30a91eebccd0589537",
+    "install_name": "mod_fox_036.zip",
+    "name_cn": "自动暂停（可配置）",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "营地显示人物11级上限.zip",
+    "source_sha256": "c7d232ace6ee6fed367165ed690a1509b61e7697f385ac8bc809c199e5c71e3a",
+    "install_name": "mod_fox_037.zip",
+    "name_cn": "营地显示人物11级上限头像",
+    "category": "基础功能",
+    "note": "纯资源；含 preload 预载清单 通过新版 BBMOD 自动合并预载清单。",
+    "tags": [
+      "preload清单"
+    ]
+  },
+  {
+    "source_name": "轻度显星-仅显示成长星.zip",
+    "source_sha256": "c0a67a3e793c02d402e30cc8ebd44f8cfa330424309e600f6c056f105dd37fa1",
+    "install_name": "mod_fox_038.zip",
+    "name_cn": "轻度显星（仅成长星）",
+    "category": "基础功能",
+    "note": "显星类互斥：与显星显属性带评价二选一",
+    "tags": [
+      "显星互斥"
+    ]
+  },
+  {
+    "source_name": "轻松制作遗忘药水-见见改.zip",
+    "source_sha256": "c09e7912b9f02b210566446c05734197dc39e133c46956f1f7fcf8823e6ee921",
+    "install_name": "mod_fox_039.zip",
+    "name_cn": "轻松制作遗忘药水",
+    "category": "作弊",
+    "note": "配方覆盖",
+    "tags": []
+  },
+  {
+    "source_name": "重命名英文使用-1.5倍雇佣新人.zip",
+    "source_sha256": "75d26e3ca40a5079430d5aeb5955bf10ea6d035814411dd0a4309c72622d742a",
+    "install_name": "mod_fox_040.zip",
+    "name_cn": "1.5倍雇佣新人",
+    "category": "基础功能",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "骨板显示器.zip",
+    "source_sha256": "742d9798da420ce1581830ac0219fae3271109addfec6c0505a07b41a9897651",
+    "install_name": "mod_fox_041.zip",
+    "name_cn": "骨板显示器",
+    "category": "基础功能",
+    "note": "含 preload 预载清单 通过新版 BBMOD 自动合并预载清单。 移除与源码重复的编译脚本，避免重复预加载。",
+    "tags": [
+      "preload清单"
+    ]
+  },
+  {
+    "source_name": "data狐狸汉化+hooks 20260624.zip",
+    "source_sha256": "720a6d127f6325d2186061f788410f10f0db0d3ee70a998f23a9ebd3947cad6f",
+    "install_name": "data_fox_zhcn.zip",
+    "name_cn": "狐狸汉化（内嵌旧版 hooks v21.1）",
+    "category": "汉化",
+    "note": "全量脚本翻译+中文字体+内嵌 mod_hooks 21.1；需英文原版基座",
+    "tags": [
+      "基座"
+    ]
+  },
+  {
+    "source_name": "显星显属性带评价（影响存档）.zip",
+    "source_sha256": "a993de21b58f6132f0339ecdf7141e56c0086a3f0c12d3f83e4b202749af4279",
+    "install_name": "mod_fox_043.zip",
+    "name_cn": "显星显属性带评价",
+    "category": "作弊",
+    "note": "会写入存档；显星类互斥（与轻度显星二选一）",
+    "tags": [
+      "显星互斥",
+      "影响存档"
+    ]
+  },
+  {
+    "source_name": "角斗士13人.zip",
+    "source_sha256": "f56f67f3a97ee958dffc1acc3f1435dee1de599aa462fb3400150e0d66a8dd18",
+    "install_name": "mod_fox_044.zip",
+    "name_cn": "角斗士 13 人",
+    "category": "作弊",
+    "note": "名额+1",
+    "tags": []
+  },
+  {
+    "source_name": "重命名英文使用-25%商店红装(必出红装).zip",
+    "source_sha256": "bf5aef74b4fc62f3153e363a1d04021e01ea129e816cf287460be5f50388d1c8",
+    "install_name": "mod_fox_045.zip",
+    "name_cn": "25% 商店红装（必出红装）",
+    "category": "作弊",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "重命名英文使用-SHIFT+E-多功能修改器.zip",
+    "source_sha256": "b2788adf63e6bbf100bb7ff0f5d864459d4b85c78e6d17ea23ca7552c05a6b7b",
+    "install_name": "mod_fox_046.zip",
+    "name_cn": "BBForge 多功能修改器",
+    "category": "作弊",
+    "note": "游戏内兵员编辑器（SHIFT+E）",
+    "tags": []
+  },
+  {
+    "source_name": "重命名英文使用-先知永远是旗手（检查集结部队）.zip",
+    "source_sha256": "2fc5ed9d54234ffda8cecee7b64972997c18ec366c61ca1af88387342b83ce9c",
+    "install_name": "mod_fox_047.zip",
+    "name_cn": "先知永远是旗手",
+    "category": "作弊",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "重命名英文使用-无限竞技场次数.zip",
+    "source_sha256": "5bf4cdf6abfb5bcb2dbc18cfc2ecaccd25e408efd06f938d58e51dd2802ec232",
+    "install_name": "mod_fox_048.zip",
+    "name_cn": "无限竞技场次数",
+    "category": "作弊",
+    "note": "修复与狐狸汉化的源码/编译脚本遮蔽：基于合集对应汉化脚本移除原 MOD 相同的 7 处冷却刷新；其余源码字节不变。",
+    "tags": [],
+    "arena_source_compat": true
+  },
+  {
+    "source_name": "重命名英文使用-美化-武器皮肤包（改变种子）.zip",
+    "source_sha256": "e9bc45cfe504b58023d0e69fe93e7ccc280d48e9b4008034223dba18bc00cbd9",
+    "install_name": "mod_fox_049.zip",
+    "name_cn": "武器皮肤包",
+    "category": "作弊",
+    "note": "美化向；会改变种子",
+    "tags": [
+      "改种子"
+    ]
+  },
+  {
+    "source_name": "重命名英文使用-随从上限变为10个 .zip",
+    "source_sha256": "8ecea1b5acd61dc454c5fb69cc29a9a35c2669cc81447f649c85a7753d9f1ec5",
+    "install_name": "mod_fox_050.zip",
+    "name_cn": "随从上限 10",
+    "category": "作弊",
+    "note": "",
+    "tags": []
+  },
+  {
+    "source_name": "按Y随时献祭-在城村附近使用-达库尔专用-mod_davkul_hotkey-975-2-0-1-1773469591.rar",
+    "source_sha256": "cb77a3c2ddac5e98af20f4d64d51a3548aefcf6fc286a45f71184b9ed911d28c",
+    "member_sha256": "64e034a4a42fc00705a93026f1f17fb0fa0ee5af6fbb3ec741b2dd541cd10b7b",
+    "install_name": "mod_fox_davkul_hotkey.zip",
+    "name_cn": "按 Y 随时献祭（达库尔专用）",
+    "category": "作弊",
+    "note": "由 RAR 转成游戏可直接加载的 ZIP；需 Modern Hooks 和 Modding Script Hooks，仅适用于邪教徒起源。",
+    "tags": []
+  }
+]

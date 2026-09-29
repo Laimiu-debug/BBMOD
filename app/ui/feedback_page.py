@@ -1,16 +1,18 @@
 """Anonymous desktop feedback; drafts survive failures, receipts prevent duplicates."""
 import json
 
-from PySide6.QtCore import QTimer, QUrl, Qt
+from PySide6.QtCore import QTimer, QUrl, Qt, Signal
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
-from PySide6.QtWidgets import (QComboBox, QFormLayout, QGroupBox, QLabel, QLineEdit,
+from PySide6.QtWidgets import (QComboBox, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QTextEdit, QVBoxLayout, QWidget)
 
 from core.app_updates import SITE_ORIGIN
 from core.version import VERSION
+from core.support_report import MAX_REPORT_CHARS
 
 
 class FeedbackPage(QWidget):
+    support_requested = Signal()
     def __init__(self, parent=None):
         super().__init__(parent)
         self.network = QNetworkAccessManager(self)
@@ -21,6 +23,7 @@ class FeedbackPage(QWidget):
         self.pending_data = None
         self._data = bytearray()
         self._limited = False
+        self.diagnostic_report = ''
         root = QVBoxLayout(self)
         intro = QLabel('遇到问题，或有希望加入的功能，都可以直接告诉我们。无需登录，内容仅管理员可见。')
         intro.setWordWrap(True)
@@ -44,7 +47,20 @@ class FeedbackPage(QWidget):
             form.addRow(label, widget)
         form.addRow('软件版本', QLabel(VERSION))
         root.addWidget(self.box)
-        hint = QLabel('仅发送本页填写的内容和软件版本，不会上传存档、日志或游戏目录。')
+        diagnostic = QPushButton('生成并预览诊断报告…')
+        diagnostic.clicked.connect(lambda: self.support_requested.emit())
+        root.addWidget(diagnostic)
+        self.report_box = QGroupBox('附带诊断报告')
+        report_layout = QHBoxLayout(self.report_box)
+        self.report_label = QLabel(); self.report_label.setWordWrap(True)
+        self.edit_report_button = QPushButton('预览 / 修改')
+        self.edit_report_button.clicked.connect(self.edit_report)
+        self.remove_report_button = QPushButton('移除')
+        self.remove_report_button.clicked.connect(self.remove_report)
+        report_layout.addWidget(self.report_label, 1)
+        report_layout.addWidget(self.edit_report_button); report_layout.addWidget(self.remove_report_button)
+        root.addWidget(self.report_box); self.report_box.hide()
+        hint = QLabel('发送填写内容、软件版本及你确认附带的诊断报告，仅管理员可见。报告可预览修改，存档不会上传。')
         hint.setWordWrap(True); hint.setObjectName('workspaceHint'); root.addWidget(hint)
         self.submit_button = QPushButton('提交反馈'); self.submit_button.setObjectName('feedback_submit')
         self.submit_button.clicked.connect(self.submit); root.addWidget(self.submit_button)
@@ -53,12 +69,45 @@ class FeedbackPage(QWidget):
         self.status.setTextInteractionFlags(Qt.TextSelectableByMouse)
         root.addWidget(self.status); root.addStretch()
 
+    def attach_report(self, text, title='游戏运行错误报告'):
+        if self.reply:
+            self.status.setText('当前反馈正在提交，请等待结果后再添加报告。')
+            return False
+        text = text.strip()
+        if not text or len(text) > MAX_REPORT_CHARS:
+            self.status.setText('诊断报告不能为空，且最多 60,000 字；请修改后重试。')
+            return False
+        self.diagnostic_report = text
+        self.report_label.setText(f'已附带 {len(text):,} 字；独立保存，不占用详细说明的字数。')
+        self.report_box.show()
+        self.kind.setCurrentIndex(self.kind.findData('bug'))
+        if not self.title.text().strip():
+            self.title.setText(title[:100])
+        if not self.details.toPlainText().strip():
+            self.details.setPlainText('通过健康诊断提交，错误详情见附带报告。\n\n复现步骤（可补充）：')
+        self.submit_button.setText('提交错误报告')
+        self.status.setText('报告已加入草稿。可以补充复现步骤，确认后点击“提交错误报告”。')
+        return True
+
+    def edit_report(self):
+        from .support_dialog import SupportDialog
+        dialog = SupportDialog(self.diagnostic_report, self, editing=True)
+        if dialog.exec() == SupportDialog.DialogCode.Accepted:
+            self.attach_report(dialog.editor.toPlainText())
+
+    def remove_report(self):
+        self.diagnostic_report = ''
+        self.report_box.hide()
+        self.submit_button.setText('提交反馈')
+
     def submit(self):
         if self.reply or self._limited:
             return
         data = {'kind': self.kind.currentData(), 'title': self.title.text().strip(),
                 'details': self.details.toPlainText().strip(), 'nickname': self.nickname.text().strip(),
                 'contact': self.contact.text().strip(), 'version': 'BBMOD desktop ' + VERSION}
+        if self.diagnostic_report:
+            data['diagnostic_report'] = self.diagnostic_report
         if not data['title'] or not data['details'] or len(data['details']) > 5000:
             self.status.setText('请填写标题和详细说明，详细说明最多 5,000 字。')
             return
@@ -66,7 +115,7 @@ class FeedbackPage(QWidget):
         if self.pending_data != data:
             self.ticket = None
         self.pending_data = data
-        self.box.setEnabled(False); self.submit_button.setEnabled(False)
+        self.box.setEnabled(False); self.report_box.setEnabled(False); self.submit_button.setEnabled(False)
         self.status.setText('正在提交…')
         self._request(post=bool(self.ticket))
 
@@ -117,14 +166,18 @@ class FeedbackPage(QWidget):
             if not post:
                 if not all(isinstance(data.get(key), str) and 0 < len(data[key]) <= 500 for key in ('submission', 'csrf_token')):
                     raise ValueError
+                if self.pending_data.get('diagnostic_report') and data.get('diagnostic_report_max_length', 0) < len(self.pending_data['diagnostic_report']):
+                    self.status.setText('网站暂不支持此诊断报告，请稍后重试或导出 TXT。草稿已保留。')
+                    return
                 self.ticket = data
                 self._request(post=True)
                 return
             reference = data.get('reference')
             if not isinstance(reference, str) or len(reference) > 32:
                 raise ValueError
-            self.status.setText('建议已送达，管理员会在后台查看。\n回执编号：' + reference)
+            self.status.setText(('错误报告' if self.pending_data.get('diagnostic_report') else '反馈') + '已送达，管理员会在后台查看。\n回执编号：' + reference)
             self.title.clear(); self.details.clear()
+            self.remove_report()
             self.ticket = None; self.pending_data = None
         except (ValueError, TypeError, KeyError):
             if code == 403:
@@ -133,7 +186,7 @@ class FeedbackPage(QWidget):
         finally:
             reply.deleteLater()
             if not self.reply:
-                self.box.setEnabled(True); self.submit_button.setEnabled(not self._limited)
+                self.box.setEnabled(True); self.report_box.setEnabled(True); self.submit_button.setEnabled(not self._limited)
 
     def _retry_enabled(self):
         self._limited = False

@@ -42,6 +42,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_ROOT = DATA_DIR / 'private'
+MOD_DOWNLOAD_ACCEL = os.environ.get('BBMOD_MOD_DOWNLOAD_ACCEL', '0') == '1'
+PUBLIC_DOWNLOAD_BASE = os.environ.get('BBMOD_PUBLIC_DOWNLOAD_BASE', '').rstrip('/')
 DESKTOP_DOWNLOAD_ROOT = Path(os.environ.get('BBMOD_DESKTOP_DOWNLOAD_ROOT', str(DATA_DIR / 'desktop')))
 DESKTOP_DOWNLOAD_ACCEL = os.environ.get('BBMOD_DESKTOP_DOWNLOAD_ACCEL', '0') == '1'
 WIKI_ROOT = Path(os.environ.get('BBMOD_WIKI_ROOT', str(DATA_DIR / 'wiki'))).resolve()
@@ -71,3 +73,4 @@ MAX_MOD_BYTES = int(os.environ.get('BBMOD_MAX_UPLOAD_MB', '100')) * 1024 * 1024
 MAX_DESKTOP_BYTES = 300 * 1024 * 1024
 AUTHOR_QUOTA_BYTES = int(os.environ.get('BBMOD_AUTHOR_QUOTA_MB', '2048')) * 1024 * 1024
 UPLOADS_PER_DAY = 30
+PROFILE_STORAGE_BYTES = int(os.environ.get('BBMOD_PROFILE_STORAGE_MB', '20480')) * 1024 * 1024

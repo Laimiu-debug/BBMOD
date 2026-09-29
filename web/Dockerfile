@@ -4,6 +4,7 @@ WORKDIR /srv/web
 COPY web/requirements.lock ./requirements.lock
 RUN pip install --no-cache-dir -r requirements.lock && useradd --uid 10001 --create-home bbmod
 COPY app/core/archive_safety.py /srv/app/core/archive_safety.py
+COPY app/core/profile_protocol.py /srv/app/core/profile_protocol.py
 COPY app/core/paths.py app/core/gamelog.py /srv/app/core/
 COPY app/core/seedgen/config_emitter.py app/core/seedgen/log_watcher.py app/core/seedgen/presentation.py app/core/seedgen/protocol.py app/core/seedgen/traits.py app/core/seedgen/weapons.py /srv/app/core/seedgen/
 COPY app/data/seed_traits.json /srv/app/data/seed_traits.json

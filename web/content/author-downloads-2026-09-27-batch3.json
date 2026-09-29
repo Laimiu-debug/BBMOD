@@ -1,0 +1,103 @@
+{
+  "checked_on": "2026-09-27",
+  "files": [
+    {
+      "repo": "jcsato/quicker",
+      "url": "https://github.com/jcsato/quicker/releases/download/v1.4/quicker_1.4.zip",
+      "status": 200,
+      "size": 2451,
+      "content_type": "application/octet-stream",
+      "sha256": "58b0a36018970eeacd1d3758a373b2f130c5c949dbed3ee61a9242bd3d0c7568",
+      "files": 4,
+      "roots": [
+        "script_hooks",
+        "scripts",
+        "ui"
+      ],
+      "backslash_paths": 4,
+      "verification": "full_download_crc_normalized_paths",
+      "game_tested": false
+    },
+    {
+      "repo": "maxiQE/maxiqe_smart_tooltips",
+      "url": "https://github.com/maxiQE/maxiqe_smart_tooltips/releases/download/1.0.0/mod_maxi_tooltips.zip",
+      "status": 200,
+      "size": 86556,
+      "content_type": "application/octet-stream",
+      "sha256": "c1fdd43609fcd792a3a1ee7f81b04fa1e193ca2d8bb5c4eec9fbd35a7d731d75",
+      "files": 35,
+      "roots": [
+        "gfx",
+        "mod_maxi_tooltips",
+        "scripts",
+        "ui"
+      ],
+      "backslash_paths": 0,
+      "verification": "full_download_crc_normalized_paths",
+      "game_tested": false
+    },
+    {
+      "repo": "Battle-Brothers-Legends/Legends-public",
+      "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.22/mod_legends-19.4.22.zip",
+      "status": 200,
+      "size": 5453495,
+      "content_type": "application/octet-stream",
+      "sha256": "6dab9fcecaee2a3ba233859671e4a1bba96ee96f16f2e9d91df83749b7c24ea4",
+      "files": 4365,
+      "roots": [
+        "mod_legends",
+        "scripts",
+        "ui"
+      ],
+      "backslash_paths": 0,
+      "verification": "full_download_crc_normalized_paths",
+      "game_tested": false
+    },
+    {
+      "repo": "Battle-Brothers-Legends/Legends-public",
+      "url": "https://github.com/Battle-Brothers-Legends/Legends-public/releases/download/19.4.3/mod_legends-assets-19.4.3.zip",
+      "status": 200,
+      "size": 357981216,
+      "content_type": "application/octet-stream",
+      "verification": "head_only_large_external_asset"
+    },
+    {
+      "repo": "MSUTeam/nested-tooltips",
+      "url": "https://github.com/MSUTeam/nested-tooltips/releases/download/0.5.3/mod_nested_tooltips-0.5.3.zip",
+      "status": 200,
+      "size": 31002,
+      "content_type": "application/octet-stream",
+      "sha256": "5faf037e5c3c05389ee561704544beec02ac3ec61696314a363f0ea056ea9cd8",
+      "files": 30,
+      "roots": [
+        "gfx",
+        "mod_nested_tooltips",
+        "msu",
+        "scripts",
+        "ui"
+      ],
+      "backslash_paths": 0,
+      "verification": "full_download_crc_normalized_paths",
+      "game_tested": false
+    },
+    {
+      "url": "https://www.nexusmods.com/battlebrothers/mods/550?tab=files",
+      "status": 403,
+      "verification": "source_page_only",
+      "reason": "No authorized direct file obtained; link to author Files page"
+    },
+    {
+      "url": "https://www.nexusmods.com/battlebrothers/mods/103?tab=files",
+      "status": 403,
+      "verification": "source_page_only",
+      "reason": "No authorized direct file obtained; link to author Files page"
+    }
+  ],
+  "rights": {
+    "extra-keybinds": "作者不允许其他网站镜像；仅链接 Nexus Files。",
+    "detailed-status-effects": "允许署名转载，但未取得原版文件；仅链接 Nexus Files。",
+    "quicker": "未确认本站镜像许可；使用作者 GitHub 直链。",
+    "maxiqe-tooltips": "仅使用作者 GitHub 直链，不重新分发包含第三方贡献的包。",
+    "legends": "仅使用维护团队 GitHub 核心及配套资源直链。"
+  }
+}

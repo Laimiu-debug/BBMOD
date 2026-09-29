@@ -34,6 +34,7 @@ class Issue:
     title: str
     detail: str = ""
     fix: str | None = None  # 修复建议
+    dependency: str | None = None
 
     def sort_key(self) -> tuple:
         return (SEVERITY_ORDER.get(self.severity, 9), self.source)
@@ -65,15 +66,23 @@ def diagnose(
     report = DiagnosisReport()
 
     _check_system(game, report)
-    installed_ids = {r.mod_id for m in installed for r in m.registrations}
-    for mod in installed:
-        _check_mod(mod, installed_ids, report)
-
-    _check_file_overlaps(installed, report)
-    _check_preload_manifests(installed, report)
+    report.issues.extend(diagnose_mods(installed).issues)
 
     if log_rows is not None:
         _check_runtime(log_rows, installed, report)
+    return report
+
+
+def diagnose_mods(installed: list[ModInfo]) -> DiagnosisReport:
+    """MOD-only preflight, shared by diagnosis and file transactions."""
+    report = DiagnosisReport()
+    installed_ids = {r.mod_id for m in installed for r in m.registrations}
+    for mod in installed:
+        _check_mod(mod, installed_ids, report)
+    _check_requirement_versions(installed, report)
+    _check_known_conflicts(installed, report)
+    _check_file_overlaps(installed, report)
+    _check_preload_manifests(installed, report)
     return report
 
 
@@ -118,13 +127,14 @@ def _check_mod(mod: ModInfo, installed_ids: set[str], report: DiagnosisReport) -
 
     # 1. legacy 版本格式（mod_hooks v21.1 拒绝非纯数字版本）
     for reg in mod.registrations:
-        if not reg.numeric_version_ok:
+        if not reg.numeric_version_ok and not has_modern:
             report.issues.append(Issue(
                 severity="error", source=src,
                 title=f"版本号 “{reg.version}” 不合法：旧版 mod_hooks 要求纯数字",
                 detail=f"mod {reg.mod_id} 以旧 API 注册，mod_hooks v21.1 会直接拒绝加载"
                        f"（游戏日志报 “not using a numeric version”）。",
-                fix="将注册版本改为纯数字（如 1.1.3 → 1.13），或安装 Modern Hooks 后改用新 API",
+                fix="安装 Modern Hooks 的旧 API 兼容层；不要自行改写版本号。",
+                dependency='mod_modern_hooks',
             ))
 
     # 2. 现代 API 但无 Modern Hooks
@@ -136,7 +146,16 @@ def _check_mod(mod: ModInfo, installed_ids: set[str], report: DiagnosisReport) -
             detail="该 mod 使用 ::Hooks.register / .require 等新 API；"
                    "未装 mod_modern_hooks 时启动即报 “the index 'Hooks' does not exist”。",
             fix="安装 mod_modern_hooks（仓库-框架分类）",
+            dependency='mod_modern_hooks',
         ))
+
+    if mod.api in ('legacy', 'mixed') and 'mod_hooks' not in installed_ids and not is_hooks_itself:
+        report.issues.append(Issue('error', src, '需要 Modding Script Hooks 框架，但未安装',
+            'Modern Hooks 不能单独提供全部旧版 hooks 接口。',
+            '安装 Modding Script Hooks 或启用已包含它的汉化包。', 'mod_hooks'))
+    if mod.uses_msu and 'mod_msu' not in installed_ids and not is_hooks_itself:
+        report.issues.append(Issue('error', src, '需要 MSU 框架，但未安装',
+            '脚本使用 MSU 接口。', '先安装 MSU 及其框架前置。', 'mod_msu'))
 
     # 3. 依赖缺失
     for req in mod.requirements:
@@ -151,12 +170,17 @@ def _check_mod(mod: ModInfo, installed_ids: set[str], report: DiagnosisReport) -
             title=f"依赖缺失：{target}",
             detail=f"声明依赖 “{req}”，但当前未安装。",
             fix=f"安装 {target}（或含它的整合包）",
+            dependency=target,
         ))
 
     # 4. 声明互斥（conflictWith / 队列 '!' token）
     for conflict in mod.declared_conflicts:
         target = requirement_target(conflict) or conflict
         if target in installed_ids:
+            # Version-qualified conflicts must only reject matching versions.
+            # The concrete check is performed with the complete set below.
+            if conflict.strip() != target:
+                continue
             report.issues.append(Issue(
                 severity="error", source=src,
                 title=f"声明互斥的 mod 已同时安装：{target}",
@@ -190,6 +214,67 @@ def _check_mod(mod: ModInfo, installed_ids: set[str], report: DiagnosisReport) -
         ))
 
 
+def _check_requirement_versions(installed, report):
+    from .dependency_versions import satisfies
+    versions = {reg.mod_id: reg for mod in installed for reg in mod.registrations}
+    modern = 'mod_modern_hooks' in versions
+    for mod in installed:
+        for error in mod.analysis_errors:
+            report.issues.append(Issue('warning', mod.file_name, '无法完整分析 MOD', error,
+                                       '检查压缩包是否完整，必要时重新下载。'))
+        for requirement in mod.requirements:
+            target = requirement_target(requirement)
+            registration = versions.get(target)
+            if registration is None:
+                continue
+            api = 'modern' if modern and registration.version_is_string else registration.api
+            result = satisfies(requirement, registration.version, api)
+            if result is False:
+                report.issues.append(Issue('error', mod.file_name, f'前置版本不满足：{target}',
+                    f'要求 {requirement}；当前 {registration.version}', '选择符合要求的前置版本。', target))
+            elif result is None:
+                report.issues.append(Issue('warning', mod.file_name, f'前置版本需人工确认：{target}',
+                    f'要求 {requirement}；当前 {registration.version}。暂不支持自动比较此格式。',
+                    '查看作者的版本要求。', target))
+        for conflict in mod.declared_conflicts:
+            target = requirement_target(conflict)
+            if target == conflict.strip() or target not in versions:
+                continue
+            reg = versions[target]
+            result = satisfies(conflict, reg.version, 'modern' if modern else reg.api)
+            if result is True:
+                report.issues.append(Issue('error', mod.file_name, f'声明冲突：{conflict}',
+                    f'当前 {target} {reg.version} 命中冲突范围。', '升级前置或二选一禁用。'))
+
+
+def _check_known_conflicts(installed, report):
+    from .modstore import load_index
+    index = load_index()
+    registered = {r.mod_id: m for m in installed for r in m.registrations}
+    if 'mod_swifter' in registered and 'mod_autopilot' in registered:
+        report.issues.append(Issue('error', registered['mod_autopilot'].file_name,
+            'Swifter 与旧版 Autopilot 不能同时启用',
+            '两者都改写战斗行动流程，原作声明互不兼容。', '加速与旧版自动战斗只保留一个。'))
+    stars = [m for m in installed if '显星互斥' in index.get(m.file_name, {}).get('tags', [])]
+    if len(stars) > 1:
+        report.issues.append(Issue('error', stars[-1].file_name, '两种显星 MOD 不能同时启用',
+            '、'.join(m.file_name for m in stars), '轻度显星和显星显属性带评价只保留一个。'))
+    # The two complete translations replace the same game and UI scripts.
+    fox = [m for m in installed if m.file_name.startswith(('data狐狸汉化', 'data_fox_zhcn'))]
+    own = [m for m in installed if 'BBMOD_L10N.json' in m.entries or m.file_name == 'mod_bbmod_zhcn.zip']
+    if fox and own:
+        report.issues.append(Issue('error', fox[0].file_name, '狐狸汉化与 BBMOD 独立汉化不能同时启用',
+            '两套汉化覆盖相同游戏脚本和界面。', '在汉化管理中选择一种汉化。'))
+    owners = {}
+    for mod in installed:
+        for reg in mod.registrations:
+            owners.setdefault(reg.mod_id, []).append(mod)
+    for ident, mods in owners.items():
+        if len(mods) > 1 and ident not in FRAMEWORK_IDS:
+            report.issues.append(Issue('error', mods[-1].file_name, f'MOD 重复注册：{ident}',
+                '、'.join(m.file_name for m in mods), '同一个 MOD 只启用一个版本。'))
+
+
 # ---------------- 覆盖冲突 ----------------
 
 def _check_file_overlaps(installed: list[ModInfo], report: DiagnosisReport) -> None:
@@ -204,8 +289,11 @@ def _check_file_overlaps(installed: list[ModInfo], report: DiagnosisReport) -> N
             a, b = ordered[i], ordered[j]
             if not a.entries or not b.entries:
                 continue
-            set_a = set(a.entries)
-            overlap = [e for e in b.entries if e in set_a]
+            def key(entry):
+                return re.sub(r'\.(?:c?nut)$', '.squirrel', entry.replace('\\', '/').lower())
+            roots = ('scripts/', 'ui/', 'gfx/', 'brushes/', 'sounds/', 'music/', 'preload/')
+            set_a = {key(e) for e in a.entries if e.lower().startswith(roots)}
+            overlap = [e for e in b.entries if key(e) in set_a]
             if not overlap:
                 continue
             script_overlap = [e for e in overlap if e.startswith("scripts/") and "/!mods_preload/" not in e]
@@ -225,6 +313,9 @@ def _check_file_overlaps(installed: list[ModInfo], report: DiagnosisReport) -> N
 # ---------------- preload 清单 ----------------
 
 def _check_preload_manifests(installed: list[ModInfo], report: DiagnosisReport) -> None:
+    from .preload_merge import FILENAME, MARKER
+    if any(m.file_name == FILENAME and MARKER in m.entries for m in installed):
+        return
     holders: dict[str, list[str]] = {}
     for m in installed:
         for manifest in m.preload_manifests:
@@ -235,7 +326,7 @@ def _check_preload_manifests(installed: list[ModInfo], report: DiagnosisReport) 
                 severity="warning", source="系统",
                 title=f"{len(mods)} 个 mod 都带 {manifest}，整文件互相覆盖",
                 detail=f"{'、'.join(mods)} 各自携带该预载清单，游戏只挂载排序最后那个——其余 mod 的预载资源会失效。",
-                fix="使用软件的 preload 合并功能生成并集清单包",
+                fix="通过新版管理器安装或切换 MOD 时会自动生成并集清单包。",
             ))
 
 

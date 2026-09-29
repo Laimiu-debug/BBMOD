@@ -68,6 +68,13 @@ def main():
         os.environ['APPDATA'] = temporary
         for name in ('core.game.launch_executable', 'core.game.kill_game'):
             guard.enter_context(patch(name, side_effect=AssertionError('Game actions are forbidden in this UI check')))
+        guard.enter_context(patch('ui.profiles_page.fetch_profiles', return_value={
+            'items': [{'id': '00000000-0000-0000-0000-000000000001', 'name': '演示方案 · 新手汉化组合',
+                'note': '仅用于界面验证的演示数据。应用前可查看完整清单与本机变更。',
+                'game_version': '1.5.2.3', 'mod_count': 7, 'total_size': 12345678,
+                'created_at': '2026-09-28T08:00:00+08:00',
+                'page_path': '/profiles/00000000-0000-0000-0000-000000000001/'}],
+            'page': 1, 'pages': 1, 'total': 1}))
         prefs = Settings()
         prefs.set('seed_campaign', {'origin':'scenario.cultists','combat_difficulty':2})
         prefs.set('localization_choices', {'test':'bbmod'})
@@ -79,7 +86,7 @@ def main():
         window.show()
         ready(window)
         page = window.settings_page
-        assert window.tabs.count() == 7 and page.size.value() == 12
+        assert window.tabs.count() == 8 and page.size.value() == 12
         QTest.mouseClick(window.nav_buttons[4], Qt.LeftButton)
         assert window.tabs.currentIndex() == 4
         old_font = window.launch_btn.font()
@@ -135,7 +142,7 @@ def main():
                     label=table.horizontalHeaderItem(column)
                     if label:
                         assert table.columnWidth(column)>=metrics.horizontalAdvance(label.text())+16, (label.text(), table.columnWidth(column))
-            for index in range(7):
+            for index in range(window.tabs.count()):
                 window.select_page(index)
                 ready(window)
                 scroll=window.page_scrolls[index]
@@ -164,6 +171,10 @@ def main():
                     QTest.qWait(80)  # Let the new scroll page lay out before locating controls.
                     important=[window.inspector.enabled, window.inspector.shortcut, window.inspector.apply_key,
                                window.inspector.opacity, window.inspector.install, window.inspector.open_button]
+                elif index == 7:
+                    window.profiles.sections.setCurrentIndex(0)
+                    important=[window.profiles.save_btn, window.profiles.apply_btn, window.profiles.rename_btn,
+                               window.profiles.delete_btn, window.profiles.copy_local_btn]
                 else:
                     important=[window.feedback.title, window.feedback.details, window.feedback.submit_button]
                 for widget in important:
@@ -184,6 +195,20 @@ def main():
                 layouts.append({'family':family,'size':size,'window':[width,height],'page':index,
                                 'controls_reachable':True,'vertical_scroll':scroll.verticalScrollBar().maximum(),
                                 'horizontal_scroll':scroll.horizontalScrollBar().maximum()})
+                if index == 7:
+                    window.profiles.open_online()
+                    ready(window)
+                    for widget in (window.profiles.search, window.profiles.refresh_btn,
+                                   window.profiles.prev_btn, window.profiles.next_btn,
+                                   window.profiles.online_apply_btn, window.profiles.copy_online_btn,
+                                   window.profiles.detail_btn, window.profiles.import_link_btn):
+                        reachable(scroll, widget)
+                    scroll.verticalScrollBar().setValue(0)
+                    scroll.horizontalScrollBar().setValue(0)
+                    QTest.qWait(40)
+                    assert window.grab().save(str(output/f'{width}-{family.replace(" ","_")}-{size}-page7-online.png'))
+                    layouts.append({'family':family,'size':size,'window':[width,height],'page':'7-online',
+                                    'controls_reachable':True})
         # Reset is a preview until the user applies it.
         window.select_page(4)
         QTest.mouseClick(page.reset_button,Qt.LeftButton)
@@ -191,6 +216,21 @@ def main():
         assert app.font().pointSize() == 18
         page.apply()
         assert app.font().pointSize() == 12 and Settings().get('appearance')['font_size'] == 12
+        from core.app_updates import Release, SITE_ORIGIN
+        window.updates.releases = [Release('999.0.0', '演示更新', '仅用于界面验证，不是真实发布。',
+            '2026-09-28', False, SITE_ORIGIN + '/downloads/', '', 0, '')]
+        window.updates.changed.emit()
+        window.select_page(0)
+        for width, height in ((1360, 880), (1080, 720)):
+            window.resize(width, height)
+            QTest.qWait(150)
+            assert not window.update_notice.isHidden()
+            for widget in (window.update_notice.action, window.update_notice.later):
+                assert widget.visibleRegion().contains(widget.rect().adjusted(2, 2, -2, -2))
+            assert window.grab().save(str(output/f'{width}-update-notice-demo.png'))
+            layouts.append({'window': [width, height], 'page': 'update-notice', 'controls_reachable': True})
+        window.updates.releases = []
+        window.updates.changed.emit()
         window.close()
         report={'font_choices':families,'live_apply':True,'preview_without_saving':True,'restart_persistence':True,
                 'missing_font_fallback':True,'save_error_keeps_running_font':True,'unrelated_settings_preserved':True,

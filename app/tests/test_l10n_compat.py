@@ -10,8 +10,10 @@ from core.l10n import BRAND_META, PACKAGE_ID, conflicting_ui_mods
 from core.l10n_compat import DISPLAY_ONLY_FILES, hooks_assets, write_hooks
 from core.localization_profiles import LocalizationProfiles
 from core.modinfo import analyze_zip
+from core.modstore import ModStore
+from core.diagnostics import diagnose_mods
 
-HIRE = next(iter(DISPLAY_ONLY_FILES))
+HIRE = 'ui/screens/world/modules/world_town_screen/world_town_screen_hire_dialog_module.js'
 
 
 def write_zip(path, contents):
@@ -22,16 +24,17 @@ def write_zip(path, contents):
     return path
 
 
-def test_hire_screen_uses_runtime_translation_instead_of_overriding_mod(tmp_path):
+@pytest.mark.parametrize('screen', sorted(DISPLAY_ONLY_FILES))
+def test_mod_owned_screen_uses_runtime_translation_instead_of_overriding_mod(tmp_path, screen):
     root = tmp_path / 'game'
     source = b"button.text('Hire')"
-    write_zip(root/'data/data_001.dat', {HIRE: source})
+    write_zip(root/'data/data_001.dat', {screen: source})
     catalog = {'entries': {'hire': {'source': 'Hire', 'translation': '招募'}},
-               'files': {HIRE: {'archive': 'data_001.dat', 'sha256': hashlib.sha256(source).hexdigest(),
+               'files': {screen: {'archive': 'data_001.dat', 'sha256': hashlib.sha256(source).hexdigest(),
                                 'kind': 'js', 'patches': [[12, 18, 'hire']]}}}
     with zipfile.ZipFile(tmp_path/'translated.zip', 'w') as z:
         write_full_patches(z, root, catalog, {})
-        assert HIRE not in z.namelist()
+        assert screen not in z.namelist()
 
 
 def test_embedded_hooks_are_pinned_and_recognized_without_old_html(tmp_path):
@@ -44,6 +47,43 @@ def test_embedded_hooks_are_pinned_and_recognized_without_old_html(tmp_path):
     registrations = analyze_zip(p).registrations
     assert any(r.mod_id == 'mod_hooks' and r.version == '21.1' for r in registrations)
     assert manifest['external_hooks_required'] is False
+
+
+@pytest.mark.parametrize('filename', ['mod_bbmod_zhcn.zip', 'my_translation.zip'])
+def test_localization_identity_is_separate_from_bundled_hooks(tmp_path, filename):
+    own = write_zip(tmp_path / filename, {
+        **hooks_assets(), BRAND_META: json.dumps({
+            'package_id': PACKAGE_ID, 'brand': 'BBMOD 独立汉化', 'version': '0.3.0-rc.9'})})
+    info = analyze_zip(own)
+    assert info.primary_id == PACKAGE_ID
+    assert info.package_name == 'BBMOD 独立汉化'
+    assert info.package_version == '0.3.0-rc.9'
+    # This is a package identity, not an invented Squirrel registration.
+    assert [r.mod_id for r in info.registrations] == ['mod_hooks']
+    entry = ModStore([tmp_path]).scan()[0]
+    assert entry.category == '汉化'
+    assert entry.display_name == 'BBMOD 独立汉化'
+
+    consumer = write_zip(tmp_path / 'consumer.zip', {
+        'scripts/!mods_preload/consumer.nut':
+            '::mods_registerMod("consumer", 1); ::mods_queue("consumer", "mod_hooks(>=21)", function() {});'})
+    consumer_info = analyze_zip(consumer)
+    assert not [i for i in diagnose_mods([info, consumer_info]).issues if i.severity == 'error']
+    standalone = analyze_zip(write_zip(tmp_path / 'hooks.zip', hooks_assets()))
+    assert standalone.primary_id == 'mod_hooks'
+    assert not [i for i in diagnose_mods([info, standalone, consumer_info]).issues if i.severity == 'error']
+    duplicate = analyze_zip(write_zip(tmp_path / 'other_consumer.zip', {
+        'scripts/!mods_preload/other.nut': '::mods_registerMod("consumer", 1);'}))
+    assert any(i.title == 'MOD 重复注册：consumer'
+               for i in diagnose_mods([info, consumer_info, duplicate]).issues)
+
+
+@pytest.mark.parametrize('manifest', ['{', '[]', '{"package_id":"other"}',
+                                     json.dumps({'package_id': PACKAGE_ID, 'version': ['bad']})])
+def test_invalid_localization_metadata_does_not_break_script_scan(tmp_path, manifest):
+    info = analyze_zip(write_zip(tmp_path / 'mod.zip', {**hooks_assets(), BRAND_META: manifest}))
+    assert [r.mod_id for r in info.registrations] == ['mod_hooks']
+    assert isinstance(info.package_version, str)
 
 
 def test_switch_and_rollback_preserve_star_mod_while_replacing_language_and_hooks(tmp_path):

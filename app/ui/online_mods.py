@@ -2,30 +2,38 @@ from __future__ import annotations
 
 import threading
 from pathlib import Path
-from PySide6.QtCore import Qt, QUrl
+from PySide6.QtCore import Qt, QUrl, Signal
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QLabel, QTableWidget, QTableWidgetItem, QTextEdit, QMessageBox, QSplitter
 from core.online_catalog import site_origin, fetch_catalog, download_release, OnlineInstaller
+from core.app_updates import SITE_ORIGIN
 from .workers import Worker
 from .theme import style_button, style_table
 
 
 class OnlineModsPage(QWidget):
+    download_progress = Signal(str)
+
     def __init__(self, ctx, can_modify, parent=None):
         super().__init__(parent)
         self.ctx, self.can_modify = ctx, can_modify
         self.items = []
         self.rows = []
+        self._rollback_names = set()
+        self.pending_mod_id = None
         self.origin = ''
         self.worker = None
         self.cancelled = threading.Event()
         layout = QVBoxLayout(self)
         bar = QHBoxLayout()
-        self.address = QLineEdit(ctx.settings.get('online_catalog_url', ''))
-        self.address.setPlaceholderText('军械库网站地址，例如 http://服务器IP:8080')
+        self.address = QLineEdit(ctx.settings.get('online_catalog_url', '') or SITE_ORIGIN)
+        self.address.setPlaceholderText(SITE_ORIGIN)
+        self.address.hide()
+        self.source_btn = QPushButton('自定义源（高级）')
+        self.source_btn.clicked.connect(lambda: self.address.setVisible(not self.address.isVisible()))
         self.refresh_btn = QPushButton('连接 / 刷新')
         self.website_btn = QPushButton('打开网站')
-        bar.addWidget(self.address, 1); bar.addWidget(self.refresh_btn); bar.addWidget(self.website_btn)
+        bar.addWidget(self.address, 1); bar.addWidget(self.refresh_btn); bar.addWidget(self.website_btn); bar.addWidget(self.source_btn)
         layout.addLayout(bar)
         self.search = QLineEdit(); self.search.setPlaceholderText('搜索名称、作者或分类…')
         layout.addWidget(self.search)
@@ -52,8 +60,9 @@ class OnlineModsPage(QWidget):
             style_button(button, glyph)
         for button in [self.install_btn, self.rollback_btn, self.cancel_btn]: actions.addWidget(button)
         actions.addStretch(1); layout.addLayout(actions)
-        self.status = QLabel('填入你信任的军械库网站地址，连接后查看已公开作品。')
+        self.status = QLabel('默认连接 BBMOD 官网。点击「连接 / 刷新」查看作品；其他来源可在高级设置中修改。')
         self.status.setWordWrap(True); self.status.setTextFormat(Qt.PlainText)
+        self.download_progress.connect(self.status.setText)
         layout.addWidget(self.status)
         self.refresh_btn.clicked.connect(self.refresh)
         self.website_btn.clicked.connect(self.open_website)
@@ -70,7 +79,8 @@ class OnlineModsPage(QWidget):
         running = bool(self.worker and self.worker.isRunning())
         blocked = running or self.ctx.management_busy or self.ctx.seedgen_active or not self.ctx.mm
         self.install_btn.setEnabled(not blocked and self.selected() is not None)
-        self.rollback_btn.setEnabled(not blocked and self.selected() is not None)
+        selected = self.selected()
+        self.rollback_btn.setEnabled(not blocked and selected is not None and selected['file_name'] in self._rollback_names)
         self.refresh_btn.setEnabled(not running)
         self.address.setEnabled(not running)
 
@@ -99,20 +109,42 @@ class OnlineModsPage(QWidget):
             self.ctx.settings.set('online_catalog_url', origin)
             self.render()
             self.status.setText(f'已连接：{origin} · {len(items)} 件公开作品。兼容说明由作者提供。')
+            if self.pending_mod_id:
+                self.focus_mod(self.pending_mod_id)
         self._run(lambda: fetch_catalog(origin), done)
 
     def render(self, *_):
         query = self.search.text().casefold()
-        self.rows = [r for r in self.items if query in ' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'author', 'category']).casefold()]
+        self.rows = [r for r in self.items if query in (' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'author', 'category']) + ' ' + ' '.join(r['metadata'].get('mod_ids', []))).casefold()]
         try: installed = OnlineInstaller(self.ctx.mm).state()['mods'] if self.ctx.mm else {}
         except (ValueError, OSError): installed = {}
+        actual = self.ctx.mm.installation_states() if self.ctx.mm else {}
+        self._rollback_names = set()
         self.table.setRowCount(len(self.rows))
         for row, item in enumerate(self.rows):
             meta = item['metadata']; old = installed.get(item['file_name'])
-            text = f"本地 v{old['version']}" if old else '未安装'
+            text = actual.get(item['file_name'].casefold(), '未安装')
+            if old and text != '未安装' and old.get('id') == item['id'] and old.get('origin') == self.origin:
+                text += f" · v{old['version']}"
+                if old.get('previous') and old.get('backup'):
+                    self._rollback_names.add(item['file_name'])
             for col, value in enumerate([meta['title'], item['version'], meta['author'] + ' / ' + meta['category'], text]):
                 self.table.setItem(row, col, QTableWidgetItem(value))
         self.show_details()
+
+    def focus_mod(self, mod_id):
+        self.pending_mod_id = mod_id
+        self.search.clear()
+        self.render()
+        for row, item in enumerate(self.rows):
+            if item['id'] == mod_id:
+                self.table.selectRow(row)
+                self.pending_mod_id = None
+                self.status.setText('已定位网页作品。请阅读兼容说明，再点击「下载并安装所选版本」。')
+                return
+        if self.items:
+            self.pending_mod_id = None
+            self.status.setText('该作品未公开或已撤回，无法安装。')
 
     def selected(self):
         row = self.table.currentRow()
@@ -144,7 +176,8 @@ class OnlineModsPage(QWidget):
         manager = self.ctx.mm
         cache = Path(self.ctx.settings.path).parent / 'online-downloads'
         def work():
-            archive = download_release(origin, item, cache, cancelled=self.cancelled.is_set)
+            archive = download_release(origin, item, cache, cancelled=self.cancelled.is_set,
+                                       progress=self.download_progress.emit)
             try:
                 if self.cancelled.is_set(): raise ValueError('下载已取消。')
                 from core.game import is_game_running
