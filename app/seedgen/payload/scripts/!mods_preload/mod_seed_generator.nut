@@ -5,7 +5,9 @@
 }
 
 ::mods_registerMod(::SeedGenerator.ID, ::SeedGenerator.Version, ::SeedGenerator.Name);
-::mods_queue(::SeedGenerator.ID, "", function()
+::include("seed_generator/config_campaign");
+::include("seed_generator/config_environment");
+::mods_queue(::SeedGenerator.ID, ::SeedGenerator.CampaignConfig.ModOrigin ? "mod_afeix_expedition" : "", function()
 {
 	// return;
 
@@ -22,8 +24,7 @@
 	::include("seed_generator/config_role_condition");
 	::include("seed_generator/config_lair_condition");
 
+	::include("seed_generator/function_mod_origin");
 	::include("seed_generator/function_main_loop");
-
-	::include("seed_generator/config_campaign");
 	::include("seed_generator/function_auto_start");
 });

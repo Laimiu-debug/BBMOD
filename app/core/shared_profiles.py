@@ -17,6 +17,7 @@ from .diagnostics import diagnose_mods
 from .mod_transactions import atomic_json, digest
 from .modinfo import analyze_zip
 from .online_catalog import NoRedirect, site_origin, OnlineInstaller
+from .site_config import same_site
 from .profile_protocol import (MAX_MANIFEST_BYTES, MAX_MOD_BYTES, MAX_MODS, MAX_TOTAL_BYTES,
                                validate_manifest, manifest_key, text)
 
@@ -59,7 +60,7 @@ def profile_identity(value, origin):
             raise ValueError('共享方案链接不能包含额外参数。')
         if parts.scheme == 'bbmod' and parts.netloc == 'profiles':
             value = parts.path.removeprefix('/')
-        elif (parts.scheme + '://' + parts.netloc) == site_origin(origin):
+        elif same_site(parts.scheme + '://' + parts.netloc, site_origin(origin)):
             segments = parts.path.strip('/').split('/')
             if len(segments) != 2 or segments[0] != 'profiles':
                 raise ValueError('请粘贴方案广场中的方案链接。')
@@ -316,11 +317,11 @@ def apply_shared(manager, origin, identity, manifest, *, expected, progress=lamb
             changes[target] = packages[item['sha256']]
         profiles = manager.load_profiles()
         name = next((name for name, profile in profiles.items()
-                     if profile.get('shared_id') == identity and profile.get('shared_origin') == site_origin(origin)),
+                     if profile.get('shared_id') == identity and same_site(profile.get('shared_origin'), site_origin(origin))),
                     manifest['name'])
         serial = 2
         while name in profiles and (profiles[name].get('shared_id') != identity
-                or profiles[name].get('shared_origin') != site_origin(origin)):
+                or not same_site(profiles[name].get('shared_origin'), site_origin(origin))):
             name = f"{manifest['name']}（共享 {serial}）"
             serial += 1
         from datetime import datetime

@@ -5,6 +5,15 @@ local S = ::SeedGenerator;
 local cfg = S.CampaignConfig;
 S.AutoStartAttempted <- false;
 ::logInfo("BBMODSeedSession: " + cfg.SessionID);
+if (cfg.ModOrigin && "DLC" in ::Const && "Mask" in ::Const.DLC)
+    ::logInfo("BBMODSeedEnvironment: DLC:" + ::Const.DLC.Mask);
+if (cfg.ModOrigin && "ModEnvironment" in S)
+    ::logInfo("BBMODSeedEnvironment: Mods:" + S.ModEnvironment);
+if (cfg.ModOrigin)
+{
+    ::logInfo("BBMODSeedEnvironment: Difficulty:" + cfg.Difficulty + "," + cfg.EconomicDifficulty + "," + cfg.BudgetDifficulty);
+    if ("ModGameVersion" in S) ::logInfo("BBMODSeedEnvironment: Game:" + S.ModGameVersion);
+}
 
 ::mods_hookClass("states/main_menu_state", function(o)
 {

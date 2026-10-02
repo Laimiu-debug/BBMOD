@@ -1,7 +1,7 @@
 """刷种子全自动编排：快照 → 净化 → 注入 → 启动 → 监控 → 停止 → 恢复。
 
 安全设计：
-- 注入前 stash 全部 mod（RNG 对齐要求游戏纯净）；记录每个写入 data 的文件；
+- 注入前备份全部 MOD，官方起源使用纯净环境，自制起源仅保留适配的主包和框架；
 - 结束时只删除注入清单内的文件、恢复快照；任何异常路径都先走清理；
 - 官方 data_*.dat 永不触碰。
 """
@@ -20,6 +20,7 @@ from .config_emitter import SeedGenConfig, write_configs
 from .log_watcher import Progress, SeedLogParser, SeedResult
 from ..gamelog import IncrementalLogReader
 from .session import FileSession
+from .mod_origins import AFEI_ORIGIN, origin_payload, emit_mod_environment
 
 
 @dataclass
@@ -59,6 +60,7 @@ class SeedGenOrchestrator:
         self._session_id = uuid.uuid4().hex
         self._parser = SeedLogParser(session_id=self._session_id)
         self._campaign = None
+        self._mods = []
         self.log_directory = log_directory
         self.limits = limits or StopLimits()
         self._started_at: float | None = None
@@ -87,8 +89,16 @@ class SeedGenOrchestrator:
             warnings.append(f"已恢复上次未结束会话的 {recovered} 个 mod 和原有配置。")
         if self.mm.has_orphan_stash():
             raise RuntimeError("发现旧版暂存目录 bbmod_seedgen_stash。请先恢复其中的 MOD 并检查旧版注入文件，再开始远征。")
+        if cfg.campaign.origin == AFEI_ORIGIN and (cfg.common.GenerateBrotherMode or not cfg.common.GenerateSettlementMode):
+            raise ValueError("阿飞起源人物固定，请选择「只找地图」「只找红装」或「地图 + 红装」")
         payload = {path.relative_to(self.payload_dir).as_posix(): path.read_bytes()
             for path in self.payload_dir.rglob("*") if path.is_file()}
+        retained, mods = origin_payload(self.game.data_dir, cfg.campaign.origin, payload["mod_hooks.zip"])
+        payload.update(retained)
+        if retained:
+            # The fixed-roster path needs no editor UI; its JS is not shipped.
+            payload.pop("scripts/!mods_preload/mod_breditor.nut", None)
+        payload["seed_generator/config_environment.nut"] = emit_mod_environment(mods, self.game.version or "").encode('utf-8')
         with tempfile.TemporaryDirectory(prefix="bbmod-config-") as temporary:
             temporary_root = Path(temporary).resolve()
             if not temporary_root.is_relative_to(Path(tempfile.gettempdir()).resolve()):
@@ -105,6 +115,7 @@ class SeedGenOrchestrator:
         self.mm._audit("seedgen-prepare", self.game.data_dir, self.files.root)
         self.state.stage = "prepared"
         self._campaign = replace(cfg.campaign)
+        self._mods = mods
         self.state.warnings = warnings
         return warnings
 
@@ -151,29 +162,52 @@ class SeedGenOrchestrator:
                 result.combat_difficulty = self._campaign.combat_difficulty
                 result.economic_difficulty = self._campaign.economic_difficulty
                 result.budget_difficulty = self._campaign.budget_difficulty
+                result.mods = [dict(mod) for mod in self._mods]
             fresh.append(result)
         self.results.extend(fresh)
         return fresh
 
-    def poll(self) -> tuple[list[SeedResult], list[Progress]]:
-        """轮询新日志行 → (新种子结果, 进度事件)。"""
+    def poll(self, *, max_read_seconds: float = 0.25,
+             max_read_bytes: int = 4 * 1024 * 1024) -> tuple[list[SeedResult], list[Progress]]:
+        """Catch up on a burst while bounding the work done in one poll.
+
+        Each reader still streams small chunks. A fast character search can
+        produce several MiB per second, so one chunk per UI tick cannot keep up.
+        """
         if not self._parser.session_seen:
             self._discover_readers()
         candidates = ([(self._reader, self._parser)] if self._parser.session_seen and self._reader
                       else list(self._readers.values()))
+        deadline = time.monotonic() + max_read_seconds
+        consumed = 0
+        fresh, events = [], []
         for reader, parser in candidates:
-            generation = reader.generation
-            rows = reader.read_new()
-            if generation != reader.generation:
-                parser = SeedLogParser(session_id=self._session_id)
-                self._readers[reader.path] = (reader, parser)
-                if reader is self._reader:
-                    self._parser = parser
-            results, progress = parser.feed(rows)
-            if parser.session_seen or results or progress:
-                self._reader, self._parser = reader, parser
-                return self._collect(results), progress
-        return [], []
+            while True:
+                generation, offset = reader.generation, reader.offset
+                rows = reader.read_new()
+                if generation != reader.generation:
+                    parser = SeedLogParser(session_id=self._session_id)
+                    self._readers[reader.path] = (reader, parser)
+                    if reader is self._reader:
+                        self._parser = parser
+                consumed += max(0, reader.offset - (offset if generation == reader.generation else 0))
+                results, progress = parser.feed(rows)
+                fresh.extend(self._collect(results))
+                events.extend(progress)
+                if parser.session_seen or results or progress:
+                    self._reader, self._parser = reader, parser
+                if consumed >= max_read_bytes or time.monotonic() >= deadline:
+                    return fresh, events
+                if reader.offset == offset and generation == reader.generation:
+                    break
+                if not parser.session_seen:
+                    # Visit every candidate promptly instead of draining a
+                    # large unrelated log before trying the next directory.
+                    break
+            # Once the active log is selected, do not scan other stale files.
+            if parser.session_seen:
+                break
+        return fresh, events
 
     @property
     def log_path(self) -> Path | None:

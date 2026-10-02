@@ -8,7 +8,7 @@ from PySide6.QtCore import QObject, QTimer, QUrl, Signal
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkCookie, QNetworkRequest
 
 from core import game as game_mod
-from core.app_updates import SITE_ORIGIN
+from core.site_config import SITE_ORIGIN
 from core.crash_reports import AUTO_UPLOAD_KEY, ReportStore, begin_session
 from core.version import VERSION
 from .workers import Worker

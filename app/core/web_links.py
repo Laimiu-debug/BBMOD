@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 import uuid
 
-from .app_updates import SITE_ORIGIN
+from .site_config import SITE_ORIGIN
 from .online_catalog import _request
 from .seedgen.protocol import MAX_SHARE_BYTES, validate_share
 

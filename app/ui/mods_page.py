@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt, QItemSelectionModel, Signal
 from PySide6.QtWidgets import (
     QComboBox, QFileDialog, QGroupBox, QHBoxLayout, QInputDialog, QLabel,
     QLineEdit, QListWidget, QListWidgetItem, QMessageBox, QPushButton,
@@ -12,6 +12,10 @@ from PySide6.QtWidgets import (
 )
 
 from core.modinfo import CATEGORY_LABELS, analyze_zip
+from core.installed_mod_catalog import resolve_installed_mod
+from core.modstore import load_index
+from core.online_catalog import OnlineInstaller
+from core.site_config import SITE_ORIGIN, same_site
 from .app_context import AppContext
 from .workers import Worker
 from .theme import GREEN, MUTED, style_button, style_table
@@ -21,10 +25,17 @@ from PySide6.QtGui import QColor
 class ModsPage(QWidget):
     choose_game_requested = Signal()
     profiles_requested = Signal(bool)
-    def __init__(self, ctx: AppContext) -> None:
+    def __init__(self, ctx: AppContext, *, automatic_catalog=False) -> None:
         super().__init__()
         self.ctx = ctx
+        self.automatic_catalog = automatic_catalog
         self._installed_infos: dict[str, object] = {}
+        self._installed_mods = []
+        self._installed_index = load_index()
+        self._installed_hashes = {}
+        self._installed_release_versions = {}
+        self._installed_catalog_items = []
+        self._installed_catalog_origin = SITE_ORIGIN
 
         root = QVBoxLayout(self)
         tabs = self.sections = QTabWidget()
@@ -32,12 +43,22 @@ class ModsPage(QWidget):
         tabs.addTab(self._build_repo_tab(), "仓库（内置合集 / 外部导入）")
         from .online_mods import OnlineModsPage
         self.online = OnlineModsPage(ctx, self._can_modify, self)
+        self.online.catalog_changed.connect(self._online_catalog_changed)
+        self.online.operation_status.connect(self.catalog_status.setText)
+        self.cancel_update_btn.clicked.connect(self.online.cancelled.set)
         tabs.addTab(self.online, "在线军械库")
         from .profile_sharing import ProfileSharing
         self.sharing = ProfileSharing(self)
         root.addWidget(tabs, 1)
         ctx.management_changed.connect(self.update_controls)
         ctx.session_changed.connect(self.update_controls)
+        self.catalog_service = None
+        if getattr(ctx.settings, 'path', None) is not None:
+            from .installed_catalog_service import InstalledCatalogService
+            self.catalog_service = InstalledCatalogService(ctx.settings, self)
+            self.catalog_service.changed.connect(self._catalog_checked)
+            self._catalog_checked(self.catalog_service.snapshot('使用已缓存的官网目录' if self.catalog_service.items else '进入军械库后自动检查官网版本'))
+        self.refresh_btn.clicked.connect(lambda: self.check_catalog(force=True))
         self.update_controls()
 
     # ---------------- 已安装 ----------------
@@ -92,6 +113,16 @@ class ModsPage(QWidget):
         profile_bar.addStretch(1)
         lay.addLayout(profile_bar)
         lay.addWidget(self.status_label)
+        self.catalog_status = QLabel('进入军械库后自动检查官网版本')
+        self.catalog_status.setWordWrap(True)
+        self.catalog_status.setTextFormat(Qt.PlainText)
+        catalog_bar = QHBoxLayout()
+        catalog_bar.addWidget(self.catalog_status, 1)
+        self.cancel_update_btn = QPushButton('取消下载')
+        self.cancel_update_btn.setVisible(False)
+        style_button(self.cancel_update_btn, 'stop')
+        catalog_bar.addWidget(self.cancel_update_btn)
+        lay.addLayout(catalog_bar)
 
         filters = QHBoxLayout()
         self.installed_search = QLineEdit()
@@ -117,14 +148,20 @@ class ModsPage(QWidget):
         empty.addWidget(self.import_zip_btn)
         lay.addWidget(self.empty_box)
 
-        self.table = QTableWidget(0, 5)
+        self.table = QTableWidget(0, 8)
         style_table(self.table)
         self.table.horizontalHeader().setStretchLastSection(True)
-        self.table.setHorizontalHeaderLabels(["状态", "文件名", "名称 / 标识", "API", "影响种子"])
+        self.table.setHorizontalHeaderLabels(["状态", "文件名", "名称", "本地版本", "官网版本", "更新", "API", "影响种子"])
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         self.table.setSelectionMode(QTableWidget.ExtendedSelection)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.table.setColumnWidth(1, 340)
+        for column, width in ((0, 84), (1, 230), (2, 250), (3, 108), (4, 145), (5, 84), (6, 86)):
+            self.table.setColumnWidth(column, width)
+        # Keep the filename's logical column stable for file operations while
+        # placing the name and versions first in the visible table.
+        header = self.table.horizontalHeader()
+        for position, column in enumerate((2, 3, 4, 5), start=1):
+            header.moveSection(header.visualIndex(column), position)
         lay.addWidget(self.table, 1)
         self.table.itemSelectionChanged.connect(self.update_controls)
         self.installed_search.textChanged.connect(self.filter_installed)
@@ -134,6 +171,86 @@ class ModsPage(QWidget):
     def refresh(self) -> None:
         mm = self.ctx.mm
         mods = mm.scan() if mm else []
+        self._installed_mods = mods
+        self._render_installed()
+        enabled = sum(1 for m in mods if m.enabled)
+        self.status_label.setText(f"共 {len(mods)} 个：启用 {enabled} · 禁用 {len(mods) - enabled}（挂载顺序即文件名排序）")
+        self.empty_box.setVisible(not mods)
+        self.empty_label.setText('还没有安装 MOD，从在线军械库挑选或导入 ZIP。' if mm else '先选择游戏目录，再安装 MOD。')
+        self.recover_btn.setVisible(bool(mm and mm.transaction.journal.exists()))
+        self._filter_repo()
+        self.online.render()
+        self.update_controls()
+        if self.automatic_catalog and self.isVisible():
+            self.check_catalog()
+
+    def _installed_catalog(self):
+        return self._installed_catalog_items, self._installed_catalog_origin
+
+    def check_catalog(self, *, force=False):
+        if self.catalog_service and self._installed_mods:
+            self.catalog_status.setText('正在检查官网 MOD 版本…')
+            self.catalog_service.check([mod.info for mod in self._installed_mods], force=force,
+                                       receipts=self._installed_receipts(), local_index=self._installed_index)
+
+    def _catalog_checked(self, result):
+        self.set_installed_catalog(result['items'], SITE_ORIGIN, hashes=result.get('hashes'),
+                                   release_versions=result.get('release_versions'))
+        if result.get('status') and not self.ctx.management_busy:
+            self.catalog_status.setText(result['status'])
+
+    def _online_catalog_changed(self, items, origin):
+        if same_site(origin, SITE_ORIGIN):
+            if self.catalog_service:
+                self.catalog_service.use_catalog(items)
+                self.check_catalog()
+            else:
+                self.set_installed_catalog(items, SITE_ORIGIN)
+
+    def set_installed_catalog(self, items, origin=SITE_ORIGIN, *, hashes=None, release_versions=None):
+        self._installed_catalog_items = list(items)
+        self._installed_catalog_origin = origin
+        if hashes is not None:
+            self._installed_hashes.update(hashes)
+        if release_versions is not None:
+            self._installed_release_versions = release_versions
+        self.refresh_installed_metadata()
+
+    def _installed_receipts(self):
+        try:
+            return OnlineInstaller(self.ctx.mm).state()['mods'] if self.ctx.mm else {}
+        except (OSError, ValueError, TypeError):
+            return {}
+
+    def _installed_signature(self, info):
+        try:
+            stat = info.path.stat()
+            return stat.st_mtime_ns, stat.st_size
+        except OSError:
+            return None
+
+    def _installed_hash(self, info):
+        cached = self._installed_hashes.get(str(info.path.resolve()))
+        if not cached or tuple(cached[:2]) != self._installed_signature(info):
+            return None
+        if len(cached) >= 5:
+            try:
+                stat = info.path.stat()
+                if tuple(cached[3:5]) != (stat.st_dev, stat.st_ino):
+                    return None
+            except OSError:
+                return None
+        return cached[2]
+
+    def refresh_installed_metadata(self, *_):
+        """Refresh catalog labels without scanning ZIPs or dropping the selection."""
+        self._render_installed(preserve_selection=True)
+
+    def _render_installed(self, *, preserve_selection=False):
+        selected = set(self._selected_mods()) if preserve_selection else set()
+        mods = self._installed_mods
+        catalog, origin = self._installed_catalog()
+        receipts = self._installed_receipts()
         self.table.blockSignals(True)
         self.table.clearSelection()
         self.table.setRowCount(len(mods))
@@ -142,33 +259,47 @@ class ModsPage(QWidget):
             self._installed_infos[m.path.name] = m.info
             state = QTableWidgetItem("已启用" if m.enabled else "已禁用")
             state.setForeground(QColor(GREEN if m.enabled else MUTED))
-            ids = ", ".join(f"{r.mod_id} v{r.version}" for r in m.info.registrations) or "（未注册/纯覆盖）"
-            if m.info.package_id:
-                version = f' v{m.info.package_version}' if m.info.package_version else ''
-                contents = f'；内含：{ids}' if m.info.registrations else ''
-                ids = f'{m.info.package_name}{version}（包 ID：{m.info.package_id}）{contents}'
+            display = resolve_installed_mod(m.info, catalog, receipts=receipts,
+                local_index=self._installed_index, origin=origin, local_sha256=self._installed_hash(m.info),
+                release_versions=self._installed_release_versions)
             seed = "有影响" if m.info.seed_sensitive_paths else "—"
             self.table.setItem(i, 0, state)
             filename = QTableWidgetItem(m.path.name)
             filename.setData(Qt.UserRole, m.enabled)
             self.table.setItem(i, 1, filename)
-            identity = QTableWidgetItem(ids)
-            identity.setToolTip(ids)
+            identity = QTableWidgetItem(display.display_name)
+            identity.setToolTip(display.tooltip)
+            identity.setData(Qt.UserRole, display.search_text)
             self.table.setItem(i, 2, identity)
-            self.table.setItem(i, 3, QTableWidgetItem(m.info.api))
+            self.table.setItem(i, 3, QTableWidgetItem(display.installed_version or '未知'))
+            latest = QTableWidgetItem(display.latest_version or '—')
+            latest.setToolTip((f'官网版本：{display.latest_version}\n' if display.latest_version else '') + display.status)
+            self.table.setItem(i, 4, latest)
+            self.table.removeCellWidget(i, 5)
+            update = QTableWidgetItem('')
+            update.setToolTip(display.status)
+            self.table.setItem(i, 5, update)
+            if display.update_available and display.catalog_item:
+                button = QPushButton('更新')
+                button.setToolTip(f'本地 {display.installed_version} → 官网 {display.latest_version}；下载并更新，旧版自动备份')
+                button.setProperty('verifiedFile', bool(self._installed_hash(m.info)))
+                button.clicked.connect(lambda checked=False, item=display.catalog_item, source=origin,
+                        file_name=m.info.file_name, digest=self._installed_hash(m.info), version=display.installed_version:
+                    self.online.update_installed(item, origin=source, current_file_name=file_name,
+                        current_sha256=digest, installed_version=version))
+                self.table.setCellWidget(i, 5, button)
+            self.table.setItem(i, 6, QTableWidgetItem(m.info.api))
             seed_item = QTableWidgetItem(seed)
             if m.info.seed_sensitive_paths:
                 seed_item.setForeground(QColor("#8b601f"))
-            self.table.setItem(i, 4, seed_item)
-        enabled = sum(1 for m in mods if m.enabled)
-        self.status_label.setText(f"共 {len(mods)} 个：启用 {enabled} · 禁用 {len(mods) - enabled}（挂载顺序即文件名排序）")
+                seed_item.setToolTip('\n'.join(m.info.seed_sensitive_paths))
+            self.table.setItem(i, 7, seed_item)
         self.table.blockSignals(False)
         self.filter_installed()
-        self.empty_box.setVisible(not mods)
-        self.empty_label.setText('还没有安装 MOD，从在线军械库挑选或导入 ZIP。' if mm else '先选择游戏目录，再安装 MOD。')
-        self.recover_btn.setVisible(bool(mm and mm.transaction.journal.exists()))
-        self._filter_repo()
-        self.online.render()
+        for row, mod in enumerate(mods):
+            if (mod.path.name, mod.enabled) in selected and not self.table.isRowHidden(row):
+                self.table.selectionModel().select(self.table.model().index(row, 1),
+                    QItemSelectionModel.Select | QItemSelectionModel.Rows)
         self.update_controls()
 
     def filter_installed(self, *_):
@@ -176,7 +307,9 @@ class ModsPage(QWidget):
         state = self.state_filter.currentText()
         self.table.clearSelection()
         for row in range(self.table.rowCount()):
-            text = ' '.join(self.table.item(row, col).text() for col in (1, 2)).casefold()
+            identity = self.table.item(row, 2)
+            text = ' '.join((self.table.item(row, 1).text(), identity.text(),
+                            str(identity.data(Qt.UserRole) or ''))).casefold()
             self.table.setRowHidden(row, bool(query and query not in text)
                                    or (state != '全部状态' and self.table.item(row, 0).text() != state))
         self.update_controls()
@@ -190,6 +323,13 @@ class ModsPage(QWidget):
         selected = self._selected_mods()
         available = bool(self.ctx.mm) and not self.ctx.management_busy and not self.ctx.seedgen_active
         pending = bool(self.ctx.mm and self.ctx.mm.transaction.journal.exists())
+        online_running = bool(hasattr(self, 'online') and self.online.worker and self.online.worker.isRunning())
+        for row in range(self.table.rowCount()):
+            button = self.table.cellWidget(row, 5)
+            if button:
+                button.setEnabled(available and not pending and not online_running and bool(button.property('verifiedFile')))
+        self.cancel_update_btn.setVisible(bool(hasattr(self, 'online') and self.ctx.management_busy
+                                              and self.online.cancel_btn.isEnabled()))
         self.enable_btn.setEnabled(available and not pending and any(not state for _, state in selected))
         self.disable_btn.setEnabled(available and not pending and any(state for _, state in selected))
         self.uninstall_btn.setEnabled(available and not pending and bool(selected))
@@ -200,7 +340,7 @@ class ModsPage(QWidget):
         self.import_profile_btn.setEnabled(not self.ctx.management_busy and not self.ctx.seedgen_active)
 
     def profile_origin(self):
-        from core.app_updates import SITE_ORIGIN
+        from core.site_config import SITE_ORIGIN
         from core.online_catalog import site_origin
         return site_origin(self.online.address.text() or SITE_ORIGIN)
 

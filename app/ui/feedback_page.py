@@ -6,7 +6,7 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PySide6.QtWidgets import (QComboBox, QFormLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
     QPushButton, QTextEdit, QVBoxLayout, QWidget)
 
-from core.app_updates import SITE_ORIGIN
+from core.site_config import SITE_ORIGIN
 from core.version import VERSION
 from core.support_report import MAX_REPORT_CHARS
 

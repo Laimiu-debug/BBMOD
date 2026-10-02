@@ -65,6 +65,19 @@ def finish_launch(app, window):
     until(app, lambda: window.ctx.game_session._worker is None)
 
 
+def test_brand_opens_official_site_and_offline_mode_does_not_check_catalog(window, monkeypatch):
+    from core.site_config import SITE_ORIGIN
+    opened = []
+    monkeypatch.setattr('ui.main_window.QDesktopServices.openUrl', lambda url: opened.append(url.toString()))
+    monkeypatch.setattr(window.mods.catalog_service, 'check',
+                        lambda *args, **kwargs: pytest.fail('automatic checks disabled in offline mode'))
+    window.website_badge.click()
+    assert opened == [SITE_ORIGIN]
+    assert window.website_badge.accessibleName() == '打开 BBMOD 官网'
+    window.select_page(1)
+    assert window.tabs.currentIndex() == 1
+
+
 def test_global_launch_stays_on_current_page_and_does_not_reenable_early(app, window):
     window.select_page(5)
     page = window.l10n.management

@@ -65,6 +65,14 @@ def test_bad_metadata_and_download_hosts():
     assert not updates.download_host_allowed('https://github.com.evil.org/a')
 
 
+@pytest.mark.parametrize('host', ['github.com', 'release-assets.githubusercontent.com',
+    'objects.githubusercontent.com', 'bbmod.com', 'bbmod.site'])
+@pytest.mark.parametrize('userinfo', ['@', ':@', 'user@', ':password@'])
+def test_download_hosts_reject_even_empty_userinfo(host, userinfo):
+    path = '/downloads/windows/a823d83f-7e73-42e8-a48b-e65548e6d3a2/'
+    assert not updates.download_host_allowed('https://' + userinfo + host + path)
+
+
 @pytest.mark.parametrize('legacy_first', [False, True])
 def test_versioned_asset_preferred_with_legacy_fallback(legacy_first):
     row = release_row('v0.3.0-rc.6')
@@ -352,6 +360,47 @@ def test_allowed_download_redirect_uses_qt_signal(app, tmp_path):
     service.shutdown()
 
 
+def test_cached_old_site_download_is_restored_with_new_urls(app, tmp_path, monkeypatch):
+    from dataclasses import asdict, replace
+    from ui.update_service import UpdateService
+    settings = settings_at(tmp_path)
+    folder = tmp_path / 'updates'
+    folder.mkdir()
+    raw = {'schema_version': 1, 'releases': [site_row()]}
+    (folder / 'releases-cache.json').write_text(json.dumps(raw), encoding='utf-8')
+    release = updates.parse_site_releases(json.dumps(raw).encode())[0]
+    old = replace(release, url='https://bbmod.site/downloads/',
+                  download_url=release.download_url.replace('https://bbmod.com', 'https://bbmod.site'))
+    program = folder / 'BBMOD.exe'
+    program.write_bytes(b'MZ-new')
+    updates.write_json(folder / 'ready.json', {'path': str(program), 'release': asdict(old)})
+    service = UpdateService(settings, automatic=False)
+    restored = []
+    monkeypatch.setattr(service, '_verify_async', lambda path, item: restored.append((path, item)))
+    try:
+        assert service.latest().download_url.startswith('https://bbmod.com/')
+        service._restore_download()
+        assert len(restored) == 1 and restored[0][0] == program
+        assert restored[0][1].url == 'https://bbmod.com/downloads/'
+        assert restored[0][1].download_url == release.download_url
+        updates.verify_download(program, restored[0][1])
+    finally:
+        service.shutdown()
+
+
+def test_update_download_cannot_redirect_to_old_official_host(app, tmp_path):
+    from PySide6.QtCore import QUrl
+    from ui.update_service import UpdateService
+    from unittest.mock import Mock
+    service = UpdateService(settings_at(tmp_path), automatic=False)
+    service.busy = 'download'
+    reply = SimpleNamespace(redirectAllowed=SimpleNamespace(emit=Mock()), abort=Mock())
+    service._redirect(reply, QUrl('https://bbmod.site/downloads/windows/a823d83f-7e73-42e8-a48b-e65548e6d3a2/'))
+    reply.abort.assert_called_once()
+    reply.redirectAllowed.emit.assert_not_called()
+    service.shutdown()
+
+
 @pytest.mark.parametrize('busy', ['management', 'seedgen', 'worker', 'orchestrator'])
 def test_restart_is_blocked_while_managing_files_or_seeds(busy):
     from ui.main_window import MainWindow
@@ -385,7 +434,7 @@ def site_row():
 def test_official_release_is_installable_and_bad_assets_are_excluded():
     row = site_row()
     release = updates.parse_site_releases(json.dumps({'schema_version': 1, 'releases': [row]}).encode())[0]
-    assert release.installable and release.download_url.startswith('https://bbmod.site/')
+    assert release.installable and release.download_url.startswith('https://bbmod.com/')
     for key, value in [('id', 'bad'), ('filename', 'BBMOD.exe'), ('sha256', 'bad'), ('size', True),
                        ('download_path', '//evil.example/a.exe')]:
         with pytest.raises(ValueError):

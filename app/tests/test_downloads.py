@@ -108,7 +108,7 @@ def test_disk_error_is_not_retried(tmp_path):
     request.assert_not_called()
 
 
-def test_official_connection_timeout_fails_over_with_same_hash(tmp_path):
+def test_old_official_download_uses_new_site_and_retries_with_same_hash(tmp_path):
     url = 'https://bbmod.site/files/ba29edd4-f68d-4cce-9024-e2f1056d774d/download/'
     data = b'checked content'
     response = io.BytesIO(data)
@@ -116,8 +116,8 @@ def test_official_connection_timeout_fails_over_with_same_hash(tmp_path):
     with patch.object(downloads, '_request', side_effect=[TimeoutError(), response]) as request, patch.object(downloads, '_pause'):
         target = tmp_path / 'file'
         downloads.download_verified(url, target, size=len(data), sha256=hashlib.sha256(data).hexdigest())
-    assert request.call_args_list[0].args == (url, 0)
-    assert request.call_args_list[1].args == ('https://gongpro.cn/bbmod-origin' + urlsplit(url).path, 0)
+    assert [call.args for call in request.call_args_list] == [
+        ('https://bbmod.com' + urlsplit(url).path, 0)] * 2
     assert target.read_bytes() == data
 
 
@@ -127,4 +127,4 @@ def test_official_connection_timeout_fails_over_with_same_hash(tmp_path):
     'https://bbmod.site:8443/files/ba29edd4-f68d-4cce-9024-e2f1056d774d/download/',
     'https://bbmod.site/files/ba29edd4-f68d-4cce-9024-e2f1056d774d/download/?token=private'])
 def test_other_routes_never_switch_sources(url):
-    assert downloads.fallback_url(url) == url
+    assert downloads.canonical_download_url(url) == url

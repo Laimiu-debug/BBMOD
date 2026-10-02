@@ -354,8 +354,10 @@ def test_localization_row_names_package_and_labels_embedded_hooks(manager):
     try:
         page.refresh()
         text = page.table.item(0, 2).text()
-        assert 'BBMOD 独立汉化' in text and PACKAGE_ID in text
-        assert '0.3.0-rc.9' in text and '内含：mod_hooks v21.1' in text
+        tooltip = page.table.item(0, 2).toolTip()
+        assert 'BBMOD 独立汉化' in text
+        assert page.table.item(0, 3).text() == '0.3.0-rc.9'
+        assert PACKAGE_ID in tooltip and 'mod_hooks' in tooltip and '21.1' in tooltip
         for query in ('BBMOD 独立汉化', PACKAGE_ID, 'mod_hooks'):
             page.installed_search.setText(query)
             assert not page.table.isRowHidden(0)

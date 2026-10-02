@@ -171,7 +171,7 @@ dfs = function(index, end_index, graph_list, visited_flags, visited_index, temp,
 }
 
 # 根据种子生成城市
-gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
+gt.SeedGenerator.generateSettlement <- function(seedString, world_state, read_existing = false)
 {
 	this.reportProgress("map");
 	port_num = 0;
@@ -208,8 +208,11 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 	city_num = 0;
 	connected_info = array(ConnectedInfoEntryNum, 0);
 
-	gt.SeedGenerator.NamedIndex = 0;
-	gt.SeedGenerator.NamedIndexDict = {};
+	if (!read_existing)
+	{
+		gt.SeedGenerator.NamedIndex = 0;
+		gt.SeedGenerator.NamedIndexDict = {};
+	}
 
 	attached_num = 0;
 	attached_id_num_dict = {};
@@ -235,6 +238,8 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 	attached_id_num_dict["attached_location.mushroom_grove"] <- 0;
 	attached_id_num_dict["attached_location.surface_iron_vein"] <- 0;
 
+	if (!read_existing)
+	{
 	this.Math.seedRandomString(seedString);
 	local worldmap = this.MapGen.get("world.worldmap_generator");
 	local minX = worldmap.getMinX();
@@ -246,6 +251,7 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 		W = minX,
 		H = minY
 	}, null);
+	}
 
 	local settlements = this.World.EntityManager.getSettlements();
 	settlements_num = settlements.len();
@@ -823,8 +829,11 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state)
 		settlement_port_avg_dis = settlement_port_avg_dis.tointeger();
 	}
 
-	world_state.m.Assets.init();
-	this.World.FactionManager.createFactions();
+	if (!read_existing)
+	{
+		world_state.m.Assets.init();
+		this.World.FactionManager.createFactions();
+	}
 
 	local output_type = -1;
 	if(CommonConfig.OnlyPrintMatchingSettlement)

@@ -6,19 +6,19 @@ from http.client import HTTPException
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
+from .site_config import canonical_site_url
 
 IDLE_TIMEOUT = 20
 MAX_RETRIES = 4
 
 
-def fallback_url(url):
-    """Only official public MOD routes may fail over to our existing HTTPS origin."""
+def canonical_download_url(url):
+    """Map saved official public download URLs to the current site."""
     parts = urlsplit(url)
     identity = r'[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}'
-    path = rf'(?:/files/{identity}/download/|/api/v1/profiles/{identity}/files/[a-f0-9]{{64}}/)'
-    if (parts.scheme == 'https' and parts.netloc == 'bbmod.site' and not parts.query
-            and not parts.fragment and re.fullmatch(path, parts.path)):
-        return 'https://gongpro.cn/bbmod-origin' + parts.path
+    path = rf'(?:/files/{identity}/download/|/downloads/windows/{identity}/|/api/v1/profiles/{identity}/files/[a-f0-9]{{64}}/)'
+    if re.fullmatch(path, parts.path):
+        return canonical_site_url(url)
     return url
 
 
@@ -56,13 +56,14 @@ def download_verified(url, destination, *, size, sha256, cancelled=lambda: False
     Reconnects stay within this operation. Nothing is installed until size and hash
     match, and unsuccessful temporary files are removed by the caller.
     """
+    url = canonical_download_url(url)
     count, digest, reported = 0, hashlib.sha256(), 0.0
     with destination.open('wb') as output:
         for attempt in range(MAX_RETRIES + 1):
             _check_cancel(cancelled)
             try:
                 try:
-                    response = _request(fallback_url(url) if attempt else url, count)
+                    response = _request(url, count)
                 except HTTPError as error:
                     error.close()
                     if error.code not in {408, 429, 500, 502, 503, 504}:
@@ -117,6 +118,5 @@ def download_verified(url, destination, *, size, sha256, cancelled=lambda: False
                 _check_cancel(cancelled)
                 if attempt == MAX_RETRIES:
                     raise ValueError('下载连接多次中断或超时，请检查网络后重试；本机 MOD 未更改。') from error
-                route = '切换备用直连，' if attempt == 0 and fallback_url(url) != url else ''
-                progress(f'连接中断，{route}正在重试 / 续传（{attempt + 1}/{MAX_RETRIES}，已下载 {count / 1024**2:.1f} MB）…')
+                progress(f'连接中断，正在重试 / 续传（{attempt + 1}/{MAX_RETRIES}，已下载 {count / 1024**2:.1f} MB）…')
                 _pause(min(2 ** attempt, 4), cancelled)

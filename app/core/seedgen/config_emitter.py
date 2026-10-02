@@ -103,6 +103,7 @@ ORIGIN_LABELS = {
     "scenario.anatomists": "解剖学者", "scenario.beast_hunters": "猎兽人",
     "scenario.gladiators": "角斗士", "scenario.manhunters": "猎奴人",
     "scenario.cultists": "达库尔信徒", "scenario.deserters": "逃兵（仅慢速）",
+    "scenario.afeix_expedition": "阿飞远征团（固定人物）",
     "common": "通用预设（未配置起源）",
 }
 
@@ -136,6 +137,9 @@ class CommonConfig:
             "lair_only": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
                               OnlyPrintMatchingSettlement=False, PrintLairInfo=True,
                               PrintLairNamedDetail=True, OnlyPrintMatchingLair=True),
+            "map_lair": dict(GenerateSettlementMode=True, GenerateBrotherMode=False,
+                             OnlyPrintMatchingSettlement=True, PrintLairInfo=True,
+                             PrintLairNamedDetail=True, OnlyPrintMatchingLair=True),
             "bro_only": dict(GenerateSettlementMode=False, GenerateBrotherMode=True,
                              MatchingBrotherGenerateSettlement=False,
                              OnlyPrintMatchingSettlement=False, PrintLairInfo=False, PrintLairNamedDetail=False),
@@ -231,6 +235,7 @@ def emit_campaign(cfg: CampaignConfig, session_id: str = "") -> str:
     Difficulty = {cfg.combat_difficulty},
     EconomicDifficulty = {cfg.economic_difficulty},
     BudgetDifficulty = {cfg.budget_difficulty},
+    ModOrigin = {"true" if cfg.origin == "scenario.afeix_expedition" else "false"},
     SessionID = {json.dumps(session_id)},
 }};
 '''

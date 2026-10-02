@@ -1,2 +1,2 @@
 """Desktop application version; localization packages have their own version."""
-VERSION = '0.3.0-rc.34'
+VERSION = '0.3.0-rc.37'

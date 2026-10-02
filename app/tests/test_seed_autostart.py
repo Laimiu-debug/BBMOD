@@ -209,5 +209,6 @@ print("BBMOD_AUTO_START_PASS campaigns=" + (origins.len() * 3) + "\n");
     script = tmp_path / "autostart.nut"
     script.write_text(harness, encoding="utf-8")
     result = subprocess.run([str(sq), str(script)], cwd=payload, capture_output=True, timeout=15)
-    assert result.returncode == 0 and not result.stderr and b"BBMOD_AUTO_START_PASS campaigns=42" in result.stdout, \
+    expected = f"BBMOD_AUTO_START_PASS campaigns={len(origins) * 3}".encode()
+    assert result.returncode == 0 and not result.stderr and expected in result.stdout, \
         (result.stdout + result.stderr).decode(errors="replace")

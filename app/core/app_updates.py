@@ -16,11 +16,11 @@ from urllib.parse import urlsplit
 import uuid
 
 from .version import VERSION
+from .site_config import SITE_ORIGIN, OFFICIAL_SITE_ORIGINS
 
 REPOSITORY = 'Laimiu-debug/BBMOD'
 RELEASES_URL = f'https://github.com/{REPOSITORY}/releases'
 API_URL = f'https://api.github.com/repos/{REPOSITORY}/releases?per_page=100'
-SITE_ORIGIN = 'https://bbmod.site'
 SITE_API_URL = SITE_ORIGIN + '/api/v1/desktop/releases/'
 MAX_DOWNLOAD = 300 * 1024 * 1024
 VERSION_PATTERN = re.compile(r'^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$')
@@ -139,9 +139,10 @@ def parse_site_releases(payload: bytes) -> list[Release]:
 def download_host_allowed(url: str) -> bool:
     try:
         parsed = urlsplit(url)
-        if parsed.scheme != 'https' or parsed.username or parsed.password or parsed.port not in (None, 443):
+        if (parsed.scheme != 'https' or parsed.username is not None or parsed.password is not None
+                or parsed.port not in (None, 443)):
             return False
-        if parsed.hostname == 'bbmod.site':
+        if parsed.scheme + '://' + parsed.netloc.lower() in OFFICIAL_SITE_ORIGINS:
             return bool(re.fullmatch(r'/downloads/windows/[a-f0-9-]{36}/', parsed.path)) and not parsed.query and not parsed.fragment
         return parsed.hostname in {'github.com', 'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
     except ValueError:

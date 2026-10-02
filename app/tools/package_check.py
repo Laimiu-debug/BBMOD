@@ -16,6 +16,7 @@ from PyInstaller.archive.readers import CArchiveReader
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from core.version import VERSION
+from core.site_config import SITE_ORIGIN
 
 
 def main() -> int:
@@ -51,10 +52,11 @@ def main() -> int:
     if retired:
         raise RuntimeError('新版不得携带旧注入组件：' + '、'.join(retired))
     python_archive = archive.open_embedded_archive(next(name for name in archive.toc if name.startswith('PYZ')))
-    for module in ('core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
-                   'core.support_report', 'core.l10n_identity', 'ui.feedback_page', 'ui.support_dialog'):
+    for module in ('core.site_config', 'core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
+                   'core.support_report', 'core.l10n_identity', 'ui.feedback_page', 'ui.support_dialog',
+                   'core.installed_mod_catalog', 'core.catalog_versions', 'ui.installed_catalog_service', 'ui.seed_poll_worker'):
         if module not in python_archive.toc:
-            raise RuntimeError('EXE 缺少共享方案组件：' + module)
+            raise RuntimeError('EXE 缺少应用组件：' + module)
     if 'core.native_font' in python_archive.toc:
         raise RuntimeError('新版不得携带旧注入启动代码')
     if 'core.l10n_display' not in python_archive.toc:
@@ -129,6 +131,8 @@ def main() -> int:
             raise RuntimeError('EXE 未加载南北港和竞技场港筛选界面')
         if result.returncode == 0 and ('version=' + VERSION).encode() not in result.stdout:
             raise RuntimeError('EXE 中的软件版本与当前发布版本不一致')
+        if result.returncode == 0 and ('official_site: ' + SITE_ORIGIN).encode() not in result.stdout:
+            raise RuntimeError('EXE 中的官网地址与迁移目标不一致')
         if result.returncode == 0 and b'font_settings=ready' not in result.stdout:
             raise RuntimeError('EXE 未加载字体设置页面')
         if result.returncode == 0 and b'equipment_catalog: ready' not in result.stdout:
@@ -152,6 +156,7 @@ def main() -> int:
         report = {
             "executable": str(executable),
             "sha256": hashlib.sha256(executable.read_bytes()).hexdigest(),
+            "official_site": SITE_ORIGIN,
             "returncode": result.returncode,
             "seconds": round(time.monotonic() - started, 2),
             "catalog_entries": entries,

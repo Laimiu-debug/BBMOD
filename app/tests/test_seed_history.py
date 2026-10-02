@@ -53,7 +53,7 @@ def test_duplicate_keeps_complete_data_and_upgrades_partial(tmp_path):
 
 
 def test_failed_save_keeps_visible_record_for_export(page):
-    with patch.object(page.library, 'save', side_effect=OSError('disk full')):
+    with patch.object(page.library, 'save_many', side_effect=OSError('disk full')):
         page._accept_results([record()])
     assert page.table.rowCount() == 1 and page.export_btn.isEnabled()
     assert '保存失败' in page.library_label.text()

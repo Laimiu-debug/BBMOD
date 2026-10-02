@@ -6,6 +6,7 @@ import time
 
 import pytest
 from PySide6.QtWidgets import QApplication
+from urllib.parse import urlsplit
 
 from core.app_updates import RELEASES_URL
 from ui.update_service import UpdateService
@@ -22,11 +23,12 @@ def network(app, tmp_path, monkeypatch):
     response = {'code': 200, 'body': json.dumps([release_row('v999.0.0')]).encode(), 'redirect': None, 'requests': []}
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
-            self.send_response(response['code'])
-            if response['redirect']: self.send_header('Location', response['redirect'])
-            self.send_header('Content-Length', str(len(response['body'])))
+            content = response.get('routes', {}).get(self.path, response)
+            self.send_response(content['code'])
+            if content.get('redirect'): self.send_header('Location', content['redirect'])
+            self.send_header('Content-Length', str(len(content['body'])))
             self.end_headers()
-            try: self.wfile.write(response['body'])
+            try: self.wfile.write(content['body'])
             except (BrokenPipeError, ConnectionResetError): pass
         def log_message(self, *_args): pass
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
@@ -35,7 +37,7 @@ def network(app, tmp_path, monkeypatch):
     original = service._request
     def request(url):
         response['requests'].append(url)
-        return original(f'http://127.0.0.1:{server.server_port}/fixture')
+        return original(f'http://127.0.0.1:{server.server_port}' + urlsplit(url).path)
     monkeypatch.setattr(service, '_request', request)
     yield service, response
     service.shutdown();app.processEvents()
@@ -94,9 +96,47 @@ def test_official_first_and_fallback_only_after_failure(app, network):
     response['body'] = json.dumps({'schema_version': 1, 'releases': [site_row()]}).encode()
     service.check();wait_idle(app, service)
     assert response['requests'] == [SITE_API_URL]
-    assert service.latest().download_url.startswith('https://bbmod.site/')
+    assert service.latest().download_url.startswith('https://bbmod.com/')
     response['requests'].clear()
     response['body'] = json.dumps([release_row('v999.0.0')]).encode()
     service.check();wait_idle(app, service)
     assert response['requests'] == [SITE_API_URL, API_URL]
     assert service.latest().tag == 'v999.0.0'
+
+
+def test_github_recovers_without_false_completion_or_old_host_requests(app, network):
+    from core.app_updates import SITE_API_URL, API_URL
+    service, response = network
+    response['routes'] = {
+        '/api/v1/desktop/releases/': {'code': 503, 'body': b'unavailable'},
+        urlsplit(API_URL).path: {
+            'code': 200, 'body': json.dumps([release_row('v999.0.0')]).encode()},
+    }
+    states = []
+    service.changed.connect(lambda: states.append(service.busy))
+    service.check(); wait_idle(app, service)
+    assert response['requests'] == [SITE_API_URL, API_URL]
+    assert service.latest().tag == 'v999.0.0'
+    assert service._source == 'github'
+    assert states == ['check', 'check', '']
+
+
+def test_cancel_check_does_not_try_another_source(app, network):
+    from core.app_updates import SITE_API_URL
+    service, response = network
+    service.check(); service.cancel(); wait_idle(app, service)
+    assert response['requests'] == [SITE_API_URL]
+    assert '取消' in service.status and not service.preferences.get('last_check')
+
+
+def test_local_record_failure_does_not_retry_network(app, network, monkeypatch):
+    from core.app_updates import SITE_API_URL
+    service, response = network
+    response['body'] = json.dumps({'schema_version': 1, 'releases': [site_row()]}).encode()
+    def fail(*args):
+        raise OSError('disk full')
+    monkeypatch.setattr(service.settings, 'set', fail)
+    service.check(); wait_idle(app, service)
+    assert response['requests'] == [SITE_API_URL]
+    assert '记录未保存' in service.status
+    assert not service.preferences.get('last_check')

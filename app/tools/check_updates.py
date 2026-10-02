@@ -36,6 +36,7 @@ def main():
                 service.download(service.releases[0]);return
             state.update(success=True, release_count=len(service.releases), latest=service.releases[0].tag,
                          check_status=service.status, downloaded_bytes=service.downloaded.stat().st_size if service.downloaded else 0,
+                         source=service._source, attempts_errors=service._check_errors,
                          download_url=service.releases[0].download_url,
                          sha256=sha256_file(service.downloaded) if service.downloaded else None)
             app.quit()

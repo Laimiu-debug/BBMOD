@@ -253,6 +253,40 @@ def test_stop_limits_use_received_complete_results_and_elapsed_time(live_session
             StopLimits(hits=value)
 
 
+def test_burst_catches_up_multiple_chunks_without_loss_or_replay(live_session):
+    session, path = live_session
+    path.write_text(html_rows("BBMODSeedSession: " + session._session_id,
+        *(line for i in range(2500) for line in
+          (f"Seed: SEED{i:06d} LoopIdx:{i} Origin:scenario.cultists", "CRLF"))), encoding="utf-8")
+    assert path.stat().st_size > 3 * IncrementalLogReader.CHUNK_SIZE
+    records, _ = session.poll(max_read_seconds=10, max_read_bytes=4 * 1024 * 1024)
+    assert len(records) == len(session.results) == 2500
+    assert session._reader.offset == path.stat().st_size
+    assert session.poll() == ([], [])
+
+
+def test_burst_has_byte_budget_and_can_resume_split_records(live_session):
+    session, path = live_session
+    path.write_text(html_rows("BBMODSeedSession: " + session._session_id,
+        *(line for i in range(2500) for line in (f"Seed: SEED{i:06d} LoopIdx:{i}", "CRLF"))), encoding="utf-8")
+    budget = 2 * IncrementalLogReader.CHUNK_SIZE
+    first, _ = session.poll(max_read_seconds=10, max_read_bytes=budget)
+    assert session._reader.offset == budget and 0 < len(first) < 2500
+    session.poll(max_read_seconds=10)
+    assert len(session.results) == 2500
+    assert [r.loop_idx for r in session.results] == list(range(2500))
+
+
+def test_large_stale_log_does_not_delay_discovery_of_active_directory(live_session):
+    session, path = live_session
+    stale = session.checked_log_paths[0]
+    stale.write_text(html_rows("BBMODSeedSession: old", "unrelated") * 10000, encoding="utf-8")
+    path.write_text(html_rows("BBMODSeedSession: " + session._session_id,
+        "Seed: ACTIVE0000 LoopIdx:8", "CRLF"), encoding="utf-8")
+    assert [r.seed for r in session.poll()[0]] == ["ACTIVE0000"]
+    assert session.log_path == path
+
+
 def test_world_and_item_details_have_chinese_labels_and_correct_percentages(tmp_path):
     path = tmp_path / "log.txt"
     path.write_text("""Seed: WORLD00000 LoopIdx:5

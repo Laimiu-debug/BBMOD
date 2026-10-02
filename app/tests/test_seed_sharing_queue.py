@@ -42,7 +42,7 @@ PATH = '/seeds/01234567-89ab-cdef-0123-456789abcdef/'
 
 
 def receipt(created=True):
-    return ShareReceipt('https://bbmod.site' + PATH, created)
+    return ShareReceipt('https://bbmod.com' + PATH, created)
 
 
 def test_http_created_and_duplicate_keep_original_link(server):

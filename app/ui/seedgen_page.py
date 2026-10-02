@@ -35,13 +35,17 @@ from .seed_trait_dialog import SeedTraitDialog
 from .seed_weapon_filter import SeedWeaponFilter
 from .workers import Worker
 from .seed_share_worker import SeedShareWorker
+from .seed_poll_worker import SeedPollWorker
+from core.seedgen.mod_origins import AFEI_ORIGIN
 
 PAYLOAD_DIR = resource_path("seedgen/payload")
 MODE_LABELS = {
     "人物 + 地图": "bro_map", "只找开局兄弟（快）": "bro_only",
     "只找地图": "map_only", "只找红装": "lair_only",
+    "地图 + 红装": "map_lair",
     "人物 + 红装": "bro_lair", "人物 + 地图 + 红装": "all",
 }
+LIBRARY_PAGE_SIZE = 500
 
 
 def spin(minimum=0, maximum=200, value=0, unlimited=False):
@@ -93,6 +97,7 @@ class SeedGenPage(QWidget):
         self.setObjectName("seedPage")
         self.ctx = ctx
         self.orch: SeedGenOrchestrator | None = None
+        self._poll_worker: SeedPollWorker | None = None
         self.results: list[SeedResult] = []
         self._automatic_stop_failed = False
         self._import_worker: Worker | None = None
@@ -104,6 +109,13 @@ class SeedGenPage(QWidget):
         self._library_error = ""
         self._trash_mode = False
         self._view_results = []
+        self._result_indexes = {}
+        self._library_source = self.results
+        self._source_indexes = self._result_indexes
+        self._filtered_results = self.results
+        self._filtered_positions = {}
+        self._search_query = ""
+        self._library_page = 0
         limits = ctx.settings.get("seed_stop_limits", {})
         try:
             self._limits = StopLimits(**limits) if isinstance(limits, dict) else StopLimits()
@@ -157,6 +169,9 @@ class SeedGenPage(QWidget):
         help_button.clicked.connect(lambda: QMessageBox.information(self, "评分与属性怎么算", SCORE_EXPLANATION))
         top.addWidget(help_button)
         filters.addLayout(top)
+        self.origin_hint = QLabel()
+        self.origin_hint.setWordWrap(True)
+        filters.addWidget(self.origin_hint)
         self.filter_tabs = QTabWidget()
         self.filter_tabs.setObjectName("filterTabs")
         filters.addWidget(self.filter_tabs)
@@ -306,7 +321,7 @@ class SeedGenPage(QWidget):
         library_row.addWidget(self.library_label, 1)
         self.save_btn = QPushButton("保存所选")
         self.publish_btn = QPushButton("分享所选")
-        self.publish_btn.setToolTip("无需登录。将所选种子的详情和介绍公开到 bbmod.site，分享成功后复制链接。")
+        self.publish_btn.setToolTip(f"无需登录。将所选种子的详情和介绍公开到 {PUBLIC_SITE}，分享成功后复制链接。")
         style_button(self.publish_btn, "copy", primary=True)
         self.gallery_btn = QPushButton("逛种子广场 ↗")
         library_row.addWidget(self.save_btn)
@@ -395,17 +410,17 @@ class SeedGenPage(QWidget):
         self.rule_mode.currentIndexChanged.connect(self._rule_changed)
         self.bro_type_combo.currentIndexChanged.connect(self._rule_changed)
         self.mode_combo.currentIndexChanged.connect(self._mode_changed)
+        self.origin_combo.currentIndexChanged.connect(self._origin_changed)
         self.timer = QTimer(self)
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self._poll)
         self._rule_changed()
         self._mode_changed()
+        self._origin_changed()
         self._share_changed(save=False)
         try:
             self.library = SeedLibrary(ctx.settings.path.parent / "seeds.sqlite3")
             self.results = self.library.all()
-            for result in self.results:
-                self._append_result(result)
             self._library_status()
         except Exception as error:
             self._library_error = str(error)
@@ -457,6 +472,7 @@ class SeedGenPage(QWidget):
         self.cancel_share_btn.clicked.connect(self.cancel_sharing)
         self.share_details_btn.clicked.connect(self.show_share_results)
         QApplication.instance().aboutToQuit.connect(self.shutdown_sharing)
+        QApplication.instance().aboutToQuit.connect(self.shutdown_polling)
         tools = QHBoxLayout()
         self.library_search = QLineEdit(); self.library_search.setPlaceholderText('搜索种子码、起源或自己的介绍')
         self.library_search.setClearButtonEnabled(True); tools.addWidget(self.library_search, 1)
@@ -471,6 +487,19 @@ class SeedGenPage(QWidget):
         self.restore_btn = QPushButton('恢复所选'); tools.addWidget(self.restore_btn)
         self.preview_btn = QPushButton('展开档案与分享'); self.preview_btn.setCheckable(True); tools.addWidget(self.preview_btn)
         library_layout.addLayout(tools); library_layout.addWidget(self.table, 1)
+        paging = QHBoxLayout()
+        self.library_page_label = QLabel()
+        self.library_page_label.setObjectName('muted')
+        paging.addWidget(self.library_page_label, 1)
+        self.previous_page_btn = QPushButton('上一页')
+        self.next_page_btn = QPushButton('下一页')
+        self.latest_page_btn = QPushButton('最新页')
+        self.previous_page_btn.clicked.connect(lambda: self._go_library_page(self._library_page - 1))
+        self.next_page_btn.clicked.connect(lambda: self._go_library_page(self._library_page + 1))
+        self.latest_page_btn.clicked.connect(lambda: self._go_library_page(self._last_library_page()))
+        for button in (self.previous_page_btn, self.next_page_btn, self.latest_page_btn):
+            paging.addWidget(button)
+        library_layout.addLayout(paging)
         library_layout.addWidget(share); share.setVisible(False)
         self.preview_btn.toggled.connect(share.setVisible)
         self.preview_btn.toggled.connect(lambda active: self.preview_btn.setText('收起档案与分享' if active else '展开档案与分享'))
@@ -502,37 +531,109 @@ class SeedGenPage(QWidget):
 
     def _change_library_view(self, index):
         self._trash_mode = index == 1
+        self._library_page = 0
         self._rebuild_library()
 
     def _rebuild_library(self):
-        selected_keys = set(self._selected_keys())
         try:
-            self._view_results = self.library.all(deleted=True) if self._trash_mode and self.library else list(self.results)
+            self._result_indexes = {seed_key(result): index for index, result in enumerate(self.results)}
+            self._library_source = self.library.all(deleted=True) if self._trash_mode and self.library else self.results
+            self._source_indexes = ({seed_key(result): index for index, result in enumerate(self._library_source)}
+                                    if self._trash_mode else self._result_indexes)
         except Exception as error:
             self.library_label.setText('种子库读取失败，原记录已保留：' + str(error)); return
+        self._prepare_library_filter()
+        self._sync_library_table()
+        self._library_status()
+
+    def _matches_library_query(self, result):
+        if not self._search_query:
+            return True
+        haystack = ' '.join([result.seed, ORIGIN_LABELS.get(result.origin, result.origin),
+                            ' '.join(highlights(result)), self.notes.get(note_key(result), '')]).casefold()
+        return self._search_query in haystack
+
+    def _prepare_library_filter(self):
+        self._search_query = self.library_search.text().strip().casefold()
+        self._filtered_results = ([result for result in self._library_source if self._matches_library_query(result)]
+                                  if self._search_query else self._library_source)
+        self._filtered_positions = ({seed_key(result): index for index, result in enumerate(self._filtered_results)}
+                                    if self._search_query else {})
+
+    def _update_library_matches(self, changed):
+        """Search all history once, then check only records changed by this batch."""
+        if not self._search_query:
+            return
+        removed = set()
+        reorder = False
+        for identity, result in changed.items():
+            position = self._filtered_positions.get(identity)
+            if self._matches_library_query(result):
+                if position is not None:
+                    self._filtered_results[position] = result
+                else:
+                    if self._filtered_results and self._source_indexes[identity] < self._source_indexes[seed_key(self._filtered_results[-1])]:
+                        reorder = True
+                    self._filtered_positions[identity] = len(self._filtered_results)
+                    self._filtered_results.append(result)
+            elif position is not None:
+                removed.add(identity)
+        if removed:
+            self._filtered_results = [result for result in self._filtered_results if seed_key(result) not in removed]
+        if reorder:
+            self._filtered_results.sort(key=lambda result: self._source_indexes[seed_key(result)])
+        if removed or reorder:
+            self._filtered_positions = {seed_key(result): index for index, result in enumerate(self._filtered_results)}
+
+    def _last_library_page(self):
+        return max(0, (len(self._filtered_results) - 1) // LIBRARY_PAGE_SIZE)
+
+    def _go_library_page(self, page):
+        self._library_page = max(0, min(page, self._last_library_page()))
+        self._sync_library_table()
+
+    def _sync_library_table(self):
+        """Keep Qt items bounded; retain untouched rows and the user's selection."""
+        selected_keys = set(self._selected_keys())
+        selected = self._selected_result()
+        current_key = seed_key(selected) if selected else None
+        previous = self._view_results
+        self._library_page = min(self._library_page, self._last_library_page())
+        start = self._library_page * LIBRARY_PAGE_SIZE
+        self._view_results = self._filtered_results[start:start + LIBRARY_PAGE_SIZE]
+        changed_order = ([seed_key(result) for result in previous] !=
+                         [seed_key(result) for result in self._view_results])
         with QSignalBlocker(self.table):
-            self.table.setRowCount(0)
-            self.table.setRowCount(len(self._view_results))
-            for row, result in enumerate(self._view_results): self._write_result(row, result)
-        self._filter_library()
-        visible = [row for row in range(self.table.rowCount()) if not self.table.isRowHidden(row)]
-        selected_rows = [row for row in visible if seed_key(self._view_results[row]) in selected_keys]
-        for row in selected_rows or visible[:1]:
-            index = self.table.model().index(row, 0)
-            self.table.selectionModel().select(index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
-        if selected_rows or visible:
-            self.table.selectionModel().setCurrentIndex(self.table.model().index((selected_rows or visible)[0], 0), QItemSelectionModel.NoUpdate)
-        self._selection_actions(); self._show_detail(); self._library_status()
+            if self.table.rowCount() != len(self._view_results):
+                self.table.setRowCount(len(self._view_results))
+            for row, result in enumerate(self._view_results):
+                if row >= len(previous) or previous[row] is not result:
+                    self._write_result(row, result)
+            if changed_order:
+                self.table.clearSelection()
+                selected_rows = [row for row, result in enumerate(self._view_results) if seed_key(result) in selected_keys]
+                for row in selected_rows or list(range(min(1, len(self._view_results)))):
+                    index = self.table.model().index(row, 0)
+                    self.table.selectionModel().select(index, QItemSelectionModel.Select | QItemSelectionModel.Rows)
+                current = next((row for row, result in enumerate(self._view_results) if seed_key(result) == current_key),
+                               (selected_rows or [0])[0])
+                if self._view_results:
+                    self.table.selectionModel().setCurrentIndex(self.table.model().index(current, 0), QItemSelectionModel.NoUpdate)
+                else:
+                    self.table.selectionModel().clearCurrentIndex()
+        count = len(self._filtered_results)
+        pages = self._last_library_page() + 1 if count else 0
+        self.library_page_label.setText(f'第 {self._library_page + 1 if count else 0} / {pages} 页 · '
+                                       f'全库匹配 {count} 条 · 每页最多 {LIBRARY_PAGE_SIZE} 条')
+        self.previous_page_btn.setEnabled(self._library_page > 0)
+        self.next_page_btn.setEnabled(self._library_page < self._last_library_page())
+        self.latest_page_btn.setEnabled(self._library_page < self._last_library_page())
+        self._selection_actions(); self._show_detail()
 
     def _filter_library(self, *_):
-        query = self.library_search.text().strip().casefold()
-        for row in range(self.table.rowCount()):
-            result = self.table.item(row, 0).data(Qt.UserRole)
-            haystack = ' '.join([result.seed, ORIGIN_LABELS.get(result.origin, result.origin),
-                                ' '.join(highlights(result)), self.notes.get(note_key(result), '')]).casefold()
-            self.table.setRowHidden(row, bool(query and query not in haystack))
-        if self.table.currentRow() >= 0 and self.table.isRowHidden(self.table.currentRow()): self.table.clearSelection()
-        self._selection_actions(); self._show_detail()
+        self._prepare_library_filter()
+        self._library_page = 0
+        self._sync_library_table()
 
     def _selected_keys(self):
         return [seed_key(self.table.item(index.row(), 0).data(Qt.UserRole))
@@ -571,35 +672,45 @@ class SeedGenPage(QWidget):
 
     def _accept_results(self, results):
         added = 0
-        indexes = {seed_key(r): i for i, r in enumerate(self.results)}
-        for result in results:
-            if self.library:
-                try:
-                    result = self.library.save(result)
-                    if self.library.is_deleted(result):
-                        continue
-                    self._library_error = ""
-                except Exception as error:
-                    self._library_error = str(error)
+        results = list(results)
+        if not results:
+            return added
+        if self.library:
+            try:
+                saved = self.library.save_many(results)
+                self._library_error = ""
+            except Exception as error:
+                self._library_error = str(error)
+                saved = [(result, False) for result in results]
+        else:
+            saved = [(result, False) for result in results]
+        changed = {}
+        for result, deleted in saved:
             identity = seed_key(result)
-            if identity in indexes:
-                index = indexes[identity]
+            if deleted:
+                if self._trash_mode and identity in self._source_indexes:
+                    index = self._source_indexes[identity]
+                    old = self._library_source[index]
+                    if (result.done and not old.done) or (result.done == old.done and len(result.lines) > len(old.lines)):
+                        self._library_source[index] = result
+                        changed[identity] = result
+                continue
+            if identity in self._result_indexes:
+                index = self._result_indexes[identity]
                 old = self.results[index]
                 if (result.done and not old.done) or (result.done == old.done and len(result.lines) > len(old.lines)):
                     self.results[index] = result
-                    if not hasattr(self, 'sections'): self._write_result(index, result)
+                    if not self._trash_mode:
+                        changed[identity] = result
                 continue
-            indexes[identity] = len(self.results)
+            self._result_indexes[identity] = len(self.results)
             self.results.append(result)
-            if not hasattr(self, 'sections'): self._append_result(result)
+            if not self._trash_mode:
+                changed[identity] = result
             added += 1
-        if self._library_error:
-            self.library_label.setText("自动保存失败 · 结果仍在列表中，请导出 TXT 备份")
-            self.library_label.setToolTip(self._library_error)
-        else:
-            self._library_status()
-        if hasattr(self, 'sections'): self._rebuild_library()
-        self._show_detail()
+        self._update_library_matches(changed)
+        self._sync_library_table()
+        self._library_status()
         return added
 
     def save_selected(self):
@@ -770,8 +881,8 @@ class SeedGenPage(QWidget):
 
     def _mode_changed(self, *_args) -> None:
         mode = MODE_LABELS[self.mode_combo.currentText()]
-        enabled = (mode not in ("map_only", "lair_only"), mode in ("map_only", "bro_map", "all"),
-                   mode in ("lair_only", "bro_lair", "all"))
+        enabled = (mode not in ("map_only", "lair_only", "map_lair"), mode in ("map_only", "map_lair", "bro_map", "all"),
+                   mode in ("lair_only", "map_lair", "bro_lair", "all"))
         for index, active in enumerate(enabled):
             self.filter_tabs.setTabEnabled(index, active)
         if not enabled[self.filter_tabs.currentIndex()]:
@@ -779,6 +890,16 @@ class SeedGenPage(QWidget):
         self.filter_tabs.setTabText(0, "开局兄弟" if enabled[0] else "本次不筛人物")
         self.filter_tabs.setTabText(1, "地图与港口" if enabled[1] else "本次不筛地图")
         self.filter_tabs.setTabText(2, "营地红装" if enabled[2] else "本次不筛红装")
+
+    def _origin_changed(self, *_args) -> None:
+        fixed = self.origin_combo.currentData() == AFEI_ORIGIN
+        for index, mode in enumerate(MODE_LABELS.values()):
+            self.mode_combo.model().item(index).setEnabled(not fixed or mode in ("map_only", "lair_only", "map_lair"))
+        if fixed and MODE_LABELS[self.mode_combo.currentText()] not in ("map_only", "lair_only", "map_lair"):
+            self.mode_combo.setCurrentText("地图 + 红装")
+        self.origin_hint.setVisible(fixed)
+        self.origin_hint.setText("阿飞开局人物固定，可筛地图和开局营地红装。搜索仅加载已启用的阿飞主包及必要框架；复现时使用档案记录的相同版本与组合。")
+        self._mode_changed()
 
     def _edit_extra_attributes(self) -> None:
         dialog = QDialog(self)
@@ -872,11 +993,19 @@ class SeedGenPage(QWidget):
             self._set_log_directory(Path(folder))
 
     def _set_log_directory(self, folder: Path | None) -> None:
+        if self.orch:
+            if not self.shutdown_polling():
+                self.progress_label.setText('日志读取尚未结束，请稍后重试切换目录')
+                return
+            # Include a batch parsed just before its queued GUI signal was
+            # cancelled, then switch readers only after their thread stops.
+            self._accept_results(self.orch.results)
+            self.orch.set_log_directory(folder)
         self._log_directory = folder
         self.ctx.settings.set("seed_log_directory", str(folder) if folder else "")
         if self.orch:
-            self.orch.set_log_directory(folder)
             self.progress_label.setText("正在重新查找本次刷种子的日志…")
+            self._start_polling()
 
     def _show_log_location(self) -> None:
         path = self.orch.log_path if self.orch else None
@@ -922,7 +1051,9 @@ class SeedGenPage(QWidget):
         cfg.campaign.validate()
         cfg.common.EnableLowercaseSeed = self.lower_check.isChecked()
         cfg.common.UseBrotherLevel11RealAttr = self.real11_check.isChecked()
-        if mode not in ("map_only", "lair_only") and self.rule_mode.currentData() != "preset":
+        if cfg.campaign.origin == AFEI_ORIGIN and mode not in ("map_only", "lair_only", "map_lair"):
+            raise ValueError("阿飞起源人物固定，请选择地图或营地红装模式")
+        if mode not in ("map_only", "lair_only", "map_lair") and self.rule_mode.currentData() != "preset":
             if self.rule_mode.currentData() in ("attributes", "traits"):
                 thresholds = {}
                 if self.rule_mode.currentData() == "attributes":
@@ -936,7 +1067,7 @@ class SeedGenPage(QWidget):
                 condition = score_condition(self.bro_type_combo.currentData(), round(self.bro_score.value(), 2),
                                             self.bro_count.value(), self.bro_role.currentData())
             cfg.origins = {self.origin_combo.currentData(): OriginConfig(conditions=[condition])}
-        if mode in ("map_only", "bro_map", "all"):
+        if mode in ("map_only", "map_lair", "bro_map", "all"):
             condition = ["PortNum", self.port_count.value(), "SettlementNum", self.city_count.value(),
                          "ArmorsmithNum", self.armorsmith_count.value()]
             if self.north_south_ports.isChecked():
@@ -944,7 +1075,7 @@ class SeedGenPage(QWidget):
             if self.arena_port.isChecked():
                 condition.extend(["ArenaPort", 1])
             cfg.map_conditions = [condition]
-        if mode in ("lair_only", "bro_lair", "all"):
+        if mode in ("lair_only", "map_lair", "bro_lair", "all"):
             cfg.lair_conditions = self.weapon_filter.conditions()
         return cfg
 
@@ -1003,6 +1134,44 @@ class SeedGenPage(QWidget):
         self.timer.start()
         self.ctx.data_changed.emit()
         self._show_detail()
+        self._start_polling()
+
+    def _start_polling(self):
+        # Test sessions and manual diagnostic callers retain the synchronous
+        # _poll entry point; actual file parsing runs outside the GUI thread.
+        if self._poll_worker is not None or type(self.orch) is not SeedGenOrchestrator:
+            return
+        worker = SeedPollWorker(self.orch, self)
+        self._poll_worker = worker
+        worker.batch_ready.connect(self._receive_poll)
+        worker.failed.connect(self._poll_failed)
+        worker.start()
+
+    def shutdown_polling(self):
+        worker = self._poll_worker
+        if worker is not None:
+            if not worker.stop():
+                return False
+            self._poll_worker = None
+            worker.deleteLater()
+        return True
+
+    def _receive_poll(self, results):
+        worker = self.sender()
+        if worker is not self._poll_worker:
+            return
+        try:
+            if self.orch is worker.session:
+                self._consume_poll(results)
+        finally:
+            worker.acknowledge()
+
+    def _poll_failed(self, detail):
+        if self.sender() is not self._poll_worker:
+            return
+        self._automatic_stop_failed = True
+        self.progress_label.setText('日志读取失败，已保存结果保留 · 请点击「停止并恢复」')
+        self.progress_label.setToolTip(detail)
 
     def stop(self, _checked=False, *, reason: str = "") -> None:
         if not self.orch:
@@ -1011,6 +1180,8 @@ class SeedGenPage(QWidget):
         self._automatic_stop_failed = False
         self.progress_label.setText("正在恢复游戏配置…")
         try:
+            if not self.shutdown_polling():
+                raise RuntimeError('日志读取尚未结束，备份已保留，请稍后重试停止。')
             restored = self.orch.stop_and_restore()
         except Exception as error:
             self._automatic_stop_failed = True
@@ -1040,7 +1211,14 @@ class SeedGenPage(QWidget):
         if not self.orch:
             self.timer.stop()
             return
+        if self._poll_worker is not None:
+            return
         results, _ = self.orch.poll()
+        self._consume_poll(results)
+
+    def _consume_poll(self, results) -> None:
+        if not self.orch:
+            return
         progress = self.orch.progress
         startup = self.orch.startup
         elapsed = getattr(self.orch, "elapsed_seconds", 0)
@@ -1049,7 +1227,7 @@ class SeedGenPage(QWidget):
         if startup.stage == "error":
             code = startup.detail.split(" ", 1)[0]
             message = {
-                "origin-unavailable": "所选起源不可用，请检查对应 DLC 是否已安装并启用",
+                "origin-unavailable": "所选起源不可用，请检查对应 DLC 或起源 MOD 是否已安装并启用",
                 "demo-unavailable": "当前游戏模式不支持新建战役",
                 "banners-unavailable": "游戏未提供可用旗帜，请检查游戏文件",
                 "settings-mismatch": "游戏开局设置与软件不一致，已阻止继续刷种子",

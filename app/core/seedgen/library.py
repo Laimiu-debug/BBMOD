@@ -1,5 +1,6 @@
 """Durable local seed history. A new expedition never clears this database."""
 from contextlib import closing
+from collections.abc import Iterable
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -8,6 +9,7 @@ import time
 
 from .log_watcher import SeedResult
 from .protocol import seed_key
+from ..site_config import canonical_site_url
 
 
 class SeedLibrary:
@@ -54,21 +56,37 @@ class SeedLibrary:
             return db.total_changes - before
 
     def save(self, result: SeedResult) -> SeedResult:
-        identity = seed_key(result)
+        return self.save_many([result])[0][0]
+
+    def save_many(self, results: Iterable[SeedResult]) -> list[tuple[SeedResult, bool]]:
+        """Save one batch atomically, returning each merged record and trash state.
+
+        Input order and duplicates retain the same behavior as consecutive saves.
+        Existing public links, creation order, and trash state are preserved.
+        """
+        results = list(results)
+        if not results:
+            return []
+        saved = []
         with closing(self._connect()) as db, db:
-            row = db.execute("SELECT record FROM seeds WHERE identity=?", (identity,)).fetchone()
-            if row:
-                old = SeedResult(**json.loads(row[0]))
-                if (old.done and not result.done) or (old.done == result.done and len(old.lines) >= len(result.lines)):
-                    return old
-            db.execute("INSERT INTO seeds(identity, record) VALUES (?, ?) ON CONFLICT(identity) DO UPDATE SET record=excluded.record",
-                       (identity, json.dumps(asdict(result), ensure_ascii=False)))
-        return result
+            for result in results:
+                identity = seed_key(result)
+                row = db.execute("SELECT record, deleted_at FROM seeds WHERE identity=?", (identity,)).fetchone()
+                deleted = bool(row and row[1])
+                if row:
+                    old = SeedResult(**json.loads(row[0]))
+                    if (old.done and not result.done) or (old.done == result.done and len(old.lines) >= len(result.lines)):
+                        saved.append((old, deleted))
+                        continue
+                db.execute("INSERT INTO seeds(identity, record) VALUES (?, ?) ON CONFLICT(identity) DO UPDATE SET record=excluded.record",
+                           (identity, json.dumps(asdict(result), ensure_ascii=False)))
+                saved.append((result, deleted))
+        return saved
 
     def shared_url(self, result: SeedResult) -> str:
         with closing(self._connect()) as db:
             row = db.execute("SELECT share_url FROM seeds WHERE identity=?", (seed_key(result),)).fetchone()
-            return row[0] if row else ""
+            return canonical_site_url(row[0]) if row else ""
 
     def mark_shared(self, result: SeedResult, url: str):
         self.save(result)

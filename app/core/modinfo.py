@@ -193,6 +193,8 @@ def analyze_zip(path: Path | str) -> ModInfo:
 
     with zf:
         _read_package_identity(zf, info)
+        if not info.package_id:
+            _read_inspector_identity(zf, info)
         # 第一阶段：收集条目分类 + 全部明文 .nut 文本（总量封顶）+ 符号表
         scanned = 0
         modern_hit = legacy_hit = False
@@ -287,6 +289,46 @@ def _read_package_identity(archive: zipfile.ZipFile, info: ModInfo) -> None:
             info.package_version = version.strip()
     except (OSError, ValueError, zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError) as exc:
         info.analysis_errors.append(f'无法读取 {BRAND_META}：{exc}')
+
+
+def _read_inspector_identity(archive: zipfile.ZipFile, info: ModInfo) -> None:
+    """Recognize existing BBMOD reader packages from their bounded manifest."""
+    manifest_name = 'BBMOD_ITEM_INSPECTOR.json'
+    script = 'scripts/!mods_preload/bbmod_item_inspector.nut'
+    try:
+        entry = archive.getinfo(manifest_name)
+    except KeyError:
+        return
+    try:
+        limit = 64 * 1024
+        if entry.file_size > limit:
+            raise ValueError('包信息过大')
+        with archive.open(entry) as stream:
+            raw = stream.read(limit + 1)
+        if len(raw) > limit:
+            raise ValueError('包信息过大')
+        meta = json.loads(raw.decode('utf-8-sig'))
+        if (not isinstance(meta, dict) or meta.get('id') != 'bbmod_item_inspector'
+                or type(meta.get('schema')) is not int or meta['schema'] != 1):
+            return
+        version = meta.get('version')
+        files = meta.get('files')
+        if (type(version) is not int or not 1 <= version <= 1_000_000
+                or not isinstance(files, dict) or not files or script not in files
+                or not all(isinstance(name, str) and isinstance(digest, str)
+                           and re.fullmatch(r'[0-9a-f]{64}', digest)
+                           for name, digest in files.items())):
+            return
+        # The reader owns a complete package. Extra scripts must not inherit its
+        # name simply because a copied manifest happens to be present.
+        entries = {item.filename for item in archive.infolist() if not item.is_dir()}
+        if entries != set(files) | {manifest_name}:
+            return
+        info.package_id = 'bbmod_item_inspector'
+        info.package_name = 'BBMOD 装备读取器'
+        info.package_version = str(version)
+    except (OSError, ValueError, zipfile.BadZipFile, RuntimeError, NotImplementedError, EOFError) as exc:
+        info.analysis_errors.append(f'无法读取 {manifest_name}：{exc}')
 
 
 def _without_comments(text: str) -> str:

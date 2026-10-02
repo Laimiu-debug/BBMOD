@@ -25,7 +25,7 @@ def check(base, path):
         elif path == '/login/':
             assert 'csrfmiddlewaretoken' in body
         elif path == '/suggestions/':
-            assert 'csrfmiddlewaretoken' in body and '提交建议' in body and '仅管理员可见' in body
+            assert 'csrfmiddlewaretoken' in body and '提交反馈' in body and '仅管理员可见' in body
         elif path == '/wiki/':
             assert '战场兄弟百科' in body and '/wiki/search/' in body
         elif path == '/api/v1/wiki/search/':
@@ -43,7 +43,7 @@ def check(base, path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('url', nargs='?', default='https://bbmod.vercel.app')
+    parser.add_argument('url', nargs='?', default='https://bbmod.com')
     args = parser.parse_args()
     parsed = urlparse(args.url)
     local = parsed.scheme == 'http' and parsed.hostname in {'127.0.0.1', 'localhost', '::1'}

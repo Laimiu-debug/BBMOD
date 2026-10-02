@@ -13,7 +13,10 @@ def selftest() -> int:
     from core.l10n_compat import hooks_assets
     from core.seedgen.traits import traits
     from core.seedgen.weapons import NAMED_WEAPONS, WEAPON_CHOICES
+    from core.seedgen.mod_origins import AFEI_ORIGIN
+    from core.paths import resource_path
     from core.version import VERSION
+    from core.site_config import SITE_ORIGIN
     from core.localization_profiles import CURRENT, NONE
     from ui.main_window import MainWindow, apply_dark_palette
 
@@ -38,6 +41,12 @@ def selftest() -> int:
     ports_ready = all(getattr(w.seedgen, name, None) is not None
                       and getattr(w.seedgen, name).objectName() == name
                       for name in ('north_south_ports', 'arena_port'))
+    w.seedgen.origin_combo.setCurrentIndex(w.seedgen.origin_combo.findData(AFEI_ORIGIN))
+    mod_origin_ready = (w.seedgen.origin_combo.currentData() == AFEI_ORIGIN
+                        and w.seedgen.mode_combo.currentText() == '地图 + 红装'
+                        and not w.seedgen.filter_tabs.isTabEnabled(0)
+                        and all(w.seedgen.filter_tabs.isTabEnabled(i) for i in (1, 2))
+                        and resource_path('seedgen/payload/seed_generator/function_mod_origin.nut').is_file())
     updater_ready = hasattr(w, 'updates') and w.updates.reply is None and not w.updates.timer.isActive()
     update_notice_ready = hasattr(w, 'update_notice') and w.update_notice.action.text() in {'查看更新', '重启并更新'}
     crash_reports_ready = (hasattr(w, 'crash_reports') and w.crash_reports.reply is None
@@ -62,14 +71,16 @@ def selftest() -> int:
     print(f"localization_cleanup: {'ready' if cleanup_ready else 'missing'}")
     print(f"seed_share_queue: {'ready' if sharing_ready else 'missing'}")
     print(f"seed_code_copy: {'ready' if seed_copy_ready else 'missing'}")
+    print(f"seed_mod_origin: {'ready' if mod_origin_ready else 'missing'}")
     print(f"profile_sharing: {'ready' if profile_sharing_ready else 'missing'}")
     print(f"update_notice: {'ready' if update_notice_ready else 'missing'}")
     print(f"crash_reports: {'ready' if crash_reports_ready else 'missing'}")
+    print(f"official_site: {SITE_ORIGIN}")
     print(f"selftest: installed={w.mods.table.rowCount()} l10n_entries={len(w.l10n.entries)} diag_errors={errors} l10n_manager={'ready' if manager_ready else 'missing'} legacy_hooks={'ready' if hooks_ready else 'missing'} seed_traits={trait_count} seed_weapons={weapon_count if weapons_ready else 0} seed_ports={'ready' if ports_ready else 'missing'} version={VERSION} updater={'ready' if updater_ready else 'missing'} font_settings={'ready' if settings_ready else 'missing'}")
     ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and cleanup_ready and guidance_ready and hooks_ready and trait_count == 58
     if w.ctx.game:
         ok = ok and errors >= 0
-    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready else 1
+    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and mod_origin_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready else 1
 
 
 def main() -> int:
@@ -114,6 +125,7 @@ def check_updates_selftest() -> int:
     import json
     import tempfile
     from PySide6.QtCore import QCoreApplication, QTimer
+    from PySide6.QtNetwork import QSslSocket
     from core.settings import Settings
     from ui.update_service import UpdateService
     with tempfile.TemporaryDirectory(prefix='bbmod-frozen-update-') as temporary:
@@ -124,10 +136,12 @@ def check_updates_selftest() -> int:
         def finished():
             if not service.busy:
                 result.update(success=bool(service.preferences.get('last_check')),
-                              releases=len(service.releases), status=service.status)
+                              releases=len(service.releases), status=service.status,
+                              source=service._source, attempts_errors=service._check_errors,
+                              tls_backend=QSslSocket.activeBackend())
                 app.quit()
         service.changed.connect(finished)
-        QTimer.singleShot(30000, app.quit)
+        QTimer.singleShot(65000, app.quit)
         QTimer.singleShot(0, service.check)
         app.exec()
         service.changed.disconnect(finished)

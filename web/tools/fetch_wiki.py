@@ -19,7 +19,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 API = 'https://battlebrothers.fandom.com/api.php'
-USER_AGENT = 'BBMOD-Wiki-Migration/1.0 (https://bbmod.site/; public encyclopedia mirror)'
+USER_AGENT = 'BBMOD-Wiki-Migration/1.0 (https://bbmod.com/; public encyclopedia mirror)'
 NAMESPACES = (0, 10, 14, 828, 6)
 _lock = threading.Lock()
 _next_request = 0.0

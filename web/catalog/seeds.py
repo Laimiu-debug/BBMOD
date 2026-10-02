@@ -23,7 +23,7 @@ from django.views.decorators.http import require_GET, require_POST
 from app.core.seedgen.config_emitter import ORIGIN_LABELS, DIFFICULTY_LABELS, BUDGET_LABELS
 from app.core.seedgen.log_watcher import SeedResult
 from app.core.seedgen.presentation import brothers, format_seed, highlights, metric, named_count
-from app.core.seedgen.protocol import MAX_SHARE_BYTES, seed_key, validate_share
+from app.core.seedgen.protocol import MAX_SHARE_BYTES, seed_key, validate_share, share_payload
 from app.core.seedgen.traits import traits
 from .models import SharedSeed, SharedSeedBrother, SeedUploadBudget
 from .services import audit
@@ -127,7 +127,7 @@ def detail(request, seed_id):
 @require_GET
 def public_record(request, seed_id):
     seed = get_object_or_404(SharedSeed, pk=seed_id, blocked=False)
-    return JsonResponse({'schema_version': 1, 'record': seed.record, 'note': seed.note})
+    return JsonResponse(share_payload(SeedResult(**seed.record), seed.note))
 
 
 def _quota(request):

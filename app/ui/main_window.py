@@ -1,7 +1,9 @@
 """Mercenary camp shell: persistent navigation, workspaces and preferences."""
 from __future__ import annotations
 
-from PySide6.QtCore import QSize, Qt, QTimer
+from PySide6.QtCore import QSize, Qt, QTimer, QUrl
+from PySide6.QtGui import QDesktopServices
+from core.site_config import SITE_ORIGIN
 from core.version import VERSION
 from PySide6.QtWidgets import (
     QButtonGroup, QFileDialog, QFrame, QHBoxLayout, QLabel, QLineEdit,
@@ -64,9 +66,16 @@ class MainWindow(QMainWindow):
         side = QVBoxLayout(sidebar)
         side.setContentsMargins(12, 14, 16, 14)
         side.setSpacing(6)
-        badge = QLabel()
-        badge.setAlignment(Qt.AlignCenter)
-        badge.setPixmap(crest().pixmap(112, 112))
+        badge = self.website_badge = QPushButton()
+        badge.setObjectName('websiteBadge')
+        badge.setIcon(crest())
+        badge.setIconSize(QSize(112, 112))
+        badge.setFixedHeight(116)
+        badge.setCursor(Qt.PointingHandCursor)
+        badge.setAccessibleName('打开 BBMOD 官网')
+        badge.setToolTip('打开 BBMOD 官网 · ' + SITE_ORIGIN)
+        badge.setStyleSheet('QPushButton { background: transparent; border: none; padding: 0; }')
+        badge.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(SITE_ORIGIN)))
         side.addWidget(badge)
         brand = QLabel('BBMOD')
         brand.setObjectName('brandName')
@@ -172,7 +181,7 @@ class MainWindow(QMainWindow):
         content.addWidget(self.crash_notice)
         self.tabs = QStackedWidget()
         self.dashboard = DashboardPage(self.ctx)
-        self.mods = ModsPage(self.ctx)
+        self.mods = ModsPage(self.ctx, automatic_catalog=auto_updates)
         self.mods.choose_game_requested.connect(self.pick_game_dir)
         self.profiles = ProfilesPage(self.ctx, self.mods)
         self.profiles.choose_game_requested.connect(self.pick_game_dir)
@@ -258,7 +267,7 @@ class MainWindow(QMainWindow):
         if not link:
             return
         from core.web_links import parse_link, fetch_seed
-        from core.app_updates import SITE_ORIGIN
+        from core.site_config import SITE_ORIGIN
         from .workers import Worker
         try:
             kind, identity = parse_link(link)
@@ -443,6 +452,8 @@ class MainWindow(QMainWindow):
         self.sidebar_scroll.ensureWidgetVisible(self.nav_buttons[index])
         if index == 1 and not hasattr(self.mods, '_repo_entries'):
             self.mods.refresh_repo()
+        if index == 1 and self.mods.automatic_catalog:
+            self.mods.check_catalog()
         elif index == 7:
             self.profiles.refresh()
 

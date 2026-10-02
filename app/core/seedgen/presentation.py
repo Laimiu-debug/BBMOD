@@ -178,6 +178,8 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
         clauses = ([origin] if origin else []) + facts
         if campaign:
             clauses.append(" / ".join(campaign))
+        if result.mods:
+            clauses.append(" / ".join(mod["name"] + " " + mod["version"] for mod in result.mods if mod["id"] != "mod_hooks"))
         if not result.done:
             clauses.append("记录未完整，需核对")
         if note.strip():
@@ -188,6 +190,15 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
              "亮点：" + (" · ".join(facts) or "暂无可解析的属性详情")]
     if campaign:
         lines.insert(2, "开局设置：" + " · ".join(campaign))
+    if result.game_version:
+        lines.append("游戏版本：" + result.game_version)
+    if result.dlc_mask is not None:
+        dlc_names = {2: "林德蠕龙", 4: "野兽与探索", 16: "北方勇士", 64: "炽热沙漠", 256: "血肉与信仰"}
+        enabled = [label for bit, label in dlc_names.items() if result.dlc_mask & bit]
+        lines.append("官方 DLC：" + ("、".join(enabled) or "未启用官方 DLC") + "（复现需保持相同组合）")
+    if result.mods:
+        lines += ["", "生成时的 MOD 组合（复现需使用相同版本和文件；其他 MOD 未参与生成）："]
+        lines.extend(f"{mod['name']} {'脚本版本 ' if mod['version'].isdigit() else ''}{mod['version']} · SHA256 {mod['sha256']}" for mod in result.mods)
     if result.team_score is not None:
         lines.append(f"高级队伍评分：{result.team_score:.2f}（算法的相对评分，不是属性值、百分比或胜率）")
     if not result.done:

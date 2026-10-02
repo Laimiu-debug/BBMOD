@@ -1,0 +1,2 @@
+::SeedGenerator.ModEnvironment <- "[]";
+::SeedGenerator.ModGameVersion <- "";

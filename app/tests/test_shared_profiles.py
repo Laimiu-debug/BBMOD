@@ -15,7 +15,7 @@ from core.profile_protocol import validate_manifest
 from core import shared_profiles as sharing
 
 IDENTITY = '00000000-0000-0000-0000-000000000001'
-ORIGIN = 'https://bbmod.site'
+ORIGIN = 'https://bbmod.com'
 
 
 def zipped(label='test', script=None):
@@ -229,6 +229,13 @@ def test_web_link_roundtrip_and_literal_ui_text():
     assert sharing.profile_identity(f'{ORIGIN}/profiles/{IDENTITY}/', ORIGIN) == IDENTITY
 
 
+def test_old_official_profile_link_is_accepted_only_for_official_source():
+    link = f'https://bbmod.site/profiles/{IDENTITY}/'
+    assert sharing.profile_identity(link, ORIGIN) == IDENTITY
+    with pytest.raises(ValueError, match='不一致'):
+        sharing.profile_identity(link, 'https://custom.example')
+
+
 def test_profile_rename_delete_preserve_files_and_share_receipt(manager):
     (manager.data / 'mod.zip').write_bytes(zipped())
     manager.save_profile('原组合')
@@ -268,6 +275,23 @@ def test_renamed_import_reapply_keeps_local_name_and_receipt(manager, monkeypatc
     assert result['name'] == '我的名称'
     assert list(manager.load_profiles()) == ['我的名称']
     assert manager.load_profiles()['我的名称']['published_id'] == IDENTITY
+
+
+def test_old_official_import_reuses_original_name_and_files(manager, monkeypatch):
+    files = {'mod.zip': zipped()}
+    value = manifest(files)
+    mock_site(monkeypatch, value, files)
+    sharing.apply_shared(manager, ORIGIN, IDENTITY, value, expected=sharing.preview_apply(manager, value))
+    manager.rename_profile(value['name'], '我的名称')
+    profiles = manager.load_profiles()
+    profiles['我的名称']['shared_origin'] = 'https://bbmod.site'
+    atomic_json(manager._profiles_path(), profiles)
+    monkeypatch.setattr(sharing, '_download', lambda *_: pytest.fail('must reuse existing files'))
+    result = sharing.apply_shared(manager, ORIGIN, IDENTITY, value, expected=sharing.preview_apply(manager, value))
+    assert result['name'] == '我的名称'
+    assert list(manager.load_profiles()) == ['我的名称']
+    assert manager.load_profiles()['我的名称']['shared_origin'] == ORIGIN
+    assert (manager.data / 'mod.zip').read_bytes() == files['mod.zip']
 
 
 def catalog_response():

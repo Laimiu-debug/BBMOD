@@ -7,9 +7,10 @@ import zipfile
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
+from urllib.error import HTTPError
 import pytest
 from core.modmanager import ModManager
-from core.online_catalog import OnlineInstaller, parse_catalog, site_origin, download_release
+from core.online_catalog import OnlineInstaller, parse_catalog, site_origin, download_release, fetch_catalog
 
 
 def package(tmp_path, version='1.0', mod_id=None, name='mod_fixture.zip', content='// test only'):
@@ -94,7 +95,9 @@ def test_dependency_conflict_and_duplicate_ids(tmp_path, manager):
         with pytest.raises(ValueError, match='同一 MOD'): installer.install('http://localhost:8765', item, archive)
 
 
-@pytest.mark.parametrize('url', ['file:///etc', 'https://user:pass@host', 'http://host/path', 'http://host?x', 'javascript:evil', 'http://host:abc'])
+@pytest.mark.parametrize('url', ['file:///etc', 'https://user:pass@host', 'https://@bbmod.com',
+    'https://:@bbmod.com', 'https://@github.com', 'https://:@github.com',
+    'http://host/path', 'http://host?x', 'javascript:evil', 'http://host:abc'])
 def test_reject_invalid_origins(url):
     with pytest.raises(ValueError): site_origin(url)
 
@@ -105,6 +108,50 @@ def test_catalog_host_and_filename_validation(tmp_path):
         bad = copy.deepcopy(item); bad[field] = value
         with pytest.raises(ValueError): parse_catalog({'schema_version': 1, 'mods': [bad]})
     with pytest.raises(ValueError): parse_catalog({'schema_version': 1, 'mods': [item, item]})
+
+
+@pytest.mark.parametrize('failure', [TimeoutError(), HTTPError('https://bbmod.site', 503, 'busy', {}, None)])
+def test_old_official_catalog_only_requests_new_domain(failure):
+    with patch('core.online_catalog._request', side_effect=failure) as request:
+        with pytest.raises(type(failure)):
+            fetch_catalog('https://bbmod.site')
+    assert [call.args[0] for call in request.call_args_list] == [
+        'https://bbmod.com/api/v1/catalog/']
+
+
+def test_old_official_install_receipt_can_update_without_foreign_overwrite(tmp_path, manager):
+    installer = OnlineInstaller(manager)
+    old, one = package(tmp_path)
+    new, two = package(tmp_path, '2.0', one['id'], content='// updated')
+    installer.install('https://bbmod.com', one, old)
+    state = installer.state()
+    state['mods'][one['file_name']]['origin'] = 'https://bbmod.site'
+    installer.state_path.write_text(json.dumps(state), encoding='utf-8')
+    installer.install('https://bbmod.com', two, new)
+    assert (manager.data / one['file_name']).read_bytes() == new.read_bytes()
+    assert installer.state()['mods'][one['file_name']]['origin'] == 'https://bbmod.com'
+    with pytest.raises(ValueError, match='另一网站'):
+        installer.install('https://custom.example', two, new)
+    installer.rollback(one['file_name'])
+    assert (manager.data / one['file_name']).read_bytes() == old.read_bytes()
+
+
+@pytest.mark.parametrize('origin,failure', [
+    ('https://custom.example', TimeoutError()),
+    ('https://bbmod.site', HTTPError('https://bbmod.site', 404, 'missing', {}, None)),
+])
+def test_catalog_does_not_switch_custom_or_missing_sources(origin, failure):
+    with patch('core.online_catalog._request', side_effect=failure) as request:
+        with pytest.raises(type(failure)):
+            fetch_catalog(origin)
+    assert request.call_count == 1
+
+
+def test_invalid_catalog_data_is_not_replaced_with_another_source():
+    with patch('core.online_catalog._request', return_value=io.BytesIO(b'not json')) as request:
+        with pytest.raises(ValueError):
+            fetch_catalog('https://bbmod.site')
+    assert request.call_count == 1
 
 
 def test_download_hash_and_cancellation(tmp_path):

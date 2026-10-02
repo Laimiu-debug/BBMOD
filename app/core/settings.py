@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 from typing import Any
+from .site_config import canonical_site_origin
 
 
 def _settings_dir() -> Path:
@@ -23,6 +24,8 @@ class Settings:
     def load(self) -> None:
         try:
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
+            if isinstance(self.data, dict) and 'online_catalog_url' in self.data:
+                self.data['online_catalog_url'] = canonical_site_origin(self.data['online_catalog_url'])
         except (OSError, json.JSONDecodeError):
             self.data = {}
 

@@ -8,15 +8,35 @@ from .models import SharedSeed, SeedUploadBudget
 
 
 def payload(code='AbCdEfGhIj'):
-    return {'schema_version': 1, 'note': '北港开局', 'record': asdict(SeedResult(code, 123,
+    record = asdict(SeedResult(code, 123,
         origin='scenario.militia', game_version='1.5.2.3', combat_difficulty=2,
         economic_difficulty=1, budget_difficulty=0, done=True, lines=[
         'CharInfo: 0 Melee:0.9 MeleeSkill:60(95)3 MeleeDefense:5(20)1', 'Trait: trait.strong',
         'CharInfo: 1 Guard:0.9 MeleeSkill:50(80)1 MeleeDefense:10(40)3', 'Trait: trait.fearless',
-        'SettlementInfo: Port:7', 'NamedInfo: Sum:12(2)']))}
+        'SettlementInfo: Port:7', 'NamedInfo: Sum:12(2)']))
+    record.pop('mods'); record.pop('dlc_mask')
+    return {'schema_version': 1, 'note': '北港开局', 'record': record}
 
 
 class SeedSharingTests(TestCase):
+    def test_afei_environment_roundtrip_and_distinct_package_versions(self):
+        value = payload()
+        value['schema_version'] = 2
+        value['record'].update(origin='scenario.afeix_expedition', dlc_mask=31, mods=[
+            {'id': 'mod_afeix_expedition', 'name': '阿飞远征团', 'version': '0.28.12', 'sha256': 'a' * 64},
+            {'id': 'mod_hooks', 'name': 'Legacy Hooks', 'version': '21.1', 'sha256': 'b' * 64}])
+        first = self.publish(value)
+        self.assertEqual(first.status_code, 201)
+        page = first.json()['page_path']
+        self.assertContains(self.client.get(page), '阿飞远征团')
+        self.assertContains(self.client.get(page), '0.28.12')
+        record = self.client.get('/api/v1' + page).json()
+        self.assertEqual(record, value)
+        newer = deepcopy(value)
+        newer['record']['mods'][0]['sha256'] = 'c' * 64
+        self.assertEqual(self.publish(newer).status_code, 201)
+        self.assertEqual(SharedSeed.objects.count(), 2)
+
     def test_desktop_import_only_exposes_public_seed_and_is_read_only(self):
         page = self.publish().json()['page_path']
         seed = SharedSeed.objects.get()

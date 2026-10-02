@@ -481,4 +481,13 @@ local startNewCampaign = function()
 }
 
 ::mods_hookClass("states/world_state",
-  function(o) { ::mods_override(o, "startNewCampaign", startNewCampaign); });
+  function(o) {
+    if ("CampaignConfig" in gt.SeedGenerator && gt.SeedGenerator.CampaignConfig.ModOrigin)
+    {
+        local nativeStart = ::mods_getMember(o, "startNewCampaign");
+        ::mods_override(o, "startNewCampaign", function() {
+            return gt.SeedGenerator.searchModOrigin(this, nativeStart);
+        });
+    }
+    else ::mods_override(o, "startNewCampaign", startNewCampaign);
+  });

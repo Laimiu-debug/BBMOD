@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from dataclasses import replace
 import json
 from pathlib import Path
 import time
@@ -14,6 +15,7 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequ
 from core.app_updates import (API_URL, SITE_API_URL, VERSION, Release, available_releases,
     download_host_allowed, parse_releases, parse_site_releases, verify_download, version_key, write_json)
 from .workers import Worker
+from core.site_config import canonical_site_url
 
 
 class UpdateService(QObject):
@@ -42,6 +44,7 @@ class UpdateService(QObject):
         self._failure = ''
         self._closed = False
         self._source = 'site'
+        self._check_errors = []
         self._verifier = None
         self._api_data = bytearray()
         self.network = QNetworkAccessManager(self)
@@ -112,7 +115,7 @@ class UpdateService(QObject):
         return '当前版本高于此通道的最新发布，不会自动降级。'
 
     def _request(self, url):
-        request = QNetworkRequest(QUrl(url))
+        request = QNetworkRequest(QUrl(canonical_site_url(url)))
         request.setRawHeader(b'User-Agent', ('BBMOD/' + VERSION).encode())
         request.setRawHeader(b'Accept', b'application/json' if url in (API_URL, SITE_API_URL) else b'application/octet-stream')
         if url == API_URL:
@@ -125,8 +128,9 @@ class UpdateService(QObject):
         return reply
 
     def _redirect(self, reply, destination):
-        allowed = (destination.toString() in (API_URL, SITE_API_URL)
-                   if self.busy == 'check' else download_host_allowed(destination.toString()))
+        url = destination.toString()
+        allowed = (url in (API_URL, SITE_API_URL)
+                   if self.busy == 'check' else download_host_allowed(url) and canonical_site_url(url) == url)
         if allowed:
             reply.redirectAllowed.emit()
         else:
@@ -137,12 +141,13 @@ class UpdateService(QObject):
         if self._closed or self.busy:
             return
         self._source = 'site'
+        self._check_errors = []
         self.busy, self.status, self._failure = 'check', '正在检查官网发布版本…', ''
         self._start_check()
 
     def _start_check(self):
         self._api_data = bytearray()
-        self.reply = self._request(SITE_API_URL if self._source == 'site' else API_URL)
+        self.reply = self._request({'site': SITE_API_URL, 'github': API_URL}[self._source])
         self.reply.readyRead.connect(self._read_check)
         self.reply.finished.connect(self._checked)
         self.changed.emit()
@@ -156,37 +161,49 @@ class UpdateService(QObject):
     def _checked(self):
         reply = self.reply
         self._read_check()
-        fallback = False
+        next_source = None
         completed = False
         try:
             self._check_response(reply)
-            parser = parse_site_releases if self._source == 'site' else parse_releases
+            parser = parse_releases if self._source == 'github' else parse_site_releases
             releases = parser(bytes(self._api_data))
-            if self._source == 'site' and not releases:
+            if self._source != 'github' and not releases:
                 raise ValueError('官网暂时没有可用版本')
-            self.folder.mkdir(parents=True, exist_ok=True)
-            (self.folder / 'releases-cache.json').write_bytes(bytes(self._api_data))
-            self.releases = releases
-            self.preferences['last_check_epoch'] = time.time()
-            self.preferences['last_check'] = datetime.now(timezone.utc).isoformat()
-            self.settings.set('app_updates', self.preferences)
-            latest = self.latest()
-            self.status = self.release_status()
-            completed = True
-            if latest and latest.newer_than():
-                if latest.tag != self.preferences.get('ignored'):
-                    self.attention.emit(latest.tag)
         except (OSError, ValueError, TypeError) as error:
-            fallback = self._source == 'site' and not self._closed and self._failure != '已取消。'
-            self.status = '官网暂时不可用，正在检查备用源…' if fallback else str(error)
+            self._check_errors.append(str(error))
+            if not self._closed and self._failure != '已取消。':
+                next_source = 'github' if self._source == 'site' else None
+            self.status = ('官网连接失败，正在检查 GitHub 备用源…' if next_source
+                           else str(error))
+        else:
+            try:
+                self.folder.mkdir(parents=True, exist_ok=True)
+                (self.folder / 'releases-cache.json').write_bytes(bytes(self._api_data))
+                preferences = dict(self.preferences)
+                preferences['last_check_epoch'] = time.time()
+                preferences['last_check'] = datetime.now(timezone.utc).isoformat()
+                self.settings.set('app_updates', preferences)
+                self.preferences, self.releases = preferences, releases
+                latest = self.latest()
+                self.status = self.release_status()
+                completed = True
+                if latest and latest.newer_than():
+                    if latest.tag != self.preferences.get('ignored'):
+                        self.attention.emit(latest.tag)
+            except (OSError, ValueError, TypeError) as error:
+                self.status = '版本记录未保存：' + str(error)
         finally:
-            self.reply, self.busy = None, ''
+            self.reply = None
             reply.deleteLater()
-            self.changed.emit()
-        if fallback:
-            self._source, self.busy, self._failure = 'github', 'check', ''
+        if next_source:
+            # Keep the check busy across sources so observers cannot treat the
+            # first failed attempt as completion or start a competing request.
+            self._source, self._failure = next_source, ''
             self._start_check()
-        elif completed and not self._closed:
+        else:
+            self.busy = ''
+            self.changed.emit()
+        if completed and not self._closed:
             latest = self.latest()
             if (latest and latest.newer_than() and latest.installable and self.preferences.get('auto_download')
                     and getattr(sys, 'frozen', False) and latest.tag != self.preferences.get('ignored')
@@ -200,9 +217,12 @@ class UpdateService(QObject):
         if code in (403, 429):
             raise ValueError('更新服务暂时限制了请求次数，请稍后重试。')
         if reply.error() != QNetworkReply.NoError or code != 200:
-            raise ValueError('连接更新服务失败，请检查网络后重试。' + (f'（HTTP {code}）' if code else ''))
+            detail = f'HTTP {code}' if code else reply.errorString()
+            raise ValueError(f'连接更新服务失败，请检查网络后重试。（{detail}）')
 
     def download(self, release):
+        release = replace(release, url=canonical_site_url(release.url),
+                          download_url=canonical_site_url(release.download_url))
         if self._closed or self.busy:
             return
         if not release.installable or not download_host_allowed(release.download_url):
@@ -306,6 +326,8 @@ class UpdateService(QObject):
             data = json.loads((self.folder / 'ready.json').read_text(encoding='utf-8'))
             path = Path(data['path']).resolve()
             release = Release(**data['release'])
+            release = replace(release, url=canonical_site_url(release.url),
+                              download_url=canonical_site_url(release.download_url))
             if (path.is_relative_to(self.folder.resolve()) and path.name == 'BBMOD.exe'
                     and release.newer_than() and download_host_allowed(release.download_url)):
                 self._verify_async(path, release)

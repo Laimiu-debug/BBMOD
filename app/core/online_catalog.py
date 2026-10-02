@@ -16,6 +16,7 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 from .archive_safety import inspect_archive, valid_install_name
 from .modinfo import analyze_zip
 from .downloads import download_verified
+from .site_config import canonical_site_origin, same_site
 
 MAX_DOWNLOAD = 100 * 1024 * 1024
 
@@ -28,11 +29,12 @@ class NoRedirect(HTTPRedirectHandler):
 def site_origin(value):
     value = value.strip().rstrip('/')
     parts = urlsplit(value)
-    if (parts.scheme not in {'http', 'https'} or not parts.hostname or parts.username or parts.password
+    if (parts.scheme not in {'http', 'https'} or not parts.hostname
+            or parts.username is not None or parts.password is not None
             or parts.path or parts.query or parts.fragment or any(c.isspace() for c in value)):
         raise ValueError('请输入网站根地址，例如 http://服务器IP:8080 或 https://域名。')
     _ = parts.port
-    return f'{parts.scheme}://{parts.netloc.lower()}'
+    return canonical_site_origin(f'{parts.scheme}://{parts.netloc.lower()}')
 
 
 def _request(url):
@@ -79,8 +81,12 @@ def parse_catalog(payload):
 
 
 def fetch_catalog(origin):
+    return _fetch_catalog(site_origin(origin) + '/api/v1/catalog/')
+
+
+def _fetch_catalog(url):
     parts = []; total = 0; started = time.monotonic()
-    with _request(site_origin(origin) + '/api/v1/catalog/') as response:
+    with _request(url) as response:
         while block := response.read1(128 * 1024):
             total += len(block)
             if total > 4 * 1024 * 1024 or time.monotonic() - started > 30:
@@ -152,10 +158,11 @@ class OnlineInstaller:
             raise ValueError('启用和禁用目录中均有同名文件，请先处理重复文件。')
         return found[0] if found else None
 
-    def check_compatibility(self, item, archive):
+    def check_compatibility(self, item, archive, *, local_file_name=None):
         info = analyze_zip(archive)
         installed = self.mm.scan()
-        enabled = [m.info for m in installed if m.enabled and m.path.name.casefold() != item['file_name'].casefold()]
+        target_name = local_file_name or item['file_name']
+        enabled = [m.info for m in installed if m.enabled and m.path.name.casefold() != target_name.casefold()]
         ids = {r.mod_id for m in enabled for r in m.registrations}
         own = set(item['metadata']['mod_ids']) | {r.mod_id for r in info.registrations}
         missing = set(item['metadata']['requires']) - ids - own
@@ -170,48 +177,128 @@ class OnlineInstaller:
             if duplicate: details.append('其他已启用文件已注册同一 MOD：' + '、'.join(sorted(duplicate)))
             raise ValueError('\n'.join(details))
 
-    def install(self, origin, item, archive):
+    def install(self, origin, item, archive, *, local_file_name=None,
+                expected_current_sha256=None, installed_version=None):
+        """Install a catalog release, or update one explicitly selected local file.
+
+        Local updates use all three keyword arguments from the pre-download
+        selection. The digest prevents replacing a file changed while downloading;
+        the selected filename preserves profiles, load order and enabled state.
+        Normal catalog installs continue to refuse untracked local files.
+        """
         if self.mm.transaction.journal.exists():
             raise ValueError('请先恢复上次未完成的 MOD 操作。')
         parse_catalog({'schema_version': 1, 'mods': [item]})
         origin = site_origin(origin)
+        local_update = any(v is not None for v in
+                           (local_file_name, expected_current_sha256, installed_version))
+        if local_update and (not valid_install_name(local_file_name)
+                             or not isinstance(expected_current_sha256, str)
+                             or not re.fullmatch('[0-9a-f]{64}', expected_current_sha256)
+                             or not isinstance(installed_version, str)
+                             or not installed_version.strip() or len(installed_version) > 128
+                             or any(ord(c) < 32 for c in installed_version)):
+            raise ValueError('本地更新须提供所选文件名、当前 SHA-256 和已安装版本，请刷新后重试。')
         archive = Path(archive)
         with archive.open('rb') as src:
             check = inspect_archive(src)
         if check['sha256'] != item['sha256'] or check['size'] != item['size']:
             raise ValueError('安装文件校验失败。')
         state = self.state()
-        name = item['file_name']
-        previous = state['mods'].get(name)
-        if previous and (previous['origin'] != origin or previous['id'] != item['id']):
+        name = local_file_name if local_update else item['file_name']
+        receipt_keys = [key for key in state['mods'] if key.casefold() == name.casefold()]
+        if len(receipt_keys) > 1:
+            raise ValueError('所选文件存在重复在线安装记录，请先处理重复记录。')
+        receipt_key = receipt_keys[0] if receipt_keys else name
+        previous = state['mods'].get(receipt_key)
+        if previous and (not same_site(previous['origin'], origin) or previous['id'] != item['id']):
             raise ValueError('同名文件属于另一网站或作品，不能自动覆盖。')
         current = self._locations(name)
-        if current and (not previous or _hash(current) != previous['sha256']):
+        current_hash = _hash(current) if current else None
+        if local_update and (not current or current_hash != expected_current_sha256):
+            raise ValueError('所选 MOD 文件已改变或已不存在，请刷新后重新更新。')
+        if current and ((not previous and not local_update)
+                        or (previous and current_hash != previous['sha256'])):
             raise ValueError('同名文件未由在线军械库管理或已被修改，已停止覆盖。请先手动备份处理。')
-        if current and previous['sha256'] == item['sha256']:
+        if local_update:
+            if previous and previous['version'] != installed_version:
+                raise ValueError('在线安装记录版本已改变，请刷新后重新更新。')
+            self._check_local_update_identity(current, archive, item, trusted=bool(previous))
+            for key, other in state['mods'].items():
+                if (key.casefold() != name.casefold() and same_site(other['origin'], origin)
+                        and other['id'] == item['id'] and self._locations(key)):
+                    raise ValueError('同一作品已安装在另一文件中，请先处理重复安装。')
+            if name.casefold() != item['file_name'].casefold() and self._locations(item['file_name']):
+                raise ValueError('网站新版文件名已存在本地，请先处理重复安装。')
+        if current and current_hash == item['sha256']:
             return f"{item['metadata']['title']} 已是所选版本，保留现有备份。"
-        if previous and previous['version'] == item['version'] and previous['sha256'] != item['sha256']:
+        if ((previous and previous['version'] == item['version'])
+                or (local_update and installed_version == item['version'])):
             raise ValueError('网站上同一版本的文件校验值发生变化，请联系作者发布新版本后再更新。')
-        self.check_compatibility(item, archive)
+        self.check_compatibility(item, archive, local_file_name=name)
         target = current or self.data / name
         self.disabled.mkdir(parents=True, exist_ok=True)
         self.backups.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryDirectory(prefix='bbmod-online-') as staging:
-            changes = {target: archive}
-            entry = {'origin': origin, 'id': item['id'], 'version': item['version'], 'sha256': item['sha256']}
-            if current:
-                backup = self.backups / f'{uuid.uuid4().hex}.zip'
-                shutil.copy2(current, backup)
-                if _hash(backup) != previous['sha256']:
-                    raise ValueError('更新前备份校验失败。')
-                entry['previous'] = {k: v for k, v in previous.items() if k != 'previous'}
-                entry['backup'] = backup.name
-            state['mods'][name] = entry
-            receipt = Path(staging) / 'online-catalog.json'
-            _atomic_json(receipt, state)
-            changes[self.state_path] = receipt
-            self.mm._apply(changes, validate=True)
+        backup = None
+        installed = False
+        try:
+            with tempfile.TemporaryDirectory(prefix='bbmod-online-') as staging:
+                changes = {target: archive}
+                entry = {'origin': origin, 'id': item['id'], 'version': item['version'], 'sha256': item['sha256']}
+                if current:
+                    backup = self.backups / f'{uuid.uuid4().hex}.zip'
+                    shutil.copy2(current, backup)
+                    if _hash(backup) != current_hash:
+                        raise ValueError('更新前备份校验失败。')
+                    old_entry = previous or {'origin': origin, 'id': item['id'],
+                                            'version': installed_version, 'sha256': current_hash,
+                                            'adopted_from_local': True}
+                    entry['previous'] = {k: v for k, v in old_entry.items() if k != 'previous'}
+                    entry['backup'] = backup.name
+                if receipt_key != name:
+                    del state['mods'][receipt_key]
+                state['mods'][name] = entry
+                receipt = Path(staging) / 'online-catalog.json'
+                _atomic_json(receipt, state)
+                changes[self.state_path] = receipt
+                if current and (self._locations(name) != current or _hash(current) != current_hash):
+                    raise ValueError('更新前 MOD 文件已改变，请刷新后重试。')
+                if _hash(archive) != item['sha256']:
+                    raise ValueError('安装文件校验失败。')
+                self.mm._apply(changes, validate=True)
+                installed = True
+        finally:
+            # Keep backups needed by an interrupted transaction; otherwise a
+            # failed update must not leave an unreferenced catalog backup.
+            if backup and not installed and not self.mm.transaction.journal.exists():
+                try:
+                    referenced = self.state()['mods'].get(name, {}).get('backup') == backup.name
+                except (OSError, ValueError):
+                    referenced = True
+                if not referenced:
+                    backup.unlink(missing_ok=True)
         return f"已安装 {item['metadata']['title']} v{item['version']}" + ('（保持禁用）' if target.parent == self.disabled else '')
+
+    def _check_local_update_identity(self, current, archive, item, *, trusted):
+        old = analyze_zip(current)
+        new = analyze_zip(archive)
+        if old.analysis_errors or new.analysis_errors:
+            raise ValueError('无法确认新旧 MOD 文件身份，已停止自动更新。')
+        if old.package_id or new.package_id:
+            if not old.package_id or old.package_id != new.package_id:
+                raise ValueError('新旧 MOD 的包身份不一致，已停止自动更新。')
+            return
+        if trusted:
+            # A verified receipt binds releases to the same catalog work even
+            # when its author adds or replaces script registrations.
+            return
+        old_ids = {reg.mod_id for reg in old.registrations}
+        new_ids = {reg.mod_id for reg in new.registrations}
+        if old_ids or new_ids:
+            if not old_ids or not old_ids <= new_ids:
+                raise ValueError('新旧 MOD 注册身份不一致，不能用另一作品或部分组件覆盖。')
+        elif current.name.casefold() != item['file_name'].casefold():
+            raise ValueError('此 MOD 没有可核实的注册身份，不能用不同文件名自动更新。')
 
     def rollback(self, name):
         if self.mm.transaction.journal.exists():

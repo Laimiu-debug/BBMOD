@@ -10,8 +10,9 @@ from urllib.request import Request, build_opener
 
 from ..online_catalog import NoRedirect, site_origin
 from .protocol import share_payload
+from ..site_config import SITE_ORIGIN
 
-PUBLIC_SITE = "https://bbmod.site"
+PUBLIC_SITE = SITE_ORIGIN
 
 
 class UploadError(ValueError):
