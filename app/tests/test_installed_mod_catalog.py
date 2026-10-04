@@ -218,6 +218,19 @@ def test_known_old_release_hash_resolves_release_version_and_update():
     assert unknown.installed_version == '62' and not unknown.update_available
 
 
+@pytest.mark.parametrize('source', ['catalog_hash', 'receipt'])
+def test_verified_afei_preview_release_enables_update(source):
+    info = mod(version='76', api='legacy')
+    item = release(version='0.29.0-preview.13')
+    recorded = receipt(info, item, version='0.29.0-preview.12') if source == 'receipt' else None
+    histories = {item['id']: {'a' * 64: '0.29.0-preview.12'}} if source == 'catalog_hash' else None
+    result = resolve_installed_mod(info, [item], local_sha256='a' * 64,
+                                   receipts=recorded, release_versions=histories, local_index={})
+    assert result.installed_version == '0.29.0-preview.12'
+    assert result.version_source == source and result.update_available
+    assert result.status == '有更新'
+
+
 def test_equal_release_versions_with_different_hashes_do_not_claim_an_update():
     info = mod(version='1.1.0')
     result = resolve_installed_mod(info, [release()], local_sha256='c' * 64, local_index={})
@@ -227,6 +240,10 @@ def test_equal_release_versions_with_different_hashes_do_not_claim_an_update():
 @pytest.mark.parametrize('local,latest,status', [
     ('v1.2.0', '1.10.0', '有更新'), ('1.2.0-rc.2', '1.2.0-rc.10', '有更新'),
     ('1.2.0-rc.10', '1.2.0', '有更新'), ('1.2.1', '1.2.0', '本地版本较新'),
+    ('0.29.0-preview.2', '0.29.0-preview.13', '有更新'),
+    ('0.29.0-preview.13', '0.29.0-rc.1', '有更新'),
+    ('0.29.0-preview.13', '0.29.0', '有更新'),
+    ('0.29.0-preview.13', '0.29.0-preview.12', '本地版本较新'),
     ('1.2.0', 'v1.2.0', '已是最新'), ('nightly', '1.2.0', '版本待确认'),
     ('1.2', '1.2.1', '版本待确认'),
     ('9' * 5000, '1.2.0', '版本待确认'),

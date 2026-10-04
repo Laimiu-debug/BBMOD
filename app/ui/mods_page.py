@@ -155,7 +155,7 @@ class ModsPage(QWidget):
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         self.table.setSelectionMode(QTableWidget.ExtendedSelection)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
-        for column, width in ((0, 84), (1, 230), (2, 250), (3, 108), (4, 145), (5, 84), (6, 86)):
+        for column, width in ((0, 84), (1, 230), (2, 250), (3, 108), (4, 145), (5, 120), (6, 86)):
             self.table.setColumnWidth(column, width)
         # Keep the filename's logical column stable for file operations while
         # placing the name and versions first in the visible table.
@@ -276,7 +276,7 @@ class ModsPage(QWidget):
             latest.setToolTip((f'官网版本：{display.latest_version}\n' if display.latest_version else '') + display.status)
             self.table.setItem(i, 4, latest)
             self.table.removeCellWidget(i, 5)
-            update = QTableWidgetItem('')
+            update = QTableWidgetItem('' if display.update_available else display.status)
             update.setToolTip(display.status)
             self.table.setItem(i, 5, update)
             if display.update_available and display.catalog_item:

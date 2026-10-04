@@ -72,6 +72,7 @@ def test_offline_chinese_names_versions_and_id_search(page):
     assert page.table.item(0, 3).text() == '1.0.0'
     assert page.table.item(0, 4).text() == '—'
     assert page.table.cellWidget(0, 5) is None
+    assert page.table.item(0, 5).text() == '未匹配官网'
     assert page.table.item(0, 6).text() == 'modern'
     assert 'English fixture' in page.table.item(0, 2).toolTip()
     for query in ('离线中文', 'mod_fixture', 'fixture.zip', 'English fixture'):
@@ -108,6 +109,7 @@ def test_catalog_refresh_preserves_selection_and_update_uses_real_file(page, mon
     assert installed.exists() and not (page.ctx.mm.data / 'fixture.zip').exists()
     page.set_installed_catalog([catalog(version='1.0.0')], hashes=verified)
     assert page.table.cellWidget(0, 5) is None
+    assert page.table.item(0, 5).text() == '已是最新'
     assert page._selected_mods() == [('renamed-by-user.zip', False)]
 
 
@@ -171,3 +173,4 @@ def test_replacement_with_same_size_and_timestamp_invalidates_verified_identity(
     assert page._installed_hash(info) is None
     page.refresh_installed_metadata()
     assert page.table.cellWidget(0, 5) is None
+    assert page.table.item(0, 5).text() == '版本待确认'

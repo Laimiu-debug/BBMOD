@@ -62,7 +62,8 @@ def catalog(path):
 
 
 def wait_idle(page, app):
-    for _ in range(500):
+    # Windows journal writes and rollback can exceed five seconds on busy disks.
+    for _ in range(1500):
         app.processEvents()
         worker = page.online.worker
         if worker and not worker.isRunning() and not page.ctx.management_busy:
@@ -198,6 +199,34 @@ def test_inline_update_installs_and_can_restore_without_confirmation(view, app, 
     assert local.read_bytes() == old_bytes
     assert installer.state()['mods'][local.name]['version'] == '1.0.0'
     assert (view.ctx.mm.data / 'data_001.dat').read_bytes() == b'official data remains untouched'
+
+
+def test_verified_old_preview_shows_button_and_updates_to_new_preview(view, app, tmp_path, monkeypatch):
+    local, _, incoming, item = prepare(view, tmp_path)
+    archive(local, '76')  # Script revision differs from the website release label.
+    item['version'] = '0.29.0-preview.13'
+    view.refresh()
+    stat = local.stat()
+    view.set_installed_catalog([item], hashes={str(local.resolve()):
+        (stat.st_mtime_ns, stat.st_size, sha(local), stat.st_dev, stat.st_ino)},
+        release_versions={item['id']: {sha(local): '0.29.0-preview.12'}})
+    downloader(monkeypatch, incoming)
+
+    update_button(view, local).click()
+    wait_idle(view, app)
+
+    record = OnlineInstaller(view.ctx.mm).state()['mods'][local.name]
+    assert record['version'] == '0.29.0-preview.13'
+    assert record['previous']['version'] == '0.29.0-preview.12'
+    assert local.read_bytes() == incoming.read_bytes()
+    # The normal background identity check runs after installation. This fixture
+    # disables automatic network checks, so provide its newly verified hash.
+    stat = local.stat()
+    view.set_installed_catalog([item], hashes={str(local.resolve()):
+        (stat.st_mtime_ns, stat.st_size, sha(local), stat.st_dev, stat.st_ino)})
+    row = row_for(view, local.name)
+    assert view.table.cellWidget(row, 5) is None
+    assert view.table.item(row, 5).text() == '已是最新'
 
 
 @pytest.mark.parametrize('failure', ['download', 'commit'])

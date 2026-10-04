@@ -173,9 +173,9 @@ def _name(info, item, index):
 
 
 _VERSION = re.compile(
-    r'^v?(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|a|beta|b|pre|rc)'
+    r'^v?(\d+(?:\.\d+)*)(?:[-._]?(dev|alpha|a|beta|b|preview|pre|rc)'
     r'(?:[.-]?(\d+))?)?(?:\+[a-z0-9.-]+)?$', re.I)
-_STAGE = {'dev': 0, 'alpha': 1, 'a': 1, 'beta': 2, 'b': 2, 'pre': 3, 'rc': 4}
+_STAGE = {'dev': 0, 'alpha': 1, 'a': 1, 'beta': 2, 'b': 2, 'preview': 3, 'pre': 3, 'rc': 4}
 
 
 def _version(value):
