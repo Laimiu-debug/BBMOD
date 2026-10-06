@@ -3,11 +3,12 @@ import argparse
 import hashlib
 import io
 import json
+import runpy
 import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = '0.3.6'
+VERSION = runpy.run_path(str(ROOT / 'web/hub/version.py'))['VERSION']
 PREFIX = f'BBMOD-Hub-{VERSION}'
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--output', type=Path, default=ROOT / 'app/build/hub' / VERSION)

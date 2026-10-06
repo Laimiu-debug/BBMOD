@@ -7,9 +7,12 @@
 """
 from __future__ import annotations
 
+import copy
+from contextlib import contextmanager
 import datetime
 import json
 import tempfile
+import threading
 import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -52,8 +55,41 @@ class ModManager:
         self.stash_dir = self.root / STASH_DIR
         self.audit_path = self.root.parent / "BBMOD_operations.log"
         self.transaction = ModTransaction(self.root)
+        self._infos: dict[Path, tuple[tuple, ModInfo]] = {}
+        self._infos_lock = threading.Lock()
+        self._file_lock = threading.RLock()
 
     # ---------------- 基础 ----------------
+
+    @contextmanager
+    def file_access(self):
+        """Serialize installed-file readers and writers; nested validation is allowed."""
+        with self._file_lock:
+            yield
+
+    def analyze(self, path: Path) -> ModInfo:
+        with self.file_access():
+            return self._analyze(path)
+
+    def _analyze(self, path: Path) -> ModInfo:
+        """按 (路径, mtime, 大小, inode) 复用 zip 分析结果；返回副本，调用方可修改其字段。"""
+        try:
+            stat = path.stat()
+        except OSError:
+            return analyze_zip(path)
+        signature = (stat.st_mtime_ns, stat.st_size, stat.st_ino)
+        with self._infos_lock:
+            cached = self._infos.get(path)
+        if cached is None or cached[0] != signature:
+            cached = (signature, analyze_zip(path))
+            with self._infos_lock:
+                self._infos[path] = cached
+        return copy.copy(cached[1])
+
+    def _prune_infos(self, keep: set[Path]) -> None:
+        with self._infos_lock:
+            for path in [p for p in self._infos if p not in keep]:
+                del self._infos[path]
 
     def _audit(self, action: str, src: Path, dst: Path | None = None) -> None:
         line = f"[{_now()}] {action}: {src}" + (f" -> {dst}" if dst else "")
@@ -66,17 +102,23 @@ class ModManager:
 
     def scan(self, analyze: bool = True) -> list[InstalledMod]:
         """扫描 data 与禁用目录中的 mod。"""
+        with self.file_access():
+            return self._scan(analyze)
+
+    def _scan(self, analyze: bool) -> list[InstalledMod]:
         mods: list[InstalledMod] = []
         from .preload_merge import FILENAME
         for f in sorted(self.data.glob("*.zip")):
             if f.name == FILENAME:
                 continue
-            mods.append(InstalledMod(path=f, enabled=True, info=analyze_zip(f) if analyze else _stub_info(f)))
+            mods.append(InstalledMod(path=f, enabled=True, info=self.analyze(f) if analyze else _stub_info(f)))
         for f in sorted(self.data.glob("*.rar")):
             mods.append(InstalledMod(path=f, enabled=True, info=_stub_info(f)))
         if self.disabled_dir.exists():
             for f in sorted(self.disabled_dir.glob("*.zip")) + sorted(self.disabled_dir.glob("*.rar")):
-                mods.append(InstalledMod(path=f, enabled=False, info=analyze_zip(f) if analyze else _stub_info(f)))
+                mods.append(InstalledMod(path=f, enabled=False, info=self.analyze(f) if analyze else _stub_info(f)))
+        if analyze:
+            self._prune_infos({m.path for m in mods})
         return mods
 
     def installed_zip_names(self) -> set[str]:
@@ -84,6 +126,10 @@ class ModManager:
         return ({f.name for f in self.data.glob("*.zip")} | {f.name for f in self.data.glob("*.rar")}) - {FILENAME}
 
     def _apply(self, changes, *, validate=False, keep_backups=False):
+        with self.file_access():
+            return self._apply_locked(changes, validate=validate, keep_backups=keep_backups)
+
+    def _apply_locked(self, changes, *, validate=False, keep_backups=False):
         from .diagnostics import diagnose_mods
         from .preload_merge import plan
         if validate:
@@ -96,7 +142,7 @@ class ModManager:
                 if source is None:
                     current.pop(destination, None)
                 else:
-                    info = analyze_zip(source)
+                    info = self.analyze(source)
                     info.file_name = destination.name
                     current[destination] = info
                     incoming.add(destination.name)
@@ -357,9 +403,9 @@ class ModManager:
         self._audit("profile-apply", self._profiles_path(), self.data)
         return len(plan['enable']), len(plan['disable'])
 
-    def installation_states(self) -> dict[str, str]:
+    def installation_states(self, mods: list[InstalledMod] | None = None) -> dict[str, str]:
         states = {}
-        for mod in self.scan(analyze=False):
+        for mod in self.scan(analyze=False) if mods is None else mods:
             key = mod.path.name.casefold()
             value = '已启用' if mod.enabled else '已禁用'
             states[key] = '同名重复安装' if key in states else value

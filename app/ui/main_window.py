@@ -268,7 +268,7 @@ class MainWindow(QMainWindow):
             return
         from core.web_links import parse_link, fetch_seed
         from core.site_config import SITE_ORIGIN
-        from .workers import Worker
+        from .workers import Worker, track
         try:
             kind, identity = parse_link(link)
             if self.ctx.management_busy or self.ctx.seedgen_active:
@@ -287,7 +287,7 @@ class MainWindow(QMainWindow):
             else:
                 if getattr(self, '_seed_import_worker', None) and self._seed_import_worker.isRunning():
                     raise ValueError('正在导入种子，请稍后重试。')
-                self._seed_import_worker = Worker(lambda: fetch_seed(identity), self)
+                track(self, '_seed_import_worker', Worker(lambda: fetch_seed(identity), self))
                 self._seed_import_worker.done.connect(self._preview_seed_import)
                 self._seed_import_worker.failed.connect(lambda error: QMessageBox.warning(self, '种子读取失败', error))
                 self._seed_import_worker.start()

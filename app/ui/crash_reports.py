@@ -62,7 +62,7 @@ class CrashReports(QObject):
             return
         session, self.session = self.session, None
         automatic = self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is True
-        self.ctx.game_session._set('collecting', '游戏已退出，正在检查并保存本次日志…')
+        self.ctx.game_session.begin_collecting()
         self.worker = Worker(lambda: self.store.capture(self.context, session,
                              game_mod.find_log_write_paths(), automatic), self)
         self.worker.done.connect(self._captured)
@@ -82,7 +82,7 @@ class CrashReports(QObject):
     def _capture_finished(self):
         worker, self.worker = self.worker, None
         worker.deleteLater()
-        self.ctx.game_session._set('idle', '游戏已退出，可以再次启动。')
+        self.ctx.game_session.finish_collecting()
         self.pump()
 
     def pump(self):

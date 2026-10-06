@@ -1,7 +1,17 @@
 """Desktop application version; localization packages have their own version."""
 import re
 
-VERSION = '0.3.0-rc.38'
+# Public releases always use MAJOR.MINOR.PATCH; see docs/versioning.md.
+VERSION = '0.3.1'
+
+
+def release_filename(version: str = VERSION) -> str:
+    """One public naming rule; build runs never invent or increment a version."""
+    if not re.fullmatch(r'(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)', version):
+        raise ValueError('桌面发布版本必须使用 主版本.功能版本.修复版本，例如 0.3.1。')
+    if any(int(part) > 65535 for part in version.split('.')):
+        raise ValueError('版本号超出 Windows 版本资源范围。')
+    return f'BBMOD-{version}.exe'
 
 
 def windows_version_info(version: str = VERSION) -> str:

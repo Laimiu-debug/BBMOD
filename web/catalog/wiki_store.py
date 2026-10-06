@@ -151,11 +151,14 @@ class WikiStore:
         database = self.release / 'wiki.sqlite3'
         stat = database.stat()
         key = (str(database.resolve()), stat.st_mtime_ns, stat.st_size)
-        if key not in _COUNTS:
+        # gunicorn threads share _COUNTS; read once so a concurrent clear() cannot raise KeyError.
+        counts = _COUNTS.get(key)
+        if counts is None:
+            counts = self._translation_counts()
             if len(_COUNTS) >= 8:
                 _COUNTS.clear()
-            _COUNTS[key] = self._translation_counts()
-        return dict(_COUNTS[key])
+            _COUNTS[key] = counts
+        return dict(counts)
 
     def _translation_counts(self):
         counts = {'total': 0, 'translated': 0, 'complete': 0, 'reviewed': 0,

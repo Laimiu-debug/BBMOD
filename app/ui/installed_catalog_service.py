@@ -12,7 +12,7 @@ from core.catalog_versions import identify_release_versions
 from core.online_catalog import fetch_catalog, parse_catalog
 from core.site_config import SITE_ORIGIN
 from core.installed_mod_catalog import receipt_needs_hash, resolve_installed_mod
-from .workers import Worker
+from .workers import Worker, track
 
 
 class InstalledCatalogService(QObject):
@@ -115,7 +115,7 @@ class InstalledCatalogService(QObject):
             return {'items': active_items, 'release_versions': updated_versions, 'hashes': updated_hashes,
                     'checked_at': checked_at, 'status': status or f'官网版本检查完成 · {len(active_items)} 件作品'}
 
-        self.worker = Worker(work, self)
+        track(self, 'worker', Worker(work, self))
         self.worker.done.connect(self._done)
         self.worker.failed.connect(lambda error: self.changed.emit(self.snapshot('官网版本检查未完成：' + error)))
         self.worker.finished.connect(self._finished)

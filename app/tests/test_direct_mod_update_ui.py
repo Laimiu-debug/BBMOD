@@ -18,6 +18,7 @@ from core.modmanager import ModManager
 from core.online_catalog import OnlineInstaller
 from core.site_config import SITE_ORIGIN
 from ui.mods_page import ModsPage
+from ui_wait import refreshed, settle_mods
 
 
 class Context(QObject):
@@ -66,8 +67,9 @@ def wait_idle(page, app):
     for _ in range(1500):
         app.processEvents()
         worker = page.online.worker
-        if worker and not worker.isRunning() and not page.ctx.management_busy:
-            assert worker.wait(1000)
+        if not (worker and worker.isRunning()) and not page.ctx.management_busy and page.idle:
+            if worker:
+                assert worker.wait(1000)
             app.processEvents()
             return
         QTest.qWait(10)
@@ -121,6 +123,7 @@ def view(app, tmp_path, monkeypatch):
         assert page.online.worker.wait(5000)
     if page.catalog_service and page.catalog_service.worker and page.catalog_service.worker.isRunning():
         assert page.catalog_service.worker.wait(5000)
+    settle_mods(page)
     app.processEvents()
     page.close()
     page.deleteLater()
@@ -134,7 +137,7 @@ def prepare(view, tmp_path, *, disabled=True):
     incoming = archive(tmp_path / 'release.zip', '2.0.0')
     item = catalog(incoming)
     stat = local.stat()
-    view.refresh()
+    refreshed(view)
     view.set_installed_catalog([item], hashes={str(local.resolve()):
         (stat.st_mtime_ns, stat.st_size, sha(local))})
     return local, old_bytes, incoming, item
@@ -205,7 +208,7 @@ def test_verified_old_preview_shows_button_and_updates_to_new_preview(view, app,
     local, _, incoming, item = prepare(view, tmp_path)
     archive(local, '76')  # Script revision differs from the website release label.
     item['version'] = '0.29.0-preview.13'
-    view.refresh()
+    refreshed(view)
     stat = local.stat()
     view.set_installed_catalog([item], hashes={str(local.resolve()):
         (stat.st_mtime_ns, stat.st_size, sha(local), stat.st_dev, stat.st_ino)},

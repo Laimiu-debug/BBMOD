@@ -39,6 +39,9 @@ class ImmediateWorker:
     def isRunning(self):
         return self.running
 
+    def deleteLater(self):
+        pass
+
     def start(self):
         self.running = True
         try:

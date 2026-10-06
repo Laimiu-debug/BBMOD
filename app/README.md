@@ -2,7 +2,7 @@
 
 面向《战场兄弟》1.5.2.3 的本地桌面工具：营地诊断、MOD 军械库、方案管理、汉化管理、种子远征、装备百科与反馈。
 
-当前桌面版本为 **0.3.0-rc.38**（以 `core/version.py` 为准），配套独立汉化包为 **0.3.0-rc.9**。官网 **https://bbmod.com** 统一提供软件下载、更新、在线军械库和方案广场。各版本的改动见 [releases/](releases/)，当前版本见 [rc.38 说明](releases/0.3.0-rc.38.md)；网站部署与发布记录见 [web/README.md](../web/README.md) 和 [web/deploy/](../web/deploy/)。
+当前桌面版本为 **0.3.1**（以 `core/version.py` 为准），配套独立汉化包为 **0.3.0-rc.9**。官网 **https://bbmod.com** 统一提供软件下载、更新、在线军械库和方案广场。各版本的改动见 [releases/](releases/)，当前版本见 [0.3.1 说明](releases/0.3.1.md)；固定编号和打包规则见 [版本约定](docs/versioning.md)。网站部署与发布记录见 [web/README.md](../web/README.md) 和 [web/deploy/](../web/deploy/)。
 
 ## 下载与升级
 
@@ -325,11 +325,10 @@ node tests/runtime.test.cjs ./build/browser-check/node_modules/jsdom
 
 ```powershell
 python tools/build_icons.py
-python -m PyInstaller --noconfirm BBMOD.spec
-python tools/package_check.py --exe dist/BBMOD-<版本>.exe
+python -X utf8 tools/build_desktop.py
 ```
 
-当前 spec 保留单文件构建，成品按 `core/version.py` 中的软件版本命名为 `dist/BBMOD-<版本>.exe`，包含完整独立精修词库、字体、图标、种子脚本和普通 MOD 地图界面代码。`package_check.py` 会拒绝携带旧注入组件的构建。内置 MOD 资源合集仍从 EXE 周边仓库目录寻找，不把第三方汉化并入应用。
+当前 spec 保留单文件构建，成品按 `core/version.py` 中的软件版本命名为 `dist/BBMOD-<版本>.exe`，包含完整独立精修词库、字体、图标、种子脚本和普通 MOD 地图界面代码。打包入口自动执行 `package_check.py` 并记录源码及成品校验清单，拒绝旧注入组件和同版本不同内容的覆盖。编号不随打包次数变化。内置 MOD 资源合集仍从 EXE 周边仓库目录寻找，不把第三方汉化并入应用。
 
 网站发布提供带版本号的主下载文件 `BBMOD-<版本>.exe`。更新器优先读取官网。若另行发布到 GitHub，旧 rc.4／rc.5 更新器仍需要内容完全一致的 `BBMOD.exe` 兼容附件；更新器会校验下载地址、大小和 SHA256。
 

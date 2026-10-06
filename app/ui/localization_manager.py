@@ -11,7 +11,7 @@ from PySide6.QtWidgets import (
 from core.localization_profiles import BUILTIN, CURRENT, NONE, LocalizationProfiles
 from core import l10n
 from .theme import style_button, style_table
-from .workers import Worker
+from .workers import Worker, track
 
 
 class LocalizationFiles(QTableWidget):
@@ -296,7 +296,7 @@ class LocalizationManager(QWidget):
         if setter:
             setter(True)
         self.update_controls()
-        self.worker = Worker(fn, self)
+        track(self, 'worker', Worker(fn, self))
         def finished(result=None, error=None):
             if launch:
                 if error:

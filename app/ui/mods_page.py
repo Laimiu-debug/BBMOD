@@ -17,7 +17,7 @@ from core.modstore import load_index
 from core.online_catalog import OnlineInstaller
 from core.site_config import SITE_ORIGIN, same_site
 from .app_context import AppContext
-from .workers import Worker
+from .workers import Worker, track, modify_files
 from .theme import GREEN, MUTED, style_button, style_table
 from PySide6.QtGui import QColor
 
@@ -36,6 +36,14 @@ class ModsPage(QWidget):
         self._installed_release_versions = {}
         self._installed_catalog_items = []
         self._installed_catalog_origin = SITE_ORIGIN
+        self._receipts, self._states = {}, {}
+        self._scan_worker = self._op_worker = self._repo_worker = None
+        self._scan_again = False
+        self._pending_op = None
+        self._skip_refresh = False
+        self._refresh_deferred = False
+        self._scan_status = ''
+        self._row_buttons_state = None
 
         root = QVBoxLayout(self)
         tabs = self.sections = QTabWidget()
@@ -51,6 +59,7 @@ class ModsPage(QWidget):
         self.sharing = ProfileSharing(self)
         root.addWidget(tabs, 1)
         ctx.management_changed.connect(self.update_controls)
+        ctx.management_changed.connect(self._management_changed)
         ctx.session_changed.connect(self.update_controls)
         self.catalog_service = None
         if getattr(ctx.settings, 'path', None) is not None:
@@ -168,21 +177,135 @@ class ModsPage(QWidget):
         self.state_filter.currentTextChanged.connect(self.filter_installed)
         return w
 
+    @property
+    def idle(self) -> bool:
+        return (self._scan_worker is None and self._op_worker is None and self._pending_op is None
+                and not self._scan_again and not self._refresh_deferred)
+
     def refresh(self) -> None:
+        """后台扫描已安装 MOD；扫描期间再次刷新会在结束后补扫一次，文件操作期间则由操作结束时统一刷新。"""
+        if self._skip_refresh:
+            return
         mm = self.ctx.mm
-        mods = mm.scan() if mm else []
-        self._installed_mods = mods
+        self.recover_btn.setVisible(bool(mm and mm.transaction.journal.exists()))
+        if self._scan_worker is not None:
+            self._scan_again = True
+            return
+        if self._op_worker is not None or getattr(self.ctx, 'management_busy', False):
+            # 其它后台操作（在线安装、方案应用等）可能正在移动 ZIP；结束后再扫描。
+            self._refresh_deferred = True
+            return
+        if not mm:
+            self._scan_status = self.status_label.text()
+            self._show_installed([], {}, {})
+            return
+        self.status_label.setText('正在读取已安装 MOD…')
+        self._scan_status = self.status_label.text()
+        self.empty_box.hide()
+        self._start_scan(mm)
+
+    def _start_scan(self, mm) -> None:
+        worker = track(self, '_scan_worker', Worker(lambda: self._scan(mm), self))
+        worker.done.connect(lambda result: self._scanned(mm, result))
+        worker.failed.connect(lambda error: self.status_label.setText('读取已安装 MOD 失败：' + error))
+        worker.finished.connect(self._scan_finished)
+        worker.start()
+
+    @staticmethod
+    def _scan(mm):
+        mods = mm.scan()
+        try:
+            receipts = OnlineInstaller(mm).state()['mods']
+        except (OSError, ValueError, TypeError):
+            receipts = {}
+        return mods, mm.installation_states(mods), receipts
+
+    def _scanned(self, mm, result) -> None:
+        if mm is not self.ctx.mm:
+            self._scan_again = True
+        else:
+            self._show_installed(*result)
+
+    def _management_changed(self, busy) -> None:
+        if not busy and self._refresh_deferred:
+            self._refresh_deferred = False
+            self.refresh()
+
+    def _scan_finished(self) -> None:
+        if self._pending_op is not None:
+            # 操作结束时会重新扫描，这里不必补扫。
+            start, self._pending_op = self._pending_op, None
+            self._scan_again = False
+            start()
+            return
+        if self._scan_again:
+            self._scan_again = False
+            if getattr(self.ctx, 'management_busy', False):
+                self._refresh_deferred = True
+            elif self.ctx.mm:
+                self._start_scan(self.ctx.mm)
+            else:
+                self.refresh()
+
+    def _show_installed(self, mods, states, receipts) -> None:
+        mm = self.ctx.mm
+        self._installed_mods, self._states, self._receipts = mods, states, receipts
         self._render_installed()
         enabled = sum(1 for m in mods if m.enabled)
-        self.status_label.setText(f"共 {len(mods)} 个：启用 {enabled} · 禁用 {len(mods) - enabled}（挂载顺序即文件名排序）")
+        if self.status_label.text() == self._scan_status:
+            self.status_label.setText(f"共 {len(mods)} 个：启用 {enabled} · 禁用 {len(mods) - enabled}（挂载顺序即文件名排序）")
         self.empty_box.setVisible(not mods)
         self.empty_label.setText('还没有安装 MOD，从在线军械库挑选或导入 ZIP。' if mm else '先选择游戏目录，再安装 MOD。')
         self.recover_btn.setVisible(bool(mm and mm.transaction.journal.exists()))
         self._filter_repo()
+        self.online.set_local_state((receipts, states))
         self.online.render()
         self.update_controls()
         if self.automatic_catalog and self.isVisible():
             self.check_catalog()
+
+    def _operate(self, status, failure, fn, done=None) -> None:
+        """后台执行文件操作：期间锁定 MOD 管理，结束后刷新列表并广播。"""
+        if self._op_worker is not None or self._pending_op is not None:
+            return
+        manager = self.ctx.mm
+        operation = lambda: modify_files(manager, fn)
+        self.ctx.set_management_busy(True)
+        self.status_label.setText(status + '…')
+        if self._scan_worker is not None:
+            # 扫描线程可能正打开这些 ZIP；Windows 上移动被打开的文件会失败，等扫描结束再动手。
+            self._pending_op = lambda: self._start_operation(failure, operation, done)
+            return
+        self._start_operation(failure, operation, done)
+
+    def _start_operation(self, failure, fn, done) -> None:
+        def work():
+            try:
+                return fn(), None
+            except (KeyError, OSError, ValueError) as exc:
+                return None, str(exc)
+        outcome = []
+        worker = track(self, '_op_worker', Worker(work, self))
+        worker.done.connect(outcome.append)
+        worker.failed.connect(lambda error: outcome.append((None, error)))
+
+        def finished():
+            self._refresh_deferred = False  # 下面统一刷新一次
+            self.ctx.set_management_busy(False)
+            self.refresh()
+            # 上面刚启动的扫描已看到操作后的文件，广播时不再重复扫描本页。
+            self._skip_refresh = True
+            try:
+                self.ctx.data_changed.emit()
+            finally:
+                self._skip_refresh = False
+            result, error = outcome[0] if outcome else (None, '操作已中断，请刷新后重试。')
+            if error is not None:
+                QMessageBox.warning(self, failure, error)
+            elif done:
+                done(result)
+        worker.finished.connect(finished)
+        worker.start()
 
     def _installed_catalog(self):
         return self._installed_catalog_items, self._installed_catalog_origin
@@ -217,10 +340,7 @@ class ModsPage(QWidget):
         self.refresh_installed_metadata()
 
     def _installed_receipts(self):
-        try:
-            return OnlineInstaller(self.ctx.mm).state()['mods'] if self.ctx.mm else {}
-        except (OSError, ValueError, TypeError):
-            return {}
+        return self._receipts
 
     def _installed_signature(self, info):
         try:
@@ -254,6 +374,7 @@ class ModsPage(QWidget):
         self.table.blockSignals(True)
         self.table.clearSelection()
         self.table.setRowCount(len(mods))
+        self._row_buttons_state = None
         self._installed_infos.clear()
         for i, m in enumerate(mods):
             self._installed_infos[m.path.name] = m.info
@@ -324,10 +445,13 @@ class ModsPage(QWidget):
         available = bool(self.ctx.mm) and not self.ctx.management_busy and not self.ctx.seedgen_active
         pending = bool(self.ctx.mm and self.ctx.mm.transaction.journal.exists())
         online_running = bool(hasattr(self, 'online') and self.online.worker and self.online.worker.isRunning())
-        for row in range(self.table.rowCount()):
-            button = self.table.cellWidget(row, 5)
-            if button:
-                button.setEnabled(available and not pending and not online_running and bool(button.property('verifiedFile')))
+        rows_enabled = available and not pending and not online_running
+        if rows_enabled != self._row_buttons_state:
+            self._row_buttons_state = rows_enabled
+            for row in range(self.table.rowCount()):
+                button = self.table.cellWidget(row, 5)
+                if button:
+                    button.setEnabled(rows_enabled and bool(button.property('verifiedFile')))
         self.cancel_update_btn.setVisible(bool(hasattr(self, 'online') and self.ctx.management_busy
                                               and self.online.cancel_btn.isEnabled()))
         self.enable_btn.setEnabled(available and not pending and any(not state for _, state in selected))
@@ -358,22 +482,13 @@ class ModsPage(QWidget):
         paths, _ = QFileDialog.getOpenFileNames(self, '选择 MOD ZIP', '', 'MOD ZIP (*.zip)')
         if not paths:
             return
-        try:
-            self.ctx.mm.install_many([Path(path) for path in paths])
-        except (OSError, ValueError) as exc:
-            QMessageBox.warning(self, '安装失败', str(exc))
-        self.refresh()
-        self.ctx.data_changed.emit()
+        manager, sources = self.ctx.mm, [Path(path) for path in paths]
+        self._operate('正在安装 MOD', '安装失败', lambda: manager.install_many(sources))
 
     def recover(self):
         if not self._can_modify():
             return
-        try:
-            self.ctx.mm.transaction.recover()
-        except (OSError, ValueError) as exc:
-            QMessageBox.warning(self, '恢复失败', str(exc))
-        self.refresh()
-        self.ctx.data_changed.emit()
+        self._operate('正在恢复上次操作', '恢复失败', self.ctx.mm.transaction.recover)
 
     def _on_disable(self, enable: bool) -> None:
         if not self._can_modify():
@@ -381,12 +496,9 @@ class ModsPage(QWidget):
         names = [name for name, enabled in self._selected_mods() if enabled != enable]
         if not names:
             return
-        try:
-            self.ctx.mm.set_enabled_many(names, enable)
-        except (OSError, ValueError) as exc:
-            QMessageBox.warning(self, '操作失败', str(exc))
-        self.refresh()
-        self.ctx.data_changed.emit()
+        manager = self.ctx.mm
+        self._operate('正在启用 MOD' if enable else '正在禁用 MOD', '操作失败',
+                      lambda: manager.set_enabled_many(names, enable))
 
     def uninstall(self) -> None:
         if not self._can_modify():
@@ -402,16 +514,21 @@ class ModsPage(QWidget):
             return
         if not self._can_modify():
             return
-        errors = []
-        for name, enabled in selected:
-            try:
-                self.ctx.mm.uninstall(name, from_disabled=not enabled)
-            except (OSError, ValueError) as exc:
-                errors.append(f'{name}: {exc}')
-        if errors:
-            QMessageBox.warning(self, '部分卸载失败', '\n'.join(errors))
-        self.refresh()
-        self.ctx.data_changed.emit()
+        manager = self.ctx.mm
+
+        def work():
+            errors = []
+            for name, enabled in selected:
+                try:
+                    manager.uninstall(name, from_disabled=not enabled)
+                except (OSError, ValueError) as exc:
+                    errors.append(f'{name}: {exc}')
+            return errors
+
+        def report(errors):
+            if errors:
+                QMessageBox.warning(self, '部分卸载失败', '\n'.join(errors))
+        self._operate('正在卸载 MOD', '卸载失败', work, report)
 
     def _open_dir(self) -> None:
         from core import game as game_mod
@@ -452,18 +569,17 @@ class ModsPage(QWidget):
                 return
             try:
                 plan = self.ctx.mm.preview_profile(name)
-                message = '将启用：\n' + ('\n'.join(plan['enable']) or '无') + '\n\n将禁用：\n' + ('\n'.join(plan['disable']) or '无')
-                if QMessageBox.question(self, '预览方案变更', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
-                    return
-                if not self._can_modify():
-                    return
-                en, dis = self.ctx.mm.apply_profile(name, expected=plan)
             except (KeyError, OSError, ValueError) as e:
                 QMessageBox.warning(self, "应用失败", str(e))
-            else:
-                self.status_label.setText(f"已应用「{name}」：启用 {en} · 禁用 {dis}")
-                self.refresh()
-                self.ctx.data_changed.emit()
+                return
+            message = '将启用：\n' + ('\n'.join(plan['enable']) or '无') + '\n\n将禁用：\n' + ('\n'.join(plan['disable']) or '无')
+            if QMessageBox.question(self, '预览方案变更', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
+                return
+            if not self._can_modify():
+                return
+            manager = self.ctx.mm
+            self._operate(f'正在应用「{name}」', '应用失败', lambda: manager.apply_profile(name, expected=plan),
+                          lambda counts: self.status_label.setText(f"已应用「{name}」：启用 {counts[0]} · 禁用 {counts[1]}"))
 
     # ---------------- 仓库 ----------------
 
@@ -507,12 +623,12 @@ class ModsPage(QWidget):
         return w
 
     def refresh_repo(self) -> None:
-        if hasattr(self, "_repo_worker") and self._repo_worker.isRunning():
+        if self._repo_worker and self._repo_worker.isRunning():
             return
         def scan():
             return self.ctx.store().scan()
 
-        self._repo_worker = Worker(scan, self)
+        track(self, '_repo_worker', Worker(scan, self))
         self._repo_worker.done.connect(self._show_repo)
         self._repo_worker.failed.connect(lambda e: self.repo_status.setText(f"仓库扫描失败：{e}"))
         self._repo_worker.start()
@@ -540,7 +656,7 @@ class ModsPage(QWidget):
             if (cat == "全部" or e.category == cat)
             and (not kw or kw in e.display_name.lower() or kw in e.info.file_name.lower())
         ]
-        installed = self.ctx.mm.installation_states() if self.ctx.mm else {}
+        installed = self._states
         self._filtered_repo_entries = rows
         self.repo_table.setRowCount(len(rows))
         for i, e in enumerate(rows):
@@ -570,19 +686,13 @@ class ModsPage(QWidget):
         if not rows:
             QMessageBox.information(self, "安装", "先在列表中选择要安装的 mod（可多选）")
             return
-        entries = [self._filtered_repo_entries[r] for r in sorted(rows)]
-        try:
-            installed = self.ctx.mm.install_many([entry.info.path for entry in entries])
-        except (OSError, ValueError) as exc:
-            QMessageBox.warning(self, "安装失败", str(exc))
-            return
-        self.repo_status.setText(f"已安装 {len(installed)} 个文件")
-        self.refresh()
-        self.refresh_repo()
-        self.ctx.data_changed.emit()
+        manager, sources = self.ctx.mm, [self._filtered_repo_entries[r].info.path for r in sorted(rows)]
+        self._operate('正在安装 MOD', '安装失败', lambda: manager.install_many(sources),
+                      lambda installed: self.repo_status.setText(f"已安装 {len(installed)} 个文件"))
 
     def _can_modify(self) -> bool:
-        if not self.ctx.mm or getattr(self.ctx, 'management_busy', False) or getattr(self.ctx, 'seedgen_active', False):
+        if (not self.ctx.mm or self._op_worker is not None or self._pending_op is not None or getattr(self.ctx, 'management_busy', False)
+                or getattr(self.ctx, 'seedgen_active', False)):
             return False
         from core.game import is_game_running
         if is_game_running():

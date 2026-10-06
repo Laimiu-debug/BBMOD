@@ -11,6 +11,7 @@ from PySide6.QtWidgets import QApplication
 from core.modmanager import ModManager
 from core.site_config import SITE_ORIGIN
 from ui.mods_page import ModsPage
+from ui_wait import refreshed, settle_mods
 
 
 IDENTITY = '00000000-0000-0000-0000-000000000001'
@@ -59,6 +60,7 @@ def page(app, tmp_path):
     manager.data.mkdir(parents=True)
     view = ModsPage(Context(manager))
     yield view
+    settle_mods(view)
     view.close()
     app.processEvents()
 
@@ -67,7 +69,7 @@ def test_offline_chinese_names_versions_and_id_search(page):
     archive(page.ctx.mm.data / 'fixture.zip')
     archive(page.ctx.mm.disabled_dir / 'other.zip', mod_id='mod_other', name='另一 MOD')
     page._installed_index = {'fixture.zip': {'name_cn': '离线中文 MOD', 'mod_ids': ['mod_fixture']}}
-    page.refresh()
+    refreshed(page)
     assert page.table.item(0, 2).text() == '离线中文 MOD'
     assert page.table.item(0, 3).text() == '1.0.0'
     assert page.table.item(0, 4).text() == '—'
@@ -87,7 +89,7 @@ def test_offline_chinese_names_versions_and_id_search(page):
 
 def test_catalog_refresh_preserves_selection_and_update_uses_real_file(page, monkeypatch):
     installed = archive(page.ctx.mm.disabled_dir / 'renamed-by-user.zip')
-    page.refresh()
+    refreshed(page)
     page.table.selectRow(0)
     monkeypatch.setattr(page.ctx.mm, 'scan', lambda *args, **kwargs: pytest.fail('catalog labels must not rescan ZIPs'))
     item = catalog()
@@ -115,7 +117,7 @@ def test_catalog_refresh_preserves_selection_and_update_uses_real_file(page, mon
 
 def test_update_buttons_follow_management_seed_and_pending_locks(page):
     installed = archive(page.ctx.mm.data / 'fixture.zip')
-    page.refresh()
+    refreshed(page)
     page.set_installed_catalog([catalog()])
     button = page.table.cellWidget(0, 5)
     assert button and not button.isEnabled()  # File identity is verified before a direct update.
@@ -142,7 +144,7 @@ def test_update_buttons_follow_management_seed_and_pending_locks(page):
 
 def test_changed_archive_cannot_reuse_cached_release_hash(page):
     installed = archive(page.ctx.mm.data / 'fixture.zip', version='62')
-    page.refresh()
+    refreshed(page)
     verified = hashes(installed)
     digest = verified[str(installed.resolve())][2]
     page.set_installed_catalog([catalog(version='0.28.12')], hashes=verified,
@@ -158,7 +160,7 @@ def test_changed_archive_cannot_reuse_cached_release_hash(page):
 
 def test_replacement_with_same_size_and_timestamp_invalidates_verified_identity(page, tmp_path):
     installed = archive(page.ctx.mm.data / 'fixture.zip', version='62')
-    page.refresh()
+    refreshed(page)
     info = page._installed_mods[0].info
     stat = installed.stat()
     digest = hashlib.sha256(installed.read_bytes()).hexdigest()

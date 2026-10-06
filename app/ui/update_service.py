@@ -14,7 +14,7 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequ
 
 from core.app_updates import (API_URL, SITE_API_URL, VERSION, Release, available_releases,
     download_host_allowed, parse_releases, parse_site_releases, verify_download, version_key, write_json)
-from .workers import Worker
+from .workers import Worker, track
 from core.site_config import canonical_site_url
 
 
@@ -297,13 +297,14 @@ class UpdateService(QObject):
                 raise
         worker = Worker(verify)
         worker.setParent(self)
-        self._verifier = worker
+        track(self, '_verifier', worker)
         worker.done.connect(lambda destination: self._verified(destination, release))
         worker.failed.connect(self._verify_failed)
-        worker.finished.connect(worker.deleteLater)
         worker.start()
 
     def _verified(self, destination, release):
+        if self._closed:
+            return
         self.busy = ''
         self.downloaded, self.download_release = destination, release
         self.status = '新版已就绪。正常退出软件后静默更新，也可立即重启更新。'
@@ -315,6 +316,8 @@ class UpdateService(QObject):
         self.changed.emit()
 
     def _verify_failed(self, error):
+        if self._closed:
+            return
         self.busy, self.status = '', '文件校验未通过：' + error
         self.downloaded = None
         self.changed.emit()
@@ -343,3 +346,5 @@ class UpdateService(QObject):
         self._closed = True
         self.timer.stop()
         self.cancel()
+        if self._verifier is not None:
+            self._verifier.wait()

@@ -1,7 +1,7 @@
 name: bbmod-hub
 services:
   app:
-    image: bbmod-hub:0.3.6
+    image: bbmod-hub:0.3.7
     build:
       context: ..
       dockerfile: web/Dockerfile

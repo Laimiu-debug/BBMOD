@@ -105,6 +105,12 @@ class GameSession(QObject):
             self._set('starting', '已发送启动请求，正在等待游戏出现，无需重复点击。')
         self.poll()
 
+    def begin_collecting(self):
+        self._set('collecting', '游戏已退出，正在检查并保存本次日志…')
+
+    def finish_collecting(self):
+        self._set('idle', '游戏已退出，可以再次启动。')
+
     def launch_failed(self, error):
         self._deadline = None
         self._owned_launch = False

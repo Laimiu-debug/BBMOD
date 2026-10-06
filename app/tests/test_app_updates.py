@@ -306,7 +306,11 @@ def test_update_dialog_preferences_history_and_plain_text(app, tmp_path):
     from ui.update_service import UpdateService
     from ui.update_dialog import UpdateDialog
     service = UpdateService(settings_at(tmp_path), automatic=False)
-    service.releases = [parsed(), parsed(release_row('v0.3.0', preview=False))]
+    major = updates.version_key(VERSION)[0] + 1
+    stable_tag = f'v{major}.0.0'
+    service.save_preference('preview', True)
+    service.releases = [parsed(release_row(f'v{major}.0.1-rc.1')),
+                        parsed(release_row(stable_tag, preview=False))]
     dialog = UpdateDialog(service)
     dialog.show();app.processEvents()
     assert dialog.versions.count() == 2
@@ -319,8 +323,8 @@ def test_update_dialog_preferences_history_and_plain_text(app, tmp_path):
     assert dialog.notes.textCursor().position() == 5
     dialog.automatic.setChecked(False)
     dialog.channel.setCurrentIndex(0)
-    assert dialog.versions.count() == 1 and dialog.selected().tag == 'v0.3.0'
-    assert '新版本 v0.3.0。' in service.status
+    assert dialog.versions.count() == 1 and dialog.selected().tag == stable_tag
+    assert f'新版本 {stable_tag}。' in service.status
     assert service.settings.get('seed_traits') == {'required': ['trait.huge']}
     reloaded = UpdateService(service.settings, automatic=False)
     assert reloaded.preferences['automatic'] is False and reloaded.preferences['preview'] is False

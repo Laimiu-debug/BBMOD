@@ -9,7 +9,7 @@ from core.online_catalog import site_origin
 from core.shared_profiles import fetch_profiles, profile_identity
 from .profile_sharing import ProfileSharing, preview_dialog
 from .theme import style_button, style_table
-from .workers import Worker
+from .workers import Worker, track
 
 
 class ProfilesPage(QWidget):
@@ -351,7 +351,7 @@ class ProfilesPage(QWidget):
         self.render_online()
         self.page_label.setText('正在读取…')
         self.status_label.setText('正在读取网站现有方案…')
-        worker = self.worker = Worker(lambda: fetch_profiles(origin, query, page), self)
+        worker = track(self, 'worker', Worker(lambda: fetch_profiles(origin, query, page), self))
 
         def current_source():
             try:

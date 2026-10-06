@@ -248,7 +248,7 @@ class InspectorPage(QWidget):
         if register_hotkey: self.apply_hotkey(save=False)
         self.timer = QTimer(self); self.timer.setInterval(80); self.timer.timeout.connect(self.poll); self.timer.start()
         self.follow_timer = QTimer(self); self.follow_timer.setInterval(33)
-        self.follow_timer.timeout.connect(self.sync_overlay); self.follow_timer.start()
+        self.follow_timer.timeout.connect(self.sync_overlay)
         ctx.game_changed.connect(self.refresh_mod)
         ctx.management_changed.connect(self.refresh_controls)
         ctx.session_changed.connect(self.refresh_controls)
@@ -331,27 +331,30 @@ class InspectorPage(QWidget):
         event = self.hover.current(time.monotonic())
         if (not event or not self.enabled.isChecked() or self.ctx.seedgen_active
                 or not self.foreground(self.ctx.game)):
-            self.overlay.hide(); self.presented = None
+            self.overlay.hide(); self.presented = None; self.follow_timer.stop()
             return
         avoid = self.tooltip_rect(self.hover.bounds)
         if avoid is None:
-            self.overlay.hide(); self.presented = None
+            self.overlay.hide(); self.presented = None; self.follow_timer.stop()
             return
         if self.presented != event['seq']:
             try: result = appraise(event, self.items)
             except ValueError:
-                self.overlay.hide(); self.presented = None; return
+                self.overlay.hide(); self.presented = None; self.follow_timer.stop(); return
             self.overlay.present(result, self.hotkey.current or '页面按钮', avoid)
             self.presented = event['seq']
         else:
             self.overlay.follow_cursor(avoid)
+        if not self.follow_timer.isActive(): self.follow_timer.start()
 
     def poll(self):
+        changed = self.ctx.seedgen_active
         if self.ctx.seedgen_active:
             self.overlay.hide(); self.hover.reset(); self.presented = None
         for reader in self.readers:
             generation = reader.generation
             events = reader.poll()
+            changed = changed or bool(events) or reader.generation != generation
             if reader.generation != generation and reader is self.active_reader:
                 self.hover.reset(); self.overlay.hide(); self.presented = None
                 self.latest = None; self.received_at = 0; self.latest_identifier = None
@@ -385,7 +388,8 @@ class InspectorPage(QWidget):
             seconds = int(time.monotonic() - self.received_at)
             text = '最近一次悬停 · ' + ('刚刚' if seconds < 2 else f'{seconds} 秒前')
             self.age.setText(text)
-        self.sync_overlay()
+        if changed or not self.follow_timer.isActive():
+            self.sync_overlay()
 
     def shutdown(self):
         self.timer.stop(); self.follow_timer.stop(); self.hotkey.shutdown(); self.overlay.close()

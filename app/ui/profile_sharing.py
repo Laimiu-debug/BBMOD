@@ -6,7 +6,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QDialogButtonBox, QInputDi
 from core.online_catalog import site_origin
 from core.shared_profiles import (prepare_share, negotiate, publish_share, fetch_profile,
                                   profile_identity, preview_apply, apply_shared)
-from .workers import Worker
+from .workers import Worker, track
 
 
 class ProfileWorker(Worker):
@@ -62,7 +62,7 @@ class ProfileSharing(QObject):
             return
         self.ctx.set_management_busy(True)
         self.page.status_label.setText(title + '…')
-        worker = self.worker = ProfileWorker(function, self.page)
+        worker = track(self, 'worker', ProfileWorker(function, self.page))
         result, errors = [], []
         worker.done.connect(result.append)
         worker.failed.connect(errors.append)

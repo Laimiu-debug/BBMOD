@@ -1,5 +1,6 @@
 import hashlib
 import json
+from pathlib import Path
 from unittest.mock import patch
 import zipfile
 
@@ -45,6 +46,70 @@ def test_settings_reject_non_object_json(tmp_path, monkeypatch):
     assert Settings().get('anything', 'default') == 'default'
     assert path.with_name('settings.json.corrupt').exists()
 
+
+
+def test_locked_settings_are_kept_and_merged_on_save(tmp_path, monkeypatch):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    path = tmp_path / 'BBMOD' / 'settings.json'
+    path.parent.mkdir()
+    path.write_text('{"game_path": "E:/Game", "theme": "light"}', encoding='utf-8')
+    original = Path.read_text
+    locked = [True]
+
+    def read_text(self, *args, **kwargs):
+        if self == path and locked[0]:
+            raise PermissionError(32, 'sharing violation')
+        return original(self, *args, **kwargs)
+    monkeypatch.setattr(Path, 'read_text', read_text)
+    monkeypatch.setattr('core.settings.time.sleep', lambda _: None)
+    settings = Settings()
+    assert settings.data == {} and not path.with_name('settings.json.corrupt').exists()
+    locked[0] = False
+    settings.set('theme', 'dark')
+    assert json.loads(path.read_text(encoding='utf-8')) == {'game_path': 'E:/Game', 'theme': 'dark'}
+
+
+def test_invalid_utf8_settings_are_backed_up_before_reset(tmp_path, monkeypatch):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    path = tmp_path / 'BBMOD' / 'settings.json'
+    path.parent.mkdir()
+    original = b'\xff\xfeinvalid'
+    path.write_bytes(original)
+    settings = Settings()
+    assert settings.data == {}
+    assert path.with_name('settings.json.corrupt').read_bytes() == original
+    settings.set('theme', 'dark')
+    assert Settings().get('theme') == 'dark'
+
+
+def test_persistent_read_failure_never_overwrites_settings(tmp_path, monkeypatch):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    path = tmp_path / 'BBMOD' / 'settings.json'
+    path.parent.mkdir()
+    original = b'{"game_path": "E:/Game", "theme": "light"}'
+    path.write_bytes(original)
+    with patch.object(Settings, '_read', side_effect=PermissionError('locked')):
+        settings = Settings()
+        with pytest.raises(PermissionError):
+            settings.set('theme', 'dark')
+    assert path.read_bytes() == original
+    settings.save()
+    assert json.loads(path.read_text(encoding='utf-8')) == {'game_path': 'E:/Game', 'theme': 'dark'}
+
+
+def test_failed_corrupt_backup_blocks_save_until_preserved(tmp_path, monkeypatch):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    path = tmp_path / 'BBMOD' / 'settings.json'
+    path.parent.mkdir()
+    path.write_bytes(b'\xffbroken')
+    with patch('core.settings.os.replace', side_effect=PermissionError('locked')):
+        settings = Settings()
+        with pytest.raises(PermissionError):
+            settings.set('theme', 'dark')
+    assert path.read_bytes() == b'\xffbroken'
+    settings.save()
+    assert path.with_name('settings.json.corrupt').read_bytes() == b'\xffbroken'
+    assert Settings().get('theme') == 'dark'
 
 def test_staged_packages_stream_outer_and_nested_archives(tmp_path, monkeypatch):
     inner = tmp_path / 'inner.zip'

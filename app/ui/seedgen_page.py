@@ -33,7 +33,7 @@ from .app_context import AppContext
 from .theme import style_button, style_table
 from .seed_trait_dialog import SeedTraitDialog
 from .seed_weapon_filter import SeedWeaponFilter
-from .workers import Worker
+from .workers import Worker, track
 from .seed_share_worker import SeedShareWorker
 from .seed_poll_worker import SeedPollWorker
 from core.seedgen.mod_origins import AFEI_ORIGIN
@@ -1024,7 +1024,7 @@ class SeedGenPage(QWidget):
         self.start_btn.setEnabled(False)
         self.import_action.setEnabled(False)
         self.progress_label.setText("正在读取日志并生成中文档案…")
-        self._import_worker = Worker(lambda: import_seed_log(Path(filename)), self)
+        track(self, '_import_worker', Worker(lambda: import_seed_log(Path(filename)), self))
         self._import_worker.done.connect(self._imported_results)
         self._import_worker.failed.connect(lambda error: self.progress_label.setText(f"导入失败：{error}"))
         self._import_worker.finished.connect(lambda: self.start_btn.setEnabled(True))

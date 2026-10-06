@@ -12,8 +12,8 @@ def main():
     parser.add_argument('--all', action='store_true')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
-    names = ['test_mod_management.py', 'test_shared_profiles.py', 'test_profiles_page.py', 'test_online_catalog.py', 'test_localization_profiles.py',
-             'test_game_launch_ui.py', 'test_localization_manager_ui.py', 'test_seed_session.py', 'test_app_updates.py', 'test_update_notice.py']
+    names = ['test_mod_file_safety.py', 'test_io_util.py', 'test_profiles_page.py', 'test_online_catalog.py', 'test_localization_profiles.py',
+             'test_localization_manager_ui.py', 'test_seed_session.py', 'test_app_updates.py', 'test_update_notice.py']
     paths = sorted((root / 'tests').glob('test_*.py')) if args.all else [root / 'tests' / name for name in names]
     results = []
     for path in paths:

@@ -12,7 +12,7 @@ from core.diagnostics import DiagnosisReport, diagnose
 from core.gamelog import load_log
 from core.modinfo import analyze_zip
 from .app_context import AppContext
-from .workers import Worker
+from .workers import Worker, track
 from .theme import GREEN, MUTED, RED, style_button, style_table
 from PySide6.QtGui import QColor
 
@@ -93,7 +93,7 @@ class DashboardPage(QWidget):
         root.addWidget(diag_box, 1)
 
     def refresh(self) -> None:
-        if hasattr(self, "_worker") and self._worker.isRunning():
+        if getattr(self, "_worker", None) and self._worker.isRunning():
             self._refresh_pending = True
             return
         g = self.ctx.game
@@ -112,7 +112,7 @@ class DashboardPage(QWidget):
         self.info_label.setText("\n".join(lines))
 
         self.refresh_btn.setEnabled(False)
-        self._worker = Worker(self._run_diagnosis, self)
+        track(self, "_worker", Worker(self._run_diagnosis, self))
         self._worker.done.connect(self._show_report)
         self._worker.failed.connect(lambda e: (self.summary_label.setText(f"诊断失败：{e}"),
                                                self.refresh_btn.setEnabled(True)))
@@ -126,7 +126,8 @@ class DashboardPage(QWidget):
 
     def _run_diagnosis(self) -> DiagnosisReport:
         g = self.ctx.game
-        installed = [analyze_zip(z) for z in sorted(g.data_dir.glob("*.zip"))]
+        analyze = self.ctx.mm.analyze if self.ctx.mm else analyze_zip
+        installed = [analyze(z) for z in sorted(g.data_dir.glob("*.zip"))]
         log_dir = self.ctx.log_dir()
         rows = load_log(log_dir / "log.html") if log_dir else []
         return diagnose(g, installed, rows)

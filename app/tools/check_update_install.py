@@ -22,7 +22,10 @@ def main():
     parser.add_argument('--silent', action='store_true', help='Validate exit-only replacement without relaunch')
     parser.add_argument('--target-name', default='BBMOD.exe', help='Portable filename before updating; test versioned and legacy backup names')
     parser.add_argument('--source-helper', action='store_true', help='Exercise the working-tree updater with real EXE copies before packaging')
+    parser.add_argument('--old-helper', action='store_true', help='Verify upgrading with the updater embedded in the old EXE')
     args = parser.parse_args()
+    if args.old_helper and args.source_helper:
+        parser.error('--old-helper and --source-helper are mutually exclusive')
     if Path(args.target_name).name != args.target_name or not args.target_name.lower().endswith('.exe'):
         parser.error('--target-name must be an EXE filename without a directory')
     workspace = ROOT/'build/update-install-check'/uuid.uuid4().hex
@@ -32,7 +35,7 @@ def main():
     target = target_folder/args.target_name
     source = job/'BBMOD.exe'
     helper = job/'BBMOD-update-helper.exe'
-    shutil.copy2(args.exe,source);shutil.copy2(args.exe,helper);shutil.copy2(args.old_exe,target)
+    shutil.copy2(args.exe,source);shutil.copy2(args.old_exe if args.old_helper else args.exe,helper);shutil.copy2(args.old_exe,target)
     profile = workspace/'profile'
     settings = profile/'BBMOD/settings.json';settings.parent.mkdir(parents=True)
     settings.write_text(json.dumps({'seed_traits':{'required':['trait.huge'],'excluded':[],'match':'all'},
@@ -44,7 +47,7 @@ def main():
     with (workspace/'old.log').open('wb') as log:
         old = subprocess.Popen([str(target),'--selftest'],env=environment,cwd=target_folder,stdout=log,stderr=log,
                                creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-    release = Release('v'+VERSION,'新版','本地更新验证','',True,RELEASES_URL+'/tag/v'+VERSION,
+    release = Release('v'+VERSION,'新版','本地更新验证','','-' in VERSION,RELEASES_URL+'/tag/v'+VERSION,
                       RELEASES_URL+'/download/v'+VERSION+'/BBMOD.exe',source.stat().st_size,sha256_file(source))
     request = prepare_install(source,release,target=target,parent_pid=old.pid,restart=not args.silent)
     with (workspace/'helper.log').open('wb') as log:
@@ -75,7 +78,7 @@ def main():
               'installed_sha256':sha256_file(target),'backup_sha256':old_hash,
               'settings_unchanged':True,'new_version_selftest':not args.silent,'silent_no_relaunch':args.silent,
               'parent_exit_wait':True,'original_filename':original_target.name,'installed_filename':target.name,
-              'cache_backup':True,'source_helper':args.source_helper,'evidence':str(workspace)}
+              'cache_backup':True,'source_helper':args.source_helper,'old_helper':args.old_helper,'evidence':str(workspace)}
     name = 'update-silent-check.json' if args.silent else 'update-install-check.json'
     (ROOT/'build/review'/name).write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps(report))

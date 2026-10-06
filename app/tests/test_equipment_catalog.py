@@ -5,6 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 from PySide6.QtCore import QObject, Qt, Signal
+from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QTextBrowser
 
 from core.equipment_catalog import attributes, detail_html, load_equipment, load_equipment_icons, matches
@@ -68,15 +69,26 @@ def test_named_ranges_are_actual_shared_rolls_not_a_simulated_item():
     assert '&lt;unsafe&gt;' in detail_html({**sword, 'zh': '<unsafe>'}, '1.5.2.3')
 
 
+def type_search(page, text):
+    rows = page.table.rowCount()
+    page.search.setText(text)
+    assert page.table.rowCount() == rows and page._search_timer.isActive()
+    for _ in range(100):
+        if not page._search_timer.isActive():
+            return
+        QTest.qWait(20)
+    pytest.fail('search debounce did not fire')
+
+
 def test_bilingual_search_filters_and_zero_results(page):
     total = page.table.rowCount()
     assert total > 94
-    page.search.setText('GreatSWORD')
+    type_search(page, 'GreatSWORD')
     assert page.table.rowCount() >= 2
     english_ids = {page.items[page.table.item(row, 0).data(Qt.UserRole)]['id']
                    for row in range(page.table.rowCount())}
     assert {'weapon.greatsword', 'weapon.named_greatsword'} <= english_ids
-    page.search.setText('巨剑')
+    type_search(page, '巨剑')
     assert page.table.rowCount() >= 2
     page.rarity.setCurrentIndex(page.rarity.findData('named'))
     assert page.table.rowCount() == 1 and '红巨剑' == page.table.item(0, 0).text()
@@ -121,7 +133,7 @@ def test_catalog_opens_without_game_and_hover_never_replaces_browsing(qt_app, tm
         page.show(); qt_app.processEvents()
         assert page.sections.currentIndex() == 0 and page.catalog_page.table.rowCount() > 94
         assert not page.install.isEnabled()
-        page.catalog_page.search.setText('盾')
+        page.catalog_page.search.setText('盾'); page.catalog_page.refresh()
         selection = page.catalog_page.selected_key()
         path = tmp_path / 'log.html'; path.write_text('', encoding='utf-8')
         reader = HoverLog(path); reader.poll(); page.readers = [reader]

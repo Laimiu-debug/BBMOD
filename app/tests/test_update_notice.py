@@ -37,7 +37,7 @@ def notice(app, tmp_path):
 
 
 def publish(view, tag='v999.0.0'):
-    view.service.releases = [parsed(release_row(tag))]
+    view.service.releases = [parsed(release_row(tag, preview='-' in tag))]
     view.service.changed.emit()
 
 
@@ -115,7 +115,7 @@ def test_cached_release_prompts_even_during_six_hour_check_window(app, tmp_path,
     settings.set('app_updates', {'automatic': True, 'last_check_epoch': time.time()})
     folder = settings.path.parent / 'updates'
     folder.mkdir()
-    (folder / 'releases-cache.json').write_text(json.dumps([release_row('v999.0.0')]))
+    (folder / 'releases-cache.json').write_text(json.dumps([release_row('v999.0.0', preview=False)]))
     service = UpdateService(settings, automatic=False)
     monkeypatch.setattr(service, 'check', lambda: pytest.fail('Fresh cache must not force network request'))
     context = Context()

@@ -14,7 +14,7 @@ from core import l10n
 from core.l10n_tokens import validate_translation
 from core.place_names import load_policy, original_names
 from .app_context import AppContext
-from .workers import Worker
+from .workers import Worker, track
 from .theme import GREEN, MUTED, style_button, style_table
 from .localization_manager import LocalizationManager
 
@@ -379,7 +379,7 @@ class L10nPage(QWidget):
         if hasattr(self.ctx, 'set_management_busy'):
             self.ctx.set_management_busy(True)
         self.status_label.setText('正在构建独立汉化包…')
-        self._build_worker = Worker(build, self)
+        track(self, '_build_worker', Worker(build, self))
         self._build_worker.done.connect(lambda result: self._after_build(result, install))
         self._build_worker.failed.connect(self._build_failed)
         self._build_worker.start()

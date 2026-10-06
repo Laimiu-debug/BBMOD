@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import threading
 from pathlib import Path
-from PySide6.QtCore import Qt, QUrl, Signal
+from PySide6.QtCore import Qt, QTimer, QUrl, Signal
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QPushButton, QLabel, QTableWidget, QTableWidgetItem, QTextEdit, QMessageBox
 from core.online_catalog import site_origin, fetch_catalog, download_release, OnlineInstaller
 from core.site_config import SITE_ORIGIN, canonical_site_origin, same_site
-from .workers import Worker
+from .workers import Worker, track, modify_files
 from .theme import style_button, style_table
 
 
@@ -26,6 +26,7 @@ class OnlineModsPage(QWidget):
         self.pending_mod_id = None
         self.origin = ''
         self.worker = None
+        self._local = self._local_mm = None
         self.cancelled = threading.Event()
         layout = QVBoxLayout(self)
         bar = QHBoxLayout()
@@ -68,7 +69,10 @@ class OnlineModsPage(QWidget):
         layout.addWidget(self.status)
         self.refresh_btn.clicked.connect(self.refresh)
         self.website_btn.clicked.connect(self.open_website)
-        self.search.textChanged.connect(self.render)
+        self._search_timer = QTimer(self, singleShot=True, interval=200)
+        self._search_timer.timeout.connect(self.render)
+        self.search.textChanged.connect(lambda *_: self._search_timer.start())
+        ctx.data_changed.connect(self.set_local_state)
         self.table.itemSelectionChanged.connect(self.show_details)
         self.install_btn.clicked.connect(self.install)
         self.rollback_btn.clicked.connect(self.rollback)
@@ -94,7 +98,7 @@ class OnlineModsPage(QWidget):
         if self.worker and self.worker.isRunning(): return
         self.cancelled.clear()
         if management: self.ctx.set_management_busy(True)
-        self.worker = Worker(fn, self)
+        track(self, 'worker', Worker(fn, self))
         self.worker.done.connect(done)
         self.worker.failed.connect(lambda error: self._report_status('操作失败：' + error))
         def finish():
@@ -120,12 +124,23 @@ class OnlineModsPage(QWidget):
                 self.focus_mod(self.pending_mod_id)
         self._run(lambda: fetch_catalog(origin), done)
 
+    def set_local_state(self, local=None):
+        """(安装记录, 安装状态)；None 表示失效，下次 render 时重新读取。"""
+        self._local, self._local_mm = local, self.ctx.mm
+
+    def _local_state(self):
+        if self._local is None or self._local_mm is not self.ctx.mm:
+            try: installed = OnlineInstaller(self.ctx.mm).state()['mods'] if self.ctx.mm else {}
+            except (ValueError, OSError): installed = {}
+            self._local = (installed, self.ctx.mm.installation_states() if self.ctx.mm else {})
+            self._local_mm = self.ctx.mm
+        return self._local
+
     def render(self, *_):
+        self._search_timer.stop()
         query = self.search.text().casefold()
         self.rows = [r for r in self.items if query in (' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'author', 'category']) + ' ' + ' '.join(r['metadata'].get('mod_ids', []))).casefold()]
-        try: installed = OnlineInstaller(self.ctx.mm).state()['mods'] if self.ctx.mm else {}
-        except (ValueError, OSError): installed = {}
-        actual = self.ctx.mm.installation_states() if self.ctx.mm else {}
+        installed, actual = self._local_state() if self.rows else ({}, {})
         self._rollback_names = set()
         self._installed_names = {}
         self.table.setRowCount(len(self.rows))
@@ -197,7 +212,7 @@ class OnlineModsPage(QWidget):
                 if self.cancelled.is_set(): raise ValueError('下载已取消。')
                 from core.game import is_game_running
                 if is_game_running(): raise ValueError('游戏已启动，请关闭游戏后再安装。')
-                return OnlineInstaller(manager).install(origin, item, archive)
+                return modify_files(manager, lambda: OnlineInstaller(manager).install(origin, item, archive))
             finally: archive.unlink(missing_ok=True)
         self.status.setText('正在下载、校验并安装…'); self.cancel_btn.setEnabled(True)
         self._run(work, self._installed, management=True)
@@ -227,9 +242,9 @@ class OnlineModsPage(QWidget):
                     raise ValueError('下载已取消。')
                 if is_game_running():
                     raise ValueError('游戏已启动，请关闭游戏后再更新。')
-                return OnlineInstaller(manager).install(origin, item, archive,
+                return modify_files(manager, lambda: OnlineInstaller(manager).install(origin, item, archive,
                     local_file_name=current_file_name, expected_current_sha256=current_sha256,
-                    installed_version=installed_version)
+                    installed_version=installed_version))
             finally:
                 archive.unlink(missing_ok=True)
 
@@ -238,7 +253,7 @@ class OnlineModsPage(QWidget):
         self._run(work, self._installed, management=True)
 
     def _installed(self, result):
-        self._report_status(result); self.render(); self.ctx.data_changed.emit()
+        self._report_status(result); self.set_local_state(); self.render(); self.ctx.data_changed.emit()
 
     def rollback(self):
         item = self.selected()
@@ -246,4 +261,5 @@ class OnlineModsPage(QWidget):
         if QMessageBox.question(self, '恢复上一版', f"恢复 {item['metadata']['title']} 的上一版安装文件？") != QMessageBox.Yes: return
         manager = self.ctx.mm
         local_name = self._installed_names.get(item['id'], item['file_name'])
-        self._run(lambda: OnlineInstaller(manager).rollback(local_name), self._installed, management=True)
+        self._run(lambda: modify_files(manager, lambda: OnlineInstaller(manager).rollback(local_name)),
+                  self._installed, management=True)

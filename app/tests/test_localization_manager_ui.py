@@ -42,7 +42,7 @@ def wait_worker(page, app):
     for _ in range(200):
         app.processEvents()
         if not page._busy:
-            if hasattr(page, 'worker'):
+            if getattr(page, 'worker', None):
                 page.worker.wait(1000)
             return
         QTest.qWait(10)

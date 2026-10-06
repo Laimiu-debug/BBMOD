@@ -1,5 +1,5 @@
 """Searchable offline equipment table, available without a game or reader MOD."""
-from PySide6.QtCore import QSize, Qt, Signal
+from PySide6.QtCore import QSize, Qt, QTimer, Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (QAbstractItemView, QComboBox, QDialog, QDialogButtonBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit, QPushButton, QTableWidget,
@@ -74,7 +74,9 @@ class EquipmentCatalog(QWidget):
         self.detail_button = QPushButton('查看装备详情'); style_button(self.detail_button, 'book')
         self.detail_button.clicked.connect(self.show_detail); footer.addWidget(self.detail_button)
         root.addLayout(footer)
-        self.search.textChanged.connect(self.refresh)
+        self._search_timer = QTimer(self, singleShot=True, interval=200)
+        self._search_timer.timeout.connect(self.refresh)
+        self.search.textChanged.connect(lambda *_: self._search_timer.start())
         self.group.currentIndexChanged.connect(self.refresh)
         self.rarity.currentIndexChanged.connect(self.refresh)
         self.refresh()
@@ -84,6 +86,7 @@ class EquipmentCatalog(QWidget):
         return self.table.item(selected[0].row(), 0).data(Qt.UserRole) if selected else None
 
     def refresh(self, *_):
+        self._search_timer.stop()
         current = self.selected_key()
         header = self.table.horizontalHeader()
         column, order = header.sortIndicatorSection(), header.sortIndicatorOrder()

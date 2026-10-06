@@ -20,7 +20,7 @@ def app():
 
 @pytest.fixture
 def network(app, tmp_path, monkeypatch):
-    response = {'code': 200, 'body': json.dumps([release_row('v999.0.0')]).encode(), 'redirect': None, 'requests': []}
+    response = {'code': 200, 'body': json.dumps([release_row('v999.0.0', preview=False)]).encode(), 'redirect': None, 'requests': []}
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             content = response.get('routes', {}).get(self.path, response)
@@ -98,7 +98,7 @@ def test_official_first_and_fallback_only_after_failure(app, network):
     assert response['requests'] == [SITE_API_URL]
     assert service.latest().download_url.startswith('https://bbmod.com/')
     response['requests'].clear()
-    response['body'] = json.dumps([release_row('v999.0.0')]).encode()
+    response['body'] = json.dumps([release_row('v999.0.0', preview=False)]).encode()
     service.check();wait_idle(app, service)
     assert response['requests'] == [SITE_API_URL, API_URL]
     assert service.latest().tag == 'v999.0.0'
@@ -110,7 +110,7 @@ def test_github_recovers_without_false_completion_or_old_host_requests(app, netw
     response['routes'] = {
         '/api/v1/desktop/releases/': {'code': 503, 'body': b'unavailable'},
         urlsplit(API_URL).path: {
-            'code': 200, 'body': json.dumps([release_row('v999.0.0')]).encode()},
+            'code': 200, 'body': json.dumps([release_row('v999.0.0', preview=False)]).encode()},
     }
     states = []
     service.changed.connect(lambda: states.append(service.busy))

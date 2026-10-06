@@ -47,7 +47,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name=f'BBMOD-{app_version}',
+    name=Path(version_module['release_filename'](app_version)).stem,
     version=str(version_file),
     icon='assets/bbmod.ico',
     debug=False,

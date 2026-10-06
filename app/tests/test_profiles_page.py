@@ -1,5 +1,7 @@
 """Offline UI coverage for browsing, persistent links, and local profile management."""
+import io
 import threading
+import zipfile
 from types import SimpleNamespace
 
 import pytest
@@ -10,7 +12,23 @@ from PySide6.QtWidgets import QApplication, QInputDialog, QMessageBox
 from core.modmanager import ModManager
 from ui.mods_page import ModsPage
 from ui.profiles_page import ProfilesPage
-from test_shared_profiles import ORIGIN, IDENTITY, zipped, catalog_response
+
+IDENTITY = '00000000-0000-0000-0000-000000000001'
+ORIGIN = 'https://bbmod.com'
+
+
+def zipped(label='test', script=None):
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, 'w') as archive:
+        archive.writestr(f'scripts/{label}.nut', script or '// ' + label)
+    return stream.getvalue()
+
+
+def catalog_response():
+    return {'schema_version': 1, 'page': 1, 'pages': 1, 'total': 1, 'items': [
+        {'id': IDENTITY, 'name': '<b>组合</b>', 'note': '新手 & 汉化', 'game_version': '1.5.2.3',
+         'mod_count': 1, 'total_size': 100, 'created_at': '2026-09-28T10:00:00+08:00',
+         'page_path': f'/profiles/{IDENTITY}/'}]}
 
 
 class Context(QObject):
@@ -55,7 +73,8 @@ def page(app, tmp_path, monkeypatch):
 def settle(app, page):
     for _ in range(300):
         QTest.qWait(10)
-        if not page.worker or not page.worker.isRunning():
+        # Thread exit can precede queued finished slots; wait for UI recovery too.
+        if page.worker is None and page.refresh_btn.isEnabled():
             app.processEvents()
             return
     pytest.fail('Website list worker did not settle')
