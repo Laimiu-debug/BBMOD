@@ -331,16 +331,24 @@ def _read_inspector_identity(archive: zipfile.ZipFile, info: ModInfo) -> None:
         info.analysis_errors.append(f'无法读取 {manifest_name}：{exc}')
 
 
+RE_COMMENT_TOKENS = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|//[^\n\r]*|/\*[\s\S]*?\*/')
+RE_STRING_LITERAL = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'')
+RE_TABLE_START = re.compile(r'(?:::)?(\w+(?:\.\w+)*)\s*(?:<-|=)\s*\{')
+RE_LITERAL_ARGUMENT = re.compile(r'"([^"\n]*)"|\'([^\'\n]*)\'')
+# Modern Hooks accepts several literal arguments, including version
+# parentheses inside a string. Stop before the callback expression.
+RE_HOOK_CALLS = tuple((method, re.compile(r'\.' + method + r'\s*\(\s*((?:"[^"\n]*"|\'[^\'\n]*\')(?:\s*,\s*(?:"[^"\n]*"|\'[^\'\n]*\'))*)'))
+                      for method in ('require', 'conflictWith', 'queue'))
+
+
 def _without_comments(text: str) -> str:
-    tokens = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|//[^\n\r]*|/\*[\s\S]*?\*/')
-    return tokens.sub(lambda m: ' ' * len(m[0]) if m[0].startswith(('//', '/*')) else m[0], text)
+    return RE_COMMENT_TOKENS.sub(lambda m: ' ' * len(m[0]) if m[0].startswith(('//', '/*')) else m[0], text)
 
 
 def _table_symbols(text: str) -> dict[str, str]:
-    masked = re.sub(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'',
-                    lambda m: ' ' * len(m[0]), text)
+    masked = RE_STRING_LITERAL.sub(lambda m: ' ' * len(m[0]), text)
     result = {}
-    for table in re.finditer(r'(?:::)?(\w+(?:\.\w+)*)\s*(?:<-|=)\s*\{', masked):
+    for table in RE_TABLE_START.finditer(masked):
         start = table.end()
         depth, end = 1, start
         while end < len(masked) and depth:
@@ -430,12 +438,11 @@ def _extract_markers(text: str, info: ModInfo, symbols: dict[str, str], by_suffi
         reg = Registration(mod_id=mod_id, version=version, name=name, api="modern")
         if not any(r.mod_id == reg.mod_id for r in info.registrations):
             info.registrations.append(reg)
-    for method, destination in (("require", info.requirements), ("conflictWith", info.declared_conflicts), ("queue", info.queue_deps)):
-        # Modern Hooks accepts several literal arguments, including version
-        # parentheses inside a string. Stop before the callback expression.
-        pattern = r'\.' + method + r'\s*\(\s*((?:"[^"\n]*"|\'[^\'\n]*\')(?:\s*,\s*(?:"[^"\n]*"|\'[^\'\n]*\'))*)'
-        for call in re.finditer(pattern, text):
-            for argument in re.finditer(r'"([^"\n]*)"|\'([^\'\n]*)\'', call[1]):
+    destinations = {"require": info.requirements, "conflictWith": info.declared_conflicts, "queue": info.queue_deps}
+    for method, pattern in RE_HOOK_CALLS:
+        destination = destinations[method]
+        for call in pattern.finditer(text):
+            for argument in RE_LITERAL_ARGUMENT.finditer(call[1]):
                 value = argument[1] if argument[1] is not None else argument[2]
                 if method == 'queue':
                     value = value.lstrip('<> ').strip()

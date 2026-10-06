@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 from typing import Any
+from .io_util import atomic_write_json
 from .site_config import canonical_site_origin
 
 
@@ -23,17 +24,24 @@ class Settings:
 
     def load(self) -> None:
         try:
-            self.data = json.loads(self.path.read_text(encoding="utf-8"))
-            if isinstance(self.data, dict) and 'online_catalog_url' in self.data:
-                self.data['online_catalog_url'] = canonical_site_origin(self.data['online_catalog_url'])
-        except (OSError, json.JSONDecodeError):
-            self.data = {}
+            data = json.loads(self.path.read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            data = {}
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            data = None
+        if not isinstance(data, dict):
+            # Keep the unreadable file so the next save cannot silently discard it.
+            try:
+                os.replace(self.path, self.path.with_name(self.path.name + ".corrupt"))
+            except OSError:
+                pass
+            data = {}
+        if 'online_catalog_url' in data:
+            data['online_catalog_url'] = canonical_site_origin(data['online_catalog_url'])
+        self.data = data
 
     def save(self) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(
-            json.dumps(self.data, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
+        atomic_write_json(self.path, self.data)
 
     def get(self, key: str, default: Any = None) -> Any:
         return self.data.get(key, default)

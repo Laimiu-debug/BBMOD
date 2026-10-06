@@ -277,6 +277,14 @@ def _check_known_conflicts(installed, report):
 
 # ---------------- 覆盖冲突 ----------------
 
+OVERLAP_ROOTS = ('scripts/', 'ui/', 'gfx/', 'brushes/', 'sounds/', 'music/', 'preload/')
+RE_SQUIRREL_SOURCE = re.compile(r'\.(?:c?nut)$')
+
+
+def _overlap_key(entry: str) -> str:
+    return RE_SQUIRREL_SOURCE.sub('.squirrel', entry.replace('\\', '/').lower())
+
+
 def _check_file_overlaps(installed: list[ModInfo], report: DiagnosisReport) -> None:
     """按挂载顺序（文件名排序）两两求交集：后挂载者覆盖先挂载者的同名文件。"""
     ordered = sorted(installed, key=lambda m: m.file_name.lower())
@@ -284,18 +292,15 @@ def _check_file_overlaps(installed: list[ModInfo], report: DiagnosisReport) -> N
         m.file_name for m in installed
         if any(r.mod_id in FRAMEWORK_IDS for r in m.registrations)
     }
+    keyed = [[(e, _overlap_key(e)) for e in m.entries] for m in ordered]
+    mounted = [{k for e, k in entries if e.lower().startswith(OVERLAP_ROOTS)} for entries in keyed]
+    present = [{k for _, k in entries} for entries in keyed]
     for i in range(len(ordered)):
         for j in range(i + 1, len(ordered)):
             a, b = ordered[i], ordered[j]
-            if not a.entries or not b.entries:
+            if not a.entries or not b.entries or mounted[i].isdisjoint(present[j]):
                 continue
-            def key(entry):
-                return re.sub(r'\.(?:c?nut)$', '.squirrel', entry.replace('\\', '/').lower())
-            roots = ('scripts/', 'ui/', 'gfx/', 'brushes/', 'sounds/', 'music/', 'preload/')
-            set_a = {key(e) for e in a.entries if e.lower().startswith(roots)}
-            overlap = [e for e in b.entries if key(e) in set_a]
-            if not overlap:
-                continue
+            overlap = [e for e, k in keyed[j] if k in mounted[i]]
             script_overlap = [e for e in overlap if e.startswith("scripts/") and "/!mods_preload/" not in e]
             base_pack = a.file_name in framework_srcs or b.file_name in framework_srcs
             if not script_overlap and not base_pack:

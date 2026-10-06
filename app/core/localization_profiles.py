@@ -6,7 +6,6 @@ Switches keep byte-verified backups and a durable rollback journal.
 from __future__ import annotations
 
 from dataclasses import dataclass
-import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -15,6 +14,7 @@ import uuid
 import zipfile
 
 from . import game as game_mod, l10n
+from .io_util import atomic_write_json as _write_json, file_sha256 as digest
 from .modmanager import DISABLED_DIR
 
 CURRENT = 'current'
@@ -23,18 +23,6 @@ BUILTIN = 'bbmod'
 STORAGE = 'bbmod_localizations'
 GUARD = 'mod_zz_bbmod_preview_guard.zip'
 NAME_HINT = re.compile(r'汉化|中文|chinese|localization|translation|l10n|zh[-_]?cn', re.I)
-
-
-def digest(path: Path) -> str:
-    with path.open('rb') as stream:
-        return hashlib.file_digest(stream, 'sha256').hexdigest()
-
-
-def _write_json(path: Path, value: dict) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    pending = path.with_suffix('.tmp')
-    pending.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
-    pending.replace(path)
 
 
 def _zip_name(name: str) -> str:

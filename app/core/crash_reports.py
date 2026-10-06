@@ -1,6 +1,7 @@
 """Bounded local snapshots of errors produced by a BBMOD game launch."""
 import hashlib
 import json
+import os
 import time
 import uuid
 from datetime import datetime, timezone
@@ -8,6 +9,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from .gamelog import iter_rows
+from .io_util import atomic_write_json
 from .support_report import build_report, MAX_REPORT_CHARS
 from .version import VERSION
 
@@ -20,7 +22,7 @@ SHUTDOWN = 'shutting down engine core.'
 def fingerprint(path):
     try:
         with Path(path).open('rb') as stream:
-            stat = Path(path).stat()
+            stat = os.fstat(stream.fileno())
             length = min(stat.st_size, 4096)
             prefix = hashlib.sha256(stream.read(length)).hexdigest()
         return {'size': stat.st_size, 'mtime': stat.st_mtime_ns, 'prefix': prefix, 'length': length}
@@ -79,11 +81,7 @@ class ReportStore:
         return self.root / identity
 
     def save(self, item):
-        folder = self.folder(item['id'])
-        folder.mkdir(parents=True, exist_ok=True)
-        temporary = folder / 'record.tmp'
-        temporary.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding='utf-8')
-        temporary.replace(folder / 'record.json')
+        atomic_write_json(self.folder(item['id']) / 'record.json', item)
 
     def get(self, identity):
         return json.loads((self.folder(identity) / 'record.json').read_text(encoding='utf-8'))
@@ -93,6 +91,8 @@ class ReportStore:
         # Only remove files owned by this feature, never an arbitrary tree.
         for name in ('record.json', 'record.tmp', 'log.html'):
             (folder / name).unlink(missing_ok=True)
+        for stale in folder.glob('.bbmod-*.tmp'):
+            stale.unlink(missing_ok=True)
         folder.rmdir()
 
     def capture(self, ctx, session, folders, automatic=False):

@@ -7,9 +7,7 @@ import shutil
 import uuid
 from pathlib import Path, PurePosixPath
 
-
-def digest(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+from ..io_util import atomic_write_json, file_sha256 as digest
 
 
 class FileSession:
@@ -68,9 +66,7 @@ class FileSession:
             "mods": mod_names, "injected": {name: hashlib.sha256(data).hexdigest() for name, data in payload.items()},
             "created_dirs": sorted(created_dirs),
         }
-        pending = self.manifest.with_suffix(".tmp")
-        pending.write_text(json.dumps(journal, ensure_ascii=False, indent=2), encoding="utf-8")
-        pending.replace(self.manifest)
+        atomic_write_json(self.manifest, journal)
         # The journal and verified original copies now cover every subsequent mutation.
         for name in mod_names:
             self._path(self.data, name).unlink()

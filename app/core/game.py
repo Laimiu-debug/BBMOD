@@ -181,7 +181,7 @@ def read_file_version(path: Path) -> str | None:
         ffi = ctypes.cast(value, ctypes.POINTER(VS_FIXEDFILEINFO)).contents
         ms, ls = ffi.dwFileVersionMS, ffi.dwFileVersionLS
         return f"{ms >> 16}.{ms & 0xFFFF}.{ls >> 16}.{ls & 0xFFFF}"
-    except Exception:
+    except (OSError, AttributeError, ValueError):
         return None
 
 

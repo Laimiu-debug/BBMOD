@@ -63,6 +63,9 @@ def test_bad_metadata_and_download_hosts():
     assert updates.download_host_allowed('https://release-assets.githubusercontent.com/a')
     assert not updates.download_host_allowed('http://github.com/a')
     assert not updates.download_host_allowed('https://github.com.evil.org/a')
+    assert updates.download_host_allowed(updates.RELEASES_URL + '/download/v0.3.0-rc.38/BBMOD.exe')
+    assert not updates.download_host_allowed('https://github.com/someone/else/releases/download/v1/BBMOD.exe')
+    assert not updates.download_host_allowed('https://github.com/' + updates.REPOSITORY + '/archive/main.zip')
 
 
 @pytest.mark.parametrize('host', ['github.com', 'release-assets.githubusercontent.com',
@@ -339,10 +342,15 @@ def test_automatic_check_respects_preferences_cooldown_and_shutdown(app, tmp_pat
 
 
 def test_windows_resource_version_matches_application():
-    text = (Path(__file__).parents[1] / 'data/windows-version.txt').read_text(encoding='utf-8')
+    from core.version import windows_version_info
+    text = windows_version_info()
     assert f"StringStruct('FileVersion', '{VERSION}')" in text
     assert f"StringStruct('ProductVersion', '{VERSION}')" in text
     assert f"StringStruct('OriginalFilename', 'BBMOD-{VERSION}.exe')" in text
+    assert 'filevers=(0, 3, 0, 38)' in windows_version_info('0.3.0-rc.38')
+    assert 'filevers=(1, 2, 3, 0)' in windows_version_info('1.2.3') and 'flags=0x0' in windows_version_info('1.2.3')
+    with pytest.raises(ValueError):
+        windows_version_info('not-a-version')
 
 
 def test_allowed_download_redirect_uses_qt_signal(app, tmp_path):

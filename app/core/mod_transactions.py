@@ -1,33 +1,19 @@
 """Journaled changes to installed MOD files, with verified recovery after failure."""
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
-import tempfile
 import uuid
+
+from .io_util import atomic_write_json as atomic_json, file_sha256
 
 
 def digest(path):
     if not path.exists():
         return None
-    with path.open('rb') as stream:
-        return hashlib.file_digest(stream, 'sha256').hexdigest()
-
-
-def atomic_json(path, value):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, temporary = tempfile.mkstemp(dir=path.parent, prefix='.bbmod-', suffix='.tmp')
-    try:
-        with os.fdopen(fd, 'w', encoding='utf-8') as stream:
-            json.dump(value, stream, ensure_ascii=False, indent=2)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(temporary, path)
-    finally:
-        Path(temporary).unlink(missing_ok=True)
+    return file_sha256(path)
 
 
 class ModTransaction:

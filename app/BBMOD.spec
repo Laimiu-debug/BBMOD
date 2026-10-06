@@ -5,7 +5,11 @@ import runpy
 import sys
 from pathlib import Path
 
-app_version = runpy.run_path(str(Path(SPECPATH) / 'core/version.py'))['VERSION']
+version_module = runpy.run_path(str(Path(SPECPATH) / 'core/version.py'))
+app_version = version_module['VERSION']
+version_file = Path(SPECPATH) / 'build' / 'windows-version.txt'
+version_file.parent.mkdir(parents=True, exist_ok=True)
+version_file.write_text(version_module['windows_version_info'](app_version), encoding='utf-8')
 
 # Map labels now use ordinary game MOD scripts and HTML. Do not distribute the
 # retired process-injection launcher or DLL, even if an old build still exists.
@@ -44,7 +48,7 @@ exe = EXE(
     a.datas,
     [],
     name=f'BBMOD-{app_version}',
-    version='data/windows-version.txt',
+    version=str(version_file),
     icon='assets/bbmod.ico',
     debug=False,
     bootloader_ignore_signals=False,

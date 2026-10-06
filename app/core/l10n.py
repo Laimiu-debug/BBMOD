@@ -38,7 +38,10 @@ class StringEntry:
         return self.source
 
 
-def load_catalog(path: Path | None = None) -> tuple[dict, list[StringEntry]]:
+_LOAD = object()
+
+
+def load_catalog(path: Path | None = None, full=_LOAD) -> tuple[dict, list[StringEntry]]:
     meta = json.loads((path or CATALOG_FILE).read_text(encoding='utf-8-sig'))
     if meta.get('schema_version') != 1 or not isinstance(meta.get('groups'), dict):
         raise ValueError('不支持的独立译文目录格式')
@@ -55,7 +58,10 @@ def load_catalog(path: Path | None = None) -> tuple[dict, list[StringEntry]]:
             entries.append(StringEntry(source, value, category))
             seen.add(source)
     # Explicit test/custom catalogs remain self-contained.
-    full = load_full_catalog() if path is None else None
+    if path is not None:
+        full = None
+    elif full is _LOAD:
+        full = load_full_catalog()
     if full:
         from .place_display import reviewed_places
         place_terms = reviewed_places(full, load_policy(full))
@@ -83,8 +89,10 @@ def load_catalog(path: Path | None = None) -> tuple[dict, list[StringEntry]]:
     return meta, entries
 
 
-def translated_catalog(overrides: dict[str, str] | None = None) -> dict[str, str]:
-    _, entries = load_catalog()
+def translated_catalog(overrides: dict[str, str] | None = None,
+                       entries: list[StringEntry] | None = None) -> dict[str, str]:
+    if entries is None:
+        _, entries = load_catalog()
     result = {entry.source: entry.value for entry in entries}
     for source, value in (overrides or {}).items():
         if source not in result:
@@ -122,9 +130,9 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
     game_root, out_path = Path(game_root), Path(out_path)
     if out_path.suffix.lower() != '.zip' or out_path.resolve().is_relative_to((game_root / 'data').resolve()):
         raise ValueError('请将汉化包导出为游戏 data 目录以外的 ZIP，再通过安装操作启用。')
-    meta, entries = load_catalog()
-    dictionary = translated_catalog(overrides)
     full = load_full_catalog()
+    meta, entries = load_catalog(full=full)
+    dictionary = translated_catalog(overrides, entries)
     policy = load_policy(full)
     if full:
         from .map_labels import check_executable
@@ -294,13 +302,5 @@ def install_localization(manager: ModManager, package: Path) -> list[Path]:
     installed = manager.data / package.name
     if installed.exists() and not is_bbmod_l10n(installed):
         raise FileExistsError(f'同名文件不是本软件的独立汉化包：{installed.name}')
-    # Atomic update with rollback of the previous independent package.
-    old = installed.read_bytes() if installed.exists() else None
-    try:
-        return manager.install(package, overwrite=True)
-    except Exception:
-        if old is not None:
-            installed.write_bytes(old)
-        elif installed.exists():
-            installed.unlink()
-        raise
+    # ModTransaction restores the previous package from its journal on failure.
+    return manager.install(package, overwrite=True)

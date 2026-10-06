@@ -1,5 +1,4 @@
 """Bounded CRC validation of local MOD ZIPs, including separately installed nested ZIPs."""
-import io
 from pathlib import Path, PurePosixPath
 import stat
 import zipfile
@@ -32,12 +31,18 @@ def staged_packages(source, directory):
         if key in packages:
             raise ValueError(f'压缩包内存在重名安装文件：{name}')
         output = directory / name
-        data = stream.read(MAX_ARCHIVE + 1)
-        if len(data) > MAX_ARCHIVE:
+        copied = 0
+        with output.open('wb') as out:
+            while block := stream.read(1024 * 1024):
+                copied += len(block)
+                if copied > MAX_ARCHIVE:
+                    break
+                out.write(block)
+        if copied > MAX_ARCHIVE:
+            output.unlink(missing_ok=True)
             raise ValueError('内嵌 ZIP 超过大小限制。')
-        output.write_bytes(data)
         packages[key] = output
-        with zipfile.ZipFile(io.BytesIO(data)) as archive:
+        with zipfile.ZipFile(output) as archive:
             entries = archive.infolist()
             if not entries or len(entries) > 20000:
                 raise ValueError('ZIP 为空或文件数量过多。')

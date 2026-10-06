@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -15,6 +14,7 @@ import time
 from urllib.parse import urlsplit
 import uuid
 
+from .io_util import atomic_write_json as write_json, file_sha256 as sha256_file
 from .version import VERSION
 from .site_config import SITE_ORIGIN, OFFICIAL_SITE_ORIGINS
 
@@ -144,17 +144,11 @@ def download_host_allowed(url: str) -> bool:
             return False
         if parsed.scheme + '://' + parsed.netloc.lower() in OFFICIAL_SITE_ORIGINS:
             return bool(re.fullmatch(r'/downloads/windows/[a-f0-9-]{36}/', parsed.path)) and not parsed.query and not parsed.fragment
-        return parsed.hostname in {'github.com', 'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
+        if parsed.hostname == 'github.com':
+            return parsed.path.startswith(f'/{REPOSITORY}/releases/download/')
+        return parsed.hostname in {'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}
     except ValueError:
         return False
-
-
-def sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open('rb') as stream:
-        while chunk := stream.read(1024 * 1024):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def verify_download(path: Path, release: Release):
@@ -163,12 +157,6 @@ def verify_download(path: Path, release: Release):
     with path.open('rb') as stream:
         if stream.read(2) != b'MZ':
             raise ValueError('下载文件不是 Windows 程序')
-
-
-def write_json(path: Path, data):
-    temporary = path.with_suffix(path.suffix + '.tmp')
-    temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
-    os.replace(temporary, path)
 
 
 def install_target(current: Path, version: str) -> Path:

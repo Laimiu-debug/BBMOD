@@ -12,12 +12,15 @@ IDLE_TIMEOUT = 20
 MAX_RETRIES = 4
 
 
+_IDENTITY = r'[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}'
+OFFICIAL_DOWNLOAD_PATH = re.compile(
+    rf'(?:/files/{_IDENTITY}/download/|/downloads/windows/{_IDENTITY}/|/api/v1/profiles/{_IDENTITY}/files/[a-f0-9]{{64}}/)')
+
+
 def canonical_download_url(url):
     """Map saved official public download URLs to the current site."""
     parts = urlsplit(url)
-    identity = r'[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}'
-    path = rf'(?:/files/{identity}/download/|/downloads/windows/{identity}/|/api/v1/profiles/{identity}/files/[a-f0-9]{{64}}/)'
-    if re.fullmatch(path, parts.path):
+    if OFFICIAL_DOWNLOAD_PATH.fullmatch(parts.path):
         return canonical_site_url(url)
     return url
 

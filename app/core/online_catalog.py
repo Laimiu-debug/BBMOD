@@ -1,7 +1,6 @@
 """Self-hosted catalog client and reversible installation; never starts the game."""
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import re
@@ -16,6 +15,7 @@ from urllib.request import Request, HTTPRedirectHandler, build_opener
 from .archive_safety import inspect_archive, valid_install_name
 from .modinfo import analyze_zip
 from .downloads import download_verified
+from .io_util import atomic_write_json as _atomic_json, file_sha256 as _hash
 from .site_config import canonical_site_origin, same_site
 
 MAX_DOWNLOAD = 100 * 1024 * 1024
@@ -113,22 +113,6 @@ def download_release(origin, item, cache, *, cancelled=lambda: False, progress=l
     except Exception:
         target.unlink(missing_ok=True)
         raise
-
-
-def _atomic_json(path, data):
-    handle, temp = tempfile.mkstemp(dir=path.parent, prefix='.online-', suffix='.tmp')
-    try:
-        with os.fdopen(handle, 'w', encoding='utf-8') as out:
-            json.dump(data, out, ensure_ascii=False, indent=2)
-            out.flush(); os.fsync(out.fileno())
-        os.replace(temp, path)
-    finally:
-        Path(temp).unlink(missing_ok=True)
-
-
-def _hash(path):
-    with path.open('rb') as src:
-        return hashlib.file_digest(src, 'sha256').hexdigest()
 
 
 class OnlineInstaller:
