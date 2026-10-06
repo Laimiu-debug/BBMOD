@@ -9,13 +9,15 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkCookie, QNetworkReq
 
 from core import game as game_mod
 from core.site_config import SITE_ORIGIN
-from core.crash_reports import AUTO_UPLOAD_KEY, ReportStore, begin_session
+from core.crash_reports import AUTO_UPLOAD_KEY, ReportStore, begin_session, clean_exit
 from core.version import VERSION
 from .workers import Worker
 
 
 class CrashReports(QObject):
     changed = Signal()
+    # 每次由 BBMOD 启动的游戏结束后：'crash' 疑似异常退出，'clean' 正常退出，'unknown' 无法判断
+    session_ended = Signal(str)
 
     def __init__(self, ctx, parent=None, *, automatic=True, origin=SITE_ORIGIN):
         super().__init__(parent)
@@ -63,17 +65,34 @@ class CrashReports(QObject):
         session, self.session = self.session, None
         automatic = self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is True
         self.ctx.game_session.begin_collecting()
-        self.worker = Worker(lambda: self.store.capture(self.context, session,
-                             game_mod.find_log_write_paths(), automatic), self)
-        self.worker.done.connect(self._captured)
+        context = self.context
+
+        def work():
+            folders = game_mod.find_log_write_paths()
+            item = self.store.capture(context, session, folders, automatic)
+            if item is not None:
+                return item, 'crash'
+            if not clean_exit(session, folders):
+                return None, 'unknown'
+            if context.mm is not None:
+                try:
+                    context.mm.remember_last_good()
+                except (OSError, ValueError):
+                    pass
+            return None, 'clean'
+        self.worker = Worker(work, self)
+        self.worker.done.connect(lambda result: self._captured(*result))
         self.worker.failed.connect(self._capture_failed)
         self.worker.finished.connect(self._capture_finished)
         self.worker.start()
 
-    def _captured(self, item):
+    def _captured(self, item, outcome='crash'):
         if item:
-            self.status = '检测到疑似异常退出，日志已保存。' + ('正在等待自动上传。' if item['automatic'] else '可预览并提交错误报告。')
+            names = [suspect['file_name'] for suspect in item.get('suspects', [])[:2]]
+            self.status = ('检测到疑似异常退出，日志已保存。' + ('可能相关：' + '、'.join(names) + '。' if names else '')
+                           + ('正在等待自动上传。' if item['automatic'] else '可预览并提交错误报告。'))
             self.changed.emit()
+        self.session_ended.emit(outcome)
 
     def _capture_failed(self, error):
         self.status = '日志保存未完成：' + error

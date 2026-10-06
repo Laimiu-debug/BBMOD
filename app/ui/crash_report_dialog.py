@@ -1,14 +1,18 @@
 """Review saved snapshots without replacing an unrelated feedback draft."""
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QListWidget,
     QListWidgetItem, QTextEdit, QPushButton, QMessageBox)
 
+from core.crash_suspects import describe
 from core.support_report import MAX_REPORT_CHARS
 
 STATES = {'manual': '待确认', 'pending': '待上传', 'failed': '待重试', 'sent': '已送达', 'review': '需核对'}
 
 
 class CrashReportDialog(QDialog):
+    restore_requested = Signal()
+    bisect_requested = Signal()
+
     def __init__(self, service, parent=None):
         super().__init__(parent)
         self.service = service
@@ -28,6 +32,22 @@ class CrashReportDialog(QDialog):
         self.message.setWordWrap(True)
         self.message.setTextFormat(Qt.PlainText)
         layout.addWidget(self.message)
+        self.suspects = QLabel()
+        self.suspects.setWordWrap(True)
+        self.suspects.setTextFormat(Qt.PlainText)
+        self.suspects.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        layout.addWidget(self.suspects)
+        fixes = QHBoxLayout()
+        self.restore_button = QPushButton('恢复上次正常退出时的 MOD 组合')
+        self.restore_button.setToolTip('BBMOD 启动的游戏每次正常退出后会自动记录当时启用的 MOD。')
+        self.restore_button.clicked.connect(self.restore_requested.emit)
+        self.bisect_button = QPushButton('逐步排查问题 MOD')
+        self.bisect_button.setToolTip('每轮只启用一部分 MOD，根据是否复现问题逐步缩小范围。')
+        self.bisect_button.clicked.connect(self.bisect_requested.emit)
+        fixes.addWidget(self.restore_button)
+        fixes.addWidget(self.bisect_button)
+        fixes.addStretch(1)
+        layout.addLayout(fixes)
         self.editor = QTextEdit()
         self.editor.setAcceptRichText(False)
         layout.addWidget(self.editor, 1)
@@ -85,6 +105,10 @@ class CrashReportDialog(QDialog):
         self.send_button.setEnabled(bool(record and record['state'] != 'sent') and not busy)
         self.delete_button.setEnabled(bool(record) and not busy)
         self.open_button.setEnabled(bool(record))
+        self.suspects.setVisible(bool(record))
+        if record:
+            self.suspects.setText(describe(record['suspects']) if 'suspects' in record
+                                  else '这份报告保存于旧版本，未包含可疑 MOD 推断。')
         readonly = not record or busy or record['posted'] or record['state'] == 'sent'
         self.editor.setReadOnly(readonly)
         self.details.setReadOnly(readonly)

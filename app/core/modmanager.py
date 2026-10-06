@@ -24,6 +24,8 @@ from .mod_transactions import ModTransaction, atomic_json
 DISABLED_DIR = "bbmod_disabled"      # 用户手动禁用的 mod
 STASH_DIR = "bbmod_seedgen_stash"    # 刷种子期间临时移出的 mod（自动管理）
 PAYLOAD_MARK = "bbmod_payload.json"  # 注入 payload 的清单标记
+# 游戏正常退出后自动记录的启用组合；保留名称，用户方案不能占用
+LAST_GOOD_PROFILE = "上次正常退出（自动）"
 
 
 def _now() -> str:
@@ -323,7 +325,50 @@ class ModManager:
     @staticmethod
     def _profile_name(name: str) -> str:
         from .profile_protocol import text
-        return text(name, 100, required=True)
+        name = text(name, 100, required=True)
+        if name == LAST_GOOD_PROFILE:
+            raise ValueError(f'「{LAST_GOOD_PROFILE}」由软件自动维护，请换一个方案名称。')
+        return name
+
+    def remember_last_good(self) -> dict | None:
+        """游戏正常退出后记下当前启用组合；排查或未完成操作期间不记录临时组合。"""
+        from .bisect import BISECT_FILE
+        if self.transaction.journal.exists() or (self.disabled_dir / BISECT_FILE).exists():
+            return None
+        with self.file_access():
+            enabled = sorted(self.installed_zip_names())
+            profiles = self.load_profiles()
+            profiles[LAST_GOOD_PROFILE] = {
+                "enabled": enabled,
+                "saved_at": datetime.datetime.now().isoformat(timespec="seconds"),
+                "automatic": True,
+            }
+            self.disabled_dir.mkdir(parents=True, exist_ok=True)
+            atomic_json(self._profiles_path(), profiles)
+        return profiles[LAST_GOOD_PROFILE]
+
+    def apply_enabled(self, wanted: set[str], *, validate: bool = True) -> tuple[int, int]:
+        """把 data 目录的启用集合切换为 wanted（只在已安装的 ZIP 之间启停）。"""
+        from .preload_merge import FILENAME
+        mods = self.scan(analyze=False)
+        enabled = {m.path.name for m in mods if m.enabled and m.path.name != FILENAME}
+        disabled = {m.path.name for m in mods if not m.enabled}
+        missing = set(wanted) - enabled - disabled
+        if missing:
+            raise FileNotFoundError('MOD 已卸载或缺失：' + '、'.join(sorted(missing)))
+        changes = {}
+        enable, disable = sorted(set(wanted) - enabled), sorted(enabled - set(wanted))
+        for item in enable:
+            validate_name(item)
+            changes[self.data / item] = self.disabled_dir / item
+            changes[self.disabled_dir / item] = None
+        for item in disable:
+            changes[self.disabled_dir / item] = self.data / item
+            changes[self.data / item] = None
+        if changes:
+            self._apply(changes, validate=validate)
+            self._audit('enabled-set', self.data, None)
+        return len(enable), len(disable)
 
     def _check_profile_write(self):
         if self.transaction.journal.exists():
@@ -339,7 +384,9 @@ class ModManager:
             return
         if new_name in profiles:
             raise ValueError('已有同名方案，请换一个名称。')
-        profiles = {new_name if key == name else key: value for key, value in profiles.items()}
+        renamed = {k: v for k, v in profiles[name].items() if k != 'automatic'}
+        profiles = {new_name if key == name else key: (renamed if key == name else value)
+                    for key, value in profiles.items()}
         atomic_json(self._profiles_path(), profiles)
         self._audit('profile-rename', self._profiles_path(), None)
 

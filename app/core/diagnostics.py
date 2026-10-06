@@ -359,6 +359,11 @@ def _check_runtime(rows: list[LogRow], installed: list[ModInfo], report: Diagnos
                 return src
         return ""
 
+    from .crash_suspects import Attribution, error_stacks
+    attribution = Attribution(installed)
+    positions = {id(row): index for index, row in enumerate(rows)}
+    stacks = {positions[id(row)]: paths for row, paths in error_stacks(rows)}
+
     reported: set[tuple[str, str]] = set()
     last_error_text = ""
     for idx, row in enumerate(rows):
@@ -378,6 +383,12 @@ def _check_runtime(rows: list[LogRow], installed: list[ModInfo], report: Diagnos
                 m_failed = RE_FAILED_SCRIPT.search(look.text)
                 if m_failed:
                     src = attribute(m_failed.group(1))
+                    break
+        if not src:
+            # 按调用栈里的脚本路径找实际生效的那份文件
+            for path in stacks.get(idx, []):
+                src = attribution.owner(path)
+                if src:
                     break
         src = src or "运行时"
         key = (src, row.text[:80])

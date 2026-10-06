@@ -37,11 +37,11 @@ def test_semantic_version_order_and_channels():
     assert sorted(reversed(versions), key=updates.version_key) == versions
     assert updates.version_key('v0.3.0+build.10') == updates.version_key('0.3.0')
     with pytest.raises(ValueError): updates.version_key('0.3.0-rc.01')
-    rows = [release_row('v0.3.0'), release_row('v0.3.0-rc.10'), release_row('v0.4.0', preview=False)]
+    rows = [release_row('v0.3.0'), release_row('v0.3.0-rc.10'), release_row('v5.0.0', preview=False)]
     rows += [{**release_row('v9.0.0'), 'draft': True}, {**release_row('v8.0.0'), 'html_url': 'https://evil.org'}]
     result = updates.parse_releases(json.dumps(rows).encode())
-    assert [r.tag for r in result] == ['v0.4.0', 'v0.3.0', 'v0.3.0-rc.10']
-    assert [r.tag for r in updates.available_releases(result, False)] == ['v0.4.0']
+    assert [r.tag for r in result] == ['v5.0.0', 'v0.3.0', 'v0.3.0-rc.10']
+    assert [r.tag for r in updates.available_releases(result, False)] == ['v5.0.0']
     assert result[0].newer_than(VERSION)
     assert not parsed(release_row('v0.3.0-rc.2')).newer_than(VERSION)
 
@@ -438,8 +438,8 @@ def test_exit_update_does_not_relaunch_application(tmp_path):
 
 
 def site_row():
-    return {'id': 'a823d83f-7e73-42e8-a48b-e65548e6d3a2', 'version': '0.4.0', 'prerelease': False,
-        'filename': 'BBMOD-0.4.0.exe', 'size': 6, 'sha256': hashlib.sha256(b'MZ-new').hexdigest(),
+    return {'id': 'a823d83f-7e73-42e8-a48b-e65548e6d3a2', 'version': '5.0.0', 'prerelease': False,
+        'filename': 'BBMOD-5.0.0.exe', 'size': 6, 'sha256': hashlib.sha256(b'MZ-new').hexdigest(),
         'download_path': '/downloads/windows/a823d83f-7e73-42e8-a48b-e65548e6d3a2/', 'notes': '本地验证'}
 
 

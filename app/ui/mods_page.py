@@ -86,6 +86,8 @@ class ModsPage(QWidget):
         self.share_profile_btn = QPushButton('分享方案')
         self.import_profile_btn = QPushButton('导入共享方案')
         self.manage_profiles_btn = QPushButton('方案管理')
+        self.bisect_btn = QPushButton('排查问题 MOD')
+        self.bisect_btn.setToolTip('游戏闪退或报错但不知道是哪个 MOD 时，每轮只启用一部分，逐步缩小范围。')
         self.disable_btn.setToolTip('保留安装文件，暂停加载，之后可重新启用。')
         self.uninstall_btn.setToolTip('删除安装文件并移出已安装列表，再次使用需重新安装。')
         for button, glyph in ((self.refresh_btn, "refresh"), (self.disable_btn, "stop"),
@@ -112,7 +114,8 @@ class ModsPage(QWidget):
                 (self.apply_profile_btn, self.apply_profile),
                 (self.share_profile_btn, lambda: self.sharing.share()),
                 (self.import_profile_btn, lambda: self.profiles_requested.emit(True)),
-                (self.manage_profiles_btn, lambda: self.profiles_requested.emit(False))):
+                (self.manage_profiles_btn, lambda: self.profiles_requested.emit(False)),
+                (self.bisect_btn, self.start_bisect)):
             button.clicked.connect(callback)
             profile_bar.addWidget(button)
         self.share_profile_btn.setToolTip('分享保存的 MOD 组合，只上传网站缺失的文件。')
@@ -180,7 +183,9 @@ class ModsPage(QWidget):
     @property
     def idle(self) -> bool:
         return (self._scan_worker is None and self._op_worker is None and self._pending_op is None
-                and not self._scan_again and not self._refresh_deferred)
+                and not self._scan_again and not self._refresh_deferred
+                # 线程结束与操作收尾是两个排队事件；收尾完成前仍处于管理忙碌状态
+                and not getattr(self.ctx, 'management_busy', False))
 
     def refresh(self) -> None:
         """后台扫描已安装 MOD；扫描期间再次刷新会在结束后补扫一次，文件操作期间则由操作结束时统一刷新。"""
@@ -459,8 +464,11 @@ class ModsPage(QWidget):
         self.uninstall_btn.setEnabled(available and not pending and bool(selected))
         self.import_zip_btn.setEnabled(not self.ctx.management_busy and not self.ctx.seedgen_active)
         self.recover_btn.setEnabled(available)
-        for button in (self.save_profile_btn, self.apply_profile_btn, self.share_profile_btn):
+        for button in (self.save_profile_btn, self.apply_profile_btn, self.share_profile_btn, self.bisect_btn):
             button.setEnabled(available and not pending)
+        from core.bisect import BISECT_FILE
+        bisecting = bool(self.ctx.mm and (self.ctx.mm.disabled_dir / BISECT_FILE).exists())
+        self.bisect_btn.setText('继续排查（进行中）' if bisecting else '排查问题 MOD')
         self.import_profile_btn.setEnabled(not self.ctx.management_busy and not self.ctx.seedgen_active)
 
     def profile_origin(self):
@@ -564,22 +572,58 @@ class ModsPage(QWidget):
             return
         name, ok = QInputDialog.getItem(self, "应用方案", "选择方案：", list(profiles), 0, False)
         if ok:
-            if profiles[name].get('shared_id'):
-                self.sharing.import_link(profiles[name]['shared_id'], origin=profiles[name].get('shared_origin'))
-                return
-            try:
-                plan = self.ctx.mm.preview_profile(name)
-            except (KeyError, OSError, ValueError) as e:
-                QMessageBox.warning(self, "应用失败", str(e))
-                return
-            message = '将启用：\n' + ('\n'.join(plan['enable']) or '无') + '\n\n将禁用：\n' + ('\n'.join(plan['disable']) or '无')
-            if QMessageBox.question(self, '预览方案变更', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
-                return
-            if not self._can_modify():
-                return
-            manager = self.ctx.mm
-            self._operate(f'正在应用「{name}」', '应用失败', lambda: manager.apply_profile(name, expected=plan),
-                          lambda counts: self.status_label.setText(f"已应用「{name}」：启用 {counts[0]} · 禁用 {counts[1]}"))
+            self.apply_named_profile(name)
+
+    def apply_named_profile(self, name: str) -> None:
+        """预览后应用指定方案；共享方案走网站导入流程。"""
+        if not self._can_modify():
+            return
+        profile = self.ctx.mm.load_profiles().get(name)
+        if profile is None:
+            QMessageBox.warning(self, "应用失败", f"方案「{name}」已不存在，请刷新后重试。")
+            return
+        if profile.get('shared_id'):
+            self.sharing.import_link(profile['shared_id'], origin=profile.get('shared_origin'))
+            return
+        try:
+            plan = self.ctx.mm.preview_profile(name)
+        except (KeyError, OSError, ValueError) as e:
+            QMessageBox.warning(self, "应用失败", str(e))
+            return
+        if not plan['enable'] and not plan['disable']:
+            self.status_label.setText(f"当前启用的 MOD 已与「{name}」一致。")
+            return
+        message = '将启用：\n' + ('\n'.join(plan['enable']) or '无') + '\n\n将禁用：\n' + ('\n'.join(plan['disable']) or '无')
+        if QMessageBox.question(self, '预览方案变更', message, QMessageBox.Yes | QMessageBox.No, QMessageBox.No) != QMessageBox.Yes:
+            return
+        if not self._can_modify():
+            return
+        manager = self.ctx.mm
+        self._operate(f'正在应用「{name}」', '应用失败', lambda: manager.apply_profile(name, expected=plan),
+                      lambda counts: self.status_label.setText(f"已应用「{name}」：启用 {counts[0]} · 禁用 {counts[1]}"))
+
+    def restore_last_good(self) -> None:
+        from core.modmanager import LAST_GOOD_PROFILE
+        if not self.ctx.mm:
+            return
+        if LAST_GOOD_PROFILE not in self.ctx.mm.load_profiles():
+            QMessageBox.information(self, '暂无记录', '还没有正常退出的记录。通过 BBMOD 启动游戏并正常退出后，'
+                                    '会自动记录当时启用的 MOD 组合。')
+            return
+        self.apply_named_profile(LAST_GOOD_PROFILE)
+
+    def start_bisect(self) -> None:
+        if not self.ctx.mm:
+            self.choose_game_requested.emit()
+            return
+        from .bisect_dialog import BisectDialog
+        dialog = getattr(self, '_bisect_dialog', None)
+        if dialog is None:
+            dialog = self._bisect_dialog = BisectDialog(self)
+            dialog.finished.connect(lambda *_: setattr(self, '_bisect_dialog', None))
+        dialog.show()
+        dialog.raise_()
+        dialog.activateWindow()
 
     # ---------------- 仓库 ----------------
 

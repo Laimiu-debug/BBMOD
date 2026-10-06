@@ -346,6 +346,8 @@ class MainWindow(QMainWindow):
         from .crash_report_dialog import CrashReportDialog
         if self._crash_dialog is None:
             self._crash_dialog = CrashReportDialog(self.crash_reports, self)
+            self._crash_dialog.restore_requested.connect(lambda: (self.select_page(1), self.mods.restore_last_good()))
+            self._crash_dialog.bisect_requested.connect(lambda: (self.select_page(1), self.mods.start_bisect()))
         else:
             self._crash_dialog.refresh()
         self._crash_dialog.show()

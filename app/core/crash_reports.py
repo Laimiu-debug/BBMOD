@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from types import SimpleNamespace
 
+from .crash_suspects import describe, find_suspects
 from .gamelog import iter_rows
 from .io_util import atomic_write_json
 from .support_report import build_report, MAX_REPORT_CHARS
@@ -58,6 +59,39 @@ def read_session_log(path, session):
     if any(SHUTDOWN in row.text.lower() for row in rows[errors[-1] + 1:]):
         return None
     return raw, rows[errors[-1]].text, offset > 0
+
+
+def session_suspects(manager, raw):
+    """Ranked MODs the session's errors point at; empty when unknown."""
+    if manager is None:
+        return []
+    try:
+        mods = [mod.info for mod in manager.scan() if mod.enabled]
+    except (OSError, ValueError):
+        return []
+    rows = iter_rows(raw.decode('utf-8-sig', errors='replace'))
+    return [suspect.as_dict() for suspect in find_suspects(rows, mods)]
+
+
+def clean_exit(session, folders):
+    """True only when this launch wrote a fresh log that ends with a normal shutdown."""
+    candidates = {Path(path) for path in session['logs']}
+    candidates.update(Path(folder) / 'log.html' for folder in folders)
+    for path in candidates:
+        try:
+            current = fingerprint(path)
+            if (not current or current == session['logs'].get(str(path))
+                    or current['mtime'] / 1e9 < session['started'] - 2):
+                continue
+            with path.open('rb') as stream:
+                stream.seek(max(0, current['size'] - 64 * 1024))
+                tail = stream.read().decode('utf-8-sig', errors='replace')
+        except OSError:
+            continue
+        rows = iter_rows(tail)
+        if rows and any(SHUTDOWN in row.text.lower() for row in rows[-20:]):
+            return True
+    return False
 
 
 class ReportStore:
@@ -121,16 +155,20 @@ class ReportStore:
         folder.mkdir(parents=True)
         (folder / 'log.html').write_bytes(raw)
         context = SimpleNamespace(game=ctx.game, mm=ctx.mm, log_dir=lambda: folder)
+        from .support_report import redact
+        suspects = session_suspects(ctx.mm, raw)
+        for suspect in suspects:
+            suspect['reasons'] = [redact(reason) for reason in suspect['reasons']]
         prefix = ('疑似异常退出：本次启动产生错误日志，退出后未找到正常关闭记录。\n'
                   '仅凭日志不能确定闪退原因；请结合复现步骤排查。\n'
                   f'本地记录编号：{identity}\n'
-                  '日志快照：本次启动的新记录，最多保留末尾 2 MB。\n')
-        from .support_report import redact
+                  '日志快照：本次启动的新记录，最多保留末尾 2 MB。\n\n'
+                  + describe(suspects) + '\n\n')
         body = prefix + build_report(context, None)
         body = body.replace(str(source.parent), '[日志目录]')
         item = {'schema': 1, 'id': identity, 'created': datetime.now(timezone.utc).isoformat(timespec='seconds'),
                 'state': 'pending' if automatic else 'manual', 'automatic': automatic,
-                'partial_log': partial, 'attempts': 0, 'next_retry': 0, 'ticket': None, 'posted': False,
+                'partial_log': partial, 'suspects': suspects, 'attempts': 0, 'next_retry': 0, 'ticket': None, 'posted': False,
                 'message': '日志已保存在本机，等待提交。',
                 'payload': {'kind': 'bug', 'title': '疑似游戏闪退：' + redact(error)[:80],
                             'details': '从 BBMOD 启动后检测到疑似异常退出。\n请结合附带日志排查。',

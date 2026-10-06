@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Callable
 
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import QThread, QTimer, Signal
 
 
 def modify_files(manager, function: Callable[[], object]):
@@ -39,6 +39,8 @@ def track(owner, name: str, worker: QThread) -> QThread:
     def release() -> None:
         if getattr(owner, name, None) is worker:
             setattr(owner, name, None)
-        worker.deleteLater()
+        # Other slots of this finished signal are still queued; deleting the thread
+        # now would discard them (e.g. an operation's unlock), so delete afterwards.
+        QTimer.singleShot(0, worker.deleteLater)
     worker.finished.connect(release)
     return worker
