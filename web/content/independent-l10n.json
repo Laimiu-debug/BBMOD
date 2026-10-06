@@ -5,7 +5,7 @@
   "title": "BBMOD 独立汉化 · 本体与官方 DLC",
   "summary": "本体与官方 DLC 独立汉化：修复新版 BBMOD 地名组件校验不匹配，并兼容 Modern Hooks 的 FPS 界面。支持 Steam 直接启动。",
   "category": "汉化",
-  "description": "本项目独立制作的简体中文汉化，覆盖本体与官方 DLC 的界面、装备、技能、人物、地名势力、委托和剧情。\n\nrc.9 修复地名会话脚本换行格式与 BBMOD rc.26–rc.28 不一致时的启动校验报错；保留 rc.8 的人物属地语序、送货目标去重和此前审校成果。FPS 标签改为界面显示翻译，避免覆盖 Modern Hooks 的 FPS 模块。\n\n管理器请使用 BBMOD rc.28，rc.26 和 rc.27 也已通过包校验。rc.25 及更早版本使用旧组件，请先更新软件，再安装此包；不要混用新包和旧管理器。\n\n适用于 Battle Brothers Steam 原版 1.5.2.3。关闭游戏，在 BBMOD“汉化管理”导入本页 ZIP 并应用。手动安装时先备份旧包，以 mod_bbmod_zhcn.zip 替换 data 目录中的同名旧包，保持只有一个汉化包启用。单独更新桌面软件不会自动更新汉化包。\n\n支持 Steam、游戏 EXE 和匹配版本的 BBMOD 启动。原始英文名称和存档字段保持不变；旧存档中已保存的中文名称保持原样。内含 Modding Script Hooks 兼容框架和中文字体，许可随包提供。\n\nZIP 完整性、实际管理器校验、中文帧率标签及安装启动前检查已通过；本次未启动游戏，实际存档画面及全部 MOD 组合仍待实机验收。",
+  "description": "本项目独立制作的简体中文汉化，覆盖本体与官方 DLC 的界面、装备、技能、人物、地名势力、委托和剧情。\n\nrc.9 修复地名会话脚本换行格式与 BBMOD rc.26–rc.28 不一致时的启动校验报错；保留 rc.8 的人物属地语序、送货目标去重和此前审校成果。FPS 标签改为界面显示翻译，避免覆盖 Modern Hooks 的 FPS 模块。\n\n管理器请使用最新版 BBMOD（当前 rc.38），rc.26 及之后的版本均可使用此包。rc.25 及更早版本使用旧组件，请先更新软件，再安装此包；不要混用新包和旧管理器。\n\n适用于 Battle Brothers Steam 原版 1.5.2.3。关闭游戏，在 BBMOD“汉化管理”导入本页 ZIP 并应用。手动安装时先备份旧包，以 mod_bbmod_zhcn.zip 替换 data 目录中的同名旧包，保持只有一个汉化包启用。单独更新桌面软件不会自动更新汉化包。\n\n支持 Steam、游戏 EXE 和匹配版本的 BBMOD 启动。原始英文名称和存档字段保持不变；旧存档中已保存的中文名称保持原样。内含 Modding Script Hooks 兼容框架和中文字体，许可随包提供。\n\nZIP 完整性、实际管理器校验、中文帧率标签及安装启动前检查已通过；本次未启动游戏，实际存档画面及全部 MOD 组合仍待实机验收。",
   "install_name": "mod_bbmod_zhcn.zip",
   "license": "BBMOD 自制译文；随包框架与字体遵循各自许可。",
   "source_url": "https://github.com/Laimiu-debug/BBMOD",
@@ -16,6 +16,6 @@
   "conflicts": "",
   "save_impact": "unknown",
   "seed_impact": "unknown",
-  "compatibility_notes": "推荐使用 BBMOD rc.28；rc.26、rc.27 已通过包校验。rc.25 及更早版本请先更新管理器，否则仍可能报地名组件不匹配。关闭游戏后导入并应用本包，或备份后替换 data/mod_bbmod_zhcn.zip。保留 Modern Hooks 的 FPS 模块，帧率标签由界面运行时翻译；显星招募界面保持兼容。不要同时启用其他覆盖相同文本或地图界面的汉化。",
+  "compatibility_notes": "推荐使用最新版 BBMOD（当前 rc.38）；rc.26 及之后的版本均可使用此包。rc.25 及更早版本请先更新管理器，否则仍可能报地名组件不匹配。关闭游戏后导入并应用本包，或备份后替换 data/mod_bbmod_zhcn.zip。保留 Modern Hooks 的 FPS 模块，帧率标签由界面运行时翻译；显星招募界面保持兼容。不要同时启用其他覆盖相同文本或地图界面的汉化。",
   "notes": "修复地名脚本 LF/CRLF 差异导致的组件不匹配，匹配 BBMOD rc.26–rc.28；旧管理器请先升级。避免覆盖 Modern Hooks 的 FPS 界面，保留中文帧率标签。保留 rc.8 译文与存档规则；实际包离线校验和本机启动前检查通过，未启动游戏。"
 }

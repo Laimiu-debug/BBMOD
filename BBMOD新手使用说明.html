@@ -23,12 +23,12 @@ nav{background:#f5f0e6;border:1px solid var(--line);padding:22px 24px;border-rad
 <p>不会装 MOD，也可以按顺序操作。本文会带你完成：<strong>安装正版游戏 → 打开 BBMOD → 停用旧 MOD → 换成 BBMOD 汉化 → 安装阿飞起源 → 新建战役。</strong></p>
 <p>本文按 <strong>2026 年 9 月 29 日</strong> 核对的版本编写：<strong>BBMOD 0.3.0-rc.33、阿飞远征团 0.27.4、BBMOD 独立汉化 0.3.0-rc.9</strong>。它们是三个不同的文件，版本号不需要相同。“阿飞起源”在软件和游戏里叫 <strong>「阿飞远征团」</strong>。</p>
 <blockquote>
-<p>官网迁移修订（2026-10-03）：官网、下载和在线服务已迁移至 <strong>https://bbmod.com</strong>。请使用 <strong>BBMOD 0.3.0-rc.36</strong>；旧版 EXE 先从新官网手动下载并更换 rc.36，之后使用官网更新。操作截图沿用已检查的 rc.33 界面；游戏版本和 MOD 安装范围保持下方说明。</p>
+<p>官网迁移修订（2026-10-03）：官网、下载和在线服务已迁移至 <strong>https://bbmod.com</strong>。请使用 <strong>BBMOD 0.3.0-rc.38</strong>；rc.36 及更新版本可在软件内检查更新，更早的旧版 EXE 先从新官网手动下载并更换最新版，之后使用官网更新。操作截图沿用已检查的 rc.33 界面；游戏版本和 MOD 安装范围保持下方说明。</p>
 </blockquote>
 <blockquote>
 <p>第一次按本教程安装，最终只启用两个 MOD：<code>mod_bbmod_zhcn.zip</code> 和 <code>mod_afeix_expedition.zip</code>。先用这套组合开局，其他辅助 MOD 以后再逐个核对、添加。</p>
 </blockquote>
-<nav aria-label="使用说明目录"><h2>按顺序开始，或跳到遇到的问题</h2><div class="toc"><a href="#section-2">先看这里：没有 DLC 能不能用？</a><a href="#section-3">第一步：安装正版《战场兄弟》</a><a href="#section-4">第二步：下载并打开 BBMOD rc.36</a><a href="#section-5">第三步：选对游戏文件夹</a><a href="#section-6">第四步：停用已有的狐狸汉化和其他 MOD</a><a href="#section-7">第五步：安装 BBMOD 独立汉化，替换狐狸汉化</a><a href="#section-10">第六步：安装阿飞起源 v0.27.4</a><a href="#section-11">第七步：检查组合，再保存下来</a><a href="#section-12">第八步：启动游戏，新建「阿飞远征团」战役</a><a href="#section-14">以后每次玩和更新，怎么操作？</a><a href="#section-17">常见问题：卡在哪一步，就看哪一条</a><a href="#section-29">出问题时，怎么把情况告诉作者？</a><a href="#section-32">本教程检查到了什么？</a></div></nav><h2 id="section-2">先看这里：没有 DLC 能不能用？</h2>
+<nav aria-label="使用说明目录"><h2>按顺序开始，或跳到遇到的问题</h2><div class="toc"><a href="#section-2">先看这里：没有 DLC 能不能用？</a><a href="#section-3">第一步：安装正版《战场兄弟》</a><a href="#section-4">第二步：下载并打开 BBMOD rc.38</a><a href="#section-5">第三步：选对游戏文件夹</a><a href="#section-6">第四步：停用已有的狐狸汉化和其他 MOD</a><a href="#section-7">第五步：安装 BBMOD 独立汉化，替换狐狸汉化</a><a href="#section-10">第六步：安装阿飞起源 v0.27.4</a><a href="#section-11">第七步：检查组合，再保存下来</a><a href="#section-12">第八步：启动游戏，新建「阿飞远征团」战役</a><a href="#section-14">以后每次玩和更新，怎么操作？</a><a href="#section-17">常见问题：卡在哪一步，就看哪一条</a><a href="#section-29">出问题时，怎么把情况告诉作者？</a><a href="#section-32">本教程检查到了什么？</a></div></nav><h2 id="section-2">先看这里：没有 DLC 能不能用？</h2>
 <p><strong>BBMOD 管理器本身不要求买齐 DLC；但阿飞起源 v0.27.4 的目标环境是《战场兄弟》1.5.2.3 加官方 DLC，不能把“只有本体”当成已经验证可玩的环境。</strong> DLC 就是官方扩展内容，BBMOD 不会替游戏补装这些内容。</p>
 <p>阿飞起源目前公布的目标环境包含下面五项 DLC。只有 Steam 本体的玩家可以使用 BBMOD，但阿飞起源在无 DLC 环境下的开局、战斗和存读档尚未完成兼容测试。</p>
 <div class="table-scroll"><table>
@@ -84,15 +84,15 @@ nav{background:#f5f0e6;border:1px solid var(--line);padding:22px 24px;border-rad
 <p><strong>后面下载的 MOD ZIP 保持原样，不用解压。</strong> 游戏 <code>data</code> 里的 <code>.dat</code> 是本体和 DLC 等原有档案，也不用解压或删除。</p>
 <p>旧玩家请先备份重要存档，方法见后面的常见问题。</p>
 <p><strong>这一步完成的标志：在普通文件夹窗口中，能看到同一层的 <code>data</code> 和 <code>win32</code>。</strong></p>
-<h2 id="section-4">第二步：下载并打开 BBMOD rc.36</h2>
+<h2 id="section-4">第二步：下载并打开 BBMOD rc.38</h2>
 <ol>
 <li>打开 <strong><a href="https://bbmod.com/downloads/">BBMOD 官方下载页</a></strong>。</li>
-<li>下载推荐的 Windows 程序 <strong><code>BBMOD-0.3.0-rc.36.exe</code></strong>。后续发布新版时，以官网推荐版本为准。</li>
+<li>下载推荐的 Windows 程序 <strong><code>BBMOD-0.3.0-rc.38.exe</code></strong>。后续发布新版时，以官网推荐版本为准。</li>
 <li>把下载好的程序放到准备长期保留的位置，例如桌面的「BBMOD」文件夹。</li>
 <li>用鼠标左键连续点两下这个 <code>.exe</code> 文件，打开软件。</li>
 </ol>
 <p>看到 <strong>「BBMOD · 战团整备所」</strong> 窗口、左侧有「营地总览」「MOD 军械库」「汉化管理」等入口，就说明打开成功了。</p>
-<p>已有旧版 BBMOD 的朋友，请先关闭旧 EXE，从新官网手动下载并更换 rc.36。以后可以从右上角 <strong>「版本与更新」</strong> 或 <strong>「设置 → 检查更新」</strong> 获取新版。更新管理器后，仍要继续安装汉化和主 MOD；软件更新不会自动更新阿飞起源。</p>
+<p>已有 rc.36 及更新版本的朋友，可直接在软件内检查更新；更早的旧版请先关闭旧 EXE，从新官网手动下载并更换最新版。以后可以从右上角 <strong>「版本与更新」</strong> 或 <strong>「设置 → 检查更新」</strong> 获取新版。更新管理器后，仍要继续安装汉化和主 MOD；软件更新不会自动更新阿飞起源。</p>
 <h2 id="section-5">第三步：选对游戏文件夹</h2>
 <p><strong>先把《战场兄弟》完全退出。</strong> 更换 MOD 时游戏不能开着。</p>
 <ol>
@@ -221,7 +221,7 @@ nav{background:#f5f0e6;border:1px solid var(--line);padding:22px 24px;border-rad
 </thead>
 <tbody>
 <tr>
-<td>BBMOD 管理器，本教程为 rc.33</td>
+<td>BBMOD 管理器，本教程为 rc.38</td>
 <td>「版本与更新」，或官网下载新版 <code>.exe</code></td>
 </tr>
 <tr>

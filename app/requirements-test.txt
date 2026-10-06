@@ -1,0 +1,3 @@
+# 运行依赖 + 测试依赖（CI 与本地回归）
+-r requirements.txt
+pytest>=8.0

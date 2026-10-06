@@ -5,17 +5,21 @@ Requires markdown-it-py. No inline CSS, scripts or data images: keep the site's 
 """
 from pathlib import Path
 import html
+import re
 import shutil
 import base64
 from markdown_it import MarkdownIt
 
 ROOT=Path(__file__).resolve().parents[2]
 VERSION='0274'
+DESKTOP_VERSION=re.search(r"^VERSION\s*=\s*['\"]([^'\"]+)['\"]",(ROOT/'app/core/version.py').read_text(encoding='utf-8'),re.M).group(1)
+DESKTOP_LABEL=DESKTOP_VERSION.rsplit('-',1)[-1]
 assets=ROOT/'web/static/guides'/VERSION
 assets.mkdir(parents=True,exist_ok=True)
 parser=MarkdownIt('commonmark',{'html':False}).enable('table')
 source=(ROOT/'BBMOD新手使用说明.md').read_text(encoding='utf-8')
 assert '0.27.4' in source
+assert DESKTOP_VERSION in source, f'BBMOD新手使用说明.md 未提及当前桌面版本 {DESKTOP_VERSION}'
 assert not any(word in source for word in ('qfile.qq.com','旧教程用户注意','傻瓜包','学习版','v0.25'))
 tokens=parser.parse(source)
 toc=[];images=[];count=0
@@ -42,8 +46,8 @@ prefix="""{% extends 'base.html' %}{% load static %}
 {% block title %}BBMOD 新手使用说明 · 阿飞起源 v0.27.4{% endblock %}
 {% block extra_head %}<link rel="stylesheet" href="{% static 'beginner-guide-0274.css' %}">{% endblock %}
 {% block content %}<article class="beginner-guide" id="guide-top">
-<div class="guide-actions"><a class="button primary" href="{% static 'guides/0274/bbmod-beginner-guide-v0.27.4.pdf' %}" download>下载 PDF，离线照着操作</a><a class="button" href="{% url 'downloads' %}">下载 BBMOD 管理器</a><span class="guide-version">2026-10-03 官网迁移修订 · rc.36 / MOD v0.27.4</span></div>
-"""
+<div class="guide-actions"><a class="button primary" href="{% static 'guides/0274/bbmod-beginner-guide-v0.27.4.pdf' %}" download>下载 PDF，离线照着操作</a><a class="button" href="{% url 'downloads' %}">下载 BBMOD 管理器</a><span class="guide-version">2026-10-03 官网迁移修订 · DESKTOP_LABEL / MOD v0.27.4</span></div>
+""".replace('DESKTOP_LABEL',DESKTOP_LABEL)
 suffix='<a class="guide-back" href="#guide-top">回到目录 ↑</a></article>{% endblock %}\n'
 (ROOT/'web/templates/beginner_guide.html').write_text(prefix+content+suffix,encoding='utf-8')
 

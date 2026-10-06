@@ -13,6 +13,15 @@ app/spec/
 __pycache__/
 *.pyc
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+node_modules/
+
+# 本地虚拟环境与密钥
+.venv/
+**/.venv/
+/.env
 
 # 系统杂项文件
 Thumbs.db

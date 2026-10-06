@@ -1,9 +1,14 @@
 """M5 验收：配置生成器 + 日志解析器 + 编排器真机往返（不启动游戏进程）。
 
 编排测试只做 prepare → 校验注入 → stop_and_restore → 比对初始状态，不 launch。
+编排测试会写入真实游戏 data 目录，默认跳过：
+    pytest：设置 BBMOD_LIVE_GAME_TESTS=1（可选 BBMOD_GAME_DIR=<游戏目录>，否则自动检测）
+    直接运行：python tools/seedgen_check.py --i-understand-this-modifies-the-game [--game <游戏目录>]
 """
 from __future__ import annotations
 
+import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -20,6 +25,9 @@ from core.seedgen.log_watcher import SeedLogParser
 from core.seedgen.orchestrator import SeedGenOrchestrator
 
 PAYLOAD = Path(__file__).resolve().parents[1] / "seedgen" / "payload"
+LIVE_ENV = "BBMOD_LIVE_GAME_TESTS"
+GAME_DIR_ENV = "BBMOD_GAME_DIR"
+CONFIRM_FLAG = "--i-understand-this-modifies-the-game"
 
 
 def balanced(text: str) -> bool:
@@ -108,8 +116,15 @@ def test_log_parser() -> None:
 
 
 def test_orchestrator_roundtrip() -> None:
-    g = game_mod.locate_game()
-    assert g
+    if os.environ.get(LIVE_ENV) != "1":
+        import pytest
+        pytest.skip(f"会写入真实游戏目录；设置 {LIVE_ENV}=1 后运行")
+    run_orchestrator_roundtrip(os.environ.get(GAME_DIR_ENV) or None)
+
+
+def run_orchestrator_roundtrip(game_dir: str | None = None) -> None:
+    g = game_mod.locate_game(game_dir)
+    assert g, f"未找到有效游戏目录：{game_dir or '自动检测'}"
     mm = ModManager(g.root)
     initial = {f.name for f in g.data_dir.iterdir()}
 
@@ -133,8 +148,24 @@ def test_orchestrator_roundtrip() -> None:
     print(f"✓ stop_and_restore：恢复 {restored} 个 mod，data 目录与初始完全一致")
 
 
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="种子生成器配置、日志解析离线检查；确认后追加编排器真机往返（写入游戏 data 目录后恢复）。")
+    parser.add_argument(CONFIRM_FLAG, dest="confirmed", action="store_true",
+                        help="确认允许编排器往返测试修改游戏目录（运行前请关闭游戏并备份 data）")
+    parser.add_argument("--game", help="游戏根目录（默认自动检测 Steam 安装）")
+    args = parser.parse_args(argv)
+    if args.game and not args.confirmed:
+        parser.error(f"--game 只用于编排器真机往返，需同时追加 {CONFIRM_FLAG}")
+    return args
+
+
 if __name__ == "__main__":
+    args = parse_args()
     test_emitters()
     test_log_parser()
-    test_orchestrator_roundtrip()
+    if not args.confirmed:
+        print(f"\n跳过编排器真机往返：会写入真实游戏目录，确认后追加 {CONFIRM_FLAG}")
+        sys.exit(0)
+    run_orchestrator_roundtrip(args.game)
     print("\nM5 核心全部通过 ✓（端到端游戏内测试待 UI 联调）")

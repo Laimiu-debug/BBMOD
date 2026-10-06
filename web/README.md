@@ -1,10 +1,10 @@
 # BBMOD 社区军械库 · 0.3.6
 
-官网已迁移至 **https://bbmod.com**，网站、API 和下载由海外服务器直接提供，保留原账号、作品和历史数据。当前桌面版本为 **0.3.0-rc.37**；rc.36 可在软件内检查更新，更早的旧官网版本请从新官网下载最新版。
+官网已迁移至 **https://bbmod.com**，网站、API 和下载由海外服务器直接提供，保留原账号、作品和历史数据。当前桌面版本为 **0.3.0-rc.38**；rc.36 及更新版本可在软件内检查更新，更早的旧官网版本请从新官网下载最新版。
 
-桌面管理器 **0.3.0-rc.37** 新增已安装 MOD 中文名称、版本和行内直接更新，改进种子日志读取、批量保存和历史分页。继续使用新官网接口及阿飞起源支持。独立汉化包保持 rc.9。详见[版本说明](../app/releases/0.3.0-rc.37.md)。
+桌面管理器 **0.3.0-rc.38** 修复已安装 MOD 的 preview 版本更新识别，更新列直接显示「已是最新」「版本待确认」「未匹配官网」或「本地版本较新」。本次只通过 `import_desktop --publish` 发布安装包，网站源码与数据库无变更；独立汉化包保持 rc.9。详见[版本说明](../app/releases/0.3.0-rc.38.md)与[发布记录](deploy/deployment-mod-updates-rc38-2026-10-04.md)。
 
-新手使用说明（2026-10-03 官网迁移修订）：[`/guide/`](https://bbmod.com/guide/) 提供 BBMOD rc.36 下载与升级指引、汉化 rc.9 和阿飞 v0.27.4 的完整安装图文及 PDF；操作截图沿用已检查的 rc.33 界面。首页、顶部导航、下载页均有入口；阿飞升级后须新建战役。网页模板与版本化静态资源由 `python web/tools/build_beginner_guide.py` 在仓库根目录生成，需要 `markdown-it-py`，输入为根目录 Markdown、`docs/images/` 截图和已检查的 `output/pdf/BBMOD新手使用说明.pdf`。首次教程发布步骤与验证见[部署记录](deploy/deployment-beginner-guide-2026-09-29.md)。
+新手使用说明（2026-10-03 官网迁移修订）：[`/guide/`](https://bbmod.com/guide/) 提供 BBMOD 下载与升级指引、汉化 rc.9 和阿飞 v0.27.4 的完整安装图文及 PDF；操作截图沿用已检查的 rc.33 界面。首页、顶部导航、下载页均有入口；阿飞升级后须新建战役。网页模板与版本化静态资源由 `python web/tools/build_beginner_guide.py` 在仓库根目录生成，需要 `markdown-it-py`，输入为根目录 Markdown、`docs/images/` 截图和已检查的 `output/pdf/BBMOD新手使用说明.pdf`；页面上的桌面版本标签读取自 `app/core/version.py`，Markdown 未提及该版本时脚本会报错。首次教程发布步骤与验证见[部署记录](deploy/deployment-beginner-guide-2026-09-29.md)。
 
 错误报告收集（rc.32）：`POST /api/v1/suggestions/` 接受可选 `diagnostic_report` 文本，最多 60,000 字；GET 返回支持的长度。原有反馈客户端保持兼容，提交继续使用会话、CSRF、回执去重和限流。升级需执行迁移 `0008`。管理员在 `/manage/suggestions/?reports=1` 按日志内容、版本和 MOD ID 搜索报告，详情页支持私密 TXT 下载及处理状态、内部备注；报告随数据库备份。
 
@@ -117,7 +117,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 - `/downloads/windows/<版本ID>/`：固定版本的附件地址，不跳转 GitHub。Compose 使用 Nginx 传输并支持断点续传；本地 Django 直接流式传输。
 - `/api/v1/desktop/releases/`：返回公开版本、推荐版本、版本说明、文件大小、SHA-256 及本站相对下载地址。草稿、撤回或文件不完整的版本不会返回。
 
-**当前推荐桌面版本为 rc.37**。rc.36 可直接检查更新；更早的旧官网版本先从 `https://bbmod.com` 手动下载最新版，此后自动更新优先连接新官网，失败时回退到 GitHub。上传新版本文件和更新网站源代码是两回事，日常发布 EXE 无需重新部署网站。
+**当前推荐桌面版本为 rc.38**。rc.36 及更新版本可直接检查更新；更早的旧官网版本先从 `https://bbmod.com` 手动下载最新版，此后自动更新优先连接新官网，失败时回退到 GitHub。上传新版本文件和更新网站源代码是两回事，日常发布 EXE 无需重新部署网站。
 
 ### 从服务器已有文件导入
 
@@ -131,9 +131,9 @@ Compose 使用独立持久卷 `bbmod-hub_bbmod_desktop`，应用可写入，Ngin
 
 ### 独立汉化的首个作品
 
-`content/independent-l10n.json` 保存独立汉化的发布资料、版本及 SHA-256。当前为 `0.3.0-rc.7`，对应 `app/dist/mod_bbmod_zhcn-0.3.0-rc.7.zip`，下载时保持安装名 `mod_bbmod_zhcn.zip`。桌面程序当前提供 rc.24；普通 MOD 版历史下载保留，已撤回的旧注入版继续保持撤回。生产源码包不包含预览账号或上传数据，实际发布结果另记于 `deploy/`。
+`content/independent-l10n.json` 保存独立汉化的发布资料、版本及 SHA-256。当前为 `0.3.0-rc.9`，归档路径以该文件的 `archive` 字段为准，下载时保持安装名 `mod_bbmod_zhcn.zip`。普通 MOD 版历史下载保留，已撤回的旧注入版继续保持撤回。生产源码包不包含预览账号或上传数据，实际发布结果另记于 `deploy/`（rc.9 见[发布记录](deploy/deployment-localization-rc9-2026-09-27.md)）。
 
-新版汉化使用普通 MOD，启用后从 Steam、游戏 EXE 或 BBMOD 启动均通过游戏界面显示中文地名。rc.7 逐句复核 15,819 条文本及随机分支并修订 634 条，完成词库、实际包、字节码和动态显示离线检查；本轮没有启动游戏，当前版实机显示及所有 MOD 组合尚未验收。已启用的包无需重复生成，要使用新译文时导入并应用官网新版包。
+新版汉化使用普通 MOD，启用后从 Steam、游戏 EXE 或 BBMOD 启动均通过游戏界面显示中文地名。汉化 rc.7 起逐句复核 15,819 条文本及随机分支并修订 634 条，完成词库、实际包、字节码和动态显示离线检查；本轮没有启动游戏，当前版实机显示及所有 MOD 组合尚未验收。已启用的包无需重复生成，要使用新译文时导入并应用官网新版包。
 
 ## 数据备份与升级
 
