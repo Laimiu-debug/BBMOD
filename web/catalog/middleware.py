@@ -22,10 +22,11 @@ class AccountMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
     def __call__(self, request):
-        limit = settings.MAX_DESKTOP_BYTES if request.path == '/manage/software/' and request.user.is_superuser else settings.MAX_MOD_BYTES
-        request.upload_handlers.insert(0, BoundedUploadHandler(request, limit))
-        if int(request.META.get('CONTENT_LENGTH') or 0) > limit + 8 * 1024 * 1024:
-            return HttpResponse('上传文件超过大小限制。', status=413)
+        if request.method in ('POST', 'PUT', 'PATCH'):
+            limit = settings.MAX_DESKTOP_BYTES if request.path == '/manage/software/' and request.user.is_superuser else settings.MAX_MOD_BYTES
+            request.upload_handlers.insert(0, BoundedUploadHandler(request, limit))
+            if int(request.META.get('CONTENT_LENGTH') or 0) > limit + 8 * 1024 * 1024:
+                return HttpResponse('上传文件超过大小限制。', status=413)
         if request.user.is_authenticated and request.path.startswith(('/workshop/', '/manage/')):
             profile = getattr(request.user, 'author_profile', None)
             if profile and profile.must_change_password:

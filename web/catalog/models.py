@@ -59,7 +59,7 @@ class Release(models.Model):
     metadata = models.JSONField(default=dict)
     archive = models.FileField(upload_to='archives/')
     cover = models.FileField(upload_to='covers/', blank=True)
-    sha256 = models.CharField(max_length=64)
+    sha256 = models.CharField(max_length=64, db_index=True)
     size = models.PositiveBigIntegerField()
     inspection = models.JSONField(default=dict)
     status = models.CharField(max_length=15, choices=[('draft', '未公开'), ('published', '已公开'), ('withdrawn', '已撤回')], default='draft')
@@ -69,6 +69,7 @@ class Release(models.Model):
     class Meta:
         ordering = ['-created_at']
         constraints = [models.UniqueConstraint(fields=['mod', 'version'], name='unique_mod_version')]
+        indexes = [models.Index(fields=['status', '-created_at'], name='release_status_created_idx')]
 
 
 class DesktopRelease(models.Model):
@@ -214,6 +215,7 @@ class SharedProfile(models.Model):
 
     class Meta:
         ordering = ['-created_at', '-id']
+        indexes = [models.Index(fields=['blocked', '-created_at', '-id'], name='profile_public_created_idx')]
 
 
 class SharedProfileFile(models.Model):

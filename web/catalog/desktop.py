@@ -5,6 +5,7 @@ import re
 import struct
 import uuid
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.utils import timezone
@@ -72,11 +73,23 @@ def desktop_available(release):
         return False
 
 
-def public_desktop_releases(channel='all'):
+def listed_available(release):
+    # Listings may lag file removal briefly; downloads always recheck the file.
+    identity = f'{settings.DESKTOP_DOWNLOAD_ROOT}:{release.pk}:{release.file.name}:{release.size}'
+    key = 'bbmod-desktop-available:' + hashlib.sha256(identity.encode()).hexdigest()
+    available = cache.get(key)
+    if available is None:
+        available = desktop_available(release)
+        cache.set(key, available, 60)
+    return available
+
+
+def public_desktop_releases(channel='all', fresh=False):
     rows = DesktopRelease.objects.filter(status='published')
     if channel in {'stable', 'preview'}:
         rows = rows.filter(prerelease=channel == 'preview')
-    return sorted([r for r in rows if desktop_available(r)], key=lambda r: version_key(r.version), reverse=True)
+    check = desktop_available if fresh else listed_available
+    return sorted([r for r in rows if check(r)], key=lambda r: version_key(r.version), reverse=True)
 
 
 def recommended_desktop(releases):

@@ -6,8 +6,9 @@ import re
 import secrets
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db import OperationalError, transaction
-from django.db.models import Count, F, Min, Q, Sum
+from django.db.models import Count, F, Max, Min, Q, Sum
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
@@ -16,6 +17,7 @@ from .models import SiteVisitor
 COOKIE = 'bbmod_visitor'
 COOKIE_SALT = 'bbmod.visitor.v1'
 COOKIE_AGE = 365 * 24 * 60 * 60
+TOTAL_KEY = 'bbmod-visitor-total'
 BOT = re.compile(r'bot\b|crawler|spider|slurp|bingpreview|facebookexternalhit|bytespider|uptime|healthcheck|bbmod-check', re.I)
 logger = logging.getLogger(__name__)
 
@@ -33,6 +35,17 @@ def record_visit(token, now):
     return visitor
 
 
+def visitor_total():
+    # COUNT(*) scans the table; ids only grow, so extend a periodic count by newer ids.
+    latest = SiteVisitor.objects.order_by('-pk').values_list('pk', flat=True).first() or 0
+    counted = cache.get(TOTAL_KEY)
+    if counted is None or latest < counted[1]:
+        data = SiteVisitor.objects.aggregate(total=Count('pk'), latest=Max('pk', default=0))
+        counted = (data['total'], data['latest'])
+        cache.set(TOTAL_KEY, counted, 300)
+    return counted[0] + max(latest - counted[1], 0)
+
+
 @require_POST
 def visit(request):
     # Called once by the public-page script. Assets, APIs, errors, downloads and
@@ -44,7 +57,7 @@ def visit(request):
         token = secrets.token_hex(16)
     try:
         visitor = record_visit(token, timezone.now())
-        total = SiteVisitor.objects.count()
+        total = visitor_total()
     except OperationalError:
         # The site remains usable when its counter is temporarily unavailable.
         logger.warning('Visitor counter temporarily unavailable')

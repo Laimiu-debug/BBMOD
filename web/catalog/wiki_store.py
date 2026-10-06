@@ -12,6 +12,7 @@ SOURCE = 'https://battlebrothers.fandom.com'
 LICENSE_URL = 'https://creativecommons.org/licenses/by-sa/3.0/'
 SNAPSHOT_PATTERN = re.compile(r'[0-9]{8}T[0-9]{6}Z-[a-f0-9]{12}')
 ASSET_PATTERN = re.compile(r'[a-f0-9]{64}\.(?:png|jpg|gif|webp|svg)')
+_COUNTS = {}
 
 
 def title_key(title):
@@ -147,6 +148,16 @@ class WikiStore:
         return count, [self.normalize(r) for r in rows]
 
     def translation_counts(self):
+        database = self.release / 'wiki.sqlite3'
+        stat = database.stat()
+        key = (str(database.resolve()), stat.st_mtime_ns, stat.st_size)
+        if key not in _COUNTS:
+            if len(_COUNTS) >= 8:
+                _COUNTS.clear()
+            _COUNTS[key] = self._translation_counts()
+        return dict(_COUNTS[key])
+
+    def _translation_counts(self):
         counts = {'total': 0, 'translated': 0, 'complete': 0, 'reviewed': 0,
                   'retained_english': 0, 'no_translatable_text': 0}
         for row in self.db.execute(f'''SELECT {self.listing_columns()} FROM pages

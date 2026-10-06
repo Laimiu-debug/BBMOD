@@ -23,7 +23,7 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 from app.core.archive_safety import inspect_archive
 from app.core.profile_protocol import MAX_MANIFEST_BYTES, MAX_MOD_BYTES, HASH, validate_manifest, manifest_key
 from .models import Release, SharedModFile, SharedProfile, SharedProfileFile, ProfileUploadBudget
-from .services import audit, public_releases
+from .services import audit
 
 HEADER = 'X-BBMOD-Profile-Share'
 SALT = 'bbmod-profile-file-v1'
@@ -46,20 +46,35 @@ def _manifest(request):
     return validate_manifest(json.loads(raw))
 
 
-def _source(sha, size=None):
+def _sources(wanted):
     """No private, withdrawn, moderated or missing disk files may be reused."""
-    blob = SharedModFile.objects.filter(pk=sha).first()
-    releases = Release.objects.filter(sha256=sha)
-    if ((blob and blob.blocked) or releases.filter(
-            Q(mod__blocked=True) | Q(mod__owner__is_active=False) | ~Q(status='published')).exists()):
-        return 'blocked', None
-    for release in public_releases().filter(sha256=sha):
-        if (size is None or release.size == size) and release.archive and release.archive.storage.exists(release.archive.name):
-            return 'available', release.archive
-    if (blob and (size is None or blob.size == size) and blob.archive
-            and blob.archive.storage.exists(blob.archive.name)):
-        return 'available', blob.archive
-    return 'missing', None
+    shas = {sha for sha, _ in wanted}
+    blobs = SharedModFile.objects.in_bulk(shas)
+    releases = {}
+    for release in (Release.objects.filter(sha256__in=shas).select_related('mod', 'mod__owner')
+                    .defer('notes', 'metadata', 'inspection', 'mod__description')):
+        releases.setdefault(release.sha256, []).append(release)
+    exists = {}
+    def stored(field):
+        key = (field.storage, field.name)
+        if key not in exists:
+            exists[key] = field.storage.exists(field.name)
+        return exists[key]
+    result = []
+    for sha, size in wanted:
+        blob, rows = blobs.get(sha), releases.get(sha, [])
+        if (blob and blob.blocked) or any(r.mod.blocked or not r.mod.owner.is_active or r.status != 'published' for r in rows):
+            result.append(('blocked', None))
+            continue
+        archive = next((r.archive for r in rows if (size is None or r.size == size) and r.archive and stored(r.archive)), None)
+        if archive is None and blob and (size is None or blob.size == size) and blob.archive and stored(blob.archive):
+            archive = blob.archive
+        result.append(('available', archive) if archive else ('missing', None))
+    return result
+
+
+def _source(sha, size=None):
+    return _sources([(sha, size)])[0]
 
 
 class QuotaExceeded(ValueError):
@@ -101,8 +116,7 @@ def negotiate(request):
         with transaction.atomic():
             _quota(request, 'plan')
         files = []
-        for item in manifest['mods']:
-            status, _ = _source(item['sha256'], item['size'])
+        for item, (status, _) in zip(manifest['mods'], _sources([(m['sha256'], m['size']) for m in manifest['mods']])):
             row = {'sha256': item['sha256'], 'file_name': item['file_name'], 'status': status}
             if status == 'missing':
                 row['ticket'] = signing.dumps({'sha256': item['sha256'], 'size': item['size']}, salt=SALT)
@@ -174,8 +188,8 @@ def publish(request):
         manifest = _manifest(request)
         with transaction.atomic():
             _quota(request, 'publish')
-            for item in manifest['mods']:
-                if _source(item['sha256'], item['size'])[0] != 'available':
+            for item, (status, _) in zip(manifest['mods'], _sources([(m['sha256'], m['size']) for m in manifest['mods']])):
+                if status != 'available':
                     raise ValueError(f"{item['file_name']} 尚未上传完成或已下架，请重新分享。")
             profile, created = SharedProfile.objects.get_or_create(fingerprint=manifest_key(manifest),
                                                                   defaults={'manifest': manifest})
@@ -191,8 +205,9 @@ def publish(request):
 
 
 def _availability(profile):
-    return [{**item, 'available': _source(item['sha256'], item['size'])[0] == 'available'}
-            for item in profile.manifest['mods']]
+    mods = profile.manifest['mods']
+    return [{**item, 'available': status == 'available'}
+            for item, (status, _) in zip(mods, _sources([(m['sha256'], m['size']) for m in mods]))]
 
 
 def _public_profiles(query):

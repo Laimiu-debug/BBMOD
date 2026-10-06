@@ -14,7 +14,12 @@ from catalog.wiki_store import current_release, ASSET_PATTERN
 
 class Command(BaseCommand):
     help = '备份数据库、MOD 和管理器版本文件，输出至持久卷 backups 目录。'
+    def add_arguments(self, parser):
+        parser.add_argument('--keep', type=int, default=14, help='保留最新的备份数量（默认 14）。')
+
     def handle(self, *args, **kwargs):
+        if kwargs['keep'] < 1:
+            raise CommandError('--keep 至少为 1。')
         destination = settings.DATA_DIR / 'backups'
         destination.mkdir(exist_ok=True)
         archive_path = destination / f'bbmod-hub-{datetime.now(timezone.utc):%Y%m%dT%H%M%S%fZ}.tar.gz'
@@ -60,4 +65,7 @@ class Command(BaseCommand):
             except Exception:
                 archive_path.unlink(missing_ok=True)
                 raise
+        # Timestamped names sort chronologically.
+        for old in sorted(p for p in destination.glob('bbmod-hub-*.tar.gz') if p.is_file())[:-kwargs['keep']]:
+            old.unlink(missing_ok=True)
         self.stdout.write(str(archive_path))

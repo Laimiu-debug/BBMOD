@@ -7,22 +7,24 @@ from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib.auth.models import User
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import transaction, IntegrityError
-from django.db.models import F, Sum
+from django.db.models import F, OuterRef, Subquery, Sum
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.http import content_disposition_header
+from django.utils.cache import get_conditional_response
+from django.utils.http import content_disposition_header, quote_etag
 from django.views.decorators.http import require_POST, require_GET, require_safe
 from .desktop import desktop_available, public_desktop_releases, recommended_desktop, create_desktop_release
 from .forms import ModForm, QuickModForm, ReleaseForm, DesktopReleaseForm, CreateAuthorForm
 from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, LoginAttempt, CATEGORIES, Suggestion
 from .services import public_releases, create_release, can_inspect, audit
 from .visitors import traffic_summary
-from .community import catalogue_items, requirement_labels
+from .community import CatalogueSequence, catalogue_items, original_items, requirement_labels
 
 admin_required = user_passes_test(lambda u: u.is_active and u.is_superuser)
 
@@ -39,32 +41,43 @@ def csrf_failure(request, reason=''):
 
 
 def latest_releases():
-    seen = set()
-    result = []
-    for rel in public_releases():
-        if rel.mod_id not in seen:
-            seen.add(rel.mod_id)
-            result.append(rel)
-    return result
+    newest = Release.objects.filter(mod=OuterRef('mod'), status='published').order_by('-created_at', '-pk').values('pk')[:1]
+    return public_releases().filter(pk=Subquery(newest))
 
 
 @require_GET
 def catalog(request):
-    releases = catalogue_items(latest_releases())
-    count = len(releases)
     query = request.GET.get('q', '').strip()[:200]
     category = request.GET.get('category', '')
-    if query:
-        releases = [r for r in releases if query.casefold() in ' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'english_name', 'summary', 'author']).casefold()]
-    if category:
-        releases = [r for r in releases if r['metadata'].get('category') == category]
     source_kind = request.GET.get('source', '')
-    if source_kind in ('hosted', 'original'):
-        releases = [r for r in releases if r['source_kind'] == source_kind]
-    elif source_kind == 'direct':
-        releases = [r for r in releases if r['source_kind'] == 'original' and r['metadata'].get('official_downloads')]
-    if request.GET.get('sort') == 'name':
-        releases.sort(key=lambda r: r['metadata'].get('title', ''))
+    latest = latest_releases().defer('notes', 'inspection')
+    if query or request.GET.get('sort') == 'name':
+        # Search spans casefolded metadata plus curated aliases, which SQLite cannot match exactly.
+        releases = catalogue_items(latest)
+        count = len(releases)
+        if query:
+            releases = [r for r in releases if query.casefold() in ' '.join(str(r['metadata'].get(k, '')) for k in ['title', 'english_name', 'summary', 'author']).casefold()]
+        if category:
+            releases = [r for r in releases if r['metadata'].get('category') == category]
+        if source_kind in ('hosted', 'original'):
+            releases = [r for r in releases if r['source_kind'] == source_kind]
+        elif source_kind == 'direct':
+            releases = [r for r in releases if r['source_kind'] == 'original' and r['metadata'].get('official_downloads')]
+        if request.GET.get('sort') == 'name':
+            releases.sort(key=lambda r: r['metadata'].get('title', ''))
+    else:
+        originals = original_items({s for s in latest.values_list('metadata__source_url', flat=True) if s})
+        count = latest.count() + len(originals)
+        hosted = latest.filter(metadata__category=category) if category else latest
+        if category:
+            originals = [r for r in originals if r['metadata'].get('category') == category]
+        if source_kind == 'hosted':
+            originals = []
+        elif source_kind in ('original', 'direct'):
+            hosted = hosted.none()
+        if source_kind == 'direct':
+            originals = [r for r in originals if r['metadata'].get('official_downloads')]
+        releases = CatalogueSequence(hosted, originals)
     return render(request, 'catalog.html', {'page': Paginator(releases, 12).get_page(request.GET.get('page')), 'count': count,
                                            'q': query, 'category': category, 'source_kind': source_kind,
                                            'categories': CATEGORIES, 'track_visit': True})
@@ -108,7 +121,10 @@ def sign_in(request):
     if request.method == 'POST':
         now = timezone.now()
         keys = _login_keys(request)
-        LoginAttempt.objects.filter(since__lt=now - timedelta(minutes=15)).delete()
+        expired = LoginAttempt.objects.filter(since__lt=now - timedelta(minutes=15))
+        expired.filter(key__in=keys).delete()
+        if cache.add('bbmod-login-sweep', True, 600):
+            expired.delete()
         throttled = any(LoginAttempt.objects.filter(key=k, failures__gte=limit).exists() for k, limit in zip(keys, [30, 8]))
         if throttled:
             form.add_error(None, '尝试次数过多，请 15 分钟后再试。')
@@ -272,7 +288,8 @@ def accounts(request):
             audit(request.user, '创建作者账号', user.username)
         messages.success(request, f'账号 {user.username} 已创建，请私下交付账号和初始密码；首次登录须修改密码。')
         return redirect('accounts')
-    return render(request, 'accounts.html', {'form': form, 'accounts': User.objects.all().order_by('-date_joined')})
+    accounts = Paginator(User.objects.order_by('-date_joined', '-pk'), 50).get_page(request.GET.get('page'))
+    return render(request, 'accounts.html', {'form': form, 'accounts': accounts})
 
 
 @admin_required
@@ -295,17 +312,27 @@ def account_change(request, user_id):
     return render(request, 'form.html', {'form': form, 'title': f'重置 {user.username} 的密码', 'submit': '重置密码', 'action': 'password', 'compact': True})
 
 
+def _tag(*parts):
+    return quote_etag(hashlib.sha256(repr(parts).encode()).hexdigest()[:32])
+
+
 @require_GET
 def api_catalog(request):
-    items = []
-    for release in latest_releases():
-        items.append({'id': str(release.mod_id), 'release_id': str(release.pk), 'version': release.version,
-                      'file_name': release.mod.install_name, 'sha256': release.sha256, 'size': release.size,
-                      'published_at': release.published_at.isoformat(), 'notes': release.notes,
-                      'metadata': release.metadata, 'inspection': release.inspection,
-                      'download_path': reverse('download', args=[release.pk]),
-                      'page_path': reverse('detail', args=[release.mod_id])})
-    response = JsonResponse({'schema_version': 1, 'site_name': 'BBMOD 军械库', 'mods': items}, json_dumps_params={'ensure_ascii': False})
+    releases = latest_releases()
+    # Releases are immutable apart from status, so the visible ids identify the payload.
+    tag = _tag('catalog-v1', list(releases.order_by('pk').values_list('pk', 'mod__install_name', 'published_at')))
+    response = get_conditional_response(request, etag=tag)
+    if response is None:
+        items = []
+        for release in releases:
+            items.append({'id': str(release.mod_id), 'release_id': str(release.pk), 'version': release.version,
+                          'file_name': release.mod.install_name, 'sha256': release.sha256, 'size': release.size,
+                          'published_at': release.published_at.isoformat(), 'notes': release.notes,
+                          'metadata': release.metadata, 'inspection': release.inspection,
+                          'download_path': reverse('download', args=[release.pk]),
+                          'page_path': reverse('detail', args=[release.mod_id])})
+        response = JsonResponse({'schema_version': 1, 'site_name': 'BBMOD 军械库', 'mods': items}, json_dumps_params={'ensure_ascii': False})
+    response['ETag'] = tag
     response['Cache-Control'] = 'no-store'
     return response
 
@@ -332,7 +359,7 @@ def desktop_download(request, release_id=None):
         if release.status != 'published' and not (request.user.is_active and request.user.is_superuser):
             raise Http404
     else:
-        release = recommended_desktop(public_desktop_releases())
+        release = recommended_desktop(public_desktop_releases(fresh=True))
     if not release or not desktop_available(release):
         raise Http404
     if settings.DESKTOP_DOWNLOAD_ACCEL:
@@ -397,5 +424,7 @@ def api_desktop_releases(request):
               'filename': r.filename, 'size': r.size, 'sha256': r.sha256,
               'published_at': r.published_at.isoformat() if r.published_at else None,
               'download_path': reverse('desktop_version_download', args=[r.pk])} for r in rows]
-    return JsonResponse({'schema_version': 1, 'recommended_version': recommended.version if recommended else None,
-                         'releases': items}, json_dumps_params={'ensure_ascii': False})
+    response = JsonResponse({'schema_version': 1, 'recommended_version': recommended.version if recommended else None,
+                             'releases': items}, json_dumps_params={'ensure_ascii': False})
+    response['ETag'] = _tag('desktop-v1', response.content)
+    return get_conditional_response(request, etag=response['ETag'], response=response)
