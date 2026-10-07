@@ -20,7 +20,7 @@ from .l10n_compat import override_keys, write_hooks
 from .l10n_identity import BRAND_META, PACKAGE_ID, PACKAGE_BRAND
 
 PACKAGE_NAME = 'mod_bbmod_zhcn.zip'
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 CATALOG_FILE = resource_path('localization/catalog.json')
 UI_ROOT = 'ui/mods/bbmod_l10n/'
 FONT_ENTRY = UI_ROOT + 'NotoSansSC-Regular.ttf'
