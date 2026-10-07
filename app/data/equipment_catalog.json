@@ -2,8 +2,8 @@
   "schema": 1,
   "game_version": "1.5.2.3",
   "provenance": "Original local game scripts; BBMOD independently reviewed Chinese terminology.",
-  "translation_sha256": "b0c6f0d12ea0ea0a826d931376212e8753f343cd119922e80d3dbd761156b3b1",
-  "named_catalog_sha256": "9e1c8dcd46fe9d13c1f3a29dabb76b1e09c8466d177e7254b9aeeda1cdb23381",
+  "translation_sha256": "0efd3ca07ab6ca71f7e9f51105c1e39249291ab2cd92a3775841fe2ed36fe52f",
+  "named_catalog_sha256": "c86fd1e7f0a12d0a309132e167bcb0d4e6d4d322afa75ca27b06b85284e12e24",
   "source_sha256": {
     "scripts/items/armor/adorned_heavy_mail_hauberk.nut": "389574133a18c0f7e4eb59f89b4ce9007db7d85fe2ef2ce446f0a9d0724d1cbb",
     "scripts/items/armor/adorned_mail_shirt.nut": "66baa8f0baf7b540cd0df4e903edb0fa5459539f92ecb0ecf11d5825d4f42985",
