@@ -1,0 +1,722 @@
+[
+  {
+    "name": "cemetery_secure_destination",
+    "parts": [
+      {
+        "source": "Secure "
+      },
+      {
+        "literal": "黑石墓地"
+      }
+    ],
+    "substitutions": {},
+    "expected": "清剿黑石墓地",
+    "evidence": "scripts/contracts/contracts/investigate_cemetery_contract.cnut/start; official source context supplied by root"
+  },
+  {
+    "name": "destroy_camp_direction",
+    "parts": [
+      {
+        "source": "Destroy "
+      },
+      {
+        "literal": "黑石营地"
+      },
+      {
+        "source": " %direction% of %origin%"
+      }
+    ],
+    "substitutions": {
+      "origin": "河湾镇",
+      "direction": "东北"
+    },
+    "expected": "摧毁黑石营地，位于河湾镇的东北方",
+    "evidence": "data_001.dat scripts/contracts/contracts/destroy_goblin_camp_contract.cnut function 0.3.0/start literals: Destroy , DestinationName, direction suffix"
+  },
+  {
+    "name": "sacrifice_injury_1",
+    "parts": [
+      {
+        "source": "You gain extra Renown for suffering no more than "
+      },
+      {
+        "literal": "3"
+      },
+      {
+        "source": " combat injuries ("
+      },
+      {
+        "literal": "1"
+      },
+      {
+        "source": " injury"
+      },
+      {
+        "source": " taken so far)."
+      }
+    ],
+    "substitutions": {},
+    "expected": "若战团新增伤势不超过3处战伤，便可获得额外声望（目前累计1处伤势）。",
+    "evidence": "data_001.dat scripts/ambitions/oaths/oath_of_sacrifice_ambition.cnut function 0.2/getRewardTooltip"
+  },
+  {
+    "name": "sacrifice_injury_2",
+    "parts": [
+      {
+        "source": "You gain extra Renown for suffering no more than "
+      },
+      {
+        "literal": "3"
+      },
+      {
+        "source": " combat injuries ("
+      },
+      {
+        "literal": "2"
+      },
+      {
+        "source": " injuries"
+      },
+      {
+        "source": " taken so far)."
+      }
+    ],
+    "substitutions": {},
+    "expected": "若战团新增伤势不超过3处战伤，便可获得额外声望（目前累计2处伤势）。",
+    "evidence": "data_001.dat scripts/ambitions/oaths/oath_of_sacrifice_ambition.cnut function 0.2/getRewardTooltip"
+  },
+  {
+    "name": "tutorial_additional_recruits",
+    "parts": [
+      {
+        "source": "Recruit at least "
+      },
+      {
+        "literal": "3"
+      },
+      {
+        "source": " more men"
+      }
+    ],
+    "substitutions": {},
+    "expected": "至少再招募3名人手",
+    "evidence": "data_001.dat scripts/contracts/contracts/tutorial_contract.cnut function 0.2.7/start"
+  },
+  {
+    "name": "defense_southern_success",
+    "parts": [
+      {
+        "source": "Defended "
+      },
+      {
+        "literal": "黑石城"
+      },
+      {
+        "source": " from southern raiders"
+      }
+    ],
+    "substitutions": {},
+    "expected": "保护了黑石城免遭南方劫掠者袭击",
+    "evidence": "data_001.dat scripts/contracts/contracts/intercept_raiding_parties_contract.cnut/getResult"
+  },
+  {
+    "name": "defense_undead_success",
+    "parts": [
+      {
+        "source": "Defended "
+      },
+      {
+        "literal": "黑石城"
+      },
+      {
+        "source": " against undead"
+      }
+    ],
+    "substitutions": {},
+    "expected": "保护了黑石城免遭亡灵侵袭",
+    "evidence": "data_001.dat scripts/contracts/contracts/last_stand_contract.cnut/getResult"
+  },
+  {
+    "name": "defense_southern_failure",
+    "parts": [
+      {
+        "source": "Failed to defend "
+      },
+      {
+        "literal": "黑石城"
+      },
+      {
+        "source": " from southern raiders"
+      }
+    ],
+    "substitutions": {},
+    "expected": "未能保护黑石城免遭南方劫掠者袭击",
+    "evidence": "data_001.dat scripts/contracts/contracts/intercept_raiding_parties_contract.cnut/getResult"
+  },
+  {
+    "name": "defense_undead_failure",
+    "parts": [
+      {
+        "source": "Failed to defend "
+      },
+      {
+        "literal": "黑石城"
+      },
+      {
+        "source": " against undead"
+      }
+    ],
+    "substitutions": {},
+    "expected": "未能保护黑石城免遭亡灵侵袭",
+    "evidence": "data_001.dat scripts/contracts/contracts/last_stand_contract.cnut/getResult"
+  },
+  {
+    "name": "barbarian_revenge_success",
+    "parts": [
+      {
+        "source": "You saved "
+      },
+      {
+        "literal": "河湾镇"
+      },
+      {
+        "source": " from barbarian revenge"
+      }
+    ],
+    "substitutions": {},
+    "expected": "你保护了河湾镇免遭蛮族的报复",
+    "evidence": "data_001.dat scripts/contracts/contracts/drive_away_barbarians_contract.cnut function 0.4.19/getResult"
+  },
+  {
+    "name": "barbarian_revenge_failure",
+    "parts": [
+      {
+        "source": "You failed to save "
+      },
+      {
+        "literal": "河湾镇"
+      },
+      {
+        "source": " from barbarians out for revenge"
+      }
+    ],
+    "substitutions": {},
+    "expected": "你未能保护河湾镇免遭前来寻仇的蛮族袭击",
+    "evidence": "data_001.dat scripts/contracts/contracts/drive_away_barbarians_contract.cnut function 0.4.21/getResult"
+  },
+  {
+    "name": "escort_envoy_direction",
+    "parts": [
+      {
+        "source": "Escort %envoy% %envoy_title% to "
+      },
+      {
+        "literal": "河湾镇"
+      },
+      {
+        "source": " in the %direction%"
+      }
+    ],
+    "substitutions": {
+      "envoy_title": "使者",
+      "envoy": "阿兰",
+      "direction": "东北"
+    },
+    "expected": "护送使者阿兰前往河湾镇（东北方）",
+    "evidence": "data_001.dat scripts/contracts/contracts/escort_envoy_contract.cnut function 0.3.0/start"
+  },
+  {
+    "name": "escort_envoy_wait",
+    "parts": [
+      {
+        "source": "Wait around "
+      },
+      {
+        "literal": "河湾镇"
+      },
+      {
+        "source": " until %envoy% %envoy_title% is done"
+      }
+    ],
+    "substitutions": {
+      "envoy_title": "使者",
+      "envoy": "阿兰"
+    },
+    "expected": "在河湾镇附近等候，直到使者阿兰办完事情",
+    "evidence": "data_001.dat scripts/contracts/contracts/escort_envoy_contract.cnut function 0.3.5/start"
+  },
+  {
+    "name": "staggered-log-two-turns",
+    "parts": [
+      {
+        "literal": "阿尔布雷希特"
+      },
+      {
+        "source": " has staggered "
+      },
+      {
+        "literal": "兽人战士"
+      },
+      {
+        "source": " for "
+      },
+      {
+        "source": "two turns"
+      }
+    ],
+    "substitutions": {},
+    "expected": "阿尔布雷希特使以下目标踉跄：兽人战士 ，持续 两回合",
+    "evidence": {
+      "file": "scripts/skills/effects/staggered_effect.cnut",
+      "function": "getLogEntryOnAdded"
+    }
+  },
+  {
+    "name": "dazed-log-preserved",
+    "parts": [
+      {
+        "literal": "阿尔布雷希特"
+      },
+      {
+        "source": " has dazed "
+      },
+      {
+        "literal": "兽人战士"
+      },
+      {
+        "source": " for "
+      },
+      {
+        "source": "one turn"
+      }
+    ],
+    "substitutions": {},
+    "expected": "阿尔布雷希特使以下目标陷入恍惚：兽人战士 ，持续 一回合",
+    "evidence": {
+      "file": "scripts/skills/effects/dazed_effect.cnut",
+      "function": "getLogEntryOnAdded"
+    }
+  },
+  {
+    "name": "fling-back-log",
+    "parts": [
+      {
+        "literal": "树人"
+      },
+      {
+        "source": " flings back "
+      },
+      {
+        "literal": "阿尔布雷希特"
+      }
+    ],
+    "substitutions": {},
+    "expected": "树人向后抛飞了阿尔布雷希特",
+    "evidence": {
+      "file": "scripts/skills/actives/fling_back_skill.cnut",
+      "function": "onPerformAttack"
+    }
+  },
+  {
+    "name": "snake-drag-log",
+    "parts": [
+      {
+        "literal": "巨蛇"
+      },
+      {
+        "source": " drags in "
+      },
+      {
+        "literal": "阿尔布雷希特"
+      }
+    ],
+    "substitutions": {},
+    "expected": "巨蛇拖近了阿尔布雷希特",
+    "evidence": {
+      "file": "scripts/skills/actives/serpent_hook_skill.cnut",
+      "function": "onUse"
+    }
+  },
+  {
+    "name": "gore-log",
+    "parts": [
+      {
+        "literal": "邪神"
+      },
+      {
+        "source": " gores"
+      }
+    ],
+    "substitutions": {},
+    "expected": "邪神用角顶撞",
+    "evidence": {
+      "file": "scripts/skills/actives/gore_skill.cnut",
+      "function": "onTeleportDone"
+    }
+  },
+  {
+    "name": "shield-fatigue-reduction",
+    "parts": [
+      {
+        "source": "Shield skills build up [color="
+      },
+      {
+        "literal": "#00ff00"
+      },
+      {
+        "literal": "]"
+      },
+      {
+        "literal": "-2"
+      },
+      {
+        "source": "[/color] less fatigue"
+      }
+    ],
+    "substitutions": {},
+    "expected": "盾牌技能疲劳消耗修正：[color=#00ff00]-2[/color]点",
+    "evidence": {
+      "file": "scripts/items/shields/shield.cnut",
+      "function": "getTooltip"
+    }
+  },
+  {
+    "name": "weapon-fatigue-increase",
+    "parts": [
+      {
+        "source": "Weapon skills build up [color="
+      },
+      {
+        "literal": "#ff0000"
+      },
+      {
+        "literal": "]"
+      },
+      {
+        "literal": "3"
+      },
+      {
+        "source": "[/color] more fatigue"
+      }
+    ],
+    "substitutions": {},
+    "expected": "武器技能疲劳消耗修正：[color=#ff0000]3[/color]点",
+    "evidence": {
+      "file": "scripts/items/weapons/weapon.cnut",
+      "function": "getTooltip"
+    }
+  },
+  {
+    "name": "fortification-oath-shield-fatigue",
+    "parts": [
+      {
+        "source": "Shield skills build up [color="
+      },
+      {
+        "literal": "#00ff00"
+      },
+      {
+        "source": "]25%[/color] less Fatigue."
+      }
+    ],
+    "substitutions": {},
+    "expected": "盾牌技能的疲劳消耗降低[color=#00ff00]25%[/color]。",
+    "evidence": {
+      "file": "scripts/skills/traits/oath_of_fortification_trait.cnut",
+      "function": "getTooltip"
+    },
+    "context": "scripts/skills/traits/oath_of_fortification_trait.cnut"
+  },
+  {
+    "name": "reforming-description",
+    "parts": [
+      {
+        "source": "This character's flesh is reforming and they are temporarily incapacitated for [color="
+      },
+      {
+        "literal": "#ff0000"
+      },
+      {
+        "literal": "]"
+      },
+      {
+        "literal": "2"
+      },
+      {
+        "source": "[/color] more turn(s), and unable to act."
+      }
+    ],
+    "substitutions": {},
+    "expected": "此角色的血肉正在重新成形。效果还将持续[color=#ff0000]2[/color]回合，在此期间无法行动。",
+    "evidence": {
+      "file": "scripts/skills/effects/reforming_effect.cnut",
+      "function": "getDescription"
+    }
+  },
+  {
+    "name": "narrative-1",
+    "parts": [
+      {
+        "source": "Has taught "
+      },
+      {
+        "literal": "乌尔里希"
+      },
+      {
+        "source": " something"
+      }
+    ],
+    "substitutions": {},
+    "expected": "教了乌尔里希一些本领"
+  },
+  {
+    "name": "narrative-2",
+    "parts": [
+      {
+        "source": "Denied "
+      },
+      {
+        "literal": "奥托"
+      },
+      {
+        "source": " a favor"
+      }
+    ],
+    "substitutions": {},
+    "expected": "拒绝了奥托的请求"
+  },
+  {
+    "name": "narrative-3",
+    "parts": [
+      {
+        "source": "Grew to like "
+      },
+      {
+        "literal": "哈根"
+      },
+      {
+        "source": " some"
+      }
+    ],
+    "substitutions": {},
+    "expected": "对哈根渐生好感"
+  },
+  {
+    "name": "narrative-4",
+    "parts": [
+      {
+        "source": "Failed to teach "
+      },
+      {
+        "literal": "哈根"
+      },
+      {
+        "source": " anything"
+      }
+    ],
+    "substitutions": {},
+    "expected": "没能教会哈根任何本事"
+  },
+  {
+    "name": "narrative-5",
+    "parts": [
+      {
+        "source": "Annoyed by "
+      },
+      {
+        "literal": "哈根"
+      },
+      {
+        "source": "'s antics"
+      }
+    ],
+    "substitutions": {},
+    "expected": "因哈根的胡闹而恼火"
+  },
+  {
+    "name": "narrative-6",
+    "parts": [
+      {
+        "source": "Encouraged by "
+      },
+      {
+        "literal": "奥托"
+      },
+      {
+        "source": "'s preaching"
+      }
+    ],
+    "substitutions": {},
+    "expected": "受到奥托的布道鼓舞"
+  },
+  {
+    "name": "narrative-7",
+    "parts": [
+      {
+        "source": "Relished "
+      },
+      {
+        "literal": "奥托"
+      },
+      {
+        "source": "'s speech about the dying sun"
+      }
+    ],
+    "substitutions": {},
+    "expected": "津津有味地听奥托谈论太阳将死之事"
+  },
+  {
+    "name": "narrative-8",
+    "parts": [
+      {
+        "source": "You met %name% in "
+      },
+      {
+        "literal": "松林镇"
+      },
+      {
+        "source": " where he volunteered to be your squire. He probably had no idea what he was getting into back then."
+      }
+    ],
+    "substitutions": {
+      "name": "哈根"
+    },
+    "expected": "哈根与你相遇于松林镇，并在那里主动请求做你的侍从。那时，他大概还不知道自己踏上的是怎样一条路。"
+  },
+  {
+    "name": "narrative-9",
+    "parts": [
+      {
+        "source": "You found %name% in "
+      },
+      {
+        "literal": "南风城"
+      },
+      {
+        "source": ", masked by green silk and drawing crowds with rhythmic movements and impressively precise fruit slicing. The latter skill is a boon to any mercenary company, and so you didn't hesitate to recruit him."
+      }
+    ],
+    "substitutions": {
+      "name": "哈根"
+    },
+    "expected": "哈根与你相识于南风城，他蒙着绿色丝巾，凭节奏明快的舞姿和精准得惊人的切水果刀法吸引人群。后一项本领对任何佣兵团都大有用处，你便毫不犹豫地招募了他。"
+  },
+  {
+    "name": "narrative-10",
+    "parts": [
+      {
+        "source": "You found %name% on the streets of "
+      },
+      {
+        "literal": "南风城"
+      },
+      {
+        "source": ", ready to put on fiery display of record-breaking fire juggling that could have well cost him his life. Luckily, "
+      }
+    ],
+    "substitutions": {
+      "name": "哈根"
+    },
+    "expected": "哈根与你相识于南风城的街头，当时他正要表演一场打破纪录的火焰杂耍，弄不好就会送命。幸好，"
+  },
+  {
+    "name": "rebuilding-settlement",
+    "parts": [
+      {
+        "source": "In an effort to rebuild the nearby "
+      },
+      {
+        "literal": "伐木场"
+      },
+      {
+        "source": ", building materials are in high demand and low supply."
+      }
+    ],
+    "substitutions": {},
+    "expected": "附近的伐木场正在重建，建筑材料需求旺盛，供应紧缺。",
+    "evidence": "scripts/entity/world/settlements/situations/rebuilding_effort_situation.cnut/getDescription"
+  },
+  {
+    "name": "humility-oath-experience",
+    "parts": [
+      {
+        "source": "Your men gain [color="
+      },
+      {
+        "literal": "#00ff00"
+      },
+      {
+        "source": "]10%[/color] more experience."
+      }
+    ],
+    "substitutions": {},
+    "context": "scripts/ambitions/oaths/oath_of_humility_ambition.cnut",
+    "expected": "弟兄们获得的经验提高[color=#00ff00]10%[/color]。",
+    "evidence": {
+      "file": "scripts/ambitions/oaths/oath_of_humility_ambition.cnut",
+      "function": "create"
+    }
+  },
+  {
+    "name": "humility-oath-contract-pay",
+    "parts": [
+      {
+        "source": "You earn [color="
+      },
+      {
+        "literal": "#ff0000"
+      },
+      {
+        "source": "]25%[/color] fewer crowns from contracts."
+      }
+    ],
+    "substitutions": {},
+    "context": "scripts/ambitions/oaths/oath_of_humility_ambition.cnut",
+    "expected": "委托报酬减少[color=#ff0000]25%[/color]。",
+    "evidence": {
+      "file": "scripts/ambitions/oaths/oath_of_humility_ambition.cnut",
+      "function": "create"
+    }
+  },
+  {
+    "name": "valor-oath-experience",
+    "parts": [
+      {
+        "source": "Your men gain [color="
+      },
+      {
+        "literal": "#ff0000"
+      },
+      {
+        "source": "]15%[/color] less experience."
+      }
+    ],
+    "substitutions": {},
+    "context": "scripts/ambitions/oaths/oath_of_valor_ambition.cnut",
+    "expected": "弟兄们获得的经验减少[color=#ff0000]15%[/color]。",
+    "evidence": {
+      "file": "scripts/ambitions/oaths/oath_of_valor_ambition.cnut",
+      "function": "create"
+    }
+  },
+  {
+    "name": "greenskins-event-pay",
+    "parts": [
+      {
+        "source": "You earn [color="
+      },
+      {
+        "literal": "#00ff00"
+      },
+      {
+        "source": "]100[/color] Crowns"
+      }
+    ],
+    "substitutions": {},
+    "expected": "你获得[color=#00ff00]100[/color]克朗",
+    "evidence": {
+      "file": "scripts/events/events/crisis/greenskins_investigation_event.cnut",
+      "function": "start"
+    }
+  }
+]

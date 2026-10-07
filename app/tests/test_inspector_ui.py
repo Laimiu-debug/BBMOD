@@ -2,10 +2,36 @@ from types import SimpleNamespace
 from pathlib import Path
 import pytest
 from PySide6.QtCore import QPoint, QRect, QSize
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QTextBrowser
 from ui.global_hotkey import GlobalHotkey, parse_shortcut
-from ui.inspector_page import tooltip_position, tooltip_regions
+from ui.inspector_page import result_html, tooltip_position, tooltip_regions
+from core.item_inspector import appraise, catalog
 from ui.game_foreground import GameForeground, map_tooltip_bounds
+
+
+@pytest.mark.parametrize('compact', [False, True])
+@pytest.mark.parametrize('name', ['乌鸦的誓言 <b>锋刃</b> & \"荣耀\"', ''])
+def test_appraisal_views_show_game_name_and_label_base_type(compact, name):
+    app = QApplication.instance() or QApplication([])
+    identifier = 'weapon.named_greatsword'
+    item = catalog()[identifier]
+    result = appraise({'schema': 1, 'seq': 1, 'id': identifier, 'name': name,
+                      'named': True, 'attachment': False, 'stats': item['base']})
+    rendered = result_html(result, compact=compact)
+    browser = QTextBrowser()
+    try:
+        browser.setHtml(rendered)
+        text = browser.toPlainText()
+        expected_title = name or item['zh']
+        assert text.splitlines()[0 if compact else 1] == expected_title
+        assert '装备类型：' + item['zh'] + ' / ' + item['en'] in text
+        if name:
+            assert text.count(name) == 1
+            assert '&lt;b&gt;锋刃&lt;/b&gt;' in rendered and '<b>锋刃</b>' not in rendered
+    finally:
+        browser.close()
+        browser.deleteLater()
+        app.processEvents()
 
 
 @pytest.mark.parametrize('value,vk', [('Ctrl+Shift+Q', 81), ('Alt+5', 53), ('F8', 0x77), ('Ctrl+Space', 0x20), ('Ctrl+Left', 0x25)])

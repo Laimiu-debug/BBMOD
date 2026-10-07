@@ -91,13 +91,75 @@ def test_bilingual_search_filters_and_zero_results(page):
     type_search(page, '巨剑')
     assert page.table.rowCount() >= 2
     page.rarity.setCurrentIndex(page.rarity.findData('named'))
-    assert page.table.rowCount() == 1 and '红巨剑' == page.table.item(0, 0).text()
+    shown = {page.items[page.table.item(row, 0).data(Qt.UserRole)]['id']:
+             (page.table.item(row, 0).text(), page.table.item(row, 2).text())
+             for row in range(page.table.rowCount())}
+    assert shown['weapon.named_greatsword'] == ('巨剑', '红装')
     page.group.setCurrentIndex(page.group.findData('shield'))
     assert not page.table.rowCount() and not page.detail_button.isEnabled()
     assert '没有匹配' in page.count.text() and page.selected_key() is None
     page.reset_filters()
     assert page.table.rowCount() == total and page.detail_button.isEnabled()
     assert matches(by_id('weapon.named_greatsword'), '红装 greatsword', 'two_handed', 'named')
+
+
+def test_named_types_keep_real_colors_and_correct_script_identity():
+    expected = {
+        'armor.head.gold_and_black_turban': '黑金缠头盔',
+        'armor.head.golden_feathers': '金羽盔',
+        'armor.head.red_and_gold_band_helmet': '红金饰带盔',
+        'shield.named_red_white': '红白盾',
+        'weapon.named_orc_axe': '裂颅斧',
+        'weapon.named_orc_cleaver': '断头斩刀',
+        'weapon.named_goblin_heavy_bow': '强化荒野短弓',
+        'weapon.named_goblin_pike': '锯齿长枪',
+        'weapon.named_two_handed_mace': '双手钉锤',
+        'weapon.named_two_handed_spiked_mace': '双手尖刺钉锤',
+    }
+    for identifier, name in expected.items():
+        assert catalog()[identifier]['zh'] == by_id(identifier)['zh'] == name
+    assert not matches(by_id('armor.head.gold_and_black_turban'), '金羽盔')
+    assert not matches(by_id('armor.head.golden_feathers'), '黑金缠头盔')
+
+
+def test_game_name_search_finds_all_matching_types_without_renaming_them(page):
+    type_search(page, '夜幕披衣')
+    shown = {page.items[page.table.item(row, 0).data(Qt.UserRole)]['id']:
+             page.table.item(row, 0).text() for row in range(page.table.rowCount())}
+    # The same name component can legitimately be rolled by multiple types.
+    assert shown == {'armor.body.black_leather': '黑色皮甲',
+                     'armor.body.named_noble_mail_armor': '贵族锁甲'}
+    assert matches(by_id('armor.body.named_noble_mail_armor'), 'Nightcloak')
+    assert matches(by_id('weapon.named_greatsword'), '红巨剑')
+    assert not matches(by_id('weapon.greatsword'), '红巨剑')
+    html = detail_html(by_id('armor.body.named_noble_mail_armor'), '1.5.2.3')
+    assert '游戏名称示例' in html and '夜幕披衣' in html and '可由玩家改名' in html
+
+
+def test_naming_refresh_uses_ids_and_keeps_numeric_facts(tmp_path):
+    from copy import deepcopy
+    from tools.equipment_names import naming_fields, naming_sources, refresh_named_names
+    from tools.build_equipment_catalog import refresh_names
+    names, terms, translation_hash, naming_hash = naming_sources()
+    item_data = json.loads((ROOT / 'data/item_inspector/catalog.json').read_text('utf-8'))
+    before = deepcopy(item_data)
+    # Reversing the naming registry must never swap turban and feathered types.
+    reverse = dict(reversed(list(names.items())))
+    for identifier, expected in [('armor.head.gold_and_black_turban', '黑金缠头盔'),
+                                 ('armor.head.golden_feathers', '金羽盔')]:
+        source = item_data['items'][identifier]['source']
+        assert naming_fields(identifier, source, reverse, terms)['zh'] == expected
+    with pytest.raises(ValueError, match='source changed'):
+        naming_fields('armor.head.gold_and_black_turban',
+                      names['armor.head.golden_feathers']['source'], names, terms)
+    assert refresh_named_names(item_data) == before
+    assert before['translation_sha256'] == translation_hash
+    assert before['naming_sha256'] == naming_hash
+    for record in item_data['items'].values():
+        assert record['name_mode'] == 'random'
+        assert all(name['zh'] == terms[name['en']] for name in record['name_pool'])
+    equipment = load_equipment()
+    assert refresh_names(deepcopy(equipment)) == equipment
 
 
 def test_numeric_sort_keeps_row_identity_and_detail_after_filter(page):

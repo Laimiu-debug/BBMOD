@@ -21,7 +21,7 @@ def event(identifier='weapon.named_greatsword', **stats):
 def test_original_catalog_bilingual_and_damage_affixes():
     items = catalog()
     assert len(items) == 94
-    assert items['weapon.named_greatsword']['zh'] == '红巨剑'
+    assert items['weapon.named_greatsword']['zh'] == '巨剑'
     record = event(RegularDamage=102, RegularDamageMax=120, DirectDamageAdd=.16, ConditionMax=100)
     result = appraise(record, items)
     assert result['valid']
@@ -30,6 +30,19 @@ def test_original_catalog_bilingual_and_damage_affixes():
     for changed in [dict(RegularDamageMax=130), dict(AmmoMax=10), dict(ArmorDamageMult=1.2)]:
         invalid = appraise({**record, 'stats': {**record['stats'], **changed}})
         assert not invalid['valid'] and all(r['score'] is None for r in invalid['rows'])
+
+
+@pytest.mark.parametrize('name', ['乌鸦的誓言', '自己命名的剑 <锋刃> & \"荣耀\"', '  '])
+def test_appraisal_preserves_game_instance_name(name):
+    result = appraise({**event(), 'name': name})
+    assert result['title'] == result['instance'] == name
+    assert result['base_name'] == catalog()['weapon.named_greatsword']['zh']
+
+
+def test_appraisal_falls_back_to_catalog_only_for_empty_name():
+    result = appraise({**event(), 'name': ''})
+    assert result['title'] == result['base_name'] == catalog()['weapon.named_greatsword']['zh']
+    assert result['instance'] == ''
 
 
 def test_armor_attachment_and_negative_fatigue_direction():

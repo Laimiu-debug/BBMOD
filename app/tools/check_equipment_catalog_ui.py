@@ -59,14 +59,21 @@ def main():
         QTest.keyClicks(page.search, 'Greatsword'); QTest.qWait(80)
         assert page.table.rowCount() >= 2
         page.rarity.setCurrentIndex(page.rarity.findData('named'))
-        assert page.table.rowCount() == 1
+        assert page.table.rowCount() >= 1
+        row = next(row for row in range(page.table.rowCount())
+                   if page.items[page.table.item(row, 0).data(Qt.UserRole)]['id'] == 'weapon.named_greatsword')
+        page.table.selectRow(row)
         QTest.mouseClick(page.detail_button, Qt.LeftButton); QTest.qWait(80)
         dialog = page._dialog
         text = dialog.findChild(QTextBrowser).toPlainText()
         assert '25%' in text and '33% ～ 41%' in text and '随机抽取两组' in text
         dialog.grab().save(str(out / 'named-greatsword-detail.png'))
         dialog.close()
-        page.search.setText('no-such-equipment'); QTest.qWait(40)
+        page.search.setText('no-such-equipment')
+        deadline = time.monotonic() + 5
+        while page._search_timer.isActive():
+            assert time.monotonic() < deadline
+            QTest.qWait(20)
         assert not page.table.rowCount() and not page.detail_button.isEnabled()
         window.grab().save(str(out / 'empty-search.png'))
         workspace.sections.setCurrentIndex(1); QTest.qWait(80)

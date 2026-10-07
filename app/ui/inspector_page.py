@@ -27,9 +27,12 @@ def result_html(result, compact=False):
             '<p>把鼠标移到游戏中的装备图标，查看这件红装的属性与原版随机范围。</p>'
             '<p class="muted">已经停留在图标上时，移出后再移入即可。</p>')
     text = css + ('' if compact else '<p align="center" class="muted">◆　装 备 鉴 定　◆</p>') + '<h2 align="center">' + escape(result['title']) + '</h2>'
-    if result.get('english'):
-        text += '<p align="center" class="muted">' + escape(result['english']) + '</p>'
-        text += '<p align="center">' + escape(result.get('instance', '')) + '</p>'
+    base_name = result.get('base_name', '')
+    if base_name:
+        type_label = '装备类型：' + base_name
+        if result.get('english'):
+            type_label += ' / ' + result['english']
+        text += '<p align="center" class="muted">' + escape(type_label) + '</p>'
     text += '<hr>'
     if result['rows']:
         text += '<table width="100%" cellspacing="0" cellpadding="7"><tr><th align="left" width="43%">装备属性 / 本件</th><th align="left">原版红装范围</th></tr>'

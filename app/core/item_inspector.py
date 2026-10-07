@@ -201,7 +201,8 @@ def appraise(event, items=None):
         note += ' 护甲已按附件记录还原未加附件的数值。'
     if not valid:
         for row in rows: row['score'] = None
-    return {'supported': True, 'valid': valid, 'title': item['zh'], 'english': item['en'],
+    return {'supported': True, 'valid': valid, 'title': event['name'] or item['zh'],
+            'base_name': item['zh'], 'english': item['en'],
             'instance': event['name'], 'rows': rows, 'message': note}
 
 

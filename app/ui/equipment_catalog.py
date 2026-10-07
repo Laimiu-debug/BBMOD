@@ -37,10 +37,10 @@ class EquipmentCatalog(QWidget):
         self.stats = {key: attributes(item) for key, item in self.items.items()}
         self._dialog = None
         root = QVBoxLayout(self)
-        hint = QLabel('普通、传奇装备显示基础属性；红装显示抽中词条后的范围。双击装备可查看基础值、更多属性与随机规则。')
+        hint = QLabel('红装按基础类型或外观列出，品质单独标注；游戏中的具体名称会随机生成。双击可查看基础属性、名称示例和随机范围。')
         hint.setObjectName('workspaceHint'); hint.setWordWrap(True); root.addWidget(hint)
         filters = QHBoxLayout()
-        self.search = QLineEdit(); self.search.setPlaceholderText('搜索装备中文名 / 英文名 / 类型')
+        self.search = QLineEdit(); self.search.setPlaceholderText('搜索装备类型 / 名称片段 / 英文名')
         self.search.setClearButtonEnabled(True); self.search.setAccessibleName('搜索装备')
         self.group = QComboBox(); self.group.addItem('全部类型', '')
         for key, label in GROUPS.items(): self.group.addItem(label, key)
@@ -52,7 +52,7 @@ class EquipmentCatalog(QWidget):
         filters.addWidget(self.search, 1); filters.addWidget(self.group); filters.addWidget(self.rarity); filters.addWidget(self.reset)
         root.addLayout(filters)
         self.table = QTableWidget(0, 10)
-        self.table.setHorizontalHeaderLabels(['装备名称', '类型', '品质', '伤害', '破甲效率', '穿甲效率', '护甲 / 耐久', '疲劳负担', '近战防御', '远程防御'])
+        self.table.setHorizontalHeaderLabels(['装备名称 / 基础类型', '类型', '品质', '伤害', '破甲效率', '穿甲效率', '护甲 / 耐久', '疲劳负担', '近战防御', '远程防御'])
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.table.setSelectionMode(QAbstractItemView.SingleSelection)

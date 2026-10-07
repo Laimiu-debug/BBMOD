@@ -1,12 +1,21 @@
 {
   "schema_version": 1,
-  "provenance": "Independently reviewed against the original English item-name pools. These display-only translations distinguish equipment names from character traits, titles and attacks.",
+  "provenance": "Independently reviewed against the original English. These display-only translations give a shared fragment the meaning its own script needs: equipment names versus traits, titles and attacks, and stat lines whose direction is fixed by the following fragment.",
   "files": {
     "scripts/config/item_names.cnut": {
       "Old": "古旧",
       "Whip": "长鞭",
       "of the Desert": "·沙漠",
       "of the North": "·北境"
+    },
+    "scripts/ambitions/oaths/oath_of_valor_ambition.cnut": {
+      "Your men gain [color=": "弟兄们获得的经验减少[color="
+    },
+    "scripts/ambitions/oaths/oath_of_humility_ambition.cnut": {
+      "You earn [color=": "委托报酬减少[color="
+    },
+    "scripts/skills/traits/oath_of_fortification_trait.cnut": {
+      "Shield skills build up [color=": "盾牌技能的疲劳消耗降低[color="
     }
   }
 }

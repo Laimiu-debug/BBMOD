@@ -1,0 +1,2651 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-07",
+  "review_round": 3,
+  "candidate_version": "unreleased",
+  "previous_review": "2026-10-07-round2.json",
+  "baseline_catalog_sha256": "0b104eb231f8ee928f9f2909e4c484cafe2b08f7ff4d8bad51958b6a1f90371b",
+  "result_catalog_sha256": "b0c6f0d12ea0ea0a826d931376212e8753f343cd119922e80d3dbd761156b3b1",
+  "changed_catalog_entries": 327,
+  "changed_supplemental_entries": 0,
+  "changes_by_domain": {
+    "reference": 1,
+    "stat_lines": 18,
+    "brackets": 13,
+    "spacing": 295
+  },
+  "contextual_additions": {
+    "scripts/ambitions/oaths/oath_of_valor_ambition.cnut": {
+      "Your men gain [color=": "弟兄们获得的经验减少[color="
+    },
+    "scripts/ambitions/oaths/oath_of_humility_ambition.cnut": {
+      "You earn [color=": "委托报酬减少[color="
+    },
+    "scripts/skills/traits/oath_of_fortification_trait.cnut": {
+      "Shield skills build up [color=": "盾牌技能的疲劳消耗降低[color="
+    }
+  },
+  "full_catalog_structurally_checked": 15630,
+  "method": "Targeted fixes from a catalog-wide style audit: quoted name references, stat lines assembled from fragments (checked against the order of literals in the official bytecode), bracket pairs whose other half is an untranslated ASCII literal, and ASCII spacing between Chinese, numbers, colour tags and full-width punctuation. Fragment boundary spaces and the credits were left unchanged.",
+  "game_started": false,
+  "full_line_by_line_semantic_review": false,
+  "changes": [
+    {
+      "key": "1bfa958dc0fe70dfe791",
+      "source": "Gives the targeted indebted the 'Whipped' status effect, increasing many of their stats for 2 rounds. The higher the level of the character using this skill, the higher the increase.",
+      "before": "使目标负债者获得“鞭策”效果，提升多项属性，持续2轮。施放者等级越高，提升幅度越大。",
+      "after": "使目标负债者获得“遭受鞭笞”效果，提升多项属性，持续2轮。施放者等级越高，提升幅度越大。",
+      "reason": "技能说明引用的 'Whipped' 状态名与状态本身的译名“遭受鞭笞”不一致。",
+      "domain": "reference"
+    },
+    {
+      "key": "0cb138a6f19030d0da2e",
+      "source": "Your men gain [color=",
+      "before": "弟兄们的经验获取：[color=",
+      "after": "弟兄们获得的经验提高[color=",
+      "reason": "谦卑之誓：改为自然语序“经验提高10%”；英勇之誓另用场景译文“减少”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "d44348a4c96f38db1e15",
+      "source": "]10%[/color] more experience.",
+      "before": "]10%[/color]加成。",
+      "after": "]10%[/color]。",
+      "reason": "方向已由前半句“提高”说明。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "ba405a6f772a2da38893",
+      "source": "]15%[/color] less experience.",
+      "before": "]15%[/color]扣减。",
+      "after": "]15%[/color]。",
+      "reason": "方向由英勇之誓的场景译文“减少”说明。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "5bbbb67b08cc15c65464",
+      "source": "You earn [color=",
+      "before": "所得报酬：[color=",
+      "after": "你获得[color=",
+      "reason": "绿皮调查事件读作“你获得100克朗”；谦卑之誓另用场景译文。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "01ea30337686082640e4",
+      "source": "]25%[/color] fewer crowns from contracts.",
+      "before": "]25%[/color]扣减（委托）。",
+      "after": "]25%[/color]。",
+      "reason": "谦卑之誓场景译文读作“委托报酬减少25%”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "f1885d44c08ac38581ca",
+      "source": "You are rewarded with [color=",
+      "before": "你获得了报酬：[color=",
+      "after": "你获得了[color=",
+      "reason": "读作“你获得了3000克朗”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "73fe45b3176c829a85ab",
+      "source": "Your men get [color=",
+      "before": "弟兄们获得以下加成：[color=",
+      "after": "弟兄们获得[color=",
+      "reason": "卓越之誓：去掉表格式标签。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "d5c57925b5528fe90860",
+      "source": "]+10[/color] Resolve, [color=",
+      "before": "]+10[/color] 意志， [color=",
+      "after": "]+10[/color]意志、[color=",
+      "reason": "并列属性用顿号，去掉多余空格。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "d7e13e6b592fdf4c8fc0",
+      "source": "]+3[/color] Fatigue Recovery per turn, and deal [color=",
+      "before": "]+3[/color]每回合疲劳恢复量，以及[color=",
+      "after": "]+3[/color]每回合疲劳恢复，并造成[color=",
+      "reason": "英文为 deal +10% damage，补出“造成”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "a4c8559e338539a8a08e",
+      "source": "Your men have [color=",
+      "before": "弟兄们获得以下属性修正：[color=",
+      "after": "弟兄们获得[color=",
+      "reason": "统御、正义、复仇之誓：去掉表格式标签。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "0421239df7637292a096",
+      "source": "]+15[/color] Resolve, [color=",
+      "before": "]+15[/color] 意志， [color=",
+      "after": "]+15[/color]意志、[color=",
+      "reason": "并列属性用顿号，去掉多余空格。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "8c2ccd6681c8961bf241",
+      "source": "]-10[/color] Resolve, [color=",
+      "before": "]-10[/color] 意志， [color=",
+      "after": "]-10[/color]意志、[color=",
+      "reason": "并列属性用顿号，去掉多余空格。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "3a8188fcd39787748eae",
+      "source": "Too fast for you! Gain [color=",
+      "before": "快得让你跟不上！获得 [color=",
+      "after": "快得让你跟不上！获得相当于当前先攻[color=",
+      "reason": "原句为当前先攻的15%转为防御加成。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "3785d05c2267530f968c",
+      "source": "]15%[/color] of the character's current Initiative as a bonus to Melee and Ranged Defense.",
+      "before": "]15%[/color]当前先攻数值，作为近战与远程防御加成。",
+      "after": "]15%[/color]的近战与远程防御加成。",
+      "reason": "与前半句连读为“获得相当于当前先攻15%的近战与远程防御加成”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "17b96e65b706c60a1476",
+      "source": "]15%[/color] bonus to Melee Skill, Ranged Skill, Melee Defense, Ranged Defense, and Resolve.",
+      "before": "]15%[/color]近战命中、远程命中、近战防御、远程防御和意志加成。",
+      "after": "]15%[/color]的近战命中、远程命中、近战防御、远程防御和意志加成。",
+      "reason": "读作“获得15%的……加成”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "1e6d90771f0788506ab9",
+      "source": "]25%[/color] less Fatigue.\n\nRiposte no longer has a penalty to hitchance.\n\nGash has a [color=",
+      "before": "]25%[/color]。\n\n“还击架势”不再受到命中惩罚。\n\n“撕裂”获得[color=",
+      "after": "]25%[/color]。\n\n“还击架势”不再受到命中惩罚。\n\n“撕裂”的致伤门槛降低[color=",
+      "reason": "原表述“获得50%致伤门槛减免”为名词堆叠。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "90895c5b4c293ca9b107",
+      "source": "]50%[/color] lower threshold to inflict injuries.\n\nSplit and Swing no longer have a penalty to hitchance and gain [color=",
+      "before": "]50%[/color]致伤门槛减免。\n\n“劈开”和“挥击”不再受到命中惩罚，并获得[color=",
+      "after": "]50%[/color]。\n\n“劈开”和“挥击”不再受到命中惩罚，并获得[color=",
+      "reason": "方向与对象已由前半句说明。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "7a7d057da31c5bd2a777",
+      "source": "You gain extra Renown if none of your men fall in battle during the Oath (",
+      "before": "誓言期间若无弟兄在战斗中倒下，便可获得额外声望 (目前有",
+      "after": "誓言期间若无弟兄在战斗中倒下，便可获得额外声望（目前有",
+      "reason": "左右括号均在词库内，统一为全角。",
+      "domain": "brackets"
+    },
+    {
+      "key": "bb55d59cb5cc0b435dd1",
+      "source": " fallen so far).",
+      "before": "人倒下)。",
+      "after": "人倒下）。",
+      "reason": "与左括号统一为全角。",
+      "domain": "brackets"
+    },
+    {
+      "key": "5cfd0b09274a69009e2f",
+      "source": " combat injuries (",
+      "before": "处战伤，便可获得额外声望 (目前累计",
+      "after": "处战伤，便可获得额外声望（目前累计",
+      "reason": "左右括号均在词库内，统一为全角。",
+      "domain": "brackets"
+    },
+    {
+      "key": "b214e31f04c93ae6aab1",
+      "source": " taken so far).",
+      "before": ")。",
+      "after": "）。",
+      "reason": "与左括号统一为全角。",
+      "domain": "brackets"
+    },
+    {
+      "key": "60c49ecdfaa2680a4472",
+      "source": " days)",
+      "before": " 天）",
+      "after": "天)",
+      "reason": "左括号是原版半角“ (”，显示为“(1-3 天）”。",
+      "domain": "brackets"
+    },
+    {
+      "key": "3ac7f4b9f60a7ded9107",
+      "source": " day)",
+      "before": " 天）",
+      "after": "天)",
+      "reason": "左括号是原版半角“ (”。",
+      "domain": "brackets"
+    },
+    {
+      "key": "ab1f0c4201ecfbf18513",
+      "source": " times (",
+      "before": " 次（",
+      "after": " 次 (",
+      "reason": "右括号是原版半角“).”。与其他誓言的进度括号一致。",
+      "domain": "brackets"
+    },
+    {
+      "key": "5804d4ab8da520fb23d2",
+      "source": " breaks free (Chance: ",
+      "before": " 挣脱束缚（几率： ",
+      "after": " 挣脱束缚(几率：",
+      "reason": "右括号是原版半角“)”。",
+      "domain": "brackets"
+    },
+    {
+      "key": "3faf98035919039fab34",
+      "source": " fails to break free (Chance: ",
+      "before": "未能挣脱束缚（成功率：",
+      "after": "未能挣脱束缚(几率：",
+      "reason": "右括号是原版半角“)”；与成功时的“几率”统一。",
+      "domain": "brackets"
+    },
+    {
+      "key": "c805d0166ab845a7a416",
+      "source": ", Rolled: ",
+      "before": "，掷骰结果： ",
+      "after": "，掷骰结果：",
+      "reason": "去掉冒号后的多余空格。",
+      "domain": "brackets"
+    },
+    {
+      "key": "6d6462a9b0545e0437dc",
+      "source": " (Chance: ",
+      "before": " （概率： ",
+      "after": " (几率：",
+      "reason": "右括号是原版半角“)”；Chance 统一译为“几率”。",
+      "domain": "brackets"
+    },
+    {
+      "key": "2b9d1444011849172821",
+      "source": " (x",
+      "before": " （×",
+      "after": " (×",
+      "reason": "右括号是原版半角“)”。",
+      "domain": "brackets"
+    },
+    {
+      "key": "ddf3c44a72d8554b0bd2",
+      "source": "Perks (<span class=\"font-bold font-color-positive-value\">",
+      "before": "特长（<span class=\"font-bold font-color-positive-value\">",
+      "after": "特长 (<span class=\"font-bold font-color-positive-value\">",
+      "reason": "右括号在原版 JS 的“</span>)”中，为半角。",
+      "domain": "brackets"
+    },
+    {
+      "key": "74aae577117395e4aed4",
+      "source": "]25%[/color] less Fatigue.",
+      "before": "]25%[/color]减免。",
+      "after": "]25%[/color]。",
+      "reason": "坚守之誓场景译文读作“盾牌技能的疲劳消耗降低25%”。",
+      "domain": "stat_lines"
+    },
+    {
+      "key": "a13fe5411cacd783f255",
+      "source": "You spend [color=",
+      "before": "你花费 [color=",
+      "after": "你花费[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8db3640a5239f25ecee9",
+      "source": "]1,000[/color] Crowns",
+      "before": "]1,000[/color] 克朗",
+      "after": "]1,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8666cd2d32137f20b340",
+      "source": "]5,000[/color] Crowns",
+      "before": "]5,000[/color] 克朗",
+      "after": "]5,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "72dc7c5eafb9bcec392c",
+      "source": "]10,000[/color] Crowns",
+      "before": "]10,000[/color] 克朗",
+      "after": "]10,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7be1a2343f040f60c5e2",
+      "source": "]75%[/color] to [color=",
+      "before": "]75%[/color] 至 [color=",
+      "after": "]75%[/color]至[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7226641b099f2691b6e3",
+      "source": "]10[/color] and [color=",
+      "before": "]10[/color] 和 [color=",
+      "after": "]10[/color]和[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fe64804e0c86726d9079",
+      "source": "]-25%[/color] Melee Skill",
+      "before": "]-25%[/color] 近战命中",
+      "after": "]-25%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "bd1ecb4e9892d4fd8aff",
+      "source": "]-25%[/color] Melee Defense",
+      "before": "]-25%[/color] 近战防御",
+      "after": "]-25%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "bd553d31cf41ed27f192",
+      "source": "]-25%[/color] Ranged Defense",
+      "before": "]-25%[/color] 远程防御",
+      "after": "]-25%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3ce656086234e3262307",
+      "source": "Tomb of %randomname% the {Great | Cruel | Tyrant}",
+      "before": "%randomname%之墓，称号： {伟大的 | 残酷的 | 暴君}",
+      "after": "%randomname%之墓，称号：{伟大的 | 残酷的 | 暴君}",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "75c45e6b8866c7aacf8d",
+      "source": "You gain [color=",
+      "before": "你获得了 [color=",
+      "after": "你获得了[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4c7191ec29bcad5f88c9",
+      "source": "[/color] Crowns",
+      "before": "[/color] 克朗",
+      "after": "[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "41eb00b728bb1f7d4f1c",
+      "source": "You lose [color=",
+      "before": "你失去 [color=",
+      "after": "你失去[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2144ed346359acfbe57f",
+      "source": "]3000[/color] Crowns",
+      "before": "]3000[/color] 克朗",
+      "after": "]3000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5b3f474eb7b38f2d74e3",
+      "source": "]250[/color] Crowns",
+      "before": "]250[/color] 克朗",
+      "after": "]250[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "294c1bf21f65163a987c",
+      "source": "]400[/color] Crowns",
+      "before": "]400[/color] 克朗",
+      "after": "]400[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2aef3a9937a9e7cce776",
+      "source": "%[/color] chance to hit",
+      "before": "%[/color] 命中率",
+      "after": "%[/color]命中率",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b5c9d3b7dae7545dd53b",
+      "source": " is hit for [b]",
+      "before": " 受到伤害： [b]",
+      "after": " 受到伤害：[b]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6f726fc77b4df6ce7802",
+      "source": " gains [color=",
+      "before": " 获得 [color=",
+      "after": " 获得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7ae66dcfdc3ff6bf0b3e",
+      "source": "[/color] Melee Skill",
+      "before": "[/color] 近战命中",
+      "after": "[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4f63627d337d23d8d966",
+      "source": "[/color] Melee Defense",
+      "before": "[/color] 近战防御",
+      "after": "[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5850807ce9325ad967ef",
+      "source": "[/color] Resolve",
+      "before": "[/color] 意志",
+      "after": "[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "32e5a4727d02c6c49fbe",
+      "source": "[/color] Initiative",
+      "before": "[/color] 先攻",
+      "after": "[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ed4ada5f7c9ca6682b63",
+      "source": "[/color] Hitpoints",
+      "before": "[/color] 生命值",
+      "after": "[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d77afa2604514fbb33e4",
+      "source": "]+1[/color] Resolve",
+      "before": "]+1[/color] 意志",
+      "after": "]+1[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a34706e41c3b49c2e67d",
+      "source": "]+1[/color] Ranged Skill",
+      "before": "]+1[/color] 远程命中",
+      "after": "]+1[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d2650095c6ac13326871",
+      "source": "]6,000[/color] Crowns",
+      "before": "]6,000[/color] 克朗",
+      "after": "]6,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "cb7ddaa09ecf6027fd19",
+      "source": "]10[/color] Crowns",
+      "before": "]10[/color] 克朗",
+      "after": "]10[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5076c811af44eba319a7",
+      "source": "]500[/color] Crowns",
+      "before": "]500[/color] 克朗",
+      "after": "]500[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "55d3b93d8dc118eb4b99",
+      "source": "]+2[/color] Melee Skill",
+      "before": "]+2[/color] 近战命中",
+      "after": "]+2[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a4c4164934c93e5341c1",
+      "source": "]+2[/color] Initiative",
+      "before": "]+2[/color] 先攻",
+      "after": "]+2[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "da8ab3d093686f3ee597",
+      "source": "[/color] Ranged Skill",
+      "before": "[/color] 远程命中",
+      "after": "[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5ef225187a87b1f678d6",
+      "source": "]1000[/color] Crowns",
+      "before": "]1000[/color] 克朗",
+      "after": "]1000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "738a03fb8b3a46026245",
+      "source": "]+3[/color] Resolve",
+      "before": "]+3[/color] 意志",
+      "after": "]+3[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "50fd665d628ff87fae4e",
+      "source": "]100[/color] Crowns",
+      "before": "]100[/color] 克朗",
+      "after": "]100[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2e97277b2848d34cc803",
+      "source": "]200[/color] Crowns",
+      "before": "]200[/color] 克朗",
+      "after": "]200[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1da3af05f0e724b7e0e1",
+      "source": "]300[/color] Crowns",
+      "before": "]300[/color] 克朗",
+      "after": "]300[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "005feeee068782b002ab",
+      "source": "]50[/color] Crowns",
+      "before": "]50[/color] 克朗",
+      "after": "]50[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6e78c8e2e86acc1145f1",
+      "source": " loses [color=",
+      "before": " 失去 [color=",
+      "after": " 失去[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3c9e515e383f18f2749f",
+      "source": "]-1[/color] Resolve",
+      "before": "]-1[/color] 意志",
+      "after": "]-1[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7a13736f003f5eb5e634",
+      "source": "]+2[/color] Resolve",
+      "before": "]+2[/color] 意志",
+      "after": "]+2[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4dea09071a5f86030c9f",
+      "source": "[img]gfx/ui/events/event_02.png[/img] {While marching through the forest, %randombrother% calls out to the company. You look over to see him pointing somewhere beyond a line of brush. When you walk to him, you see what he sees: three bodies hanging from a tree. Their purpled faces and grey feet sway and turn, the wind sometimes forcing them to grimly face one another. %randombrother% notes that they're wearing wood: signs of their crimes. 'Thief,' reads one. 'Whore' another. 'Traitor' the last. Having seen enough, you tell the men to get moving again. | The forest offers no relief, no little road or sidepath for you to travel down. It is thick and unrelenting and does not seem to want you there. You soon find that it did not want someone else, either: a corpse is found tied up in a thorn bush, legs crooked, arms bent, all rather finagled to to their supposed purpose. The mouth rests agape with the eyes drawn slim in some sort of final frustration. %randombrother% catches up to you, looks the body up and down, then nods.%SPEECH_ON%Body's clean as a whistle, aside from the thorn's work of course. I'd say that man right there was so lost no animal could find him. Just died, no use to anyone or anything.%SPEECH_OFF%You point at an ant mindlessly bumbling about the dead man's teeth. The brother laughs and shakes his head.%SPEECH_ON%You sure he ain't lost too?%SPEECH_OFF% | You stare up at the forest canopy, watching what angles the lightbeams are coming in at. While getting your bearings, %randombrother% comes by looking rather distraught.%SPEECH_ON%Sir, you oughta come see this.%SPEECH_OFF%You nod and tell him to lead the way. He brings you to a clearing, though not much about it is clear.\n\nLegs. Legs everywhere. Some severed at the ankle, some at the thigh, and everywhere else in between. They've no place, no order. They're just about, some by themselves and others all twisted up in bunches, some planted upright with sticks like they were walking jokes and a few even seem to have been thrown into the trees where they rest limply over branches or upside down by their feet. One hangs from a spit, the calf burnt black as though someone had run off, leaving it there over a fire that had long since died.\n\nThe brother that found the disgusting sight comes to stand next to you.%SPEECH_ON%No bodies, sir. Just.. legs.%SPEECH_OFF%You turn to look at the mercenary, but all he can do is shrug.%SPEECH_ON%We've not found a single body, sir. I mean, the top-half, anyway. Do you think it means anything? I mean, who would do that? Remove someone's legs and then take off with the rest?%SPEECH_OFF%You shake your head in disbelief. Having seen enough, and having no answer for such questions, you quickly usher the rest of the men away from the clearing and get back to marching. | You stop at a creekbed to wash yourself and get something of a drink, but before you take the first sip %randombrother% grabs your shoulder. He points upriver. A woman's body is face down in the water, her long hair twisting rather lively to the ripples. You thank the sellsword for saving you from any disease the dead press onto the world. | The tree canopy is thick and twisting. Whatever light there is above can barely come through, braids of shadow encompassing your men as they march. But further on ahead you see a pillar of light gleaming into the forest. Naturally, someone else saw it first. And it was the last thing they saw.\n\nIn that stroke of light a boy rests with his back up against a tree. His head is aloll and his hands turned up and open. Purple smudges stain his palms. %randombrother% walks up and immediately shakes his head.%SPEECH_ON%Poison berries. Damned kid didn't stand a chance.%SPEECH_OFF%You turn to the battle brother and inquire if the boy might have gone peacefully. The man shakes his head again. %SPEECH_ON%No.%SPEECH_OFF% | A dead body. Rather, what should be a body. The chest is open and the viscera laid out in all directions, grey and sagging and soft. You can't tell if it was a man or woman, only that it had to have been an adult cut down to much smaller sizes. What creature could have done this work is beyond you, though %randombrother% suggests maybe it was the deed of a very determined man. | You find the body of a woman with its back resting against a tree. There is a knife in her chest, the wound so quickly fatal that she appears to have died while in some motion of life. Above her, another woman swings from a branch. Red are her clothes. The body's head tilts forward as though to stare at her crime, and the rope that hangs her there groans to a muted wind. | You come across some scene of battle. Men, armor, weapons, not a single one of them useable. The dead got that way through some sheer form of brutality you do not wish to learn. Footprints in the earth suggest something big had come through, leaving behind a wake of ruin and calamity, and no urge on your part to follow where those steps go. | Marching along, you find a dead man with a few broken arrows in his back. More puncture wounds where his killer managed to retrieve his ammunition in one piece. The man was carrying a love letter, its destination a woman that had, apparently, already been spoken for. Ah, romance.}",
+      "before": "[img]gfx/ui/events/event_02.png[/img] {行军穿过森林时，%randombrother%叫住众人。你转头，看见他指着灌木后方。走近后，你也看清了：三具尸体吊在树上。青紫的脸、灰白的脚随风摇摆旋转，有时被吹得彼此相对，凄惨地面面相觑。%randombrother%说，他们身上还挂着木牌，写着各自的罪名。一块是“盗贼”，一块是“娼妓”，最后一块是“叛徒”。看够了，你叫弟兄们继续赶路。 | 森林没有留出半点方便，既无小路，也无岔道可走。林木密不透风，顽固地拦在前方，似乎并不欢迎你们。很快，你发现它同样不欢迎另一个人：荆棘丛中缠着一具尸体，腿歪着，胳膊弯着，像被胡乱摆弄，勉强凑成该有的姿势。嘴巴张开，双眼眯成细缝，仿佛死前还满是不甘。%randombrother%赶上来，上下打量尸体，点点头。%SPEECH_ON%身上干干净净，当然，荆棘划的那些不算。依我看，这人迷路迷得连野兽都找不着。就这么死了，对谁都没派上用场。%SPEECH_OFF%你指了指一只蚂蚁，它正漫无目的地在死者牙齿间转悠。弟兄笑着摇头。%SPEECH_ON%你确定，它不是也迷路了？%SPEECH_OFF% | 你仰望树冠，看阳光从什么角度照入，借此辨认方向。%randombrother%走来，神色颇为不安。%SPEECH_ON%长官，你得来看看。%SPEECH_OFF%你点头，让他带路。他将你领到一片空地，可那地方一点也不空。\n\n腿。到处都是腿。有的从脚踝截断，有的从大腿截断，还有断在两者之间各处的。它们没有固定位置，也毫无排列章法，就那么四处散着。有的孤零零一条，有的扭成一团；有的用棍子撑得直立，像个会走路的笑话；还有几条似乎被扔上了树，软塌塌搭在枝头，或脚朝上倒挂着。一条腿架在烤叉上，小腿烧得焦黑，仿佛有人将它留在早已熄灭的火上，匆匆跑了。\n\n发现这恶心景象的弟兄站到你身旁。%SPEECH_ON%没有尸体，长官。只有……腿。%SPEECH_OFF%你转头看他，他只能耸肩。%SPEECH_ON%一具尸体都没找到，长官。我是说，上半截。你觉得这有什么含义吗？我是说，谁会这样干？砍掉人的腿，再把剩下的带走？%SPEECH_OFF%你难以置信地摇头。既已看够，也答不上这些问题，你赶紧将其他弟兄带离空地，重新上路。 | 你在溪边停下，洗洗身子，想喝几口水。还没来得及喝，%randombrother%便抓住你的肩膀，指向上游。一具女尸脸朝下漂在水里，长发随涟漪扭动，竟颇有生气。你谢过佣兵，多亏他提醒，自己才没喝下被尸体污染的水。 | 树冠浓密交错，上方仅有的光线几乎透不下来，编织般的阴影包裹着行进的弟兄们。可前方，有一道光柱照入森林。显然，有人比你们更早看见它，而那也是他看见的最后一样东西。\n\n光柱中，一个男孩背靠树干，脑袋歪垂，双手摊开，掌心朝上，沾着紫色污渍。%randombrother%走近，立即摇了摇头。%SPEECH_ON%毒浆果。可怜的孩子，一点活路都没了。%SPEECH_OFF%你转向这位战团弟兄，问男孩是否走得安详。那人又摇摇头。 %SPEECH_ON%没有。%SPEECH_OFF% | 一具尸体。或者说，本该是一具尸体的东西。胸膛敞开，内脏向四面铺散，灰白、软塌、松垂。你分不清是男是女，只能确定，那原本是个成年人，如今被肢解成小得多的部分。你想不出什么生物会做出这种事，%randombrother%却说，也许只是一个特别执着的人。 | 你发现一具女尸，背靠树干，胸口插着一把刀。那伤口致命得太快，她仿佛还没做完活着时的一个动作，便已死去。上方，另一个女人吊在树枝上摇晃，衣服染成了红色。尸体低着头，像在凝视自己的罪行，悬着她的绳索在微弱的风中呻吟。 | 你走进一处战斗遗迹。人、盔甲、武器，没有一样还派得上用场。死者遭受过某种极端的暴行，你并不想知道具体是什么。泥土上的足迹表明，有个庞然大物曾经过此地，沿途留下毁灭与灾难，也让你半点不想循着脚印追过去。 | 行军途中，你发现一个死者，背上插着几支断箭。还有更多穿刺伤，说明凶手成功收回了一部分完好的箭。那人身上带着一封情书，收信的女人似乎早已有了归属。啊，爱情。}",
+      "after": "[img]gfx/ui/events/event_02.png[/img] {行军穿过森林时，%randombrother%叫住众人。你转头，看见他指着灌木后方。走近后，你也看清了：三具尸体吊在树上。青紫的脸、灰白的脚随风摇摆旋转，有时被吹得彼此相对，凄惨地面面相觑。%randombrother%说，他们身上还挂着木牌，写着各自的罪名。一块是“盗贼”，一块是“娼妓”，最后一块是“叛徒”。看够了，你叫弟兄们继续赶路。 | 森林没有留出半点方便，既无小路，也无岔道可走。林木密不透风，顽固地拦在前方，似乎并不欢迎你们。很快，你发现它同样不欢迎另一个人：荆棘丛中缠着一具尸体，腿歪着，胳膊弯着，像被胡乱摆弄，勉强凑成该有的姿势。嘴巴张开，双眼眯成细缝，仿佛死前还满是不甘。%randombrother%赶上来，上下打量尸体，点点头。%SPEECH_ON%身上干干净净，当然，荆棘划的那些不算。依我看，这人迷路迷得连野兽都找不着。就这么死了，对谁都没派上用场。%SPEECH_OFF%你指了指一只蚂蚁，它正漫无目的地在死者牙齿间转悠。弟兄笑着摇头。%SPEECH_ON%你确定，它不是也迷路了？%SPEECH_OFF% | 你仰望树冠，看阳光从什么角度照入，借此辨认方向。%randombrother%走来，神色颇为不安。%SPEECH_ON%长官，你得来看看。%SPEECH_OFF%你点头，让他带路。他将你领到一片空地，可那地方一点也不空。\n\n腿。到处都是腿。有的从脚踝截断，有的从大腿截断，还有断在两者之间各处的。它们没有固定位置，也毫无排列章法，就那么四处散着。有的孤零零一条，有的扭成一团；有的用棍子撑得直立，像个会走路的笑话；还有几条似乎被扔上了树，软塌塌搭在枝头，或脚朝上倒挂着。一条腿架在烤叉上，小腿烧得焦黑，仿佛有人将它留在早已熄灭的火上，匆匆跑了。\n\n发现这恶心景象的弟兄站到你身旁。%SPEECH_ON%没有尸体，长官。只有……腿。%SPEECH_OFF%你转头看他，他只能耸肩。%SPEECH_ON%一具尸体都没找到，长官。我是说，上半截。你觉得这有什么含义吗？我是说，谁会这样干？砍掉人的腿，再把剩下的带走？%SPEECH_OFF%你难以置信地摇头。既已看够，也答不上这些问题，你赶紧将其他弟兄带离空地，重新上路。 | 你在溪边停下，洗洗身子，想喝几口水。还没来得及喝，%randombrother%便抓住你的肩膀，指向上游。一具女尸脸朝下漂在水里，长发随涟漪扭动，竟颇有生气。你谢过佣兵，多亏他提醒，自己才没喝下被尸体污染的水。 | 树冠浓密交错，上方仅有的光线几乎透不下来，编织般的阴影包裹着行进的弟兄们。可前方，有一道光柱照入森林。显然，有人比你们更早看见它，而那也是他看见的最后一样东西。\n\n光柱中，一个男孩背靠树干，脑袋歪垂，双手摊开，掌心朝上，沾着紫色污渍。%randombrother%走近，立即摇了摇头。%SPEECH_ON%毒浆果。可怜的孩子，一点活路都没了。%SPEECH_OFF%你转向这位战团弟兄，问男孩是否走得安详。那人又摇摇头。%SPEECH_ON%没有。%SPEECH_OFF% | 一具尸体。或者说，本该是一具尸体的东西。胸膛敞开，内脏向四面铺散，灰白、软塌、松垂。你分不清是男是女，只能确定，那原本是个成年人，如今被肢解成小得多的部分。你想不出什么生物会做出这种事，%randombrother%却说，也许只是一个特别执着的人。 | 你发现一具女尸，背靠树干，胸口插着一把刀。那伤口致命得太快，她仿佛还没做完活着时的一个动作，便已死去。上方，另一个女人吊在树枝上摇晃，衣服染成了红色。尸体低着头，像在凝视自己的罪行，悬着她的绳索在微弱的风中呻吟。 | 你走进一处战斗遗迹。人、盔甲、武器，没有一样还派得上用场。死者遭受过某种极端的暴行，你并不想知道具体是什么。泥土上的足迹表明，有个庞然大物曾经过此地，沿途留下毁灭与灾难，也让你半点不想循着脚印追过去。 | 行军途中，你发现一个死者，背上插着几支断箭。还有更多穿刺伤，说明凶手成功收回了一部分完好的箭。那人身上带着一封情书，收信的女人似乎早已有了归属。啊，爱情。}",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fc335536e5a69a5252a6",
+      "source": "]+200[/color] Experience",
+      "before": "]+200[/color] 经验",
+      "after": "]+200[/color]经验",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "88916b630270dd394cb8",
+      "source": "[/color] Ammunition",
+      "before": "[/color] 弹药",
+      "after": "[/color]弹药",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5200f9e430d81871e9a5",
+      "source": "[/color] Tools and Supplies",
+      "before": "[/color] 工具与修缮物资",
+      "after": "[/color]工具与修缮物资",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a66ebf68b41a42c42344",
+      "source": "[/color] Medical Supplies",
+      "before": "[/color] 医疗物资",
+      "after": "[/color]医疗物资",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b77a8b9acb8818d5168f",
+      "source": "]+7[/color] Melee Defense",
+      "before": "]+7[/color] 近战防御",
+      "after": "]+7[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2f11289279c944c5c84a",
+      "source": "]+7[/color] Ranged Defense",
+      "before": "]+7[/color] 远程防御",
+      "after": "]+7[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "68d3b0f814e60fd5a6ff",
+      "source": "]+12[/color] Melee Skill",
+      "before": "]+12[/color] 近战命中",
+      "after": "]+12[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "036b8803abbe1f462b2c",
+      "source": "]+10[/color] Initiative",
+      "before": "]+10[/color] 先攻",
+      "after": "]+10[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3f5cfd69b80988ac4420",
+      "source": "]+15[/color] Hitpoints",
+      "before": "]+15[/color] 生命值",
+      "after": "]+15[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "effaca274bfa779f55f2",
+      "source": "]-2000[/color] Crowns",
+      "before": "]-2000[/color] 克朗",
+      "after": "]-2000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "74f24c1bcf00c832aeb1",
+      "source": "]+1[/color] Initiative",
+      "before": "]+1[/color] 先攻",
+      "after": "]+1[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2d807f74627a3c8ebf29",
+      "source": "]1[/color] Crown",
+      "before": "]1[/color] 克朗",
+      "after": "]1[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "993184952ef995572d17",
+      "source": "]2500[/color] Crowns",
+      "before": "]2500[/color] 克朗",
+      "after": "]2500[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b5fab82f93cdb840bdb1",
+      "source": "]150[/color] Crowns",
+      "before": "]150[/color] 克朗",
+      "after": "]150[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "dccd103da59492e6ea54",
+      "source": "[/color] Crown",
+      "before": "[/color] 克朗",
+      "after": "[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5d23c83cc8c976ba6de2",
+      "source": "]5[/color] Crowns",
+      "before": "]5[/color] 克朗",
+      "after": "]5[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ba60e2b8ee0674fa79c3",
+      "source": "]50,000[/color] Crowns",
+      "before": "]50,000[/color] 克朗",
+      "after": "]50,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "be1f9e9577abe949ae6d",
+      "source": "]+100[/color] Experience",
+      "before": "]+100[/color] 经验",
+      "after": "]+100[/color]经验",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "40d749e164aa85199b2a",
+      "source": "]+50[/color] Experience",
+      "before": "]+50[/color] 经验",
+      "after": "]+50[/color]经验",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fc20236824dccd9ebe21",
+      "source": "]+150[/color] Experience",
+      "before": "]+150[/color] 经验",
+      "after": "]+150[/color]经验",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7ab9c564f5e994dab653",
+      "source": "]45[/color] Crowns",
+      "before": "]45[/color] 克朗",
+      "after": "]45[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2e1c90f480fcaa3ce08e",
+      "source": "]65[/color] Crowns",
+      "before": "]65[/color] 克朗",
+      "after": "]65[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e65cb704d38344d7e17e",
+      "source": "]+4[/color] Melee Defense",
+      "before": "]+4[/color] 近战防御",
+      "after": "]+4[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a056fe2d103be8ea8579",
+      "source": "]+4[/color] Ranged Defense",
+      "before": "]+4[/color] 远程防御",
+      "after": "]+4[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "77e799b489a642df95b0",
+      "source": "]+8[/color] Melee Skill",
+      "before": "]+8[/color] 近战命中",
+      "after": "]+8[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "84d314ff3531902e3774",
+      "source": "]+7[/color] Ranged Skill",
+      "before": "]+7[/color] 远程命中",
+      "after": "]+7[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "be0d3e07cf6fbf2b3882",
+      "source": "]+6[/color] Initiative",
+      "before": "]+6[/color] 先攻",
+      "after": "]+6[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5c4393034a441145afb7",
+      "source": "]+12[/color] Resolve",
+      "before": "]+12[/color] 意志",
+      "after": "]+12[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b62d8be72bc47f1a4d24",
+      "source": "]+5[/color] Hitpoints",
+      "before": "]+5[/color] 生命值",
+      "after": "]+5[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ca02f458d4a5a2477f14",
+      "source": "]+1[/color] Melee Defense",
+      "before": "]+1[/color] 近战防御",
+      "after": "]+1[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "99d6761142b0f726f46a",
+      "source": "]+75[/color] Experience",
+      "before": "]+75[/color] 经验",
+      "after": "]+75[/color]经验",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9e03d661cee750fdb94c",
+      "source": "[/color] Ranged Defense",
+      "before": "[/color] 远程防御",
+      "after": "[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e996e0947eb4eaeaaf3e",
+      "source": "]75[/color] Crowns",
+      "before": "]75[/color] 克朗",
+      "after": "]75[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "29c8d892e239afcc5476",
+      "source": "]+1[/color] Hitpoints",
+      "before": "]+1[/color] 生命值",
+      "after": "]+1[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4eada72655bbb740c99d",
+      "source": "]+1[/color] Fatigue",
+      "before": "]+1[/color] 疲劳上限",
+      "after": "]+1[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a06ff11802d8afe82b87",
+      "source": "]+1[/color] Melee Skill",
+      "before": "]+1[/color] 近战命中",
+      "after": "]+1[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a10e2bba294e96d6a788",
+      "source": "]+1[/color] Ranged Defense",
+      "before": "]+1[/color] 远程防御",
+      "after": "]+1[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c8f067017e6850db0388",
+      "source": "]15[/color] Crowns",
+      "before": "]15[/color] 克朗",
+      "after": "]15[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "09b435cb78417cb2343e",
+      "source": "]5000[/color] Crowns",
+      "before": "]5000[/color] 克朗",
+      "after": "]5000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "0a7d6dc117fe27ee6446",
+      "source": "]750[/color] Crowns",
+      "before": "]750[/color] 克朗",
+      "after": "]750[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "92c1b80ee5244851220f",
+      "source": "]9,000[/color] Crowns",
+      "before": "]9,000[/color] 克朗",
+      "after": "]9,000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9232b415b3160a112da6",
+      "source": "{[img]gfx/ui/events/event_183.png[/img]{You take out a piece of string and coat it in ivy and sap. Then you gently lift Young Anselm's crack and run your finger down it with more sap. %oathtaker% stares nervously. Satisfied, you then insert the string along the crack and set the skull's parts back down, chomping down on the string and the sticky ivy with it.  You stand back, looking at your work. %oathtaker% swallows.%SPEECH_ON%I...I don't think anyone will notice.%SPEECH_OFF%You actually worry that it may be preferable that they find the crack in the skull absent of one's attempt to fix it, than to see the handiwork of some skulking skull restorer who tried to sneak one by. Either way, it's done, and Young Anselm's honor has been restored. %oathtaker% wipes the sweat from his brow.%SPEECH_ON%I believe this to have been a test, captain, and that Young Anselm has seen us through. His strength flows through me, and no words are capable of describing the honor I feel right now.%SPEECH_OFF%What? Young Anselm probably had no idea about sticky saps and ivies, and he presumably knew even less now that he's an unspeaking skull. But...you leave %oathtaker% to his interpretations, as shortchanging as they are to yourself.}",
+      "before": "{[img]gfx/ui/events/event_183.png[/img]{你取出一截细绳，裹上常春藤，涂满树胶。随后，你轻轻掀起小安塞尔姆头骨裂缝处的碎片，用手指沿着裂口再抹上一层树胶。%oathtaker%紧张地盯着。觉得差不多了，你便把细绳嵌进裂缝，将头骨碎片按回原位，夹紧细绳与黏糊糊的常春藤。  你退后一步，打量自己的手艺。%oathtaker%咽了口唾沫。%SPEECH_ON%我……我想不会有人看出来。%SPEECH_OFF%你却有些担心：与其让大家看见某个鬼鬼祟祟的修骨匠留下的掩饰痕迹，说不定让他们直接发现裂缝，反而更好。不过，无论如何，事已办妥，小安塞尔姆的体面也算保住了。%oathtaker%擦去额头的汗。%SPEECH_ON%团长，我相信这是一场考验，而小安塞尔姆已经指引我们渡过难关。他的力量在我体内流淌，此刻的荣幸，任何言语都不足以表达。%SPEECH_OFF%什么？小安塞尔姆多半根本不懂树胶和常春藤；如今成了不会说话的头骨，想必懂得更少了。不过……你还是任由%oathtaker%这么理解，尽管这把你的功劳抹了个干净。}",
+      "after": "{[img]gfx/ui/events/event_183.png[/img]{你取出一截细绳，裹上常春藤，涂满树胶。随后，你轻轻掀起小安塞尔姆头骨裂缝处的碎片，用手指沿着裂口再抹上一层树胶。%oathtaker%紧张地盯着。觉得差不多了，你便把细绳嵌进裂缝，将头骨碎片按回原位，夹紧细绳与黏糊糊的常春藤。你退后一步，打量自己的手艺。%oathtaker%咽了口唾沫。%SPEECH_ON%我……我想不会有人看出来。%SPEECH_OFF%你却有些担心：与其让大家看见某个鬼鬼祟祟的修骨匠留下的掩饰痕迹，说不定让他们直接发现裂缝，反而更好。不过，无论如何，事已办妥，小安塞尔姆的体面也算保住了。%oathtaker%擦去额头的汗。%SPEECH_ON%团长，我相信这是一场考验，而小安塞尔姆已经指引我们渡过难关。他的力量在我体内流淌，此刻的荣幸，任何言语都不足以表达。%SPEECH_OFF%什么？小安塞尔姆多半根本不懂树胶和常春藤；如今成了不会说话的头骨，想必懂得更少了。不过……你还是任由%oathtaker%这么理解，尽管这把你的功劳抹了个干净。}",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "010837c1978a8e747c99",
+      "source": "]40[/color] Tools and Supplies",
+      "before": "]40[/color] 工具与修缮物资",
+      "after": "]40[/color]工具与修缮物资",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "0d7681cc9f7ae65ced18",
+      "source": "[/color] Fatigue",
+      "before": "[/color] 疲劳上限",
+      "after": "[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "23a9f59a902be546dcf0",
+      "source": "]175[/color] Crowns",
+      "before": "]175[/color] 克朗",
+      "after": "]175[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9c663ebc3863a6bb0fb9",
+      "source": "[/color] Fish",
+      "before": "[/color] 鱼",
+      "after": "[/color]鱼",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fc0b62235f1d2be99b58",
+      "source": "]2000[/color] Crowns",
+      "before": "]2000[/color] 克朗",
+      "after": "]2000[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3743fd1394149eed1d43",
+      "source": "]25[/color] Crowns",
+      "before": "]25[/color] 克朗",
+      "after": "]25[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b399026a69855e6647f7",
+      "source": "You win [color=",
+      "before": "你赢得 [color=",
+      "after": "你赢得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "830e62baee9c4e2181cb",
+      "source": "]+2[/color] Ranged Defense",
+      "before": "]+2[/color] 远程防御",
+      "after": "]+2[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f48a1b794f332a06b96c",
+      "source": "[/color] Rat Meat",
+      "before": "[/color] 老鼠肉",
+      "after": "[/color]老鼠肉",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "73cb15efe217fd1655ec",
+      "source": "[/color] Provisions",
+      "before": "[/color] 口粮",
+      "after": "[/color]口粮",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1f81560e89fe622930ee",
+      "source": "]-3[/color] Resolve",
+      "before": "]-3[/color] 意志",
+      "after": "]-3[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "061f8dfd31a24657c5f7",
+      "source": "]-30[/color] Ammunition",
+      "before": "]-30[/color] 弹药",
+      "after": "]-30[/color]弹药",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "94902d55c755c7bbd2b9",
+      "source": "]-60[/color] Ammunition",
+      "before": "]-60[/color] 弹药",
+      "after": "]-60[/color]弹药",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d6510d93cf675f444ce4",
+      "source": "]60[/color] Crowns",
+      "before": "]60[/color] 克朗",
+      "after": "]60[/color]克朗",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f8f53673b8c7d568e5eb",
+      "source": "]+5[/color] Resolve",
+      "before": "]+5[/color] 意志",
+      "after": "]+5[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "58d39adc25975e39f9e5",
+      "source": "]-15[/color] Melee Defense",
+      "before": "]-15[/color] 近战防御",
+      "after": "]-15[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4b8f9eda4536911de609",
+      "source": "]-15[/color] Ranged Defense",
+      "before": "]-15[/color] 远程防御",
+      "after": "]-15[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3cae1cfd947d09afb6ef",
+      "source": "]+20[/color] Initiative",
+      "before": "]+20[/color] 先攻",
+      "after": "]+20[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "21ea7080cfb9c5aec6cf",
+      "source": "]+4[/color] Resolve",
+      "before": "]+4[/color] 意志",
+      "after": "]+4[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "97b636c44b65fbdd6189",
+      "source": "]+6[/color] Resolve",
+      "before": "]+6[/color] 意志",
+      "after": "]+6[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "54c4b07729e30d859e6e",
+      "source": "]+20[/color] Resolve",
+      "before": "]+20[/color] 意志",
+      "after": "]+20[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5914bfd72481b9d89a25",
+      "source": "]+7[/color] Resolve",
+      "before": "]+7[/color] 意志",
+      "after": "]+7[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4d78fcb4a5abaf4b24c9",
+      "source": "]+10[/color] Resolve",
+      "before": "]+10[/color] 意志",
+      "after": "]+10[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9978a93511e060170cb9",
+      "source": "[/color] uses",
+      "before": "[/color] 次",
+      "after": "[/color]次",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e16bb64f760eec6dfca3",
+      "source": "Contains [color=",
+      "before": "包含 [color=",
+      "after": "包含[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f4828e6fcd73a80a3fb3",
+      "source": "[/color] arrows",
+      "before": "[/color] 箭矢",
+      "after": "[/color]箭矢",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5682f28fbc0ab75333ac",
+      "source": "[/color] bolts",
+      "before": "[/color] 弩矢",
+      "after": "[/color]弩矢",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "88515193cfdb07b79e58",
+      "source": "Reflects [color=",
+      "before": "反弹 [color=",
+      "after": "反弹[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "167cd3303babc0a74374",
+      "source": "Heals [color=",
+      "before": "恢复 [color=",
+      "after": "恢复[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f24868ebfe2bba400c66",
+      "source": "]-2[/color] Maximum Fatigue",
+      "before": "]-2[/color] 疲劳上限",
+      "after": "]-2[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "48b8495f49dfbf15f2e0",
+      "source": "Only take [color=",
+      "before": "仅承受 [color=",
+      "after": "仅承受[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8244d1e7164ca2b8af42",
+      "source": "]+40[/color] Durability",
+      "before": "]+40[/color] 耐久",
+      "after": "]+40[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3ed5b776f6d5ec13e5c1",
+      "source": "]-4[/color] Maximum Fatigue",
+      "before": "]-4[/color] 疲劳上限",
+      "after": "]-4[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a001f8bd1957a5fbf2a2",
+      "source": "]+15[/color] Durability",
+      "before": "]+15[/color] 耐久",
+      "after": "]+15[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "463d048f4638913d9625",
+      "source": "]+20[/color] Durability",
+      "before": "]+20[/color] 耐久",
+      "after": "]+20[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "922fd073d2f8ea62f09c",
+      "source": "]+115[/color] Durability",
+      "before": "]+115[/color] 耐久",
+      "after": "]+115[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f5c6479e365f0337989f",
+      "source": "]-10[/color] Maximum Fatigue",
+      "before": "]-10[/color] 疲劳上限",
+      "after": "]-10[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "415ea63a3accba1bfabf",
+      "source": "]+30[/color] Durability",
+      "before": "]+30[/color] 耐久",
+      "after": "]+30[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "08866d535387430b0991",
+      "source": "]+15[/color] Initiative",
+      "before": "]+15[/color] 先攻",
+      "after": "]+15[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "cc8a2265de6842d9b8ff",
+      "source": "]-3[/color] Maximum Fatigue",
+      "before": "]-3[/color] 疲劳上限",
+      "after": "]-3[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a9a6ef6dbbb6bacc4011",
+      "source": "]+10[/color] Durability",
+      "before": "]+10[/color] 耐久",
+      "after": "]+10[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2575a05891045866fcd7",
+      "source": "]+60[/color] Durability",
+      "before": "]+60[/color] 耐久",
+      "after": "]+60[/color]耐久",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "299218113594c2e1f5b9",
+      "source": "Vision [color=",
+      "before": "视野 [color=",
+      "after": "视野[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "5466f7d197115fa54a14",
+      "source": "Reflect [color=",
+      "before": "反弹 [color=",
+      "after": "反弹[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "224cdcaa3590d5b61f0d",
+      "source": "]+50[/color] Hitpoints",
+      "before": "]+50[/color] 生命值",
+      "after": "]+50[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ca175dfffabf915bbc4e",
+      "source": "Heal [color=",
+      "before": "将造成的生命值伤害的 [color=",
+      "after": "将造成的生命值伤害的[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "78dbe21d3e3b04917b07",
+      "source": "Deal [color=",
+      "before": "造成 [color=",
+      "after": "造成[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a8ee07d48d4c1c4814b2",
+      "source": "Regenerate [color=",
+      "before": "恢复 [color=",
+      "after": "恢复[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8a3fbfab7a63e67dadd1",
+      "source": "Melee Defense [color=",
+      "before": "近战防御 [color=",
+      "after": "近战防御[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ac3c4f60c070bd37cf07",
+      "source": "Ranged Defense [color=",
+      "before": "远程防御 [color=",
+      "after": "远程防御[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "04d42f569b00d751f5b7",
+      "source": "[/color] more fatigue",
+      "before": "[/color] 点",
+      "after": "[/color]点",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4a463f83e5ece45c45db",
+      "source": "[/color] less fatigue",
+      "before": "[/color] 点",
+      "after": "[/color]点",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a5851694b0c6a5753b7c",
+      "source": "Generates [color=",
+      "before": "每天产出 [color=",
+      "after": "每天产出[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7ded57b503b9bb86c5f6",
+      "source": "A good [color=",
+      "before": "共 [color=",
+      "after": "共[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "996a8da89f5b004323e8",
+      "source": "[/color] days.",
+      "before": "[/color] 天。",
+      "after": "[/color]天。",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1958025e59e152eeeeeb",
+      "source": "[/color] tiles",
+      "before": "[/color] 格",
+      "after": "[/color]格",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f6297d31d9fe0111a0cd",
+      "source": "Has a [color=",
+      "before": "拥有 [color=",
+      "after": "拥有[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c34bc5aded53bc2bdab6",
+      "source": "]20[/color] for [color=",
+      "before": "]20[/color]，持续 [color=",
+      "after": "]20[/color]，持续[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2f77c7d9e0b126138fd5",
+      "source": "Covers [color=",
+      "before": "以烟雾覆盖 [color=",
+      "after": "以烟雾覆盖[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8ebf1f76de1a6f232510",
+      "source": "Inflicts an additional [color=",
+      "before": "额外造成 [color=",
+      "after": "额外造成[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "757e7c18f46b65056420",
+      "source": "]20[/color] damage that ignores armor to up to three targets",
+      "before": "]20[/color] 点无视护甲的伤害，最多影响三个目标",
+      "after": "]20[/color]点无视护甲的伤害，最多影响三个目标",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "da49f6c3880188380aec",
+      "source": "%[/color] of damage ignores armor",
+      "before": "%[/color] 的伤害无视护甲",
+      "after": "%[/color]的伤害无视护甲",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "dd6b2dfde4ae8f86b8e3",
+      "source": "%[/color] effective against armor",
+      "before": "%[/color] 的护甲伤害倍率",
+      "after": "%[/color]的护甲伤害倍率",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e33614785feb5e0b48c6",
+      "source": "Chance to hit head [color=",
+      "before": "头部命中率 [color=",
+      "after": "头部命中率[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c5d08c1e28c4862eec09",
+      "source": "Has an additional [color=",
+      "before": "额外 [color=",
+      "after": "额外[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "55988fbf9d1ecf4f4e2d",
+      "source": "Contains ammo for [color=",
+      "before": "剩余弹药可使用 [color=",
+      "after": "剩余弹药可使用[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "54fd2bc0c692a5d397b5",
+      "source": "[p=c][img]gfx/ui/events/event_122.png[/img][/p][p]You and your men make your living by hunting down the many beasts that beset villages on the fringes of civilization. It's dangerous work, but it pays well enough, and there's always a bigger beast to slay and more crowns to earn.\n\n[color=#bcad8c]Beast Slayers:[/color] Start with three beast slayers and decent equipment, as well as some beast trophies.\n[color=#bcad8c]Expert Trackers:[/color] See tracks from further away.\n[color=#bcad8c]Expert Skinners:[/color] Each beast you slay has a 50% chance to drop an additional trophy.\n[color=#bcad8c]Prejudice:[/color] Most people don't trust your kind, so you get 10% worse prices.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_122.png[/img][/p][p]在文明边缘，村庄时常遭到野兽侵扰。你和手下靠猎杀这些猛兽谋生。这行当虽险，报酬倒也不差。总有更凶猛的猎物等着你们，也总有更多克朗可以赚。\n\n[color=#bcad8c]猎兽者：[/color]开局拥有三名猎兽者、不错的装备和一些野兽战利品。\n[color=#bcad8c]追踪高手：[/color]能够发现更远处的足迹。\n[color=#bcad8c]剥皮能手：[/color]每只被击杀的野兽都有 50% 的概率额外掉落一份战利品。\n[color=#bcad8c]世俗偏见：[/color]多数人不信任你们，你买入时要多付钱，卖出时也少收钱，差幅均为 10%。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_122.png[/img][/p][p]在文明边缘，村庄时常遭到野兽侵扰。你和手下靠猎杀这些猛兽谋生。这行当虽险，报酬倒也不差。总有更凶猛的猎物等着你们，也总有更多克朗可以赚。\n\n[color=#bcad8c]猎兽者：[/color]开局拥有三名猎兽者、不错的装备和一些野兽战利品。\n[color=#bcad8c]追踪高手：[/color]能够发现更远处的足迹。\n[color=#bcad8c]剥皮能手：[/color]每只被击杀的野兽都有50% 的概率额外掉落一份战利品。\n[color=#bcad8c]世俗偏见：[/color]多数人不信任你们，你买入时要多付钱，卖出时也少收钱，差幅均为10%。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "eb162448f6b6d824b315",
+      "source": "[p=c][img]gfx/ui/events/event_155.png[/img][/p][p]You've fought in the arenas of the south for years. First for your freedom, then for crowns, and finally to become immortal. What else does fate have in stock for you?\n\n[color=#bcad8c]Gladiators:[/color] Start with three experienced gladiators with good equipment, but very high daily wages.\n[color=#bcad8c]Legends of the Arena:[/color] Each gladiator has a unique trait in combat.\n[color=#bcad8c]Glorious Three:[/color] You can never have more than 12 men in your roster, and if all of your three starting men should die, your campaign ends.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_155.png[/img][/p][p]多年来，你们在南方的竞技场浴血搏杀。起初为自由，后来为克朗，最后则为名垂不朽。命运接下来又会为你们安排什么？\n\n[color=#bcad8c]角斗士：[/color]开局拥有三名经验丰富、装备精良的角斗士，但他们的日薪也极为高昂。\n[color=#bcad8c]竞技场传奇：[/color]每名角斗士都拥有独特的战斗特性。\n[color=#bcad8c]荣耀三杰：[/color]战团最多拥有 12 名成员。若最初的三名角斗士全部阵亡，战役立即结束。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_155.png[/img][/p][p]多年来，你们在南方的竞技场浴血搏杀。起初为自由，后来为克朗，最后则为名垂不朽。命运接下来又会为你们安排什么？\n\n[color=#bcad8c]角斗士：[/color]开局拥有三名经验丰富、装备精良的角斗士，但他们的日薪也极为高昂。\n[color=#bcad8c]竞技场传奇：[/color]每名角斗士都拥有独特的战斗特性。\n[color=#bcad8c]荣耀三杰：[/color]战团最多拥有12名成员。若最初的三名角斗士全部阵亡，战役立即结束。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e204bf67cb5d0173d4cf",
+      "source": "[p=c][img]gfx/ui/events/event_35.png[/img][/p][p]You've been traveling alone for a long time, taking part in tourneys and sparring with young nobles. A hedge knight tall as a tree, you never needed anybody for long. Is it true still?\n\n[color=#bcad8c]Lone Wolf:[/color] Start with a single experienced hedge knight and great equipment, but low funds.\n[color=#bcad8c]Elite Few:[/color] Can never have more than 12 men in your roster.\n[color=#bcad8c]Avatar:[/color] If your hedge knight dies, the campaign ends.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_35.png[/img][/p][p]你独自游历多年，参加比武大会，与年轻贵族切磋武艺。身为一个高大如树的流浪骑士，你从不需要长久依靠谁。今后也能如此吗？\n\n[color=#bcad8c]孤狼：[/color]开局只有一名经验丰富的流浪骑士，装备精良，但资金匮乏。\n[color=#bcad8c]精兵小队：[/color]战团最多拥有 12 名成员。\n[color=#bcad8c]亲自出征：[/color]这名流浪骑士就是你本人。他若阵亡，战役立即结束。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_35.png[/img][/p][p]你独自游历多年，参加比武大会，与年轻贵族切磋武艺。身为一个高大如树的流浪骑士，你从不需要长久依靠谁。今后也能如此吗？\n\n[color=#bcad8c]孤狼：[/color]开局只有一名经验丰富的流浪骑士，装备精良，但资金匮乏。\n[color=#bcad8c]精兵小队：[/color]战团最多拥有12名成员。\n[color=#bcad8c]亲自出征：[/color]这名流浪骑士就是你本人。他若阵亡，战役立即结束。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "949dccd6de4100008685",
+      "source": "[p=c][img]gfx/ui/events/event_172.png[/img][/p][p]Constant conflict between city states and nomads makes for good business. The bulk of your outfit are captives, forced to fight to earn their freedom, and their ranks grow after each battle.\n\n[color=#bcad8c]Army of Captives:[/color] Start with two manhunters and four indebted. Take up to 16 men into battle at once. Having equal or fewer indebted than non-indebted will make your men dissatisfied.\n[color=#bcad8c]Overseers:[/color] All non-indebted can whip indebted in combat to reset their morale and buff their stats.\n[color=#bcad8c]Captives:[/color] Indebted earn 10% more experience, are capped at level 7, and will die if struck down.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_172.png[/img][/p][p]城邦与游牧民冲突不断，倒也成了一门好生意。你的队伍大多由俘虏组成，他们被迫以战斗换取自由。每次战斗过后，又有新俘虏加入他们的行列。\n\n[color=#bcad8c]俘虏大军：[/color]开局拥有两名捕奴者和四名负债者，每场战斗最多可派出 16 人。若负债者人数不多于其他成员，队伍便会心生不满。\n[color=#bcad8c]监工：[/color]其他成员均可在战斗中鞭笞负债者，使其士气恢复，并暂时提高属性。\n[color=#bcad8c]俘虏：[/color]负债者获得的经验增加 10%，等级上限为 7 级，被击倒时必定死亡。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_172.png[/img][/p][p]城邦与游牧民冲突不断，倒也成了一门好生意。你的队伍大多由俘虏组成，他们被迫以战斗换取自由。每次战斗过后，又有新俘虏加入他们的行列。\n\n[color=#bcad8c]俘虏大军：[/color]开局拥有两名捕奴者和四名负债者，每场战斗最多可派出16人。若负债者人数不多于其他成员，队伍便会心生不满。\n[color=#bcad8c]监工：[/color]其他成员均可在战斗中鞭笞负债者，使其士气恢复，并暂时提高属性。\n[color=#bcad8c]俘虏：[/color]负债者获得的经验增加10%，等级上限为7级，被击倒时必定死亡。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "49fec99bae6446dd0e89",
+      "source": "[p=c][img]gfx/ui/events/event_141.png[/img][/p][p]It started as a ragtag militia made up of anyone brave or desperate enough to volunteer for defending their homes, but has grown into a small army. An army that needs to be fed each day. Perhaps the militia's services could be rented out?\n\n[color=#bcad8c]Peasant Army:[/color] Start with a roster of 12 poorly equipped peasants.\n[color=#bcad8c]Human Wave[/color]: Take up to 16 men into battle at once, and have up to 25 in your roster.\n[color=#bcad8c]Dirty Peasants[/color]: Can never hire anyone that isn't a lowborn peasant.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_141.png[/img][/p][p]最初，这只是一群为保卫家园而集结的乌合之众。有的人勇敢，有的人只是走投无路。如今，他们已成了一支小型军队，而这支军队每天都得吃饭。或许，可以让民兵们靠替人打仗谋生？\n\n[color=#bcad8c]农民军：[/color]开局拥有 12 名装备简陋的农民。\n[color=#bcad8c]人海战术[/color]：每场战斗最多可派出 16 人，战团最多拥有 25 名成员。\n[color=#bcad8c]寒门出身[/color]：只能雇用出身底层的平民。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_141.png[/img][/p][p]最初，这只是一群为保卫家园而集结的乌合之众。有的人勇敢，有的人只是走投无路。如今，他们已成了一支小型军队，而这支军队每天都得吃饭。或许，可以让民兵们靠替人打仗谋生？\n\n[color=#bcad8c]农民军：[/color]开局拥有12名装备简陋的农民。\n[color=#bcad8c]人海战术[/color]：每场战斗最多可派出16人，战团最多拥有25名成员。\n[color=#bcad8c]寒门出身[/color]：只能雇用出身底层的平民。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "60d2dc61f777c3e1b9ff",
+      "source": "[p=c][img]gfx/ui/events/event_41.png[/img][/p][p]You're running a small trade caravan and have most of your crowns invested into trading goods. But the roads have become dangerous - brigands and greenskins lay in ambush, and there's rumors of even worse things out there.\n\n[color=#bcad8c]Caravan:[/color] Start with two caravan hands in your employ.\n[color=#bcad8c]Trader:[/color] Get 10% better prices for buying and selling.\n[color=#bcad8c]Not a Warrior:[/color] Start with no renown, and gain renown at only 66% the normal rate.[/p]",
+      "before": "[p=c][img]gfx/ui/events/event_41.png[/img][/p][p]你经营着一支小商队，大部分积蓄都换成了货物。可商路越来越不太平：强盗与绿皮四处设伏，传闻还有更可怕的东西潜藏在荒野。\n\n[color=#bcad8c]商队：[/color]开局雇有两名商队伙计。\n[color=#bcad8c]精于买卖：[/color]买入时少付钱，卖出时多收钱，差幅均为 10%。\n[color=#bcad8c]经商之人：[/color]开局没有声望，之后获得声望的速度只有正常的 66%。[/p]",
+      "after": "[p=c][img]gfx/ui/events/event_41.png[/img][/p][p]你经营着一支小商队，大部分积蓄都换成了货物。可商路越来越不太平：强盗与绿皮四处设伏，传闻还有更可怕的东西潜藏在荒野。\n\n[color=#bcad8c]商队：[/color]开局雇有两名商队伙计。\n[color=#bcad8c]精于买卖：[/color]买入时少付钱，卖出时多收钱，差幅均为10%。\n[color=#bcad8c]经商之人：[/color]开局没有声望，之后获得声望的速度只有正常的66%。[/p]",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "41983df3c00f1f744f45",
+      "source": "Has [color=",
+      "before": "拥有 [color=",
+      "after": "拥有[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9b108d29e9b317c57f05",
+      "source": "Inflicts [color=",
+      "before": "造成 [color=",
+      "after": "造成[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "891cd4bd67aafed066be",
+      "source": "Grants [color=",
+      "before": "提供 [color=",
+      "after": "提供[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c290e4437ee6c5743e04",
+      "source": "]-40%[/color] Melee Defense",
+      "before": "]-40%[/color] 近战防御",
+      "after": "]-40%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "00abe599e4c8ec8955a1",
+      "source": "]-40%[/color] Ranged Defense",
+      "before": "]-40%[/color] 远程防御",
+      "after": "]-40%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "55c9eb438455626a9884",
+      "source": "The next [color=",
+      "before": "接下来的 [color=",
+      "after": "接下来的[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "21436c7a359a0cab3e7f",
+      "source": "]2[/color] tiles",
+      "before": "]2[/color] 格",
+      "after": "]2[/color]格",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8f2689a0534424a1794f",
+      "source": "[/color] shots left",
+      "before": "[/color] 发可用弹药",
+      "after": "[/color]发可用弹药",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1a39a83cde7830f57434",
+      "source": "[/color] bolts left",
+      "before": "[/color] 支剩余弩矢",
+      "after": "[/color]支剩余弩矢",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a8e58c7277b3481f89ca",
+      "source": "Gain a [color=",
+      "before": "获得 [color=",
+      "after": "获得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7570354a9ba810d5e832",
+      "source": "[/color] axes left",
+      "before": "[/color] 把剩余飞斧",
+      "after": "[/color]把剩余飞斧",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1522b1ebbb3cc1a3be94",
+      "source": "Give up to [color=",
+      "before": "最多使 [color=",
+      "after": "最多使[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6303af0614ff1ba5a1ca",
+      "source": "[/color] Action Points",
+      "before": "[/color] 行动点",
+      "after": "[/color]行动点",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3e5e1bcd90a379fdd8ce",
+      "source": "]-25%[/color] Damage",
+      "before": "]-25%[/color] 伤害",
+      "after": "]-25%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d7961ba8cb39ab18a698",
+      "source": "]-25%[/color] Initiative",
+      "before": "]-25%[/color] 先攻",
+      "after": "]-25%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "cef587150a813564dc2a",
+      "source": "[/color] more turn(s), they are slower to react and have a harder time landing clean strikes.",
+      "before": "[/color] 个回合，期间他反应迟缓，更难打出准确的攻击。",
+      "after": "[/color]个回合，期间他反应迟缓，更难打出准确的攻击。",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "62487439be490b3140b2",
+      "source": "]-35%[/color] Damage",
+      "before": "]-35%[/color] 伤害",
+      "after": "]-35%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2abbfa96f0b2a068d44a",
+      "source": "]-35%[/color] Initiative",
+      "before": "]-35%[/color] 先攻",
+      "after": "]-35%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "04995d2cb137a01477f8",
+      "source": "[/color] Vision",
+      "before": "[/color] 视野",
+      "after": "[/color]视野",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b8f585ac75d48bf028ef",
+      "source": "]1[/color] turn(s).",
+      "before": "]1[/color] 回合。",
+      "after": "]1[/color]回合。",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3bf20d10681b285ccd23",
+      "source": "]-50%[/color] Melee Skill",
+      "before": "]-50%[/color] 近战命中",
+      "after": "]-50%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f9a86a9cb547e7dd685e",
+      "source": "]-50%[/color] Ranged Skill",
+      "before": "]-50%[/color] 远程命中",
+      "after": "]-50%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "cf3d387ec23cfb7d4b44",
+      "source": "]-50%[/color] Melee Defense",
+      "before": "]-50%[/color] 近战防御",
+      "after": "]-50%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2dc81387d8ed7fb7a623",
+      "source": "]-50%[/color] Ranged Defense",
+      "before": "]-50%[/color] 远程防御",
+      "after": "]-50%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a6505ca657d4e30caf04",
+      "source": "]-50%[/color] Initiative",
+      "before": "]-50%[/color] 先攻",
+      "after": "]-50%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8e82b25a14cb8c684483",
+      "source": "]+25%[/color] Damage",
+      "before": "]+25%[/color] 伤害",
+      "after": "]+25%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2e8ae2b5ec52c9baeb8b",
+      "source": "]10[/color] hitpoints.",
+      "before": "]10[/color] 点生命值。",
+      "after": "]10[/color]点生命值。",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "569b15ac603766993596",
+      "source": "]+15%[/color] Melee Skill",
+      "before": "]+15%[/color] 近战命中",
+      "after": "]+15%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "bb57fbeba33fb6ecee39",
+      "source": "]+15%[/color] Ranged Skill",
+      "before": "]+15%[/color] 远程命中",
+      "after": "]+15%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6e114a30bcda6c3d3544",
+      "source": "]+15%[/color] Melee Defense",
+      "before": "]+15%[/color] 近战防御",
+      "after": "]+15%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "412f6e181e5a1abd79d3",
+      "source": "]+15%[/color] Ranged Defense",
+      "before": "]+15%[/color] 远程防御",
+      "after": "]+15%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "21f639eb8153816d7948",
+      "source": "]+15%[/color] Resolve",
+      "before": "]+15%[/color] 意志",
+      "after": "]+15%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e51f561cba52232f04cd",
+      "source": "]-45%[/color] Melee Defense",
+      "before": "]-45%[/color] 近战防御",
+      "after": "]-45%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9b0dc572f313b9c961fd",
+      "source": "]-45%[/color] Ranged Defense",
+      "before": "]-45%[/color] 远程防御",
+      "after": "]-45%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "59ec3b5cbfb371ea4ed3",
+      "source": "]-45%[/color] Initiative",
+      "before": "]-45%[/color] 先攻",
+      "after": "]-45%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "80bf5a91a6c4aff78a9a",
+      "source": "]-300[/color] Initiative",
+      "before": "]-300[/color] 先攻",
+      "after": "]-300[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7528792fc82d89e7d4e3",
+      "source": "]+15[/color] Melee Defense",
+      "before": "]+15[/color] 近战防御",
+      "after": "]+15[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "29446fe8697b2104e2e6",
+      "source": "]+15[/color] Ranged Defense",
+      "before": "]+15[/color] 远程防御",
+      "after": "]+15[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4390a1e587af2087eabc",
+      "source": "]+15[/color] Resolve",
+      "before": "]+15[/color] 意志",
+      "after": "]+15[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "98af5135c01687ccd013",
+      "source": "%[/color] Melee Skill",
+      "before": "%[/color] 近战命中",
+      "after": "%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a26539059a9d48344436",
+      "source": "%[/color] Ranged Skill",
+      "before": "%[/color] 远程命中",
+      "after": "%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3e5a8355341bc1fa6f2b",
+      "source": "]-35%[/color] Melee Defense",
+      "before": "]-35%[/color] 近战防御",
+      "after": "]-35%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ff35b6eb953108003cae",
+      "source": "]-35%[/color] Ranged Defense",
+      "before": "]-35%[/color] 远程防御",
+      "after": "]-35%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "00572499df3c682d2c81",
+      "source": "%[/color] Damage",
+      "before": "%[/color] 伤害",
+      "after": "%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ffaafb6a686deb612273",
+      "source": "%[/color] Initiative",
+      "before": "%[/color] 先攻",
+      "after": "%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9347737a76f9aeddb2e4",
+      "source": "%[/color] Resolve",
+      "before": "%[/color] 意志",
+      "after": "%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c3ef9e9b3339e63da8f0",
+      "source": "%[/color] Melee Defense",
+      "before": "%[/color] 近战防御",
+      "after": "%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "019d7ee0e9bbfe345a86",
+      "source": "%[/color] Ranged Defense",
+      "before": "%[/color] 远程防御",
+      "after": "%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fcbfdb9211abc06ea5dd",
+      "source": "]-100[/color] Initiative",
+      "before": "]-100[/color] 先攻",
+      "after": "]-100[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "76b2e0ae242d5e151917",
+      "source": "]+100%[/color] Ranged Defense",
+      "before": "]+100%[/color] 远程防御",
+      "after": "]+100%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "24bf4a42022e30322c48",
+      "source": "]-50%[/color] Damage",
+      "before": "]-50%[/color] 伤害",
+      "after": "]-50%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1bca9a950f9c5edbe665",
+      "source": "]-50%[/color] Resolve",
+      "before": "]-50%[/color] 意志",
+      "after": "]-50%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "56641e8a3ec78a55ef3a",
+      "source": "]+25%[/color] Resolve",
+      "before": "]+25%[/color] 意志",
+      "after": "]+25%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4e33e0fa49254b26dd5a",
+      "source": "]-25%[/color] Ranged Skill",
+      "before": "]-25%[/color] 远程命中",
+      "after": "]-25%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c8e3ce5de048bbf61407",
+      "source": "]-10%[/color] Resolve",
+      "before": "]-10%[/color] 意志",
+      "after": "]-10%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "18f96d3d841773585712",
+      "source": "]-10%[/color] Melee Skill",
+      "before": "]-10%[/color] 近战命中",
+      "after": "]-10%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "20357e091e1ac236a65a",
+      "source": "]-10%[/color] Ranged Skill",
+      "before": "]-10%[/color] 远程命中",
+      "after": "]-10%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "573a6b025902de5b1d5c",
+      "source": "]-10%[/color] Melee Defense",
+      "before": "]-10%[/color] 近战防御",
+      "after": "]-10%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "81583840dfb2caed6b91",
+      "source": "]-10%[/color] Ranged Defense",
+      "before": "]-10%[/color] 远程防御",
+      "after": "]-10%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8b6a57502feaddade73f",
+      "source": "]-10%[/color] Initiative",
+      "before": "]-10%[/color] 先攻",
+      "after": "]-10%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "0d549ad24089706eb906",
+      "source": "]-40%[/color] Initiative",
+      "before": "]-40%[/color] 先攻",
+      "after": "]-40%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "95fe9a9ab6fc24eeb498",
+      "source": "]-20%[/color] Initiative",
+      "before": "]-20%[/color] 先攻",
+      "after": "]-20%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f7e41005a97d8e11531b",
+      "source": "]-2[/color] Vision",
+      "before": "]-2[/color] 视野",
+      "after": "]-2[/color]视野",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1962930eb616dfe98a76",
+      "source": "]-5%[/color] Melee Skill",
+      "before": "]-5%[/color] 近战命中",
+      "after": "]-5%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9abd09549c53e393b2d7",
+      "source": "]-5%[/color] Ranged Skill",
+      "before": "]-5%[/color] 远程命中",
+      "after": "]-5%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6a0b1c7f1fbcf3edf758",
+      "source": "]-30%[/color] Initiative",
+      "before": "]-30%[/color] 先攻",
+      "after": "]-30%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "913560db85b6bf718aeb",
+      "source": "]-15%[/color] Melee Skill",
+      "before": "]-15%[/color] 近战命中",
+      "after": "]-15%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f85e53685835fffde3f8",
+      "source": "]-15%[/color] Ranged Skill",
+      "before": "]-15%[/color] 远程命中",
+      "after": "]-15%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6fbf8de3c7b9997a8c66",
+      "source": "]-35%[/color] Hitpoints",
+      "before": "]-35%[/color] 生命值",
+      "after": "]-35%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b245b448e6ff8a5bb50b",
+      "source": "]-50%[/color] Hitpoints",
+      "before": "]-50%[/color] 生命值",
+      "after": "]-50%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "fd1e941f17b865b8882c",
+      "source": "]-25%[/color] Hitpoints",
+      "before": "]-25%[/color] 生命值",
+      "after": "]-25%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6a881581bce59172cf4c",
+      "source": "]-35%[/color] Melee Skill",
+      "before": "]-35%[/color] 近战命中",
+      "after": "]-35%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1d8a082dd53d3623391a",
+      "source": "]-35%[/color] Ranged Skill",
+      "before": "]-35%[/color] 远程命中",
+      "after": "]-35%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "007ca5b692a20d473559",
+      "source": "]-3[/color] Action Points",
+      "before": "]-3[/color] 行动点",
+      "after": "]-3[/color]行动点",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "02fbde5ad530e8099222",
+      "source": "]-20%[/color] Melee Skill",
+      "before": "]-20%[/color] 近战命中",
+      "after": "]-20%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "63d3faca80eb000842ee",
+      "source": "]-20%[/color] Ranged Skill",
+      "before": "]-20%[/color] 远程命中",
+      "after": "]-20%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6e368a790306d12b67e9",
+      "source": "]-60%[/color] Hitpoints",
+      "before": "]-60%[/color] 生命值",
+      "after": "]-60%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c534f859951d23c96eb9",
+      "source": "]-15%[/color] Hitpoints",
+      "before": "]-15%[/color] 生命值",
+      "after": "]-15%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "84578f60058b68356d8c",
+      "source": "]-2[/color] Action Points",
+      "before": "]-2[/color] 行动点",
+      "after": "]-2[/color]行动点",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "860e8a48f8a19070b9d2",
+      "source": "]-30%[/color] Melee Defense",
+      "before": "]-30%[/color] 近战防御",
+      "after": "]-30%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "600a103f2f46e9005192",
+      "source": "]-15%[/color] Initiative",
+      "before": "]-15%[/color] 先攻",
+      "after": "]-15%[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ec905dd951f9bd2c5f6e",
+      "source": "]-25%[/color] Resolve",
+      "before": "]-25%[/color] 意志",
+      "after": "]-25%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a08962c862c7100ff79a",
+      "source": "]-40%[/color] Melee Skill",
+      "before": "]-40%[/color] 近战命中",
+      "after": "]-40%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6d98a0366dcd1bfbd013",
+      "source": "]-40%[/color] Ranged Skill",
+      "before": "]-40%[/color] 远程命中",
+      "after": "]-40%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b725d662165a8f68c815",
+      "source": "]-40%[/color] Hitpoints",
+      "before": "]-40%[/color] 生命值",
+      "after": "]-40%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "80c7ff1adcb773750cda",
+      "source": "]-40%[/color] Fatigue",
+      "before": "]-40%[/color] 疲劳上限",
+      "after": "]-40%[/color]疲劳上限",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "310d158bbcbf2796fa80",
+      "source": "]-40%[/color] Resolve",
+      "before": "]-40%[/color] 意志",
+      "after": "]-40%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "f454667a9cfdf14442d0",
+      "source": "]-30%[/color] Hitpoints",
+      "before": "]-30%[/color] 生命值",
+      "after": "]-30%[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1f039057856391defb8b",
+      "source": "]+10%[/color] Melee Skill",
+      "before": "]+10%[/color] 近战命中",
+      "after": "]+10%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "957882db09b4dfa647ce",
+      "source": "]+10%[/color] Ranged Skill",
+      "before": "]+10%[/color] 远程命中",
+      "after": "]+10%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ce4cb83970dc8776a30b",
+      "source": "]+10%[/color] Melee Defense",
+      "before": "]+10%[/color] 近战防御",
+      "after": "]+10%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8bb626ed40ef8f129921",
+      "source": "]+10%[/color] Ranged Defense",
+      "before": "]+10%[/color] 远程防御",
+      "after": "]+10%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "ef7ef7bbd0a5199b4b67",
+      "source": "]-20%[/color] Resolve",
+      "before": "]-20%[/color] 意志",
+      "after": "]-20%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "74ed5351cbfa33d6b5e4",
+      "source": "]-20%[/color] Melee Defense",
+      "before": "]-20%[/color] 近战防御",
+      "after": "]-20%[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "704dc124d22bf76389a5",
+      "source": "]-20%[/color] Ranged Defense",
+      "before": "]-20%[/color] 远程防御",
+      "after": "]-20%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e2a83b9862308a7c676a",
+      "source": "]-30%[/color] Resolve",
+      "before": "]-30%[/color] 意志",
+      "after": "]-30%[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "206b12c0d029943dce42",
+      "source": "]-30%[/color] Melee Skill",
+      "before": "]-30%[/color] 近战命中",
+      "after": "]-30%[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2465ce282136fd1eee05",
+      "source": "]-30%[/color] Ranged Skill",
+      "before": "]-30%[/color] 远程命中",
+      "after": "]-30%[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3324b036942a1a7544a0",
+      "source": "]-30%[/color] Ranged Defense",
+      "before": "]-30%[/color] 远程防御",
+      "after": "]-30%[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "62c264b25be495ff118a",
+      "source": "Builds up [color=",
+      "before": "每移动一格，疲劳消耗会有 [color=",
+      "after": "每移动一格，疲劳消耗会有[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "08454df1b260fc431d3f",
+      "source": "]-5[/color] Melee Skill",
+      "before": "]-5[/color] 近战命中",
+      "after": "]-5[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "287c4918551c7ada6578",
+      "source": "]-5[/color] Melee Defense",
+      "before": "]-5[/color] 近战防御",
+      "after": "]-5[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4c23cee533469cc20ef6",
+      "source": "]-5[/color] Ranged Defense",
+      "before": "]-5[/color] 远程防御",
+      "after": "]-5[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "9260c33ce34907c12620",
+      "source": "]-10[/color] Resolve",
+      "before": "]-10[/color] 意志",
+      "after": "]-10[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "92532bfb1c3671ee8391",
+      "source": "]+5[/color] Melee Defense",
+      "before": "]+5[/color] 近战防御",
+      "after": "]+5[/color]近战防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4231b68fb5e3e82ba5b3",
+      "source": "]+5[/color] Ranged Defense",
+      "before": "]+5[/color] 远程防御",
+      "after": "]+5[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "4873e94122d5fecdfe7a",
+      "source": "]+20[/color] Hitpoints",
+      "before": "]+20[/color] 生命值",
+      "after": "]+20[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "a5467fde2414ce0be079",
+      "source": "]+5[/color] Melee Skill",
+      "before": "]+5[/color] 近战命中",
+      "after": "]+5[/color]近战命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e7a6c778fb144575864f",
+      "source": "]+10%[/color] Damage",
+      "before": "]+10%[/color] 伤害",
+      "after": "]+10%[/color]伤害",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "c8ac5a435d04d1adea6d",
+      "source": "]-10[/color] Ranged Skill",
+      "before": "]-10[/color] 远程命中",
+      "after": "]-10[/color]远程命中",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "27520753dc14a16ac579",
+      "source": "]+1[/color] Vision",
+      "before": "]+1[/color] 视野",
+      "after": "]+1[/color]视野",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "639ecdab94aa2de0fcb5",
+      "source": "]-5[/color] Resolve",
+      "before": "]-5[/color] 意志",
+      "after": "]-5[/color]意志",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "55036ac42809ed138f29",
+      "source": "]+10[/color] Hitpoints",
+      "before": "]+10[/color] 生命值",
+      "after": "]+10[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "956084fd0f5a88097b2c",
+      "source": "]-10[/color] Hitpoints",
+      "before": "]-10[/color] 生命值",
+      "after": "]-10[/color]生命值",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "05a716ed6fe299f3d21b",
+      "source": "]-10[/color] Initiative",
+      "before": "]-10[/color] 先攻",
+      "after": "]-10[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "130c72283b1d86e0442e",
+      "source": "]+10[/color] or [color=",
+      "before": "]+10[/color] 或 [color=",
+      "after": "]+10[/color]或[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d4a9a6d1a469919ae4cc",
+      "source": "]+15[/color] or [color=",
+      "before": "]+15[/color] 或 [color=",
+      "after": "]+15[/color]或[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "1ee8b8bab182d04ad80e",
+      "source": "]-10[/color] Ranged Defense",
+      "before": "]-10[/color] 远程防御",
+      "after": "]-10[/color]远程防御",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "d5600bd30806a913d125",
+      "source": "]-1[/color] Vision",
+      "before": "]-1[/color] 视野",
+      "after": "]-1[/color]视野",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "dc748208c3320b83f9a5",
+      "source": "]-30[/color] Initiative",
+      "before": "]-30[/color] 先攻",
+      "after": "]-30[/color]先攻",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "6fe6e3a3c369f8d14729",
+      "source": "Costs [b][color=",
+      "before": "花费 [b][color=",
+      "after": "花费[b][color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "14016b681d605ea88dce",
+      "source": "[/color][/b] AP and [b][color=",
+      "before": "[/color][/b] 行动点和 [b][color=",
+      "after": "[/color][/b]行动点和[b][color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "3922616804ee526623cf",
+      "source": "[/color][/b] AP)",
+      "before": "[/color][/b] 行动点）",
+      "after": "[/color][/b]行动点）",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "b950d9f3b21d201f9641",
+      "source": "The amount of coin your mercenary company has. Used to pay every man daily at noon, as well as to hire new people and purchase equipment.\n\nYou pay out [color=",
+      "before": "战团现有的钱币。用于每天中午支付薪水，也用于招募新人和购买装备。\n\n每日支付 [color=",
+      "after": "战团现有的钱币。用于每天中午支付薪水，也用于招募新人和购买装备。\n\n每日支付[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "796f2653d0b1c8a15b70",
+      "source": "[/color] crowns per day. Your [color=",
+      "before": "[/color]克朗。现有 [color=",
+      "after": "[/color]克朗。现有[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e96ff933c51cb302a9bf",
+      "source": "[/color] crowns will last you for [color=",
+      "before": "[/color]克朗，可再维持 [color=",
+      "after": "[/color]克朗，可再维持[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "bb4c5191ce51f79132d3",
+      "source": "[/color] more days.",
+      "before": "[/color] 天。",
+      "after": "[/color]天。",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "8260bc86fd2c3179bef6",
+      "source": "The amount of coin your mercenary company has. Used to pay every man daily, as well as to hire new men and purchase equipment.\n\nYou pay out [color=",
+      "before": "战团现有的钱币。用于支付每日薪水、招募新人和购买装备。\n\n每日支付 [color=",
+      "after": "战团现有的钱币。用于支付每日薪水、招募新人和购买装备。\n\n每日支付[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "501fa1383e3085d46a46",
+      "source": "The total amount of provisions you carry. The average man requires 2 provisions per day and more on difficult terrain. Your men will eat the provisions closest to expiring first. Running out of provisions will lower morale and will eventually lead to your people deserting you before dying of starvation.\n\nYou use [color=",
+      "before": "战团携带的口粮总量。通常每人每天消耗2份口粮，在难行的地形上消耗更多。弟兄们会优先食用最接近变质的食物。断粮会降低士气，最终使弟兄们在饿死之前离开战团。\n\n每日消耗 [color=",
+      "after": "战团携带的口粮总量。通常每人每天消耗2份口粮，在难行的地形上消耗更多。弟兄们会优先食用最接近变质的食物。断粮会降低士气，最终使弟兄们在饿死之前离开战团。\n\n每日消耗[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "88f9ab258fb5d9d66716",
+      "source": "[/color] provisions per day. Your [color=",
+      "before": "[/color]份口粮。现有 [color=",
+      "after": "[/color]份口粮。现有[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e3b7a3889b7f564bb71a",
+      "source": "[/color] provisions will last you for [color=",
+      "before": "[/color]份口粮，最多还能维持 [color=",
+      "after": "[/color]份口粮，最多还能维持[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "2aac9e464443c391e116",
+      "source": "\n\nRepairing all your equipment will take [color=",
+      "before": "\n\n修好全部装备需要 [color=",
+      "after": "\n\n修好全部装备需要[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "75097927519f163033c1",
+      "source": "\n\nHealing up all your men will take between [color=",
+      "before": "\n\n所有伤员痊愈需要 [color=",
+      "after": "\n\n所有伤员痊愈需要[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "834a48a59ff2c485fb67",
+      "source": "[/color] days",
+      "before": "[/color] 天",
+      "after": "[/color]天",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "e20b017e58cc279ec80f",
+      "source": "Dealt [color=",
+      "before": "造成 [color=",
+      "after": "造成[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "7966a53eb0106fcea7ad",
+      "source": "Received [color=",
+      "before": "承受 [color=",
+      "after": "承受[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "aa50a8dc9a2082a6d43f",
+      "source": "Have your man participate in a sparring fight with experienced opponents and various fighting styles. The bruises collected and lessons learned will result in [color=",
+      "before": "让弟兄与经验丰富的对手切磋，领教不同的战斗风格。挨过的打和学到的教训，将使他获得 [color=",
+      "after": "让弟兄与经验丰富的对手切磋，领教不同的战斗风格。挨过的打和学到的教训，将使他获得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "bd1e2d85b9c6a3a3021b",
+      "source": "Have your man learn valuable lessons and insights from a true veteran of the trade. The knowledge imparted will result in [color=",
+      "before": "让弟兄向久经沙场的老兵请教，学习宝贵的实战经验。受益于这番指点，他将获得 [color=",
+      "after": "让弟兄向久经沙场的老兵请教，学习宝贵的实战经验。受益于这番指点，他将获得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    },
+    {
+      "key": "12e3e7697dbae420d151",
+      "source": "Have your man undergo a rigorous training regimen to shape him into a skilled fighter. The blood and sweat spent today will benefit him in the long run with [color=",
+      "before": "让弟兄接受严格的训练，磨炼战斗技艺。今日流下的血汗将长久惠及他，使他获得 [color=",
+      "after": "让弟兄接受严格的训练，磨炼战斗技艺。今日流下的血汗将长久惠及他，使他获得[color=",
+      "reason": "去掉中文与数字、颜色标记、全角标点之间的半角空格。",
+      "domain": "spacing"
+    }
+  ],
+  "supplemental_changes": []
+}

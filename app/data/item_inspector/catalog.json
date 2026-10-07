@@ -2,7 +2,7 @@
   "schema": 1,
   "game_version": "1.5.2.3",
   "provenance": "Original local game scripts; BBMOD independently authored Chinese terminology.",
-  "translation_sha256": "c8aadb6b9f414ec593cc0a03222848d053a8844b92cb8cbdd130ff1bc261b266",
+  "translation_sha256": "b0c6f0d12ea0ea0a826d931376212e8753f343cd119922e80d3dbd761156b3b1",
   "source_sha256": {
     "scripts/items/weapons/named/named_weapon.nut": "a17b947d29231e74ed5c745f00bba743e5ca3319d8d690e037cc5e7979f5b47a",
     "scripts/items/weapons/named/named_axe.nut": "ec44dbe395fcfd946728c2e3671c0ad4a7a3936bd5ccab6d17c6ad90fe7556a4",
@@ -105,8 +105,8 @@
   },
   "items": {
     "weapon.named_axe": {
-      "en": "Named Axe",
-      "zh": "红斧",
+      "en": "Axe",
+      "zh": "斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -125,11 +125,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_axe.nut"
+      "source": "scripts/items/weapons/named/named_axe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_bardiche": {
-      "en": "Named Bardiche",
-      "zh": "红长刃斧",
+      "en": "Bardiche",
+      "zh": "长刃斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -148,11 +219,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_bardiche.nut"
+      "source": "scripts/items/weapons/named/named_bardiche.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_battle_whip": {
-      "en": "Named Battle Whip",
-      "zh": "红战鞭",
+      "en": "Battle Whip",
+      "zh": "战鞭",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -171,11 +313,50 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_battle_whip.nut"
+      "source": "scripts/items/weapons/named/named_battle_whip.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Whip",
+          "zh": "鞭击"
+        },
+        {
+          "en": "Tongue",
+          "zh": "长舌"
+        },
+        {
+          "en": "Snake",
+          "zh": "蛇"
+        },
+        {
+          "en": "Lightning",
+          "zh": "闪电"
+        },
+        {
+          "en": "Strangler",
+          "zh": "绞喉者"
+        },
+        {
+          "en": "Reach",
+          "zh": "延伸"
+        },
+        {
+          "en": "Painbringer",
+          "zh": "苦痛使者"
+        },
+        {
+          "en": "Punisher",
+          "zh": "惩罚者"
+        },
+        {
+          "en": "Castigator",
+          "zh": "惩戒者"
+        }
+      ]
     },
     "weapon.named_billhook": {
-      "en": "Named Billhook",
-      "zh": "红钩镰",
+      "en": "Billhook",
+      "zh": "钩镰",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -194,11 +375,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_billhook.nut"
+      "source": "scripts/items/weapons/named/named_billhook.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Thresher",
+          "zh": "脱粒者"
+        },
+        {
+          "en": "Bill",
+          "zh": "钩刃"
+        },
+        {
+          "en": "Billhook",
+          "zh": "钩镰"
+        },
+        {
+          "en": "Poleblade",
+          "zh": "长柄刀"
+        },
+        {
+          "en": "Polearm",
+          "zh": "长柄刃"
+        },
+        {
+          "en": "Bardiche",
+          "zh": "长刃斧"
+        },
+        {
+          "en": "Voulge",
+          "zh": "长柄砍刀"
+        },
+        {
+          "en": "Reach",
+          "zh": "延伸"
+        },
+        {
+          "en": "Willbreaker",
+          "zh": "摧心者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Foe Feller",
+          "zh": "摧敌者"
+        },
+        {
+          "en": "Mutilater",
+          "zh": "残虐者"
+        },
+        {
+          "en": "Whacker",
+          "zh": "猛砸者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        }
+      ]
     },
     "weapon.named_bladed_pike": {
-      "en": "Named Bladed Pike",
-      "zh": "红刃矛",
+      "en": "Ancient Bladed Pike",
+      "zh": "古代刃枪",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -217,11 +469,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_bladed_pike.nut"
+      "source": "scripts/items/weapons/named/named_bladed_pike.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Lance",
+          "zh": "长枪"
+        },
+        {
+          "en": "Pole",
+          "zh": "长杆"
+        },
+        {
+          "en": "Staff",
+          "zh": "长杖"
+        },
+        {
+          "en": "Stake",
+          "zh": "尖桩"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Warpike",
+          "zh": "战矛"
+        },
+        {
+          "en": "Pike",
+          "zh": "长枪"
+        },
+        {
+          "en": "Ray",
+          "zh": "光芒"
+        },
+        {
+          "en": "Spout",
+          "zh": "喷泉"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Spine",
+          "zh": "脊骨"
+        },
+        {
+          "en": "Longpike",
+          "zh": "长矛"
+        },
+        {
+          "en": "Heartspike",
+          "zh": "刺心锥"
+        },
+        {
+          "en": "Eye Poker",
+          "zh": "刺目者"
+        },
+        {
+          "en": "Spire",
+          "zh": "尖塔"
+        },
+        {
+          "en": "Silver Lance",
+          "zh": "银枪"
+        },
+        {
+          "en": "Pricker",
+          "zh": "穿刺者"
+        }
+      ]
     },
     "weapon.named_cleaver": {
-      "en": "Named Cleaver",
-      "zh": "红斩刀",
+      "en": "Cleaver",
+      "zh": "斩刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -240,11 +563,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_cleaver.nut"
+      "source": "scripts/items/weapons/named/named_cleaver.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_crossbow": {
-      "en": "Named Crossbow",
-      "zh": "红弩",
+      "en": "Crossbow",
+      "zh": "弩",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -263,11 +689,94 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_crossbow.nut"
+      "source": "scripts/items/weapons/named/named_crossbow.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Bolter",
+          "zh": "弩矢使者"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Spitter",
+          "zh": "喷吐者"
+        },
+        {
+          "en": "Nailer",
+          "zh": "钉杀者"
+        },
+        {
+          "en": "Thrower",
+          "zh": "投射者"
+        },
+        {
+          "en": "Shooter",
+          "zh": "射手"
+        },
+        {
+          "en": "Catapult",
+          "zh": "投石机"
+        },
+        {
+          "en": "Balista",
+          "zh": "弩炮"
+        },
+        {
+          "en": "Crossbow",
+          "zh": "弩"
+        },
+        {
+          "en": "Tiebreaker",
+          "zh": "决胜者"
+        },
+        {
+          "en": "Penetrator",
+          "zh": "穿透者"
+        },
+        {
+          "en": "Betrayer",
+          "zh": "背叛者"
+        },
+        {
+          "en": "Spearthrower",
+          "zh": "射矛者"
+        },
+        {
+          "en": "Skyfire",
+          "zh": "天火"
+        },
+        {
+          "en": "Messenger",
+          "zh": "信使"
+        },
+        {
+          "en": "Repeater",
+          "zh": "连发弩"
+        },
+        {
+          "en": "Giant Hunter",
+          "zh": "巨人猎手"
+        },
+        {
+          "en": "Arbalest",
+          "zh": "重弩"
+        },
+        {
+          "en": "Reach",
+          "zh": "延伸"
+        },
+        {
+          "en": "Emissary",
+          "zh": "使者"
+        }
+      ]
     },
     "weapon.named_crypt_cleaver": {
-      "en": "Named Crypt Cleaver",
-      "zh": "红墓穴斩刀",
+      "en": "Crypt Cleaver",
+      "zh": "墓穴斩刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -286,11 +795,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_crypt_cleaver.nut"
+      "source": "scripts/items/weapons/named/named_crypt_cleaver.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_dagger": {
-      "en": "Named Dagger",
-      "zh": "红匕首",
+      "en": "Dagger",
+      "zh": "匕首",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -309,11 +921,102 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_dagger.nut"
+      "source": "scripts/items/weapons/named/named_dagger.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splinter",
+          "zh": "碎片"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Wedge",
+          "zh": "铁楔"
+        },
+        {
+          "en": "Gouge",
+          "zh": "凿刺"
+        },
+        {
+          "en": "Chisel",
+          "zh": "凿刃"
+        },
+        {
+          "en": "Sting",
+          "zh": "蜇刺"
+        },
+        {
+          "en": "Dirk",
+          "zh": "德克"
+        },
+        {
+          "en": "Bodkin",
+          "zh": "锥刃"
+        },
+        {
+          "en": "Snickersnee",
+          "zh": "短尖刀"
+        },
+        {
+          "en": "Dagger",
+          "zh": "匕首"
+        },
+        {
+          "en": "Bloodletter",
+          "zh": "放血者"
+        },
+        {
+          "en": "Oathbreaker",
+          "zh": "背誓者"
+        },
+        {
+          "en": "Venom",
+          "zh": "毒液"
+        },
+        {
+          "en": "Cunning",
+          "zh": "诡计"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Backstabber",
+          "zh": "背刺者"
+        },
+        {
+          "en": "Heartseeker",
+          "zh": "觅心者"
+        },
+        {
+          "en": "Stiletto",
+          "zh": "细刺匕首"
+        },
+        {
+          "en": "Shank",
+          "zh": "短刺"
+        },
+        {
+          "en": "Shiv",
+          "zh": "尖刀"
+        },
+        {
+          "en": "Needle",
+          "zh": "钢针"
+        },
+        {
+          "en": "Estoc",
+          "zh": "穿甲刺剑"
+        }
+      ]
     },
     "weapon.named_estoc": {
-      "en": "Named Estoc",
-      "zh": "红穿甲刺剑",
+      "en": "Estoc",
+      "zh": "穿甲刺剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -332,11 +1035,62 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_estoc.nut"
+      "source": "scripts/items/weapons/named/named_estoc.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Flurry",
+          "zh": "疾风连击"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Pincer",
+          "zh": "钳击者"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Striker",
+          "zh": "打击者"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Heartseeker",
+          "zh": "觅心者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Gapcloser",
+          "zh": "迫近者"
+        },
+        {
+          "en": "Grace",
+          "zh": "优雅"
+        },
+        {
+          "en": "Swiftblade",
+          "zh": "迅捷之刃"
+        }
+      ]
     },
     "weapon.named_exesword": {
-      "en": "Named Executioner's Sword",
-      "zh": "红行刑剑",
+      "en": "Executioner's Sword",
+      "zh": "行刑剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -355,11 +1109,86 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_exesword.nut"
+      "source": "scripts/items/weapons/named/named_exesword.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Greatsword",
+          "zh": "巨剑"
+        },
+        {
+          "en": "Zweihander",
+          "zh": "双手巨剑"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Longblade",
+          "zh": "长刃"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Vanquisher",
+          "zh": "克敌者"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Executioner",
+          "zh": "刽子手"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Orcslayer",
+          "zh": "兽人杀手"
+        },
+        {
+          "en": "Honor",
+          "zh": "荣耀"
+        },
+        {
+          "en": "Claymore",
+          "zh": "双手大剑"
+        },
+        {
+          "en": "Thug's Bane",
+          "zh": "暴徒克星"
+        },
+        {
+          "en": "Long Reach",
+          "zh": "长臂"
+        },
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Warsword",
+          "zh": "战剑"
+        },
+        {
+          "en": "Bidenhander",
+          "zh": "双手巨剑"
+        },
+        {
+          "en": "Gassenhauer",
+          "zh": "扫街巨剑"
+        }
+      ]
     },
     "weapon.named_fencing_sword": {
-      "en": "Named Fencing Sword",
-      "zh": "红决斗刺剑",
+      "en": "Fencing Sword",
+      "zh": "决斗刺剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -378,11 +1207,62 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_fencing_sword.nut"
+      "source": "scripts/items/weapons/named/named_fencing_sword.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Flurry",
+          "zh": "疾风连击"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Pincer",
+          "zh": "钳击者"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Striker",
+          "zh": "打击者"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Heartseeker",
+          "zh": "觅心者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Gapcloser",
+          "zh": "迫近者"
+        },
+        {
+          "en": "Grace",
+          "zh": "优雅"
+        },
+        {
+          "en": "Swiftblade",
+          "zh": "迅捷之刃"
+        }
+      ]
     },
     "weapon.named_flail": {
-      "en": "Named Flail",
-      "zh": "红连枷",
+      "en": "Flail",
+      "zh": "连枷",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -401,11 +1281,106 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_flail.nut"
+      "source": "scripts/items/weapons/named/named_flail.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Flail",
+          "zh": "连枷"
+        },
+        {
+          "en": "Basher",
+          "zh": "猛击者"
+        },
+        {
+          "en": "Smacker",
+          "zh": "抽击者"
+        },
+        {
+          "en": "Whip",
+          "zh": "鞭击"
+        },
+        {
+          "en": "Justice",
+          "zh": "正义"
+        },
+        {
+          "en": "Purifier",
+          "zh": "净化者"
+        },
+        {
+          "en": "Malice",
+          "zh": "恶意"
+        },
+        {
+          "en": "Harvester",
+          "zh": "收割者"
+        },
+        {
+          "en": "Lament",
+          "zh": "挽歌"
+        },
+        {
+          "en": "Hatred",
+          "zh": "憎恨"
+        },
+        {
+          "en": "Reckoning",
+          "zh": "清算"
+        },
+        {
+          "en": "Blind Justice",
+          "zh": "盲眼正义"
+        },
+        {
+          "en": "Salvation",
+          "zh": "救赎"
+        },
+        {
+          "en": "Thrasher",
+          "zh": "痛打者"
+        },
+        {
+          "en": "Flogger",
+          "zh": "鞭笞者"
+        },
+        {
+          "en": "Spanker",
+          "zh": "鞭打者"
+        },
+        {
+          "en": "Trouncer",
+          "zh": "痛击者"
+        },
+        {
+          "en": "Reaper",
+          "zh": "死神"
+        },
+        {
+          "en": "Castigator",
+          "zh": "惩戒者"
+        },
+        {
+          "en": "Punisher",
+          "zh": "惩罚者"
+        },
+        {
+          "en": "Flying Star",
+          "zh": "飞星"
+        },
+        {
+          "en": "Assaulter",
+          "zh": "突袭者"
+        },
+        {
+          "en": "Bruiser",
+          "zh": "重击者"
+        }
+      ]
     },
     "weapon.named_goblin_falchion": {
-      "en": "Named Goblin Falchion",
-      "zh": "红地精弯刀",
+      "en": "Cruel Falchion",
+      "zh": "凶刃弯刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -424,11 +1399,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_goblin_falchion.nut"
+      "source": "scripts/items/weapons/named/named_goblin_falchion.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Sword",
+          "zh": "剑"
+        },
+        {
+          "en": "Deathdealer",
+          "zh": "夺命者"
+        },
+        {
+          "en": "Mercy",
+          "zh": "慈悲"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Warblade",
+          "zh": "战刃"
+        },
+        {
+          "en": "Longblade",
+          "zh": "长刃"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Oathkeeper",
+          "zh": "守誓者"
+        },
+        {
+          "en": "Glimmer",
+          "zh": "微光"
+        },
+        {
+          "en": "Reckoning",
+          "zh": "清算"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Red Rivers",
+          "zh": "血河"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Lightning",
+          "zh": "闪电"
+        },
+        {
+          "en": "Striker",
+          "zh": "打击者"
+        },
+        {
+          "en": "Razor",
+          "zh": "剃刀"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Windblade",
+          "zh": "风刃"
+        },
+        {
+          "en": "Swiftblade",
+          "zh": "迅捷之刃"
+        }
+      ]
     },
     "weapon.named_goblin_heavy_bow": {
-      "en": "Named Goblin Heavy Bow",
-      "zh": "红地精重弓",
+      "en": "Reinforced Boondock Bow",
+      "zh": "强化荒野短弓",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -447,11 +1525,126 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_goblin_heavy_bow.nut"
+      "source": "scripts/items/weapons/named/named_goblin_heavy_bow.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Reach",
+          "zh": "延伸"
+        },
+        {
+          "en": "Bend",
+          "zh": "曲弓"
+        },
+        {
+          "en": "Greatbow",
+          "zh": "巨弓"
+        },
+        {
+          "en": "Longbow",
+          "zh": "长弓"
+        },
+        {
+          "en": "Warbow",
+          "zh": "战弓"
+        },
+        {
+          "en": "Dart",
+          "zh": "飞矢"
+        },
+        {
+          "en": "Grasp",
+          "zh": "掌握"
+        },
+        {
+          "en": "Flight",
+          "zh": "飞翔"
+        },
+        {
+          "en": "Recurve",
+          "zh": "反曲弓"
+        },
+        {
+          "en": "Whisperwind",
+          "zh": "风语"
+        },
+        {
+          "en": "Startrail",
+          "zh": "星迹"
+        },
+        {
+          "en": "Warsong",
+          "zh": "战歌"
+        },
+        {
+          "en": "Barrage",
+          "zh": "箭幕"
+        },
+        {
+          "en": "Heartpiercer",
+          "zh": "穿心者"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Swiftwind",
+          "zh": "疾风"
+        },
+        {
+          "en": "Shooter",
+          "zh": "射手"
+        },
+        {
+          "en": "Heartstriker",
+          "zh": "击心者"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Comet",
+          "zh": "彗星"
+        },
+        {
+          "en": "Meteor",
+          "zh": "流星"
+        },
+        {
+          "en": "Stormbringer",
+          "zh": "风暴使者"
+        },
+        {
+          "en": "Hailbringer",
+          "zh": "唤雹者"
+        },
+        {
+          "en": "Hailstorm",
+          "zh": "冰雹"
+        },
+        {
+          "en": "Arrowfall",
+          "zh": "箭雨"
+        },
+        {
+          "en": "Cord",
+          "zh": "弓弦"
+        },
+        {
+          "en": "Sinew",
+          "zh": "强筋"
+        },
+        {
+          "en": "Tendon",
+          "zh": "筋腱"
+        }
+      ]
     },
     "weapon.named_goblin_pike": {
-      "en": "Named Goblin Pike",
-      "zh": "红地精长枪",
+      "en": "Jagged Pike",
+      "zh": "锯齿长枪",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -470,11 +1663,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_goblin_pike.nut"
+      "source": "scripts/items/weapons/named/named_goblin_pike.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Lance",
+          "zh": "长枪"
+        },
+        {
+          "en": "Pole",
+          "zh": "长杆"
+        },
+        {
+          "en": "Staff",
+          "zh": "长杖"
+        },
+        {
+          "en": "Stake",
+          "zh": "尖桩"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Warpike",
+          "zh": "战矛"
+        },
+        {
+          "en": "Pike",
+          "zh": "长枪"
+        },
+        {
+          "en": "Ray",
+          "zh": "光芒"
+        },
+        {
+          "en": "Spout",
+          "zh": "喷泉"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Spine",
+          "zh": "脊骨"
+        },
+        {
+          "en": "Longpike",
+          "zh": "长矛"
+        },
+        {
+          "en": "Heartspike",
+          "zh": "刺心锥"
+        },
+        {
+          "en": "Eye Poker",
+          "zh": "刺目者"
+        },
+        {
+          "en": "Spire",
+          "zh": "尖塔"
+        },
+        {
+          "en": "Silver Lance",
+          "zh": "银枪"
+        },
+        {
+          "en": "Pricker",
+          "zh": "穿刺者"
+        }
+      ]
     },
     "weapon.named_goblin_spear": {
-      "en": "Named Goblin Spear",
-      "zh": "红地精矛",
+      "en": "Goblin Skewer",
+      "zh": "地精尖矛",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -493,11 +1757,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_goblin_spear.nut"
+      "source": "scripts/items/weapons/named/named_goblin_spear.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Spike",
+          "zh": "尖刺"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Spear",
+          "zh": "矛"
+        },
+        {
+          "en": "Stabber",
+          "zh": "刺杀者"
+        },
+        {
+          "en": "Shaft",
+          "zh": "枪杆"
+        },
+        {
+          "en": "Spit",
+          "zh": "肉扦"
+        },
+        {
+          "en": "Skewer",
+          "zh": "贯刺"
+        },
+        {
+          "en": "Stake",
+          "zh": "尖桩"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Barb",
+          "zh": "倒钩"
+        },
+        {
+          "en": "Quill",
+          "zh": "尖翎"
+        },
+        {
+          "en": "Longspear",
+          "zh": "长枪"
+        },
+        {
+          "en": "Swift spike",
+          "zh": "迅刺"
+        },
+        {
+          "en": "Bladeflurry",
+          "zh": "乱刃"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Pin",
+          "zh": "钉刺"
+        }
+      ]
     },
     "weapon.named_greataxe": {
-      "en": "Named Greataxe",
-      "zh": "红巨斧",
+      "en": "Greataxe",
+      "zh": "巨斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -516,11 +1851,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_greataxe.nut"
+      "source": "scripts/items/weapons/named/named_greataxe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_greatsword": {
-      "en": "Named Greatsword",
-      "zh": "红巨剑",
+      "en": "Greatsword",
+      "zh": "巨剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -539,11 +1945,86 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_greatsword.nut"
+      "source": "scripts/items/weapons/named/named_greatsword.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Greatsword",
+          "zh": "巨剑"
+        },
+        {
+          "en": "Zweihander",
+          "zh": "双手巨剑"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Longblade",
+          "zh": "长刃"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Vanquisher",
+          "zh": "克敌者"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Executioner",
+          "zh": "刽子手"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Orcslayer",
+          "zh": "兽人杀手"
+        },
+        {
+          "en": "Honor",
+          "zh": "荣耀"
+        },
+        {
+          "en": "Claymore",
+          "zh": "双手大剑"
+        },
+        {
+          "en": "Thug's Bane",
+          "zh": "暴徒克星"
+        },
+        {
+          "en": "Long Reach",
+          "zh": "长臂"
+        },
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Warsword",
+          "zh": "战剑"
+        },
+        {
+          "en": "Bidenhander",
+          "zh": "双手巨剑"
+        },
+        {
+          "en": "Gassenhauer",
+          "zh": "扫街巨剑"
+        }
+      ]
     },
     "weapon.named_handgonne": {
-      "en": "Named Handgonne",
-      "zh": "红手铳",
+      "en": "Handgonne",
+      "zh": "手铳",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -562,11 +2043,54 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_handgonne.nut"
+      "source": "scripts/items/weapons/named/named_handgonne.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Cannon",
+          "zh": "火炮"
+        },
+        {
+          "en": "Firebreather",
+          "zh": "吐火者"
+        },
+        {
+          "en": "Powderstick",
+          "zh": "火药棒"
+        },
+        {
+          "en": "Roar",
+          "zh": "咆哮"
+        },
+        {
+          "en": "Thunder",
+          "zh": "雷鸣"
+        },
+        {
+          "en": "Rod of Fire",
+          "zh": "火焰之杖"
+        },
+        {
+          "en": "Dragontongue",
+          "zh": "龙舌"
+        },
+        {
+          "en": "Gonne",
+          "zh": "火铳"
+        },
+        {
+          "en": "Thunderrod",
+          "zh": "雷霆之杖"
+        },
+        {
+          "en": "Firespitter",
+          "zh": "喷焰者"
+        }
+      ]
     },
     "weapon.named_heavy_rusty_axe": {
-      "en": "Named Heavy Rusty Axe",
-      "zh": "红锈蚀重斧",
+      "en": "Heavy Rusty Axe",
+      "zh": "锈蚀重斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -585,11 +2109,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_heavy_rusty_axe.nut"
+      "source": "scripts/items/weapons/named/named_heavy_rusty_axe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_javelin": {
-      "en": "Named Bundle of Javelins",
-      "zh": "红标枪束",
+      "en": "Bundle of Javelins",
+      "zh": "标枪束",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -608,11 +2203,62 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_javelin.nut"
+      "source": "scripts/items/weapons/named/named_javelin.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Thorns",
+          "zh": "飞棘"
+        },
+        {
+          "en": "Spikes",
+          "zh": "尖钉"
+        },
+        {
+          "en": "Needles",
+          "zh": "飞针"
+        },
+        {
+          "en": "Javelins",
+          "zh": "标枪"
+        },
+        {
+          "en": "Throwing Spears",
+          "zh": "投矛"
+        },
+        {
+          "en": "Stakes",
+          "zh": "飞桩"
+        },
+        {
+          "en": "Darts",
+          "zh": "飞镖"
+        },
+        {
+          "en": "Barbs",
+          "zh": "钩刺"
+        },
+        {
+          "en": "Spines",
+          "zh": "骨刺"
+        },
+        {
+          "en": "Nails",
+          "zh": "铁钉"
+        },
+        {
+          "en": "Lances",
+          "zh": "投枪"
+        },
+        {
+          "en": "Harpoons",
+          "zh": "鱼叉"
+        }
+      ]
     },
     "weapon.named_khopesh": {
-      "en": "Named Khopesh",
-      "zh": "红镰形剑",
+      "en": "Khopesh",
+      "zh": "镰形剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -631,11 +2277,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_khopesh.nut"
+      "source": "scripts/items/weapons/named/named_khopesh.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_longaxe": {
-      "en": "Named Longaxe",
-      "zh": "红长柄斧",
+      "en": "Longaxe",
+      "zh": "长柄斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -654,11 +2403,94 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_longaxe.nut"
+      "source": "scripts/items/weapons/named/named_longaxe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Longaxe",
+          "zh": "长柄斧"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Spath",
+          "zh": "阔刃斧"
+        },
+        {
+          "en": "Poleblade",
+          "zh": "长柄刀"
+        },
+        {
+          "en": "Shafted Axe",
+          "zh": "长柄斧"
+        },
+        {
+          "en": "Headcleaver",
+          "zh": "劈首者"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Splinter",
+          "zh": "碎片"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Thunderbringer",
+          "zh": "唤雷者"
+        },
+        {
+          "en": "Breaker",
+          "zh": "破坏者"
+        },
+        {
+          "en": "Domesplitter",
+          "zh": "劈颅者"
+        }
+      ]
     },
     "weapon.named_mace": {
-      "en": "Named Mace",
-      "zh": "红钉锤",
+      "en": "Mace",
+      "zh": "钉锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -677,11 +2509,90 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_mace.nut"
+      "source": "scripts/items/weapons/named/named_mace.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Basher",
+          "zh": "猛击者"
+        },
+        {
+          "en": "Smasher",
+          "zh": "砸碎者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Club",
+          "zh": "棍棒"
+        },
+        {
+          "en": "Mace",
+          "zh": "钉锤"
+        },
+        {
+          "en": "Cudgel",
+          "zh": "短棒"
+        },
+        {
+          "en": "Manslayer",
+          "zh": "屠人者"
+        },
+        {
+          "en": "Skullcrusher",
+          "zh": "碎颅者"
+        },
+        {
+          "en": "Maul",
+          "zh": "重槌"
+        },
+        {
+          "en": "Mauler",
+          "zh": "蹂躏者"
+        },
+        {
+          "en": "Domination",
+          "zh": "支配"
+        },
+        {
+          "en": "Desolation",
+          "zh": "荒芜"
+        },
+        {
+          "en": "Warmace",
+          "zh": "战槌"
+        },
+        {
+          "en": "Baton",
+          "zh": "短棍"
+        },
+        {
+          "en": "Scepter",
+          "zh": "权杖"
+        },
+        {
+          "en": "Royal Mace",
+          "zh": "王者之锤"
+        },
+        {
+          "en": "Banger",
+          "zh": "重击棒"
+        },
+        {
+          "en": "Clobber",
+          "zh": "痛击"
+        },
+        {
+          "en": "Knocker",
+          "zh": "叩击者"
+        }
+      ]
     },
     "weapon.named_orc_axe": {
-      "en": "Named Orc Axe",
-      "zh": "红兽人斧",
+      "en": "Head Splitter",
+      "zh": "裂颅斧",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -700,11 +2611,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_orc_axe.nut"
+      "source": "scripts/items/weapons/named/named_orc_axe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_orc_cleaver": {
-      "en": "Named Orc Cleaver",
-      "zh": "红兽人砍刀",
+      "en": "Head Chopper",
+      "zh": "断头斩刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -723,11 +2705,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_orc_cleaver.nut"
+      "source": "scripts/items/weapons/named/named_orc_cleaver.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_pike": {
-      "en": "Named Pike",
-      "zh": "红长枪",
+      "en": "Pike",
+      "zh": "长枪",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -746,11 +2831,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_pike.nut"
+      "source": "scripts/items/weapons/named/named_pike.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Lance",
+          "zh": "长枪"
+        },
+        {
+          "en": "Pole",
+          "zh": "长杆"
+        },
+        {
+          "en": "Staff",
+          "zh": "长杖"
+        },
+        {
+          "en": "Stake",
+          "zh": "尖桩"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Warpike",
+          "zh": "战矛"
+        },
+        {
+          "en": "Pike",
+          "zh": "长枪"
+        },
+        {
+          "en": "Ray",
+          "zh": "光芒"
+        },
+        {
+          "en": "Spout",
+          "zh": "喷泉"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Spine",
+          "zh": "脊骨"
+        },
+        {
+          "en": "Longpike",
+          "zh": "长矛"
+        },
+        {
+          "en": "Heartspike",
+          "zh": "刺心锥"
+        },
+        {
+          "en": "Eye Poker",
+          "zh": "刺目者"
+        },
+        {
+          "en": "Spire",
+          "zh": "尖塔"
+        },
+        {
+          "en": "Silver Lance",
+          "zh": "银枪"
+        },
+        {
+          "en": "Pricker",
+          "zh": "穿刺者"
+        }
+      ]
     },
     "weapon.named_poleaxe": {
-      "en": "Named Pollaxe",
-      "zh": "红骑士斧戟",
+      "en": "Pollaxe",
+      "zh": "骑士斧戟",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -769,11 +2925,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_poleaxe.nut"
+      "source": "scripts/items/weapons/named/named_poleaxe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splitter",
+          "zh": "劈裂者"
+        },
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Axe",
+          "zh": "斧"
+        },
+        {
+          "en": "Menfeller",
+          "zh": "伐人者"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Vengeance",
+          "zh": "复仇"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Reaver",
+          "zh": "劫掠者"
+        },
+        {
+          "en": "Harbinger",
+          "zh": "预兆"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Skullsplitter",
+          "zh": "劈颅者"
+        },
+        {
+          "en": "Conqueror",
+          "zh": "征服者"
+        },
+        {
+          "en": "Deathbringer",
+          "zh": "死亡使者"
+        },
+        {
+          "en": "Widowmaker",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Destroyer",
+          "zh": "毁灭者"
+        },
+        {
+          "en": "Shieldbreaker",
+          "zh": "破盾者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "weapon.named_polehammer": {
-      "en": "Named Polehammer",
-      "zh": "红长柄战锤",
+      "en": "Polehammer",
+      "zh": "长柄战锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -792,11 +3019,58 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_polehammer.nut"
+      "source": "scripts/items/weapons/named/named_polehammer.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Smasher",
+          "zh": "砸碎者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Tremor",
+          "zh": "震颤"
+        },
+        {
+          "en": "Earthshaker",
+          "zh": "撼地者"
+        },
+        {
+          "en": "Ironbiter",
+          "zh": "噬铁者"
+        },
+        {
+          "en": "Beak",
+          "zh": "铁喙"
+        },
+        {
+          "en": "Hammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Sunderer",
+          "zh": "破碎者"
+        },
+        {
+          "en": "Gatecrasher",
+          "zh": "破门者"
+        },
+        {
+          "en": "Battlehammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Thunderer",
+          "zh": "震雷"
+        }
+      ]
     },
     "weapon.named_polemace": {
-      "en": "Named Polemace",
-      "zh": "红长柄钉锤",
+      "en": "Polemace",
+      "zh": "长柄钉锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -815,11 +3089,90 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_polemace.nut"
+      "source": "scripts/items/weapons/named/named_polemace.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Basher",
+          "zh": "猛击者"
+        },
+        {
+          "en": "Smasher",
+          "zh": "砸碎者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Club",
+          "zh": "棍棒"
+        },
+        {
+          "en": "Mace",
+          "zh": "钉锤"
+        },
+        {
+          "en": "Cudgel",
+          "zh": "短棒"
+        },
+        {
+          "en": "Manslayer",
+          "zh": "屠人者"
+        },
+        {
+          "en": "Skullcrusher",
+          "zh": "碎颅者"
+        },
+        {
+          "en": "Maul",
+          "zh": "重槌"
+        },
+        {
+          "en": "Mauler",
+          "zh": "蹂躏者"
+        },
+        {
+          "en": "Domination",
+          "zh": "支配"
+        },
+        {
+          "en": "Desolation",
+          "zh": "荒芜"
+        },
+        {
+          "en": "Warmace",
+          "zh": "战槌"
+        },
+        {
+          "en": "Baton",
+          "zh": "短棍"
+        },
+        {
+          "en": "Scepter",
+          "zh": "权杖"
+        },
+        {
+          "en": "Royal Mace",
+          "zh": "王者之锤"
+        },
+        {
+          "en": "Banger",
+          "zh": "重击棒"
+        },
+        {
+          "en": "Clobber",
+          "zh": "痛击"
+        },
+        {
+          "en": "Knocker",
+          "zh": "叩击者"
+        }
+      ]
     },
     "weapon.named_qatal_dagger": {
-      "en": "Named Qatal Dagger",
-      "zh": "红卡塔尔匕首",
+      "en": "Qatal Dagger",
+      "zh": "卡塔尔匕首",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -838,11 +3191,102 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_qatal_dagger.nut"
+      "source": "scripts/items/weapons/named/named_qatal_dagger.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splinter",
+          "zh": "碎片"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Wedge",
+          "zh": "铁楔"
+        },
+        {
+          "en": "Gouge",
+          "zh": "凿刺"
+        },
+        {
+          "en": "Chisel",
+          "zh": "凿刃"
+        },
+        {
+          "en": "Sting",
+          "zh": "蜇刺"
+        },
+        {
+          "en": "Dirk",
+          "zh": "德克"
+        },
+        {
+          "en": "Bodkin",
+          "zh": "锥刃"
+        },
+        {
+          "en": "Snickersnee",
+          "zh": "短尖刀"
+        },
+        {
+          "en": "Dagger",
+          "zh": "匕首"
+        },
+        {
+          "en": "Bloodletter",
+          "zh": "放血者"
+        },
+        {
+          "en": "Oathbreaker",
+          "zh": "背誓者"
+        },
+        {
+          "en": "Venom",
+          "zh": "毒液"
+        },
+        {
+          "en": "Cunning",
+          "zh": "诡计"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Backstabber",
+          "zh": "背刺者"
+        },
+        {
+          "en": "Heartseeker",
+          "zh": "觅心者"
+        },
+        {
+          "en": "Stiletto",
+          "zh": "细刺匕首"
+        },
+        {
+          "en": "Shank",
+          "zh": "短刺"
+        },
+        {
+          "en": "Shiv",
+          "zh": "尖刀"
+        },
+        {
+          "en": "Needle",
+          "zh": "钢针"
+        },
+        {
+          "en": "Estoc",
+          "zh": "穿甲刺剑"
+        }
+      ]
     },
     "weapon.named_rusty_warblade": {
-      "en": "Named Rusty Warblade",
-      "zh": "红锈蚀战刃",
+      "en": "Rusty Warblade",
+      "zh": "锈蚀战刃",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -861,11 +3305,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_rusty_warblade.nut"
+      "source": "scripts/items/weapons/named/named_rusty_warblade.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_shamshir": {
-      "en": "Named Shamshir",
-      "zh": "红舍施尔弯刀",
+      "en": "Shamshir",
+      "zh": "舍施尔弯刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -884,11 +3431,50 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_shamshir.nut"
+      "source": "scripts/items/weapons/named/named_shamshir.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Curved Blade",
+          "zh": "弯刀"
+        },
+        {
+          "en": "Saber",
+          "zh": "弯刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Arched Blade",
+          "zh": "弧刃"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        },
+        {
+          "en": "Half Moon",
+          "zh": "半月"
+        },
+        {
+          "en": "South Star",
+          "zh": "南辰"
+        },
+        {
+          "en": "Shamshir",
+          "zh": "舍施尔弯刀"
+        },
+        {
+          "en": "Scimitar",
+          "zh": "弯刀"
+        }
+      ]
     },
     "weapon.named_skullhammer": {
-      "en": "Named Skullhammer",
-      "zh": "红碎颅锤",
+      "en": "Two-Handed Skull Hammer",
+      "zh": "双手颅骨锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -907,11 +3493,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_skullhammer.nut"
+      "source": "scripts/items/weapons/named/named_skullhammer.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Hammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Sledge",
+          "zh": "大锤"
+        },
+        {
+          "en": "Mallet",
+          "zh": "大锤"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Armorbreaker",
+          "zh": "破甲者"
+        },
+        {
+          "en": "Beak",
+          "zh": "铁喙"
+        },
+        {
+          "en": "Mauler",
+          "zh": "蹂躏者"
+        },
+        {
+          "en": "Cataclysm",
+          "zh": "浩劫"
+        },
+        {
+          "en": "Battlehammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Knightslayer",
+          "zh": "骑士杀手"
+        },
+        {
+          "en": "Pummeler",
+          "zh": "狠击者"
+        },
+        {
+          "en": "Iron eater",
+          "zh": "食铁者"
+        },
+        {
+          "en": "Bill",
+          "zh": "钩刃"
+        },
+        {
+          "en": "Pecker",
+          "zh": "铁啄"
+        },
+        {
+          "en": "Iron warper",
+          "zh": "扭铁者"
+        },
+        {
+          "en": "Scruncher",
+          "zh": "碾碎者"
+        },
+        {
+          "en": "Sunderer",
+          "zh": "破碎者"
+        }
+      ]
     },
     "weapon.named_spear": {
-      "en": "Named Spear",
-      "zh": "红矛",
+      "en": "Spear",
+      "zh": "矛",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -930,11 +3587,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_spear.nut"
+      "source": "scripts/items/weapons/named/named_spear.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Spike",
+          "zh": "尖刺"
+        },
+        {
+          "en": "Impaler",
+          "zh": "贯穿者"
+        },
+        {
+          "en": "Spear",
+          "zh": "矛"
+        },
+        {
+          "en": "Stabber",
+          "zh": "刺杀者"
+        },
+        {
+          "en": "Shaft",
+          "zh": "枪杆"
+        },
+        {
+          "en": "Spit",
+          "zh": "肉扦"
+        },
+        {
+          "en": "Skewer",
+          "zh": "贯刺"
+        },
+        {
+          "en": "Stake",
+          "zh": "尖桩"
+        },
+        {
+          "en": "Thorn",
+          "zh": "荆棘"
+        },
+        {
+          "en": "Barb",
+          "zh": "倒钩"
+        },
+        {
+          "en": "Quill",
+          "zh": "尖翎"
+        },
+        {
+          "en": "Longspear",
+          "zh": "长枪"
+        },
+        {
+          "en": "Swift spike",
+          "zh": "迅刺"
+        },
+        {
+          "en": "Bladeflurry",
+          "zh": "乱刃"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Pin",
+          "zh": "钉刺"
+        }
+      ]
     },
     "weapon.named_spetum": {
-      "en": "Named Spetum",
-      "zh": "红三尖矛",
+      "en": "Spetum",
+      "zh": "三尖矛",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -953,11 +3681,58 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_spetum.nut"
+      "source": "scripts/items/weapons/named/named_spetum.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Spike",
+          "zh": "尖刺"
+        },
+        {
+          "en": "Trident",
+          "zh": "三叉戟"
+        },
+        {
+          "en": "Skewer",
+          "zh": "贯刺"
+        },
+        {
+          "en": "Phalanx",
+          "zh": "方阵"
+        },
+        {
+          "en": "Spine",
+          "zh": "脊骨"
+        },
+        {
+          "en": "Longpike",
+          "zh": "长矛"
+        },
+        {
+          "en": "Heartspike",
+          "zh": "刺心锥"
+        },
+        {
+          "en": "Eye Poker",
+          "zh": "刺目者"
+        },
+        {
+          "en": "Spire",
+          "zh": "尖塔"
+        },
+        {
+          "en": "Silver Lance",
+          "zh": "银枪"
+        },
+        {
+          "en": "Pricker",
+          "zh": "穿刺者"
+        }
+      ]
     },
     "weapon.named_sword": {
-      "en": "Named Sword",
-      "zh": "红剑",
+      "en": "Sword",
+      "zh": "剑",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -976,11 +3751,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_sword.nut"
+      "source": "scripts/items/weapons/named/named_sword.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Sword",
+          "zh": "剑"
+        },
+        {
+          "en": "Deathdealer",
+          "zh": "夺命者"
+        },
+        {
+          "en": "Mercy",
+          "zh": "慈悲"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Warblade",
+          "zh": "战刃"
+        },
+        {
+          "en": "Longblade",
+          "zh": "长刃"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Oathkeeper",
+          "zh": "守誓者"
+        },
+        {
+          "en": "Glimmer",
+          "zh": "微光"
+        },
+        {
+          "en": "Reckoning",
+          "zh": "清算"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Red Rivers",
+          "zh": "血河"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Lightning",
+          "zh": "闪电"
+        },
+        {
+          "en": "Striker",
+          "zh": "打击者"
+        },
+        {
+          "en": "Razor",
+          "zh": "剃刀"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Windblade",
+          "zh": "风刃"
+        },
+        {
+          "en": "Swiftblade",
+          "zh": "迅捷之刃"
+        }
+      ]
     },
     "weapon.named_swordlance": {
-      "en": "Named Swordlance",
-      "zh": "红长柄剑刃",
+      "en": "Swordlance",
+      "zh": "长柄剑刃",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -999,11 +3877,22 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_swordlance.nut"
+      "source": "scripts/items/weapons/named/named_swordlance.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Bladed Staff",
+          "zh": "刃杖"
+        },
+        {
+          "en": "Bladed Lance",
+          "zh": "刃枪"
+        }
+      ]
     },
     "weapon.named_three_headed_flail": {
-      "en": "Named Three-Headed Flail",
-      "zh": "红三头连枷",
+      "en": "Three-Headed Flail",
+      "zh": "三头连枷",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1022,11 +3911,54 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_three_headed_flail.nut"
+      "source": "scripts/items/weapons/named/named_three_headed_flail.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Ochsenherde",
+          "zh": "牛群连枷"
+        },
+        {
+          "en": "Nine Tailed Cat",
+          "zh": "九尾猫"
+        },
+        {
+          "en": "Flesh Tearer",
+          "zh": "撕肉者"
+        },
+        {
+          "en": "Choir",
+          "zh": "合唱"
+        },
+        {
+          "en": "Hail",
+          "zh": "雹击"
+        },
+        {
+          "en": "Cascade",
+          "zh": "连环抽击"
+        },
+        {
+          "en": "Stampede",
+          "zh": "奔突"
+        },
+        {
+          "en": "Shower",
+          "zh": "骤雨"
+        },
+        {
+          "en": "Brutalizer",
+          "zh": "暴虐者"
+        },
+        {
+          "en": "Warband",
+          "zh": "战群"
+        }
+      ]
     },
     "weapon.named_throwing_axe": {
-      "en": "Named Bundle of Throwing Axes",
-      "zh": "红飞斧束",
+      "en": "Bundle of Throwing Axes",
+      "zh": "飞斧束",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -1045,11 +3977,78 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_throwing_axe.nut"
+      "source": "scripts/items/weapons/named/named_throwing_axe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Axes",
+          "zh": "飞斧"
+        },
+        {
+          "en": "Blades",
+          "zh": "飞刃"
+        },
+        {
+          "en": "Splitters",
+          "zh": "劈裂飞斧"
+        },
+        {
+          "en": "Spinning Death",
+          "zh": "死亡旋风"
+        },
+        {
+          "en": "Rippers",
+          "zh": "撕裂飞斧"
+        },
+        {
+          "en": "Shredders",
+          "zh": "绞碎飞斧"
+        },
+        {
+          "en": "Fury",
+          "zh": "狂怒"
+        },
+        {
+          "en": "Ravagers",
+          "zh": "摧残飞斧"
+        },
+        {
+          "en": "Harbingers",
+          "zh": "凶兆"
+        },
+        {
+          "en": "Widowmakers",
+          "zh": "寡妇制造者"
+        },
+        {
+          "en": "Torrent",
+          "zh": "洪流"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        },
+        {
+          "en": "Brutality",
+          "zh": "残暴"
+        },
+        {
+          "en": "Breachers",
+          "zh": "破阵飞斧"
+        },
+        {
+          "en": "Edges",
+          "zh": "飞锋"
+        },
+        {
+          "en": "Slayers",
+          "zh": "杀戮飞斧"
+        }
+      ]
     },
     "weapon.named_two_handed_flail": {
-      "en": "Named Two-handed Flail",
-      "zh": "红双手连枷",
+      "en": "Two-handed Flail",
+      "zh": "双手连枷",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1068,11 +4067,58 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_two_handed_flail.nut"
+      "source": "scripts/items/weapons/named/named_two_handed_flail.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Headcrusher",
+          "zh": "碎颅者"
+        },
+        {
+          "en": "Shieldbender",
+          "zh": "弯盾者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Skullcracker",
+          "zh": "裂颅者"
+        },
+        {
+          "en": "Bonegrinder",
+          "zh": "碎骨者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Flail",
+          "zh": "连枷"
+        },
+        {
+          "en": "Punisher",
+          "zh": "惩罚者"
+        },
+        {
+          "en": "Basher",
+          "zh": "猛击者"
+        },
+        {
+          "en": "Whip",
+          "zh": "鞭击"
+        },
+        {
+          "en": "Harvester",
+          "zh": "收割者"
+        }
+      ]
     },
     "weapon.named_two_handed_hammer": {
-      "en": "Named Two-Handed Hammer",
-      "zh": "红双手战锤",
+      "en": "Two-Handed Hammer",
+      "zh": "双手战锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1091,11 +4137,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_two_handed_hammer.nut"
+      "source": "scripts/items/weapons/named/named_two_handed_hammer.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Hammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Sledge",
+          "zh": "大锤"
+        },
+        {
+          "en": "Mallet",
+          "zh": "大锤"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Armorbreaker",
+          "zh": "破甲者"
+        },
+        {
+          "en": "Beak",
+          "zh": "铁喙"
+        },
+        {
+          "en": "Mauler",
+          "zh": "蹂躏者"
+        },
+        {
+          "en": "Cataclysm",
+          "zh": "浩劫"
+        },
+        {
+          "en": "Battlehammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Knightslayer",
+          "zh": "骑士杀手"
+        },
+        {
+          "en": "Pummeler",
+          "zh": "狠击者"
+        },
+        {
+          "en": "Iron eater",
+          "zh": "食铁者"
+        },
+        {
+          "en": "Bill",
+          "zh": "钩刃"
+        },
+        {
+          "en": "Pecker",
+          "zh": "铁啄"
+        },
+        {
+          "en": "Iron warper",
+          "zh": "扭铁者"
+        },
+        {
+          "en": "Scruncher",
+          "zh": "碾碎者"
+        },
+        {
+          "en": "Sunderer",
+          "zh": "破碎者"
+        }
+      ]
     },
     "weapon.named_two_handed_mace": {
-      "en": "Named Two-Handed Mace",
-      "zh": "红双手钉锤",
+      "en": "Two-Handed Mace",
+      "zh": "双手钉锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1114,11 +4231,62 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_two_handed_mace.nut"
+      "source": "scripts/items/weapons/named/named_two_handed_mace.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Skullwarper",
+          "zh": "凹颅者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Stomper",
+          "zh": "践踏者"
+        },
+        {
+          "en": "Cudgel",
+          "zh": "短棒"
+        },
+        {
+          "en": "Bludgeon",
+          "zh": "重棒"
+        },
+        {
+          "en": "Pillar",
+          "zh": "巨柱"
+        },
+        {
+          "en": "Whacker",
+          "zh": "猛砸者"
+        },
+        {
+          "en": "Warmace",
+          "zh": "战槌"
+        },
+        {
+          "en": "Giant's Mace",
+          "zh": "巨人之锤"
+        },
+        {
+          "en": "Stonefist",
+          "zh": "石拳"
+        },
+        {
+          "en": "Pummel",
+          "zh": "重击"
+        },
+        {
+          "en": "Earthshaker",
+          "zh": "撼地者"
+        }
+      ]
     },
     "weapon.named_two_handed_scimitar": {
-      "en": "Named Two Handed Scimitar",
-      "zh": "红双手弯刀",
+      "en": "Two-Handed Scimitar",
+      "zh": "双手弯刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1137,11 +4305,114 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_two_handed_scimitar.nut"
+      "source": "scripts/items/weapons/named/named_two_handed_scimitar.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Chopper",
+          "zh": "砍刀"
+        },
+        {
+          "en": "Ripper",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Slasher",
+          "zh": "劈砍者"
+        },
+        {
+          "en": "Slicer",
+          "zh": "切斩者"
+        },
+        {
+          "en": "Cutter",
+          "zh": "切割者"
+        },
+        {
+          "en": "Cleaver",
+          "zh": "斩刀"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Ravager",
+          "zh": "毁坏者"
+        },
+        {
+          "en": "Bloodspiller",
+          "zh": "洒血者"
+        },
+        {
+          "en": "Bloodthirster",
+          "zh": "嗜血者"
+        },
+        {
+          "en": "Madness",
+          "zh": "疯狂"
+        },
+        {
+          "en": "Carver",
+          "zh": "剖肉者"
+        },
+        {
+          "en": "War Cleaver",
+          "zh": "战斩刀"
+        },
+        {
+          "en": "Gut-Seeker",
+          "zh": "寻肠者"
+        },
+        {
+          "en": "Fleshcutter",
+          "zh": "切肉者"
+        },
+        {
+          "en": "Meat Axe",
+          "zh": "剁肉斧"
+        },
+        {
+          "en": "Mincer",
+          "zh": "碎肉者"
+        },
+        {
+          "en": "Hacker",
+          "zh": "劈斩者"
+        },
+        {
+          "en": "Lacerator",
+          "zh": "撕裂者"
+        },
+        {
+          "en": "Mangler",
+          "zh": "绞肉者"
+        },
+        {
+          "en": "Gasher",
+          "zh": "开膛者"
+        },
+        {
+          "en": "Mutilator",
+          "zh": "断肢者"
+        },
+        {
+          "en": "Maimer",
+          "zh": "致残者"
+        },
+        {
+          "en": "Tormentor",
+          "zh": "折磨者"
+        },
+        {
+          "en": "Render",
+          "zh": "撕肉者"
+        }
+      ]
     },
     "weapon.named_two_handed_spiked_mace": {
-      "en": "Named Two Handed Spiked Mace",
-      "zh": "红双手钉锤",
+      "en": "Two-Handed Spiked Mace",
+      "zh": "双手尖刺钉锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1160,11 +4431,62 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_two_handed_spiked_mace.nut"
+      "source": "scripts/items/weapons/named/named_two_handed_spiked_mace.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Skullwarper",
+          "zh": "凹颅者"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Stomper",
+          "zh": "践踏者"
+        },
+        {
+          "en": "Cudgel",
+          "zh": "短棒"
+        },
+        {
+          "en": "Bludgeon",
+          "zh": "重棒"
+        },
+        {
+          "en": "Pillar",
+          "zh": "巨柱"
+        },
+        {
+          "en": "Whacker",
+          "zh": "猛砸者"
+        },
+        {
+          "en": "Warmace",
+          "zh": "战槌"
+        },
+        {
+          "en": "Giant's Mace",
+          "zh": "巨人之锤"
+        },
+        {
+          "en": "Stonefist",
+          "zh": "石拳"
+        },
+        {
+          "en": "Pummel",
+          "zh": "重击"
+        },
+        {
+          "en": "Earthshaker",
+          "zh": "撼地者"
+        }
+      ]
     },
     "weapon.named_warbow": {
-      "en": "Named War Bow",
-      "zh": "红战弓",
+      "en": "War Bow",
+      "zh": "战弓",
       "kind": "weapon",
       "ranged": true,
       "base": {
@@ -1183,11 +4505,126 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_warbow.nut"
+      "source": "scripts/items/weapons/named/named_warbow.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Reach",
+          "zh": "延伸"
+        },
+        {
+          "en": "Bend",
+          "zh": "曲弓"
+        },
+        {
+          "en": "Greatbow",
+          "zh": "巨弓"
+        },
+        {
+          "en": "Longbow",
+          "zh": "长弓"
+        },
+        {
+          "en": "Warbow",
+          "zh": "战弓"
+        },
+        {
+          "en": "Dart",
+          "zh": "飞矢"
+        },
+        {
+          "en": "Grasp",
+          "zh": "掌握"
+        },
+        {
+          "en": "Flight",
+          "zh": "飞翔"
+        },
+        {
+          "en": "Recurve",
+          "zh": "反曲弓"
+        },
+        {
+          "en": "Whisperwind",
+          "zh": "风语"
+        },
+        {
+          "en": "Startrail",
+          "zh": "星迹"
+        },
+        {
+          "en": "Warsong",
+          "zh": "战歌"
+        },
+        {
+          "en": "Barrage",
+          "zh": "箭幕"
+        },
+        {
+          "en": "Heartpiercer",
+          "zh": "穿心者"
+        },
+        {
+          "en": "Avenger",
+          "zh": "复仇者"
+        },
+        {
+          "en": "Swiftwind",
+          "zh": "疾风"
+        },
+        {
+          "en": "Shooter",
+          "zh": "射手"
+        },
+        {
+          "en": "Heartstriker",
+          "zh": "击心者"
+        },
+        {
+          "en": "Stinger",
+          "zh": "蜇人蜂"
+        },
+        {
+          "en": "Comet",
+          "zh": "彗星"
+        },
+        {
+          "en": "Meteor",
+          "zh": "流星"
+        },
+        {
+          "en": "Stormbringer",
+          "zh": "风暴使者"
+        },
+        {
+          "en": "Hailbringer",
+          "zh": "唤雹者"
+        },
+        {
+          "en": "Hailstorm",
+          "zh": "冰雹"
+        },
+        {
+          "en": "Arrowfall",
+          "zh": "箭雨"
+        },
+        {
+          "en": "Cord",
+          "zh": "弓弦"
+        },
+        {
+          "en": "Sinew",
+          "zh": "强筋"
+        },
+        {
+          "en": "Tendon",
+          "zh": "筋腱"
+        }
+      ]
     },
     "weapon.named_warbrand": {
-      "en": "Named Warbrand",
-      "zh": "红长刃战刀",
+      "en": "Warbrand",
+      "zh": "长刃战刀",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1206,11 +4643,86 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_warbrand.nut"
+      "source": "scripts/items/weapons/named/named_warbrand.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Warbrand",
+          "zh": "长刃战刀"
+        },
+        {
+          "en": "Kriegsmesser",
+          "zh": "战刀"
+        },
+        {
+          "en": "Beidhander",
+          "zh": "双手剑"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Longblade",
+          "zh": "长刃"
+        },
+        {
+          "en": "Slayer",
+          "zh": "杀戮者"
+        },
+        {
+          "en": "Vanquisher",
+          "zh": "克敌者"
+        },
+        {
+          "en": "Beheader",
+          "zh": "斩首者"
+        },
+        {
+          "en": "Calamity",
+          "zh": "灾祸"
+        },
+        {
+          "en": "Witherbrand",
+          "zh": "凋零之刃"
+        },
+        {
+          "en": "Warblade",
+          "zh": "战刃"
+        },
+        {
+          "en": "Windslasher",
+          "zh": "斩风者"
+        },
+        {
+          "en": "Cutlass",
+          "zh": "弯刃大刀"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Quickblade",
+          "zh": "快刃"
+        },
+        {
+          "en": "Striker",
+          "zh": "打击者"
+        },
+        {
+          "en": "Fleshripper",
+          "zh": "剜肉者"
+        },
+        {
+          "en": "Fleshrender",
+          "zh": "裂肉者"
+        }
+      ]
     },
     "weapon.named_warhammer": {
-      "en": "Named Warhammer",
-      "zh": "红破甲锤",
+      "en": "Warhammer",
+      "zh": "破甲锤",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1229,11 +4741,82 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_warhammer.nut"
+      "source": "scripts/items/weapons/named/named_warhammer.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Hammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Sledge",
+          "zh": "大锤"
+        },
+        {
+          "en": "Mallet",
+          "zh": "大锤"
+        },
+        {
+          "en": "Crusher",
+          "zh": "粉碎者"
+        },
+        {
+          "en": "Armorbreaker",
+          "zh": "破甲者"
+        },
+        {
+          "en": "Beak",
+          "zh": "铁喙"
+        },
+        {
+          "en": "Mauler",
+          "zh": "蹂躏者"
+        },
+        {
+          "en": "Cataclysm",
+          "zh": "浩劫"
+        },
+        {
+          "en": "Battlehammer",
+          "zh": "战锤"
+        },
+        {
+          "en": "Knightslayer",
+          "zh": "骑士杀手"
+        },
+        {
+          "en": "Pummeler",
+          "zh": "狠击者"
+        },
+        {
+          "en": "Iron eater",
+          "zh": "食铁者"
+        },
+        {
+          "en": "Bill",
+          "zh": "钩刃"
+        },
+        {
+          "en": "Pecker",
+          "zh": "铁啄"
+        },
+        {
+          "en": "Iron warper",
+          "zh": "扭铁者"
+        },
+        {
+          "en": "Scruncher",
+          "zh": "碾碎者"
+        },
+        {
+          "en": "Sunderer",
+          "zh": "破碎者"
+        }
+      ]
     },
     "weapon.named_warscythe": {
-      "en": "Named Warscythe",
-      "zh": "红战镰",
+      "en": "Warscythe",
+      "zh": "战镰",
       "kind": "weapon",
       "ranged": false,
       "base": {
@@ -1252,11 +4835,46 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/weapons/named/named_warscythe.nut"
+      "source": "scripts/items/weapons/named/named_warscythe.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Warscythe",
+          "zh": "战镰"
+        },
+        {
+          "en": "Reaper",
+          "zh": "死神"
+        },
+        {
+          "en": "Sickle",
+          "zh": "镰刀"
+        },
+        {
+          "en": "Blade",
+          "zh": "锋刃"
+        },
+        {
+          "en": "Edge",
+          "zh": "锋芒"
+        },
+        {
+          "en": "Scythe",
+          "zh": "长镰"
+        },
+        {
+          "en": "Harvester",
+          "zh": "收割者"
+        },
+        {
+          "en": "Crescent",
+          "zh": "新月"
+        }
+      ]
     },
     "armor.body.black_and_gold": {
-      "en": "Named Black and Gold Armor",
-      "zh": "红黑金甲",
+      "en": "Black and Gold Armor",
+      "zh": "黑金甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1275,11 +4893,42 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/black_and_gold_armor.nut"
+      "source": "scripts/items/armor/named/black_and_gold_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Gilder's Shining Ward",
+          "zh": "镀金者的辉耀庇护"
+        },
+        {
+          "en": "Gilder's Skin",
+          "zh": "镀金者之肤"
+        },
+        {
+          "en": "Suncloak",
+          "zh": "日光披衣"
+        },
+        {
+          "en": "Blazing Mail",
+          "zh": "炽焰锁甲"
+        },
+        {
+          "en": "Suntouched Harness",
+          "zh": "沐日之甲"
+        },
+        {
+          "en": "Shining Hauberk",
+          "zh": "辉耀长身锁甲"
+        },
+        {
+          "en": "Armor of the Scorpion King",
+          "zh": "蝎王之甲"
+        }
+      ]
     },
     "armor.body.black_leather": {
-      "en": "Named Black Leather Armor",
-      "zh": "红黑皮甲",
+      "en": "Black Leather Armor",
+      "zh": "黑色皮甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1298,11 +4947,54 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/black_leather_armor.nut"
+      "source": "scripts/items/armor/named/black_leather_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Leather Cuirass",
+          "zh": "皮胸甲"
+        },
+        {
+          "en": "Mail Shirt",
+          "zh": "锁甲衫"
+        },
+        {
+          "en": "Leather Armor",
+          "zh": "皮甲"
+        },
+        {
+          "en": "Skin",
+          "zh": "肌肤"
+        },
+        {
+          "en": "Peel",
+          "zh": "外皮"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Coat",
+          "zh": "甲衣"
+        },
+        {
+          "en": "Nightcloak",
+          "zh": "夜幕披衣"
+        },
+        {
+          "en": "Black",
+          "zh": "黑色"
+        },
+        {
+          "en": "Dark Omen",
+          "zh": "凶兆"
+        }
+      ]
     },
     "armor.body.blue_studded_mail": {
-      "en": "Named Blue Studded Mail Armor",
-      "zh": "红蓝色铆钉锁甲",
+      "en": "Blue Studded Mail Armor",
+      "zh": "蓝色铆钉锁甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1321,11 +5013,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/blue_studded_mail_armor.nut"
+      "source": "scripts/items/armor/named/blue_studded_mail_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Padded Mail",
+          "zh": "衬垫锁甲"
+        },
+        {
+          "en": "Toadskin",
+          "zh": "蟾蜍之皮"
+        },
+        {
+          "en": "Ogreskin",
+          "zh": "食人魔之皮"
+        },
+        {
+          "en": "Layered Armor",
+          "zh": "复层甲"
+        },
+        {
+          "en": "Reinforced Mail",
+          "zh": "加固锁甲"
+        }
+      ]
     },
     "armor.body.brown_coat_of_plates": {
-      "en": "Named Brown Coat Of Plates Armor",
-      "zh": "红棕色板片甲",
+      "en": "Brown Coat of Plates",
+      "zh": "棕色铁片战衣",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1344,11 +5059,42 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/brown_coat_of_plates_armor.nut"
+      "source": "scripts/items/armor/named/brown_coat_of_plates_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Harness",
+          "zh": "战甲"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Defense",
+          "zh": "防卫"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Plate Armor",
+          "zh": "板甲"
+        },
+        {
+          "en": "Plated Vest",
+          "zh": "覆板背心"
+        },
+        {
+          "en": "Lifesaver",
+          "zh": "护命者"
+        }
+      ]
     },
     "armor.body.golden_scale": {
-      "en": "Named Golden Scale Armor",
-      "zh": "红金色鳞甲",
+      "en": "Golden Scale Armor",
+      "zh": "金色鳞甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1367,11 +5113,54 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/golden_scale_armor.nut"
+      "source": "scripts/items/armor/named/golden_scale_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Scale Shirt",
+          "zh": "鳞甲衫"
+        },
+        {
+          "en": "Scale Armor",
+          "zh": "鳞甲"
+        },
+        {
+          "en": "Dragonskin",
+          "zh": "龙之皮"
+        },
+        {
+          "en": "Snakeskin",
+          "zh": "蛇之皮"
+        },
+        {
+          "en": "Scales",
+          "zh": "鳞片"
+        },
+        {
+          "en": "Wyrmskin",
+          "zh": "古龙之皮"
+        },
+        {
+          "en": "Goldskin",
+          "zh": "金肤"
+        },
+        {
+          "en": "Scale Tunic",
+          "zh": "鳞甲长衣"
+        },
+        {
+          "en": "Golden Armor",
+          "zh": "黄金甲"
+        },
+        {
+          "en": "Golden Reminder",
+          "zh": "黄金之诫"
+        }
+      ]
     },
     "armor.body.green_coat_of_plates": {
-      "en": "Named Green Coat Of Plates Armor",
-      "zh": "红绿色板片甲",
+      "en": "Green Coat of Plates",
+      "zh": "绿色铁片战衣",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1390,11 +5179,46 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/green_coat_of_plates_armor.nut"
+      "source": "scripts/items/armor/named/green_coat_of_plates_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Coat of Plates",
+          "zh": "铁片战衣"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        },
+        {
+          "en": "Shell",
+          "zh": "外壳"
+        },
+        {
+          "en": "Plate Cuirass",
+          "zh": "板式胸甲"
+        },
+        {
+          "en": "Plate Coat",
+          "zh": "板甲衣"
+        },
+        {
+          "en": "Harness",
+          "zh": "战甲"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        }
+      ]
     },
     "armor.body.heraldic_mail": {
-      "en": "Named Heraldic Mail Armor",
-      "zh": "红纹章锁甲",
+      "en": "Heraldic Mail",
+      "zh": "纹章锁甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1413,11 +5237,58 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/heraldic_mail_armor.nut"
+      "source": "scripts/items/armor/named/heraldic_mail_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Heraldic Mail",
+          "zh": "纹章锁甲"
+        },
+        {
+          "en": "Splendor",
+          "zh": "华彩"
+        },
+        {
+          "en": "Grandiosity",
+          "zh": "恢宏"
+        },
+        {
+          "en": "Pageantry",
+          "zh": "华仪"
+        },
+        {
+          "en": "Swank",
+          "zh": "风华"
+        },
+        {
+          "en": "Full Mail",
+          "zh": "全身锁甲"
+        },
+        {
+          "en": "Mail Hauberk",
+          "zh": "长锁甲"
+        },
+        {
+          "en": "Chainmail",
+          "zh": "锁甲"
+        },
+        {
+          "en": "Duty",
+          "zh": "职责"
+        },
+        {
+          "en": "Honor",
+          "zh": "荣耀"
+        },
+        {
+          "en": "Noble Mail",
+          "zh": "贵族锁甲"
+        }
+      ]
     },
     "armor.body.leopard_armor": {
-      "en": "Named Leopard Armor",
-      "zh": "红豹皮甲",
+      "en": "Leopard Armor",
+      "zh": "豹皮甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1436,11 +5307,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/leopard_armor.nut"
+      "source": "scripts/items/armor/named/leopard_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Gilder's Embrace",
+          "zh": "镀金者的拥抱"
+        },
+        {
+          "en": "Gilder's Guard",
+          "zh": "镀金者的守护"
+        },
+        {
+          "en": "Glistening Lamellar",
+          "zh": "辉光札甲"
+        },
+        {
+          "en": "Vizier's Harness",
+          "zh": "维齐尔战甲"
+        },
+        {
+          "en": "Carapace of the Desert",
+          "zh": "荒漠之壳"
+        },
+        {
+          "en": "Master Hunter's Armor",
+          "zh": "猎师之甲"
+        }
+      ]
     },
     "armor.body.lindwurm_armor": {
-      "en": "Named Lindwurm Armor",
-      "zh": "红林德蠕龙甲",
+      "en": "Lindwurm Armor",
+      "zh": "林德蠕龙甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1459,11 +5357,42 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/lindwurm_armor.nut"
+      "source": "scripts/items/armor/named/lindwurm_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Lindwurm Scales",
+          "zh": "林德蠕龙鳞甲"
+        },
+        {
+          "en": "Dragon's Hide",
+          "zh": "龙皮护甲"
+        },
+        {
+          "en": "Lizard's Coat",
+          "zh": "蜥蜴甲衣"
+        },
+        {
+          "en": "Lindwurm Harness",
+          "zh": "林德蠕龙战甲"
+        },
+        {
+          "en": "Lindwurm Coat",
+          "zh": "林德蠕龙长衣"
+        },
+        {
+          "en": "Wurmscales",
+          "zh": "蠕龙鳞甲"
+        },
+        {
+          "en": "Coat of the Lindwurm",
+          "zh": "林德蠕龙甲衣"
+        }
+      ]
     },
     "armor.body.named_bronze_armor": {
-      "en": "Named Bronze Armor",
-      "zh": "红青铜甲",
+      "en": "Bronze Armor",
+      "zh": "青铜甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1482,11 +5411,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_bronze_armor.nut"
+      "source": "scripts/items/armor/named/named_bronze_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Tarnished Harness",
+          "zh": "晦暗战甲"
+        },
+        {
+          "en": "Alloy Plate Armor",
+          "zh": "合金板甲"
+        },
+        {
+          "en": "Tainted Bulwark",
+          "zh": "污秽壁垒"
+        },
+        {
+          "en": "Tribal Plate",
+          "zh": "部族板甲"
+        }
+      ]
     },
     "armor.body.named_golden_lamellar_armor": {
-      "en": "Named Golden Lamellar Armor",
-      "zh": "红金色札甲",
+      "en": "Golden Lamellar",
+      "zh": "黄金札甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1505,11 +5453,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_golden_lamellar_armor.nut"
+      "source": "scripts/items/armor/named/named_golden_lamellar_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Harness",
+          "zh": "战甲"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Defense",
+          "zh": "防卫"
+        },
+        {
+          "en": "Splendor",
+          "zh": "华彩"
+        },
+        {
+          "en": "Golden Lamellar",
+          "zh": "黄金札甲"
+        }
+      ]
     },
     "armor.body.named_noble_mail_armor": {
-      "en": "Named Noble Mail Armor",
-      "zh": "红贵族锁甲",
+      "en": "Noble Mail",
+      "zh": "贵族锁甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1528,11 +5499,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_noble_mail_armor.nut"
+      "source": "scripts/items/armor/named/named_noble_mail_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Reinforced Mail",
+          "zh": "加固锁甲"
+        },
+        {
+          "en": "Nightcloak",
+          "zh": "夜幕披衣"
+        },
+        {
+          "en": "Noble Mail",
+          "zh": "贵族锁甲"
+        },
+        {
+          "en": "Fencing Mail",
+          "zh": "剑师锁甲"
+        }
+      ]
     },
     "armor.body.named_plated_fur_armor": {
-      "en": "Named Plated Fur Armor",
-      "zh": "红覆板毛皮甲",
+      "en": "Plated Fur Armor",
+      "zh": "覆板毛皮甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1551,11 +5541,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_plated_fur_armor.nut"
+      "source": "scripts/items/armor/named/named_plated_fur_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Plated Fur Armor",
+          "zh": "覆板毛皮甲"
+        },
+        {
+          "en": "Plate Harness",
+          "zh": "全身板甲"
+        },
+        {
+          "en": "Plate-covered Hide",
+          "zh": "覆板兽皮甲"
+        },
+        {
+          "en": "Rivetted Fur",
+          "zh": "铆钉毛皮甲"
+        }
+      ]
     },
     "armor.body.named_sellswords_armor": {
-      "en": "Named Sellswords Armor",
-      "zh": "红佣兵甲",
+      "en": "Sellsword's Armor",
+      "zh": "佣兵甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1574,11 +5583,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_sellswords_armor.nut"
+      "source": "scripts/items/armor/named/named_sellswords_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Mercenary Coat",
+          "zh": "佣兵甲衣"
+        },
+        {
+          "en": "Sellsword's Hide",
+          "zh": "佣兵之皮"
+        },
+        {
+          "en": "Layered Armor",
+          "zh": "复层甲"
+        },
+        {
+          "en": "Plated Coat",
+          "zh": "覆板甲衣"
+        }
+      ]
     },
     "armor.body.named_skull_and_chain_armor": {
-      "en": "Named Skull and Chain Armor",
-      "zh": "红骷髅锁甲",
+      "en": "Skull and Chain Armor",
+      "zh": "骷髅锁甲",
       "kind": "armor",
       "ranged": false,
       "base": {
@@ -1597,11 +5625,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/armor/named/named_skull_and_chain_armor.nut"
+      "source": "scripts/items/armor/named/named_skull_and_chain_armor.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Tribal Hide",
+          "zh": "部族兽皮甲"
+        },
+        {
+          "en": "Barbarian Coat",
+          "zh": "蛮族甲衣"
+        },
+        {
+          "en": "Scavenged Armor",
+          "zh": "拾荒甲"
+        },
+        {
+          "en": "Barbarian Pelt",
+          "zh": "蛮族毛皮甲"
+        },
+        {
+          "en": "Primitive Harness",
+          "zh": "原始战甲"
+        }
+      ]
     },
     "armor.head.gold_and_black_turban": {
-      "en": "Named Gold and Black Turban",
-      "zh": "红金羽盔",
+      "en": "Gold and Black Turban",
+      "zh": "黑金缠头盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1620,11 +5671,54 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/gold_and_black_turban.nut"
+      "source": "scripts/items/helmets/named/gold_and_black_turban.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Crown of the South",
+          "zh": "南境之冠"
+        },
+        {
+          "en": "Desert Crest",
+          "zh": "沙漠冠饰"
+        },
+        {
+          "en": "Turban of the Sun",
+          "zh": "烈日头巾"
+        },
+        {
+          "en": "Golden Crest",
+          "zh": "黄金冠饰"
+        },
+        {
+          "en": "Vizier's Pride",
+          "zh": "维齐尔之傲"
+        },
+        {
+          "en": "Helm of the Sand King",
+          "zh": "沙王之盔"
+        },
+        {
+          "en": "Scorpion's Helm",
+          "zh": "天蝎之盔"
+        },
+        {
+          "en": "Sun Veil",
+          "zh": "日光面纱"
+        },
+        {
+          "en": "Gilder's Pride",
+          "zh": "镀金者之傲"
+        },
+        {
+          "en": "Gilder's Visage",
+          "zh": "镀金者之容"
+        }
+      ]
     },
     "armor.head.golden_feathers": {
-      "en": "Named Golden Feathers Helmet",
-      "zh": "红黑金缠头盔",
+      "en": "Golden Feathers Helmet",
+      "zh": "金羽盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1643,11 +5737,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/golden_feathers_helmet.nut"
+      "source": "scripts/items/helmets/named/golden_feathers_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Headpiece",
+          "zh": "头饰"
+        },
+        {
+          "en": "Golden Skullcap",
+          "zh": "黄金颅盔"
+        },
+        {
+          "en": "Feathered Helm",
+          "zh": "羽饰战盔"
+        },
+        {
+          "en": "Shimmering Helmet",
+          "zh": "辉光盔"
+        },
+        {
+          "en": "Helm with Coif",
+          "zh": "衬巾战盔"
+        }
+      ]
     },
     "armor.head.heraldic_mail": {
-      "en": "Named Heraldic Mail Helmet",
-      "zh": "红纹章锁甲盔",
+      "en": "Heraldic Mail Helmet",
+      "zh": "纹章锁甲盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1666,11 +5783,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/heraldic_mail_helmet.nut"
+      "source": "scripts/items/helmets/named/heraldic_mail_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Bascinet with Mail",
+          "zh": "锁甲尖顶盔"
+        },
+        {
+          "en": "Knightly Bascinet",
+          "zh": "骑士尖顶盔"
+        },
+        {
+          "en": "Heraldic Bascinet",
+          "zh": "纹章尖顶盔"
+        },
+        {
+          "en": "Bascinet with Visor",
+          "zh": "面甲尖顶盔"
+        },
+        {
+          "en": "Heraldic Helmet",
+          "zh": "纹章战盔"
+        },
+        {
+          "en": "Knightly Helm",
+          "zh": "骑士战盔"
+        }
+      ]
     },
     "armor.head.lindwurm_helmet": {
-      "en": "Named Lindwurm Helmet",
-      "zh": "红林德蠕龙盔",
+      "en": "Lindwurm Helmet",
+      "zh": "林德蠕龙盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1689,11 +5833,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/lindwurm_helmet.nut"
+      "source": "scripts/items/helmets/named/lindwurm_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Lindwurm's Head",
+          "zh": "林德蠕龙之首"
+        },
+        {
+          "en": "Lizard Headpiece",
+          "zh": "蜥蜴头饰"
+        },
+        {
+          "en": "Dragon's Dome",
+          "zh": "龙首穹盔"
+        },
+        {
+          "en": "Lindwurm Ward",
+          "zh": "林德蠕龙之护"
+        },
+        {
+          "en": "Wurmscale Helmet",
+          "zh": "蠕龙鳞盔"
+        },
+        {
+          "en": "Lindwurm Mask",
+          "zh": "林德蠕龙面具"
+        }
+      ]
     },
     "armor.head.named_conic_helmet_with_faceguard": {
-      "en": "Named Conic Helmet with Faceguard",
-      "zh": "红面甲锥形盔",
+      "en": "Conic Helmet with Faceguard",
+      "zh": "面甲锥形盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1712,11 +5883,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_conic_helmet_with_faceguard.nut"
+      "source": "scripts/items/helmets/named/named_conic_helmet_with_faceguard.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Conic Feathered Helmet",
+          "zh": "羽饰锥形盔"
+        },
+        {
+          "en": "Iron Mask",
+          "zh": "铁面具"
+        },
+        {
+          "en": "Warlord's Helm",
+          "zh": "战酋之盔"
+        },
+        {
+          "en": "Iron Visage",
+          "zh": "铁铸之容"
+        },
+        {
+          "en": "Steel Countenance",
+          "zh": "钢铁之容"
+        }
+      ]
     },
     "armor.head.named_metal_bull_helmet": {
-      "en": "Named Metal Bull Helmet",
-      "zh": "红金属牛角盔",
+      "en": "Metal Bull Helmet",
+      "zh": "金属牛角盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1735,11 +5929,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_metal_bull_helmet.nut"
+      "source": "scripts/items/helmets/named/named_metal_bull_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Horned Helmet",
+          "zh": "角饰盔"
+        },
+        {
+          "en": "Alloy Headpiece",
+          "zh": "合金头饰"
+        },
+        {
+          "en": "Ancient Sallet",
+          "zh": "古代萨莱特盔"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Horned Crest",
+          "zh": "角饰冠"
+        }
+      ]
     },
     "armor.head.named_metal_nose_horn_helmet": {
-      "en": "Named Metal Nose Horn Helmet",
-      "zh": "红金属犀角盔",
+      "en": "Metal Nose Horn Helmet",
+      "zh": "金属鼻角盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1758,11 +5975,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_metal_nose_horn_helmet.nut"
+      "source": "scripts/items/helmets/named/named_metal_nose_horn_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Closed Helmet",
+          "zh": "封闭式头盔"
+        },
+        {
+          "en": "Spiked Headpiece",
+          "zh": "尖刺头饰"
+        },
+        {
+          "en": "Bladed Headguard",
+          "zh": "刃饰护头盔"
+        },
+        {
+          "en": "Bulky Faceguard",
+          "zh": "厚重面甲"
+        },
+        {
+          "en": "Pit Fighter Helmet",
+          "zh": "斗士战盔"
+        }
+      ]
     },
     "armor.head.named_metal_skull_helmet": {
-      "en": "Named Metal Skull Helmet",
-      "zh": "红金属骷髅盔",
+      "en": "Metal Skull Helmet",
+      "zh": "金属骷髅盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1781,11 +6021,46 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_metal_skull_helmet.nut"
+      "source": "scripts/items/helmets/named/named_metal_skull_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Face of the North",
+          "zh": "北境之容"
+        },
+        {
+          "en": "Metal Skull",
+          "zh": "金属骷髅"
+        },
+        {
+          "en": "Facemask",
+          "zh": "面甲"
+        },
+        {
+          "en": "Aspect of the Clans",
+          "zh": "氏族之相"
+        },
+        {
+          "en": "Mask",
+          "zh": "面具"
+        },
+        {
+          "en": "Steel Veil",
+          "zh": "钢铁面纱"
+        },
+        {
+          "en": "Tribal Visage",
+          "zh": "部族之容"
+        },
+        {
+          "en": "Pillager Gaze",
+          "zh": "掠夺者凝视"
+        }
+      ]
     },
     "armor.head.named_nordic_helmet_with_closed_mail": {
-      "en": "Named Nordic Helmet with Closed Mail",
-      "zh": "红覆面锁甲北境盔",
+      "en": "Nordic Helmet with Closed Mail",
+      "zh": "覆面锁甲北境盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1804,11 +6079,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_nordic_helmet_with_closed_mail.nut"
+      "source": "scripts/items/helmets/named/named_nordic_helmet_with_closed_mail.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Sea Raider Helmet",
+          "zh": "海袭者之盔"
+        },
+        {
+          "en": "Owl Helmet",
+          "zh": "鸮形盔"
+        },
+        {
+          "en": "Decorated Nordic Helmet",
+          "zh": "华饰北境盔"
+        },
+        {
+          "en": "Chieftain Helmet",
+          "zh": "酋长盔"
+        },
+        {
+          "en": "Engraved Nordic Helmet",
+          "zh": "雕纹北境盔"
+        },
+        {
+          "en": "Nordic Noble Helmet",
+          "zh": "北境贵族盔"
+        }
+      ]
     },
     "armor.head.named_steppe_helmet_with_mail": {
-      "en": "Named Steppe Helmet with Mail",
-      "zh": "红锁甲草原盔",
+      "en": "Steppe Helmet with Mail",
+      "zh": "锁甲草原盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1827,11 +6129,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/named_steppe_helmet_with_mail.nut"
+      "source": "scripts/items/helmets/named/named_steppe_helmet_with_mail.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Steppe Helmet",
+          "zh": "草原盔"
+        },
+        {
+          "en": "Decorated Nasal Helmet",
+          "zh": "华饰护鼻盔"
+        },
+        {
+          "en": "Headdress Helmet",
+          "zh": "冠饰盔"
+        },
+        {
+          "en": "Horsehair Helmet",
+          "zh": "马鬃盔"
+        }
+      ]
     },
     "armor.head.nasal_feather": {
-      "en": "Named Nasal Feather Helmet",
-      "zh": "红羽饰护鼻盔",
+      "en": "Feathered Nasal Helmet",
+      "zh": "羽饰护鼻盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1850,11 +6171,34 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/nasal_feather_helmet.nut"
+      "source": "scripts/items/helmets/named/nasal_feather_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Feathered Nasal Helmet",
+          "zh": "羽饰护鼻盔"
+        },
+        {
+          "en": "Reinforced Helm",
+          "zh": "加固战盔"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Headguard",
+          "zh": "护头盔"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        }
+      ]
     },
     "armor.head.norse": {
-      "en": "Named Norse Helmet",
-      "zh": "红北欧盔",
+      "en": "Norse Helmet",
+      "zh": "北境盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1873,11 +6217,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/norse_helmet.nut"
+      "source": "scripts/items/helmets/named/norse_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Clan Helmet",
+          "zh": "氏族盔"
+        },
+        {
+          "en": "Highland Helm",
+          "zh": "高地战盔"
+        },
+        {
+          "en": "Norse Nasal Helmet",
+          "zh": "北境护鼻盔"
+        },
+        {
+          "en": "Faceguard",
+          "zh": "护面甲"
+        },
+        {
+          "en": "Padded Norse Helmet",
+          "zh": "厚衬北境盔"
+        },
+        {
+          "en": "Owl Helmet",
+          "zh": "鸮形盔"
+        }
+      ]
     },
     "armor.head.red_and_gold_band_helmet": {
-      "en": "Named Red and Gold Band Helmet",
-      "zh": "红红金头带盔",
+      "en": "Red and Gold Band Helmet",
+      "zh": "红金饰带盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1896,11 +6267,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/red_and_gold_band_helmet.nut"
+      "source": "scripts/items/helmets/named/red_and_gold_band_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Splinted Helmet",
+          "zh": "条甲盔"
+        },
+        {
+          "en": "Segmented Helmet",
+          "zh": "拼片盔"
+        },
+        {
+          "en": "Crown of the Sand King",
+          "zh": "沙王之冠"
+        },
+        {
+          "en": "Blazing Dome",
+          "zh": "炽焰穹盔"
+        },
+        {
+          "en": "Nomad's Crown",
+          "zh": "游牧之冠"
+        },
+        {
+          "en": "Splinted Feathered Helmet",
+          "zh": "羽饰条甲盔"
+        }
+      ]
     },
     "armor.head.sallet_green": {
-      "en": "Named Sallet Green Helmet",
-      "zh": "红绿色萨莱特盔",
+      "en": "Green Sallet",
+      "zh": "绿色萨莱特盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1919,11 +6317,30 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/sallet_green_helmet.nut"
+      "source": "scripts/items/helmets/named/sallet_green_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Decorated Sallet",
+          "zh": "华饰萨莱特盔"
+        },
+        {
+          "en": "Sallet with Mail",
+          "zh": "锁甲萨莱特盔"
+        },
+        {
+          "en": "Open Sallet",
+          "zh": "敞面萨莱特盔"
+        },
+        {
+          "en": "Ribboned Sallet",
+          "zh": "绶带萨莱特盔"
+        }
+      ]
     },
     "armor.head.wolf": {
-      "en": "Named Wolf Helmet",
-      "zh": "红狼盔",
+      "en": "Wolf Helmet",
+      "zh": "狼盔",
       "kind": "helmet",
       "ranged": false,
       "base": {
@@ -1942,11 +6359,38 @@
         "MeleeDefense": 0,
         "RangedDefense": 0
       },
-      "source": "scripts/items/helmets/named/wolf_helmet.nut"
+      "source": "scripts/items/helmets/named/wolf_helmet.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Beast Cap",
+          "zh": "兽首帽"
+        },
+        {
+          "en": "Helmet of the Wolf",
+          "zh": "狼之盔"
+        },
+        {
+          "en": "Berserker Coif",
+          "zh": "狂战士头巾"
+        },
+        {
+          "en": "Beast Coif",
+          "zh": "兽首头巾"
+        },
+        {
+          "en": "Wolf Crown",
+          "zh": "狼冠"
+        },
+        {
+          "en": "Predator Crown",
+          "zh": "猎食者之冠"
+        }
+      ]
     },
     "shield.named_bandit_heater": {
-      "en": "Named Bandit Heater Shield",
-      "zh": "红强盗熨斗形盾",
+      "en": "Bandit Heater Shield",
+      "zh": "强盗熨斗形盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -1965,11 +6409,94 @@
         "MeleeDefense": 20,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_bandit_heater_shield.nut"
+      "source": "scripts/items/shields/named/named_bandit_heater_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_bandit_kite_shield": {
-      "en": "Named Bandit Kite Shield",
-      "zh": "红强盗鸢形盾",
+      "en": "Bandit Kite Shield",
+      "zh": "强盗鸢形盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -1988,11 +6515,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 25
       },
-      "source": "scripts/items/shields/named/named_bandit_kite_shield.nut"
+      "source": "scripts/items/shields/named/named_bandit_kite_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_buckler": {
-      "en": "Named Buckler Shield",
-      "zh": "红小圆盾",
+      "en": "Buckler Shield",
+      "zh": "小圆盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2011,11 +6621,94 @@
         "MeleeDefense": 10,
         "RangedDefense": 5
       },
-      "source": "scripts/items/shields/named/named_buckler_shield.nut"
+      "source": "scripts/items/shields/named/named_buckler_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_dragon": {
-      "en": "Named Dragon Shield",
-      "zh": "红龙纹盾",
+      "en": "Dragon Shield",
+      "zh": "龙纹盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2034,11 +6727,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 25
       },
-      "source": "scripts/items/shields/named/named_dragon_shield.nut"
+      "source": "scripts/items/shields/named/named_dragon_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_full_metal_heater": {
-      "en": "Named Full Metal Heater Shield",
-      "zh": "红全金属熨斗形盾",
+      "en": "Full Metal Heater Shield",
+      "zh": "全金属熨斗形盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2057,11 +6833,94 @@
         "MeleeDefense": 20,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_full_metal_heater_shield.nut"
+      "source": "scripts/items/shields/named/named_full_metal_heater_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_golden_round": {
-      "en": "Named Golden Round Shield",
-      "zh": "红金色圆盾",
+      "en": "Golden Round Shield",
+      "zh": "金色圆盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2080,11 +6939,94 @@
         "MeleeDefense": 19,
         "RangedDefense": 17
       },
-      "source": "scripts/items/shields/named/named_golden_round_shield.nut"
+      "source": "scripts/items/shields/named/named_golden_round_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_lindwurm": {
-      "en": "Named Lindwurm Shield",
-      "zh": "红林德蠕龙之盾",
+      "en": "Lindwurm Shield",
+      "zh": "林德蠕龙之盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2103,11 +7045,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 25
       },
-      "source": "scripts/items/shields/named/named_lindwurm_shield.nut"
+      "source": "scripts/items/shields/named/named_lindwurm_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_orc_heavy_shield": {
-      "en": "Named Orc Heavy Shield",
-      "zh": "红兽人重盾",
+      "en": "Orc Heavy Shield",
+      "zh": "兽人重盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2126,11 +7151,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_orc_heavy_shield.nut"
+      "source": "scripts/items/shields/named/named_orc_heavy_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_red_white": {
-      "en": "Named Red White Shield",
-      "zh": "红红白盾",
+      "en": "Red and White Shield",
+      "zh": "红白盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2149,11 +7257,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 25
       },
-      "source": "scripts/items/shields/named/named_red_white_shield.nut"
+      "source": "scripts/items/shields/named/named_red_white_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_rider_on_horse": {
-      "en": "Named Rider On Horse Shield",
-      "zh": "红骑士纹章盾",
+      "en": "Rider on Horse Shield",
+      "zh": "骑士纹章盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2172,11 +7363,94 @@
         "MeleeDefense": 20,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_rider_on_horse_shield.nut"
+      "source": "scripts/items/shields/named/named_rider_on_horse_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_sipar_shield": {
-      "en": "Named Sipar Shield",
-      "zh": "红西帕尔圆盾",
+      "en": "Sipar Shield",
+      "zh": "西帕尔圆盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2195,11 +7469,94 @@
         "MeleeDefense": 18,
         "RangedDefense": 18
       },
-      "source": "scripts/items/shields/named/named_sipar_shield.nut"
+      "source": "scripts/items/shields/named/named_sipar_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_undead_heater_shield": {
-      "en": "Named Undead Heater Shield",
-      "zh": "红亡灵熨斗形盾",
+      "en": "Undead Heater Shield",
+      "zh": "亡灵熨斗形盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2218,11 +7575,94 @@
         "MeleeDefense": 20,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_undead_heater_shield.nut"
+      "source": "scripts/items/shields/named/named_undead_heater_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_undead_kite_shield": {
-      "en": "Named Undead Kite Shield",
-      "zh": "红亡灵鸢形盾",
+      "en": "Undead Kite Shield",
+      "zh": "亡灵鸢形盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2241,11 +7681,94 @@
         "MeleeDefense": 15,
         "RangedDefense": 25
       },
-      "source": "scripts/items/shields/named/named_undead_kite_shield.nut"
+      "source": "scripts/items/shields/named/named_undead_kite_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     },
     "shield.named_wing": {
-      "en": "Named Wing Shield",
-      "zh": "红翼纹盾",
+      "en": "Wing Shield",
+      "zh": "翼纹盾",
       "kind": "shield",
       "ranged": false,
       "base": {
@@ -2264,7 +7787,91 @@
         "MeleeDefense": 20,
         "RangedDefense": 15
       },
-      "source": "scripts/items/shields/named/named_wing_shield.nut"
+      "source": "scripts/items/shields/named/named_wing_shield.nut",
+      "name_mode": "random",
+      "name_pool": [
+        {
+          "en": "Shield",
+          "zh": "盾牌"
+        },
+        {
+          "en": "Bulwark",
+          "zh": "壁垒"
+        },
+        {
+          "en": "Protector",
+          "zh": "守护者"
+        },
+        {
+          "en": "Board",
+          "zh": "盾板"
+        },
+        {
+          "en": "Wall",
+          "zh": "城墙"
+        },
+        {
+          "en": "Cover",
+          "zh": "庇护"
+        },
+        {
+          "en": "Safeguard",
+          "zh": "护佑"
+        },
+        {
+          "en": "Guardian",
+          "zh": "守卫者"
+        },
+        {
+          "en": "Defender",
+          "zh": "守护者"
+        },
+        {
+          "en": "Ward",
+          "zh": "护佑"
+        },
+        {
+          "en": "Barricade",
+          "zh": "壁障"
+        },
+        {
+          "en": "Barrier",
+          "zh": "屏障"
+        },
+        {
+          "en": "Greatshield",
+          "zh": "巨盾"
+        },
+        {
+          "en": "Bastion",
+          "zh": "堡垒"
+        },
+        {
+          "en": "Fortress",
+          "zh": "要塞"
+        },
+        {
+          "en": "Guard",
+          "zh": "守护"
+        },
+        {
+          "en": "Rampart",
+          "zh": "城垒"
+        },
+        {
+          "en": "Keeper",
+          "zh": "看守者"
+        },
+        {
+          "en": "Warden",
+          "zh": "卫士"
+        },
+        {
+          "en": "Carapace",
+          "zh": "甲壳"
+        }
+      ]
     }
-  }
+  },
+  "naming_sha256": "d318234fe7ec57142e3a194a8e9a7d307d24f566e2e4530c77144afc6a8dd6a0"
 }

@@ -1,0 +1,797 @@
+{
+  "schema": 1,
+  "review": "装备类型名称与游戏随机实例名的独立核验",
+  "checked_at_utc": "2026-10-07T06:15:36+00:00",
+  "baseline_git_head": "3f88a3f8f8636c6221b71d380c25557b98da7db0",
+  "game_version": "1.5.2.3",
+  "result": "passed",
+  "scope": {
+    "named_equipment_types": 94,
+    "all_equipment_items": 491,
+    "name_pool_components_including_cross_type_reuse": 1331,
+    "renamed_type_count": 94,
+    "name_pools_original_order_and_values_match": true,
+    "name_pool_translations_reviewed_and_source_context_matched": true,
+    "two_catalogs_naming_fields_match": true,
+    "all_named_types_use_random_names": true,
+    "note": "百科标题表示类型或外观；未将名称池中的任一实例名称当作固定标题。名称池成分不包含所有持有者、前后缀组合。"
+  },
+  "original_name_evidence": {
+    "archive": "F:/SteamLibrary/steamapps/common/Battle Brothers/data/data_001.dat",
+    "archive_size_bytes": 1327562516,
+    "script_evidence_table": "app/data/item_inspector/names.json",
+    "per_type_evidence_fields": [
+      "source",
+      "game_script_sha256",
+      "name_pool_source",
+      "names"
+    ],
+    "verified_game_script_hash_count": 94,
+    "verified_game_script_manifest_canonical_sha256": "3858d6c957daebf39481b6192a0d2945b5e55d8751d6a075e63b054f9606a158",
+    "shared_name_pool_script": "scripts/config/item_names.cnut",
+    "shared_name_pool_script_sha256": "26e0365c593a32ece15c5650d3174d0e2507fe5e1617769a31f69b436106517a",
+    "reader": "app/core/cnut.py:Cnut(encrypted=True)",
+    "method": "只读解析原版 CNUT create 中 this.m.NameList 的数组赋值；Const.Strings 引用解析至 scripts/config/item_names.cnut。逐项比较原文顺序、reviewed 译文及该脚本或共享名称池脚本的词库上下文。不执行游戏脚本。"
+  },
+  "git_head_invariance_checks": [
+    {
+      "path": "app/data/item_inspector/catalog.json",
+      "item_count": 94,
+      "source_script_count": 98,
+      "numeric_and_all_non_language_item_fields_equal_git_head": true,
+      "source_sha256_equal_git_head": true,
+      "source_manifest_canonical_sha256": "63035049870d50af48010876aa2ee89d1edc86482d1bd7bfc94f40871ff2c20e",
+      "other_metadata_equal_git_head": true,
+      "allowed_language_item_fields": [
+        "en",
+        "name_mode",
+        "name_pool",
+        "zh"
+      ],
+      "allowed_metadata_hash_changes": [
+        "naming_sha256",
+        "translation_sha256"
+      ]
+    },
+    {
+      "path": "app/data/equipment_catalog.json",
+      "item_count": 491,
+      "source_script_count": 506,
+      "numeric_and_all_non_language_item_fields_equal_git_head": true,
+      "source_sha256_equal_git_head": true,
+      "source_manifest_canonical_sha256": "7c8555ad71333b58c5e67ea8be52912dfd1cfc7c1fa55d6e3c8afaeef2d247ff",
+      "other_metadata_equal_git_head": true,
+      "allowed_language_item_fields": [
+        "en",
+        "name_mode",
+        "name_pool",
+        "zh"
+      ],
+      "allowed_metadata_hash_changes": [
+        "named_catalog_sha256",
+        "translation_sha256"
+      ]
+    }
+  ],
+  "refresh_checks": {
+    "tools.equipment_names.refresh_named_names": {
+      "deep_copy_only": true,
+      "idempotent": true
+    },
+    "tools.build_equipment_catalog.refresh_names": {
+      "deep_copy_only": true,
+      "idempotent": true
+    }
+  },
+  "hashes": {
+    "translation": {
+      "path": "app/localization/full_catalog.json",
+      "sha256": "0b104eb231f8ee928f9f2909e4c484cafe2b08f7ff4d8bad51958b6a1f90371b"
+    },
+    "naming": {
+      "path": "app/data/item_inspector/names.json",
+      "sha256": "d318234fe7ec57142e3a194a8e9a7d307d24f566e2e4530c77144afc6a8dd6a0"
+    },
+    "named_catalog": {
+      "path": "app/data/item_inspector/catalog.json",
+      "sha256": "6fa3b240841adfc0242da574b344017db4b9cdf4e09befd94049a38b4a4f0323"
+    },
+    "equipment_catalog": {
+      "path": "app/data/equipment_catalog.json",
+      "sha256": "ea64e9bf142a7e91b872c43232c3006a113df6a07bcba30c16f57c45fe8840c0"
+    },
+    "asset_manifest": {
+      "path": "app/assets/equipment/manifest.json",
+      "sha256": "a58ec3996a88c7d983fabc18b9e625e93ef68a4170f98211a36fa351c791aa91"
+    }
+  },
+  "derived_metadata_hashes": {
+    "named_catalog.translation_sha256": "0b104eb231f8ee928f9f2909e4c484cafe2b08f7ff4d8bad51958b6a1f90371b",
+    "named_catalog.naming_sha256": "d318234fe7ec57142e3a194a8e9a7d307d24f566e2e4530c77144afc6a8dd6a0",
+    "equipment_catalog.translation_sha256": "0b104eb231f8ee928f9f2909e4c484cafe2b08f7ff4d8bad51958b6a1f90371b",
+    "equipment_catalog.named_catalog_sha256": "6fa3b240841adfc0242da574b344017db4b9cdf4e09befd94049a38b4a4f0323",
+    "asset_manifest.catalog_sha256": "ea64e9bf142a7e91b872c43232c3006a113df6a07bcba30c16f57c45fe8840c0",
+    "all_match_current_inputs": true,
+    "asset_item_mappings_equal_git_head": true
+  },
+  "generator_review": {
+    "reviewed_files": [
+      "app/tools/equipment_names.py",
+      "app/tools/build_item_catalog.py",
+      "app/tools/build_equipment_catalog.py"
+    ],
+    "names_keyed_by_id_and_verified_script_path": true,
+    "no_sorted_position_name_mapping": true,
+    "no_seed_generator_name_fallback": true,
+    "no_quality_prefix_added_to_type_names": true
+  },
+  "intentional_label_adjustment": {
+    "id": "armor.head.red_and_gold_band_helmet",
+    "label": "红金饰带盔",
+    "reason": "保留 Band 的饰带含义；首字“红”表示实际配色，不是品质前缀。"
+  },
+  "limitations": [
+    "未执行游戏或进行游戏内视觉验收。",
+    "本记录绑定所列输入文件哈希；输入变化后应重新核验。"
+  ],
+  "name_changes": [
+    {
+      "id": "weapon.named_axe",
+      "old_en": "Named Axe",
+      "old_zh": "红斧",
+      "new_en": "Axe",
+      "new_zh": "斧"
+    },
+    {
+      "id": "weapon.named_bardiche",
+      "old_en": "Named Bardiche",
+      "old_zh": "红长刃斧",
+      "new_en": "Bardiche",
+      "new_zh": "长刃斧"
+    },
+    {
+      "id": "weapon.named_battle_whip",
+      "old_en": "Named Battle Whip",
+      "old_zh": "红战鞭",
+      "new_en": "Battle Whip",
+      "new_zh": "战鞭"
+    },
+    {
+      "id": "weapon.named_billhook",
+      "old_en": "Named Billhook",
+      "old_zh": "红钩镰",
+      "new_en": "Billhook",
+      "new_zh": "钩镰"
+    },
+    {
+      "id": "weapon.named_bladed_pike",
+      "old_en": "Named Bladed Pike",
+      "old_zh": "红刃矛",
+      "new_en": "Ancient Bladed Pike",
+      "new_zh": "古代刃枪"
+    },
+    {
+      "id": "weapon.named_cleaver",
+      "old_en": "Named Cleaver",
+      "old_zh": "红斩刀",
+      "new_en": "Cleaver",
+      "new_zh": "斩刀"
+    },
+    {
+      "id": "weapon.named_crossbow",
+      "old_en": "Named Crossbow",
+      "old_zh": "红弩",
+      "new_en": "Crossbow",
+      "new_zh": "弩"
+    },
+    {
+      "id": "weapon.named_crypt_cleaver",
+      "old_en": "Named Crypt Cleaver",
+      "old_zh": "红墓穴斩刀",
+      "new_en": "Crypt Cleaver",
+      "new_zh": "墓穴斩刀"
+    },
+    {
+      "id": "weapon.named_dagger",
+      "old_en": "Named Dagger",
+      "old_zh": "红匕首",
+      "new_en": "Dagger",
+      "new_zh": "匕首"
+    },
+    {
+      "id": "weapon.named_estoc",
+      "old_en": "Named Estoc",
+      "old_zh": "红穿甲刺剑",
+      "new_en": "Estoc",
+      "new_zh": "穿甲刺剑"
+    },
+    {
+      "id": "weapon.named_exesword",
+      "old_en": "Named Executioner's Sword",
+      "old_zh": "红行刑剑",
+      "new_en": "Executioner's Sword",
+      "new_zh": "行刑剑"
+    },
+    {
+      "id": "weapon.named_fencing_sword",
+      "old_en": "Named Fencing Sword",
+      "old_zh": "红决斗刺剑",
+      "new_en": "Fencing Sword",
+      "new_zh": "决斗刺剑"
+    },
+    {
+      "id": "weapon.named_flail",
+      "old_en": "Named Flail",
+      "old_zh": "红连枷",
+      "new_en": "Flail",
+      "new_zh": "连枷"
+    },
+    {
+      "id": "weapon.named_goblin_falchion",
+      "old_en": "Named Goblin Falchion",
+      "old_zh": "红地精弯刀",
+      "new_en": "Cruel Falchion",
+      "new_zh": "凶刃弯刀"
+    },
+    {
+      "id": "weapon.named_goblin_heavy_bow",
+      "old_en": "Named Goblin Heavy Bow",
+      "old_zh": "红地精重弓",
+      "new_en": "Reinforced Boondock Bow",
+      "new_zh": "强化荒野短弓"
+    },
+    {
+      "id": "weapon.named_goblin_pike",
+      "old_en": "Named Goblin Pike",
+      "old_zh": "红地精长枪",
+      "new_en": "Jagged Pike",
+      "new_zh": "锯齿长枪"
+    },
+    {
+      "id": "weapon.named_goblin_spear",
+      "old_en": "Named Goblin Spear",
+      "old_zh": "红地精矛",
+      "new_en": "Goblin Skewer",
+      "new_zh": "地精尖矛"
+    },
+    {
+      "id": "weapon.named_greataxe",
+      "old_en": "Named Greataxe",
+      "old_zh": "红巨斧",
+      "new_en": "Greataxe",
+      "new_zh": "巨斧"
+    },
+    {
+      "id": "weapon.named_greatsword",
+      "old_en": "Named Greatsword",
+      "old_zh": "红巨剑",
+      "new_en": "Greatsword",
+      "new_zh": "巨剑"
+    },
+    {
+      "id": "weapon.named_handgonne",
+      "old_en": "Named Handgonne",
+      "old_zh": "红手铳",
+      "new_en": "Handgonne",
+      "new_zh": "手铳"
+    },
+    {
+      "id": "weapon.named_heavy_rusty_axe",
+      "old_en": "Named Heavy Rusty Axe",
+      "old_zh": "红锈蚀重斧",
+      "new_en": "Heavy Rusty Axe",
+      "new_zh": "锈蚀重斧"
+    },
+    {
+      "id": "weapon.named_javelin",
+      "old_en": "Named Bundle of Javelins",
+      "old_zh": "红标枪束",
+      "new_en": "Bundle of Javelins",
+      "new_zh": "标枪束"
+    },
+    {
+      "id": "weapon.named_khopesh",
+      "old_en": "Named Khopesh",
+      "old_zh": "红镰形剑",
+      "new_en": "Khopesh",
+      "new_zh": "镰形剑"
+    },
+    {
+      "id": "weapon.named_longaxe",
+      "old_en": "Named Longaxe",
+      "old_zh": "红长柄斧",
+      "new_en": "Longaxe",
+      "new_zh": "长柄斧"
+    },
+    {
+      "id": "weapon.named_mace",
+      "old_en": "Named Mace",
+      "old_zh": "红钉锤",
+      "new_en": "Mace",
+      "new_zh": "钉锤"
+    },
+    {
+      "id": "weapon.named_orc_axe",
+      "old_en": "Named Orc Axe",
+      "old_zh": "红兽人斧",
+      "new_en": "Head Splitter",
+      "new_zh": "裂颅斧"
+    },
+    {
+      "id": "weapon.named_orc_cleaver",
+      "old_en": "Named Orc Cleaver",
+      "old_zh": "红兽人砍刀",
+      "new_en": "Head Chopper",
+      "new_zh": "断头斩刀"
+    },
+    {
+      "id": "weapon.named_pike",
+      "old_en": "Named Pike",
+      "old_zh": "红长枪",
+      "new_en": "Pike",
+      "new_zh": "长枪"
+    },
+    {
+      "id": "weapon.named_poleaxe",
+      "old_en": "Named Pollaxe",
+      "old_zh": "红骑士斧戟",
+      "new_en": "Pollaxe",
+      "new_zh": "骑士斧戟"
+    },
+    {
+      "id": "weapon.named_polehammer",
+      "old_en": "Named Polehammer",
+      "old_zh": "红长柄战锤",
+      "new_en": "Polehammer",
+      "new_zh": "长柄战锤"
+    },
+    {
+      "id": "weapon.named_polemace",
+      "old_en": "Named Polemace",
+      "old_zh": "红长柄钉锤",
+      "new_en": "Polemace",
+      "new_zh": "长柄钉锤"
+    },
+    {
+      "id": "weapon.named_qatal_dagger",
+      "old_en": "Named Qatal Dagger",
+      "old_zh": "红卡塔尔匕首",
+      "new_en": "Qatal Dagger",
+      "new_zh": "卡塔尔匕首"
+    },
+    {
+      "id": "weapon.named_rusty_warblade",
+      "old_en": "Named Rusty Warblade",
+      "old_zh": "红锈蚀战刃",
+      "new_en": "Rusty Warblade",
+      "new_zh": "锈蚀战刃"
+    },
+    {
+      "id": "weapon.named_shamshir",
+      "old_en": "Named Shamshir",
+      "old_zh": "红舍施尔弯刀",
+      "new_en": "Shamshir",
+      "new_zh": "舍施尔弯刀"
+    },
+    {
+      "id": "weapon.named_skullhammer",
+      "old_en": "Named Skullhammer",
+      "old_zh": "红碎颅锤",
+      "new_en": "Two-Handed Skull Hammer",
+      "new_zh": "双手颅骨锤"
+    },
+    {
+      "id": "weapon.named_spear",
+      "old_en": "Named Spear",
+      "old_zh": "红矛",
+      "new_en": "Spear",
+      "new_zh": "矛"
+    },
+    {
+      "id": "weapon.named_spetum",
+      "old_en": "Named Spetum",
+      "old_zh": "红三尖矛",
+      "new_en": "Spetum",
+      "new_zh": "三尖矛"
+    },
+    {
+      "id": "weapon.named_sword",
+      "old_en": "Named Sword",
+      "old_zh": "红剑",
+      "new_en": "Sword",
+      "new_zh": "剑"
+    },
+    {
+      "id": "weapon.named_swordlance",
+      "old_en": "Named Swordlance",
+      "old_zh": "红长柄剑刃",
+      "new_en": "Swordlance",
+      "new_zh": "长柄剑刃"
+    },
+    {
+      "id": "weapon.named_three_headed_flail",
+      "old_en": "Named Three-Headed Flail",
+      "old_zh": "红三头连枷",
+      "new_en": "Three-Headed Flail",
+      "new_zh": "三头连枷"
+    },
+    {
+      "id": "weapon.named_throwing_axe",
+      "old_en": "Named Bundle of Throwing Axes",
+      "old_zh": "红飞斧束",
+      "new_en": "Bundle of Throwing Axes",
+      "new_zh": "飞斧束"
+    },
+    {
+      "id": "weapon.named_two_handed_flail",
+      "old_en": "Named Two-handed Flail",
+      "old_zh": "红双手连枷",
+      "new_en": "Two-handed Flail",
+      "new_zh": "双手连枷"
+    },
+    {
+      "id": "weapon.named_two_handed_hammer",
+      "old_en": "Named Two-Handed Hammer",
+      "old_zh": "红双手战锤",
+      "new_en": "Two-Handed Hammer",
+      "new_zh": "双手战锤"
+    },
+    {
+      "id": "weapon.named_two_handed_mace",
+      "old_en": "Named Two-Handed Mace",
+      "old_zh": "红双手钉锤",
+      "new_en": "Two-Handed Mace",
+      "new_zh": "双手钉锤"
+    },
+    {
+      "id": "weapon.named_two_handed_scimitar",
+      "old_en": "Named Two Handed Scimitar",
+      "old_zh": "红双手弯刀",
+      "new_en": "Two-Handed Scimitar",
+      "new_zh": "双手弯刀"
+    },
+    {
+      "id": "weapon.named_two_handed_spiked_mace",
+      "old_en": "Named Two Handed Spiked Mace",
+      "old_zh": "红双手钉锤",
+      "new_en": "Two-Handed Spiked Mace",
+      "new_zh": "双手尖刺钉锤"
+    },
+    {
+      "id": "weapon.named_warbow",
+      "old_en": "Named War Bow",
+      "old_zh": "红战弓",
+      "new_en": "War Bow",
+      "new_zh": "战弓"
+    },
+    {
+      "id": "weapon.named_warbrand",
+      "old_en": "Named Warbrand",
+      "old_zh": "红长刃战刀",
+      "new_en": "Warbrand",
+      "new_zh": "长刃战刀"
+    },
+    {
+      "id": "weapon.named_warhammer",
+      "old_en": "Named Warhammer",
+      "old_zh": "红破甲锤",
+      "new_en": "Warhammer",
+      "new_zh": "破甲锤"
+    },
+    {
+      "id": "weapon.named_warscythe",
+      "old_en": "Named Warscythe",
+      "old_zh": "红战镰",
+      "new_en": "Warscythe",
+      "new_zh": "战镰"
+    },
+    {
+      "id": "armor.body.black_and_gold",
+      "old_en": "Named Black and Gold Armor",
+      "old_zh": "红黑金甲",
+      "new_en": "Black and Gold Armor",
+      "new_zh": "黑金甲"
+    },
+    {
+      "id": "armor.body.black_leather",
+      "old_en": "Named Black Leather Armor",
+      "old_zh": "红黑皮甲",
+      "new_en": "Black Leather Armor",
+      "new_zh": "黑色皮甲"
+    },
+    {
+      "id": "armor.body.blue_studded_mail",
+      "old_en": "Named Blue Studded Mail Armor",
+      "old_zh": "红蓝色铆钉锁甲",
+      "new_en": "Blue Studded Mail Armor",
+      "new_zh": "蓝色铆钉锁甲"
+    },
+    {
+      "id": "armor.body.brown_coat_of_plates",
+      "old_en": "Named Brown Coat Of Plates Armor",
+      "old_zh": "红棕色板片甲",
+      "new_en": "Brown Coat of Plates",
+      "new_zh": "棕色铁片战衣"
+    },
+    {
+      "id": "armor.body.golden_scale",
+      "old_en": "Named Golden Scale Armor",
+      "old_zh": "红金色鳞甲",
+      "new_en": "Golden Scale Armor",
+      "new_zh": "金色鳞甲"
+    },
+    {
+      "id": "armor.body.green_coat_of_plates",
+      "old_en": "Named Green Coat Of Plates Armor",
+      "old_zh": "红绿色板片甲",
+      "new_en": "Green Coat of Plates",
+      "new_zh": "绿色铁片战衣"
+    },
+    {
+      "id": "armor.body.heraldic_mail",
+      "old_en": "Named Heraldic Mail Armor",
+      "old_zh": "红纹章锁甲",
+      "new_en": "Heraldic Mail",
+      "new_zh": "纹章锁甲"
+    },
+    {
+      "id": "armor.body.leopard_armor",
+      "old_en": "Named Leopard Armor",
+      "old_zh": "红豹皮甲",
+      "new_en": "Leopard Armor",
+      "new_zh": "豹皮甲"
+    },
+    {
+      "id": "armor.body.lindwurm_armor",
+      "old_en": "Named Lindwurm Armor",
+      "old_zh": "红林德蠕龙甲",
+      "new_en": "Lindwurm Armor",
+      "new_zh": "林德蠕龙甲"
+    },
+    {
+      "id": "armor.body.named_bronze_armor",
+      "old_en": "Named Bronze Armor",
+      "old_zh": "红青铜甲",
+      "new_en": "Bronze Armor",
+      "new_zh": "青铜甲"
+    },
+    {
+      "id": "armor.body.named_golden_lamellar_armor",
+      "old_en": "Named Golden Lamellar Armor",
+      "old_zh": "红金色札甲",
+      "new_en": "Golden Lamellar",
+      "new_zh": "黄金札甲"
+    },
+    {
+      "id": "armor.body.named_noble_mail_armor",
+      "old_en": "Named Noble Mail Armor",
+      "old_zh": "红贵族锁甲",
+      "new_en": "Noble Mail",
+      "new_zh": "贵族锁甲"
+    },
+    {
+      "id": "armor.body.named_plated_fur_armor",
+      "old_en": "Named Plated Fur Armor",
+      "old_zh": "红覆板毛皮甲",
+      "new_en": "Plated Fur Armor",
+      "new_zh": "覆板毛皮甲"
+    },
+    {
+      "id": "armor.body.named_sellswords_armor",
+      "old_en": "Named Sellswords Armor",
+      "old_zh": "红佣兵甲",
+      "new_en": "Sellsword's Armor",
+      "new_zh": "佣兵甲"
+    },
+    {
+      "id": "armor.body.named_skull_and_chain_armor",
+      "old_en": "Named Skull and Chain Armor",
+      "old_zh": "红骷髅锁甲",
+      "new_en": "Skull and Chain Armor",
+      "new_zh": "骷髅锁甲"
+    },
+    {
+      "id": "armor.head.gold_and_black_turban",
+      "old_en": "Named Gold and Black Turban",
+      "old_zh": "红金羽盔",
+      "new_en": "Gold and Black Turban",
+      "new_zh": "黑金缠头盔"
+    },
+    {
+      "id": "armor.head.golden_feathers",
+      "old_en": "Named Golden Feathers Helmet",
+      "old_zh": "红黑金缠头盔",
+      "new_en": "Golden Feathers Helmet",
+      "new_zh": "金羽盔"
+    },
+    {
+      "id": "armor.head.heraldic_mail",
+      "old_en": "Named Heraldic Mail Helmet",
+      "old_zh": "红纹章锁甲盔",
+      "new_en": "Heraldic Mail Helmet",
+      "new_zh": "纹章锁甲盔"
+    },
+    {
+      "id": "armor.head.lindwurm_helmet",
+      "old_en": "Named Lindwurm Helmet",
+      "old_zh": "红林德蠕龙盔",
+      "new_en": "Lindwurm Helmet",
+      "new_zh": "林德蠕龙盔"
+    },
+    {
+      "id": "armor.head.named_conic_helmet_with_faceguard",
+      "old_en": "Named Conic Helmet with Faceguard",
+      "old_zh": "红面甲锥形盔",
+      "new_en": "Conic Helmet with Faceguard",
+      "new_zh": "面甲锥形盔"
+    },
+    {
+      "id": "armor.head.named_metal_bull_helmet",
+      "old_en": "Named Metal Bull Helmet",
+      "old_zh": "红金属牛角盔",
+      "new_en": "Metal Bull Helmet",
+      "new_zh": "金属牛角盔"
+    },
+    {
+      "id": "armor.head.named_metal_nose_horn_helmet",
+      "old_en": "Named Metal Nose Horn Helmet",
+      "old_zh": "红金属犀角盔",
+      "new_en": "Metal Nose Horn Helmet",
+      "new_zh": "金属鼻角盔"
+    },
+    {
+      "id": "armor.head.named_metal_skull_helmet",
+      "old_en": "Named Metal Skull Helmet",
+      "old_zh": "红金属骷髅盔",
+      "new_en": "Metal Skull Helmet",
+      "new_zh": "金属骷髅盔"
+    },
+    {
+      "id": "armor.head.named_nordic_helmet_with_closed_mail",
+      "old_en": "Named Nordic Helmet with Closed Mail",
+      "old_zh": "红覆面锁甲北境盔",
+      "new_en": "Nordic Helmet with Closed Mail",
+      "new_zh": "覆面锁甲北境盔"
+    },
+    {
+      "id": "armor.head.named_steppe_helmet_with_mail",
+      "old_en": "Named Steppe Helmet with Mail",
+      "old_zh": "红锁甲草原盔",
+      "new_en": "Steppe Helmet with Mail",
+      "new_zh": "锁甲草原盔"
+    },
+    {
+      "id": "armor.head.nasal_feather",
+      "old_en": "Named Nasal Feather Helmet",
+      "old_zh": "红羽饰护鼻盔",
+      "new_en": "Feathered Nasal Helmet",
+      "new_zh": "羽饰护鼻盔"
+    },
+    {
+      "id": "armor.head.norse",
+      "old_en": "Named Norse Helmet",
+      "old_zh": "红北欧盔",
+      "new_en": "Norse Helmet",
+      "new_zh": "北境盔"
+    },
+    {
+      "id": "armor.head.red_and_gold_band_helmet",
+      "old_en": "Named Red and Gold Band Helmet",
+      "old_zh": "红红金头带盔",
+      "new_en": "Red and Gold Band Helmet",
+      "new_zh": "红金饰带盔"
+    },
+    {
+      "id": "armor.head.sallet_green",
+      "old_en": "Named Sallet Green Helmet",
+      "old_zh": "红绿色萨莱特盔",
+      "new_en": "Green Sallet",
+      "new_zh": "绿色萨莱特盔"
+    },
+    {
+      "id": "armor.head.wolf",
+      "old_en": "Named Wolf Helmet",
+      "old_zh": "红狼盔",
+      "new_en": "Wolf Helmet",
+      "new_zh": "狼盔"
+    },
+    {
+      "id": "shield.named_bandit_heater",
+      "old_en": "Named Bandit Heater Shield",
+      "old_zh": "红强盗熨斗形盾",
+      "new_en": "Bandit Heater Shield",
+      "new_zh": "强盗熨斗形盾"
+    },
+    {
+      "id": "shield.named_bandit_kite_shield",
+      "old_en": "Named Bandit Kite Shield",
+      "old_zh": "红强盗鸢形盾",
+      "new_en": "Bandit Kite Shield",
+      "new_zh": "强盗鸢形盾"
+    },
+    {
+      "id": "shield.named_buckler",
+      "old_en": "Named Buckler Shield",
+      "old_zh": "红小圆盾",
+      "new_en": "Buckler Shield",
+      "new_zh": "小圆盾"
+    },
+    {
+      "id": "shield.named_dragon",
+      "old_en": "Named Dragon Shield",
+      "old_zh": "红龙纹盾",
+      "new_en": "Dragon Shield",
+      "new_zh": "龙纹盾"
+    },
+    {
+      "id": "shield.named_full_metal_heater",
+      "old_en": "Named Full Metal Heater Shield",
+      "old_zh": "红全金属熨斗形盾",
+      "new_en": "Full Metal Heater Shield",
+      "new_zh": "全金属熨斗形盾"
+    },
+    {
+      "id": "shield.named_golden_round",
+      "old_en": "Named Golden Round Shield",
+      "old_zh": "红金色圆盾",
+      "new_en": "Golden Round Shield",
+      "new_zh": "金色圆盾"
+    },
+    {
+      "id": "shield.named_lindwurm",
+      "old_en": "Named Lindwurm Shield",
+      "old_zh": "红林德蠕龙之盾",
+      "new_en": "Lindwurm Shield",
+      "new_zh": "林德蠕龙之盾"
+    },
+    {
+      "id": "shield.named_orc_heavy_shield",
+      "old_en": "Named Orc Heavy Shield",
+      "old_zh": "红兽人重盾",
+      "new_en": "Orc Heavy Shield",
+      "new_zh": "兽人重盾"
+    },
+    {
+      "id": "shield.named_red_white",
+      "old_en": "Named Red White Shield",
+      "old_zh": "红红白盾",
+      "new_en": "Red and White Shield",
+      "new_zh": "红白盾"
+    },
+    {
+      "id": "shield.named_rider_on_horse",
+      "old_en": "Named Rider On Horse Shield",
+      "old_zh": "红骑士纹章盾",
+      "new_en": "Rider on Horse Shield",
+      "new_zh": "骑士纹章盾"
+    },
+    {
+      "id": "shield.named_sipar_shield",
+      "old_en": "Named Sipar Shield",
+      "old_zh": "红西帕尔圆盾",
+      "new_en": "Sipar Shield",
+      "new_zh": "西帕尔圆盾"
+    },
+    {
+      "id": "shield.named_undead_heater_shield",
+      "old_en": "Named Undead Heater Shield",
+      "old_zh": "红亡灵熨斗形盾",
+      "new_en": "Undead Heater Shield",
+      "new_zh": "亡灵熨斗形盾"
+    },
+    {
+      "id": "shield.named_undead_kite_shield",
+      "old_en": "Named Undead Kite Shield",
+      "old_zh": "红亡灵鸢形盾",
+      "new_en": "Undead Kite Shield",
+      "new_zh": "亡灵鸢形盾"
+    },
+    {
+      "id": "shield.named_wing",
+      "old_en": "Named Wing Shield",
+      "old_zh": "红翼纹盾",
+      "new_en": "Wing Shield",
+      "new_zh": "翼纹盾"
+    }
+  ]
+}

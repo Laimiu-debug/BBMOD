@@ -15,7 +15,17 @@ def test_equipment_meanings_do_not_rename_traits_attacks_or_titles():
         key = hashlib.sha256(source.encode()).hexdigest()[:20]
         assert original[key]['translation'] == generic
         assert equipment[key]['translation'] == item_name
-    assert set(terms) == {'scripts/config/item_names.cnut'}
+    assert 'scripts/config/item_names.cnut' in terms
+
+
+def test_oath_stat_lines_take_their_direction_from_the_script():
+    catalog = load_full_catalog()
+    terms = load_contextual_terms(catalog)
+    key = hashlib.sha256(b'Your men gain [color=').hexdigest()[:20]
+    assert catalog['entries'][key]['translation'] == '弟兄们获得的经验提高[color='
+    assert terms['scripts/ambitions/oaths/oath_of_valor_ambition.cnut'][key] == '弟兄们获得的经验减少[color='
+    earn = hashlib.sha256(b'You earn [color=').hexdigest()[:20]
+    assert terms['scripts/ambitions/oaths/oath_of_humility_ambition.cnut'][earn] == '委托报酬减少[color='
 
 
 def test_explicit_user_translation_wins_in_every_context():

@@ -15,6 +15,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from core.item_inspector import FIELDS
+from tools.equipment_names import naming_sources
 
 NUMERIC = (*FIELDS, 'Vision', 'RangeMin', 'RangeMax')
 TEXT = ('ID', 'Name', 'Categories')
@@ -98,7 +99,9 @@ def build(source: Path, output: Path):
                         raise ValueError(f'Named baseline drift: {relative}: {key}')
                 english, chinese, rarity = entry['en'], entry['zh'], 'named'
                 assert identifier == values['ID']
+                naming = {key: entry[key] for key in ('name_mode', 'name_pool')}
             else:
+                naming = {}
                 english = values['Name']
                 if not english or not values['ID']:
                     excluded.append({'source': relative, 'reason': 'No visible name or item ID'})
@@ -115,6 +118,7 @@ def build(source: Path, output: Path):
                 'category': terms.get(values['Categories'], values['Categories']),
                 'loot': values['IsDroppedAsLoot'],
                 'base': {key: values[key] for key in NUMERIC},
+                **naming,
             }
     assert sum(item['rarity'] == 'named' for item in items.values()) == len(named) == 94
     document = {
@@ -130,9 +134,38 @@ def build(source: Path, output: Path):
     return document
 
 
+def refresh_names(document):
+    """Update language metadata while retaining the existing verified stats."""
+    _, terms, translation_hash, _ = naming_sources()
+    named_path = ROOT / 'data/item_inspector/catalog.json'
+    named = json.loads(named_path.read_text('utf-8'))['items']
+    seen = set()
+    for source, item in document['items'].items():
+        if item['rarity'] != 'named':
+            item['zh'] = terms.get(item['en'], item['zh'])
+            continue
+        entry = named[item['id']]
+        if source != entry['source'] or any(item['base'][key] != entry['base'][key] for key in FIELDS):
+            raise ValueError(f'Named baseline drift: {source}')
+        item.update({key: entry[key] for key in ('en', 'zh', 'name_mode', 'name_pool')})
+        seen.add(item['id'])
+    if seen != set(named):
+        raise ValueError('Equipment catalog does not contain all reviewed named types')
+    document['translation_sha256'] = translation_hash
+    document['named_catalog_sha256'] = hashlib.sha256(named_path.read_bytes()).hexdigest()
+    return document
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=ROOT / 'build/full-l10n/decompiled')
     parser.add_argument('--output', type=Path, default=ROOT / 'data/equipment_catalog.json')
+    parser.add_argument('--refresh-names', action='store_true',
+                        help='Refresh names without changing verified numeric facts or source hashes')
     args = parser.parse_args()
-    build(args.source, args.output)
+    if args.refresh_names:
+        document = refresh_names(json.loads(args.output.read_text('utf-8')))
+        args.output.write_text(json.dumps(document, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        print(f'Refreshed equipment names: {args.output}')
+    else:
+        build(args.source, args.output)

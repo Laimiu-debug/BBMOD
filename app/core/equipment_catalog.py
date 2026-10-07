@@ -74,8 +74,11 @@ def attributes(item):
 def matches(item, query='', group='', rarity=''):
     if group and item['group'] != group or rarity and item['rarity'] != rarity:
         return False
+    names = [name[lang] for name in item.get('name_pool', []) for lang in ('zh', 'en')]
+    aliases = ([item['zh'] + '（红装）', '红' + item['zh'], '红装' + item['zh'],
+                'Named ' + item['en']] if item['rarity'] == 'named' else [])
     haystack = ' '.join((item['zh'], item['en'], item['id'], item['category'],
-                         GROUPS[item['group']], RARITIES[item['rarity']])).casefold()
+                         GROUPS[item['group']], RARITIES[item['rarity']], *names, *aliases)).casefold()
     return all(word in haystack for word in query.casefold().split())
 
 
@@ -92,6 +95,10 @@ def detail_html(item, game_version, artwork=None):
         text += '<p>' + escape(item['category']) + '</p>'
     named = item['rarity'] == 'named'
     if named:
+        text += '<p>此页按基础类型或外观列出红装。游戏中的具体名称会随机生成，也可由玩家改名；装备鉴定显示当前名称。</p>'
+        names = item.get('name_pool', [])
+        if names:
+            text += '<p><b>游戏名称示例：</b>' + escape('、'.join(name['zh'] for name in names[:6])) + '。</p>'
         rule = ('武器和盾牌随机抽取两组强化词条，不能同时取得表中所有强化。武器耐久另行随机；伤害上下限使用同一次随机倍率。'
                 if item['kind'] in ('weapon', 'shield') else '护甲上限和疲劳负担分别随机，不含护甲附件。')
         text += '<p><b>' + rule + '</b></p>'
