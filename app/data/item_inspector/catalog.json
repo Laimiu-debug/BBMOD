@@ -2,7 +2,7 @@
   "schema": 1,
   "game_version": "1.5.2.3",
   "provenance": "Original local game scripts; BBMOD independently authored Chinese terminology.",
-  "translation_sha256": "0efd3ca07ab6ca71f7e9f51105c1e39249291ab2cd92a3775841fe2ed36fe52f",
+  "translation_sha256": "fc78879fd897dc89bd5816a7d41e94098c7509e32be721bf618d37fa385693b1",
   "source_sha256": {
     "scripts/items/weapons/named/named_weapon.nut": "a17b947d29231e74ed5c745f00bba743e5ca3319d8d690e037cc5e7979f5b47a",
     "scripts/items/weapons/named/named_axe.nut": "ec44dbe395fcfd946728c2e3671c0ad4a7a3936bd5ccab6d17c6ad90fe7556a4",
