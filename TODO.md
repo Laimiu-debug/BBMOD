@@ -1,6 +1,6 @@
 # BBMOD 完善清单
 
-本轮按用户确认的 TODO 实施；本地验证、打包和线上部署均已完成。
+以下清单记录 rc.26 的实施和验收，已全部完成。当前版本与发布状态见 [README](README.md)；0.4.0 官网发布见[发布记录](web/deploy/deployment-desktop-0.4.0-2026-10-06.md)。
 
 - [x] 区分禁用与卸载，并同步安装状态
 - [x] MOD 方案预检、变更预览与失败恢复
@@ -17,7 +17,7 @@
 - [x] Windows 桌面自动测试
 - [x] 版本和文档统一
 
-## 验证记录
+## rc.26 验证记录（历史）
 
 - 桌面完整回归：352 项通过，15 项因可选外部数据或环境跳过，0 个失败模块。命令：`python -X utf8 app/tools/run_desktop_tests.py --all`。
 - 网站回归：142 项通过；在 `web/` 执行 `.venv/Scripts/python.exe -X utf8 manage.py test catalog --noinput`，设置 `BBMOD_DEBUG=1`。
@@ -27,7 +27,7 @@
 - EXE 打包与自检：`app/dist/BBMOD-0.3.0-rc.26.exe` 已生成，隔离配置运行 `--selftest` 返回 0；版本、491 条装备、汉化资源、种子工具与更新组件检查通过。
 - EXE SHA-256：`b2829cb39322aa7ec62acf4631a28b535b3f0c25782a0922bbf2f31abdfaf774`。
 
-## 上线边界
+## rc.26 上线记录（历史）
 
 - 线上推荐版本已为 rc.26，公网完整 EXE 下载的大小与 SHA-256 校验通过，旧版下载保留。部署前备份及服务器 142 项回归通过，详见 [发布记录](web/deploy/deployment-rc26-2026-09-25.md)。
 

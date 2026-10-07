@@ -1,8 +1,8 @@
 # BBMOD 社区军械库 · 0.3.7
 
-官网已迁移至 **https://bbmod.com**，网站、API 和下载由海外服务器直接提供，保留原账号、作品和历史数据。当前桌面版本为 **0.3.1**；rc.36 及更新版本可在软件内检查更新，更早的旧官网版本请从新官网下载最新版。
+官网已迁移至 **https://bbmod.com**，网站、API 和下载由海外服务器直接提供，保留原账号、作品和历史数据。当前桌面版本为 **0.4.0**；rc.36 及更新版本可在软件内检查更新，更早的旧官网版本请从新官网下载最新版。
 
-桌面管理器 **0.3.1** 修复设置保存、损坏配置启动及 MOD 并发修改问题，固定使用三段版本号。安装包仍通过 `import_desktop --publish` 发布；独立汉化包保持 rc.9。网站 **0.3.7** 修复百科翻译计数缓存并发清理的问题，无新增数据库迁移。详见[版本说明](../app/releases/0.3.1.md)、[版本约定](../app/docs/versioning.md)与[部署记录](deploy/deployment-desktop-0.3.1-2026-10-06.md)。
+桌面管理器 **0.4.0** 新增闪退可疑 MOD 定位、上次正常组合恢复和分轮排查，修复后台线程收尾导致的忙碌状态问题。安装包通过 `import_desktop --publish` 发布为推荐稳定版，保留历史版本；独立汉化包保持 rc.9。网站继续运行 **0.3.7**，本次仅发布桌面 EXE 和版本说明。详见[版本说明](../app/releases/0.4.0.md)、[版本约定](../app/docs/versioning.md)与[部署记录](deploy/deployment-desktop-0.4.0-2026-10-06.md)。
 
 新手使用说明（2026-10-03 官网迁移修订）：[`/guide/`](https://bbmod.com/guide/) 提供 BBMOD 下载与升级指引、汉化 rc.9 和阿飞 v0.27.4 的完整安装图文及 PDF；操作截图沿用已检查的 rc.33 界面。首页、顶部导航、下载页均有入口；阿飞升级后须新建战役。网页模板与版本化静态资源由 `python web/tools/build_beginner_guide.py` 在仓库根目录生成，需要 `markdown-it-py`，输入为根目录 Markdown、`docs/images/` 截图和已检查的 `output/pdf/BBMOD新手使用说明.pdf`；页面上的桌面版本标签读取自 `app/core/version.py`，Markdown 未提及该版本时脚本会报错。首次教程发布步骤与验证见[部署记录](deploy/deployment-beginner-guide-2026-09-29.md)。
 
@@ -94,7 +94,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 
 `compose.gateway.yml` 为已有 HTTPS 代理的服务器提供独立部署配置，不占用宿主机的 80/443/8080 端口。它使用 BBMOD 专用数据卷；只有网关容器连接已有代理网络。现有服务端数据和生产源码须从一致备份迁入，再在候选环境核对账号数量、作品、历史版本、方案、种子、反馈和百科。
 
-源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.7/BBMOD-Hub-0.3.7.tar.gz`。包内不含 `.env`、账号数据库、上传文件或预览账号初始化命令。升级前使用 `backup_hub` 备份，并在备份副本演练迁移。百科快照单独存放于持久卷的 `wiki/`。迁移现有网站时优先保留正在运行的生产代码及匹配的数据备份。
+源码打包：`python tools/package_hub.py`，默认输出到 `app/build/hub/0.3.7/BBMOD-Hub-0.3.7.tar.gz`。包内不含 `.env`、账号数据库、上传文件或预览账号初始化命令。升级前按本次改动范围保存必要的数据库快照、配置和代码，并在隔离副本演练迁移。百科快照单独存放于持久卷的 `wiki/`。迁移现有网站时优先保留正在运行的生产代码及匹配的数据备份。
 
 ## 管理员发布软件版本
 
@@ -117,7 +117,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 - `/downloads/windows/<版本ID>/`：固定版本的附件地址，不跳转 GitHub。Compose 使用 Nginx 传输并支持断点续传；本地 Django 直接流式传输。
 - `/api/v1/desktop/releases/`：返回公开版本、推荐版本、版本说明、文件大小、SHA-256 及本站相对下载地址。草稿、撤回或文件不完整的版本不会返回。
 
-**当前推荐桌面版本为 0.3.1**。rc.36 及更新版本可直接检查更新；更早的旧官网版本先从 `https://bbmod.com` 手动下载最新版，此后自动更新优先连接新官网，失败时回退到 GitHub。上传新版本文件和更新网站源代码是两回事，日常发布 EXE 无需重新部署网站。
+**当前推荐桌面版本为 0.4.0**。rc.36 及更新版本可直接检查更新；更早的旧官网版本先从 `https://bbmod.com` 手动下载最新版，此后自动更新优先连接新官网，失败时回退到 GitHub。上传新版本文件和更新网站源代码是两回事，日常发布 EXE 无需重新部署网站。
 
 ### 从服务器已有文件导入
 
@@ -137,15 +137,13 @@ Compose 使用独立持久卷 `bbmod-hub_bbmod_desktop`，应用可写入，Ngin
 
 ## 数据备份与升级
 
-```bash
-docker compose exec app python manage.py backup_hub
-```
+用户要求默认不做完整备份。发布桌面 EXE 仅保存必要的 SQLite 在线一致快照、发布记录和校验信息；历史 EXE 使用官网正式下载原件，不为新发布重复复制。验收后清理本次上传和校验产生的临时大文件。具体规则见[发布备份与存储约定](../app/docs/publishing-backups.md)。
 
-命令使用 SQLite 在线备份接口生成一致的数据库快照，并按快照中的文件清单备份 MOD、图片和桌面 EXE 到 `/srv/data/backups/`。用 `docker compose cp app:/srv/data/backups ./backups` 拷到服务器外，再另行安全保管 `.env`。仅同盘备份不能防止磁盘故障。
+网站升级前仅备份本次即将修改的数据库、配置或代码，替换源代码后执行 `docker compose up -d --build`；数据库迁移自动运行，持久卷保留。不要使用 `docker compose down -v`。若要回到旧程序，先恢复旧源码，并核对其迁移是否兼容当前数据库。
 
-升级前备份，替换源代码后执行 `docker compose up -d --build`；数据库迁移自动运行，持久卷保留。不要使用 `docker compose down -v`。若要回到旧程序，先恢复旧源码，并核对其迁移是否兼容当前数据库。
+`backup_hub` 是全站完整备份命令，会将数据库、MOD、图片、历史桌面 EXE 和百科资源打包到 `/srv/data/backups/`；仅在用户明确要求完整备份时执行，不作为日常发布或升级步骤。
 
-恢复时停止 app，将备份中的 `db.sqlite3` 与 `private/` 恢复到 `bbmod_data`，将 `desktop/` 的内容恢复到 `bbmod_desktop`（先保留现有卷的副本），所有者为 UID/GID `10001`，再启动原匹配版本。程序代码、数据库、文件三者应成套恢复。备份不包含 `.env`。
+使用完整备份恢复时，停止 app，将其中的 `db.sqlite3` 与 `private/` 恢复到 `bbmod_data`，将 `desktop/` 恢复到 `bbmod_desktop`，所有者为 UID/GID `10001`，再启动原匹配版本。程序代码、数据库、文件三者应成套恢复。完整备份不包含 `.env`。
 
 ## Windows 本地开发与验证
 
