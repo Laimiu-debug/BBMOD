@@ -2616,7 +2616,7 @@
       "id": "u-69518d6a10f8e00baf928c27",
       "source_sha256": "69518d6a10f8e00baf928c27d79173d17d5817449481abc8ff00b1fc3d23488e",
       "source": "{#1}A sturdy triangular shield well suited for close combat. This one is an exceptionally well-crafted and balanced exemplar.{/#1}",
-      "zh": "{#1}结实的三角盾，非常适合近战。这一面做工尤为精良，操持起来也十分平衡。{/#1}",
+      "zh": "{#1}结实的三角盾，非常适合近战。这一面做工尤为精良，配重也十分均衡。{/#1}",
       "status": "reviewed",
       "page_ids": [
         3467
@@ -2716,7 +2716,7 @@
       "id": "u-71a8d69e2484e89e1356edd8",
       "source_sha256": "71a8d69e2484e89e1356edd8466a641ed02a002dc886449d61990b6de93df910",
       "source": "{#1}A triangular wooden shield covered with leather and canvas, old but very well balanced.{/#1}",
-      "zh": "{#1}覆有皮革和帆布的三角木盾，虽已陈旧，握持时依然十分平衡。{/#1}",
+      "zh": "{#1}覆有皮革和帆布的三角木盾，虽已陈旧，配重依然十分均衡。{/#1}",
       "status": "reviewed",
       "page_ids": [
         3544
@@ -4173,7 +4173,7 @@
       "id": "u-561a7fa09807920aa63b4f3c",
       "source_sha256": "561a7fa09807920aa63b4f3c3ff8179c91972d006086d3c22f6d12030ff7ef47",
       "source": "{#1}A relatively thin blade on a very long shaft used for devastating cutting attacks over some distance, and to render shields unusable from behind the frontline. This longaxe must be the work of an extraordinary craftsman.{/#1}",
-      "zh": "{#1}极长的斧柄上装着较薄的斧刃，能从较远处造成凶猛的劈砍，也能站在前排身后破坏敌人的盾牌。这柄长柄斧，定是非凡匠人的杰作。{/#1}",
+      "zh": "{#1}极长的斧柄上装着较薄的斧刃，能让使用者从较远处发动威力惊人的劈砍，也能从前排身后劈毁敌人的盾牌。这柄长柄斧，定是非凡匠人的杰作。{/#1}",
       "status": "reviewed",
       "page_ids": [
         3838
@@ -5576,7 +5576,7 @@
       "id": "u-478aa96101f4c12d64405069",
       "source_sha256": "478aa96101f4c12d64405069bdc8bc5c8f6dea1a4c2e43afce70362383564ac3",
       "source": "{#1}The Glimpse of Davkul is a gift bestowed upon man by ancient and dark powers, a helmet merged with human skin and bones through the most unspeakable of rituals. A glimpse of a future where man shall become one with creations from a realm beyond. It shall never break, but instead keep regrowing its scarred skin on the spot.{/#1}",
-      "zh": "{#1}“达夫库尔一瞥”是古老黑暗力量赐给人类的礼物：通过难以启齿的仪式，头盔与人的皮肉、骨骼融为一体。它让人窥见一种未来——人类终将与异界的造物合而为一。它永不破碎，伤痕累累的皮肤总会当即重新生长。{/#1}",
+      "zh": "{#1}“达夫库尔一瞥”是古老黑暗力量赐给人类的礼物：通过骇人听闻的仪式，头盔与人的皮肉、骨骼融为一体。它让人窥见一种未来——人类终将与异界的造物合而为一。它永不破碎，伤痕累累的皮肤总会当即重新生长。{/#1}",
       "status": "reviewed",
       "page_ids": [
         4849
@@ -5616,7 +5616,7 @@
       "id": "u-54f225ff11bb62dd15a3ff11",
       "source_sha256": "54f225ff11bb62dd15a3ff111f67944191ead899245b2c002cc44f6d2de967a1",
       "source": "{#1}An eerie skull carved from a single large crystal. No scratch or other mark can be seen on its surface. Just being near it kills the fire of determination in almost any man, breaks hope and lets sprout doubts.{/#1}",
-      "zh": "{#1}一颗由整块大水晶雕成的诡异骷髅，表面找不到一丝划痕。几乎任何人只要靠近它，心中的斗志就会熄灭，希望破碎，疑虑丛生。{/#1}",
+      "zh": "{#1}一颗由整块大水晶雕成的诡异骷髅，表面看不到划痕或任何其他痕迹。几乎任何人只要靠近它，心中的斗志就会熄灭，希望破碎，疑虑丛生。{/#1}",
       "status": "reviewed",
       "page_ids": [
         4867
@@ -6551,7 +6551,7 @@
       "id": "u-d9a8e91e21b45e476cc2b068",
       "source_sha256": "d9a8e91e21b45e476cc2b0688d65a5bbb9e675adfc452ef1f3648bd20e0681d2",
       "source": "{#1}Truly fit for a knight, this mail hauberk is made from the highest quality materials and boasts precious decorations and ornaments.{/#1}",
-      "zh": "{#1}这件长身锁甲采用上等材料，饰有贵重装饰，真正配得上骑士身份。{/#1}",
+      "zh": "{#1}这件长身锁甲采用上等材料，配有华贵的饰件，真正配得上骑士身份。{/#1}",
       "status": "reviewed",
       "page_ids": [
         5273
@@ -23473,7 +23473,7 @@
       "id": "u-186a1323f63665cb91e48f2f",
       "source_sha256": "186a1323f63665cb91e48f2f99e0f173996ad75d64b14542e7cae1a1f3ca5b05",
       "source": "{#1}The crepuscular sword bends purples and oranges until it seemingly carries twilight itself in its fuller. Held to the touch, one cannot tell if they are being burned or chilled. Magic or well-crafted, whatever the weapon is it vibrates as though it were fighting off power immense and you need only swing it to find the steel's true charge.{/#1}",
-      "zh": "{#1}这柄长剑上流转着紫色与橙色的光晕，仿佛将暮色本身收进了剑身的血槽。握住它时，你甚至分不清掌心传来的是灼热还是寒意。无论源于魔法还是非凡的锻造技艺，剑身始终微微震颤，仿佛正压制着一股庞大的力量。只需挥剑，便能知晓这钢铁中究竟蕴藏着什么。{/#1}",
+      "zh": "{#1}这柄长剑上流转着紫色与橙色的光晕，仿佛将暮色本身收进了剑身的凹槽。握住它时，你甚至分不清掌心传来的是灼热还是寒意。无论源于魔法还是非凡的锻造技艺，剑身始终微微震颤，仿佛正压制着一股庞大的力量。只需挥剑，便能知晓这钢铁中究竟蕴藏着什么。{/#1}",
       "status": "reviewed",
       "page_ids": [
         9185
@@ -23919,7 +23919,7 @@
       "id": "u-c4b8a52b7cf6ac9302168110",
       "source_sha256": "c4b8a52b7cf6ac9302168110ec329a436d866f718d659eba7955f3aa7c109217",
       "source": "Once a barbarian helmet broken in battle, this piece has been bathed in the blood of the legendary Ijirok. Powers beyond your understanding mended it whole again, and will likewise mend any wounds of the wearer as well.",
-      "zh": "这顶蛮族战盔曾在战斗中破损，如今沐浴过传说中伊吉罗克的鲜血。超乎你理解的力量使它恢复完好，也将同样治愈佩戴者的伤口。",
+      "zh": "这顶蛮族战盔曾在战斗中破损。沐浴传说中伊吉罗克的鲜血后，一股超乎你理解的力量将它修复如初，也将同样治愈佩戴者的伤口。",
       "status": "reviewed",
       "page_ids": [
         9420
@@ -25659,7 +25659,7 @@
       "id": "u-1dc3f99d3460aaefb2224f1b",
       "source_sha256": "1dc3f99d3460aaefb2224f1b747dd41104972af6628c980baa0929c28bfc778b",
       "source": "Once a barbarian armor broken in battle, this piece has been bathed in the blood of the legendary Ijirok. Powers beyond your understanding mended it whole again, and will likewise mend any wounds of the wearer as well.",
-      "zh": "这副蛮族甲胄曾在战斗中破损，如今沐浴过传说中伊吉罗克的鲜血。超乎你理解的力量使它恢复完好，也将同样治愈穿戴者的伤口。",
+      "zh": "这副蛮族甲胄曾在战斗中破损。沐浴传说中伊吉罗克的鲜血后，一股超乎你理解的力量将它修复如初，也将同样治愈穿戴者的伤口。",
       "status": "reviewed",
       "page_ids": [
         10913
@@ -26019,7 +26019,7 @@
       "id": "u-3797ee57004e6559324e1d15",
       "source_sha256": "3797ee57004e6559324e1d1588b0ed275c0568962da3a846077893cd9be5c85d",
       "source": "{#1}A massive cleaver that can cut through flesh and armor alike. This piece is in good condition despite its old age.{/#1}",
-      "zh": "{#1}一柄巨大的斩刀，能同时斩开血肉与护甲。虽然年代久远，保存得依旧完好。{/#1}",
+      "zh": "{#1}一柄巨大的斩刀，无论血肉还是护甲，都能斩开。虽然年代久远，保存得依旧完好。{/#1}",
       "status": "reviewed",
       "page_ids": [
         11024
@@ -26099,7 +26099,7 @@
       "id": "u-9d6e533e1305ab957e5ce0a4",
       "source_sha256": "9d6e533e1305ab957e5ce0a444f422bdc569836a8fa2c54eaef3722995bfdfdf",
       "source": "{#1}Fashioned from sharpened black rock, this cruel blade can tear wounds faster than the eye can see. A truly remarkable piece.{/#1}",
-      "zh": "{#1}由磨利的黑色岩石制成的凶刃，撕开伤口之快，几乎让眼睛都跟不上。确是一件非凡的武器。{/#1}",
+      "zh": "{#1}这柄凶刃由磨利的黑色岩石制成，能以肉眼难辨的速度撕开伤口，堪称非凡之作。{/#1}",
       "status": "reviewed",
       "page_ids": [
         11057
@@ -36617,7 +36617,7 @@
       "id": "u-5956a721163799d8d89e27d5",
       "source_sha256": "5956a721163799d8d89e27d5de8715d6840f46769c98c07810951fbe7063d2d9",
       "source": "{#1}An exquisitely crafted curved blade, notoriously used by assassins of the southern deserts. Particularly effective against targets already debilitated.{/#1}",
-      "zh": "{#1}一柄精制弯刃匕首，因南方沙漠刺客的使用而恶名远扬。对已经陷入虚弱状态的目标格外有效。{/#1}",
+      "zh": "{#1}一柄精制弯刃匕首，因南方沙漠刺客的使用而恶名远扬。对已受制的目标格外有效。{/#1}",
       "status": "reviewed",
       "page_ids": [
         14331
@@ -36873,7 +36873,7 @@
       "id": "u-9b52805f53295c47f8f172bd",
       "source_sha256": "9b52805f53295c47f8f172bd65ba030bef4cf09a589db22b31b6ad3505957cac",
       "source": "{#1}A crude weapon like a polemace can also be crafted with passion, skill and attention to detail, as this exemplar showcases impressively.{/#1}",
-      "zh": "{#1}即使是长柄钉锤这样粗犷的武器，也能倾注热忱、技艺与细致的打磨。眼前这柄，就是令人信服的明证。{/#1}",
+      "zh": "{#1}长柄钉锤虽是粗犷的武器，却也可以用满腔热忱、娴熟技艺和细致工夫精心打造。这一柄就是令人叹服的明证。{/#1}",
       "status": "reviewed",
       "page_ids": [
         15053
@@ -38886,7 +38886,7 @@
       "id": "u-623854d74a4bb3f217b785fe",
       "source_sha256": "623854d74a4bb3f217b785feb0acedc9821c7a2e3a402fef9fb9cd7534a80299",
       "source": "{#1}This southern style helmet is not only richly decorated, but also well balanced and made from extremely high quality metals.{/#1}",
-      "zh": "{#1}这顶南方样式的头盔不仅装饰华美，还以顶级金属打造，重心分布也十分合理。{/#1}",
+      "zh": "{#1}这顶南方样式的头盔不仅装饰华美，还以顶级金属打造，配重也十分均衡。{/#1}",
       "status": "reviewed",
       "page_ids": [
         15459
@@ -38906,7 +38906,7 @@
       "id": "u-a7ed85c7e5bd7c3bca4a32ca",
       "source_sha256": "a7ed85c7e5bd7c3bca4a32cad531b71acb43702ed1c4bb3307d90f42f5ff15ac",
       "source": "{#1}This southern style helmet is not only richly decorated, but also well balanced and made from materials of the highest quality.{/#1}",
-      "zh": "{#1}这顶南方样式的头盔不仅装饰华美，还以顶级材料打造，重心分布也十分合理。{/#1}",
+      "zh": "{#1}这顶南方样式的头盔不仅装饰华美，还以顶级材料打造，配重也十分均衡。{/#1}",
       "status": "reviewed",
       "page_ids": [
         15460

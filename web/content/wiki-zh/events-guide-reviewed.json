@@ -3330,7 +3330,7 @@
       "id": "u-f8b59852d1bacdc20a8aad3a",
       "source_sha256": "f8b59852d1bacdc20a8aad3a5b44d0e7287c92f2375e218510dbaa4b45b52de4",
       "source": "The {#1}Graverobber{/#1} takes a weapon from a grave. If you have a {#2}Historian{/#2} you can get a {#3}Named Shield{/#3} instead.",
-      "zh": "{#1}盗墓贼{/#1}从坟墓中取出一件武器。如果战团中有{#2}历史学者{/#2}，你可能改为获得一面{#3}名贵盾牌{/#3}。",
+      "zh": "{#1}盗墓贼{/#1}从坟墓中取出一件武器。如果战团中有{#2}历史学者{/#2}，你可能改为获得一面{#3}红装盾牌{/#3}。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -6148,7 +6148,7 @@
       "id": "u-e9149a4e1fcffd20b5c396e8",
       "source_sha256": "e9149a4e1fcffd20b5c396e82c2c1168c23fad0b82a1962e1a94440ed23f64f9",
       "source": "This event can destroy named items, but not legendary items",
-      "zh": "此事件可以毁坏名贵装备，但不会毁坏传奇装备。",
+      "zh": "此事件可以毁坏红装，但不会毁坏传奇装备。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -6807,7 +6807,7 @@
       "id": "u-d4575f069adcf0a06c3268a6",
       "source_sha256": "d4575f069adcf0a06c3268a6df4a51556bd4b8779adc5fc94b01080a3b00e81e",
       "source": "This event can also destroy {#1}Named Items{/#1}, but not {#2}Legendary{/#2} or indestructable ones",
-      "zh": "此事件也能毁坏{#1}名贵装备{/#1}，但不会毁坏{#2}传奇装备{/#2}或不可摧毁的物品。",
+      "zh": "此事件也能毁坏{#1}红装{/#1}，但不会毁坏{#2}传奇装备{/#2}或不可摧毁的物品。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -9238,7 +9238,7 @@
       "id": "u-fb965b8ad2bafc0aa0462edc",
       "source_sha256": "fb965b8ad2bafc0aa0462edc97167daab6b4e724ad8c042054634fb7c8641380",
       "source": "-2 {#1}{#2}{#3/}{/#2}{/#1} {#4}Medical Supplies{/#4} and you gain 1 named item from loot table A",
-      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4}医疗物资{/#4} -2，并从战利品表 A 中获得 1 件名贵装备。",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4}医疗物资{/#4} -2，并从战利品表 A 中获得 1 件红装。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -10307,7 +10307,7 @@
       "id": "u-681554b29dad70415ff84a5a",
       "source_sha256": "681554b29dad70415ff84a5aa6a5834d98bf489c69dc8c9258af3793df432e57",
       "source": "+1 {#1}Reputation{/#1} and you gain a {#2}Named Greatsword{/#2} (named \"Hoggarts Heirloom\")",
-      "zh": "{#1}声誉{/#1} +1，你获得一把{#2}名贵巨剑{/#2}，名为“霍加特的传家宝”。",
+      "zh": "{#1}声誉{/#1} +1，你获得一把{#2}红装巨剑{/#2}，名为“霍加特的传家宝”。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -10323,7 +10323,7 @@
       "id": "u-609d6f116480e3cee5e365d7",
       "source_sha256": "609d6f116480e3cee5e365d7a1adf2b53bed298d7ee5fe98a4bec04bdf4e1cd7",
       "source": "-1 {#1}Reputation{/#1} and you gain a {#2}Named Dagger{/#2} (named \"Barnabas' Dagger\")",
-      "zh": "{#1}声誉{/#1} -1，你获得一把{#2}名贵匕首{/#2}，名为“巴纳巴斯的匕首”。",
+      "zh": "{#1}声誉{/#1} -1，你获得一把{#2}红装匕首{/#2}，名为“巴纳巴斯的匕首”。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -11051,7 +11051,7 @@
       "id": "u-8d03a721fa9a4ea1d2b867fc",
       "source_sha256": "8d03a721fa9a4ea1d2b867fcf8ded3d76f227732182c49d101b47b5b033a7702",
       "source": "A messenger of the enemy noble house offers you a named weapon if you change sides. You can choose:",
-      "zh": "敌对贵族家族的信使提出，只要你倒戈，就送你一把名贵武器。你可以选择：",
+      "zh": "敌对贵族家族的信使提出，只要你倒戈，就送你一把红装武器。你可以选择：",
       "status": "reviewed",
       "page_ids": [
         2817
@@ -11066,7 +11066,7 @@
       "id": "u-e499a357cd51ae484dfb5f9c",
       "source_sha256": "e499a357cd51ae484dfb5f9cd65ad57170160191484efbeb128cb41daf531bf0",
       "source": "You fail the contract and are now allied to the enemy noble house instead. You get flagged as a {#1}{#2}{#3/}{/#2}{/#1} betrayer by the other noble house. You gain a random {#4}named weapon{/#4}. (of any type except: orc weapons and new weapons from beasts&exploration dlc)",
-      "zh": "委托失败，你转而与敌对贵族家族结盟，原先的贵族家族会将你标记为{#1}{#2}{#3/}{/#2}{/#1}背叛者。你获得一把随机的{#4}名贵武器{/#4}，类型不限，但不包括兽人武器，以及“野兽与探索”扩展包新增的武器。",
+      "zh": "委托失败，你转而与敌对贵族家族结盟，原先的贵族家族会将你标记为{#1}{#2}{#3/}{/#2}{/#1}背叛者。你获得一把随机的{#4}红装武器{/#4}，类型不限，但不包括兽人武器，以及“野兽与探索”扩展包新增的武器。",
       "status": "reviewed",
       "page_ids": [
         2817
@@ -11646,7 +11646,7 @@
       "id": "u-821b363b402cfb488ba2bf41",
       "source_sha256": "821b363b402cfb488ba2bf419e33889bdd822ee9548169b1869c101de3309436",
       "source": "The {#1}{#2}{#3/}{/#2}{/#1} {#4}lindwurms{/#4} are attacking a caravan. If less than 5 caravans are destroyed you get an extra reward. You get 3 extra caravan hands for the fight. The reward is that an undead location is revealed that will contain a named item.",
-      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4}林德蠕龙{/#4}正在袭击商队。被摧毁的商队货车少于 5 辆时，你可获得额外奖励。战斗中会额外有 3 名商队杂工协助你。奖励是在地图上揭示一处藏有名贵装备的亡灵据点。",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1}{#4}林德蠕龙{/#4}正在袭击商队。被摧毁的商队货车少于 5 辆时，你可获得额外奖励。战斗中会额外有 3 名商队杂工协助你。奖励是在地图上揭示一处藏有红装的亡灵据点。",
       "status": "reviewed",
       "page_ids": [
         2817
@@ -12171,7 +12171,7 @@
       "id": "u-eae161a6b988fd4a7382653d",
       "source_sha256": "eae161a6b988fd4a7382653d2a41eb1de3d739db423bcfcf493db411c324c5d2",
       "source": "Leader of the indebted offers a bargain for their freedom. Accepting the offer will result in the failure of the contract but an undead location will be revealed that will contain a named item.",
-      "zh": "负债者的领头人提出用情报换取自由。接受交易会导致委托失败，但会在地图上揭示一处藏有名贵装备的亡灵据点。",
+      "zh": "负债者的领头人提出用情报换取自由。接受交易会导致委托失败，但会在地图上揭示一处藏有红装的亡灵据点。",
       "status": "reviewed",
       "page_ids": [
         2817
@@ -20337,7 +20337,7 @@
       "id": "u-0752d1c30c908487ad6555ec",
       "source_sha256": "0752d1c30c908487ad6555ec0d7698af6b31f03ecfdc15e6740cd436f6873b16",
       "source": "20% chance and only if day 16 or older campaign: You gain a {#1}Named Dagger{/#1}",
-      "zh": "只有战役已进行至第 16 天或以后，才有 20% 概率获得一把{#1}名贵匕首{/#1}。",
+      "zh": "只有战役已进行至第 16 天或以后，才有 20% 概率获得一把{#1}红装匕首{/#1}。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21761,7 +21761,7 @@
       "id": "u-aed8854d5a99966a5bec178d",
       "source_sha256": "aed8854d5a99966a5bec178d74448a43a2a555c420b90885ed21eea51d9d543f",
       "source": "A wandering traveller offers to sell a map, revealing a location of a {#1}Named Item{/#1}. You can choose:",
-      "zh": "一名旅人向你兜售地图，说地图会指出一件{#1}名贵装备{/#1}的所在之处。你可以选择：",
+      "zh": "一名旅人向你兜售地图，说地图会指出一件{#1}红装{/#1}的所在之处。你可以选择：",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21777,7 +21777,7 @@
       "id": "u-146125da7ac268f67b133471",
       "source_sha256": "146125da7ac268f67b1334718354bc3f57a46aebfdbf46d9732514b66679e2a0",
       "source": "100% chance: The location of a {#1}Named Item{/#1} will be revealed for you and you pay between 600 and 1.400 {#2}{#3}{#4/}{/#3}{/#2}",
-      "zh": "100% 概率：揭示一件{#1}名贵装备{/#1}的所在之处，你支付 600 至 1.400 {#2}{#3}{#4/}{/#3}{/#2}，即六百至一千四百克朗。",
+      "zh": "100% 概率：揭示一件{#1}红装{/#1}的所在之处，你支付 600 至 1.400 {#2}{#3}{#4/}{/#3}{/#2}，即六百至一千四百克朗。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21793,7 +21793,7 @@
       "id": "u-05e230aeb514d063b95f4c4a",
       "source_sha256": "05e230aeb514d063b95f4c4a2bb8ce6d126701764622fda7611a6ac8bcf2ed6e",
       "source": "50% chance: The location of a {#1}Named Item{/#1} will be revealed for you and you pay between 600 and 1.400 {#2}{#3}{#4/}{/#3}{/#2}",
-      "zh": "50% 概率：揭示一件{#1}名贵装备{/#1}的所在之处，你支付 600 至 1.400 {#2}{#3}{#4/}{/#3}{/#2}，即六百至一千四百克朗。",
+      "zh": "50% 概率：揭示一件{#1}红装{/#1}的所在之处，你支付 600 至 1.400 {#2}{#3}{#4/}{/#3}{/#2}，即六百至一千四百克朗。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21841,7 +21841,7 @@
       "id": "u-1ad17f687b24fcafbfd91ef2",
       "source_sha256": "1ad17f687b24fcafbfd91ef283f5b02e26338af7b3dc47dd58120423dbb820d1",
       "source": "100% chance: The location of a {#1}Named Item{/#1} will be revealed for you and you pay between 300 and 700 {#2}{#3}{#4/}{/#3}{/#2}",
-      "zh": "100% 概率：揭示一件{#1}名贵装备{/#1}的所在之处，你支付 300 至 700 {#2}{#3}{#4/}{/#3}{/#2}。",
+      "zh": "100% 概率：揭示一件{#1}红装{/#1}的所在之处，你支付 300 至 700 {#2}{#3}{#4/}{/#3}{/#2}。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21857,7 +21857,7 @@
       "id": "u-01d69fe44771ce2aedaadd08",
       "source_sha256": "01d69fe44771ce2aedaadd08a0d6ea17a668fce3174d00d9e0eb163736743384",
       "source": "50% chance: The location of a {#1}Named Item{/#1} will be revealed for you and you pay between 300 and 700 {#2}{#3}{#4/}{/#3}{/#2}",
-      "zh": "50% 概率：揭示一件{#1}名贵装备{/#1}的所在之处，你支付 300 至 700 {#2}{#3}{#4/}{/#3}{/#2}。",
+      "zh": "50% 概率：揭示一件{#1}红装{/#1}的所在之处，你支付 300 至 700 {#2}{#3}{#4/}{/#3}{/#2}。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21905,7 +21905,7 @@
       "id": "u-902840ed94956807d8d747d6",
       "source_sha256": "902840ed94956807d8d747d6bf90478f9579f8fe901c7a7ec5efb062f21084fe",
       "source": "100% chance: The location of a {#1}Named Item{/#1} will be revealed for you",
-      "zh": "100% 概率：揭示一件{#1}名贵装备{/#1}的所在之处。",
+      "zh": "100% 概率：揭示一件{#1}红装{/#1}的所在之处。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21921,7 +21921,7 @@
       "id": "u-c9d05b6aa9dc0f0ea668db3a",
       "source_sha256": "c9d05b6aa9dc0f0ea668db3a54fd51935c619982b1406d195ff904d4831a7695",
       "source": "50% chance: The location of a {#1}Named Item{/#1} will be revealed for you",
-      "zh": "50% 概率：揭示一件{#1}名贵装备{/#1}的所在之处。",
+      "zh": "50% 概率：揭示一件{#1}红装{/#1}的所在之处。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21953,7 +21953,7 @@
       "id": "u-fb21542299f50c97ac515d51",
       "source_sha256": "fb21542299f50c97ac515d5168f150eddcb83c7bf32382c117d67603885d7182",
       "source": "There has to be a location of the {#1}Ancient Dead{/#1} with a {#2}Named Item{/#2}",
-      "zh": "必须存在一处藏有{#2}名贵装备{/#2}的{#1}古代亡灵{/#1}据点。",
+      "zh": "必须存在一处藏有{#2}红装{/#2}的{#1}古代亡灵{/#1}据点。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -21985,7 +21985,7 @@
       "id": "u-f4f493a62f5325060a582005",
       "source_sha256": "f4f493a62f5325060a582005dc1df4b8adca9d3092f035c11a5fc9bc7730b6d5",
       "source": "This event can only reveal {#1}Named Items{/#1}, not create new ones",
-      "zh": "此事件只能揭示已有的{#1}名贵装备{/#1}，不会生成新的装备。",
+      "zh": "此事件只能揭示已有的{#1}红装{/#1}，不会生成新的装备。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -22001,7 +22001,7 @@
       "id": "u-a9e5fc5a43c5da116586d30f",
       "source_sha256": "a9e5fc5a43c5da116586d30f4e90531005c7ca45e3057eb3dbc4962b201ad057",
       "source": "The merchant says the true name of the location, if you find or know where it is, it contains the promised {#1}Named Item{/#1}",
-      "zh": "商人会说出地点的真实名称。如果你找到该地点，或已经知道它在哪儿，那里就有他所说的{#1}名贵装备{/#1}。",
+      "zh": "商人会说出地点的真实名称。如果你找到该地点，或已经知道它在哪儿，那里就有他所说的{#1}红装{/#1}。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -22017,7 +22017,7 @@
       "id": "u-c9ca593e6d70acfe04f4193f",
       "source_sha256": "c9ca593e6d70acfe04f4193f48139dc30361c2267d601dbfd5f677bd91d35e62",
       "source": "If you read the map successfully, the location is marked as event location, so low-difficulty contracts no longer can delete named loot from it",
-      "zh": "成功读懂地图后，该地点会被标记为事件地点，低难度委托就无法再清除其中的名贵战利品。",
+      "zh": "成功读懂地图后，该地点会被标记为事件地点，低难度委托就无法再清除其中的红装战利品。",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -23490,7 +23490,7 @@
       "id": "u-31764de4f6dce0137702219d",
       "source_sha256": "31764de4f6dce0137702219d130cd329d36c6b6a0151861e3695f06880433064",
       "source": "60% chance: The brother gets a {#1}{#2}{#3/}{/#2}{/#1} good mood, has earned 200 {#4}{#5}{#6/}{/#5}{/#4}, he lost his weapon (only if the weapon wasnt named or legendary) and his helm/armor took durability damage",
-      "zh": "60% 概率：这名弟兄{#1}{#2}{#3/}{/#2}{/#1}心情变好，获得 200 {#4}{#5}{#6/}{/#5}{/#4}。他会丢失武器，但名贵或传奇武器不会丢失；头盔和护甲也会损失耐久度。",
+      "zh": "60% 概率：这名弟兄{#1}{#2}{#3/}{/#2}{/#1}心情变好，获得 200 {#4}{#5}{#6/}{/#5}{/#4}。他会丢失武器，但红装或传奇武器不会丢失；头盔和护甲也会损失耐久度。",
       "status": "reviewed",
       "page_ids": [
         2817,

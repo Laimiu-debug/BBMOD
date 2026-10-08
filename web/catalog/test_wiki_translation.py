@@ -14,7 +14,7 @@ from django.test import SimpleTestCase
 from catalog.wiki_render import render_article, term_catalog
 from catalog.wiki_store import search_expression
 from catalog.wiki_translation import TranslationCatalog, TranslationError, extract_units, validate_unit
-from tools.build_wiki import build
+from tools.build_wiki import build, search_aliases
 from tools.wiki_translation_units import exact_reuse_record, extract, game_matches, match_key, validate
 
 
@@ -495,23 +495,49 @@ class WikiTranslationBuildTests(SimpleTestCase):
             build(self.source, self.root / 'wiki', self.catalog, activate=True, translations=self.translations)
         self.assertFalse((self.root / 'wiki/current.json').exists())
 
-    def test_red_equipment_search_alias_keeps_canonical_title(self):
-        path = self.source / 'inventory.json'
-        inventory = json.loads(path.read_text(encoding='utf-8'))
-        inventory['pages'][0]['title'] = 'Named Greatsword'
-        path.write_text(json.dumps(inventory), encoding='utf-8')
-        path = self.source / 'pages/1.json.gz'
-        document = json.loads(gzip.decompress(path.read_bytes()))
-        document['page']['title'] = 'Named Greatsword'
-        document['response']['parse']['title'] = 'Named Greatsword'
-        path.write_bytes(gzip.compress(json.dumps(document).encode()))
-        (self.translations / 'titles.json').write_text(json.dumps({'schema_version': 1,
-            'titles': {'Named Greatsword': '名贵巨剑'}}), encoding='utf-8')
-        release = build(self.source, self.root / 'wiki', self.catalog, translations=self.translations)
-        with closing(sqlite3.connect(release / 'wiki.sqlite3')) as db:
-            self.assertEqual(db.execute('SELECT title_zh FROM pages WHERE id=1').fetchone()[0], '名贵巨剑')
-            self.assertEqual(db.execute('SELECT rowid FROM page_search WHERE page_search MATCH ?',
-                (search_expression('红装巨剑'),)).fetchone()[0], 1)
+    def test_named_equipment_search_aliases_keep_canonical_titles(self):
+        cases = [('Named Greatsword', ('名贵巨剑', '红装巨剑', '巨剑（红装）')),
+                 ('Unique Greatsword', ('名贵巨剑', '红装巨剑', '巨剑（红装）')),
+                 ('Named and Legendary Items', ('名贵与传奇装备', '红装与传奇装备')),
+                 ('Named Items', ('名贵装备', '红装')),
+                 ('Famed Items', ('名贵装备', '红装')),
+                 ('Unique Items', ('名贵与传奇装备', '红装与传奇装备')),
+                 ('Named Weapons', ('名贵武器', '红装武器')),
+                 ('Named Item', ('获得名贵装备', '获得红装')),
+                 ('Named Item Set', ('集齐名贵装备', '集齐红装')),
+                 ('Category:Named Armor', ('分类：名贵护甲', '分类：红装护甲')),
+                 ('Category:Named Items', ('分类：名贵装备', '分类：红装'))]
+        for case_number, (title, labels) in enumerate(cases):
+            for label_number, canonical in enumerate(labels):
+                with self.subTest(title=title, canonical=canonical):
+                    path = self.source / 'inventory.json'
+                    inventory = json.loads(path.read_text(encoding='utf-8'))
+                    inventory['pages'][0]['title'] = title
+                    inventory['pages'][0]['ns'] = 14 if title.startswith('Category:') else 0
+                    path.write_text(json.dumps(inventory), encoding='utf-8')
+                    path = self.source / 'pages/1.json.gz'
+                    document = json.loads(gzip.decompress(path.read_bytes()))
+                    document['page']['title'] = title
+                    document['response']['parse']['title'] = title
+                    path.write_bytes(gzip.compress(json.dumps(document).encode()))
+                    (self.translations / 'titles.json').write_text(json.dumps({'schema_version': 1,
+                        'titles': {title: canonical}}), encoding='utf-8')
+                    release = build(self.source, self.root / f'wiki-{case_number}-{label_number}',
+                                    self.catalog, translations=self.translations)
+                    with closing(sqlite3.connect(release / 'wiki.sqlite3')) as db:
+                        self.assertEqual(db.execute('SELECT title_zh FROM pages WHERE id=1').fetchone()[0], canonical)
+                        for query in (*labels, title):
+                            self.assertEqual(db.execute('SELECT rowid FROM page_search WHERE page_search MATCH ?',
+                                (search_expression(query),)).fetchone()[0], 1)
+
+    def test_equipment_aliases_do_not_rewrite_unrelated_titles(self):
+        for title, title_zh in [('Greatsword', '名贵巨剑'), ('Greatsword', '红装巨剑'),
+                                ('Greatsword', '巨剑（红装）'), ("Scorpion's Helm", '天蝎之盔'),
+                                ('Named Item Reward', '获得名贵装备'), ('Named Item Sets', '集齐红装装备'),
+                                ('Category:Armor', '分类：名贵护甲'), ('Category:Armor', '分类：红装护甲'),
+                                ('Named Bow', ''), ('Named Bow', '弓')]:
+            with self.subTest(title=title, title_zh=title_zh):
+                self.assertEqual(search_aliases(title, title_zh), '')
 
     def test_explicit_retained_english_policy_preserves_source_and_excludes_coverage(self):
         source_path = self.source / 'pages/1.json.gz'
@@ -544,35 +570,41 @@ class WikiTranslationBuildTests(SimpleTestCase):
         self.assertEqual(validated['totals'].get('untranslated_blocks', 0), 0)
 
     def test_translated_redirects_and_red_equipment_aliases_find_the_destination(self):
-        titles = [('Feathered Nasal Helmet', '羽饰护鼻盔', ''), ('Events', '事件', ''),
-                  ('Named Warbow', '名贵战弓', ''),
-                  ('Hardened Nasal Helmet', '硬化护鼻盔', 'Feathered Nasal Helmet'),
-                  ('Global map events', '世界地图事件', 'Events'),
-                  ('Named Bow', '名贵弓', 'Named Warbow')]
-        inventory_path = self.source / 'inventory.json'
-        inventory = json.loads(inventory_path.read_text(encoding='utf-8'))
-        rows = [{'pageid': i, 'title': title, 'ns': 0, 'lastrevid': i * 10}
-                for i, (title, _, _) in enumerate(titles, 1)]
-        inventory['pages'] = rows
-        inventory_path.write_text(json.dumps(inventory), encoding='utf-8')
-        for row, (title, _, target) in zip(rows, titles):
-            parsed = {**self.parsed, 'title': title, 'revid': row['lastrevid']}
-            if target:
-                parsed.update(text='', wikitext='#REDIRECT [[' + target + ']]')
-            (self.source / f"pages/{row['pageid']}.json.gz").write_bytes(gzip.compress(json.dumps({
-                'page': row, 'requested_revision': row['lastrevid'], 'response': {'parse': parsed},
-                'retrieved_at': 'today'}).encode()))
-        (self.translations / 'titles.json').write_text(json.dumps({'schema_version': 1,
-            'titles': {title: zh for title, zh, _ in titles}}), encoding='utf-8')
-        release = build(self.source, self.root / 'wiki', self.catalog, translations=self.translations)
-        with closing(sqlite3.connect(release / 'wiki.sqlite3')) as db:
-            for query, page_id in [('硬化护鼻盔', 1), ('世界地图事件', 2), ('名贵弓', 3), ('红装弓', 3),
-                                   ('Hardened Nasal Helmet', 1), ('Named Bow', 3)]:
-                with self.subTest(query=query):
-                    ids = [r[0] for r in db.execute('SELECT rowid FROM page_search WHERE page_search MATCH ?',
-                                                    (search_expression(query),))]
-                    self.assertEqual(ids, [page_id])
-            self.assertEqual(db.execute('SELECT title_zh FROM pages WHERE id=3').fetchone()[0], '名贵战弓')
+        for prefix, suffix in (('名贵', ''), ('红装', ''), ('', '（红装）')):
+            with self.subTest(prefix=prefix, suffix=suffix):
+                titles = [('Feathered Nasal Helmet', '羽饰护鼻盔', ''), ('Events', '事件', ''),
+                          ('Named Warbow', prefix + '战弓' + suffix, ''),
+                          ('Hardened Nasal Helmet', '硬化护鼻盔', 'Feathered Nasal Helmet'),
+                          ('Global map events', '世界地图事件', 'Events'),
+                          ('Named Bow', prefix + '弓' + suffix, 'Named Warbow'),
+                          ('Unique Bow', prefix + '战弓' + suffix, 'Named Warbow'),
+                          ('Warbow', '战弓', '')]
+                inventory_path = self.source / 'inventory.json'
+                inventory = json.loads(inventory_path.read_text(encoding='utf-8'))
+                rows = [{'pageid': i, 'title': title, 'ns': 0, 'lastrevid': i * 10}
+                        for i, (title, _, _) in enumerate(titles, 1)]
+                inventory['pages'] = rows
+                inventory_path.write_text(json.dumps(inventory), encoding='utf-8')
+                for row, (title, _, target) in zip(rows, titles):
+                    parsed = {**self.parsed, 'title': title, 'revid': row['lastrevid']}
+                    if target:
+                        parsed.update(text='', wikitext='#REDIRECT [[' + target + ']]')
+                    (self.source / f"pages/{row['pageid']}.json.gz").write_bytes(gzip.compress(json.dumps({
+                        'page': row, 'requested_revision': row['lastrevid'], 'response': {'parse': parsed},
+                        'retrieved_at': 'today'}).encode()))
+                (self.translations / 'titles.json').write_text(json.dumps({'schema_version': 1,
+                    'titles': {title: zh for title, zh, _ in titles}}), encoding='utf-8')
+                release = build(self.source, self.root / ('wiki-' + prefix + suffix), self.catalog, translations=self.translations)
+                with closing(sqlite3.connect(release / 'wiki.sqlite3')) as db:
+                    for query, page_id in [('硬化护鼻盔', 1), ('世界地图事件', 2), ('名贵弓', 3), ('红装弓', 3),
+                                           ('弓（红装）', 3), ('名贵战弓', 3), ('红装战弓', 3), ('战弓（红装）', 3),
+                                           ('Hardened Nasal Helmet', 1), ('Named Bow', 3), ('Unique Bow', 3)]:
+                        with self.subTest(query=query):
+                            ids = [r[0] for r in db.execute('SELECT rowid FROM page_search WHERE page_search MATCH ?',
+                                                            (search_expression(query),))]
+                            self.assertEqual(ids, [page_id])
+                    self.assertEqual(db.execute('SELECT title_zh FROM pages WHERE id=3').fetchone()[0], prefix + '战弓' + suffix)
+                    self.assertEqual(db.execute('SELECT title,title_zh FROM pages WHERE id=8').fetchone(), ('Warbow', '战弓'))
 
     def test_missing_translation_directory_cannot_activate_but_none_keeps_original_mode(self):
         destination = self.root / 'wiki'

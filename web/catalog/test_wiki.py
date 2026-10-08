@@ -10,12 +10,25 @@ from django.core.management.base import CommandError
 from django.test import TestCase, SimpleTestCase, override_settings
 from bs4 import BeautifulSoup
 
-from catalog.wiki_render import render_article
+from catalog.wiki_render import render_article, translated_title
 from catalog.wiki_store import page_url, open_store
 from tools.build_wiki import build
 
 
 class WikiRenderingTests(SimpleTestCase):
+    def test_named_equipment_title_separates_type_and_quality(self):
+        terms = {'greatsword': ('Greatsword', '巨剑'), 'weapons': ('Weapons', '武器'),
+                 'scorpion\'s helm': ("Scorpion's Helm", '天蝎之盔')}
+        self.assertEqual(translated_title('Greatsword', terms), '巨剑')
+        self.assertEqual(translated_title('Named Greatsword', terms), '巨剑（红装）')
+        self.assertEqual(translated_title('Unique Greatsword', terms), '巨剑（红装）')
+        self.assertEqual(translated_title('Named Weapons', terms), '红装武器')
+        self.assertEqual(translated_title("Scorpion's Helm", terms), '天蝎之盔')
+        self.assertEqual(translated_title('Dev Blog 117: Named Equipment', terms), '')
+        self.assertEqual(translated_title('Unique Unknown Item', terms), '')
+        terms['unique greatsword'] = ('Unique Greatsword', '既定专名')
+        self.assertEqual(translated_title('Unique Greatsword', terms), '既定专名')
+
     def render_source(self,text):
         parsed={'title':'Test','text':text,'sections':[{'line':'Stats','anchor':'Stats','level':'2'}]}
         terms={'greatsword':('Greatsword','巨剑')}

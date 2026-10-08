@@ -5052,7 +5052,7 @@
       "id": "u-8ae3198ca394796184fe762c",
       "source_sha256": "8ae3198ca394796184fe762cf629789baac8786dca5ad060b17a3f033bbc6883",
       "source": "{#1}Flails{/#1} are the best weapons against them because they bypass their shields. {#2}Swords{/#2} have +10 to hit. {#3}Spears{/#3} have +20 to hit but deal piercing damage which they resist. {#4}Ranged weapons{/#4} are almost useless, except {#5}throwing axes{/#5}.",
-      "zh": "{#1}连枷{/#1}能绕过盾牌，是对付它们的最佳武器。{#2}剑{/#2}有 +10 命中加成，{#3}矛{/#3}有 +20 命中加成，但矛造成的穿刺伤害会受到抗性削减。除{#5}投斧{/#5}外，{#4}远程武器{/#4}几乎毫无作用。",
+      "zh": "{#1}连枷{/#1}能绕过盾牌，是对付它们的最佳武器。{#2}剑{/#2}有 +10 命中加成，{#3}矛{/#3}有 +20 命中加成，但矛造成的穿刺伤害会受到抗性削减。除{#5}飞斧{/#5}外，{#4}远程武器{/#4}几乎毫无作用。",
       "status": "reviewed",
       "page_ids": [
         10514
@@ -5186,7 +5186,7 @@
       "id": "u-42122b70985f4e2a3f74a6e9",
       "source_sha256": "42122b70985f4e2a3f74a6e938ee6fa316422995af6009598e25174bcb45a9bd",
       "source": "{#1}Throwing Axes{/#1} are required for your ranged brothers to be effective.",
-      "zh": "远程成员需要使用{#1}投斧{/#1}，才能有效对付它们。",
+      "zh": "远程成员需要使用{#1}飞斧{/#1}，才能有效对付它们。",
       "status": "reviewed",
       "page_ids": [
         10515,
@@ -5200,7 +5200,7 @@
       "id": "u-66ddb710e720a7b66cf803e0",
       "source_sha256": "66ddb710e720a7b66cf803e0dd98e6c679f9d0407599a9e725f9ea6809256cce",
       "source": "{#1}Heavy Rusty Axe{/#1} kills them in one hit with a {#2}trait{/#2} like {#3}Huge{/#3}. {#4}Two-Handed Flanged Mace{/#4} does it with {#5}Killing Frenzy{/#5}. {#6}Named{/#6} two-handed weapons can be even better.",
-      "zh": "配合{#3}高大{/#3}等{#2}特性{/#2}，{#1}锈蚀重斧{/#1}可以一击杀死它们；{#4}双手棱头钉锤{/#4}配合{#5}杀戮狂热{/#5}也能做到。{#6}名贵{/#6}双手武器可能更强。",
+      "zh": "配合{#3}高大{/#3}等{#2}特性{/#2}，{#1}锈蚀重斧{/#1}可以一击杀死它们；{#4}双手棱头钉锤{/#4}配合{#5}杀戮狂热{/#5}也能做到。{#6}红装{/#6}双手武器可能更强。",
       "status": "reviewed",
       "page_ids": [
         10515,
@@ -6137,7 +6137,7 @@
       "id": "u-9ef014857df4ea11acd90dc0",
       "source_sha256": "9ef014857df4ea11acd90dc004161d70946363c7ef5ccc3813f0c4a4f2b1048c",
       "source": "{#1}Injuring{/#1} them is impractical but possible. Take {#2}Crippling Strikes{/#2} and use {#3}Greatsword{/#3}'s {#4}Overhead Strike{/#4}, {#5}Shamshir{/#5}'s {#6}Gash{/#6} with {#7}Sword Mastery{/#7}, {#8}Fencing Sword{/#8}'s {#9}Lunge{/#9} with extremely high initiative, or two-handed {#10}cleaver{/#10}'s {#11}Decapitate{/#11} when the Lindwurm is wounded. The hit must be critical, and you still need {#12}Huge{/#12}, {#13}Drunkard{/#13}, {#14}Killing Frenzy{/#14}, {#15}Strange Mushrooms{/#15} or the weapon to be {#16}named{/#16} and having increased damage to have a chance to inflict an injury.",
-      "zh": "对它们造成{#1}伤势{/#1}并不实用，但仍然可能。学习{#2}致残打击{/#2}后，可以使用{#3}巨剑{/#3}的{#4}当头劈斩{/#4}、配合{#7}剑术精通{/#7}的{#5}舍施尔弯刀{/#5}{#6}撕裂{/#6}、极高先攻下的{#8}决斗刺剑{/#8}{#9}突刺{/#9}，或在林德蠕龙已经受伤时，用双手{#10}斩刀{/#10}施展{#11}斩首{/#11}。这一击必须暴击，而且仍需{#12}高大{/#12}、{#13}酒鬼{/#13}、{#14}杀戮狂热{/#14}、{#15}奇异蘑菇{/#15}，或伤害更高的{#16}名贵{/#16}武器加持，才有机会造成伤势。",
+      "zh": "对它们造成{#1}伤势{/#1}并不实用，但仍然可能。学习{#2}致残打击{/#2}后，可以使用{#3}巨剑{/#3}的{#4}当头劈斩{/#4}、配合{#7}剑术精通{/#7}的{#5}舍施尔弯刀{/#5}{#6}撕裂{/#6}、极高先攻下的{#8}决斗刺剑{/#8}{#9}突刺{/#9}，或在林德蠕龙已经受伤时，用双手{#10}斩刀{/#10}施展{#11}斩首{/#11}。这一击必须暴击，而且仍需{#12}高大{/#12}、{#13}酒鬼{/#13}、{#14}杀戮狂热{/#14}、{#15}奇异蘑菇{/#15}，或伤害更高的{#16}红装{/#16}武器加持，才有机会造成伤势。",
       "status": "reviewed",
       "page_ids": [
         10526
@@ -6375,7 +6375,7 @@
       "id": "u-31fac270c62ced9f8ca55310",
       "source_sha256": "31fac270c62ced9f8ca553101462538b8b4059f04df5f743ae46e83cfc07772a",
       "source": "{#1}Injuring{/#1} them is difficult, but possible. You need {#2}Crippling Strikes{/#2} or a {#3}named weapon{/#3} with increased damage.",
-      "zh": "对它们造成{#1}伤势{/#1}很难，但并非不可能。需要{#2}致残打击{/#2}，或伤害更高的{#3}名贵武器{/#3}。",
+      "zh": "对它们造成{#1}伤势{/#1}很难，但并非不可能。需要{#2}致残打击{/#2}，或伤害更高的{#3}红装武器{/#3}。",
       "status": "reviewed",
       "page_ids": [
         10528
@@ -8908,7 +8908,7 @@
       "id": "u-3c58b9779aafba33709b7c35",
       "source_sha256": "3c58b9779aafba33709b7c35479e9d2872e6a9c120456d51cf9167ede0f35b38",
       "source": "Popular weapon choices against him are {#1}two-handed hammers{/#1}, {#2}throwing weapons{/#2} and hard-hitting {#3}named{/#3} two-handed weapons.",
-      "zh": "常见的应对武器包括{#1}双手锤{/#1}、{#2}投掷武器{/#2}以及伤害很高的{#3}名贵{/#3}双手武器。",
+      "zh": "常见的应对武器包括{#1}双手锤{/#1}、{#2}投掷武器{/#2}以及伤害很高的{#3}红装{/#3}双手武器。",
       "status": "reviewed",
       "page_ids": [
         10555
@@ -8938,7 +8938,7 @@
       "id": "u-5bdd13c3334e3679279e3352",
       "source_sha256": "5bdd13c3334e3679279e335271c2c546a5b4735160e87b28f64f11849045297a",
       "source": "The {#1}named cleaver{/#1} he wields is more dangerous to {#2}Nimble{/#2} than to {#3}Battle Forged{/#3} brothers.",
-      "zh": "他手中的{#1}名贵斩刀{/#1}对{#2}轻灵{/#2}弟兄的威胁高于对{#3}久经战阵{/#3}弟兄。",
+      "zh": "他手中的{#1}红装斩刀{/#1}对{#2}轻灵{/#2}弟兄的威胁高于对{#3}久经战阵{/#3}弟兄。",
       "status": "reviewed",
       "page_ids": [
         10555
@@ -13783,7 +13783,7 @@
       "id": "u-9d32e9ce2bcb3188742dde5e",
       "source_sha256": "9d32e9ce2bcb3188742dde5e8f91982186dec5b50c2af5b56b4e6f62800ff2ee",
       "source": "Regular items (skipped if conflicting with the named one):",
-      "zh": "常规装备（若与名贵装备冲突，则跳过）：",
+      "zh": "常规装备（若与红装冲突，则跳过）：",
       "status": "reviewed",
       "page_ids": [
         14435,
@@ -13839,7 +13839,7 @@
       "id": "u-6a623f6bcf7ff7cbaebad10f",
       "source_sha256": "6a623f6bcf7ff7cbaebad10f44f37b3e30406d6915f849846a6fd2d97aaaa956",
       "source": "Can inflict {#1}injuries{/#1} through heavy armor with above average named weapon rolls.",
-      "zh": "若名贵武器属性高于平均水平，就能穿透重甲造成{#1}伤势{/#1}。",
+      "zh": "若红装武器属性高于平均水平，就能穿透重甲造成{#1}伤势{/#1}。",
       "status": "reviewed",
       "page_ids": [
         14435
@@ -13849,7 +13849,7 @@
       "id": "u-7503497443a14223cddc1725",
       "source_sha256": "7503497443a14223cddc172523f6b566f9fa0a3ad3f03405923a223a10f77ad6",
       "source": "{#1}Head Hunter{/#1} allows him to land double headshots, deadly with above average named weapon rolls.",
-      "zh": "{#1}猎首者{/#1}能让他连续两次命中头部；若名贵武器属性高于平均水平，尤其致命。",
+      "zh": "{#1}猎首者{/#1}能让他连续两次命中头部；若红装武器属性高于平均水平，尤其致命。",
       "status": "reviewed",
       "page_ids": [
         14435,
@@ -14686,7 +14686,7 @@
       "id": "u-6932fe4229bc8b72d2f8b675",
       "source_sha256": "6932fe4229bc8b72d2f8b6751deeb27e29003287be09407bf10e54b84bd9c6e2",
       "source": "A {#1}Named Dagger{/#1} (double chance) or {#2}Named Qatal Dagger{/#2}.",
-      "zh": "装备{#1}名贵匕首{/#1} （双倍概率）或{#2}名贵卡塔尔匕首{/#2}。",
+      "zh": "装备{#1}红装匕首{/#1} （双倍概率）或{#2}红装卡塔尔匕首{/#2}。",
       "status": "reviewed",
       "page_ids": [
         15015
@@ -14763,7 +14763,7 @@
       "id": "u-67a41cd94a7850aa5982abb2",
       "source_sha256": "67a41cd94a7850aa5982abb2dffef3d9f1087a0a273b62b3ee102c2ef6eb9cb1",
       "source": "50% chance of a {#1}Named Orc Cleaver{/#1} or {#2}Named Orc Axe{/#2}.",
-      "zh": "50%概率装备{#1}名贵兽人斩刀{/#1}或{#2}名贵兽人斧{/#2}。",
+      "zh": "50%概率装备{#1}红装兽人斩刀{/#1}或{#2}红装兽人斧{/#2}。",
       "status": "reviewed",
       "page_ids": [
         15019,
@@ -14784,7 +14784,7 @@
       "id": "u-36ec99b12057efa4bf081868",
       "source_sha256": "36ec99b12057efa4bf081868aaffc4ae2611f19d06f7de4209fff57e2e47b283",
       "source": "But don't underestimate him if he has a {#1}named weapon{/#1} and no shield. With it he can hit harder than a {#2}champion Barbarian King{/#2} with his {#3}Named Rusty Warblade{/#3}.",
-      "zh": "但如果军阀携带{#1}名贵武器{/#1}又不拿盾，就不要低估它。其伤害甚至能超过手持{#3}名贵锈蚀战刃{/#3}的{#2}蛮族之王（精英）{/#2}。",
+      "zh": "但如果军阀携带{#1}红装武器{/#1}又不拿盾，就不要低估它。其伤害甚至能超过手持{#3}红装锈蚀战刃{/#3}的{#2}蛮族之王（精英）{/#2}。",
       "status": "reviewed",
       "page_ids": [
         15019
@@ -14864,7 +14864,7 @@
       "id": "u-56e7f08b48c8db82573f756b",
       "source_sha256": "56e7f08b48c8db82573f756bab022ed419ca75c8309410d2bef7e9728c68394c",
       "source": "A {#1}Named Bladed Pike{/#1}, {#2}Named Crypt Cleaver{/#2}, {#3}Named Warscythe{/#3} or {#4}Named Khopesh{/#4}.",
-      "zh": "装备{#1}名贵刃枪{/#1}、{#2}名贵墓穴斩刀{/#2}、{#3}名贵战镰{/#3}或{#4}名贵镰形剑{/#4}。",
+      "zh": "装备{#1}红装刃枪{/#1}、{#2}红装墓穴斩刀{/#2}、{#3}红装战镰{/#3}或{#4}红装镰形剑{/#4}。",
       "status": "reviewed",
       "page_ids": [
         15022
@@ -14874,7 +14874,7 @@
       "id": "u-33d8bb1dc3efaeccf4e1be49",
       "source_sha256": "33d8bb1dc3efaeccf4e1be49c9862f3165cc43e22916825c4292cef883f14340",
       "source": "Isn't as fragile as a regular Honor Guard and deals more damage with a {#1}named weapon{/#1} and damage modifier. Otherwise similar to a non-champion version, wears the same armor and is easy to hit.",
-      "zh": "精英荣誉卫士没有普通版本那么脆弱，{#1}名贵武器{/#1}和伤害修正也会提高其伤害。其他方面与普通版本相似，穿相同的护甲，也很容易被命中。",
+      "zh": "精英荣誉卫士没有普通版本那么脆弱，{#1}红装武器{/#1}和伤害修正也会提高其伤害。其他方面与普通版本相似，穿相同的护甲，也很容易被命中。",
       "status": "reviewed",
       "page_ids": [
         15022
@@ -14884,7 +14884,7 @@
       "id": "u-27c0951b515d6608e1094f14",
       "source_sha256": "27c0951b515d6608e1094f1450d8f44e0871c7cb1fe871b67294cf62c08c01b7",
       "source": "{#1}Named Crypt Cleaver{/#1} can be very deadly to {#2}Nimble{/#2} brothers and even to {#3}Battle Forged{/#3}, if generates with very good stats.",
-      "zh": "{#1}名贵墓穴斩刀{/#1}对{#2}轻灵{/#2}弟兄可能极其致命；若生成属性很好，连{#3}久经战阵{/#3}弟兄也同样危险。",
+      "zh": "{#1}红装墓穴斩刀{/#1}对{#2}轻灵{/#2}弟兄可能极其致命；若生成属性很好，连{#3}久经战阵{/#3}弟兄也同样危险。",
       "status": "reviewed",
       "page_ids": [
         15022
@@ -14934,7 +14934,7 @@
       "id": "u-ceb89fd3ed8af2b59745be36",
       "source_sha256": "ceb89fd3ed8af2b59745be36a0bdad55d110d6e3ba8ffe8fce48da98936be371",
       "source": "70% chance of a {#1}Named Sword{/#1} (double chance) or {#2}Named Shamshir{/#2}.",
-      "zh": "70%概率装备{#1}名贵剑{/#1} （双倍概率）或{#2}名贵舍施尔弯刀{/#2}。",
+      "zh": "70%概率装备{#1}红装剑{/#1} （双倍概率）或{#2}红装舍施尔弯刀{/#2}。",
       "status": "reviewed",
       "page_ids": [
         15043
@@ -14944,7 +14944,7 @@
       "id": "u-9a8a5edb3a983bb66e024fda",
       "source_sha256": "9a8a5edb3a983bb66e024fda325dcab6bc01305f4ca31dec6203f0ee746ba480",
       "source": "30% chance of a {#1}Named Noble Mail Armor{/#1} (176-200), {#2}Studded Mail Armor{/#2} (143-162) or {#3}Hardened Leather Armor{/#3} (126-143).",
-      "zh": "30%概率装备{#1}名贵贵族锁甲{/#1}（176-200）、{#2}铆钉锁甲{/#2}（143-162）或{#3}硬化皮甲{/#3}（126-143）。",
+      "zh": "30%概率装备{#1}红装贵族锁甲{/#1}（176-200）、{#2}铆钉锁甲{/#2}（143-162）或{#3}硬化皮甲{/#3}（126-143）。",
       "status": "reviewed",
       "page_ids": [
         15043
@@ -15028,7 +15028,7 @@
       "id": "u-34e38b07188d94b5a8065afa",
       "source_sha256": "34e38b07188d94b5a8065afad0bd4a76e79b0c7500f331197bf2d01375a5217f",
       "source": "{#1}Named weapons{/#1} can do high damage even to {#2}Battle Forged{/#2} brothers.",
-      "zh": "{#1}名贵武器{/#1}即使对{#2}久经战阵{/#2}弟兄也能造成高伤害。",
+      "zh": "{#1}红装武器{/#1}即使对{#2}久经战阵{/#2}弟兄也能造成高伤害。",
       "status": "reviewed",
       "page_ids": [
         15043
@@ -15089,7 +15089,7 @@
       "id": "u-7239bcd98766b8c5895b02db",
       "source_sha256": "7239bcd98766b8c5895b02dba7342454ee8f9c09289fe05b635352bb43d7182c",
       "source": "1/3 chance of a {#1}Named Rusty Warblade{/#1}, {#2}Named Two-Handed Skull Hammer{/#2}, {#3}Named Heavy Rusty Axe{/#3} or {#4}Named Two-Handed Spiked Mace{/#4}.",
-      "zh": "1/3概率装备{#1}名贵锈蚀战刃{/#1}、{#2}名贵双手颅骨锤{/#2}、{#3}名贵锈蚀重斧{/#3}或{#4}名贵双手尖刺钉锤{/#4}。",
+      "zh": "1/3概率装备{#1}红装锈蚀战刃{/#1}、{#2}红装双手颅骨锤{/#2}、{#3}红装锈蚀重斧{/#3}或{#4}红装双手尖刺钉锤{/#4}。",
       "status": "reviewed",
       "page_ids": [
         15117
@@ -15119,7 +15119,7 @@
       "id": "u-0cb7d42468b93e7cf83f6b4e",
       "source_sha256": "0cb7d42468b93e7cf83f6b4e25ec5a801d920c245edb6c04d7e8f9e0160a5797",
       "source": "Tougher, more brave and accurate and deals more damage than a regular Chosen, especially with a {#1}named weapon{/#1}, otherwise similar.",
-      "zh": "比普通神选战士更耐打、意志更高、命中更准、伤害更高，尤其在携带{#1}名贵武器{/#1}时。其他方面相似。",
+      "zh": "比普通神选战士更耐打、意志更高、命中更准、伤害更高，尤其在携带{#1}红装武器{/#1}时。其他方面相似。",
       "status": "reviewed",
       "page_ids": [
         15117
@@ -15139,7 +15139,7 @@
       "id": "u-b95607b15046ed4cd36aa06f",
       "source_sha256": "b95607b15046ed4cd36aa06f18c98d01bc52a5a08e8ce90f2b16f8cc964ddd09",
       "source": "A named weapon makes him more dangerous. Control him by {#1}stunning{/#1} or {#2}disarming{/#2}. He counters it by acting ahead of you and waiting, and uses {#3}Adrenaline{/#3} to get ahead. If he does it, you can only stun to prevent Adrenaline.",
-      "zh": "名贵武器会让精英更加危险，可用{#1}眩晕{/#1}或{#2}缴械{/#2}控制他。他会抢先行动再等待来应对，并用{#3}肾上腺素{/#3}保持先手。如果他这样做，就只能靠眩晕阻止肾上腺素。",
+      "zh": "红装武器会让精英更加危险，可用{#1}眩晕{/#1}或{#2}缴械{/#2}控制他。他会抢先行动再等待来应对，并用{#3}肾上腺素{/#3}保持先手。如果他这样做，就只能靠眩晕阻止肾上腺素。",
       "status": "reviewed",
       "page_ids": [
         15117
@@ -15159,7 +15159,7 @@
       "id": "u-402ea7e61909a998984f5e3f",
       "source_sha256": "402ea7e61909a998984f5e3f442f6be97b3451a1da9a8baed90624a84fa4b012",
       "source": "{#1}Named Rusty Warblade{/#1} is deadly to {#2}Nimble{/#2} brothers and even to Battle Forged, if generates with very good stats.",
-      "zh": "{#1}名贵锈蚀战刃{/#1}对{#2}轻灵{/#2}弟兄非常致命；若生成属性很好，久经战阵弟兄也同样危险。",
+      "zh": "{#1}红装锈蚀战刃{/#1}对{#2}轻灵{/#2}弟兄非常致命；若生成属性很好，久经战阵弟兄也同样危险。",
       "status": "reviewed",
       "page_ids": [
         15117
@@ -15219,7 +15219,7 @@
       "id": "u-875ce21ebeab2f40bec0741c",
       "source_sha256": "875ce21ebeab2f40bec0741c95ea2f87e89a65630b1e4d1927a5c763f4f296e3",
       "source": "50% chance of a {#1}Named Axe{/#1}, {#2}Named Cleaver{/#2}, {#3}Named Flail{/#3}, {#4}Named Greataxe{/#4}, {#5}Named Greatsword{/#5}, {#6}Named Mace{/#6}, {#7}Named Two-Handed Hammer{/#7}, {#8}Named Two-Handed Mace{/#8} or {#9}Named Two-Handed Flail{/#9}.",
-      "zh": "50%概率装备{#1}名贵斧{/#1}、{#2}名贵斩刀{/#2}、{#3}名贵连枷{/#3}、{#4}名贵巨斧{/#4}、{#5}名贵巨剑{/#5}、{#6}名贵钉锤{/#6}、{#7}名贵双手战锤{/#7}、{#8}名贵双手钉锤{/#8}或{#9}名贵双手连枷{/#9}。",
+      "zh": "50%概率装备{#1}红装斧{/#1}、{#2}红装斩刀{/#2}、{#3}红装连枷{/#3}、{#4}红装巨斧{/#4}、{#5}红装巨剑{/#5}、{#6}红装钉锤{/#6}、{#7}红装双手战锤{/#7}、{#8}红装双手钉锤{/#8}或{#9}红装双手连枷{/#9}。",
       "status": "reviewed",
       "page_ids": [
         16150
@@ -15229,7 +15229,7 @@
       "id": "u-a4d25cba43aaeb55f21f0276",
       "source_sha256": "a4d25cba43aaeb55f21f0276ff81f8eee53a01e3a530fba39b05f895b51ad1e4",
       "source": "50% chance of a {#1}Named Undead Heater Shield{/#1} or {#2}Named Undead Kite Shield{/#2}.",
-      "zh": "50%概率装备{#1}名贵亡灵熨斗形盾{/#1}或{#2}名贵亡灵鸢形盾{/#2}。",
+      "zh": "50%概率装备{#1}红装亡灵熨斗形盾{/#1}或{#2}红装亡灵鸢形盾{/#2}。",
       "status": "reviewed",
       "page_ids": [
         16150
@@ -15249,7 +15249,7 @@
       "id": "u-a8c7e669a1309c696327d83f",
       "source_sha256": "a8c7e669a1309c696327d83ff94040e6d8aaf87a9f94f0007d435ff00f342dd9",
       "source": "{#1}Named{/#1} two-handed weapons can kill a {#2}Battle Forged{/#2} brother in one hit even if he has {#3}Steel Brow{/#3} if the named weapon is above average.",
-      "zh": "若{#1}名贵{/#1}双手武器的属性高于平均水平，即使{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死。",
+      "zh": "若{#1}红装{/#1}双手武器的属性高于平均水平，即使{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死。",
       "status": "reviewed",
       "page_ids": [
         16150
@@ -15269,7 +15269,7 @@
       "id": "u-671533204dfe59b0721a3379",
       "source_sha256": "671533204dfe59b0721a337944a7456dfc099397c081087ad522e8c6b6bfd9d4",
       "source": "When he is dead, step on his body and take his named weapon before he revives.",
-      "zh": "精英陨落英雄倒下后，站到尸体上，在它复活前拿走名贵武器。",
+      "zh": "精英陨落英雄倒下后，站到尸体上，在它复活前拿走红装武器。",
       "status": "reviewed",
       "page_ids": [
         16150
@@ -15392,7 +15392,7 @@
       "id": "u-c2aa1d72be8792eaa35077dc",
       "source_sha256": "c2aa1d72be8792eaa35077dc39e294eb53fdd23d66adae79bf2ac9b83ba69cc9",
       "source": "A {#1}Named Cruel Falchion{/#1}, {#2}Named Jagged Pike{/#2} or {#3}Named Goblin Skewer{/#3}.",
-      "zh": "装备{#1}名贵凶刃弯刀{/#1}、{#2}名贵锯齿长枪{/#2}或{#3}名贵地精尖矛{/#3}。",
+      "zh": "装备{#1}红装凶刃弯刀{/#1}、{#2}红装锯齿长枪{/#2}或{#3}红装地精尖矛{/#3}。",
       "status": "reviewed",
       "page_ids": [
         16183
@@ -15464,7 +15464,7 @@
       "id": "u-c88ac4f905549e95e5181547",
       "source_sha256": "c88ac4f905549e95e5181547512ad612b28dddfb2d47b782a14e0d22188f4af0",
       "source": "75% chance of a {#1}Named Swordlance{/#1} (double chance) or a {#2}Named Shamshir{/#2}.",
-      "zh": "75%概率装备{#1}名贵长柄剑刃{/#1} （双倍概率）或{#2}名贵舍施尔弯刀{/#2}。",
+      "zh": "75%概率装备{#1}红装长柄剑刃{/#1} （双倍概率）或{#2}红装舍施尔弯刀{/#2}。",
       "status": "reviewed",
       "page_ids": [
         16215
@@ -15494,7 +15494,7 @@
       "id": "u-c861c625a6a3e740d9d43a14",
       "source_sha256": "c861c625a6a3e740d9d43a144c3d56330d4d91a607733a7de001b773017a181f",
       "source": "The optimal tactic against him is using multiple nets and {#1}throwing weapons{/#1}, even better if they are {#2}named{/#2} and have extra accuracy, with {#3}Duelist{/#3} and {#4}Throwing Mastery{/#4}.",
-      "zh": "最合适的战术是准备多张投网，并用{#1}投掷武器{/#1}搭配{#3}决斗家{/#3}和{#4}投掷精通{/#4}；若是带有额外命中加成的{#2}名贵{/#2}投掷武器就更好。",
+      "zh": "最合适的战术是准备多张投网，并用{#1}投掷武器{/#1}搭配{#3}决斗家{/#3}和{#4}投掷精通{/#4}；若是带有额外命中加成的{#2}红装{/#2}投掷武器就更好。",
       "status": "reviewed",
       "page_ids": [
         16215
@@ -15504,7 +15504,7 @@
       "id": "u-d6179bbc3a1c92680ab4a26b",
       "source_sha256": "d6179bbc3a1c92680ab4a26beebd7aed9ec712ec083caba6f3ee8767e6b30111",
       "source": "Named weapons can do high damage even to {#1}Battle Forged{/#1} brothers. {#2}Shamshir{/#2} is more dangerous, deals same damage but has more attacks on a single target.",
-      "zh": "名贵武器即使对{#1}久经战阵{/#1}弟兄也能造成高伤害。{#2}舍施尔弯刀{/#2}更危险：单次伤害相同，但对单个目标的攻击次数更多。",
+      "zh": "红装武器即使对{#1}久经战阵{/#1}弟兄也能造成高伤害。{#2}舍施尔弯刀{/#2}更危险：单次伤害相同，但对单个目标的攻击次数更多。",
       "status": "reviewed",
       "page_ids": [
         16215
@@ -15544,7 +15544,7 @@
       "id": "u-e070d76ad4320058347374ee",
       "source_sha256": "e070d76ad4320058347374ee8c91eee7e0c671b2b2c58b8fc0d38a546f2ab414",
       "source": "25% chance of a {#1}Named Axe{/#1}, {#2}Named Billhook{/#2}, {#3}Named Cleaver{/#3}, {#4}Named Dagger{/#4}, {#5}Named Flail{/#5}, {#6}Named Greataxe{/#6}, {#7}Named Greatsword{/#7}, {#8}Named Longaxe{/#8}, {#9}Named Mace{/#9}, {#10}Named Spear{/#10}, {#11}Named Sword{/#11}, {#12}Named Two-Handed Hammer{/#12}, {#13}Named Warbrand{/#13}, {#14}Named Warhammer{/#14}, {#15}Named Pike{/#15}, {#16}Named Polehammer{/#16}, {#17}Named Fencing Sword{/#17}, {#18}Named Two-Handed Mace{/#18}, {#19}Named Two-Handed Flail{/#19}, {#20}Named Three-Headed Flail{/#20}, {#21}Named Spetum{/#21}, {#22}Named Bardiche{/#22}, {#23}Named Shamshir{/#23}, {#24}Named Battle Whip{/#24}, {#25}Named Qatal Dagger{/#25}, {#26}Named Swordlance{/#26}, {#27}Named Polemace{/#27}, {#28}Named Two-Handed Scimitar{/#28}, {#29}Named Estoc{/#29}, {#30}Named Pollaxe{/#30} or {#31}Named Executioner's Sword{/#31}.",
-      "zh": "25%概率装备{#1}名贵斧{/#1}、{#2}名贵钩镰{/#2}、{#3}名贵斩刀{/#3}、{#4}名贵匕首{/#4}、{#5}名贵连枷{/#5}、{#6}名贵巨斧{/#6}、{#7}名贵巨剑{/#7}、{#8}名贵长柄斧{/#8}、{#9}名贵钉锤{/#9}、{#10}名贵矛{/#10}、{#11}名贵剑{/#11}、{#12}名贵双手战锤{/#12}、{#13}名贵长刃战刀{/#13}、{#14}名贵破甲锤{/#14}、{#15}名贵长枪{/#15}、{#16}名贵长柄战锤{/#16}、{#17}名贵决斗刺剑{/#17}、{#18}名贵双手钉锤{/#18}、{#19}名贵双手连枷{/#19}、{#20}名贵三头连枷{/#20}、{#21}名贵三尖矛{/#21}、{#22}名贵长刃斧{/#22}、{#23}名贵舍施尔弯刀{/#23}、{#24}名贵战鞭{/#24}、{#25}名贵卡塔尔匕首{/#25}、{#26}名贵长柄剑刃{/#26}、{#27}名贵长柄钉锤{/#27}、{#28}名贵双手弯刀{/#28}、{#29}名贵穿甲刺剑{/#29}、{#30}名贵骑士斧戟{/#30}或{#31}名贵行刑剑{/#31}。",
+      "zh": "25%概率装备{#1}红装斧{/#1}、{#2}红装钩镰{/#2}、{#3}红装斩刀{/#3}、{#4}红装匕首{/#4}、{#5}红装连枷{/#5}、{#6}红装巨斧{/#6}、{#7}红装巨剑{/#7}、{#8}红装长柄斧{/#8}、{#9}红装钉锤{/#9}、{#10}红装矛{/#10}、{#11}红装剑{/#11}、{#12}红装双手战锤{/#12}、{#13}红装长刃战刀{/#13}、{#14}红装破甲锤{/#14}、{#15}红装长枪{/#15}、{#16}红装长柄战锤{/#16}、{#17}红装决斗刺剑{/#17}、{#18}红装双手钉锤{/#18}、{#19}红装双手连枷{/#19}、{#20}红装三头连枷{/#20}、{#21}红装三尖矛{/#21}、{#22}红装长刃斧{/#22}、{#23}红装舍施尔弯刀{/#23}、{#24}红装战鞭{/#24}、{#25}红装卡塔尔匕首{/#25}、{#26}红装长柄剑刃{/#26}、{#27}红装长柄钉锤{/#27}、{#28}红装双手弯刀{/#28}、{#29}红装穿甲刺剑{/#29}、{#30}红装骑士斧戟{/#30}或{#31}红装行刑剑{/#31}。",
       "status": "reviewed",
       "page_ids": [
         16220
@@ -15554,7 +15554,7 @@
       "id": "u-1f0b0c4b6dcfdb18f09de8a8",
       "source_sha256": "1f0b0c4b6dcfdb18f09de8a8ed8af6d483cb058149d997dac3e60ea135184406",
       "source": "25% chance of an {#1}Enhanced Coat of Plates{/#1} (352-400), {#2}Plated Mail Hauberk{/#2} (330-375), {#3}Leopard Armor{/#3} (319-362), {#4}Golden Lamellar Armor{/#4} (313-356), {#5}Named Sellsword's Armor{/#5} (286-325), {#6}Golden Scale Armor{/#6} (264-300), {#7}Heraldic Mail Hauberk{/#7} (231-262), {#8}Black and Gold Armor{/#8} (231-262), {#9}Named Noble Mail Armor{/#9} (176-200), {#10}Studded Mail Armor{/#10} (154-175) or {#11}Hardened Leather Armor{/#11} (126-143).",
-      "zh": "25%概率装备{#1}强化铁片战衣{/#1}（352-400）、{#2}覆板长身锁甲{/#2}（330-375）、{#3}豹纹护甲{/#3}（319-362）、{#4}金色札甲{/#4}（313-356）、{#5}名贵佣兵甲{/#5}（286-325）、{#6}金色鳞甲{/#6}（264-300）、{#7}纹章长身锁甲{/#7}（231-262）、{#8}黑金护甲{/#8}（231-262）、{#9}名贵贵族锁甲{/#9}（176-200）、{#10}铆钉锁甲{/#10}（154-175）或{#11}硬化皮甲{/#11}（126-143）。",
+      "zh": "25%概率装备{#1}强化铁片战衣{/#1}（352-400）、{#2}覆板长身锁甲{/#2}（330-375）、{#3}豹纹护甲{/#3}（319-362）、{#4}金色札甲{/#4}（313-356）、{#5}红装佣兵甲{/#5}（286-325）、{#6}金色鳞甲{/#6}（264-300）、{#7}纹章长身锁甲{/#7}（231-262）、{#8}黑金护甲{/#8}（231-262）、{#9}红装贵族锁甲{/#9}（176-200）、{#10}铆钉锁甲{/#10}（154-175）或{#11}硬化皮甲{/#11}（126-143）。",
       "status": "reviewed",
       "page_ids": [
         16220
@@ -15564,7 +15564,7 @@
       "id": "u-e9c82e249e5ef840c858f0b3",
       "source_sha256": "e9c82e249e5ef840c858f0b34d517399d27cdfac9e54adb0b0c6ada09d4a01c5",
       "source": "25% chance of a {#1}Gold and Black Turban{/#1} (319-362), {#2}Named Conic Helmet{/#2} (308-350), {#3}Heraldic Bascinet{/#3} (308-350), {#4}Sallet{/#4} (291-331), {#5}Named Nordic Helmet{/#5} (291-331), {#6}Lindwurm Helmet{/#6} (291-331), {#7}Feathered Nasal Helmet{/#7} (291-331), {#8}Red and Gold Band Helmet{/#8} (280-318), {#9}Golden Feathered Helmet{/#9} (264-300), {#10}Named Steppe Helmet{/#10} (220-250), {#11}Wolf Helmet{/#11} (154-175) or {#12}Norse Helmet{/#12} (137-156).",
-      "zh": "25%概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}名贵锥形盔{/#2}（308-350）、{#3}纹章尖顶盔{/#3}（308-350）、{#4}萨莱特盔{/#4}（291-331）、{#5}名贵北境盔{/#5}（291-331）、{#6}林德蠕龙战盔{/#6}（291-331）、{#7}羽饰护鼻盔{/#7}（291-331）、{#8}红金饰带盔{/#8}（280-318）、{#9}金色羽饰盔{/#9}（264-300）、{#10}名贵草原盔{/#10}（220-250）、{#11}狼形盔{/#11}（154-175）或{#12}诺斯战盔{/#12}（137-156）。",
+      "zh": "25%概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红装锥形盔{/#2}（308-350）、{#3}纹章尖顶盔{/#3}（308-350）、{#4}萨莱特盔{/#4}（291-331）、{#5}红装北境盔{/#5}（291-331）、{#6}林德蠕龙战盔{/#6}（291-331）、{#7}羽饰护鼻盔{/#7}（291-331）、{#8}红金饰带盔{/#8}（280-318）、{#9}金色羽饰盔{/#9}（264-300）、{#10}红装草原盔{/#10}（220-250）、{#11}狼形盔{/#11}（154-175）或{#12}诺斯战盔{/#12}（137-156）。",
       "status": "reviewed",
       "page_ids": [
         16220
@@ -15574,7 +15574,7 @@
       "id": "u-0bc960cc027031a0a8691639",
       "source_sha256": "0bc960cc027031a0a86916398d748b24bd8c95fb3eaa62888adaeeef8f864dcc",
       "source": "25% chance of a {#1}Dragon Kite Shield{/#1}, {#2}Metal Heater Shield{/#2}, {#3}Golden Round Shield{/#3}, {#4}Pavise Shield{/#4}, {#5}Relic Heater Shield{/#5}, {#6}Winged Shield{/#6}, {#7}Named Sipar Shield{/#7}, {#8}Bandit Heater Shield{/#8} or {#9}Bandit Kite Shield{/#9}.",
-      "zh": "25%概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}、{#7}名贵西帕尔圆盾{/#7}、{#8}强盗熨斗形盾{/#8}或{#9}强盗鸢形盾{/#9}。",
+      "zh": "25%概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}、{#7}红装西帕尔圆盾{/#7}、{#8}强盗熨斗形盾{/#8}或{#9}强盗鸢形盾{/#9}。",
       "status": "reviewed",
       "page_ids": [
         16220
@@ -15604,7 +15604,7 @@
       "id": "u-bf36c0a6fe306fd4442dacc3",
       "source_sha256": "bf36c0a6fe306fd4442dacc38c1ab0ddfde250e5b4591f39b6e452fdbc64e574",
       "source": "But don't underestimate him if he has a {#1}named{/#1} two-handed weapon, its single hit can be fatal to a {#2}Battle Forged{/#2} brother, and more likely if he does not have {#3}Steel Brow{/#3}. Control him by {#4}stunning{/#4} or {#5}disarming{/#5}.",
-      "zh": "但如果携带{#1}名贵{/#1}双手武器，就不要低估他：一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更是如此。应使用{#4}眩晕{/#4}或{#5}缴械{/#5}控制他。",
+      "zh": "但如果携带{#1}红装{/#1}双手武器，就不要低估他：一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更是如此。应使用{#4}眩晕{/#4}或{#5}缴械{/#5}控制他。",
       "status": "reviewed",
       "page_ids": [
         16220
@@ -16496,7 +16496,7 @@
       "id": "u-78a7aed203ec0f32af933821",
       "source_sha256": "78a7aed203ec0f32af933821b50c3be4241f7794717b1a851e83295f2a4595c5",
       "source": "Can be sniped with {#1}Heavy Crossbow{/#1} (1-2 shots), {#2}Nomad Sling{/#2} (2 shots) or a single {#3}Throwing Axe{/#3}.",
-      "zh": "可以用{#1}重弩{/#1}射击1-2次、{#2}游牧投石杖{/#2}射击2次，或投出一把{#3}投斧{/#3}来摧毁蛛卵。",
+      "zh": "可以用{#1}重弩{/#1}射击1-2次、{#2}游牧投石杖{/#2}射击2次，或投出一把{#3}飞斧{/#3}来摧毁蛛卵。",
       "status": "reviewed",
       "page_ids": [
         16897
@@ -16576,7 +16576,7 @@
       "id": "u-eef6329b69c9e3760a9bb5c0",
       "source_sha256": "eef6329b69c9e3760a9bb5c058ace095b6e808fcfeae5f66d8036e3f592b1d36",
       "source": "You must walk the entire map to destroy them all, and some of them are out of melee reach. Use ranged brothers with {#1}Throwing Axes{/#1}.",
-      "zh": "要摧毁全部命匣，必须走遍整张地图，而且有些命匣不在近战攻击范围内。可让远程弟兄使用{#1}投斧{/#1}。",
+      "zh": "要摧毁全部命匣，必须走遍整张地图，而且有些命匣不在近战攻击范围内。可让远程弟兄使用{#1}飞斧{/#1}。",
       "status": "reviewed",
       "page_ids": [
         16898
@@ -16666,7 +16666,7 @@
       "id": "u-80aeb5ff87acbdd6f81489e2",
       "source_sha256": "80aeb5ff87acbdd6f81489e2b11220e47aa4cb44cd570b484879f75fcc4d2ee2",
       "source": "A {#1}Named Rusty Warblade{/#1}, {#2}Named Two-Handed Skull Hammer{/#2}, {#3}Named Heavy Rusty Axe{/#3} or {#4}Named Two-Handed Spiked Mace{/#4}.",
-      "zh": "装备{#1}名贵锈蚀战刃{/#1}、{#2}名贵双手颅骨锤{/#2}、{#3}名贵锈蚀重斧{/#3}或{#4}名贵双手尖刺钉锤{/#4}。",
+      "zh": "装备{#1}红装锈蚀战刃{/#1}、{#2}红装双手颅骨锤{/#2}、{#3}红装锈蚀重斧{/#3}或{#4}红装双手尖刺钉锤{/#4}。",
       "status": "reviewed",
       "page_ids": [
         16900
@@ -16676,7 +16676,7 @@
       "id": "u-9f81edca4338af9ce8fc6df9",
       "source_sha256": "9f81edca4338af9ce8fc6df90f5766450a9d4c39de33da1b1690f543f1661bca",
       "source": "Always has a {#1}named weapon{/#1}, and is extremely deadly with it. Can kill a {#2}Battle Forged{/#2} brother in one hit even if he has {#3}Steel Brow{/#3} if the named weapon is above average. {#4}Rusty Warblade{/#4} needs two hits.",
-      "zh": "精英蛮族之王始终携带{#1}名贵武器{/#1}，极其致命。若武器属性高于平均水平，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死；{#4}锈蚀战刃{/#4}则需要两击。",
+      "zh": "精英蛮族之王始终携带{#1}红装武器{/#1}，极其致命。若武器属性高于平均水平，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死；{#4}锈蚀战刃{/#4}则需要两击。",
       "status": "reviewed",
       "page_ids": [
         16900
@@ -16738,7 +16738,7 @@
       "id": "u-905f56fbdad0ade758361a63",
       "source_sha256": "905f56fbdad0ade758361a6370bf7d53309cf2d6bb046a377fe50d5284538e3d",
       "source": "1/8 chance of a {#1}Named Shamshir{/#1}, {#2}Named Qatal Dagger{/#2}, {#3}Named Swordlance{/#3}, {#4}Named Polemace{/#4}, {#5}Named Two-Handed Scimitar{/#5} or {#6}Named Spear{/#6}.",
-      "zh": "1/8概率装备{#1}名贵舍施尔弯刀{/#1}、{#2}名贵卡塔尔匕首{/#2}、{#3}名贵长柄剑刃{/#3}、{#4}名贵长柄钉锤{/#4}、{#5}名贵双手弯刀{/#5}或{#6}名贵矛{/#6}。",
+      "zh": "1/8概率装备{#1}红装舍施尔弯刀{/#1}、{#2}红装卡塔尔匕首{/#2}、{#3}红装长柄剑刃{/#3}、{#4}红装长柄钉锤{/#4}、{#5}红装双手弯刀{/#5}或{#6}红装矛{/#6}。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16748,7 +16748,7 @@
       "id": "u-059ab4c6a7dc03dc8488f0e3",
       "source_sha256": "059ab4c6a7dc03dc8488f0e3bea26f380af815ddaa5ad99d56d548d2bd63663d",
       "source": "1/8 chance of a {#1}Named Axe{/#1}, {#2}Named Billhook{/#2}, {#3}Named Cleaver{/#3}, {#4}Named Dagger{/#4}, {#5}Named Flail{/#5}, {#6}Named Greataxe{/#6}, {#7}Named Greatsword{/#7}, {#8}Named Longaxe{/#8}, {#9}Named Mace{/#9}, {#10}Named Spear{/#10}, {#11}Named Sword{/#11}, {#12}Named Two-Handed Hammer{/#12}, {#13}Named Warbrand{/#13}, {#14}Named Warhammer{/#14}, {#15}Named Pike{/#15}, {#16}Named Polehammer{/#16}, {#17}Named Fencing Sword{/#17}, {#18}Named Two-Handed Mace{/#18}, {#19}Named Two-Handed Flail{/#19}, {#20}Named Three-Headed Flail{/#20}, {#21}Named Spetum{/#21}, {#22}Named Bardiche{/#22}, {#23}Named Shamshir{/#23}, {#24}Named Battle Whip{/#24}, {#25}Named Qatal Dagger{/#25}, {#26}Named Swordlance{/#26}, {#27}Named Polemace{/#27} or {#28}Named Two-Handed Scimitar{/#28}.",
-      "zh": "1/8概率装备{#1}名贵斧{/#1}、{#2}名贵钩镰{/#2}、{#3}名贵斩刀{/#3}、{#4}名贵匕首{/#4}、{#5}名贵连枷{/#5}、{#6}名贵巨斧{/#6}、{#7}名贵巨剑{/#7}、{#8}名贵长柄斧{/#8}、{#9}名贵钉锤{/#9}、{#10}名贵矛{/#10}、{#11}名贵剑{/#11}、{#12}名贵双手战锤{/#12}、{#13}名贵长刃战刀{/#13}、{#14}名贵破甲锤{/#14}、{#15}名贵长枪{/#15}、{#16}名贵长柄战锤{/#16}、{#17}名贵决斗刺剑{/#17}、{#18}名贵双手钉锤{/#18}、{#19}名贵双手连枷{/#19}、{#20}名贵三头连枷{/#20}、{#21}名贵三尖矛{/#21}、{#22}名贵长刃斧{/#22}、{#23}名贵舍施尔弯刀{/#23}、{#24}名贵战鞭{/#24}、{#25}名贵卡塔尔匕首{/#25}、{#26}名贵长柄剑刃{/#26}、{#27}名贵长柄钉锤{/#27}或{#28}名贵双手弯刀{/#28}。",
+      "zh": "1/8概率装备{#1}红装斧{/#1}、{#2}红装钩镰{/#2}、{#3}红装斩刀{/#3}、{#4}红装匕首{/#4}、{#5}红装连枷{/#5}、{#6}红装巨斧{/#6}、{#7}红装巨剑{/#7}、{#8}红装长柄斧{/#8}、{#9}红装钉锤{/#9}、{#10}红装矛{/#10}、{#11}红装剑{/#11}、{#12}红装双手战锤{/#12}、{#13}红装长刃战刀{/#13}、{#14}红装破甲锤{/#14}、{#15}红装长枪{/#15}、{#16}红装长柄战锤{/#16}、{#17}红装决斗刺剑{/#17}、{#18}红装双手钉锤{/#18}、{#19}红装双手连枷{/#19}、{#20}红装三头连枷{/#20}、{#21}红装三尖矛{/#21}、{#22}红装长刃斧{/#22}、{#23}红装舍施尔弯刀{/#23}、{#24}红装战鞭{/#24}、{#25}红装卡塔尔匕首{/#25}、{#26}红装长柄剑刃{/#26}、{#27}红装长柄钉锤{/#27}或{#28}红装双手弯刀{/#28}。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16768,7 +16768,7 @@
       "id": "u-111e4a323d1a976bafcdb2f7",
       "source_sha256": "111e4a323d1a976bafcdb2f7e234d27785d7d87235971b9b30355e9a9d74be66",
       "source": "1/8 chance of an {#1}Enhanced Coat of Plates{/#1} (352-400), {#2}Plated Mail Hauberk{/#2} (330-375), {#3}Leopard Armor{/#3} (319-362), {#4}Golden Lamellar Armor{/#4} (313-356), {#5}Named Sellsword's Armor{/#5} (286-325), {#6}Golden Scale Armor{/#6} (264-300), {#7}Heraldic Mail Hauberk{/#7} (231-262), {#8}Black and Gold Armor{/#8} (231-262), {#9}Named Noble Mail Armor{/#9} (176-200), {#10}Studded Mail Armor{/#10} (154-175) or {#11}Hardened Leather Armor{/#11} (126-143).",
-      "zh": "1/8概率装备{#1}强化铁片战衣{/#1}（352-400）、{#2}覆板长身锁甲{/#2}（330-375）、{#3}豹纹护甲{/#3}（319-362）、{#4}金色札甲{/#4}（313-356）、{#5}名贵佣兵甲{/#5}（286-325）、{#6}金色鳞甲{/#6}（264-300）、{#7}纹章长身锁甲{/#7}（231-262）、{#8}黑金护甲{/#8}（231-262）、{#9}名贵贵族锁甲{/#9}（176-200）、{#10}铆钉锁甲{/#10}（154-175）或{#11}硬化皮甲{/#11}（126-143）。",
+      "zh": "1/8概率装备{#1}强化铁片战衣{/#1}（352-400）、{#2}覆板长身锁甲{/#2}（330-375）、{#3}豹纹护甲{/#3}（319-362）、{#4}金色札甲{/#4}（313-356）、{#5}红装佣兵甲{/#5}（286-325）、{#6}金色鳞甲{/#6}（264-300）、{#7}纹章长身锁甲{/#7}（231-262）、{#8}黑金护甲{/#8}（231-262）、{#9}红装贵族锁甲{/#9}（176-200）、{#10}铆钉锁甲{/#10}（154-175）或{#11}硬化皮甲{/#11}（126-143）。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16778,7 +16778,7 @@
       "id": "u-86111ee2d8c861afc58db241",
       "source_sha256": "86111ee2d8c861afc58db241cf3964cb517620f935657ea4066a73118a7ae27f",
       "source": "1/8 chance of a {#1}Gold and Black Turban{/#1} (319-362), {#2}Red and Gold Band Helmet{/#2} (280-318) or {#3}Named Steppe Helmet{/#3} (220-250).",
-      "zh": "1/8概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红金饰带盔{/#2}（280-318）或{#3}名贵草原盔{/#3}（220-250）。",
+      "zh": "1/8概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红金饰带盔{/#2}（280-318）或{#3}红装草原盔{/#3}（220-250）。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16788,7 +16788,7 @@
       "id": "u-5382ddb7e402e30574c19407",
       "source_sha256": "5382ddb7e402e30574c1940796612a76cbc67b9cc0778fd4011fc9c290ce3382",
       "source": "1/8 chance of a {#1}Gold and Black Turban{/#1} (319-362), {#2}Named Conic Helmet{/#2} (308-350), {#3}Heraldic Bascinet{/#3} (308-350), {#4}Sallet{/#4} (291-331), {#5}Named Nordic Helmet{/#5} (291-331), {#6}Lindwurm Helmet{/#6} (291-331), {#7}Feathered Nasal Helmet{/#7} (291-331), {#8}Red and Gold Band Helmet{/#8} (280-318), {#9}Golden Feathered Helmet{/#9} (264-300), {#10}Named Steppe Helmet{/#10} (220-250), {#11}Wolf Helmet{/#11} (154-175) or {#12}Norse Helmet{/#12} (137-156).",
-      "zh": "1/8概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}名贵锥形盔{/#2}（308-350）、{#3}纹章尖顶盔{/#3}（308-350）、{#4}萨莱特盔{/#4}（291-331）、{#5}名贵北境盔{/#5}（291-331）、{#6}林德蠕龙战盔{/#6}（291-331）、{#7}羽饰护鼻盔{/#7}（291-331）、{#8}红金饰带盔{/#8}（280-318）、{#9}金色羽饰盔{/#9}（264-300）、{#10}名贵草原盔{/#10}（220-250）、{#11}狼形盔{/#11}（154-175）或{#12}诺斯战盔{/#12}（137-156）。",
+      "zh": "1/8概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红装锥形盔{/#2}（308-350）、{#3}纹章尖顶盔{/#3}（308-350）、{#4}萨莱特盔{/#4}（291-331）、{#5}红装北境盔{/#5}（291-331）、{#6}林德蠕龙战盔{/#6}（291-331）、{#7}羽饰护鼻盔{/#7}（291-331）、{#8}红金饰带盔{/#8}（280-318）、{#9}金色羽饰盔{/#9}（264-300）、{#10}红装草原盔{/#10}（220-250）、{#11}狼形盔{/#11}（154-175）或{#12}诺斯战盔{/#12}（137-156）。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16798,7 +16798,7 @@
       "id": "u-336824a8e878be402bd2886d",
       "source_sha256": "336824a8e878be402bd2886da936bddab8d4142e0a01ed35fbd8d551df2cce80",
       "source": "1/8 chance of a {#1}Dragon Kite Shield{/#1}, {#2}Metal Heater Shield{/#2}, {#3}Golden Round Shield{/#3}, {#4}Pavise Shield{/#4}, {#5}Relic Heater Shield{/#5}, {#6}Winged Shield{/#6} or {#7}Named Sipar Shield{/#7}.",
-      "zh": "1/8概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}或{#7}名贵西帕尔圆盾{/#7}。",
+      "zh": "1/8概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}或{#7}红装西帕尔圆盾{/#7}。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16808,7 +16808,7 @@
       "id": "u-0b871b668bac91b1362b2214",
       "source_sha256": "0b871b668bac91b1362b22143da84e851d7fba15308e93602cdc58f668868613",
       "source": "If he has a {#1}named{/#1} two-handed weapon, its single hit can be fatal to a {#2}Battle Forged{/#2} brother, and more likely if he does not have {#3}Steel Brow{/#3}. The weapon must be very good to do it.",
-      "zh": "如果携带{#1}名贵{/#1}双手武器，一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更容易发生。不过，武器属性必须非常好才能做到。",
+      "zh": "如果携带{#1}红装{/#1}双手武器，一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更容易发生。不过，武器属性必须非常好才能做到。",
       "status": "reviewed",
       "page_ids": [
         16901
@@ -16868,7 +16868,7 @@
       "id": "u-99f082ea5f97de0f7fec8e24",
       "source_sha256": "99f082ea5f97de0f7fec8e245e0710ee02fc7711695d27d25244f8a45d197a85",
       "source": "1/3 chance of a {#1}Named Axe{/#1}, {#2}Named Cleaver{/#2}, {#3}Named Greataxe{/#3}, {#4}Named Greatsword{/#4}, {#5}Named Mace{/#5}, {#6}Named Sword{/#6}, {#7}Named Two-Handed Hammer{/#7}, {#8}Named Warbrand{/#8}, {#9}Named Two-Handed Mace{/#9}, {#10}Named Two-Handed Flail{/#10} or {#11}Named Bardiche{/#11}.",
-      "zh": "1/3概率装备{#1}名贵斧{/#1}、{#2}名贵斩刀{/#2}、{#3}名贵巨斧{/#3}、{#4}名贵巨剑{/#4}、{#5}名贵钉锤{/#5}、{#6}名贵剑{/#6}、{#7}名贵双手战锤{/#7}、{#8}名贵长刃战刀{/#8}、{#9}名贵双手钉锤{/#9}、{#10}名贵双手连枷{/#10}或{#11}名贵长刃斧{/#11}。",
+      "zh": "1/3概率装备{#1}红装斧{/#1}、{#2}红装斩刀{/#2}、{#3}红装巨斧{/#3}、{#4}红装巨剑{/#4}、{#5}红装钉锤{/#5}、{#6}红装剑{/#6}、{#7}红装双手战锤{/#7}、{#8}红装长刃战刀{/#8}、{#9}红装双手钉锤{/#9}、{#10}红装双手连枷{/#10}或{#11}红装长刃斧{/#11}。",
       "status": "reviewed",
       "page_ids": [
         16902
@@ -16888,7 +16888,7 @@
       "id": "u-474bc3a17fd5518bc2c8d832",
       "source_sha256": "474bc3a17fd5518bc2c8d832852efffec16aa5a0158a6a4835e66cda5de64d7d",
       "source": "1/3 chance of a {#1}Dragon Kite Shield{/#1}, {#2}Metal Heater Shield{/#2}, {#3}Golden Round Shield{/#3}, {#4}Pavise Shield{/#4}, {#5}Relic Heater Shield{/#5}, {#6}Winged Shield{/#6}, {#7}Named Sipar Shield{/#7}, {#8}Bandit Heater Shield{/#8} or {#9}Bandit Kite Shield{/#9}.",
-      "zh": "1/3概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}、{#7}名贵西帕尔圆盾{/#7}、{#8}强盗熨斗形盾{/#8}或{#9}强盗鸢形盾{/#9}。",
+      "zh": "1/3概率装备{#1}龙纹鸢形盾{/#1}、{#2}金属熨斗形盾{/#2}、{#3}金色圆盾{/#3}、{#4}帕维斯大盾{/#4}、{#5}圣物熨斗形盾{/#5}、{#6}翼饰盾{/#6}、{#7}红装西帕尔圆盾{/#7}、{#8}强盗熨斗形盾{/#8}或{#9}强盗鸢形盾{/#9}。",
       "status": "reviewed",
       "page_ids": [
         16902
@@ -16919,7 +16919,7 @@
       "id": "u-2a012b86d411d4b1d0a549fa",
       "source_sha256": "2a012b86d411d4b1d0a549fadfabdd5389d05f605dcf6a2836549372ecddcf7d",
       "source": "If he has a two-handed {#1}named weapon{/#1} with above average stats, he can kill a {#2}Battle Forged{/#2} brother in one hit even if he has {#3}Steel Brow{/#3}. Control him by {#4}stunning{/#4} and {#5}disarming{/#5}, don't let him attack at all. Use {#6}Indomitable{/#6} if he is about to attack. {#7}Bone Plating{/#7} and {#8}Nine Lives{/#8} can be useful.",
-      "zh": "如果持有属性高于平均水平的双手{#1}名贵武器{/#1}，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死。应通过{#4}眩晕{/#4}和{#5}缴械{/#5}控制他，根本不给攻击机会。如果他即将出手，就使用{#6}不屈{/#6}。{#7}骨板护层{/#7}和{#8}九命{/#8}也有帮助。",
+      "zh": "如果持有属性高于平均水平的双手{#1}红装武器{/#1}，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被一击杀死。应通过{#4}眩晕{/#4}和{#5}缴械{/#5}控制他，根本不给攻击机会。如果他即将出手，就使用{#6}不屈{/#6}。{#7}骨板护层{/#7}和{#8}九命{/#8}也有帮助。",
       "status": "reviewed",
       "page_ids": [
         16902
@@ -16969,7 +16969,7 @@
       "id": "u-4bbbb9626bd63d433e6f37fc",
       "source_sha256": "4bbbb9626bd63d433e6f37fcc6407de3b89071346b5532a08510cdef824eb816",
       "source": "25% chance of a {#1}Named Axe{/#1}, {#2}Named Greatsword{/#2}, {#3}Named Pollaxe{/#3}, {#4}Named Mace{/#4} or {#5}Named Sword{/#5}.",
-      "zh": "25%概率装备{#1}名贵斧{/#1}、{#2}名贵巨剑{/#2}、{#3}名贵骑士斧戟{/#3}、{#4}名贵钉锤{/#4}或{#5}名贵剑{/#5}。",
+      "zh": "25%概率装备{#1}红装斧{/#1}、{#2}红装巨剑{/#2}、{#3}红装骑士斧戟{/#3}、{#4}红装钉锤{/#4}或{#5}红装剑{/#5}。",
       "status": "reviewed",
       "page_ids": [
         16903
@@ -17009,7 +17009,7 @@
       "id": "u-5453a82083c50fe18f05ba9e",
       "source_sha256": "5453a82083c50fe18f05ba9e454d63ae61af1337635674039a59c82e3b143b41",
       "source": "The armor has a 40% (75% if the helmet is named) chance of {#1}Heraldic Shoulderguards{/#1} (40) (only houses with certain banners), {#2}Metal Joint Covers{/#2} (30) or a {#3}Mail Patch{/#3} (20) on it.",
-      "zh": "护甲有40%概率带有附件；若头盔为名贵装备，概率提高至75%。附件可能是{#1}纹章护肩{/#1}（40，仅部分旗帜对应的家族）、{#2}金属关节护板{/#2}（30）或{#3}锁甲补片{/#3}（20）。",
+      "zh": "护甲有40%概率带有附件；若头盔为红装，概率提高至75%。附件可能是{#1}纹章护肩{/#1}（40，仅部分旗帜对应的家族）、{#2}金属关节护板{/#2}（30）或{#3}锁甲补片{/#3}（20）。",
       "status": "reviewed",
       "page_ids": [
         16903
@@ -17049,7 +17049,7 @@
       "id": "u-8afb17ce1d5858666936dd60",
       "source_sha256": "8afb17ce1d5858666936dd607b08d49a40df10b9ea7aae87355f8bbc9ccbddca",
       "source": "The shield can be {#1}named{/#1}, giving higher bonus and you may want to loot it and not destroy.",
-      "zh": "盾牌可能是加成更高的{#1}名贵装备{/#1}，你也许希望将其缴获，而非摧毁。",
+      "zh": "盾牌可能是加成更高的{#1}红装{/#1}，你也许希望将其缴获，而非摧毁。",
       "status": "reviewed",
       "page_ids": [
         16903
@@ -17059,7 +17059,7 @@
       "id": "u-b87eff4ee3cb58b472f5efe4",
       "source_sha256": "b87eff4ee3cb58b472f5efe408e1f0fe25a019ea5e7d8e0eadbd78eef98fbee6",
       "source": "Use a {#1}Two-Handed Flail{/#1}, preferably with {#2}Flail Mastery{/#2} and {#3}Head Hunter{/#3}. It has bonus accuracy against shields, penetrates heavy helmets and this enemy does not have {#4}Steel Brow{/#4}. This way you can beat him without destroying a named shield.",
-      "zh": "使用{#1}双手连枷{/#1}，最好搭配{#2}连枷精通{/#2}和{#3}猎首者{/#3}。连枷对持盾目标有命中加成，能穿透重盔，而此敌人又没有{#4}钢铁额骨{/#4}。这样可以在不破坏名贵盾牌的情况下击败他。",
+      "zh": "使用{#1}双手连枷{/#1}，最好搭配{#2}连枷精通{/#2}和{#3}猎首者{/#3}。连枷对持盾目标有命中加成，能穿透重盔，而此敌人又没有{#4}钢铁额骨{/#4}。这样可以在不破坏红装盾牌的情况下击败他。",
       "status": "reviewed",
       "page_ids": [
         16903,
@@ -17080,7 +17080,7 @@
       "id": "u-1b32ea39977742e99b4a033b",
       "source_sha256": "1b32ea39977742e99b4a033b8526f2fdaa9da7cb57eaeb9b41a50bd9138a12ef",
       "source": "He can spawn with a {#1}Named Greatsword{/#1}, and then should be controlled with nets, {#2}stunning{/#2} and {#3}disarming{/#3}.",
-      "zh": "他可能携带{#1}名贵巨剑{/#1}，此时应通过投网、{#2}眩晕{/#2}和{#3}缴械{/#3}控制。",
+      "zh": "他可能携带{#1}红装巨剑{/#1}，此时应通过投网、{#2}眩晕{/#2}和{#3}缴械{/#3}控制。",
       "status": "reviewed",
       "page_ids": [
         16903
@@ -17141,7 +17141,7 @@
       "id": "u-e8f4460f40821f6403fa9f17",
       "source_sha256": "e8f4460f40821f6403fa9f17b6ab5f0b671e6524ebc8354e5850a13832708614",
       "source": "Can inflict {#1}injuries{/#1} through heavy armor with above average {#2}named weapon{/#2} rolls.",
-      "zh": "若{#2}名贵武器{/#2}属性高于平均水平，就能穿透重甲造成{#1}伤势{/#1}。",
+      "zh": "若{#2}红装武器{/#2}属性高于平均水平，就能穿透重甲造成{#1}伤势{/#1}。",
       "status": "reviewed",
       "page_ids": [
         16904
@@ -17151,7 +17151,7 @@
       "id": "u-2f496938bd1874c326882ff0",
       "source_sha256": "2f496938bd1874c326882ff0e4181aae1ae5005f731f531d891bc94104314b3f",
       "source": "Any of your {#1}Battle Forged{/#1} brothers without {#2}Steel Brow{/#2} can die from a single headshot of his {#3}Named Crossbow{/#3}.",
-      "zh": "任何没有{#2}钢铁额骨{/#2}的{#1}久经战阵{/#1}弟兄，都可能被他的{#3}名贵弩{/#3}一箭爆头杀死。",
+      "zh": "任何没有{#2}钢铁额骨{/#2}的{#1}久经战阵{/#1}弟兄，都可能被他的{#3}红装弩{/#3}一箭爆头杀死。",
       "status": "reviewed",
       "page_ids": [
         16904
@@ -17201,7 +17201,7 @@
       "id": "u-56db1208913d34d212d12466",
       "source_sha256": "56db1208913d34d212d124661453232a3419c343d50ff6c7feecc6ed667a2ac7",
       "source": "50% chance of a {#1}Named Two-Handed Hammer{/#1}, {#2}Named Two-Handed Scimitar{/#2} (double chance), {#3}Named Two-Handed Mace{/#3}, {#4}Named Two-Handed Flail{/#4} or {#5}Named Bardiche{/#5}.",
-      "zh": "50%概率装备{#1}名贵双手战锤{/#1}、{#2}名贵双手弯刀{/#2} （双倍概率）、{#3}名贵双手钉锤{/#3}、{#4}名贵双手连枷{/#4}或{#5}名贵长刃斧{/#5}。",
+      "zh": "50%概率装备{#1}红装双手战锤{/#1}、{#2}红装双手弯刀{/#2} （双倍概率）、{#3}红装双手钉锤{/#3}、{#4}红装双手连枷{/#4}或{#5}红装长刃斧{/#5}。",
       "status": "reviewed",
       "page_ids": [
         16905
@@ -17221,7 +17221,7 @@
       "id": "u-c0a8a2de9bc252af3fe0f9e7",
       "source_sha256": "c0a8a2de9bc252af3fe0f9e7edc76280264853e06a5f78da07bc731cc15b7930",
       "source": "If he has a {#1}named weapon{/#1} with above average stats, he can kill a {#2}Battle Forged{/#2} brother in one hit even if he has {#3}Steel Brow{/#3}.",
-      "zh": "若{#1}名贵武器{/#1}属性高于平均水平，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被他一击杀死。",
+      "zh": "若{#1}红装武器{/#1}属性高于平均水平，即便{#2}久经战阵{/#2}弟兄拥有{#3}钢铁额骨{/#3}，也可能被他一击杀死。",
       "status": "reviewed",
       "page_ids": [
         16905
@@ -17231,7 +17231,7 @@
       "id": "u-b185ecd4547650b93620120d",
       "source_sha256": "b185ecd4547650b93620120d3a4d4d4f1f0b0478cec52d62999772fcf559d8f5",
       "source": "{#1}Two-Handed Scimitar{/#1} is deadly to {#2}Nimble{/#2} brothers even if not named.",
-      "zh": "{#1}双手弯刀{/#1}即使不是名贵武器，对{#2}轻灵{/#2}弟兄也极其致命。",
+      "zh": "{#1}双手弯刀{/#1}即使不是红装武器，对{#2}轻灵{/#2}弟兄也极其致命。",
       "status": "reviewed",
       "page_ids": [
         16905
@@ -17281,7 +17281,7 @@
       "id": "u-2fc7fac9573ec30f07427095",
       "source_sha256": "2fc7fac9573ec30f0742709548ed0d46fb82b929939910ba02d4e445df3c8867",
       "source": "25% chance of a {#1}Named Shamshir{/#1}, {#2}Named Qatal Dagger{/#2}, {#3}Named Swordlance{/#3}, {#4}Named Polemace{/#4}, {#5}Named Two-Handed Scimitar{/#5} or {#6}Named Spear{/#6}.",
-      "zh": "25%概率装备{#1}名贵舍施尔弯刀{/#1}、{#2}名贵卡塔尔匕首{/#2}、{#3}名贵长柄剑刃{/#3}、{#4}名贵长柄钉锤{/#4}、{#5}名贵双手弯刀{/#5}或{#6}名贵矛{/#6}。",
+      "zh": "25%概率装备{#1}红装舍施尔弯刀{/#1}、{#2}红装卡塔尔匕首{/#2}、{#3}红装长柄剑刃{/#3}、{#4}红装长柄钉锤{/#4}、{#5}红装双手弯刀{/#5}或{#6}红装矛{/#6}。",
       "status": "reviewed",
       "page_ids": [
         16906
@@ -17302,7 +17302,7 @@
       "id": "u-4e3402d5dfd75ccd9ffaa722",
       "source_sha256": "4e3402d5dfd75ccd9ffaa722c9b283f344ed03305ec6ab0b242ad2473a7c42f6",
       "source": "25% chance of a {#1}Gold and Black Turban{/#1} (319-362), {#2}Red and Gold Band Helmet{/#2} (280-318) or {#3}Named Steppe Helmet{/#3} (220-250).",
-      "zh": "25%概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红金饰带盔{/#2}（280-318）或{#3}名贵草原盔{/#3}（220-250）。",
+      "zh": "25%概率装备{#1}金黑缠头盔{/#1}（319-362）、{#2}红金饰带盔{/#2}（280-318）或{#3}红装草原盔{/#3}（220-250）。",
       "status": "reviewed",
       "page_ids": [
         16906,
@@ -17353,7 +17353,7 @@
       "id": "u-096598449334e5d6f9b74969",
       "source_sha256": "096598449334e5d6f9b7496929f7ebd7134f49900beb7c2f01f7349e5bc0aa04",
       "source": "25% chance of a {#1}Named Mace{/#1}, {#2}Named Two-Handed Scimitar{/#2}, {#3}Named Spear{/#3}, {#4}Named Shamshir{/#4}, {#5}Named Swordlance{/#5} or {#6}Named Polemace{/#6}.",
-      "zh": "25%概率装备{#1}名贵钉锤{/#1}、{#2}名贵双手弯刀{/#2}、{#3}名贵矛{/#3}、{#4}名贵舍施尔弯刀{/#4}、{#5}名贵长柄剑刃{/#5}或{#6}名贵长柄钉锤{/#6}。",
+      "zh": "25%概率装备{#1}红装钉锤{/#1}、{#2}红装双手弯刀{/#2}、{#3}红装矛{/#3}、{#4}红装舍施尔弯刀{/#4}、{#5}红装长柄剑刃{/#5}或{#6}红装长柄钉锤{/#6}。",
       "status": "reviewed",
       "page_ids": [
         16907
@@ -17363,7 +17363,7 @@
       "id": "u-79dd835d6ffdf91ac1d9d58d",
       "source_sha256": "79dd835d6ffdf91ac1d9d58df4953fbf1b012be133b77d3d705bbff2e0de3467",
       "source": "Regilar items (skipped if conflicting with the named one):",
-      "zh": "常规装备（若与名贵装备冲突，则跳过）：",
+      "zh": "常规装备（若与红装冲突，则跳过）：",
       "status": "reviewed",
       "page_ids": [
         16907,
@@ -17394,7 +17394,7 @@
       "id": "u-bf406213ea9837bec27d2fb5",
       "source_sha256": "bf406213ea9837bec27d2fb523d824fa15a5ed36e8493281d71208c88dca47ca",
       "source": "The shield can be {#1}named{/#1}, giving higher bonus and you may want to loot it and not destroy. Also {#2}Sipar Shields{/#2} are hard to destroy.",
-      "zh": "盾牌可能是加成更高的{#1}名贵装备{/#1}，你也许希望将其缴获，而非摧毁。此外，{#2}西帕尔圆盾{/#2}本身就很难破坏。",
+      "zh": "盾牌可能是加成更高的{#1}红装{/#1}，你也许希望将其缴获，而非摧毁。此外，{#2}西帕尔圆盾{/#2}本身就很难破坏。",
       "status": "reviewed",
       "page_ids": [
         16907
@@ -17434,7 +17434,7 @@
       "id": "u-811c6f2390aff75fdc0da041",
       "source_sha256": "811c6f2390aff75fdc0da041d6eaa561a7af93d43838726217ef733f3bcf1cb9",
       "source": "1/3 chance of a {#1}Named Axe{/#1}, {#2}Named Greataxe{/#2}, {#3}Named Greatsword{/#3}, {#4}Named Mace{/#4}, {#5}Named Sword{/#5}, {#6}Named Two-Handed Hammer{/#6}, {#7}Named Two-Handed Mace{/#7}, {#8}Named Two-Handed Flail{/#8} or {#9}Named Bardiche{/#9}.",
-      "zh": "1/3概率装备{#1}名贵斧{/#1}、{#2}名贵巨斧{/#2}、{#3}名贵巨剑{/#3}、{#4}名贵钉锤{/#4}、{#5}名贵剑{/#5}、{#6}名贵双手战锤{/#6}、{#7}名贵双手钉锤{/#7}、{#8}名贵双手连枷{/#8}或{#9}名贵长刃斧{/#9}。",
+      "zh": "1/3概率装备{#1}红装斧{/#1}、{#2}红装巨斧{/#2}、{#3}红装巨剑{/#3}、{#4}红装钉锤{/#4}、{#5}红装剑{/#5}、{#6}红装双手战锤{/#6}、{#7}红装双手钉锤{/#7}、{#8}红装双手连枷{/#8}或{#9}红装长刃斧{/#9}。",
       "status": "reviewed",
       "page_ids": [
         16908
@@ -17464,7 +17464,7 @@
       "id": "u-eaf730f080cfefe561b1a76b",
       "source_sha256": "eaf730f080cfefe561b1a76b7699bd53b22a948f3216bf3a6e97f6cf4cb91b27",
       "source": "Can be deadly with a {#1}named{/#1} two-handed weapon, its single hit can be fatal to a {#2}Battle Forged{/#2} brother, and more likely if he does not have {#3}Steel Brow{/#3}. Named one-handed weapons are dangerous too if he is a {#4}Duelist{/#4}. Control him by {#5}stunning{/#5} or {#6}disarming{/#6}.",
-      "zh": "持{#1}名贵{/#1}双手武器时，他十分致命，一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更容易发生。若拥有{#4}决斗家{/#4}，名贵单手武器也很危险。应通过{#5}眩晕{/#5}或{#6}缴械{/#6}控制他。",
+      "zh": "持{#1}红装{/#1}双手武器时，他十分致命，一次命中就可能杀死{#2}久经战阵{/#2}弟兄，没有{#3}钢铁额骨{/#3}时更容易发生。若拥有{#4}决斗家{/#4}，红装单手武器也很危险。应通过{#5}眩晕{/#5}或{#6}缴械{/#6}控制他。",
       "status": "reviewed",
       "page_ids": [
         16908

@@ -2287,7 +2287,7 @@
       "id": "u-335750b8a728b0b4acd3e858",
       "source_sha256": "335750b8a728b0b4acd3e8581f4d2a6ab0282aefe1707713a7490154dc00ba57",
       "source": "{#1}Named and Legendary items{/#1}",
-      "zh": "{#1}名贵与传奇装备{/#1}",
+      "zh": "{#1}红装与传奇装备{/#1}",
       "status": "reviewed",
       "page_ids": [
         1461
@@ -23288,7 +23288,7 @@
       "id": "u-9bca9b58797672617fb75adf",
       "source_sha256": "9bca9b58797672617fb75adf13343a85183747e2f425e2b22f7f1d62f37605d5",
       "source": "{#1}Named Axe{/#1}",
-      "zh": "{#1}名贵斧{/#1}",
+      "zh": "{#1}斧（红装）{/#1}",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -23299,7 +23299,7 @@
       "id": "u-dc08cf0c5e5911bcc9709eed",
       "source_sha256": "dc08cf0c5e5911bcc9709eedde97bfb31228f694ed4de678885e1fa6b8590199",
       "source": "{#1}Named Spear{/#1}",
-      "zh": "{#1}名贵矛{/#1}",
+      "zh": "{#1}矛（红装）{/#1}",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -23372,7 +23372,7 @@
       "id": "u-2a2451951b853df851c71128",
       "source_sha256": "2a2451951b853df851c711285f6a51871cdf29f07ef1a5bfb30d5a1c66c21ba3",
       "source": "{#1}Named Dagger{/#1}",
-      "zh": "{#1}名贵匕首{/#1}",
+      "zh": "{#1}匕首（红装）{/#1}",
       "status": "reviewed",
       "page_ids": [
         2817,
@@ -27811,7 +27811,7 @@
       "id": "u-08d50f81a94cf0570dbca912",
       "source_sha256": "08d50f81a94cf0570dbca9120cdcd98700a1d8c33cc3fa78813daf863cac0af4",
       "source": "Named Mace",
-      "zh": "名贵钉锤",
+      "zh": "钉锤（红装）",
       "status": "reviewed",
       "page_ids": [
         3024,
@@ -29607,7 +29607,7 @@
       "id": "u-da42902930181592946e8d1b",
       "source_sha256": "da42902930181592946e8d1b482be1f693d4910e92b9439c63e6d584220dc28e",
       "source": "Named Sword",
-      "zh": "名贵剑",
+      "zh": "剑（红装）",
       "status": "reviewed",
       "page_ids": [
         3191,
@@ -29788,7 +29788,7 @@
       "id": "u-9b533deb5f2e89a1144367ff",
       "source_sha256": "9b533deb5f2e89a1144367ffc58cfc33ecadaf681ed7d2a5b2257045c36b6bbe",
       "source": "Named Orc Cleaver",
-      "zh": "名贵兽人斩刀",
+      "zh": "兽人斩刀（红装）",
       "status": "reviewed",
       "page_ids": [
         3195,
@@ -29799,7 +29799,7 @@
       "id": "u-ba219a547487f587754e743c",
       "source_sha256": "ba219a547487f587754e743cfebdbb374b73b464d54ef8e66d913fcadd21bab6",
       "source": "Named Orc Axe",
-      "zh": "名贵兽人斧",
+      "zh": "兽人斧（红装）",
       "status": "reviewed",
       "page_ids": [
         3200,
@@ -30927,7 +30927,7 @@
       "id": "u-72d5406ffc739a32d12e1656",
       "source_sha256": "72d5406ffc739a32d12e165692132de33ce0974eefcdafd7d7630bf52a8c2cd4",
       "source": "Named Axe",
-      "zh": "名贵斧",
+      "zh": "斧（红装）",
       "status": "reviewed",
       "page_ids": [
         3220,
@@ -30938,7 +30938,7 @@
       "id": "u-08012b90d1495588d15af527",
       "source_sha256": "08012b90d1495588d15af527036735391d450db7a54ee8772eeacf20c4e4d83f",
       "source": "Named Battle Whip",
-      "zh": "名贵战鞭",
+      "zh": "战鞭（红装）",
       "status": "reviewed",
       "page_ids": [
         11062,
@@ -30960,7 +30960,7 @@
       "id": "u-4147cc37e6bae86350645127",
       "source_sha256": "4147cc37e6bae86350645127cf0c7be10187f1e1c26e3fa6741199dc203daa02",
       "source": "Named Cleaver",
-      "zh": "名贵斩刀",
+      "zh": "斩刀（红装）",
       "status": "reviewed",
       "page_ids": [
         3836,
@@ -30971,7 +30971,7 @@
       "id": "u-acdfdb41a336d5427491a762",
       "source_sha256": "acdfdb41a336d5427491a762eb608d18a12e23ce9a8e99b87192b3b67ca139cc",
       "source": "Named Khopesh",
-      "zh": "名贵镰形剑",
+      "zh": "镰形剑（红装）",
       "status": "reviewed",
       "page_ids": [
         11060,
@@ -30993,7 +30993,7 @@
       "id": "u-f3a88713a58de73bfec7a585",
       "source_sha256": "f3a88713a58de73bfec7a585abd637d07ec2e4ea646aff3a126328d9e0aecd14",
       "source": "Named Dagger",
-      "zh": "名贵匕首",
+      "zh": "匕首（红装）",
       "status": "reviewed",
       "page_ids": [
         3820,
@@ -31015,7 +31015,7 @@
       "id": "u-9ebaba36d9f56b2375b0f911",
       "source_sha256": "9ebaba36d9f56b2375b0f911e93f4b75df226a4ea92692aac421e132f5dd824b",
       "source": "Named Qatal Dagger",
-      "zh": "名贵卡塔尔匕首",
+      "zh": "卡塔尔匕首（红装）",
       "status": "reviewed",
       "page_ids": [
         14331,
@@ -31037,7 +31037,7 @@
       "id": "u-4136416cd3433f8a4f3a3fe8",
       "source_sha256": "4136416cd3433f8a4f3a3fe81737f35589ee70dbddb46e77e2971fac0481071f",
       "source": "Named Flail",
-      "zh": "名贵连枷",
+      "zh": "连枷（红装）",
       "status": "reviewed",
       "page_ids": [
         3218,
@@ -31048,7 +31048,7 @@
       "id": "u-d65bd212d6be396de129d511",
       "source_sha256": "d65bd212d6be396de129d511dd82818353a96df6822fc030f9ad617b1fdd8411",
       "source": "Named Three-Headed Flail",
-      "zh": "名贵三头连枷",
+      "zh": "三头连枷（红装）",
       "status": "reviewed",
       "page_ids": [
         9037,
@@ -31070,7 +31070,7 @@
       "id": "u-95cde673821c7656ffeb6618",
       "source_sha256": "95cde673821c7656ffeb66189d9b5700d4509b8bdb9d053dd555d6d0b6623cd1",
       "source": "Named Warhammer",
-      "zh": "名贵破甲锤",
+      "zh": "破甲锤（红装）",
       "status": "reviewed",
       "page_ids": [
         3835,
@@ -31092,7 +31092,7 @@
       "id": "u-20d7988850c2a000423a8af6",
       "source_sha256": "20d7988850c2a000423a8af62cd2c90f3d32284bf7a5c9b0607437ceea61a154",
       "source": "Named Goblin Skewer",
-      "zh": "名贵地精尖矛",
+      "zh": "地精尖矛（红装）",
       "status": "reviewed",
       "page_ids": [
         10354,
@@ -31114,7 +31114,7 @@
       "id": "u-c4e635be1123487948949555",
       "source_sha256": "c4e635be1123487948949555c58a289b0a61052e592fa41c6e3a98b8fefed08e",
       "source": "Named Spear",
-      "zh": "名贵矛",
+      "zh": "矛（红装）",
       "status": "reviewed",
       "page_ids": [
         3842,
@@ -31125,7 +31125,7 @@
       "id": "u-698058494c033cad0f5c57c1",
       "source_sha256": "698058494c033cad0f5c57c1018398b5caf57cd13d1a6bb6166eaa80e05b8c51",
       "source": "Named Cruel Falchion",
-      "zh": "名贵凶刃弯刀",
+      "zh": "凶刃弯刀（红装）",
       "status": "reviewed",
       "page_ids": [
         11057,
@@ -31147,7 +31147,7 @@
       "id": "u-c0e7fca1da903707dedbf32c",
       "source_sha256": "c0e7fca1da903707dedbf32c9069cf890c832c49a0144b4e503773df9820fca3",
       "source": "Named Fencing Sword",
-      "zh": "名贵决斗刺剑",
+      "zh": "决斗刺剑（红装）",
       "status": "reviewed",
       "page_ids": [
         7698,
@@ -31169,7 +31169,7 @@
       "id": "u-74622f290fa6ea335565fb94",
       "source_sha256": "74622f290fa6ea335565fb949a12af2854fe0288c4b5f8382d9e6039ae79e744",
       "source": "Named Shamshir",
-      "zh": "名贵舍施尔弯刀",
+      "zh": "舍施尔弯刀（红装）",
       "status": "reviewed",
       "page_ids": [
         11055,
@@ -31191,7 +31191,7 @@
       "id": "u-98c70ae7d001d8b68f12a2de",
       "source_sha256": "98c70ae7d001d8b68f12a2de69bdf585ea11b849df4740552c659b9c248ced23",
       "source": "Named Bardiche",
-      "zh": "名贵长刃斧",
+      "zh": "长刃斧（红装）",
       "status": "reviewed",
       "page_ids": [
         11028,
@@ -31213,7 +31213,7 @@
       "id": "u-63b51ebb009ec07b5f542e12",
       "source_sha256": "63b51ebb009ec07b5f542e12ea30b1be9bd41e97635469e2aa09e775dffdcbb6",
       "source": "Named Greataxe",
-      "zh": "名贵巨斧",
+      "zh": "巨斧（红装）",
       "status": "reviewed",
       "page_ids": [
         3464,
@@ -31235,7 +31235,7 @@
       "id": "u-01f4cbd330cb04902ee2f3a4",
       "source_sha256": "01f4cbd330cb04902ee2f3a459b60e3975f4a8bb4ea09a02ec1d410e2683a880",
       "source": "Named Heavy Rusty Axe",
-      "zh": "名贵锈蚀重斧",
+      "zh": "锈蚀重斧（红装）",
       "status": "reviewed",
       "page_ids": [
         11025,
@@ -31257,7 +31257,7 @@
       "id": "u-929c20c16ce958cee30a8ced",
       "source_sha256": "929c20c16ce958cee30a8ced60ec1eaac1cf9bee157a01751cffde5dc3cf0e46",
       "source": "Named Longaxe",
-      "zh": "名贵长柄斧",
+      "zh": "长柄斧（红装）",
       "status": "reviewed",
       "page_ids": [
         3838,
@@ -31279,7 +31279,7 @@
       "id": "u-5315802df0d7d0ab318ce602",
       "source_sha256": "5315802df0d7d0ab318ce602e50b2448a3a87e873e691f4fa52b0db8cf739135",
       "source": "Named Crypt Cleaver",
-      "zh": "名贵墓穴斩刀",
+      "zh": "墓穴斩刀（红装）",
       "status": "reviewed",
       "page_ids": [
         11024,
@@ -31301,7 +31301,7 @@
       "id": "u-2ea1c1fbc65be466a25edf7f",
       "source_sha256": "2ea1c1fbc65be466a25edf7f4a3f4bc5c53e2439df1fec048368cde1c08bc1f6",
       "source": "Named Rusty Warblade",
-      "zh": "名贵锈蚀战刃",
+      "zh": "锈蚀战刃（红装）",
       "status": "reviewed",
       "page_ids": [
         11019,
@@ -31323,7 +31323,7 @@
       "id": "u-0f437e46a32ef717f4d26847",
       "source_sha256": "0f437e46a32ef717f4d268475f26251eed0d1abf91c5e172b120aa487abb74f4",
       "source": "Named Two-Handed Scimitar",
-      "zh": "名贵双手弯刀",
+      "zh": "双手弯刀（红装）",
       "status": "reviewed",
       "page_ids": [
         14337,
@@ -31345,7 +31345,7 @@
       "id": "u-1aa3c2f7dd22fb0b82f7af01",
       "source_sha256": "1aa3c2f7dd22fb0b82f7af0132b2928d8e79efe22db87337b5e5861b94b13a0e",
       "source": "Named Two-Handed Flail",
-      "zh": "名贵双手连枷",
+      "zh": "双手连枷（红装）",
       "status": "reviewed",
       "page_ids": [
         9039,
@@ -31367,7 +31367,7 @@
       "id": "u-b45e2d82ebe92c11c2e5510f",
       "source_sha256": "b45e2d82ebe92c11c2e5510f9785c9ddce882f1002d52162a146ddd8b8c18767",
       "source": "Named Polehammer",
-      "zh": "名贵长柄战锤",
+      "zh": "长柄战锤（红装）",
       "status": "reviewed",
       "page_ids": [
         9040,
@@ -31389,7 +31389,7 @@
       "id": "u-1c632566731f4345c54648ed",
       "source_sha256": "1c632566731f4345c54648ed4e21aeeac6e0bf36610323837c3b6167154ff051",
       "source": "Named Two-Handed Hammer",
-      "zh": "名贵双手战锤",
+      "zh": "双手战锤（红装）",
       "status": "reviewed",
       "page_ids": [
         3834,
@@ -31411,7 +31411,7 @@
       "id": "u-1ec4b910f0b9403788b15f55",
       "source_sha256": "1ec4b910f0b9403788b15f55bb849b8dccca8e711e11492bb223feb189d7c219",
       "source": "Named Two-Handed Skull Hammer",
-      "zh": "名贵双手颅骨锤",
+      "zh": "双手颅骨锤（红装）",
       "status": "reviewed",
       "page_ids": [
         11017,
@@ -31433,7 +31433,7 @@
       "id": "u-71deaa55e9fd5168baf2cec5",
       "source_sha256": "71deaa55e9fd5168baf2cec5cec2c822e19ae4b647dcc9e9fb2b80e148fbca1b",
       "source": "Named Polemace",
-      "zh": "名贵长柄钉锤",
+      "zh": "长柄钉锤（红装）",
       "status": "reviewed",
       "page_ids": [
         15053,
@@ -31455,7 +31455,7 @@
       "id": "u-4cae333fe00d21c3fa447204",
       "source_sha256": "4cae333fe00d21c3fa447204ca9c6ced5617c2d02fd1bcc5dda5a6793c81accf",
       "source": "Named Two-Handed Mace",
-      "zh": "名贵双手钉锤",
+      "zh": "双手钉锤（红装）",
       "status": "reviewed",
       "page_ids": [
         9038,
@@ -31477,7 +31477,7 @@
       "id": "u-0ab381234ef2ee616e462c7b",
       "source_sha256": "0ab381234ef2ee616e462c7b2e0127ab6fc39994fe83e10d8913094b3a1d8f41",
       "source": "Named Two-Handed Spiked Mace",
-      "zh": "名贵双手尖刺钉锤",
+      "zh": "双手尖刺钉锤（红装）",
       "status": "reviewed",
       "page_ids": [
         10990,
@@ -31499,7 +31499,7 @@
       "id": "u-326dd5988880b169bca24e6e",
       "source_sha256": "326dd5988880b169bca24e6ee45f2421492b90013fe4ddf238b28058fe5a2289",
       "source": "Named Billhook",
-      "zh": "名贵钩镰",
+      "zh": "钩镰（红装）",
       "status": "reviewed",
       "page_ids": [
         3833,
@@ -31521,7 +31521,7 @@
       "id": "u-6c9ec0aa244345e5d59724a6",
       "source_sha256": "6c9ec0aa244345e5d59724a67fc98ded7e0090dd2a922f09a0c7a1797eaf8244",
       "source": "Named Bladed Pike",
-      "zh": "名贵刃枪",
+      "zh": "刃枪（红装）",
       "status": "reviewed",
       "page_ids": [
         10956,
@@ -31532,7 +31532,7 @@
       "id": "u-31248d573d06102784c1f7f0",
       "source_sha256": "31248d573d06102784c1f7f01b6f308716c2e7b7aa53797513bcea866484ba87",
       "source": "Named Jagged Pike",
-      "zh": "名贵锯齿长枪",
+      "zh": "锯齿长枪（红装）",
       "status": "reviewed",
       "page_ids": [
         10954,
@@ -31554,7 +31554,7 @@
       "id": "u-2b4957fd0ac3910b3fa9fda8",
       "source_sha256": "2b4957fd0ac3910b3fa9fda8c23f6ebee6be8b441ab88c0c983f118249f117ef",
       "source": "Named Pike",
-      "zh": "名贵长枪",
+      "zh": "长枪（红装）",
       "status": "reviewed",
       "page_ids": [
         3841,
@@ -31576,7 +31576,7 @@
       "id": "u-d2432457daa73ea9fae737ab",
       "source_sha256": "d2432457daa73ea9fae737abcb7ee1ab83f2bfc7378234b9323daedf8196769e",
       "source": "Named Swordlance",
-      "zh": "名贵长柄剑刃",
+      "zh": "长柄剑刃（红装）",
       "status": "reviewed",
       "page_ids": [
         15390,
@@ -31598,7 +31598,7 @@
       "id": "u-84e28b85572e8ba583e8b6d6",
       "source_sha256": "84e28b85572e8ba583e8b6d6bbf80cb8e255b3453226e3a4b2c136c91b57f237",
       "source": "Named Warscythe",
-      "zh": "名贵战镰",
+      "zh": "战镰（红装）",
       "status": "reviewed",
       "page_ids": [
         10951,
@@ -31620,7 +31620,7 @@
       "id": "u-0f2f387eb6e741b40c43d0c8",
       "source_sha256": "0f2f387eb6e741b40c43d0c8f4c1376805aef485f01e651d75920aa356d93a3d",
       "source": "Named Spetum",
-      "zh": "名贵三尖矛",
+      "zh": "三尖矛（红装）",
       "status": "reviewed",
       "page_ids": [
         9031,
@@ -31642,7 +31642,7 @@
       "id": "u-c25abef647b74babf2495cb7",
       "source_sha256": "c25abef647b74babf2495cb7ecfce2233a993a0a3b48445110be7d8f62e04720",
       "source": "Named Greatsword",
-      "zh": "名贵巨剑",
+      "zh": "巨剑（红装）",
       "status": "reviewed",
       "page_ids": [
         3839,
@@ -31664,7 +31664,7 @@
       "id": "u-41634d0413310f0c5e3f4db8",
       "source_sha256": "41634d0413310f0c5e3f4db891a4cdb3a9cedd37101701220b78bc679a5eb03a",
       "source": "Named Warbrand",
-      "zh": "名贵长刃战刀",
+      "zh": "长刃战刀（红装）",
       "status": "reviewed",
       "page_ids": [
         3837,
@@ -31686,7 +31686,7 @@
       "id": "u-e96835bd948ab3fe2ecca84b",
       "source_sha256": "e96835bd948ab3fe2ecca84b19bafac7f36b81450f57b843fa82f6adb941bbf7",
       "source": "Named Executioner's Sword",
-      "zh": "名贵行刑剑",
+      "zh": "行刑剑（红装）",
       "status": "reviewed",
       "page_ids": [
         16317,
@@ -31708,7 +31708,7 @@
       "id": "u-8d2cab1537ae1a52ccb03c53",
       "source_sha256": "8d2cab1537ae1a52ccb03c5377d6c2579c66787d3b82012bcaf59c35bec9ab5f",
       "source": "Named Pollaxe",
-      "zh": "名贵骑士斧戟",
+      "zh": "骑士斧戟（红装）",
       "status": "reviewed",
       "page_ids": [
         16317,
@@ -31730,7 +31730,7 @@
       "id": "u-1eafa79ae6aac33dfb390dc1",
       "source_sha256": "1eafa79ae6aac33dfb390dc183d8c103ae387d1b4157c5eda4bb2a99782ce36b",
       "source": "Named Estoc",
-      "zh": "名贵穿甲刺剑",
+      "zh": "穿甲刺剑（红装）",
       "status": "reviewed",
       "page_ids": [
         16317,
@@ -31752,7 +31752,7 @@
       "id": "u-a3541f023db588fed922fb6d",
       "source_sha256": "a3541f023db588fed922fb6d94879230c1810e3b66c5ffdcb2da04c4ef89e3b0",
       "source": "Named Reinforced Boondock Bow",
-      "zh": "名贵强化荒野短弓",
+      "zh": "强化荒野短弓（红装）",
       "status": "reviewed",
       "page_ids": [
         10347,
@@ -31774,7 +31774,7 @@
       "id": "u-3e1ce9edaa9a33fa200d06f6",
       "source_sha256": "3e1ce9edaa9a33fa200d06f6c83e0f2f8485f256a8e0f435d90261705634abc7",
       "source": "Named Warbow",
-      "zh": "名贵战弓",
+      "zh": "战弓（红装）",
       "status": "reviewed",
       "page_ids": [
         3850,
@@ -31785,7 +31785,7 @@
       "id": "u-9c79d2a61e1cf00e6ad4d8c9",
       "source_sha256": "9c79d2a61e1cf00e6ad4d8c993c92605c8416a255b2a55a1e5ac669cf1f3995a",
       "source": "Named Crossbow",
-      "zh": "名贵弩",
+      "zh": "弩（红装）",
       "status": "reviewed",
       "page_ids": [
         3851,
@@ -31808,7 +31808,7 @@
       "id": "u-9766000c3bcd4e752095d362",
       "source_sha256": "9766000c3bcd4e752095d362adcf47c19f5215499071059c3b0b33d3afc55062",
       "source": "Named Handgonne",
-      "zh": "名贵手铳",
+      "zh": "手铳（红装）",
       "status": "reviewed",
       "page_ids": [
         15438,
@@ -31830,7 +31830,7 @@
       "id": "u-470d85a2e9bd7ba76ba9bbbb",
       "source_sha256": "470d85a2e9bd7ba76ba9bbbb1c426aafac76a47fbf92eef173c9f3de1ce81c59",
       "source": "Named Javelins",
-      "zh": "名贵标枪",
+      "zh": "标枪（红装）",
       "status": "reviewed",
       "page_ids": [
         3852,
@@ -31841,7 +31841,7 @@
       "id": "u-1dadeb206289be6175d450a4",
       "source_sha256": "1dadeb206289be6175d450a40ac103d68b0a992f23db9b26e9f9840d1e46e28d",
       "source": "Named Throwing Axes",
-      "zh": "名贵飞斧",
+      "zh": "飞斧（红装）",
       "status": "reviewed",
       "page_ids": [
         3853,
@@ -31895,7 +31895,7 @@
       "id": "u-92f406e2c5d7bd38f7684caa",
       "source_sha256": "92f406e2c5d7bd38f7684caaa89cf624deb17463d52b8ea695aea5ac2133e6e0",
       "source": "Named Undead Heater Shield",
-      "zh": "名贵亡灵熨斗形盾",
+      "zh": "亡灵熨斗形盾（红装）",
       "status": "reviewed",
       "page_ids": [
         3544,
@@ -31950,7 +31950,7 @@
       "id": "u-01bc78b2666e439ff0ac1962",
       "source_sha256": "01bc78b2666e439ff0ac196236be11090c0c3ae07c0a0d26565d0351d80d0ee1",
       "source": "Named Undead Kite Shield",
-      "zh": "名贵亡灵鸢形盾",
+      "zh": "亡灵鸢形盾（红装）",
       "status": "reviewed",
       "page_ids": [
         3543,
@@ -31961,7 +31961,7 @@
       "id": "u-01f08897bdddb84fb7898447",
       "source_sha256": "01f08897bdddb84fb7898447a34a2fe66eeb03989eb0709876972a438cc2d44e",
       "source": "Named Orc Heavy Shield",
-      "zh": "名贵兽人重盾",
+      "zh": "兽人重盾（红装）",
       "status": "reviewed",
       "page_ids": [
         3470,
@@ -31983,7 +31983,7 @@
       "id": "u-d9b9067963fdddd5df9103db",
       "source_sha256": "d9b9067963fdddd5df9103db4b23bf05cb94701e4c2de6f7e16492195b276fff",
       "source": "Named Sipar Shield",
-      "zh": "名贵西帕尔圆盾",
+      "zh": "西帕尔圆盾（红装）",
       "status": "reviewed",
       "page_ids": [
         15445,
@@ -32027,7 +32027,7 @@
       "id": "u-d74b3321e0132669b2bad88b",
       "source_sha256": "d74b3321e0132669b2bad88bbb0446e7be1c1bed66e29e10fa702ff8f1bc1eb3",
       "source": "Named Noble Mail Armor",
-      "zh": "名贵贵族锁甲",
+      "zh": "贵族锁甲（红装）",
       "status": "reviewed",
       "page_ids": [
         10945,
@@ -32093,7 +32093,7 @@
       "id": "u-c8e47301b4439d78e036c652",
       "source_sha256": "c8e47301b4439d78e036c65215cf00d4aff990457be4703ba76b20c65dc08d69",
       "source": "Named Sellsword's Armor",
-      "zh": "名贵佣兵甲",
+      "zh": "佣兵甲（红装）",
       "status": "reviewed",
       "page_ids": [
         10941,
@@ -32181,7 +32181,7 @@
       "id": "u-3fbab25942105da67fedbb6f",
       "source_sha256": "3fbab25942105da67fedbb6f3264e17131ef1eb4ca68521b44be5070198fbed9",
       "source": "Named Steppe Helmet",
-      "zh": "名贵草原盔",
+      "zh": "草原盔（红装）",
       "status": "reviewed",
       "page_ids": [
         10928,
@@ -32258,7 +32258,7 @@
       "id": "u-f3b9730263dd513efd759266",
       "source_sha256": "f3b9730263dd513efd7592669e08d3adb2260bd181555e1378036c486b2c1748",
       "source": "Named Nordic Helmet",
-      "zh": "名贵北境盔",
+      "zh": "北境盔（红装）",
       "status": "reviewed",
       "page_ids": [
         10917,
@@ -32291,7 +32291,7 @@
       "id": "u-db8b7a3f6ce77b60011b6730",
       "source_sha256": "db8b7a3f6ce77b60011b67301198550ff006a6d2832d80211bec8813417e69ec",
       "source": "Named Conic Helmet",
-      "zh": "名贵锥形盔",
+      "zh": "锥形盔（红装）",
       "status": "reviewed",
       "page_ids": [
         10916,
@@ -32444,7 +32444,7 @@
       "id": "u-1993bb65ede3bf5b2e5c64fc",
       "source_sha256": "1993bb65ede3bf5b2e5c64fcdfb637e5d2682a2ac49239ea2e2815e2f9fa3ab4",
       "source": "{#1}Named Shields{/#1}",
-      "zh": "{#1}名贵盾牌{/#1}",
+      "zh": "{#1}红装盾牌{/#1}",
       "status": "reviewed",
       "page_ids": [
         3235,
@@ -35534,7 +35534,7 @@
       "id": "u-23510fbcfe38eb85601d9888",
       "source_sha256": "23510fbcfe38eb85601d9888a78ad99365227567d7bb1fed4c79fb500ba6ded9",
       "source": "{#1}Named Item{/#1}",
-      "zh": "{#1}获得名贵装备{/#1}",
+      "zh": "{#1}获得红装{/#1}",
       "status": "reviewed",
       "page_ids": [
         4489
@@ -35880,7 +35880,7 @@
       "id": "u-1b3ed52387f68a085dab9241",
       "source_sha256": "1b3ed52387f68a085dab924121faf45a75fecbe7606241a652aca9652b0aaa5c",
       "source": "{#1}{#2}{#3/}{/#2}{/#1} Have at least 1 famed piece of equipment",
-      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 拥有至少1件红装装备",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 至少拥有1件红装",
       "status": "reviewed",
       "page_ids": [
         4489,
@@ -35891,7 +35891,7 @@
       "id": "u-a96c8aeb5f1d7dae0d1f79d9",
       "source_sha256": "a96c8aeb5f1d7dae0d1f79d9939d72c85dc1c6c3ed938d683c40086f12297c2d",
       "source": "{#1}Named Item Set{/#1}",
-      "zh": "{#1}集齐名贵装备{/#1}",
+      "zh": "{#1}集齐红装{/#1}",
       "status": "reviewed",
       "page_ids": [
         4489
@@ -36719,7 +36719,7 @@
       "id": "u-b2ba5d76feb4aff37f1a445d",
       "source_sha256": "b2ba5d76feb4aff37f1a445d85d0cd84ca3b24464ae880416176d52091192a12",
       "source": "{#1}Named Helmets{/#1}",
-      "zh": "{#1}名贵头盔{/#1}",
+      "zh": "{#1}红装头盔{/#1}",
       "status": "reviewed",
       "page_ids": [
         5003,
@@ -48147,7 +48147,7 @@
       "id": "u-adb2e930df80c08b2664f36b",
       "source_sha256": "adb2e930df80c08b2664f36bd5002f13aacee6efcbd9e1e2fb24b45eca6b5e99",
       "source": "{#1} {#2}Named Item{/#2} - {#3}Barbarian{/#3} Rumors{/#1}",
-      "zh": "{#1} {#2}名贵装备{/#2}——{#3}蛮族{/#3}传闻{/#1}",
+      "zh": "{#1} {#2}红装{/#2}——{#3}蛮族{/#3}传闻{/#1}",
       "status": "reviewed",
       "page_ids": [
         10724
@@ -48157,7 +48157,7 @@
       "id": "u-ee260ec5ced12b37dccd24fb",
       "source_sha256": "ee260ec5ced12b37dccd24fbb5a37a51785ec5e9ece29521bee416298bbc18fd",
       "source": "{#1} {#2}Named Item{/#2} - {#3}Nomad{/#3} Rumors{/#1}",
-      "zh": "{#1} {#2}名贵装备{/#2}——{#3}游牧民{/#3}传闻{/#1}",
+      "zh": "{#1} {#2}红装{/#2}——{#3}游牧民{/#3}传闻{/#1}",
       "status": "reviewed",
       "page_ids": [
         10724
@@ -49708,7 +49708,7 @@
       "id": "u-6763699b8e86ab9b3b21f163",
       "source_sha256": "6763699b8e86ab9b3b21f1632da41906dac7bfe6d6c3aeed6e8914928ea8f502",
       "source": "Named items",
-      "zh": "名贵装备",
+      "zh": "红装",
       "status": "reviewed",
       "page_ids": [
         11233
@@ -53015,7 +53015,7 @@
       "id": "u-b8b09476ab615e64cd90db68",
       "source_sha256": "b8b09476ab615e64cd90db682b0bef110de232d783ae291844417f8e84204ddf",
       "source": "{#1}Named Item{/#1}",
-      "zh": "{#1}获得名贵装备{/#1}",
+      "zh": "{#1}获得红装{/#1}",
       "status": "reviewed",
       "page_ids": [
         12983
@@ -53025,7 +53025,7 @@
       "id": "u-e39482dc21227716d23961d0",
       "source_sha256": "e39482dc21227716d23961d0e408ab16bf7904f7a545cdcee1df73d94534c922",
       "source": "{#1}Named Item Set{/#1}",
-      "zh": "{#1}集齐名贵装备{/#1}",
+      "zh": "{#1}集齐红装{/#1}",
       "status": "reviewed",
       "page_ids": [
         12984
@@ -73168,7 +73168,7 @@
       "id": "u-fbb0bdf9e699096b64bf2f93",
       "source_sha256": "fbb0bdf9e699096b64bf2f93bda88c55f6c9a9a1430e99822d94f24aacc51126",
       "source": "{#1}Named Melee Weapons{/#1}",
-      "zh": "{#1}名贵近战武器{/#1}",
+      "zh": "{#1}红装近战武器{/#1}",
       "status": "reviewed",
       "page_ids": [
         3024,
@@ -75571,7 +75571,7 @@
       "id": "u-154965fadc31992a19a52e2c",
       "source_sha256": "154965fadc31992a19a52e2c74fe85d0072a88e6d2cef8a95b54889020b1d2d4",
       "source": "A {#1}named item{/#1}:",
-      "zh": "一件{#1}名贵装备{/#1}：",
+      "zh": "一件{#1}红装{/#1}：",
       "status": "reviewed",
       "page_ids": [
         14435,
@@ -75981,7 +75981,7 @@
       "id": "u-b9f981aba8be9a803fc1a95a",
       "source_sha256": "b9f981aba8be9a803fc1a95a16dc6b5a1a56a198152808bf6129aec70cb7106e",
       "source": "{#1}Named Body Armors{/#1}",
-      "zh": "{#1}名贵身体护甲{/#1}",
+      "zh": "{#1}红装身体护甲{/#1}",
       "status": "reviewed",
       "page_ids": [
         4829,
@@ -79623,7 +79623,7 @@
       "id": "u-4fb8d43a666f27b588ac8daf",
       "source_sha256": "4fb8d43a666f27b588ac8daf7af98dfc8fa62a61d35c319e988e193473231a0a",
       "source": "{#1}Named Ranged Weapons{/#1}",
-      "zh": "{#1}名贵远程武器{/#1}",
+      "zh": "{#1}红装远程武器{/#1}",
       "status": "reviewed",
       "page_ids": [
         3850,
@@ -80695,7 +80695,7 @@
       "id": "u-a2d1f84489cd700aa3406612",
       "source_sha256": "a2d1f84489cd700aa34066126a0c7902a1a3e779074f3b9e57ff50a0317f89c0",
       "source": "Defense",
-      "zh": "防卫",
+      "zh": "防御",
       "status": "reviewed",
       "page_ids": [
         4829,
@@ -87051,7 +87051,7 @@
         10701,
         10892
       ],
-      "zh": "可为你带来一把{#1}名贵巨剑{/#1}。（{#2}亡灵灾祸：霍加特{/#2}）",
+      "zh": "可为你带来一把{#1}红装巨剑{/#1}。（{#2}亡灵灾祸：霍加特{/#2}）",
       "status": "reviewed"
     },
     {
@@ -87436,7 +87436,7 @@
         10701,
         10892
       ],
-      "zh": "可为你带来一把{#1}名贵弩{/#1}。（{#2}冒牌猎巫人{/#2}）",
+      "zh": "可为你带来一把{#1}红装弩{/#1}。（{#2}冒牌猎巫人{/#2}）",
       "status": "reviewed"
     },
     {
@@ -91011,7 +91011,7 @@
         15019,
         15020
       ],
-      "zh": "50%几率获得一面{#1}名贵兽人重盾{/#1}。",
+      "zh": "50%几率获得一面{#1}红装兽人重盾{/#1}。",
       "status": "reviewed"
     },
     {
@@ -91231,7 +91231,7 @@
         2817,
         7112
       ],
-      "zh": "10%几率：你获得一把{#1}名贵匕首{/#1}",
+      "zh": "10%几率：你获得一把{#1}红装匕首{/#1}",
       "status": "reviewed"
     },
     {
@@ -92716,7 +92716,7 @@
         2817,
         12060
       ],
-      "zh": "你获得一面{#1}名贵盾牌{/#1}",
+      "zh": "你获得一面{#1}红装盾牌{/#1}",
       "status": "reviewed"
     },
     {
@@ -93200,7 +93200,7 @@
         15015,
         16901
       ],
-      "zh": "一件名贵装备：",
+      "zh": "一件红装：",
       "status": "reviewed"
     },
     {
@@ -97402,7 +97402,7 @@
         2817,
         16125
       ],
-      "zh": "你获得一把{#1}名贵卡塔尔匕首{/#1}",
+      "zh": "你获得一把{#1}红装卡塔尔匕首{/#1}",
       "status": "reviewed"
     },
     {
@@ -99305,7 +99305,7 @@
         16906,
         16907
       ],
-      "zh": "25%几率携带一面{#1}名贵西帕尔圆盾{/#1}。",
+      "zh": "25%几率携带一面{#1}红装西帕尔圆盾{/#1}。",
       "status": "reviewed"
     },
     {
@@ -100273,7 +100273,7 @@
         16906,
         16907
       ],
-      "zh": "{#1}名贵双手弯刀{/#1}对拥有{#2}轻灵{/#2}的弟兄十分致命。",
+      "zh": "{#1}红装双手弯刀{/#1}对拥有{#2}轻灵{/#2}的弟兄十分致命。",
       "status": "reviewed"
     },
     {
@@ -100999,7 +100999,7 @@
         2817,
         15925
       ],
-      "zh": "你获得一把{#1}名贵弩{/#1}",
+      "zh": "你获得一把{#1}红装弩{/#1}",
       "status": "reviewed"
     },
     {
@@ -101351,7 +101351,7 @@
         13618,
         13647
       ],
-      "zh": "拥有3件{#1}名贵或传奇{/#1}物品",
+      "zh": "拥有3件{#1}红装或传奇{/#1}物品",
       "status": "reviewed"
     },
     {
@@ -102407,7 +102407,7 @@
         2817,
         12098
       ],
-      "zh": "此事件不会摧毁名贵或传奇物品",
+      "zh": "此事件不会摧毁红装或传奇物品",
       "status": "reviewed"
     },
     {
@@ -105212,7 +105212,7 @@
         4489,
         12984
       ],
-      "zh": "战团拥有一件名贵装备",
+      "zh": "战团拥有一件红装",
       "status": "reviewed"
     },
     {
@@ -109253,7 +109253,7 @@
       "page_ids": [
         16323
       ],
-      "zh": "+ 3 - 9（最终总疲劳惩罚最多改善至−8）",
+      "zh": "+ 3 - 9（疲劳上限惩罚最多可减轻至−8）",
       "status": "reviewed"
     },
     {
@@ -109323,7 +109323,7 @@
       "page_ids": [
         16317
       ],
-      "zh": "弹药堆叠数量（投掷武器）",
+      "zh": "弹药数量（投掷武器）",
       "status": "reviewed"
     },
     {
@@ -112683,7 +112683,7 @@
       "page_ids": [
         16324
       ],
-      "zh": "+ 1 - 4（最终总疲劳惩罚最多改善至−4）",
+      "zh": "+ 1 - 4（疲劳上限惩罚最多可减轻至−4）",
       "status": "reviewed"
     },
     {
@@ -112863,7 +112863,7 @@
       "page_ids": [
         16317
       ],
-      "zh": "兽人砍刀",
+      "zh": "兽人斩刀",
       "status": "reviewed"
     },
     {
@@ -114723,7 +114723,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}{#2}名贵装备{/#2}——{#3}古代亡灵{/#3}与{#4}行尸{/#4}传闻{/#1}",
+      "zh": "{#1}{#2}红装{/#2}——{#3}古代亡灵{/#3}与{#4}行尸{/#4}传闻{/#1}",
       "status": "reviewed"
     },
     {
@@ -115793,7 +115793,7 @@
       "page_ids": [
         10555
       ],
-      "zh": "随机一把{#1}名贵锈蚀战刃{/#1}。",
+      "zh": "随机一把{#1}红装锈蚀战刃{/#1}。",
       "status": "reviewed"
     },
     {
@@ -117033,7 +117033,7 @@
       "page_ids": [
         16904
       ],
-      "zh": "70%几率携带一把{#1}名贵战弓{/#1}或{#2}名贵弩{/#2}。",
+      "zh": "70%几率携带一把{#1}红装战弓{/#1}或{#2}红装弩{/#2}。",
       "status": "reviewed"
     },
     {
@@ -118513,7 +118513,7 @@
       "page_ids": [
         7112
       ],
-      "zh": "你获得一把名贵匕首",
+      "zh": "你获得一把红装匕首",
       "status": "reviewed"
     },
     {
@@ -118633,7 +118633,7 @@
       "page_ids": [
         16291
       ],
-      "zh": "{#1}主条目： {#2}名贵护甲{/#2}{/#1}",
+      "zh": "{#1}主条目： {#2}红装护甲{/#2}{/#1}",
       "status": "reviewed"
     },
     {
@@ -122933,7 +122933,7 @@
       "page_ids": [
         16269
       ],
-      "zh": "一把{#1}名贵强化荒野短弓{/#1}。",
+      "zh": "一把{#1}红装强化荒野短弓{/#1}。",
       "status": "reviewed"
     },
     {
@@ -124263,7 +124263,7 @@
       "page_ids": [
         16901
       ],
-      "zh": "1/8几率携带一面{#1}名贵西帕尔圆盾{/#1}。",
+      "zh": "1/8几率携带一面{#1}红装西帕尔圆盾{/#1}。",
       "status": "reviewed"
     },
     {
@@ -124413,7 +124413,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}{#2}1{/#2} {#3}名贵装备传闻{/#3}{/#1}",
+      "zh": "{#1}{#2}1{/#2} {#3}红装传闻{/#3}{/#1}",
       "status": "reviewed"
     },
     {
@@ -126803,7 +126803,7 @@
       "page_ids": [
         15491
       ],
-      "zh": "极为罕见：{#1}名贵手铳{/#1}.",
+      "zh": "极为罕见：{#1}红装手铳{/#1}.",
       "status": "reviewed"
     },
     {
@@ -128753,7 +128753,7 @@
       "page_ids": [
         16292
       ],
-      "zh": "{#1}主条目： {#2}名贵盾牌{/#2}{/#1}",
+      "zh": "{#1}主条目： {#2}红装盾牌{/#2}{/#1}",
       "status": "reviewed"
     },
     {
@@ -132653,7 +132653,7 @@
       "page_ids": [
         6430
       ],
-      "zh": "名贵物品：每件+25",
+      "zh": "红装：每件+25",
       "status": "reviewed"
     },
     {
@@ -135313,7 +135313,7 @@
       "page_ids": [
         2817
       ],
-      "zh": "“直接拿走那件名贵遗物。”",
+      "zh": "“直接拿走那件红装遗物。”",
       "status": "reviewed"
     },
     {
@@ -135333,7 +135333,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}{#2}名贵装备{/#2}——{#3}强盗{/#3}传闻{/#1}",
+      "zh": "{#1}{#2}红装{/#2}——{#3}强盗{/#3}传闻{/#1}",
       "status": "reviewed"
     },
     {
@@ -137733,7 +137733,7 @@
       "page_ids": [
         14435
       ],
-      "zh": "70%几率携带一把{#1}名贵战弓{/#1}。",
+      "zh": "70%几率携带一把{#1}红装战弓{/#1}。",
       "status": "reviewed"
     },
     {
@@ -143883,7 +143883,7 @@
       "page_ids": [
         16903
       ],
-      "zh": "名贵护甲不带任何护甲附件。",
+      "zh": "红装护甲不带任何护甲附件。",
       "status": "reviewed"
     },
     {
@@ -144123,7 +144123,7 @@
       "page_ids": [
         5965
       ],
-      "zh": "以下角色的初始护甲：{#1}屠龙者{/#1}.",
+      "zh": "{#1}屠龙者{/#1}的初始护甲。",
       "status": "reviewed"
     },
     {
@@ -147353,7 +147353,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}{#2}名贵装备{/#2}——{#3}地精{/#3}传闻{/#1}",
+      "zh": "{#1}{#2}红装{/#2}——{#3}地精{/#3}传闻{/#1}",
       "status": "reviewed"
     },
     {
@@ -151383,7 +151383,7 @@
       "page_ids": [
         16290
       ],
-      "zh": "{#1}主条目： {#2}名贵武器{/#2}{/#1}",
+      "zh": "{#1}主条目： {#2}红装武器{/#2}{/#1}",
       "status": "reviewed"
     },
     {
@@ -151413,7 +151413,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}{#2}名贵装备{/#2}——{#3}兽人{/#3}传闻{/#1}",
+      "zh": "{#1}{#2}红装{/#2}——{#3}兽人{/#3}传闻{/#1}",
       "status": "reviewed"
     },
     {
@@ -151623,7 +151623,7 @@
       "page_ids": [
         10724
       ],
-      "zh": "{#1}名贵装备传闻{/#1}",
+      "zh": "{#1}红装传闻{/#1}",
       "status": "reviewed"
     },
     {
@@ -151803,7 +151803,7 @@
       "page_ids": [
         16293
       ],
-      "zh": "{#1}主条目： {#2}名贵头盔{/#2}{/#1}",
+      "zh": "{#1}主条目： {#2}红装头盔{/#2}{/#1}",
       "status": "reviewed"
     },
     {

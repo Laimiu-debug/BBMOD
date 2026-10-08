@@ -46,7 +46,7 @@
       "id": "u-14e08dd48db616b99fb1ace1",
       "source_sha256": "14e08dd48db616b99fb1ace1cfaab2cfa5f1985005d838f7491d5b6ff413ce4b",
       "source": "The introduction of the new form of the Nimble perk has made it easier to combine a high usable pool of fatigue with strong innate protection against injuries, and some of the rare Nimble-worthy armours (e.g. nightcloaks and steppe helms) offer amazing 200+ durability. With the addition of Light Padding Replacement, some heavier rare body-armours (even ones with ~300 durability) can become Nimble-worthy in combination with an efficient helm. Obviously, so much combined armour and Nimbleness synergizes very well with Indomitable! (In times past, I was happy enough to combine 150-240 armours with a plentiful pool of fatigue, high HPs, generous Indomitable usage, and no innate damage-reduction!)",
-      "zh": "新版轻灵让大量可用疲劳与强大的抗伤势能力更容易兼得。一些适合轻灵的名贵护甲，例如夜幕披衣和草原盔，耐久甚至能达到惊人的 200+。加上轻型替换衬垫后，一些较重的名贵身甲，甚至耐久约 300 的款式，也能搭配合适的头盔用于轻灵。显然，如此高的护甲和轻灵减伤，与不屈相得益彰！想当年，我只要有 150-240 的护甲、充足的可用疲劳、较高生命值，能频繁用不屈，就已经很满足了，根本没有额外的固有减伤！",
+      "zh": "新版轻灵让大量可用疲劳与强大的抗伤势能力更容易兼得。一些适合轻灵的红装护甲，例如夜幕披衣和草原盔，耐久甚至能达到惊人的 200+。加上轻型替换衬垫后，一些较重的红装身甲，甚至耐久约 300 的款式，也能搭配合适的头盔用于轻灵。显然，如此高的护甲和轻灵减伤，与不屈相得益彰！想当年，我只要有 150-240 的护甲、充足的可用疲劳、较高生命值，能频繁用不屈，就已经很满足了，根本没有额外的固有减伤！",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -106,7 +106,7 @@
       "id": "u-1fdf7e452f3960574193c4f6",
       "source_sha256": "1fdf7e452f3960574193c4f63c88759152c477d6925f626363854a9f016b24cb",
       "source": "Against enemies without high-durability shields and/or the Shield Expert perk (or against enemies with lots of 2-tile weapons), bardiches may be favoured for their AOE split ability. If you get a rare bardiche with greataxe-esque shield damage, that may be favoured for all engagements. On the other hand, if the character’s fatigue is high enough, you could even carry all three 2H axe variants. Other options for the third item slot include a 1H weapon (so that you can Recover after Berserk, or so that you can have an extra attack and use Indomitable after getting a kill and going Berserk in a tight situation) or a jagged pike (so that, after a kill/Berserk, you can move a tile and make an additional 2-tile attack, gaining part of the advantage of polearms without needing to master them) or a battle-whip (so that you can do all the above things, with a 3-tile range, but only inflict meaningful damage if the target is unarmoured).",
-      "zh": "如果敌人没有高耐久盾牌、没有盾牌精通，或者大量使用 2 格武器，可以优先用长刃斧，发挥劈开的范围攻击。若拿到一把破盾伤害堪比巨斧的名贵长刃斧，甚至可以一直用它。另一方面，疲劳上限够高的话，三种双手斧也可以全带。第三个装备栏还可以放单手武器，便于触发狂战后恢复体力，或在危急时刻击杀并触发狂战后，再攻击一下并使用不屈；也可以放锯齿长枪，击杀触发狂战后移动一格，再进行一次 2 格攻击，不用点长柄武器精通，也能获得部分长柄武器的优势；或者放战鞭，同样能完成上述操作，射程还有 3 格，但只有对无甲目标才打得出像样的伤害。",
+      "zh": "如果敌人没有高耐久盾牌、没有盾牌精通，或者大量使用 2 格武器，可以优先用长刃斧，发挥劈开的范围攻击。若拿到一把破盾伤害堪比巨斧的红装长刃斧，甚至可以一直用它。另一方面，疲劳上限够高的话，三种双手斧也可以全带。第三个装备栏还可以放单手武器，便于触发狂战后恢复体力，或在危急时刻击杀并触发狂战后，再攻击一下并使用不屈；也可以放锯齿长枪，击杀触发狂战后移动一格，再进行一次 2 格攻击，不用点长柄武器精通，也能获得部分长柄武器的优势；或者放战鞭，同样能完成上述操作，射程还有 3 格，但只有对无甲目标才打得出像样的伤害。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -186,7 +186,7 @@
       "id": "u-0af9cd42a343ff0ee27aae22",
       "source_sha256": "0af9cd42a343ff0ee27aae220ba9907814d9bbf93fd88b42d3a0abce2b4de545",
       "source": "The character should either be Nimble or wearing armours with durability at least around the mid-200s (in the latter case, ideally without using a perk on Brawny). Ideally the character would be highly Nimble in super-efficient famed armours with durability in the low/mid-200s, or Battle Forged (still without using a perk on Brawny) in super-efficient famed armours with durability in the mid/high-300s. A perk-sparing compromise would to have a high pool of fatigue in efficient armours in the mid/high 200s, with no Nimble, Brawny or BF (but yes Indomitable).",
-      "zh": "这个角色要么用轻灵，要么穿耐久至少处于 200 多点中段的护甲；后一种情况最好不要再为壮硕花费特长点。理想方案是穿重量效率极高、耐久处于 200 多点低段或中段的名贵护甲，保留较强的轻灵效果；或者穿耐久处于 300 多点中段或高段的高效名贵护甲，搭配久经战阵，仍然不用壮硕。节省特长点的折中方案，是穿耐久处于 200 多点中段或高段的高效护甲，保留大量可用疲劳，不点轻灵、壮硕或久经战阵，但要有不屈。",
+      "zh": "这个角色要么用轻灵，要么穿耐久至少处于 200 多点中段的护甲；后一种情况最好不要再为壮硕花费特长点。理想方案是穿重量效率极高、耐久处于 200 多点低段或中段的红装护甲，保留较强的轻灵效果；或者穿耐久处于 300 多点中段或高段的高效红装护甲，搭配久经战阵，仍然不用壮硕。节省特长点的折中方案，是穿耐久处于 200 多点中段或高段的高效护甲，保留大量可用疲劳，不点轻灵、壮硕或久经战阵，但要有不屈。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -276,7 +276,7 @@
       "id": "u-e44f49cbc50ae2889a92f5a3",
       "source_sha256": "e44f49cbc50ae2889a92f5a362d5f116a245e96d728a69318ba4c00305bdd97d",
       "source": "The new 2H maces are magnificent weapons and I use of them a lot (without mastery) for the powerful Daze effect of their basic (fatigue-neutral) attack. Additionally, however, I sometimes have one or two characters who master the mace, since 1H maces can be useful if you want to stun multiple enemies who have the Resilient perk (or move two tiles to stun one enemy), and they also tend to be the best Duellist weapons (Duellist becoming an enticing perk if you’ve chanced to loot an awesome 1H mace with exaggerated damage). Against many medium-armoured enemies, an attack from a 2H mace leaves them devoid of armour but clinging onto just a few HPs; an attack from a 1H mace with Duellist doesn’t do as much devastation, but does leave enough APs for another attack that will finish them off.",
-      "zh": "新增的双手钉锤非常出色，我经常不点精通直接使用，主要看中它普通攻击附带的强力恍惚效果，而且这种打法能保持疲劳收支平衡。不过，我有时也会培养一两名点出钉锤精通的角色：单手钉锤可以击晕多个带顽强特长的敌人，也可以先移动两格再击晕一个敌人。它们往往也是最适合决斗家的武器；如果碰巧捡到一把伤害超高的名贵单手钉锤，决斗家就很诱人了。许多中甲敌人挨一次双手钉锤攻击后，会护甲尽毁，却还剩几点生命。单手钉锤配决斗家虽然一击没有这么强，但还留有足够行动点，可以再打一下收掉人头。",
+      "zh": "新增的双手钉锤非常出色，我经常不点精通直接使用，主要看中它普通攻击附带的强力恍惚效果，而且这种打法能保持疲劳收支平衡。不过，我有时也会培养一两名点出钉锤精通的角色：单手钉锤可以击晕多个带顽强特长的敌人，也可以先移动两格再击晕一个敌人。它们往往也是最适合决斗家的武器；如果碰巧捡到一把伤害超高的红装单手钉锤，决斗家就很诱人了。许多中甲敌人挨一次双手钉锤攻击后，会护甲尽毁，却还剩几点生命。单手钉锤配决斗家虽然一击没有这么强，但还留有足够行动点，可以再打一下收掉人头。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -416,7 +416,7 @@
       "id": "u-f0432906b9f02e0a7543c339",
       "source_sha256": "f0432906b9f02e0a7543c339dec78e387458bca0e564a8029ebf8441585af04a",
       "source": "Not massively different from the other melee/fatigue-based offensive types/variants (with room for enough overlap to make them indistinguishable), but this is an exciting one based on maximizing damage with any awesome rare weapons you’ve been able to find.",
-      "zh": "这个角色与其他依靠近战和疲劳上限的输出类型或变体，没有特别大的区别，重叠空间甚至足以让人分不清。不过，它很令人兴奋：围绕你找到的任何一把出色名贵武器，把伤害推到极致。",
+      "zh": "这个角色与其他依靠近战和疲劳上限的输出类型或变体，没有特别大的区别，重叠空间甚至足以让人分不清。不过，它很令人兴奋：围绕你找到的任何一把出色红装武器，把伤害推到极致。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -426,7 +426,7 @@
       "id": "u-e7f882f526a9617a1c49020b",
       "source_sha256": "e7f882f526a9617a1c49020b5f11a631c1df3c15ea20b0477622a4aef7749705",
       "source": "This character may or may not have a mastery, but should have a big 2-hander (often a mace), a 2-tile weapon and either Strange Mushrooms or a 4-AP weapon (ideally all weapons rare variants with exaggerated damage and/or fatigue efficiency). Foregoing a mastery frees up more perk options for damage (Killing Frenzy, Duellist), for making sure you hit bastards in the first place (Backstabber), or for carrying more offensive weapons and/or nets and/or throwing spears and/or Strange Mushrooms (Bags and Belts).",
-      "zh": "这个角色可以有武器精通，也可以没有，但应当带一把大型双手武器，通常是钉锤，再带一把 2 格武器，以及奇异蘑菇或一把消耗 4 行动点的武器。理想情况下，所有武器都是伤害极高、疲劳效率极佳的名贵款式。不点武器精通，就能腾出更多特长点：用杀戮狂热或决斗家增加伤害，用背刺者确保先打中那些混蛋，或者用行囊与腰带多带进攻武器、网、投矛和奇异蘑菇。",
+      "zh": "这个角色可以有武器精通，也可以没有，但应当带一把大型双手武器，通常是钉锤，再带一把 2 格武器，以及奇异蘑菇或一把消耗 4 行动点的武器。理想情况下，所有武器都是伤害极高、疲劳效率极佳的红装款式。不点武器精通，就能腾出更多特长点：用杀戮狂热或决斗家增加伤害，用背刺者确保先打中那些混蛋，或者用行囊与腰带多带进攻武器、网、投矛和奇异蘑菇。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -626,7 +626,7 @@
       "id": "u-55cdec45220a9286119a18c9",
       "source_sha256": "55cdec45220a9286119a18c91ab5383d2bf1e7f1b1715d4c2d5b593516b2597f",
       "source": "For the above reasons, it’s preferable to wear armour that’s as heavy as possible, to guarantee having the lowest possible initiative. For obvious practical reasons, however, it’s very difficult to meet the fatigue requirements for the build in heavy armour, and Nimble (or a vulnerable medium-armoured build with no Nimble but with an extra perk point freed) is often the only option. With minimal Nimble armour and a greatsword and no back-up items, only 117 base max fatigue is the minimum value needed (but your initiative will sometimes still be too high, forcing you to awkwardly wait turn to lower it on the active turns, which is often still not enough). In theory, in the most efficient rare armours offering ~300+ durability and with LPR and no Brawny, you could get by with 130 base max fatigue. In more realistic conditions, you’re more likely to need ~140 base max fatigue for sub-optimal heavy-ish ~250+ armours with LPR and no back-up items, and that leaves little room for HPs and resolve (which are also very important in the tough fights for which this kind of character is made). Traits such as Strong and Iron Lungs (and Tough and Fearless) are therefore gifts from the grim gods of battle. Remember that Iron Lungs reduces the base fatigue requirements by 12.",
-      "zh": "因此，最好尽量穿重甲，确保先攻尽可能低。但很明显，重甲下极难达到这套配点的疲劳要求，所以轻灵常是唯一选择；也可以穿中甲而不点轻灵，腾出一个特长点，但会比较脆。穿最轻的轻灵护甲、拿巨剑、不带备用物品时，基础疲劳上限最低只需 117。不过有时先攻还是太高，不得不在需要攻击的回合别扭地等待来降低先攻，而且往往仍不够。理论上，穿最高效、耐久约 300+ 的名贵护甲，使用轻型替换衬垫且不点壮硕，基础疲劳上限 130 就够。现实中，更可能是穿不那么理想、耐久约 250+ 的较重护甲，加轻型替换衬垫，不带备用物品，仍需要约 140 基础疲劳上限。这样就没多少成长能留给生命值和意志，而这两项在该角色要面对的艰难战斗中同样重要。所以，强壮和铁肺，以及强健和无畏，都是残酷战神赐予的礼物。记住，铁肺能把基础疲劳需求降低 12。",
+      "zh": "因此，最好尽量穿重甲，确保先攻尽可能低。但很明显，重甲下极难达到这套配点的疲劳要求，所以轻灵常是唯一选择；也可以穿中甲而不点轻灵，腾出一个特长点，但会比较脆。穿最轻的轻灵护甲、拿巨剑、不带备用物品时，基础疲劳上限最低只需 117。不过有时先攻还是太高，不得不在需要攻击的回合别扭地等待来降低先攻，而且往往仍不够。理论上，穿最高效、耐久约 300+ 的红装护甲，使用轻型替换衬垫且不点壮硕，基础疲劳上限 130 就够。现实中，更可能是穿不那么理想、耐久约 250+ 的较重护甲，加轻型替换衬垫，不带备用物品，仍需要约 140 基础疲劳上限。这样就没多少成长能留给生命值和意志，而这两项在该角色要面对的艰难战斗中同样重要。所以，强壮和铁肺，以及强健和无畏，都是残酷战神赐予的礼物。记住，铁肺能把基础疲劳需求降低 12。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -736,7 +736,7 @@
       "id": "u-0f56ec878fc0b8164ae0df3a",
       "source_sha256": "0f56ec878fc0b8164ae0df3a0adf6fac4ffdc2a6fd90dd7b2855c33c2d265f24",
       "source": "An easier variant of the above character, with less need for high melee skill and with free additional defence from a shield. Instead of cyclically combining Indomitable with an AOE attack (which requires 90 fatigue in gear, or 82 with Iron Lungs), this character combines it with Riposte (which requires 82 fatigue in gear, or 70 with Iron Lungs). Assuming a fatigue cost of 8 for the 1H sword and of 18 for the best kind of rare shield (offering both high melee defence and high durability), this character would require a minimum of 123 base max fatigue to perform the role in minimal Nimble armour, or 130 allowing for a back-up heater shield (since any shield tends to break in the most massive fights, even without any axes in sight). If you want the role to be performed in efficient heavy armours with ~300+ durability and with LPR and no Brawny (saving a perk only to agonize over whether it’s worth spending it on BF), those requirements will increase to over 140 base max fatigue, again leaving precious little room to distribute stat points (except in instances of Iron Lungs, where the requirements are reduced by 12). Since this character needs less melee skill, it is at least possible to devote more attention to HPs and resolve while taking defence and fatigue to max and near-max values. HPs and resolve need more attention, however, since these guys will always occupy the most vulnerable and isolated positions in the formation (furthest from any sergeant) and will be the most swarmed with enemies (and miasma).",
-      "zh": "这是上一种角色更容易培养的变体：对近战命中的要求更低，还能从盾牌免费获得额外防御。上一种角色循环使用不屈和范围攻击，穿戴后需 90 可用疲劳，有铁肺则为 82，原文此处与上文数值不一致；这个角色则把不屈与还击架势搭配，穿戴后需 82 可用疲劳，有铁肺则为 70。假设单手剑负担为 8、同时兼具高近战防御与高耐久的极品名贵盾负担为 18，那么穿最轻的轻灵护甲时，基础疲劳上限至少要 123；若再带一面备用熨斗形盾，就要 130。毕竟最大规模的战斗中，即使看不见斧头，盾也常常会破。如果想穿耐久约 300+ 的高效重甲，使用轻型替换衬垫而不点壮硕，省出一个特长点，却又纠结要不要拿去点久经战阵，基础疲劳需求就会超过 140，再次挤占其他属性的成长空间。铁肺例外，它能把需求降低 12。由于不太需要近战命中，至少可以在把防御和疲劳上限堆到最高或接近最高的同时，更多照顾生命值与意志。而且这两项确实更需要投入，因为这些人总会站在阵形中最脆弱、最孤立、离军士最远的位置，被最多的敌人和瘴气包围。",
+      "zh": "这是上一种角色更容易培养的变体：对近战命中的要求更低，还能从盾牌免费获得额外防御。上一种角色循环使用不屈和范围攻击，穿戴后需 90 可用疲劳，有铁肺则为 82，原文此处与上文数值不一致；这个角色则把不屈与还击架势搭配，穿戴后需 82 可用疲劳，有铁肺则为 70。假设单手剑负担为 8、同时兼具高近战防御与高耐久的极品红装盾负担为 18，那么穿最轻的轻灵护甲时，基础疲劳上限至少要 123；若再带一面备用熨斗形盾，就要 130。毕竟最大规模的战斗中，即使看不见斧头，盾也常常会破。如果想穿耐久约 300+ 的高效重甲，使用轻型替换衬垫而不点壮硕，省出一个特长点，却又纠结要不要拿去点久经战阵，基础疲劳需求就会超过 140，再次挤占其他属性的成长空间。铁肺例外，它能把需求降低 12。由于不太需要近战命中，至少可以在把防御和疲劳上限堆到最高或接近最高的同时，更多照顾生命值与意志。而且这两项确实更需要投入，因为这些人总会站在阵形中最脆弱、最孤立、离军士最远的位置，被最多的敌人和瘴气包围。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -746,7 +746,7 @@
       "id": "u-a3250f31861b3832a66f843d",
       "source_sha256": "a3250f31861b3832a66f843d75cf3e30fedaf0db40e85f4510b5e8548d787183",
       "source": "As mentioned above, the degree of overlap between this character and the zweihander is sufficient that, in some cases, you might be tempted to try combining the two (e.g. taking both Shield Expert and Reach Advantage, or foregoing both of them). Taking Shield Expert makes it much easier to develop this character in the early-mid game, however, as well as prolonging the lifespan and inflating the defence values of any magnificent rare shields you find.",
-      "zh": "如前所述，这个角色与双手剑士的重叠足够大，有时你会想把两者合并，例如同时选盾牌精通和长兵优势，或两个都不选。不过，盾牌精通能让前中期的培养轻松得多，也能提高你捡到的极品名贵盾的防御，并延长其使用寿命。",
+      "zh": "如前所述，这个角色与双手剑士的重叠足够大，有时你会想把两者合并，例如同时选盾牌精通和长兵优势，或两个都不选。不过，盾牌精通能让前中期的培养轻松得多，也能提高你捡到的极品红装盾的防御，并延长其使用寿命。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -766,7 +766,7 @@
       "id": "u-450ae0398c37a9844ad230b1",
       "source_sha256": "450ae0398c37a9844ad230b10b3a7caa36aa6257b70552d990a3e1335aaec065",
       "source": "Increasing the pool of in-gear fatigue to 84+ allows the possibility of combining Indomitable with Shieldwall when you want to remain alive in especially tough situations (or if you have an excellent rare shield with an exaggerated melee defence value and want to minimize enemy hit chances in massive fights at legendary locations).",
-      "zh": "把穿戴后的可用疲劳提高到 84+，就可以在特别艰难、只求活命的情况下，把不屈与盾墙一起用；如果有一面近战防御高得夸张的名贵盾，想在传奇地点的大型战斗中把敌人的命中率压到最低，也能这样做。",
+      "zh": "把穿戴后的可用疲劳提高到 84+，就可以在特别艰难、只求活命的情况下，把不屈与盾墙一起用；如果有一面近战防御高得夸张的红装盾，想在传奇地点的大型战斗中把敌人的命中率压到最低，也能这样做。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -816,7 +816,7 @@
       "id": "u-4a992eaf07264440ae5c1100",
       "source_sha256": "4a992eaf07264440ae5c110013311721be843834caa58827bdd38c6b3b4fc312",
       "source": "A cheap, cheesy build combining a large shield (and maybe several spares with Bags and Belts) with high initiative to add a significant bonus to melee defence and further lower enemy hit chances by applying Overwhelm with fatigue-neutral attacks. Hitting and damaging things is of no importance. Non-mastered dagger stabs are perfectly sufficient; punches may be even better (unless you have a rare fencing sword with a -3 fatigue cost per skill use). Resilient ensures that any Stagger effect lasts just a single turn. Relentless and Recover are not necessary unless you want to try using some fancy shield skills and/or taking advantage of a small free pool of fatigue to use Indomitable until you have been entirely surrounded by charging orcs (this does help to make this character usable in more high-level fights). While this build is a stop-gap that isn’t intended for the biggest and toughest encounters, it is possible to emerge unscathed from fights against large numbers of lindwurms (especially with Overwhelming assistance from long-distance whippers and bows) …",
-      "zh": "这是个便宜又取巧的配点：拿大盾，甚至用行囊与腰带多备几面，再靠高先攻增加大量近战防御，使用能维持疲劳收支平衡的攻击来施加压制，进一步降低敌人的命中率。能不能打中、能打多少伤害，都不重要。不点精通的匕首刺击就完全够用，拳头甚至可能更好，除非你有一把每次技能疲劳消耗 -3 的名贵决斗刺剑。顽强确保踉跄只持续一回合。不懈和恢复体力都不是必需，除非你想玩些花式盾牌技能，或者利用少量空余疲劳，在兽人冲锋把你团团围住前使用不屈。这确实能让它适用于更多高难度战斗。虽然这只是过渡方案，并非为最大、最难的战斗准备，但对付一大群林德蠕龙也有可能毫发无损，尤其有远处鞭手和弓手帮忙叠压制时……",
+      "zh": "这是个便宜又取巧的配点：拿大盾，甚至用行囊与腰带多备几面，再靠高先攻增加大量近战防御，使用能维持疲劳收支平衡的攻击来施加压制，进一步降低敌人的命中率。能不能打中、能打多少伤害，都不重要。不点精通的匕首刺击就完全够用，拳头甚至可能更好，除非你有一把每次技能疲劳消耗 -3 的红装决斗刺剑。顽强确保踉跄只持续一回合。不懈和恢复体力都不是必需，除非你想玩些花式盾牌技能，或者利用少量空余疲劳，在兽人冲锋把你团团围住前使用不屈。这确实能让它适用于更多高难度战斗。虽然这只是过渡方案，并非为最大、最难的战斗准备，但对付一大群林德蠕龙也有可能毫发无损，尤其有远处鞭手和弓手帮忙叠压制时……",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1026,7 +1026,7 @@
       "id": "u-22b8e6ba67f270357e36bbdb",
       "source_sha256": "22b8e6ba67f270357e36bbdb6c68c6f6cceed29fc9f4337a37e01ce208b386bd",
       "source": "Alternatively, the character can just have Quick Hands (a viable option with or without a mastery) and can select a 1-tile and 2-tile item suited to each enemy faced. Maces and dazing are always good. Or, since this character is expected to have less elite melee skill, you may find situational uses for (e.g.) a rare 2H flail with a good damage bonus, or a rare spetum that’s highly fatigue efficient and highly effective against armour.",
-      "zh": "另一种做法是只选快手，无论是否点精通都可行，再针对不同敌人搭配合适的 1 格和 2 格武器。钉锤与恍惚总是很好用。这个角色的近战命中本来就不算顶尖，因此有时也可以利用其他武器，例如伤害加成很高的名贵双手连枷，或疲劳效率高、对护甲效果出色的名贵三尖矛。",
+      "zh": "另一种做法是只选快手，无论是否点精通都可行，再针对不同敌人搭配合适的 1 格和 2 格武器。钉锤与恍惚总是很好用。这个角色的近战命中本来就不算顶尖，因此有时也可以利用其他武器，例如伤害加成很高的红装双手连枷，或疲劳效率高、对护甲效果出色的红装三尖矛。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1326,7 +1326,7 @@
       "id": "u-83791e545d78cc2c199280c9",
       "source_sha256": "83791e545d78cc2c199280c9f8518cbbc00fe62e58103cd187be212aec99023f",
       "source": "I haven’t actually tried them out much in proper campaigns, but I’ve experimented with them in improper ones, and they can certainly be effective and exciting (especially if you manage to get your hands on a rare fencing sword with -3 fatigue costs per skill use).",
-      "zh": "我还没在正经战役里多试过击剑士，倒是在不太正经的试验局里折腾过。他们确实既有效又好玩，尤其如果你弄到一把每次技能疲劳消耗 -3 的名贵决斗刺剑。",
+      "zh": "我还没在正经战役里多试过击剑士，倒是在不太正经的试验局里折腾过。他们确实既有效又好玩，尤其如果你弄到一把每次技能疲劳消耗 -3 的红装决斗刺剑。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1536,7 +1536,7 @@
       "id": "u-c9700507df9182cab8db57dd",
       "source_sha256": "c9700507df9182cab8db57dd16f143c6c55703ab286fef1e3dda28afbb2cb8c4",
       "source": "Despite their masses of armour, the camps with large numbers of warriors and very few berserkers tend to be the easiest. Not having to worry about being stunned by charging youngs (or split in two by berserkers) makes it much easier to handle the warriors, despite their greater individual difficulty rating. More berserkers increases the actual difficulty because of their menacing weapons, their greater resistance to injuries and negative morale states, and their greater mobility for moving over terrain (Pathfinder) and lesser stupidity in charging into enemies using Indomitable or Spearwall (they tend to keep moving around and forcing you to use more energy as a precaution). The combination of large numbers of berserkers and warriors (and a warlord with a double-gripped rare weapon with an obscene damage boost) makes for the toughest orc fight.",
-      "zh": "尽管护甲极厚，兽人战士多、狂战士很少的营地往往最容易。少了兽人青年冲锋击晕和狂战士把人劈成两半的顾虑，兽人战士即使单体难度更高，也更好处理。狂战士越多，实际难度越高：它们武器凶猛，更能抵抗伤势和负面士气，有寻路者、跨地形更灵活，也不会那么傻地冲向开着不屈或矛墙的敌人。它们更喜欢四处绕行，逼你为防备而多消耗体力。大量狂战士与战士，再配一个双手握持伤害加成高得离谱的名贵武器的军阀，就是最难的兽人战。",
+      "zh": "尽管护甲极厚，兽人战士多、狂战士很少的营地往往最容易。少了兽人青年冲锋击晕和狂战士把人劈成两半的顾虑，兽人战士即使单体难度更高，也更好处理。狂战士越多，实际难度越高：它们武器凶猛，更能抵抗伤势和负面士气，有寻路者、跨地形更灵活，也不会那么傻地冲向开着不屈或矛墙的敌人。它们更喜欢四处绕行，逼你为防备而多消耗体力。大量狂战士与战士，再配一个双手握持伤害加成高得离谱的红装武器的军阀，就是最难的兽人战。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1766,7 +1766,7 @@
       "id": "u-3b7ef707f8681386dc81c2ac",
       "source_sha256": "3b7ef707f8681386dc81c2acd54a7c0d0fff902390cfdf9e7c08d598a982a052",
       "source": "The most effective formation I’ve found for this fight (using the typical kind of troops that I use, some with uber-defence, some with uber-offence, but few with uber-both) involves four lines. The frontline has two zweihanders next to each other in the centre, and two shield tanks on either flank, with a 1-tile gap between the tanks and zweihanders. The shield tank on the western flank (the most vulnerable spot) could be a pure shield (armed only with a dagger to reduce fatigue and allow a spare shield) who endlessly cycles Indomitable+Shieldwall (ideally with a rare shield with enhanced durability and melee defence); the other shield tank at the front should also have enough usable fatigue to cycle Indom+Shieldwall in an emergency, but should generally favour Indom+Riposte (better for clearing necrosavants). Three characters are positioned in the centre of the second line, behind the zweihanders at the front. Two of these (the ones to either side) are axe-users (with a longaxe, a bardiche and/or greataxe and/or a battle-whip); the one in the centre could be another axe-user or a whipper with mastery (fatigue-intensive or initiative-based). In the centre of the third line, behind the axes/whips, are two more offensive characters who should have very high melee skill and preferably an abundance of fatigue and high mobility (i.e. the Rotation and Footwork perks). These two should be armed with 2H maces, battle-whips (mastered or not) and either a bill or a longaxe. Behind these two, in the centre of the backline, is the sergeant (4 tiles from each of the shield tanks on the flanks of the frontline), who should also have abundant fatigue and the Rotation and Footwork perks (and possibly, if you can squeeze it in, a whip with Quick Hands). (The sergeant’s position could be switched with one of those immediately ahead, if one of those has fairly high melee defence, but these three are likely to switch positions at points in the fight anyway.) On the flanks of the backline, 3 tiles behind the front flanks and just to their inside, are two more troops with high melee defence. The one on the western flank (the second-most vulnerable spot, most likely to encounter The Conqueror) should definitely be a shield-user (with the option of Indom+Riposte or Indom+Shieldwall, and ideally with a spare shield, since the initial one is almost certain to break); the one on the eastern flank could be another zweihander (even a Round-Swinger). Since the eastern rear flank is the position from which exposure to miasma and curses is most minimal, this is the best spot for a zweihander with exceptional melee values but mediocre HPs and resolve (but at least try to have close to ~90 and ~50 instead of 62 and 33, since teleporting necrosavants can easily break morale when it most needs to stay solid).",
-      "zh": "我找到的最有效阵形有四排，适合我常用的队伍：有人防御极强，有人进攻极强，但两者兼具的很少。前排中央并肩放两名双手剑士，左右各放一名盾卫，盾卫与双手剑士之间留 1 格。西侧是最危险的位置，这里的盾卫可以彻底专注防御，只带匕首以降低疲劳负担、腾出余力带备用盾，不断循环不屈加盾墙，最好拿一面耐久和近战防御都增强的名贵盾。前排另一名盾卫也应有足够可用疲劳，能在紧急时循环不屈加盾墙，但平时更应偏重不屈加还击架势，方便清理死灵剑士。第二排中央站三个人，在前排双手剑士后方；两侧用斧，携带长柄斧，再带长刃斧、巨斧或战鞭。中间可以再放一名斧手，或点了精通的鞭手，无论是高疲劳消耗型还是先攻型都行。第三排中央，在斧手、鞭手后面，再放两名输出手。他们应有极高的近战命中，最好还疲劳上限高、机动性强，也就是有换位和灵活步法。这两人应带双手钉锤、战鞭，无论鞭是否精通，再带钩镰或长柄斧。两人后方，末排中央是军士，距离前排两翼盾卫都是 4 格；他也应有很高疲劳上限、换位和灵活步法，如果挤得出位置，也可以带鞭和快手。如果紧邻前方的其中一人近战防御较高，可以与军士互换位置，反正这三人在战斗中很可能会多次换位。末排两翼，在前排两翼后方 3 格、略向内的位置，再放两名高近战防御成员。西侧是第二危险的位置，最可能遇到征服者，必须用持盾角色，可选不屈加还击架势或不屈加盾墙，最好带备用盾，因为第一面几乎肯定会破。东侧可以再放一名双手剑士，甚至用回旋斩的双手斧手。东后侧受到瘴气与诅咒的影响最少，最适合近战属性出众、生命值和意志却一般的双手武器手。但至少尽量有约 90 和约 50，别只有 62 和 33，因为传送而来的死灵剑士很容易在最需要稳住军心时击垮士气。",
+      "zh": "我找到的最有效阵形有四排，适合我常用的队伍：有人防御极强，有人进攻极强，但两者兼具的很少。前排中央并肩放两名双手剑士，左右各放一名盾卫，盾卫与双手剑士之间留 1 格。西侧是最危险的位置，这里的盾卫可以彻底专注防御，只带匕首以降低疲劳负担、腾出余力带备用盾，不断循环不屈加盾墙，最好拿一面耐久和近战防御都增强的红装盾。前排另一名盾卫也应有足够可用疲劳，能在紧急时循环不屈加盾墙，但平时更应偏重不屈加还击架势，方便清理死灵剑士。第二排中央站三个人，在前排双手剑士后方；两侧用斧，携带长柄斧，再带长刃斧、巨斧或战鞭。中间可以再放一名斧手，或点了精通的鞭手，无论是高疲劳消耗型还是先攻型都行。第三排中央，在斧手、鞭手后面，再放两名输出手。他们应有极高的近战命中，最好还疲劳上限高、机动性强，也就是有换位和灵活步法。这两人应带双手钉锤、战鞭，无论鞭是否精通，再带钩镰或长柄斧。两人后方，末排中央是军士，距离前排两翼盾卫都是 4 格；他也应有很高疲劳上限、换位和灵活步法，如果挤得出位置，也可以带鞭和快手。如果紧邻前方的其中一人近战防御较高，可以与军士互换位置，反正这三人在战斗中很可能会多次换位。末排两翼，在前排两翼后方 3 格、略向内的位置，再放两名高近战防御成员。西侧是第二危险的位置，最可能遇到征服者，必须用持盾角色，可选不屈加还击架势或不屈加盾墙，最好带备用盾，因为第一面几乎肯定会破。东侧可以再放一名双手剑士，甚至用回旋斩的双手斧手。东后侧受到瘴气与诅咒的影响最少，最适合近战属性出众、生命值和意志却一般的双手武器手。但至少尽量有约 90 和约 50，别只有 62 和 33，因为传送而来的死灵剑士很容易在最需要稳住军心时击垮士气。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1856,7 +1856,7 @@
       "id": "u-4e728f8875ddd67e09b3f076",
       "source_sha256": "4e728f8875ddd67e09b3f0764f8106d5280796a2b6b968eb3ab602ef741cf626",
       "source": "The remaining honor guards, who are actually acting as guards to the priests, have such low initiative that they are always behind you in the turn order, and they always wait turn as well. You can’t maintain Indomitable cycles against them, and they can always attack you after you engage them. However, if any shield tank is still alive with decent HPs (and hopefully a tiny bit of armour too), it’s good to engage one or more of these guards and use Indomitable (thereby preventing them from further movement to protect the priests). In the absence of any shield tanks with semblance of life, zweihanders will have to perform this role. In either case, it will create opportunities for damage-dealers to advance into range of the priests and use Adrenaline to attack before they can be Horrified. There will still be some loose honor guards to advance against these troops, but these ones will be relatively isolated and it should be fairly simple for someone to daze or disarm them (or just kill them as quickly as possible). Once only one priest remains, it is highly satisfying (even if it’s clinging to just a few HPs) to ritually execute it with the most gruesome, gratuitous weapon/attack available. This is a special moment for rare 2H axes or maces, or for Decapitate with a rare cleaver.",
-      "zh": "剩下的荣誉卫士真正承担着保护祭司的职责。它们先攻极低，总排在你后面，也总会等待行动。你无法对它们维持不屈循环；一旦主动贴上去，它们总有机会在你之后攻击。不过，如果还有盾卫活着、生命值尚可，最好也还剩一点护甲，就该让他贴住一个或多个卫士，使用不屈，阻止其继续移动保护祭司。如果盾卫都快不成人样，只能由双手剑士来做。无论怎样，这都能给输出手创造机会，让他们进入祭司攻击范围、使用肾上腺素，抢在陷入惊恐前出手。仍会有零散荣誉卫士前来迎击，但它们相对孤立，应该不难让人打入恍惚、缴械，或干脆迅速杀掉。等只剩最后一名祭司，即使它只剩几点生命，也要用手里最残酷、最过火的武器或攻击，像行刑一样解决它，那一刻特别解气。名贵双手斧、双手钉锤，或名贵斩刀的斩首，正适合这个特殊时刻。",
+      "zh": "剩下的荣誉卫士真正承担着保护祭司的职责。它们先攻极低，总排在你后面，也总会等待行动。你无法对它们维持不屈循环；一旦主动贴上去，它们总有机会在你之后攻击。不过，如果还有盾卫活着、生命值尚可，最好也还剩一点护甲，就该让他贴住一个或多个卫士，使用不屈，阻止其继续移动保护祭司。如果盾卫都快不成人样，只能由双手剑士来做。无论怎样，这都能给输出手创造机会，让他们进入祭司攻击范围、使用肾上腺素，抢在陷入惊恐前出手。仍会有零散荣誉卫士前来迎击，但它们相对孤立，应该不难让人打入恍惚、缴械，或干脆迅速杀掉。等只剩最后一名祭司，即使它只剩几点生命，也要用手里最残酷、最过火的武器或攻击，像行刑一样解决它，那一刻特别解气。红装双手斧、双手钉锤，或红装斩刀的斩首，正适合这个特殊时刻。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1866,7 +1866,7 @@
       "id": "u-e739e1c312f2b32271d36084",
       "source_sha256": "e739e1c312f2b32271d36084220e8311d3fe6480597b8561792e10241180bc98",
       "source": "Give the goblin trophy (also a kraken trophy) to someone who has Hammer Mastery (or a rare billhook with awesome armour effectiveness), and spend the opening rounds removing the kraken’s head armour with Demolish Armour (or just Strikes). The kraken’s body-armour is never hit/removed. The tentacles/irrlichts are (unarmoured) parts of the beast’s body, and killing them directly removes its HPs despite the presence of armour (but only up to a point). Once only eight irrlichts remain (vs 12 at the start), killing them no longer removes HPs (and they always regenerate) and you can only remove HPs by attacking the kraken directly – but all attacks are to the head and remove HPs once the head armour is gone. So that means that everyone should be armed with a battle whip (the 3-tile range is very handy), and that at least some of them should have Cleaver Mastery to increase the bleeding damage. Those without mastery should also have a jagged pike or a mastered billhook (better damage when only one attack is possible), and everyone should also have a high damage 2H sword/axe/mace/cleaver. Everyone in the party should have high melee skill (at least ~80+, but the more the better) for breaking free and freeing others (no shield tanks), along with a high pool of usable fatigue and the Recover perk. High melee defence makes casualties less likely, but you can get away with mediocre values on most people (e.g. 10-25) if the gods are pleased with you. High HPs (with Nimble or heavy armour) is highly advisable. Resolve isn’t important if you avoid casualties, but no sergeant means no Rally if anyone’s morale weakens after a casualty.",
-      "zh": "【译注：本节保留作者当时版本的克拉肯打法。】把地精战利品项链，也可以说是克拉肯战利品项链，交给有战锤精通的人，或持破甲能力出色的名贵钩镰者，开局几回合用粉碎护甲，或普通打击，拆掉克拉肯的头甲。它的身甲不会受到攻击，也不会被削除。触手，也叫伊尔利希特，是野兽身体上没有护甲的部分；杀死触手能无视主体护甲，直接扣除生命值，但只到一定阶段为止。最初有 12 条触手，等只剩八条时，再击杀就不扣主体生命，而且触手总会再生，只能直接攻击克拉肯削血。不过所有攻击都会打中头部，头甲拆光后就能扣生命。因此，每个人都该带战鞭，3 格距离很有用；至少部分人应有斩刀精通，提高流血伤害。没有精通的人，还应带锯齿长枪，或点了精通的钩镰，在只够攻击一次时造成更多伤害。人人还都应带一把高伤害双手剑、斧、钉锤或斩刀。全队近战命中都要高，至少约 80+，越高越好，以便自行挣脱和解救队友，不带盾卫；同时要有大量可用疲劳和恢复体力。近战防御高能减少伤亡，但如果诸神眷顾，多数人只有 10-25 这样的一般水平也能过。强烈建议高生命值，搭配轻灵或重甲。只要没人死，意志不重要；但没有军士，一旦有人死亡、其他人士气动摇，就没有鼓舞可用。",
+      "zh": "【译注：本节保留作者当时版本的克拉肯打法。】把地精战利品项链，也可以说是克拉肯战利品项链，交给有战锤精通的人，或持破甲能力出色的红装钩镰者，开局几回合用粉碎护甲，或普通打击，拆掉克拉肯的头甲。它的身甲不会受到攻击，也不会被削除。触手，也叫伊尔利希特，是野兽身体上没有护甲的部分；杀死触手能无视主体护甲，直接扣除生命值，但只到一定阶段为止。最初有 12 条触手，等只剩八条时，再击杀就不扣主体生命，而且触手总会再生，只能直接攻击克拉肯削血。不过所有攻击都会打中头部，头甲拆光后就能扣生命。因此，每个人都该带战鞭，3 格距离很有用；至少部分人应有斩刀精通，提高流血伤害。没有精通的人，还应带锯齿长枪，或点了精通的钩镰，在只够攻击一次时造成更多伤害。人人还都应带一把高伤害双手剑、斧、钉锤或斩刀。全队近战命中都要高，至少约 80+，越高越好，以便自行挣脱和解救队友，不带盾卫；同时要有大量可用疲劳和恢复体力。近战防御高能减少伤亡，但如果诸神眷顾，多数人只有 10-25 这样的一般水平也能过。强烈建议高生命值，搭配轻灵或重甲。只要没人死，意志不重要；但没有军士，一旦有人死亡、其他人士气动摇，就没有鼓舞可用。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -1946,7 +1946,7 @@
       "id": "u-bb663ffa8bfbf50b7e8d68a9",
       "source_sha256": "bb663ffa8bfbf50b7e8d68a94c93082d477b89b19d0647b735c6e73afc805cea",
       "source": "Once some/many/most of you are close to the kraken and in range to attack, some/many of you will still be snared and potentially dragged into contact with the kraken, and the options when this happens are (a) to be freed by someone else who sacrifices one attack, (b) to free yourself and move to a good tile and use Indomitable, (c) to free yourself and move one tile, (d) to free yourself and move a tile and use Adrenaline (and then move to a hidden tile or as far away as possible), (e) to free yourself (or fail to free yourself) and be exhausted (and/or still snared) and get Devoured, or (f) to free yourself and (in sheer frustration and as a last act of defiance) use Decapitate with a 2H cleaver (or a rare orc 1H one) before being Devoured (or you may even manage to finish the beast off in style with this course of action).",
-      "zh": "等部分、许多、甚至大多数人都靠近克拉肯、进入攻击距离后，仍会有不少人被缠住，甚至拖到它嘴边。此时的选择包括：（a）让别人牺牲一次攻击来救你；（b）自行挣脱，移动到好格子，再用不屈；（c）自行挣脱，移动一格；（d）自行挣脱，移动一格并用肾上腺素，之后躲进隐蔽格或尽量跑远；（e）挣脱或挣脱失败，最后筋疲力尽，或者还被缠着，遭到吞噬；（f）自行挣脱，在极度恼火之下作出最后反抗，用双手斩刀，或名贵兽人单手斩刀斩首，然后被吞噬。当然，也可能靠这一击帅气地终结巨兽。",
+      "zh": "等部分、许多、甚至大多数人都靠近克拉肯、进入攻击距离后，仍会有不少人被缠住，甚至拖到它嘴边。此时的选择包括：（a）让别人牺牲一次攻击来救你；（b）自行挣脱，移动到好格子，再用不屈；（c）自行挣脱，移动一格；（d）自行挣脱，移动一格并用肾上腺素，之后躲进隐蔽格或尽量跑远；（e）挣脱或挣脱失败，最后筋疲力尽，或者还被缠着，遭到吞噬；（f）自行挣脱，在极度恼火之下作出最后反抗，用双手斩刀，或红装兽人单手斩刀斩首，然后被吞噬。当然，也可能靠这一击帅气地终结巨兽。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -2206,7 +2206,7 @@
       "id": "u-5be519efe538ddde738ac9a7",
       "source_sha256": "5be519efe538ddde738ac9a745e7233bc226ceb254ae8a5ec9afc57a903d5966",
       "source": "Against schrats, who can annoyingly regenerate their shields to massively lower your damage, it is much more efficient to have at least a couple of guys with Axe Mastery, or to use a lot of greataxes (since these can one-shot schrat shields without mastery). Rare versions of other 2H weapons (or of smaller axes) sometimes have enough extra shield damage to one-shot schrat shields. But it is still useful to have lots of throwing spears at the start of schrat battles, to facilitate a quick and efficient offensive. Shield-splitting aside, 2H maces are an excellent tool for schrat fights, since they can Daze them whether shielded or not, and this (thanks to their lowered initiative) often allows several characters to advance and attack twice without having to worry about being attacked back. 2H hammers achieve the same thing thanks to Stagger, but don’t reduce their damage.",
-      "zh": "树妖会烦人地再生盾牌，大幅降低你的伤害，因此至少有两名斧术精通者，或多带巨斧，会有效率得多，巨斧不用精通也能一击拆盾。其他双手武器或小斧的名贵版本，有时也会多出足够的盾牌伤害，一击破掉树妖盾。不过，开局多带投矛仍很有用，方便快速高效地进攻。除破盾外，双手钉锤也是树妖战的好工具：无论有没有盾，都能使其恍惚，降低先攻，往往能让几个人上前连打两轮，而不必担心还击。双手锤靠踉跄也能做到同样的先攻控制，但不会降低树妖伤害。",
+      "zh": "树妖会烦人地再生盾牌，大幅降低你的伤害，因此至少有两名斧术精通者，或多带巨斧，会有效率得多，巨斧不用精通也能一击拆盾。其他双手武器或小斧的红装版本，有时也会多出足够的盾牌伤害，一击破掉树妖盾。不过，开局多带投矛仍很有用，方便快速高效地进攻。除破盾外，双手钉锤也是树妖战的好工具：无论有没有盾，都能使其恍惚，降低先攻，往往能让几个人上前连打两轮，而不必担心还击。双手锤靠踉跄也能做到同样的先攻控制，但不会降低树妖伤害。",
       "status": "reviewed",
       "page_ids": [
         7159
@@ -3906,7 +3906,7 @@
       "id": "u-c08ff0c5ec57a878c5f4151c",
       "source_sha256": "c08ff0c5ec57a878c5f4151cd21be800ca5a11633da88944822a2d561bc373f5",
       "source": "Duelist with named orc cleaver and hammer equipped Shield bearers fill the gaps and concentrate attacks.{#1/}{#2/}",
-      "zh": "持名贵兽人斩刀的决斗家和持锤的盾卫填补空隙，集中攻击。{#1/}{#2/}",
+      "zh": "持红装兽人斩刀的决斗家和持锤的盾卫填补空隙，集中攻击。{#1/}{#2/}",
       "status": "reviewed",
       "page_ids": [
         3767

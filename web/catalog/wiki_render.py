@@ -80,10 +80,14 @@ def translated_title(title, terms):
     lookup = terms.get(title_key(title))
     if lookup:
         return lookup[1]
-    if title.startswith('Named '):
-        lookup = terms.get(title_key(title[6:]))
+    grouped = {'Named Armors': '红装护甲', 'Named Helmets': '红装头盔',
+               'Named Shields': '红装盾牌', 'Named Weapons': '红装武器'}
+    if title in grouped:
+        return grouped[title]
+    if title.startswith(('Named ', 'Unique ')):
+        lookup = terms.get(title_key(title.split(' ', 1)[1]))
         if lookup:
-            return '红装：' + lookup[1]
+            return lookup[1] + '（红装）'
     if title.startswith('Category:'):
         lookup = terms.get(title_key(title[9:]))
         if lookup:

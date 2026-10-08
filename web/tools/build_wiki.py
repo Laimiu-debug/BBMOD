@@ -57,10 +57,30 @@ def redirect_target(text):
 
 
 def search_aliases(title, title_zh):
-    if title == 'Named and Legendary Items':
-        return '红装与传奇装备'
-    if title.startswith('Named ') and title_zh.startswith('名贵'):
-        return '红装' + title_zh[len('名贵'):]
+    fixed = {'Named and Legendary Items': '红装与传奇装备 名贵与传奇装备',
+             'Named Items': '红装 名贵装备',
+             'Famed Items': '红装 名贵装备',
+             'Unique Items': '红装与传奇装备 名贵与传奇装备',
+             'Unique Objects': '红装与传奇装备 名贵与传奇装备',
+             'Named Item': '获得红装 获得名贵装备',
+             'Named Item Set': '集齐红装 集齐名贵装备',
+             'Category:Named Items': '分类：红装 分类：名贵装备'}
+    if title in fixed:
+        return fixed[title]
+    if title.startswith(('Named ', 'Unique ')):
+        # These are encyclopedia type labels, not generated in-game item names.
+        grouped = title in {'Named Armors', 'Named Helmets', 'Named Shields', 'Named Weapons'}
+        if title_zh.endswith('（红装）') and not grouped:
+            base = title_zh[:-len('（红装）')]
+            return '名贵' + base + ' 红装' + base
+        for label, alias in (('名贵', '红装'), ('红装', '名贵')):
+            if title_zh.startswith(label):
+                base = title_zh[len(label):]
+                return alias + base + ('' if grouped else ' ' + base + '（红装）')
+    if title.startswith('Category:Named '):
+        for label, alias in (('分类：名贵', '分类：红装'), ('分类：红装', '分类：名贵')):
+            if title_zh.startswith(label):
+                return alias + title_zh[len(label):]
     return ''
 
 

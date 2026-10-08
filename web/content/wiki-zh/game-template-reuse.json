@@ -7050,7 +7050,7 @@
       "id": "u-ccbdd364a5d448fdec16ad89",
       "source_sha256": "ccbdd364a5d448fdec16ad89ba964641f88329d3b5beda3d7ea7d4cc242353d6",
       "source": "{#1}When you head out {#2}terrain{/#2} {#3}direction{/#3}, keep your eyes peeled for a group of fierce wild men. They may lead you to their stash where a famed stolen weapon is said to be found. {/#1}",
-      "zh": "{#1}你去{#3}〈方位〉{/#3}的{#2}〈地形〉{/#2}时，留神一群凶悍的野人。他们没准会把你带到藏东西的地方，听说那里放着一件偷来的名贵武器。 {/#1}",
+      "zh": "{#1}你去{#3}〈方位〉{/#3}的{#2}〈地形〉{/#2}时，留神一群凶悍的野人。他们没准会把你带到藏东西的地方，听说那里放着一件偷来的红装武器。 {/#1}",
       "status": "reviewed",
       "page_ids": [
         10724

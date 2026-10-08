@@ -1,0 +1,2150 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-07",
+  "scope": "Follow-up correction: encyclopedia equipment type names and separate named-item quality",
+  "follows_review": "2026-10-07-equipment.json",
+  "prior_review_sha256": "c334af89c11579d4a6a4a3c3631557f9ba17a8e827c66a858f97ce20e3a5c7e5",
+  "source_snapshot": "20260919T132453Z-2d82e40d772f",
+  "source_and_scope_unchanged": true,
+  "notes": [
+    "Corrects the earlier prefix convention after user feedback; the previous ledger remains historical.",
+    "Individual encyclopedia type labels use base category + （红装）. These labels are not claims about an instantiated item name.",
+    "Game armor and helmet name pools remain unchanged. No random name is selected as the sole official type name.",
+    "Overview, grouped equipment pages, categories and ambitions retain 红装 as a quality or category term.",
+    "Only complete standalone Named/Unique labels and their paired link wrappers were changed; long narrative sentences were not rewritten.",
+    "This follow-up does not modify developer-blog titles or the original English, hashes, revisions, scopes or provenance."
+  ],
+  "counts": {
+    "unit_records": 121,
+    "unique_units": 62,
+    "titles": 83,
+    "translation_files": 3
+  },
+  "files": [
+    {
+      "file": "core-mechanics.json",
+      "before_sha256": "842485d84415965570600a097ce96db5ff186f8a70abfd39efe88a61f290b431",
+      "after_sha256": "bc9947f7ee45799babc3961b2c3e6304d8571bdaad761792feddc8bd5e59d58e"
+    },
+    {
+      "file": "shared-labels.json",
+      "before_sha256": "b8f7f66358e5a3d3b99e5975378340a1692a2dafacda134bcd6b0cf39578eb32",
+      "after_sha256": "b526d703eb4d9ad597f17dce733e7494c73e64ea5ab1e1312ff034a4a3aef12b"
+    },
+    {
+      "file": "titles.json",
+      "before_sha256": "e0b63c0239527155c10f793dae77dce37d1eeb39b38f578a47e8d50838ac3196",
+      "after_sha256": "cff0869429d4c78b620bdbade7c2f9e6be40aa5f799506930425bfbd863c1940"
+    }
+  ],
+  "changes": [
+    {
+      "file": "core-mechanics.json",
+      "id": "u-72d5406ffc739a32d12e1656",
+      "source": "Named Axe",
+      "source_sha256": "72d5406ffc739a32d12e165692132de33ce0974eefcdafd7d7630bf52a8c2cd4",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装斧",
+      "after": "斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-ba219a547487f587754e743c",
+      "source": "Named Orc Axe",
+      "source_sha256": "ba219a547487f587754e743cfebdbb374b73b464d54ef8e66d913fcadd21bab6",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装兽人斧",
+      "after": "兽人斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-08012b90d1495588d15af527",
+      "source": "Named Battle Whip",
+      "source_sha256": "08012b90d1495588d15af527036735391d450db7a54ee8772eeacf20c4e4d83f",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装战鞭",
+      "after": "战鞭（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4147cc37e6bae86350645127",
+      "source": "Named Cleaver",
+      "source_sha256": "4147cc37e6bae86350645127cf0c7be10187f1e1c26e3fa6741199dc203daa02",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装斩刀",
+      "after": "斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-acdfdb41a336d5427491a762",
+      "source": "Named Khopesh",
+      "source_sha256": "acdfdb41a336d5427491a762eb608d18a12e23ce9a8e99b87192b3b67ca139cc",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装镰形剑",
+      "after": "镰形剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9b533deb5f2e89a1144367ff",
+      "source": "Named Orc Cleaver",
+      "source_sha256": "9b533deb5f2e89a1144367ffc58cfc33ecadaf681ed7d2a5b2257045c36b6bbe",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装兽人斩刀",
+      "after": "兽人斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-f3a88713a58de73bfec7a585",
+      "source": "Named Dagger",
+      "source_sha256": "f3a88713a58de73bfec7a585abd637d07ec2e4ea646aff3a126328d9e0aecd14",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装匕首",
+      "after": "匕首（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9ebaba36d9f56b2375b0f911",
+      "source": "Named Qatal Dagger",
+      "source_sha256": "9ebaba36d9f56b2375b0f911e93f4b75df226a4ea92692aac421e132f5dd824b",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装卡塔尔匕首",
+      "after": "卡塔尔匕首（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4136416cd3433f8a4f3a3fe8",
+      "source": "Named Flail",
+      "source_sha256": "4136416cd3433f8a4f3a3fe81737f35589ee70dbddb46e77e2971fac0481071f",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装连枷",
+      "after": "连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d65bd212d6be396de129d511",
+      "source": "Named Three-Headed Flail",
+      "source_sha256": "d65bd212d6be396de129d511dd82818353a96df6822fc030f9ad617b1fdd8411",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装三头连枷",
+      "after": "三头连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-95cde673821c7656ffeb6618",
+      "source": "Named Warhammer",
+      "source_sha256": "95cde673821c7656ffeb66189d9b5700d4509b8bdb9d053dd555d6d0b6623cd1",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装破甲锤",
+      "after": "破甲锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-08d50f81a94cf0570dbca912",
+      "source": "Named Mace",
+      "source_sha256": "08d50f81a94cf0570dbca9120cdcd98700a1d8c33cc3fa78813daf863cac0af4",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装钉锤",
+      "after": "钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-20d7988850c2a000423a8af6",
+      "source": "Named Goblin Skewer",
+      "source_sha256": "20d7988850c2a000423a8af62cd2c90f3d32284bf7a5c9b0607437ceea61a154",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装地精尖矛",
+      "after": "地精尖矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c4e635be1123487948949555",
+      "source": "Named Spear",
+      "source_sha256": "c4e635be1123487948949555c58a289b0a61052e592fa41c6e3a98b8fefed08e",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装矛",
+      "after": "矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-698058494c033cad0f5c57c1",
+      "source": "Named Cruel Falchion",
+      "source_sha256": "698058494c033cad0f5c57c1018398b5caf57cd13d1a6bb6166eaa80e05b8c51",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装凶刃弯刀",
+      "after": "凶刃弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c0e7fca1da903707dedbf32c",
+      "source": "Named Fencing Sword",
+      "source_sha256": "c0e7fca1da903707dedbf32c9069cf890c832c49a0144b4e503773df9820fca3",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装决斗刺剑",
+      "after": "决斗刺剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-74622f290fa6ea335565fb94",
+      "source": "Named Shamshir",
+      "source_sha256": "74622f290fa6ea335565fb949a12af2854fe0288c4b5f8382d9e6039ae79e744",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装舍施尔弯刀",
+      "after": "舍施尔弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-da42902930181592946e8d1b",
+      "source": "Named Sword",
+      "source_sha256": "da42902930181592946e8d1b482be1f693d4910e92b9439c63e6d584220dc28e",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装剑",
+      "after": "剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-98c70ae7d001d8b68f12a2de",
+      "source": "Named Bardiche",
+      "source_sha256": "98c70ae7d001d8b68f12a2de69bdf585ea11b849df4740552c659b9c248ced23",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长刃斧",
+      "after": "长刃斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-63b51ebb009ec07b5f542e12",
+      "source": "Named Greataxe",
+      "source_sha256": "63b51ebb009ec07b5f542e12ea30b1be9bd41e97635469e2aa09e775dffdcbb6",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装巨斧",
+      "after": "巨斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01f4cbd330cb04902ee2f3a4",
+      "source": "Named Heavy Rusty Axe",
+      "source_sha256": "01f4cbd330cb04902ee2f3a459b60e3975f4a8bb4ea09a02ec1d410e2683a880",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装锈蚀重斧",
+      "after": "锈蚀重斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-929c20c16ce958cee30a8ced",
+      "source": "Named Longaxe",
+      "source_sha256": "929c20c16ce958cee30a8ced60ec1eaac1cf9bee157a01751cffde5dc3cf0e46",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长柄斧",
+      "after": "长柄斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-5315802df0d7d0ab318ce602",
+      "source": "Named Crypt Cleaver",
+      "source_sha256": "5315802df0d7d0ab318ce602e50b2448a3a87e873e691f4fa52b0db8cf739135",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装墓穴斩刀",
+      "after": "墓穴斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-2ea1c1fbc65be466a25edf7f",
+      "source": "Named Rusty Warblade",
+      "source_sha256": "2ea1c1fbc65be466a25edf7f4a3f4bc5c53e2439df1fec048368cde1c08bc1f6",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装锈蚀战刃",
+      "after": "锈蚀战刃（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0f437e46a32ef717f4d26847",
+      "source": "Named Two-Handed Scimitar",
+      "source_sha256": "0f437e46a32ef717f4d268475f26251eed0d1abf91c5e172b120aa487abb74f4",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手弯刀",
+      "after": "双手弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1aa3c2f7dd22fb0b82f7af01",
+      "source": "Named Two-Handed Flail",
+      "source_sha256": "1aa3c2f7dd22fb0b82f7af0132b2928d8e79efe22db87337b5e5861b94b13a0e",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手连枷",
+      "after": "双手连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-b45e2d82ebe92c11c2e5510f",
+      "source": "Named Polehammer",
+      "source_sha256": "b45e2d82ebe92c11c2e5510f9785c9ddce882f1002d52162a146ddd8b8c18767",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长柄战锤",
+      "after": "长柄战锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1c632566731f4345c54648ed",
+      "source": "Named Two-Handed Hammer",
+      "source_sha256": "1c632566731f4345c54648ed4e21aeeac6e0bf36610323837c3b6167154ff051",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手战锤",
+      "after": "双手战锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1ec4b910f0b9403788b15f55",
+      "source": "Named Two-Handed Skull Hammer",
+      "source_sha256": "1ec4b910f0b9403788b15f55bb849b8dccca8e711e11492bb223feb189d7c219",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手颅骨锤",
+      "after": "双手颅骨锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-71deaa55e9fd5168baf2cec5",
+      "source": "Named Polemace",
+      "source_sha256": "71deaa55e9fd5168baf2cec5cec2c822e19ae4b647dcc9e9fb2b80e148fbca1b",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长柄钉锤",
+      "after": "长柄钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4cae333fe00d21c3fa447204",
+      "source": "Named Two-Handed Mace",
+      "source_sha256": "4cae333fe00d21c3fa447204ca9c6ced5617c2d02fd1bcc5dda5a6793c81accf",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手钉锤",
+      "after": "双手钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0ab381234ef2ee616e462c7b",
+      "source": "Named Two-Handed Spiked Mace",
+      "source_sha256": "0ab381234ef2ee616e462c7b2e0127ab6fc39994fe83e10d8913094b3a1d8f41",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装双手尖刺钉锤",
+      "after": "双手尖刺钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-326dd5988880b169bca24e6e",
+      "source": "Named Billhook",
+      "source_sha256": "326dd5988880b169bca24e6ee45f2421492b90013fe4ddf238b28058fe5a2289",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装钩镰",
+      "after": "钩镰（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-6c9ec0aa244345e5d59724a6",
+      "source": "Named Bladed Pike",
+      "source_sha256": "6c9ec0aa244345e5d59724a67fc98ded7e0090dd2a922f09a0c7a1797eaf8244",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装刃枪",
+      "after": "刃枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-31248d573d06102784c1f7f0",
+      "source": "Named Jagged Pike",
+      "source_sha256": "31248d573d06102784c1f7f01b6f308716c2e7b7aa53797513bcea866484ba87",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装锯齿长枪",
+      "after": "锯齿长枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-2b4957fd0ac3910b3fa9fda8",
+      "source": "Named Pike",
+      "source_sha256": "2b4957fd0ac3910b3fa9fda8c23f6ebee6be8b441ab88c0c983f118249f117ef",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长枪",
+      "after": "长枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d2432457daa73ea9fae737ab",
+      "source": "Named Swordlance",
+      "source_sha256": "d2432457daa73ea9fae737abcb7ee1ab83f2bfc7378234b9323daedf8196769e",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长柄剑刃",
+      "after": "长柄剑刃（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-84e28b85572e8ba583e8b6d6",
+      "source": "Named Warscythe",
+      "source_sha256": "84e28b85572e8ba583e8b6d6bbf80cb8e255b3453226e3a4b2c136c91b57f237",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装战镰",
+      "after": "战镰（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0f2f387eb6e741b40c43d0c8",
+      "source": "Named Spetum",
+      "source_sha256": "0f2f387eb6e741b40c43d0c8f4c1376805aef485f01e651d75920aa356d93a3d",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装三尖矛",
+      "after": "三尖矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c25abef647b74babf2495cb7",
+      "source": "Named Greatsword",
+      "source_sha256": "c25abef647b74babf2495cb7ecfce2233a993a0a3b48445110be7d8f62e04720",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装巨剑",
+      "after": "巨剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-41634d0413310f0c5e3f4db8",
+      "source": "Named Warbrand",
+      "source_sha256": "41634d0413310f0c5e3f4db891a4cdb3a9cedd37101701220b78bc679a5eb03a",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装长刃战刀",
+      "after": "长刃战刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-e96835bd948ab3fe2ecca84b",
+      "source": "Named Executioner's Sword",
+      "source_sha256": "e96835bd948ab3fe2ecca84b19bafac7f36b81450f57b843fa82f6adb941bbf7",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装行刑剑",
+      "after": "行刑剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-8d2cab1537ae1a52ccb03c53",
+      "source": "Named Pollaxe",
+      "source_sha256": "8d2cab1537ae1a52ccb03c5377d6c2579c66787d3b82012bcaf59c35bec9ab5f",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装骑士斧戟",
+      "after": "骑士斧戟（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1eafa79ae6aac33dfb390dc1",
+      "source": "Named Estoc",
+      "source_sha256": "1eafa79ae6aac33dfb390dc183d8c103ae387d1b4157c5eda4bb2a99782ce36b",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装穿甲刺剑",
+      "after": "穿甲刺剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-a3541f023db588fed922fb6d",
+      "source": "Named Reinforced Boondock Bow",
+      "source_sha256": "a3541f023db588fed922fb6d94879230c1810e3b66c5ffdcb2da04c4ef89e3b0",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装强化荒野短弓",
+      "after": "强化荒野短弓（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-3e1ce9edaa9a33fa200d06f6",
+      "source": "Named Warbow",
+      "source_sha256": "3e1ce9edaa9a33fa200d06f6c83e0f2f8485f256a8e0f435d90261705634abc7",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装战弓",
+      "after": "战弓（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9c79d2a61e1cf00e6ad4d8c9",
+      "source": "Named Crossbow",
+      "source_sha256": "9c79d2a61e1cf00e6ad4d8c993c92605c8416a255b2a55a1e5ac669cf1f3995a",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装弩",
+      "after": "弩（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9766000c3bcd4e752095d362",
+      "source": "Named Handgonne",
+      "source_sha256": "9766000c3bcd4e752095d362adcf47c19f5215499071059c3b0b33d3afc55062",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装手铳",
+      "after": "手铳（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-470d85a2e9bd7ba76ba9bbbb",
+      "source": "Named Javelins",
+      "source_sha256": "470d85a2e9bd7ba76ba9bbbb1c426aafac76a47fbf92eef173c9f3de1ce81c59",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装标枪",
+      "after": "标枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1dadeb206289be6175d450a4",
+      "source": "Named Throwing Axes",
+      "source_sha256": "1dadeb206289be6175d450a40ac103d68b0a992f23db9b26e9f9840d1e46e28d",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装飞斧",
+      "after": "飞斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-92f406e2c5d7bd38f7684caa",
+      "source": "Named Undead Heater Shield",
+      "source_sha256": "92f406e2c5d7bd38f7684caaa89cf624deb17463d52b8ea695aea5ac2133e6e0",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装亡灵熨斗形盾",
+      "after": "亡灵熨斗形盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01bc78b2666e439ff0ac1962",
+      "source": "Named Undead Kite Shield",
+      "source_sha256": "01bc78b2666e439ff0ac196236be11090c0c3ae07c0a0d26565d0351d80d0ee1",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装亡灵鸢形盾",
+      "after": "亡灵鸢形盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01f08897bdddb84fb7898447",
+      "source": "Named Orc Heavy Shield",
+      "source_sha256": "01f08897bdddb84fb7898447a34a2fe66eeb03989eb0709876972a438cc2d44e",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装兽人重盾",
+      "after": "兽人重盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d9b9067963fdddd5df9103db",
+      "source": "Named Sipar Shield",
+      "source_sha256": "d9b9067963fdddd5df9103db4b23bf05cb94701e4c2de6f7e16492195b276fff",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装西帕尔圆盾",
+      "after": "西帕尔圆盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d74b3321e0132669b2bad88b",
+      "source": "Named Noble Mail Armor",
+      "source_sha256": "d74b3321e0132669b2bad88bbb0446e7be1c1bed66e29e10fa702ff8f1bc1eb3",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装贵族锁甲",
+      "after": "贵族锁甲（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c8e47301b4439d78e036c652",
+      "source": "Named Sellsword's Armor",
+      "source_sha256": "c8e47301b4439d78e036c65215cf00d4aff990457be4703ba76b20c65dc08d69",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装佣兵甲",
+      "after": "佣兵甲（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-3fbab25942105da67fedbb6f",
+      "source": "Named Steppe Helmet",
+      "source_sha256": "3fbab25942105da67fedbb6f3264e17131ef1eb4ca68521b44be5070198fbed9",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装草原盔",
+      "after": "草原盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-f3b9730263dd513efd759266",
+      "source": "Named Nordic Helmet",
+      "source_sha256": "f3b9730263dd513efd7592669e08d3adb2260bd181555e1378036c486b2c1748",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装北境盔",
+      "after": "北境盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-db8b7a3f6ce77b60011b6730",
+      "source": "Named Conic Helmet",
+      "source_sha256": "db8b7a3f6ce77b60011b67301198550ff006a6d2832d80211bec8813417e69ec",
+      "page_ids": [
+        2215,
+        2821,
+        3204,
+        3774
+      ],
+      "before": "红装锥形盔",
+      "after": "锥形盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9bca9b58797672617fb75adf",
+      "source": "{#1}Named Axe{/#1}",
+      "source_sha256": "9bca9b58797672617fb75adf13343a85183747e2f425e2b22f7f1d62f37605d5",
+      "page_ids": [
+        2817,
+        7909
+      ],
+      "before": "{#1}红装斧{/#1}",
+      "after": "{#1}斧（红装）{/#1}",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-dc08cf0c5e5911bcc9709eed",
+      "source": "{#1}Named Spear{/#1}",
+      "source_sha256": "dc08cf0c5e5911bcc9709eedde97bfb31228f694ed4de678885e1fa6b8590199",
+      "page_ids": [
+        2817,
+        7909
+      ],
+      "before": "{#1}红装矛{/#1}",
+      "after": "{#1}矛（红装）{/#1}",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2a2451951b853df851c71128",
+      "source": "{#1}Named Dagger{/#1}",
+      "source_sha256": "2a2451951b853df851c711285f6a51871cdf29f07ef1a5bfb30d5a1c66c21ba3",
+      "page_ids": [
+        2817,
+        12414
+      ],
+      "before": "{#1}红装匕首{/#1}",
+      "after": "{#1}匕首（红装）{/#1}",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-08d50f81a94cf0570dbca912",
+      "source": "Named Mace",
+      "source_sha256": "08d50f81a94cf0570dbca9120cdcd98700a1d8c33cc3fa78813daf863cac0af4",
+      "page_ids": [
+        3024,
+        16317
+      ],
+      "before": "红装钉锤",
+      "after": "钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-da42902930181592946e8d1b",
+      "source": "Named Sword",
+      "source_sha256": "da42902930181592946e8d1b482be1f693d4910e92b9439c63e6d584220dc28e",
+      "page_ids": [
+        3191,
+        16317
+      ],
+      "before": "红装剑",
+      "after": "剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9b533deb5f2e89a1144367ff",
+      "source": "Named Orc Cleaver",
+      "source_sha256": "9b533deb5f2e89a1144367ffc58cfc33ecadaf681ed7d2a5b2257045c36b6bbe",
+      "page_ids": [
+        3195,
+        16317
+      ],
+      "before": "红装兽人斩刀",
+      "after": "兽人斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-ba219a547487f587754e743c",
+      "source": "Named Orc Axe",
+      "source_sha256": "ba219a547487f587754e743cfebdbb374b73b464d54ef8e66d913fcadd21bab6",
+      "page_ids": [
+        3200,
+        16317
+      ],
+      "before": "红装兽人斧",
+      "after": "兽人斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-72d5406ffc739a32d12e1656",
+      "source": "Named Axe",
+      "source_sha256": "72d5406ffc739a32d12e165692132de33ce0974eefcdafd7d7630bf52a8c2cd4",
+      "page_ids": [
+        3220,
+        16317
+      ],
+      "before": "红装斧",
+      "after": "斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-08012b90d1495588d15af527",
+      "source": "Named Battle Whip",
+      "source_sha256": "08012b90d1495588d15af527036735391d450db7a54ee8772eeacf20c4e4d83f",
+      "page_ids": [
+        11062,
+        16317
+      ],
+      "before": "红装战鞭",
+      "after": "战鞭（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4147cc37e6bae86350645127",
+      "source": "Named Cleaver",
+      "source_sha256": "4147cc37e6bae86350645127cf0c7be10187f1e1c26e3fa6741199dc203daa02",
+      "page_ids": [
+        3836,
+        16317
+      ],
+      "before": "红装斩刀",
+      "after": "斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-acdfdb41a336d5427491a762",
+      "source": "Named Khopesh",
+      "source_sha256": "acdfdb41a336d5427491a762eb608d18a12e23ce9a8e99b87192b3b67ca139cc",
+      "page_ids": [
+        11060,
+        16317
+      ],
+      "before": "红装镰形剑",
+      "after": "镰形剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-f3a88713a58de73bfec7a585",
+      "source": "Named Dagger",
+      "source_sha256": "f3a88713a58de73bfec7a585abd637d07ec2e4ea646aff3a126328d9e0aecd14",
+      "page_ids": [
+        3820,
+        16317
+      ],
+      "before": "红装匕首",
+      "after": "匕首（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9ebaba36d9f56b2375b0f911",
+      "source": "Named Qatal Dagger",
+      "source_sha256": "9ebaba36d9f56b2375b0f911e93f4b75df226a4ea92692aac421e132f5dd824b",
+      "page_ids": [
+        14331,
+        16317
+      ],
+      "before": "红装卡塔尔匕首",
+      "after": "卡塔尔匕首（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4136416cd3433f8a4f3a3fe8",
+      "source": "Named Flail",
+      "source_sha256": "4136416cd3433f8a4f3a3fe81737f35589ee70dbddb46e77e2971fac0481071f",
+      "page_ids": [
+        3218,
+        16317
+      ],
+      "before": "红装连枷",
+      "after": "连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d65bd212d6be396de129d511",
+      "source": "Named Three-Headed Flail",
+      "source_sha256": "d65bd212d6be396de129d511dd82818353a96df6822fc030f9ad617b1fdd8411",
+      "page_ids": [
+        9037,
+        16317
+      ],
+      "before": "红装三头连枷",
+      "after": "三头连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-95cde673821c7656ffeb6618",
+      "source": "Named Warhammer",
+      "source_sha256": "95cde673821c7656ffeb66189d9b5700d4509b8bdb9d053dd555d6d0b6623cd1",
+      "page_ids": [
+        3835,
+        16317
+      ],
+      "before": "红装破甲锤",
+      "after": "破甲锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-20d7988850c2a000423a8af6",
+      "source": "Named Goblin Skewer",
+      "source_sha256": "20d7988850c2a000423a8af62cd2c90f3d32284bf7a5c9b0607437ceea61a154",
+      "page_ids": [
+        10354,
+        16317
+      ],
+      "before": "红装地精尖矛",
+      "after": "地精尖矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c4e635be1123487948949555",
+      "source": "Named Spear",
+      "source_sha256": "c4e635be1123487948949555c58a289b0a61052e592fa41c6e3a98b8fefed08e",
+      "page_ids": [
+        3842,
+        16317
+      ],
+      "before": "红装矛",
+      "after": "矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-698058494c033cad0f5c57c1",
+      "source": "Named Cruel Falchion",
+      "source_sha256": "698058494c033cad0f5c57c1018398b5caf57cd13d1a6bb6166eaa80e05b8c51",
+      "page_ids": [
+        11057,
+        16317
+      ],
+      "before": "红装凶刃弯刀",
+      "after": "凶刃弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c0e7fca1da903707dedbf32c",
+      "source": "Named Fencing Sword",
+      "source_sha256": "c0e7fca1da903707dedbf32c9069cf890c832c49a0144b4e503773df9820fca3",
+      "page_ids": [
+        7698,
+        16317
+      ],
+      "before": "红装决斗刺剑",
+      "after": "决斗刺剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-74622f290fa6ea335565fb94",
+      "source": "Named Shamshir",
+      "source_sha256": "74622f290fa6ea335565fb949a12af2854fe0288c4b5f8382d9e6039ae79e744",
+      "page_ids": [
+        11055,
+        16317
+      ],
+      "before": "红装舍施尔弯刀",
+      "after": "舍施尔弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-98c70ae7d001d8b68f12a2de",
+      "source": "Named Bardiche",
+      "source_sha256": "98c70ae7d001d8b68f12a2de69bdf585ea11b849df4740552c659b9c248ced23",
+      "page_ids": [
+        11028,
+        16317
+      ],
+      "before": "红装长刃斧",
+      "after": "长刃斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-63b51ebb009ec07b5f542e12",
+      "source": "Named Greataxe",
+      "source_sha256": "63b51ebb009ec07b5f542e12ea30b1be9bd41e97635469e2aa09e775dffdcbb6",
+      "page_ids": [
+        3464,
+        16317
+      ],
+      "before": "红装巨斧",
+      "after": "巨斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01f4cbd330cb04902ee2f3a4",
+      "source": "Named Heavy Rusty Axe",
+      "source_sha256": "01f4cbd330cb04902ee2f3a459b60e3975f4a8bb4ea09a02ec1d410e2683a880",
+      "page_ids": [
+        11025,
+        16317
+      ],
+      "before": "红装锈蚀重斧",
+      "after": "锈蚀重斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-929c20c16ce958cee30a8ced",
+      "source": "Named Longaxe",
+      "source_sha256": "929c20c16ce958cee30a8ced60ec1eaac1cf9bee157a01751cffde5dc3cf0e46",
+      "page_ids": [
+        3838,
+        16317
+      ],
+      "before": "红装长柄斧",
+      "after": "长柄斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-5315802df0d7d0ab318ce602",
+      "source": "Named Crypt Cleaver",
+      "source_sha256": "5315802df0d7d0ab318ce602e50b2448a3a87e873e691f4fa52b0db8cf739135",
+      "page_ids": [
+        11024,
+        16317
+      ],
+      "before": "红装墓穴斩刀",
+      "after": "墓穴斩刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2ea1c1fbc65be466a25edf7f",
+      "source": "Named Rusty Warblade",
+      "source_sha256": "2ea1c1fbc65be466a25edf7f4a3f4bc5c53e2439df1fec048368cde1c08bc1f6",
+      "page_ids": [
+        11019,
+        16317
+      ],
+      "before": "红装锈蚀战刃",
+      "after": "锈蚀战刃（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0f437e46a32ef717f4d26847",
+      "source": "Named Two-Handed Scimitar",
+      "source_sha256": "0f437e46a32ef717f4d268475f26251eed0d1abf91c5e172b120aa487abb74f4",
+      "page_ids": [
+        14337,
+        16317
+      ],
+      "before": "红装双手弯刀",
+      "after": "双手弯刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1aa3c2f7dd22fb0b82f7af01",
+      "source": "Named Two-Handed Flail",
+      "source_sha256": "1aa3c2f7dd22fb0b82f7af0132b2928d8e79efe22db87337b5e5861b94b13a0e",
+      "page_ids": [
+        9039,
+        16317
+      ],
+      "before": "红装双手连枷",
+      "after": "双手连枷（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-b45e2d82ebe92c11c2e5510f",
+      "source": "Named Polehammer",
+      "source_sha256": "b45e2d82ebe92c11c2e5510f9785c9ddce882f1002d52162a146ddd8b8c18767",
+      "page_ids": [
+        9040,
+        16317
+      ],
+      "before": "红装长柄战锤",
+      "after": "长柄战锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1c632566731f4345c54648ed",
+      "source": "Named Two-Handed Hammer",
+      "source_sha256": "1c632566731f4345c54648ed4e21aeeac6e0bf36610323837c3b6167154ff051",
+      "page_ids": [
+        3834,
+        16317
+      ],
+      "before": "红装双手战锤",
+      "after": "双手战锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1ec4b910f0b9403788b15f55",
+      "source": "Named Two-Handed Skull Hammer",
+      "source_sha256": "1ec4b910f0b9403788b15f55bb849b8dccca8e711e11492bb223feb189d7c219",
+      "page_ids": [
+        11017,
+        16317
+      ],
+      "before": "红装双手颅骨锤",
+      "after": "双手颅骨锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-71deaa55e9fd5168baf2cec5",
+      "source": "Named Polemace",
+      "source_sha256": "71deaa55e9fd5168baf2cec5cec2c822e19ae4b647dcc9e9fb2b80e148fbca1b",
+      "page_ids": [
+        15053,
+        16317
+      ],
+      "before": "红装长柄钉锤",
+      "after": "长柄钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4cae333fe00d21c3fa447204",
+      "source": "Named Two-Handed Mace",
+      "source_sha256": "4cae333fe00d21c3fa447204ca9c6ced5617c2d02fd1bcc5dda5a6793c81accf",
+      "page_ids": [
+        9038,
+        16317
+      ],
+      "before": "红装双手钉锤",
+      "after": "双手钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0ab381234ef2ee616e462c7b",
+      "source": "Named Two-Handed Spiked Mace",
+      "source_sha256": "0ab381234ef2ee616e462c7b2e0127ab6fc39994fe83e10d8913094b3a1d8f41",
+      "page_ids": [
+        10990,
+        16317
+      ],
+      "before": "红装双手尖刺钉锤",
+      "after": "双手尖刺钉锤（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-326dd5988880b169bca24e6e",
+      "source": "Named Billhook",
+      "source_sha256": "326dd5988880b169bca24e6ee45f2421492b90013fe4ddf238b28058fe5a2289",
+      "page_ids": [
+        3833,
+        16317
+      ],
+      "before": "红装钩镰",
+      "after": "钩镰（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-6c9ec0aa244345e5d59724a6",
+      "source": "Named Bladed Pike",
+      "source_sha256": "6c9ec0aa244345e5d59724a67fc98ded7e0090dd2a922f09a0c7a1797eaf8244",
+      "page_ids": [
+        10956,
+        16317
+      ],
+      "before": "红装刃枪",
+      "after": "刃枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-31248d573d06102784c1f7f0",
+      "source": "Named Jagged Pike",
+      "source_sha256": "31248d573d06102784c1f7f01b6f308716c2e7b7aa53797513bcea866484ba87",
+      "page_ids": [
+        10954,
+        16317
+      ],
+      "before": "红装锯齿长枪",
+      "after": "锯齿长枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2b4957fd0ac3910b3fa9fda8",
+      "source": "Named Pike",
+      "source_sha256": "2b4957fd0ac3910b3fa9fda8c23f6ebee6be8b441ab88c0c983f118249f117ef",
+      "page_ids": [
+        3841,
+        16317
+      ],
+      "before": "红装长枪",
+      "after": "长枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d2432457daa73ea9fae737ab",
+      "source": "Named Swordlance",
+      "source_sha256": "d2432457daa73ea9fae737abcb7ee1ab83f2bfc7378234b9323daedf8196769e",
+      "page_ids": [
+        15390,
+        16317
+      ],
+      "before": "红装长柄剑刃",
+      "after": "长柄剑刃（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-84e28b85572e8ba583e8b6d6",
+      "source": "Named Warscythe",
+      "source_sha256": "84e28b85572e8ba583e8b6d6bbf80cb8e255b3453226e3a4b2c136c91b57f237",
+      "page_ids": [
+        10951,
+        16317
+      ],
+      "before": "红装战镰",
+      "after": "战镰（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0f2f387eb6e741b40c43d0c8",
+      "source": "Named Spetum",
+      "source_sha256": "0f2f387eb6e741b40c43d0c8f4c1376805aef485f01e651d75920aa356d93a3d",
+      "page_ids": [
+        9031,
+        16317
+      ],
+      "before": "红装三尖矛",
+      "after": "三尖矛（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c25abef647b74babf2495cb7",
+      "source": "Named Greatsword",
+      "source_sha256": "c25abef647b74babf2495cb7ecfce2233a993a0a3b48445110be7d8f62e04720",
+      "page_ids": [
+        3839,
+        16317
+      ],
+      "before": "红装巨剑",
+      "after": "巨剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-41634d0413310f0c5e3f4db8",
+      "source": "Named Warbrand",
+      "source_sha256": "41634d0413310f0c5e3f4db891a4cdb3a9cedd37101701220b78bc679a5eb03a",
+      "page_ids": [
+        3837,
+        16317
+      ],
+      "before": "红装长刃战刀",
+      "after": "长刃战刀（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-e96835bd948ab3fe2ecca84b",
+      "source": "Named Executioner's Sword",
+      "source_sha256": "e96835bd948ab3fe2ecca84b19bafac7f36b81450f57b843fa82f6adb941bbf7",
+      "page_ids": [
+        16317,
+        17149
+      ],
+      "before": "红装行刑剑",
+      "after": "行刑剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-8d2cab1537ae1a52ccb03c53",
+      "source": "Named Pollaxe",
+      "source_sha256": "8d2cab1537ae1a52ccb03c5377d6c2579c66787d3b82012bcaf59c35bec9ab5f",
+      "page_ids": [
+        16317,
+        17150
+      ],
+      "before": "红装骑士斧戟",
+      "after": "骑士斧戟（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1eafa79ae6aac33dfb390dc1",
+      "source": "Named Estoc",
+      "source_sha256": "1eafa79ae6aac33dfb390dc183d8c103ae387d1b4157c5eda4bb2a99782ce36b",
+      "page_ids": [
+        16317,
+        17144
+      ],
+      "before": "红装穿甲刺剑",
+      "after": "穿甲刺剑（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-a3541f023db588fed922fb6d",
+      "source": "Named Reinforced Boondock Bow",
+      "source_sha256": "a3541f023db588fed922fb6d94879230c1810e3b66c5ffdcb2da04c4ef89e3b0",
+      "page_ids": [
+        10347,
+        16317
+      ],
+      "before": "红装强化荒野短弓",
+      "after": "强化荒野短弓（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-3e1ce9edaa9a33fa200d06f6",
+      "source": "Named Warbow",
+      "source_sha256": "3e1ce9edaa9a33fa200d06f6c83e0f2f8485f256a8e0f435d90261705634abc7",
+      "page_ids": [
+        3850,
+        16317
+      ],
+      "before": "红装战弓",
+      "after": "战弓（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9c79d2a61e1cf00e6ad4d8c9",
+      "source": "Named Crossbow",
+      "source_sha256": "9c79d2a61e1cf00e6ad4d8c993c92605c8416a255b2a55a1e5ac669cf1f3995a",
+      "page_ids": [
+        3851,
+        16317
+      ],
+      "before": "红装弩",
+      "after": "弩（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9766000c3bcd4e752095d362",
+      "source": "Named Handgonne",
+      "source_sha256": "9766000c3bcd4e752095d362adcf47c19f5215499071059c3b0b33d3afc55062",
+      "page_ids": [
+        15438,
+        16317
+      ],
+      "before": "红装手铳",
+      "after": "手铳（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-470d85a2e9bd7ba76ba9bbbb",
+      "source": "Named Javelins",
+      "source_sha256": "470d85a2e9bd7ba76ba9bbbb1c426aafac76a47fbf92eef173c9f3de1ce81c59",
+      "page_ids": [
+        3852,
+        16317
+      ],
+      "before": "红装标枪",
+      "after": "标枪（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1dadeb206289be6175d450a4",
+      "source": "Named Throwing Axes",
+      "source_sha256": "1dadeb206289be6175d450a40ac103d68b0a992f23db9b26e9f9840d1e46e28d",
+      "page_ids": [
+        3853,
+        16317
+      ],
+      "before": "红装飞斧",
+      "after": "飞斧（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-92f406e2c5d7bd38f7684caa",
+      "source": "Named Undead Heater Shield",
+      "source_sha256": "92f406e2c5d7bd38f7684caaa89cf624deb17463d52b8ea695aea5ac2133e6e0",
+      "page_ids": [
+        3544,
+        16322
+      ],
+      "before": "红装亡灵熨斗形盾",
+      "after": "亡灵熨斗形盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01bc78b2666e439ff0ac1962",
+      "source": "Named Undead Kite Shield",
+      "source_sha256": "01bc78b2666e439ff0ac196236be11090c0c3ae07c0a0d26565d0351d80d0ee1",
+      "page_ids": [
+        3543,
+        16322
+      ],
+      "before": "红装亡灵鸢形盾",
+      "after": "亡灵鸢形盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01f08897bdddb84fb7898447",
+      "source": "Named Orc Heavy Shield",
+      "source_sha256": "01f08897bdddb84fb7898447a34a2fe66eeb03989eb0709876972a438cc2d44e",
+      "page_ids": [
+        3470,
+        16322
+      ],
+      "before": "红装兽人重盾",
+      "after": "兽人重盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d9b9067963fdddd5df9103db",
+      "source": "Named Sipar Shield",
+      "source_sha256": "d9b9067963fdddd5df9103db4b23bf05cb94701e4c2de6f7e16492195b276fff",
+      "page_ids": [
+        15445,
+        16322
+      ],
+      "before": "红装西帕尔圆盾",
+      "after": "西帕尔圆盾（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d74b3321e0132669b2bad88b",
+      "source": "Named Noble Mail Armor",
+      "source_sha256": "d74b3321e0132669b2bad88bbb0446e7be1c1bed66e29e10fa702ff8f1bc1eb3",
+      "page_ids": [
+        10945,
+        16323
+      ],
+      "before": "红装贵族锁甲",
+      "after": "贵族锁甲（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c8e47301b4439d78e036c652",
+      "source": "Named Sellsword's Armor",
+      "source_sha256": "c8e47301b4439d78e036c65215cf00d4aff990457be4703ba76b20c65dc08d69",
+      "page_ids": [
+        10941,
+        16323
+      ],
+      "before": "红装佣兵甲",
+      "after": "佣兵甲（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-3fbab25942105da67fedbb6f",
+      "source": "Named Steppe Helmet",
+      "source_sha256": "3fbab25942105da67fedbb6f3264e17131ef1eb4ca68521b44be5070198fbed9",
+      "page_ids": [
+        10928,
+        16324
+      ],
+      "before": "红装草原盔",
+      "after": "草原盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-f3b9730263dd513efd759266",
+      "source": "Named Nordic Helmet",
+      "source_sha256": "f3b9730263dd513efd7592669e08d3adb2260bd181555e1378036c486b2c1748",
+      "page_ids": [
+        10917,
+        16324
+      ],
+      "before": "红装北境盔",
+      "after": "北境盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-db8b7a3f6ce77b60011b6730",
+      "source": "Named Conic Helmet",
+      "source_sha256": "db8b7a3f6ce77b60011b67301198550ff006a6d2832d80211bec8813417e69ec",
+      "page_ids": [
+        10916,
+        16324
+      ],
+      "before": "红装锥形盔",
+      "after": "锥形盔（红装）",
+      "reason": "完整英文单位为具体装备类型页名称；用括号标注红装品质，保留基础类别、内联节点与游戏随机专名。"
+    }
+  ],
+  "titles": [
+    {
+      "source": "Named Axe",
+      "before": "红装斧",
+      "after": "斧（红装）"
+    },
+    {
+      "source": "Named Bardiche",
+      "before": "红装长刃斧",
+      "after": "长刃斧（红装）"
+    },
+    {
+      "source": "Named Battle Whip",
+      "before": "红装战鞭",
+      "after": "战鞭（红装）"
+    },
+    {
+      "source": "Named Billhook",
+      "before": "红装钩镰",
+      "after": "钩镰（红装）"
+    },
+    {
+      "source": "Named Bladed Pike",
+      "before": "红装刃枪",
+      "after": "刃枪（红装）"
+    },
+    {
+      "source": "Named Bow",
+      "before": "红装弓",
+      "after": "弓（红装）"
+    },
+    {
+      "source": "Named Cleaver",
+      "before": "红装斩刀",
+      "after": "斩刀（红装）"
+    },
+    {
+      "source": "Named Conic Helmet",
+      "before": "红装锥形盔",
+      "after": "锥形盔（红装）"
+    },
+    {
+      "source": "Named Crossbow",
+      "before": "红装弩",
+      "after": "弩（红装）"
+    },
+    {
+      "source": "Named Cruel Falchion",
+      "before": "红装凶刃弯刀",
+      "after": "凶刃弯刀（红装）"
+    },
+    {
+      "source": "Named Crypt Cleaver",
+      "before": "红装墓穴斩刀",
+      "after": "墓穴斩刀（红装）"
+    },
+    {
+      "source": "Named Dagger",
+      "before": "红装匕首",
+      "after": "匕首（红装）"
+    },
+    {
+      "source": "Named Estoc",
+      "before": "红装穿甲刺剑",
+      "after": "穿甲刺剑（红装）"
+    },
+    {
+      "source": "Named Executioner's Sword",
+      "before": "红装行刑剑",
+      "after": "行刑剑（红装）"
+    },
+    {
+      "source": "Named Fencing Sword",
+      "before": "红装决斗刺剑",
+      "after": "决斗刺剑（红装）"
+    },
+    {
+      "source": "Named Flail",
+      "before": "红装连枷",
+      "after": "连枷（红装）"
+    },
+    {
+      "source": "Named Goblin Skewer",
+      "before": "红装地精尖矛",
+      "after": "地精尖矛（红装）"
+    },
+    {
+      "source": "Named Greataxe",
+      "before": "红装巨斧",
+      "after": "巨斧（红装）"
+    },
+    {
+      "source": "Named Greatsword",
+      "before": "红装巨剑",
+      "after": "巨剑（红装）"
+    },
+    {
+      "source": "Named Handgonne",
+      "before": "红装手铳",
+      "after": "手铳（红装）"
+    },
+    {
+      "source": "Named Heavy Rusty Axe",
+      "before": "红装锈蚀重斧",
+      "after": "锈蚀重斧（红装）"
+    },
+    {
+      "source": "Named Jagged Pike",
+      "before": "红装锯齿长枪",
+      "after": "锯齿长枪（红装）"
+    },
+    {
+      "source": "Named Javelins",
+      "before": "红装标枪",
+      "after": "标枪（红装）"
+    },
+    {
+      "source": "Named Khopesh",
+      "before": "红装镰形剑",
+      "after": "镰形剑（红装）"
+    },
+    {
+      "source": "Named Longaxe",
+      "before": "红装长柄斧",
+      "after": "长柄斧（红装）"
+    },
+    {
+      "source": "Named Mace",
+      "before": "红装钉锤",
+      "after": "钉锤（红装）"
+    },
+    {
+      "source": "Named Noble Mail Armor",
+      "before": "红装贵族锁甲",
+      "after": "贵族锁甲（红装）"
+    },
+    {
+      "source": "Named Nordic Helmet",
+      "before": "红装北境盔",
+      "after": "北境盔（红装）"
+    },
+    {
+      "source": "Named Orc Axe",
+      "before": "红装兽人斧",
+      "after": "兽人斧（红装）"
+    },
+    {
+      "source": "Named Orc Cleaver",
+      "before": "红装兽人斩刀",
+      "after": "兽人斩刀（红装）"
+    },
+    {
+      "source": "Named Orc Heavy Shield",
+      "before": "红装兽人重盾",
+      "after": "兽人重盾（红装）"
+    },
+    {
+      "source": "Named Pike",
+      "before": "红装长枪",
+      "after": "长枪（红装）"
+    },
+    {
+      "source": "Named Polehammer",
+      "before": "红装长柄战锤",
+      "after": "长柄战锤（红装）"
+    },
+    {
+      "source": "Named Polemace",
+      "before": "红装长柄钉锤",
+      "after": "长柄钉锤（红装）"
+    },
+    {
+      "source": "Named Pollaxe",
+      "before": "红装骑士斧戟",
+      "after": "骑士斧戟（红装）"
+    },
+    {
+      "source": "Named Qatal Dagger",
+      "before": "红装卡塔尔匕首",
+      "after": "卡塔尔匕首（红装）"
+    },
+    {
+      "source": "Named Reinforced Boondock Bow",
+      "before": "红装强化荒野短弓",
+      "after": "强化荒野短弓（红装）"
+    },
+    {
+      "source": "Named Rusty Warblade",
+      "before": "红装锈蚀战刃",
+      "after": "锈蚀战刃（红装）"
+    },
+    {
+      "source": "Named Sellsword's Armor",
+      "before": "红装佣兵甲",
+      "after": "佣兵甲（红装）"
+    },
+    {
+      "source": "Named Shamshir",
+      "before": "红装舍施尔弯刀",
+      "after": "舍施尔弯刀（红装）"
+    },
+    {
+      "source": "Named Sipar Shield",
+      "before": "红装西帕尔圆盾",
+      "after": "西帕尔圆盾（红装）"
+    },
+    {
+      "source": "Named Spear",
+      "before": "红装矛",
+      "after": "矛（红装）"
+    },
+    {
+      "source": "Named Spetum",
+      "before": "红装三尖矛",
+      "after": "三尖矛（红装）"
+    },
+    {
+      "source": "Named Steppe Helmet",
+      "before": "红装草原盔",
+      "after": "草原盔（红装）"
+    },
+    {
+      "source": "Named Sword",
+      "before": "红装剑",
+      "after": "剑（红装）"
+    },
+    {
+      "source": "Named Swordlance",
+      "before": "红装长柄剑刃",
+      "after": "长柄剑刃（红装）"
+    },
+    {
+      "source": "Named Three-Headed Flail",
+      "before": "红装三头连枷",
+      "after": "三头连枷（红装）"
+    },
+    {
+      "source": "Named Throwing Axes",
+      "before": "红装飞斧",
+      "after": "飞斧（红装）"
+    },
+    {
+      "source": "Named Two-Handed Flail",
+      "before": "红装双手连枷",
+      "after": "双手连枷（红装）"
+    },
+    {
+      "source": "Named Two-Handed Hammer",
+      "before": "红装双手战锤",
+      "after": "双手战锤（红装）"
+    },
+    {
+      "source": "Named Two-Handed Mace",
+      "before": "红装双手钉锤",
+      "after": "双手钉锤（红装）"
+    },
+    {
+      "source": "Named Two-Handed Scimitar",
+      "before": "红装双手弯刀",
+      "after": "双手弯刀（红装）"
+    },
+    {
+      "source": "Named Two-Handed Skull Hammer",
+      "before": "红装双手颅骨锤",
+      "after": "双手颅骨锤（红装）"
+    },
+    {
+      "source": "Named Two-Handed Spiked Mace",
+      "before": "红装双手尖刺钉锤",
+      "after": "双手尖刺钉锤（红装）"
+    },
+    {
+      "source": "Named Undead Heater Shield",
+      "before": "红装亡灵熨斗形盾",
+      "after": "亡灵熨斗形盾（红装）"
+    },
+    {
+      "source": "Named Undead Kite Shield",
+      "before": "红装亡灵鸢形盾",
+      "after": "亡灵鸢形盾（红装）"
+    },
+    {
+      "source": "Named Warbow",
+      "before": "红装战弓",
+      "after": "战弓（红装）"
+    },
+    {
+      "source": "Named Warbrand",
+      "before": "红装长刃战刀",
+      "after": "长刃战刀（红装）"
+    },
+    {
+      "source": "Named Warhammer",
+      "before": "红装破甲锤",
+      "after": "破甲锤（红装）"
+    },
+    {
+      "source": "Named Warscythe",
+      "before": "红装战镰",
+      "after": "战镰（红装）"
+    },
+    {
+      "source": "Unique Axe",
+      "before": "红装斧",
+      "after": "斧（红装）"
+    },
+    {
+      "source": "Unique Billhook",
+      "before": "红装钩镰",
+      "after": "钩镰（红装）"
+    },
+    {
+      "source": "Unique Bow",
+      "before": "红装战弓",
+      "after": "战弓（红装）"
+    },
+    {
+      "source": "Unique Cleaver",
+      "before": "红装斩刀",
+      "after": "斩刀（红装）"
+    },
+    {
+      "source": "Unique Crossbow",
+      "before": "红装弩",
+      "after": "弩（红装）"
+    },
+    {
+      "source": "Unique Dagger",
+      "before": "红装匕首",
+      "after": "匕首（红装）"
+    },
+    {
+      "source": "Unique Flail",
+      "before": "红装连枷",
+      "after": "连枷（红装）"
+    },
+    {
+      "source": "Unique Greatsword",
+      "before": "红装巨剑",
+      "after": "巨剑（红装）"
+    },
+    {
+      "source": "Unique Javelins",
+      "before": "红装标枪",
+      "after": "标枪（红装）"
+    },
+    {
+      "source": "Unique Longaxe",
+      "before": "红装长柄斧",
+      "after": "长柄斧（红装）"
+    },
+    {
+      "source": "Unique Mace",
+      "before": "红装钉锤",
+      "after": "钉锤（红装）"
+    },
+    {
+      "source": "Unique Orc Axe",
+      "before": "红装兽人斧",
+      "after": "兽人斧（红装）"
+    },
+    {
+      "source": "Unique Orc Cleaver",
+      "before": "红装兽人斩刀",
+      "after": "兽人斩刀（红装）"
+    },
+    {
+      "source": "Unique Pike",
+      "before": "红装长枪",
+      "after": "长枪（红装）"
+    },
+    {
+      "source": "Unique Spear",
+      "before": "红装矛",
+      "after": "矛（红装）"
+    },
+    {
+      "source": "Unique Sword",
+      "before": "红装剑",
+      "after": "剑（红装）"
+    },
+    {
+      "source": "Unique Throwing Axes",
+      "before": "红装飞斧",
+      "after": "飞斧（红装）"
+    },
+    {
+      "source": "Unique Two-Handed Axe",
+      "before": "红装巨斧",
+      "after": "巨斧（红装）"
+    },
+    {
+      "source": "Unique Two-Handed Warhammer",
+      "before": "红装双手战锤",
+      "after": "双手战锤（红装）"
+    },
+    {
+      "source": "Unique Undead Heater Shield",
+      "before": "红装亡灵熨斗形盾",
+      "after": "亡灵熨斗形盾（红装）"
+    },
+    {
+      "source": "Unique Undead Kite Shield",
+      "before": "红装亡灵鸢形盾",
+      "after": "亡灵鸢形盾（红装）"
+    },
+    {
+      "source": "Unique Warbrand",
+      "before": "红装长刃战刀",
+      "after": "长刃战刀（红装）"
+    },
+    {
+      "source": "Unique Warhammer",
+      "before": "红装破甲锤",
+      "after": "破甲锤（红装）"
+    }
+  ]
+}

@@ -10319,7 +10319,7 @@
       "id": "u-e3d7719e7f086adf31081710",
       "source_sha256": "e3d7719e7f086adf31081710d1b41939ec98fffdd0f48d5c8283ca0094e1086f",
       "source": "Can gain you a {#1}Named Qatal Dagger{/#1}. ({#2}Incense Trade{/#2})",
-      "zh": "可为战团获得一把{#1}名贵卡塔尔匕首{/#1}。（{#2}香料交易{/#2}）",
+      "zh": "可为战团获得一把{#1}红装卡塔尔匕首{/#1}。（{#2}香料交易{/#2}）",
       "status": "reviewed",
       "page_ids": [
         2139
@@ -11619,7 +11619,7 @@
       "id": "u-81e5c70a90930177edd85b1e",
       "source_sha256": "81e5c70a90930177edd85b1e3874828d6cf6dfea3c10cb93716057d01f388fe4",
       "source": "Can find a famed shield together with the graverobber. ({#1}Graverobber Finds Item{/#1})",
-      "zh": "可与盗墓贼一起找到一面名贵盾牌。 ({#1}盗墓贼发现物品{/#1})",
+      "zh": "可与盗墓贼一起找到一面红装盾牌。 ({#1}盗墓贼发现物品{/#1})",
       "status": "reviewed",
       "page_ids": [
         2139
@@ -13589,7 +13589,7 @@
       "id": "u-539f1206eec5d55ed5a47fef",
       "source_sha256": "539f1206eec5d55ed5a47fef261734183dcb4e980872740053fd818391d562fd",
       "source": "Can gain you a {#1}Named Greatsword{/#1}. ({#2}Undead Hoggart{/#2})",
-      "zh": "可为战团获得一把 {#1}名贵巨剑{/#1}. ({#2}亡灵天灾：霍加特{/#2})",
+      "zh": "可为战团获得一把 {#1}红装巨剑{/#1}. ({#2}亡灵天灾：霍加特{/#2})",
       "status": "reviewed",
       "page_ids": [
         2139
@@ -13609,7 +13609,7 @@
       "id": "u-9b78669ef4b51760450c6f5f",
       "source_sha256": "9b78669ef4b51760450c6f5f3442842e94a4dcc2001c6d2c02f39fdbb03d93fd",
       "source": "Can gain you a {#1}Named Crossbow{/#1}. ({#2}Fake Witchhunter{/#2})",
-      "zh": "可为战团获得一把 {#1}名贵弩{/#1}. ({#2}冒牌猎巫人{/#2})",
+      "zh": "可为战团获得一把 {#1}红装弩{/#1}. ({#2}冒牌猎巫人{/#2})",
       "status": "reviewed",
       "page_ids": [
         2139

@@ -1112,7 +1112,7 @@
       "id": "u-e3d7719e7f086adf31081710",
       "source_sha256": "e3d7719e7f086adf31081710d1b41939ec98fffdd0f48d5c8283ca0094e1086f",
       "source": "Can gain you a {#1}Named Qatal Dagger{/#1}. ({#2}Incense Trade{/#2})",
-      "zh": "可为战团获得一把{#1}名贵卡塔尔匕首{/#1}。（{#2}香料交易{/#2}）",
+      "zh": "可为战团获得一把{#1}红装卡塔尔匕首{/#1}。（{#2}香料交易{/#2}）",
       "status": "reviewed",
       "page_ids": [
         13366
@@ -2843,7 +2843,7 @@
       "id": "u-81e5c70a90930177edd85b1e",
       "source_sha256": "81e5c70a90930177edd85b1e3874828d6cf6dfea3c10cb93716057d01f388fe4",
       "source": "Can find a famed shield together with the graverobber. ({#1}Graverobber Finds Item{/#1})",
-      "zh": "可与盗墓贼一起找到一面名贵盾牌。 ({#1}盗墓贼发现物品{/#1})",
+      "zh": "可与盗墓贼一起找到一面红装盾牌。 ({#1}盗墓贼发现物品{/#1})",
       "status": "reviewed",
       "page_ids": [
         10824
@@ -13630,7 +13630,7 @@
       "id": "u-a03612775a8cdef3716029b9",
       "source_sha256": "a03612775a8cdef3716029b9de6fbd81dcd41dd55fd767ea8deed40cf4440c6e",
       "source": "10% chance: The {#1}{#2}{#3/}{/#2}{/#1} {#4}lindwurms{/#4} are attacking a caravan. If less than 5 caravans are destroyed you get an extra reward. You get 3 extra caravan hands for the fight. The reward is that an undead location is revealed that will contain a named item. ({#5}Merchant in Distress{/#5})",
-      "zh": "10% 概率：{#1}{#2}{#3/}{/#2}{/#1}{#4}林德蠕龙{/#4}正在袭击商队。若商队阵亡单位（杂工与驴合计）少于 5 个，可获得额外奖励。战斗中有 3 名额外的商队杂工帮忙；奖励是获知一处藏有名贵装备的亡灵据点位置。（{#5}遇险商人{/#5}）",
+      "zh": "10% 概率：{#1}{#2}{#3/}{/#2}{/#1}{#4}林德蠕龙{/#4}正在袭击商队。若商队阵亡单位（杂工与驴合计）少于 5 个，可获得额外奖励。战斗中有 3 名额外的商队杂工帮忙；奖励是获知一处藏有红装的亡灵据点位置。（{#5}遇险商人{/#5}）",
       "status": "reviewed",
       "page_ids": [
         11123
@@ -14999,7 +14999,7 @@
       "id": "u-e8d7005caf39d2079307b5ad",
       "source_sha256": "e8d7005caf39d2079307b5adf6d8e1ce6ad35b3617fd7b32ae3019738b37ee4c",
       "source": "5% chance: While on the battlesite you find a powerful weapon. ({#1}greatsword{/#1}, {#2}greataxe{/#2}, {#3}billhook{/#3}, {#4}noble sword{/#4}, {#5}warbrand{/#5}, {#6}two-handed hammer{/#6}, {#7}man splitter{/#7}, {#8}head chopper{/#8}, {#9}named orc axe{/#9} or {#10}named orc cleaver{/#10})",
-      "zh": "5% 概率：在战场遗址找到一把强力武器，可能是{#1}巨剑{/#1}、{#2}巨斧{/#2}、{#3}钩镰{/#3}、{#4}贵族长剑{/#4}、{#5}长刃战刀{/#5}、{#6}双手战锤{/#6}、{#7}劈人巨斧{/#7}、{#8}断头斩刀{/#8}、{#9}名贵兽人斧{/#9}或{#10}名贵兽人斩刀{/#10}。",
+      "zh": "5% 概率：在战场遗址找到一把强力武器，可能是{#1}巨剑{/#1}、{#2}巨斧{/#2}、{#3}钩镰{/#3}、{#4}贵族长剑{/#4}、{#5}长刃战刀{/#5}、{#6}双手战锤{/#6}、{#7}劈人巨斧{/#7}、{#8}断头斩刀{/#8}、{#9}红装兽人斧{/#9}或{#10}红装兽人斩刀{/#10}。",
       "status": "reviewed",
       "page_ids": [
         11154
@@ -15545,7 +15545,7 @@
       "id": "u-e4b1355c032604915fb16f39",
       "source_sha256": "e4b1355c032604915fb16f39427bdd611909b1731943c2085d8b79bc902c1a6b",
       "source": "15% chance: A messenger of the enemy noble house offers you a named weapon if you change sides. ({#1}Changing Sides{/#1})",
-      "zh": "15% 概率：敌对贵族家族的信使以一件名贵武器为报酬，劝你倒戈。（{#1}改换阵营{/#1}）",
+      "zh": "15% 概率：敌对贵族家族的信使以一件红装武器为报酬，劝你倒戈。（{#1}改换阵营{/#1}）",
       "status": "reviewed",
       "page_ids": [
         11160
@@ -16595,7 +16595,7 @@
       "id": "u-c8419e22a3aa5d0acaa6f6b6",
       "source_sha256": "c8419e22a3aa5d0acaa6f6b615674149fbe9a13d36cf9c6463cead06f8064c66",
       "source": "20% chance: Leader of the indebted offers a bargain for their freedom. Accepting the offer will result in the failure of the contract but an undead location will be revealed that will contain a named item. ({#1}Spartacus{/#1})",
-      "zh": "20% 概率：负债者首领提出交易，以换取众人的自由。接受会导致委托失败，但会揭示一处藏有名贵装备的亡灵据点。（{#1}斯巴达克斯{/#1}）",
+      "zh": "20% 概率：负债者首领提出交易，以换取众人的自由。接受会导致委托失败，但会揭示一处藏有红装的亡灵据点。（{#1}斯巴达克斯{/#1}）",
       "status": "reviewed",
       "page_ids": [
         16133
@@ -17216,7 +17216,7 @@
       "id": "u-850aa2c3a5e5a2926d1e4b9b",
       "source_sha256": "850aa2c3a5e5a2926d1e4b9be4ac0b7a29fdb3dc652f1f5ab73623241ead94f5",
       "source": "The item tables contain in-game possible values (minima and maxima if applicable) extrapolated from the game scripts. Hovering over icons will show what they represent. Clicking on the items icons will open up specific pages. The weapons name could not fit into the tables (inherent width limitations) but was added over their durability values as an invisible overlay so they can be searched (Ctrl + F shortcut); when searching for a named weapon simply input the weapon type and omit the \"named\" word, e.g.: to successfully find the Named Battle Whip, the search query input needs to start from the word \"battle\". Sorting triggers for columns with weapon/armor parameters are placed in the corresponding column cells in a row below (with a golden arrow). {#1}(NOTICE: most of the individual named weapons pages have not been updated (primarily the shield damage stat is lower rather than being x1.5-2)){/#1}",
-      "zh": "下列表格依据游戏脚本整理了物品在游戏中可能出现的属性值，适用时列出最低和最高数值。将鼠标停在图标上可查看含义，点击物品图标可打开对应词条。由于表格宽度有限，武器名称以隐藏文字保留在耐久单元格中，便于使用Ctrl + F搜索。中文模式可按中文武器名称搜索，例如“战鞭”；英文模式下则省略“Named”，例如Named Battle Whip可从“battle”开始查找。原站说明中的武器和护甲排序入口位于对应列下方带箭头的单元格中；本站这类多层表头表格暂不支持排序。{#1}注意：多数单独的名贵武器词条尚未更新，主要是破盾伤害偏低，没有按x1.5-2的范围调整。{/#1}",
+      "zh": "下列表格依据游戏脚本整理了物品在游戏中可能出现的属性值，必要时列出取值的上下限。将鼠标停在图标上可查看含义，点击物品图标可打开对应词条。由于表格宽度有限，武器名称以隐藏文字保留在耐久单元格中，便于使用Ctrl + F搜索。中文模式可按中文武器名称搜索，例如“战鞭”；英文模式下则省略“Named”，例如Named Battle Whip可从“battle”开始查找。原站说明中的武器和护甲排序入口位于对应列下方带箭头的单元格中；本站这类多层表头表格暂不支持排序。{#1}注意：多数单独的红装武器词条尚未更新，主要是破盾伤害偏低，尚未体现x1.5-2的倍率。{/#1}",
       "status": "reviewed",
       "page_ids": [
         16317
@@ -17240,7 +17240,7 @@
       "id": "u-ea5f75451b58058762298dd4",
       "source_sha256": "ea5f75451b58058762298dd4ed162af738778def3a565762f7698104bde8005a",
       "source": "Durability is always modified. Then two other random stats among the following are improved:",
-      "zh": "耐久必定获得修正，此外还会随机提高以下属性中的两项：",
+      "zh": "耐久值会重新随机取值；此外，还会从以下属性中随机选取两项予以强化：",
       "status": "reviewed",
       "page_ids": [
         16317
@@ -17264,7 +17264,7 @@
       "id": "u-ba3dbb6937cfe02d20377a11",
       "source_sha256": "ba3dbb6937cfe02d20377a11d9ae96f0544ff19c273221d182e8aeeba2dcbfb7",
       "source": "{#1/} Regular Damage {#2}{#3}{#4/}{/#3}{/#2} columns: the left column shows unmodified damage stat values (e.g. a regular, non-named weapon which the named weapon is derived from has these values), the right column shows the highest stat values both for the minimum and the maximum damage the weapon can have.",
-      "zh": "{#1/}基础伤害{#2}{#3}{#4/}{/#3}{/#2}分为两列：左列是未经修正的伤害范围，也就是对应普通武器的数值；右列分别列出名贵武器的最低伤害和最高伤害所能达到的最大值。",
+      "zh": "{#1/}基础伤害{#2}{#3}{#4/}{/#3}{/#2}分为两列：左列显示对应普通武器的伤害区间；右列显示红装伤害下限与伤害上限各自可能达到的最高值。",
       "status": "reviewed",
       "page_ids": [
         16317
@@ -19351,7 +19351,7 @@
       "id": "u-fb54955735243de5fd8a3b62",
       "source_sha256": "fb54955735243de5fd8a3b6296f2d6fb71fef873fc59160d39a64876a1c49a05",
       "source": "\"A respectable company is recognized by their equipment. We should head out and claim either a famed weapon, shield, armor or helmet to increase our renown.\"",
-      "zh": "“体面的战团，光看装备就认得出来。我们该去弄到一件名贵武器、盾牌、护甲或头盔，提高自己的声望。”",
+      "zh": "“体面的战团，光看装备就认得出来。我们该去弄到一件红装武器、盾牌、护甲或头盔，提高自己的声望。”",
       "status": "reviewed",
       "page_ids": [
         12983
@@ -19372,7 +19372,7 @@
       "id": "u-5fa5a8c934dc46f14bd871c9",
       "source_sha256": "5fa5a8c934dc46f14bd871c9eccb0a78c445841307599e3300ed21c6cc5e6e3d",
       "source": "Have at least 1 {#1}famed piece of equipment{/#1} in your possession - weapon, shield, armor or helmet. Follow rumors in taverns to learn where famed items can be found, purchase them at specialized shops in large cities and castles, or go out on your own to explore and raid ruins and camps. The further away from civilization, the higher the chance of finding rare items.",
-      "zh": "拥有至少 1 件{#1}名贵装备{/#1}，武器、盾牌、护甲或头盔均可。在酒馆打听传闻，可以获知名贵装备的下落；也可以去大城市和城堡的专门商店购买，或自行探索荒野、扫荡遗迹和营地。离人烟越远，找到稀有装备的机会就越大。",
+      "zh": "拥有至少 1 件{#1}红装{/#1}，武器、盾牌、护甲或头盔均可。在酒馆打听传闻，可以获知红装的下落；也可以去大城市和城堡的专门商店购买，或自行探索荒野、扫荡遗迹和营地。离人烟越远，找到红装的机会就越大。",
       "status": "reviewed",
       "page_ids": [
         12983
@@ -19393,7 +19393,7 @@
       "id": "u-0c0973d3f0d9ef746b8ac7b5",
       "source_sha256": "0c0973d3f0d9ef746b8ac7b54cf8f4ee30b83f1585a31ba2f13dc58f4e707a90",
       "source": "{#1}permanently{/#1} marked as already completed if, when ambition selection screen displayed, all above requirements are met and a famed item is in the company's possession",
-      "zh": "打开抱负选择界面时，若满足上述所有条件，且战团已拥有名贵装备，此抱负会被{#1}永久{/#1}标记为已完成。",
+      "zh": "打开抱负选择界面时，若满足上述所有条件，且战团已拥有红装，此抱负会被{#1}永久{/#1}标记为已完成。",
       "status": "reviewed",
       "page_ids": [
         12983
@@ -19414,7 +19414,7 @@
       "id": "u-4f4701f5af1b0ece79084ecd",
       "source_sha256": "4f4701f5af1b0ece79084ecd6368b87c1d2cfc0ed19c201b7ca688e2de361529",
       "source": "{#1}{#2}{#3/}{/#2}{/#1} Have a famed weapon, shield, armor and helmet{#4/}{#5}{#6}{#7/}{/#6}{/#5} {#8}Warriors of the North DLC{/#8}",
-      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 各拥有一件名贵武器、盾牌、护甲和头盔{#4/}{#5}{#6}{#7/}{/#6}{/#5} {#8}北境勇士 DLC{/#8}",
+      "zh": "{#1}{#2}{#3/}{/#2}{/#1} 各拥有一件红装武器、盾牌、护甲和头盔{#4/}{#5}{#6}{#7/}{/#6}{/#5} {#8}北境勇士 DLC{/#8}",
       "status": "reviewed",
       "page_ids": [
         12984
@@ -19435,7 +19435,7 @@
       "id": "u-b98eed3756297a4570d767b5",
       "source_sha256": "b98eed3756297a4570d767b510f2925c05c21e74b686d6ff48a559efcab17289",
       "source": "\"A famed company is recognized by their equipment. We should head out and claim a prestigious weapon, shield, armor and helmet to increase our renown.\"",
-      "zh": "“声名显赫的战团，光看装备就认得出来。我们该去集齐名贵武器、盾牌、护甲和头盔，让名声更上一层楼。”",
+      "zh": "“声名显赫的战团，光看装备就认得出来。我们该去集齐红装武器、盾牌、护甲和头盔，让名声更上一层楼。”",
       "status": "reviewed",
       "page_ids": [
         12984
@@ -19456,7 +19456,7 @@
       "id": "u-715798dcf989aee2a40a2229",
       "source_sha256": "715798dcf989aee2a40a22298cb7e926ac539e35321faac3bb218d1321b80fcb",
       "source": "Have at least one {#1}famed weapon, shield, armor and helmet{/#1} each in your possession. Follow rumors in taverns to learn where famed items can be found, purchase them at specialized shops in large cities and castles, or go out on your own to explore and raid ruins and camps. The further away from civilization, the higher the chance of finding rare items.",
-      "zh": "{#1}名贵武器、盾牌、护甲和头盔{/#1}各拥有至少一件。在酒馆打听传闻，可以获知名贵装备的下落；也可以去大城市和城堡的专门商店购买，或自行探索荒野、扫荡遗迹和营地。离人烟越远，找到稀有装备的机会就越大。",
+      "zh": "{#1}红装武器、盾牌、护甲和头盔{/#1}各拥有至少一件。在酒馆打听传闻，可以获知红装的下落；也可以去大城市和城堡的专门商店购买，或自行探索荒野、扫荡遗迹和营地。离人烟越远，找到红装的机会就越大。",
       "status": "reviewed",
       "page_ids": [
         12984
@@ -19477,7 +19477,7 @@
       "id": "u-eb8708b6acf727bca1223135",
       "source_sha256": "eb8708b6acf727bca122313587dde7c5007a1acdf128f71c73a529471a57c932",
       "source": "company does not own a famed weapon or a famed shield or a famed armor or a famed helmet",
-      "zh": "战团尚未集齐名贵武器、名贵盾牌、名贵护甲和名贵头盔。",
+      "zh": "战团尚未集齐红装武器、红装盾牌、红装护甲和红装头盔。",
       "status": "reviewed",
       "page_ids": [
         12984
@@ -24726,7 +24726,7 @@
       "id": "u-84bf68ef102b568363c1bf91",
       "source_sha256": "84bf68ef102b568363c1bf91f45bf16cfaabb4e550797a1ba6fd0cbeaaf022d6",
       "source": "The {#1}Tavern Rumors{/#1} will only contain {#2}Contract Rumors{/#2}, {#3}Location Rumors{/#3} and {#4}Named Item Rumors{/#4}",
-      "zh": "{#1}酒馆传闻{/#1}将只包含{#2}委托传闻{/#2}、{#3}地点传闻{/#3}和{#4}名贵装备传闻{/#4}。",
+      "zh": "{#1}酒馆传闻{/#1}将只包含{#2}委托传闻{/#2}、{#3}地点传闻{/#3}和{#4}红装传闻{/#4}。",
       "status": "reviewed",
       "page_ids": [
         13630

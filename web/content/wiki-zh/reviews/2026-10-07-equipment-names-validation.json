@@ -1,0 +1,1944 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-07",
+  "source_snapshot": "20260919T132453Z-2d82e40d772f",
+  "scope": "Follow-up equipment type names; cached public API English HTML; no full snapshot build or deployment",
+  "review_sha256": "d3f71f72416cb06e17eebf8b713543ec91b36e7beb9b14bf14fee2ee30b6e148",
+  "preserved_prior_artifacts": {
+    "2026-10-07-equipment.json": "c334af89c11579d4a6a4a3c3631557f9ba17a8e827c66a858f97ce20e3a5c7e5",
+    "2026-10-07-equipment-validation.json": "c0b41f5204b85602ded2cd6c8681a1dee249b17dd9edafcfce7fab90a7ed2752"
+  },
+  "checks": {
+    "exact_replay_of_both_ledgers": "passed",
+    "previous_translation_hashes": "passed",
+    "followup_file_hashes": "passed",
+    "only_complete_equipment_labels_changed": "passed",
+    "english_sources_hashes_revisions_scopes_and_provenance": "unchanged",
+    "numbers_variables_and_inline_marker_order": "unchanged",
+    "sample_pages_fully_reviewed": "passed",
+    "links_images_anchors_and_table_structure": "unchanged"
+  },
+  "tests": {
+    "command": "$env:BBMOD_DEBUG='1'; ./.venv/Scripts/python.exe manage.py test catalog.test_wiki_translation catalog.test_wiki catalog.test_wiki_reading --verbosity 1",
+    "working_directory": "web",
+    "passed": 70,
+    "failed": 0,
+    "coverage": [
+      "Named and Unique fallback titles",
+      "explicit proper-name precedence",
+      "legacy and current Chinese search aliases",
+      "translated redirects",
+      "grouped and unrelated title protection",
+      "source-locked build fixtures"
+    ]
+  },
+  "counts": {
+    "pages": 116,
+    "blocks": 6399,
+    "unit_records": 121,
+    "unique_units": 62,
+    "titles": 83,
+    "translation_files": 3,
+    "changed_records_validated_against_real_html": 118,
+    "cross_reference_records_checked_by_before_after_protection": 3
+  },
+  "translation_files": [
+    {
+      "file": "core-mechanics.json",
+      "before_sha256": "842485d84415965570600a097ce96db5ff186f8a70abfd39efe88a61f290b431",
+      "after_sha256": "bc9947f7ee45799babc3961b2c3e6304d8571bdaad761792feddc8bd5e59d58e"
+    },
+    {
+      "file": "shared-labels.json",
+      "before_sha256": "b8f7f66358e5a3d3b99e5975378340a1692a2dafacda134bcd6b0cf39578eb32",
+      "after_sha256": "b526d703eb4d9ad597f17dce733e7494c73e64ea5ab1e1312ff034a4a3aef12b"
+    },
+    {
+      "file": "titles.json",
+      "before_sha256": "e0b63c0239527155c10f793dae77dce37d1eeb39b38f578a47e8d50838ac3196",
+      "after_sha256": "cff0869429d4c78b620bdbade7c2f9e6be40aa5f799506930425bfbd863c1940"
+    }
+  ],
+  "pages": [
+    {
+      "id": 10347,
+      "title": "Named Reinforced Boondock Bow",
+      "title_zh": "强化荒野短弓（红装）",
+      "revision": 43473,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Reinforced_Boondock_Bow",
+      "english_html_sha256": "e82b03ce14ebfffe0f49e6c07ee0c57fbf7c6503d2d8649d303b461f8a9540e7",
+      "total_blocks": 40,
+      "reviewed_blocks": 40,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10354,
+      "title": "Named Goblin Skewer",
+      "title_zh": "地精尖矛（红装）",
+      "revision": 46500,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Goblin_Skewer",
+      "english_html_sha256": "29fd7d621eec2c7cf0b133ed058908cd678bea0b90ee54f8b551dc4c8767b1a1",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10910,
+      "title": "Obsidian Dagger",
+      "title_zh": "黑曜石匕首",
+      "revision": 46252,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Obsidian_Dagger",
+      "english_html_sha256": "c349d7d0a539e79f1a880ffec9959913593d12010d84e6565917767f541ecc8d",
+      "total_blocks": 25,
+      "reviewed_blocks": 25,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10913,
+      "title": "Armor of the Ijirok",
+      "title_zh": "伊吉罗克之甲",
+      "revision": 41894,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Armor_of_the_Ijirok",
+      "english_html_sha256": "fb1f99e962eba8e69f8de6764c15e60589ef2695e3042a915d7c8f54df8fad33",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10915,
+      "title": "Bull Helmet",
+      "title_zh": "公牛头盔",
+      "revision": 43521,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Bull_Helmet",
+      "english_html_sha256": "449902172d2b037216645d61506eb3de0d303b437882e5951cc4b9dcce99775d",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10916,
+      "title": "Named Conic Helmet",
+      "title_zh": "锥形盔（红装）",
+      "revision": 43518,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Conic_Helmet",
+      "english_html_sha256": "17140a190f40a628fa9d3d086d89285ce9de2b456f308241c69bab5ad70093fc",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10917,
+      "title": "Named Nordic Helmet",
+      "title_zh": "北境盔（红装）",
+      "revision": 43515,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Nordic_Helmet",
+      "english_html_sha256": "7ff36e52956706210bb183f496536f0ed8f1c03f40d7b8e294355e7117a01e3a",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10918,
+      "title": "Nose Horned Helmet",
+      "title_zh": "鼻角盔",
+      "revision": 43510,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Nose_Horned_Helmet",
+      "english_html_sha256": "86a236b194c1d8f85a9a6bc5038ebce768291289442fca7aa23a1ca241064a26",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10927,
+      "title": "Skull Helmet",
+      "title_zh": "骷髅盔",
+      "revision": 43509,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Skull_Helmet",
+      "english_html_sha256": "74106f425c3aafc90e02a3c2b2254376cab0877f6173a99603ea4140c1c2a3b7",
+      "total_blocks": 38,
+      "reviewed_blocks": 38,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10928,
+      "title": "Named Steppe Helmet",
+      "title_zh": "草原盔（红装）",
+      "revision": 43508,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Steppe_Helmet",
+      "english_html_sha256": "0a931c6b01f18d52f98df5a62c1cb7eb03af32679156890aab3dffd20b810377",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10937,
+      "title": "Golden Lamellar Armor",
+      "title_zh": "金色札甲",
+      "revision": 43502,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Golden_Lamellar_Armor",
+      "english_html_sha256": "859eb73770f150325c300c489d99bf232bede6de7fec1b70427b287cbf14fd09",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10939,
+      "title": "Alloy Plate Armor",
+      "title_zh": "合金板甲",
+      "revision": 43501,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Alloy_Plate_Armor",
+      "english_html_sha256": "da5371143fac8d14bd49cc4c6907bbf67116adb28a5be12e3f84d492ebeb8299",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10941,
+      "title": "Named Sellsword's Armor",
+      "title_zh": "佣兵甲（红装）",
+      "revision": 43500,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Sellsword's_Armor",
+      "english_html_sha256": "ff5200ce62c8877ad5aef50b84c469e991ee25b8b39aa6397eb2274cca3b045b",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10943,
+      "title": "Skull and Chain Armor",
+      "title_zh": "骷髅铁链甲",
+      "revision": 43495,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Skull_and_Chain_Armor",
+      "english_html_sha256": "87c64a3b5b6445ea58b1a272b0ee8e78fa4a660467b56c6cb814d2798e79f55a",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10945,
+      "title": "Named Noble Mail Armor",
+      "title_zh": "贵族锁甲（红装）",
+      "revision": 43494,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Noble_Mail_Armor",
+      "english_html_sha256": "d799ac8b88da95ec414ade7d24d79cb988b3baf10a44cc1ce59e3c804927ba05",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10947,
+      "title": "Plated Fur Armor",
+      "title_zh": "覆板毛皮甲",
+      "revision": 43492,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Plated_Fur_Armor",
+      "english_html_sha256": "da1a5e995bdfb9ada77ad61214b123d082ba13c4738531e1b17de63a85330f3a",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10951,
+      "title": "Named Warscythe",
+      "title_zh": "战镰（红装）",
+      "revision": 46517,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Warscythe",
+      "english_html_sha256": "784b3217a66a5c3e30e59d97bfafeb653b0acad995afbf21dec0048678e45b04",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10954,
+      "title": "Named Jagged Pike",
+      "title_zh": "锯齿长枪（红装）",
+      "revision": 42119,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Jagged_Pike",
+      "english_html_sha256": "c8c5cd7123017afd1100cac733f764cd38a2b46bc8365c1c36332cafa9a2bbaf",
+      "total_blocks": 82,
+      "reviewed_blocks": 82,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10956,
+      "title": "Named Bladed Pike",
+      "title_zh": "刃枪（红装）",
+      "revision": 46495,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Bladed_Pike",
+      "english_html_sha256": "e56a9d9fdcf13dab6554a10253aa368f428e76a8c027166b44bceee7bc00c073",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 10990,
+      "title": "Named Two-Handed Spiked Mace",
+      "title_zh": "双手尖刺钉锤（红装）",
+      "revision": 43464,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Spiked_Mace",
+      "english_html_sha256": "c3062a2712acd2840b8bf8387ba42dcfd74fe60080e663788d3551b56e48669b",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11017,
+      "title": "Named Two-Handed Skull Hammer",
+      "title_zh": "双手颅骨锤（红装）",
+      "revision": 46514,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Skull_Hammer",
+      "english_html_sha256": "673bdb59220893b3a5d09c691ff82e91f0c9176633b5cf4732fbd336e936945a",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11019,
+      "title": "Named Rusty Warblade",
+      "title_zh": "锈蚀战刃（红装）",
+      "revision": 43457,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Rusty_Warblade",
+      "english_html_sha256": "9e3c067e4f22ae6ee2ee6a598f320ffc11b0bcc49eb94d66bc2abea31f9b7e50",
+      "total_blocks": 82,
+      "reviewed_blocks": 82,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11024,
+      "title": "Named Crypt Cleaver",
+      "title_zh": "墓穴斩刀（红装）",
+      "revision": 43456,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Crypt_Cleaver",
+      "english_html_sha256": "6c1669e6f1a68f23b2529920f3ebef835cd0463aa424481396b2d1f9acfc6f3a",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11025,
+      "title": "Named Heavy Rusty Axe",
+      "title_zh": "锈蚀重斧（红装）",
+      "revision": 43454,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Heavy_Rusty_Axe",
+      "english_html_sha256": "a196944b1a8feca77523f447c644595211ac86185103ca55f8a17060edc32b57",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11028,
+      "title": "Named Bardiche",
+      "title_zh": "长刃斧（红装）",
+      "revision": 43452,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Bardiche",
+      "english_html_sha256": "0d81ff33d6f5667f381908d328a012bb4a9fa19dee9ec0e441dc3e6bc4ad57eb",
+      "total_blocks": 81,
+      "reviewed_blocks": 81,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11055,
+      "title": "Named Shamshir",
+      "title_zh": "舍施尔弯刀（红装）",
+      "revision": 46508,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Shamshir",
+      "english_html_sha256": "05fa1ae306a3bc238dc335fc11628eb1a04cdbadb3e24b0590e788192e4e291c",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11057,
+      "title": "Named Cruel Falchion",
+      "title_zh": "凶刃弯刀（红装）",
+      "revision": 46496,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Cruel_Falchion",
+      "english_html_sha256": "006a3c255b4074441c40438614a9eaac2655a1bbbbad955ac1f30a356aa87b45",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11060,
+      "title": "Named Khopesh",
+      "title_zh": "镰形剑（红装）",
+      "revision": 46501,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Khopesh",
+      "english_html_sha256": "a73e9164c560aa0d995d02cf6be76e561a51ed86c7b5087de871856c7ddcc978",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 11062,
+      "title": "Named Battle Whip",
+      "title_zh": "战鞭（红装）",
+      "revision": 43434,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Battle_Whip",
+      "english_html_sha256": "17b809b6fe454005721c501920b229dddc5de45a0cae9d6daf600769f408f987",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 12983,
+      "title": "Named Item",
+      "title_zh": "获得红装",
+      "revision": 38944,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Item",
+      "english_html_sha256": "c9acbf157cb0bc98c1361fe7c0a61e65e2db2e915bc6203450fee183773feef2",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 12984,
+      "title": "Named Item Set",
+      "title_zh": "集齐红装",
+      "revision": 38934,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Item_Set",
+      "english_html_sha256": "df0ba44ffc49e0b325bccd108bae2d28dd9e2792250bff466f047477ad54c3ef",
+      "total_blocks": 12,
+      "reviewed_blocks": 12,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 13543,
+      "title": "Gilder's Embrace",
+      "title_zh": "镀金者的拥抱",
+      "revision": 41891,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Gilder's_Embrace",
+      "english_html_sha256": "a1162fea7538e087587c8bea93d71acd0612fdcd834dd19235fb0e2ce2b2a82a",
+      "total_blocks": 13,
+      "reviewed_blocks": 13,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 14331,
+      "title": "Named Qatal Dagger",
+      "title_zh": "卡塔尔匕首（红装）",
+      "revision": 46507,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Qatal_Dagger",
+      "english_html_sha256": "09b5f3913670f0628ffa2a3b4fed91981e1ee20815120566b674856d105342f1",
+      "total_blocks": 74,
+      "reviewed_blocks": 74,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 14337,
+      "title": "Named Two-Handed Scimitar",
+      "title_zh": "双手弯刀（红装）",
+      "revision": 46513,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Scimitar",
+      "english_html_sha256": "706716ab90858fbca83aeb774977146cd5efa5fc368351e929d66fe23a8e0456",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15053,
+      "title": "Named Polemace",
+      "title_zh": "长柄钉锤（红装）",
+      "revision": 46506,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Polemace",
+      "english_html_sha256": "cba8e07ad6a597cd23e69bdf811f97fe3c1c78b8870f433892cd15812001eaeb",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15390,
+      "title": "Named Swordlance",
+      "title_zh": "长柄剑刃（红装）",
+      "revision": 46511,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Swordlance",
+      "english_html_sha256": "82cb1ef8178c489c63304713f19ecd817d1e8f1422cc188e170a0c164ef0083c",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15438,
+      "title": "Named Handgonne",
+      "title_zh": "手铳（红装）",
+      "revision": 46654,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Handgonne",
+      "english_html_sha256": "a68f806b4e88c1a2bfc9defc74572e84971ad1e7c0b15b03fc0f0143cffdc7be",
+      "total_blocks": 41,
+      "reviewed_blocks": 41,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15445,
+      "title": "Named Sipar Shield",
+      "title_zh": "西帕尔圆盾（红装）",
+      "revision": 43490,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Sipar_Shield",
+      "english_html_sha256": "f7108ab2886c96b898ee10e2a205e962dd2b6fc24f4df92ffc3d8c5a3ae1d82c",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15451,
+      "title": "Black and Gold Armor",
+      "title_zh": "黑金护甲",
+      "revision": 43496,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Black_and_Gold_Armor",
+      "english_html_sha256": "0fac8426ed28c9b04189e5cd5dc4ca2549967c1c2f8e4ec08e8c5a75a0ac9add",
+      "total_blocks": 30,
+      "reviewed_blocks": 30,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15454,
+      "title": "Leopard Armor",
+      "title_zh": "豹纹护甲",
+      "revision": 43503,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Leopard_Armor",
+      "english_html_sha256": "dc61104d791835833c68e921d49bbd6bb78758c99078dd5e5b6883f8af06320c",
+      "total_blocks": 30,
+      "reviewed_blocks": 30,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15459,
+      "title": "Red and Gold Band Helmet",
+      "title_zh": "红金饰带盔",
+      "revision": 43512,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Red_and_Gold_Band_Helmet",
+      "english_html_sha256": "e1496a7fb2bd72ac5a1eb4f0dbf029c0457febad08a3698ea570faa7a9ad3e58",
+      "total_blocks": 31,
+      "reviewed_blocks": 31,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 15460,
+      "title": "Gold and Black Turban",
+      "title_zh": "金黑缠头盔",
+      "revision": 43520,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Gold_and_Black_Turban",
+      "english_html_sha256": "0b6db6f9fc9f9fc1ff4fbb8e412e40579e2a62bf671a06be6f7fffee67c820ca",
+      "total_blocks": 31,
+      "reviewed_blocks": 31,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 16317,
+      "title": "Named Weapons",
+      "title_zh": "红装武器",
+      "revision": 46655,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Weapons",
+      "english_html_sha256": "c4ad4f6483fef406769f91a1fb6fc4d44f8b24c0e6f6ea920d987b301613e295",
+      "total_blocks": 188,
+      "reviewed_blocks": 188,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 16322,
+      "title": "Named Shields",
+      "title_zh": "红装盾牌",
+      "revision": 45739,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Shields",
+      "english_html_sha256": "21736f4c34e0b9bb82cc14da8fd793f8dfffb4c567a23afc6c6040085c197d34",
+      "total_blocks": 55,
+      "reviewed_blocks": 55,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 16323,
+      "title": "Named Armors",
+      "title_zh": "红装护甲",
+      "revision": 42106,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Armors",
+      "english_html_sha256": "44748f315493c665c71f93084e42993e659d62f2203dd2f7817a784394b98b16",
+      "total_blocks": 54,
+      "reviewed_blocks": 54,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 16324,
+      "title": "Named Helmets",
+      "title_zh": "红装头盔",
+      "revision": 42109,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Helmets",
+      "english_html_sha256": "aac634ff171a618cde4d0011dceaeb4a18effbadb5482cd5d84c7e023848f30c",
+      "total_blocks": 54,
+      "reviewed_blocks": 54,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 17084,
+      "title": "Censer of the Diviner",
+      "title_zh": "预言者香炉",
+      "revision": 46336,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Censer_of_the_Diviner",
+      "english_html_sha256": "2436d73ed448a221843dd27cd6d192f433927f65687ce124a1a9c32b48b18c2a",
+      "total_blocks": 28,
+      "reviewed_blocks": 28,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 17086,
+      "title": "Bloodletter's Reach",
+      "title_zh": "放血者之触",
+      "revision": 46246,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Bloodletter's_Reach",
+      "english_html_sha256": "87ff26f12eba76964a172075b76eadec55c00be7904da66fa418688b1b8094a5",
+      "total_blocks": 16,
+      "reviewed_blocks": 16,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 17144,
+      "title": "Named Estoc",
+      "title_zh": "穿甲刺剑（红装）",
+      "revision": 46656,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Estoc",
+      "english_html_sha256": "4d2d9510e9939de894f0c195f30ec11907f72babb077ef0cd78cf14f27d54c5a",
+      "total_blocks": 81,
+      "reviewed_blocks": 81,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 17149,
+      "title": "Named Executioner's Sword",
+      "title_zh": "行刑剑（红装）",
+      "revision": 46537,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Executioner's_Sword",
+      "english_html_sha256": "0de8d1774be1daa9c8098542c0573d4bc3467a2700b715495747ce37e19fc2d8",
+      "total_blocks": 82,
+      "reviewed_blocks": 82,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 17150,
+      "title": "Named Pollaxe",
+      "title_zh": "骑士斧戟（红装）",
+      "revision": 46538,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Pollaxe",
+      "english_html_sha256": "e3c27f8881320c2186b8161a0ef0ee8e5bacd62f28ac9582cefa914098998cfe",
+      "total_blocks": 82,
+      "reviewed_blocks": 82,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 2399,
+      "title": "Heavy Metal Shield",
+      "title_zh": "重型金属盾",
+      "revision": 37051,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Heavy_Metal_Shield",
+      "english_html_sha256": "51d01175214acd5a572464d970291c679277ffe3bafca7eb493dee546d8dc3db",
+      "total_blocks": 25,
+      "reviewed_blocks": 25,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3024,
+      "title": "Named Mace",
+      "title_zh": "钉锤（红装）",
+      "revision": 46502,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Mace",
+      "english_html_sha256": "50dd18f1801721beb4bc26a4806cdd13b8833b9db2cfe3734e2626415256685b",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3191,
+      "title": "Named Sword",
+      "title_zh": "剑（红装）",
+      "revision": 46510,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Sword",
+      "english_html_sha256": "1c58a8ec56e696fbe9ab1e6841bb7f44e6af00634c3b0dcd1d1666a3f06ad7cb",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3195,
+      "title": "Named Orc Cleaver",
+      "title_zh": "兽人斩刀（红装）",
+      "revision": 46503,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Orc_Cleaver",
+      "english_html_sha256": "6b0d3883760f7439eeeea6ca5fcce74abe07f74788bb95efe31ebdda8b34e531",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3200,
+      "title": "Named Orc Axe",
+      "title_zh": "兽人斧（红装）",
+      "revision": 43432,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Orc_Axe",
+      "english_html_sha256": "8e80af00148ca75e969a02ae681112f050d9ebcec762502312014bd8456542e8",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3204,
+      "title": "Named and Legendary Items",
+      "title_zh": "红装与传奇装备",
+      "revision": 45632,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_and_Legendary_Items",
+      "english_html_sha256": "24b28098dcf254cbb74ef9201eca8c5c9d84f228862bf71eb1a20ddaff23ee69",
+      "total_blocks": 487,
+      "reviewed_blocks": 487,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3218,
+      "title": "Named Flail",
+      "title_zh": "连枷（红装）",
+      "revision": 46499,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Flail",
+      "english_html_sha256": "cb180d81a1dc17b3c8cba2efe0b3b21b9b70e7725dab5a4cc78b2a10f936c35e",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3220,
+      "title": "Named Axe",
+      "title_zh": "斧（红装）",
+      "revision": 45478,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Axe",
+      "english_html_sha256": "84cfc06a44b614a5f0bd68a1e71ed2568a12aae58c4bece6430727f004a319fc",
+      "total_blocks": 78,
+      "reviewed_blocks": 78,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3235,
+      "title": "Bandit Kite Shield",
+      "title_zh": "强盗鸢形盾",
+      "revision": 43484,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Bandit_Kite_Shield",
+      "english_html_sha256": "074a3204feb47f641efb40b7674c5899a81a5f171cad3dfd868f5b7c2418bfe8",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3408,
+      "title": "Head Splitter",
+      "title_zh": "裂颅斧",
+      "revision": 37287,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Head_Splitter",
+      "english_html_sha256": "6406d57bd7e7e0abde8d1b91fa7b7563739f3dd4fd0454079b77130982c7f56e",
+      "total_blocks": 28,
+      "reviewed_blocks": 28,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3464,
+      "title": "Named Greataxe",
+      "title_zh": "巨斧（红装）",
+      "revision": 45584,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Greataxe",
+      "english_html_sha256": "d74c43a01757fbb103e4f05e9cc455c7d27d1353a00eb1efca6c95b585d4407d",
+      "total_blocks": 84,
+      "reviewed_blocks": 84,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3467,
+      "title": "Bandit Heater Shield",
+      "title_zh": "强盗熨斗形盾",
+      "revision": 43479,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Bandit_Heater_Shield",
+      "english_html_sha256": "d2b4dd7d6c658631df1a22d2ca3597ac6cfe469973ee2693325e49f0b3fe442e",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3470,
+      "title": "Named Orc Heavy Shield",
+      "title_zh": "兽人重盾（红装）",
+      "revision": 43488,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Orc_Heavy_Shield",
+      "english_html_sha256": "0becf075e989d2d8d243d21aa46bc86ac7f4c68557781151fabd1995342a2c1a",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3509,
+      "title": "Head Chopper",
+      "title_zh": "断头斩刀",
+      "revision": 37262,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Head_Chopper",
+      "english_html_sha256": "ebdb04e6c92fb57d1cde36f7acda7780a7a6a6dccd93dd24a2a19afb65989551",
+      "total_blocks": 28,
+      "reviewed_blocks": 28,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3543,
+      "title": "Named Undead Kite Shield",
+      "title_zh": "亡灵鸢形盾（红装）",
+      "revision": 43487,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Undead_Kite_Shield",
+      "english_html_sha256": "2b09bf9628882b9b1d9c81b77df2ce9f69b7bb160ee6968d1c7651525943d20d",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3544,
+      "title": "Named Undead Heater Shield",
+      "title_zh": "亡灵熨斗形盾（红装）",
+      "revision": 43482,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Undead_Heater_Shield",
+      "english_html_sha256": "e25b859aa1dd5cd7b9dabfbaf11b5cb4f8a26f9e3d66dbba9fb1bd4866af951a",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3820,
+      "title": "Named Dagger",
+      "title_zh": "匕首（红装）",
+      "revision": 46497,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Dagger",
+      "english_html_sha256": "bf0ed19d806c3e11edb99bb334210c9c40fd939542e0439a861b20648c7a0d79",
+      "total_blocks": 74,
+      "reviewed_blocks": 74,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3833,
+      "title": "Named Billhook",
+      "title_zh": "钩镰（红装）",
+      "revision": 46494,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Billhook",
+      "english_html_sha256": "c571dc411f187ddc2bcbae84f0e7938cfe830a981e936390a77a7a7dc4b629c6",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3834,
+      "title": "Named Two-Handed Hammer",
+      "title_zh": "双手战锤（红装）",
+      "revision": 43460,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Hammer",
+      "english_html_sha256": "ddf21ec9b596c0d4f11ae0370e8ba9a4d2abb64f3f0f88ace3ca2436911e804f",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3835,
+      "title": "Named Warhammer",
+      "title_zh": "破甲锤（红装）",
+      "revision": 46516,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Warhammer",
+      "english_html_sha256": "60bece220966a6fa234ba3d158fd2063ce8660f29bc852da081721d7773b215d",
+      "total_blocks": 76,
+      "reviewed_blocks": 76,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3836,
+      "title": "Named Cleaver",
+      "title_zh": "斩刀（红装）",
+      "revision": 43435,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Cleaver",
+      "english_html_sha256": "794765e568a70bfd736d1f888140e4d96014ce7c3b4ba34628d31b5007ed074d",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3837,
+      "title": "Named Warbrand",
+      "title_zh": "长刃战刀（红装）",
+      "revision": 46515,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Warbrand",
+      "english_html_sha256": "f39593f694d8f20d047b4e37cd2d2fad3fb2484866376e449da300b09a39cae9",
+      "total_blocks": 82,
+      "reviewed_blocks": 82,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3838,
+      "title": "Named Longaxe",
+      "title_zh": "长柄斧（红装）",
+      "revision": 43455,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Longaxe",
+      "english_html_sha256": "ca63d8d64766f09483957a3eff4adcce03c2c9c9085bc0ffbb2acd7b200e572f",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3839,
+      "title": "Named Greatsword",
+      "title_zh": "巨剑（红装）",
+      "revision": 43471,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Greatsword",
+      "english_html_sha256": "19504201a3bb0c59d8628838e405da2b0876b6d1da078dd9fa5dd51c23010e9b",
+      "total_blocks": 85,
+      "reviewed_blocks": 85,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3841,
+      "title": "Named Pike",
+      "title_zh": "长枪（红装）",
+      "revision": 46504,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Pike",
+      "english_html_sha256": "f856345b1853952c92e31beb5b4880868f59c502ed6f88edac446a50196cd5b4",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3842,
+      "title": "Named Spear",
+      "title_zh": "矛（红装）",
+      "revision": 46493,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Spear",
+      "english_html_sha256": "ece7ddbf10968fb0c36abfe87215f7703587a7f65c1de855c1725642874acb61",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3850,
+      "title": "Named Warbow",
+      "title_zh": "战弓（红装）",
+      "revision": 43474,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Warbow",
+      "english_html_sha256": "7e519c09b32c8e38d113cae2f3c0c79dac65cfac1e8c87dd3c334739ed272faf",
+      "total_blocks": 40,
+      "reviewed_blocks": 40,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3851,
+      "title": "Named Crossbow",
+      "title_zh": "弩（红装）",
+      "revision": 43475,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Crossbow",
+      "english_html_sha256": "0f1849ed88d08f1524728f99d9ff5e3aabbb9cce628572326328b7ce30a96259",
+      "total_blocks": 60,
+      "reviewed_blocks": 60,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3852,
+      "title": "Named Javelins",
+      "title_zh": "标枪（红装）",
+      "revision": 43477,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Javelins",
+      "english_html_sha256": "1cfd4f477657f290359ff7104d4758b0e4eba6df6398b22bcb831edaa272eb95",
+      "total_blocks": 52,
+      "reviewed_blocks": 52,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3853,
+      "title": "Named Throwing Axes",
+      "title_zh": "飞斧（红装）",
+      "revision": 46041,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Throwing_Axes",
+      "english_html_sha256": "af6ce498f7e4f8e3aec56db20b70ad47d9b757c1a5c68dc31c3dfd4bfc98ccb4",
+      "total_blocks": 56,
+      "reviewed_blocks": 56,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 3901,
+      "title": "The Fangshire",
+      "title_zh": "獠牙乡",
+      "revision": 41895,
+      "source_url": "https://battlebrothers.fandom.com/wiki/The_Fangshire",
+      "english_html_sha256": "c8044adc29db0bddd7659781a7e7a10914a3beeeac941e3a233f0dd50668d8f5",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4829,
+      "title": "Plated Mail Hauberk",
+      "title_zh": "覆板长身锁甲",
+      "revision": 43504,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Plated_Mail_Hauberk",
+      "english_html_sha256": "056c3596c5dce05da8bd3af2c65338f755aa6eb131f2e7c893d2711306d27594",
+      "total_blocks": 36,
+      "reviewed_blocks": 36,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4849,
+      "title": "Glimpse of Davkul",
+      "title_zh": "达夫库尔一瞥",
+      "revision": 41890,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Glimpse_of_Davkul",
+      "english_html_sha256": "1845f9299a015155d53eb1352a3ef3ced9272cba051c485f01e762c12b09d676",
+      "total_blocks": 17,
+      "reviewed_blocks": 17,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4853,
+      "title": "Aspect of Davkul",
+      "title_zh": "达夫库尔化身",
+      "revision": 41892,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Aspect_of_Davkul",
+      "english_html_sha256": "8cd48a7099ca3604ff6d2cc71c19caeb31094243052747b68a451d90ff26fc21",
+      "total_blocks": 26,
+      "reviewed_blocks": 26,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4855,
+      "title": "The Emperor's Armor",
+      "title_zh": "帝王铠甲",
+      "revision": 41886,
+      "source_url": "https://battlebrothers.fandom.com/wiki/The_Emperor's_Armor",
+      "english_html_sha256": "8c954bdb4f6636fd4929ad98dc75287341f397dd023b7346a2ba1a837a943f67",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4864,
+      "title": "The Emperors Countenance",
+      "title_zh": "帝王之容",
+      "revision": 41885,
+      "source_url": "https://battlebrothers.fandom.com/wiki/The_Emperors_Countenance",
+      "english_html_sha256": "92895c08af0af00428f104d7adee14a6114f1e8438eaf54472534eff340812fc",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 4867,
+      "title": "Cursed Crystal Skull",
+      "title_zh": "诅咒水晶骷髅",
+      "revision": 42593,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Cursed_Crystal_Skull",
+      "english_html_sha256": "fa6ff6cee9940af2532ea84275cea68ca25a951a4092278a8b23d23066b4b849",
+      "total_blocks": 18,
+      "reviewed_blocks": 18,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5003,
+      "title": "Norse Helmet",
+      "title_zh": "诺斯战盔",
+      "revision": 43506,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Norse_Helmet",
+      "english_html_sha256": "11c17c0cdd61ec5ec1f55636e9760ccd2cd551a33e6f94f196afa9e4456df459",
+      "total_blocks": 36,
+      "reviewed_blocks": 36,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5021,
+      "title": "Feathered Nasal Helmet",
+      "title_zh": "羽饰护鼻盔",
+      "revision": 43513,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Feathered_Nasal_Helmet",
+      "english_html_sha256": "f5203f847e67fe08e359d650a0d538319ea0ea5bd3fc6e412e6764c5c43135e1",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5029,
+      "title": "Sallet",
+      "title_zh": "萨莱特盔",
+      "revision": 43516,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Sallet",
+      "english_html_sha256": "e206cfac065e92d7ede4920eb7ab59d9c55e28109facd418519aeae83246fec7",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5031,
+      "title": "Golden Feathered Helmet",
+      "title_zh": "金色羽饰盔",
+      "revision": 43511,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Golden_Feathered_Helmet",
+      "english_html_sha256": "68ef929674c5abc208f75de3b9078928cd5a0ac888d9cd8b68578347ee92ae60",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5254,
+      "title": "Metal Heater Shield",
+      "title_zh": "金属熨斗形盾",
+      "revision": 43480,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Metal_Heater_Shield",
+      "english_html_sha256": "038cdf1357db043f802633ef368185bd79d89b279354038a3bb75d4686bf6782",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5259,
+      "title": "Pavise Shield",
+      "title_zh": "帕维斯大盾",
+      "revision": 43486,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Pavise_Shield",
+      "english_html_sha256": "498ebfbd6f62114fa54861cb056ea025c04ce22271a74fb26528a96ac20c50f9",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5260,
+      "title": "Winged Shield",
+      "title_zh": "翼饰盾",
+      "revision": 43483,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Winged_Shield",
+      "english_html_sha256": "edb1540044904f90126fad74e60127201a746ce2188cfc23f05d2c5647b766fe",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5272,
+      "title": "Enhanced Coat of Plates",
+      "title_zh": "强化铁片战衣",
+      "revision": 43505,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Enhanced_Coat_of_Plates",
+      "english_html_sha256": "a48901ddceb2fa22a4a149bb3814e19b91a2fa3b3e7b68f577ed99bc093477b9",
+      "total_blocks": 37,
+      "reviewed_blocks": 37,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5273,
+      "title": "Heraldic Mail Hauberk",
+      "title_zh": "纹章长身锁甲",
+      "revision": 43499,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Heraldic_Mail_Hauberk",
+      "english_html_sha256": "93a374bf260530d7a1d0b1dac76469723275f4bb8262b8e961d36e16453e8662",
+      "total_blocks": 41,
+      "reviewed_blocks": 41,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5290,
+      "title": "Golden Scale Armor",
+      "title_zh": "金色鳞甲",
+      "revision": 43498,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Golden_Scale_Armor",
+      "english_html_sha256": "52f049f485862013530e47dd1830af268ec33a7d91873a3d882cbf4c734c993b",
+      "total_blocks": 40,
+      "reviewed_blocks": 40,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5291,
+      "title": "Heraldic Bascinet",
+      "title_zh": "纹章尖顶盔",
+      "revision": 45766,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Heraldic_Bascinet",
+      "english_html_sha256": "81f3a37d3448860b2e9e7907c8541f2cb23f0c544dd1d149eb1c67c4290a9977",
+      "total_blocks": 36,
+      "reviewed_blocks": 36,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5296,
+      "title": "Studded Mail Armor",
+      "title_zh": "铆钉锁甲",
+      "revision": 43493,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Studded_Mail_Armor",
+      "english_html_sha256": "5d07bec8c70b7e7519e1b372fd366a8f0afd80895415ba0224dabc6908fa65ea",
+      "total_blocks": 34,
+      "reviewed_blocks": 34,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5297,
+      "title": "Wolf Helmet",
+      "title_zh": "狼形盔",
+      "revision": 43507,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Wolf_Helmet",
+      "english_html_sha256": "c3a2f8e5e15726e545b87d85e12a5d0a5272a00b9393fdfec58261c7a766810e",
+      "total_blocks": 35,
+      "reviewed_blocks": 35,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5298,
+      "title": "Dragon Kite Shield",
+      "title_zh": "龙纹鸢形盾",
+      "revision": 43485,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Dragon_Kite_Shield",
+      "english_html_sha256": "d950f4b3c589a43c578bcc332d1c6d69321f82a3db7356d4cd7b0458c6e993b0",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5299,
+      "title": "Relic Heater Shield",
+      "title_zh": "圣物熨斗形盾",
+      "revision": 43481,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Relic_Heater_Shield",
+      "english_html_sha256": "d889ab9189a746daebf60359fb3c9e954a5ae035a6e266c39d863303287e30e8",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5432,
+      "title": "Hardened Leather Armor",
+      "title_zh": "硬化皮甲",
+      "revision": 43491,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Hardened_Leather_Armor",
+      "english_html_sha256": "b0b9174194fd5a4af8dfac32558ff9710b9628a25717f6400d05fe5566e0eb1d",
+      "total_blocks": 39,
+      "reviewed_blocks": 39,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5462,
+      "title": "Golden Round Shield",
+      "title_zh": "金色圆盾",
+      "revision": 43489,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Golden_Round_Shield",
+      "english_html_sha256": "c4ddc3e21f45a1159031b810c59a71a8f163871c84a9687ea9b3c48e0bb24a02",
+      "total_blocks": 33,
+      "reviewed_blocks": 33,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5965,
+      "title": "Lindwurm Armor",
+      "title_zh": "林德蠕龙护甲",
+      "revision": 43497,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Lindwurm_Armor",
+      "english_html_sha256": "56064f9b5093f9822a1acf28dadccaf4acc5f47edb9b38f2f9492c9a53c45a7c",
+      "total_blocks": 42,
+      "reviewed_blocks": 42,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 5976,
+      "title": "Lindwurm Helmet",
+      "title_zh": "林德蠕龙战盔",
+      "revision": 43900,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Lindwurm_Helmet",
+      "english_html_sha256": "19773bc48b501dc1c9863c04354631ec06566b9a9cfa1678b99f4d188d40b140",
+      "total_blocks": 41,
+      "reviewed_blocks": 41,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 7698,
+      "title": "Named Fencing Sword",
+      "title_zh": "决斗刺剑（红装）",
+      "revision": 46498,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Fencing_Sword",
+      "english_html_sha256": "42ad141ea08611c44a573a6b3fd27ee594055511a8d6cef5cf09c22609a68b4c",
+      "total_blocks": 77,
+      "reviewed_blocks": 77,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9031,
+      "title": "Named Spetum",
+      "title_zh": "三尖矛（红装）",
+      "revision": 46509,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Spetum",
+      "english_html_sha256": "36d4e362304de21816f09d33dfd2009fd0e224dbc294f6ad69491e0479d6f8b5",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9037,
+      "title": "Named Three-Headed Flail",
+      "title_zh": "三头连枷（红装）",
+      "revision": 43441,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Three-Headed_Flail",
+      "english_html_sha256": "e0e17619b3198192351205436f31cc67e4231e812532f4d5b583545317e07c80",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9038,
+      "title": "Named Two-Handed Mace",
+      "title_zh": "双手钉锤（红装）",
+      "revision": 43463,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Mace",
+      "english_html_sha256": "d244f6af3d27df366bccfe7437695536f382644802de317aaf64249dc27b0a1a",
+      "total_blocks": 80,
+      "reviewed_blocks": 80,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9039,
+      "title": "Named Two-Handed Flail",
+      "title_zh": "双手连枷（红装）",
+      "revision": 46512,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Two-Handed_Flail",
+      "english_html_sha256": "c7a7a8b17a24067fd35b9f9f7eed0f89e9e26de3436c9ad5cb71999409b2a8e3",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9040,
+      "title": "Named Polehammer",
+      "title_zh": "长柄战锤（红装）",
+      "revision": 46505,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Named_Polehammer",
+      "english_html_sha256": "9660bf79421903d007af33b49a232b88ca1f0306f82d651f710d1b50135aab40",
+      "total_blocks": 79,
+      "reviewed_blocks": 79,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9185,
+      "title": "Reproach of the Old Gods",
+      "title_zh": "古神之谴",
+      "revision": 41889,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Reproach_of_the_Old_Gods",
+      "english_html_sha256": "89182f5f71175f3fc198ae9dd23beb4859757e86365a061b87899f2557bc434b",
+      "total_blocks": 27,
+      "reviewed_blocks": 27,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9333,
+      "title": "Metal Skull Helmet",
+      "title_zh": "金属骷髅盔",
+      "revision": 38039,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Metal_Skull_Helmet",
+      "english_html_sha256": "7dfe938fbf6bdf32d7d2a357c8096635b139ce8f6daeec5c534fb9fe5dd5a0c4",
+      "total_blocks": 12,
+      "reviewed_blocks": 12,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    },
+    {
+      "id": 9420,
+      "title": "Helmet of the Ijirok",
+      "title_zh": "伊吉罗克之盔",
+      "revision": 41887,
+      "source_url": "https://battlebrothers.fandom.com/wiki/Helmet_of_the_Ijirok",
+      "english_html_sha256": "660a32dd9c8afc6aaa592eeaf154d3a1ff01e71202f67fe3522962925b0f2f70",
+      "total_blocks": 11,
+      "reviewed_blocks": 11,
+      "untranslated_blocks": 0,
+      "structure_unchanged": true
+    }
+  ],
+  "source_checked_records": [
+    {
+      "file": "core-mechanics.json",
+      "id": "u-72d5406ffc739a32d12e1656"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-ba219a547487f587754e743c"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-08012b90d1495588d15af527"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4147cc37e6bae86350645127"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-acdfdb41a336d5427491a762"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9b533deb5f2e89a1144367ff"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-f3a88713a58de73bfec7a585"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9ebaba36d9f56b2375b0f911"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4136416cd3433f8a4f3a3fe8"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d65bd212d6be396de129d511"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-95cde673821c7656ffeb6618"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-08d50f81a94cf0570dbca912"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-20d7988850c2a000423a8af6"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c4e635be1123487948949555"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-698058494c033cad0f5c57c1"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c0e7fca1da903707dedbf32c"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-74622f290fa6ea335565fb94"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-da42902930181592946e8d1b"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-98c70ae7d001d8b68f12a2de"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-63b51ebb009ec07b5f542e12"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01f4cbd330cb04902ee2f3a4"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-929c20c16ce958cee30a8ced"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-5315802df0d7d0ab318ce602"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-2ea1c1fbc65be466a25edf7f"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0f437e46a32ef717f4d26847"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1aa3c2f7dd22fb0b82f7af01"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-b45e2d82ebe92c11c2e5510f"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1c632566731f4345c54648ed"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1ec4b910f0b9403788b15f55"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-71deaa55e9fd5168baf2cec5"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-4cae333fe00d21c3fa447204"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0ab381234ef2ee616e462c7b"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-326dd5988880b169bca24e6e"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-6c9ec0aa244345e5d59724a6"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-31248d573d06102784c1f7f0"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-2b4957fd0ac3910b3fa9fda8"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d2432457daa73ea9fae737ab"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-84e28b85572e8ba583e8b6d6"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-0f2f387eb6e741b40c43d0c8"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c25abef647b74babf2495cb7"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-41634d0413310f0c5e3f4db8"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-e96835bd948ab3fe2ecca84b"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-8d2cab1537ae1a52ccb03c53"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1eafa79ae6aac33dfb390dc1"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-a3541f023db588fed922fb6d"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-3e1ce9edaa9a33fa200d06f6"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9c79d2a61e1cf00e6ad4d8c9"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-9766000c3bcd4e752095d362"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-470d85a2e9bd7ba76ba9bbbb"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-1dadeb206289be6175d450a4"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-92f406e2c5d7bd38f7684caa"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01bc78b2666e439ff0ac1962"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-01f08897bdddb84fb7898447"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d9b9067963fdddd5df9103db"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-d74b3321e0132669b2bad88b"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-c8e47301b4439d78e036c652"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-3fbab25942105da67fedbb6f"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-f3b9730263dd513efd759266"
+    },
+    {
+      "file": "core-mechanics.json",
+      "id": "u-db8b7a3f6ce77b60011b6730"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-08d50f81a94cf0570dbca912"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-da42902930181592946e8d1b"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9b533deb5f2e89a1144367ff"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-ba219a547487f587754e743c"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-72d5406ffc739a32d12e1656"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-08012b90d1495588d15af527"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4147cc37e6bae86350645127"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-acdfdb41a336d5427491a762"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-f3a88713a58de73bfec7a585"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9ebaba36d9f56b2375b0f911"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4136416cd3433f8a4f3a3fe8"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d65bd212d6be396de129d511"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-95cde673821c7656ffeb6618"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-20d7988850c2a000423a8af6"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c4e635be1123487948949555"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-698058494c033cad0f5c57c1"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c0e7fca1da903707dedbf32c"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-74622f290fa6ea335565fb94"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-98c70ae7d001d8b68f12a2de"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-63b51ebb009ec07b5f542e12"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01f4cbd330cb04902ee2f3a4"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-929c20c16ce958cee30a8ced"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-5315802df0d7d0ab318ce602"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2ea1c1fbc65be466a25edf7f"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0f437e46a32ef717f4d26847"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1aa3c2f7dd22fb0b82f7af01"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-b45e2d82ebe92c11c2e5510f"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1c632566731f4345c54648ed"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1ec4b910f0b9403788b15f55"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-71deaa55e9fd5168baf2cec5"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-4cae333fe00d21c3fa447204"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0ab381234ef2ee616e462c7b"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-326dd5988880b169bca24e6e"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-6c9ec0aa244345e5d59724a6"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-31248d573d06102784c1f7f0"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2b4957fd0ac3910b3fa9fda8"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d2432457daa73ea9fae737ab"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-84e28b85572e8ba583e8b6d6"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-0f2f387eb6e741b40c43d0c8"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c25abef647b74babf2495cb7"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-41634d0413310f0c5e3f4db8"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-e96835bd948ab3fe2ecca84b"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-8d2cab1537ae1a52ccb03c53"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1eafa79ae6aac33dfb390dc1"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-a3541f023db588fed922fb6d"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-3e1ce9edaa9a33fa200d06f6"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9c79d2a61e1cf00e6ad4d8c9"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-9766000c3bcd4e752095d362"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-470d85a2e9bd7ba76ba9bbbb"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-1dadeb206289be6175d450a4"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-92f406e2c5d7bd38f7684caa"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01bc78b2666e439ff0ac1962"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-01f08897bdddb84fb7898447"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d9b9067963fdddd5df9103db"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-d74b3321e0132669b2bad88b"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-c8e47301b4439d78e036c652"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-3fbab25942105da67fedbb6f"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-f3b9730263dd513efd759266"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-db8b7a3f6ce77b60011b6730"
+    }
+  ],
+  "protection_only_records": [
+    {
+      "file": "shared-labels.json",
+      "id": "u-9bca9b58797672617fb75adf"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-dc08cf0c5e5911bcc9709eed"
+    },
+    {
+      "file": "shared-labels.json",
+      "id": "u-2a2451951b853df851c71128"
+    }
+  ]
+}
