@@ -29,11 +29,11 @@ def file_name(value):
     return value
 
 
-def validate_manifest(value):
+def validate_manifest(value, *, allow_empty=False):
     if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] != 1:
         raise ValueError('不支持的共享方案格式，请更新 BBMOD。')
     mods = value.get('mods')
-    if not isinstance(mods, list) or not 1 <= len(mods) <= MAX_MODS:
+    if not isinstance(mods, list) or not (0 if allow_empty else 1) <= len(mods) <= MAX_MODS:
         raise ValueError(f'共享方案需包含 1–{MAX_MODS} 个 MOD。')
     result = {'schema_version': 1, 'name': text(value.get('name'), 100, required=True),
               'note': text(value.get('note', ''), 2000),
@@ -61,6 +61,6 @@ def validate_manifest(value):
     return result
 
 
-def manifest_key(manifest):
-    return hashlib.sha256(json.dumps(validate_manifest(manifest), ensure_ascii=False,
+def manifest_key(manifest, *, allow_empty=False):
+    return hashlib.sha256(json.dumps(validate_manifest(manifest, allow_empty=allow_empty), ensure_ascii=False,
                                     sort_keys=True, separators=(',', ':')).encode('utf-8')).hexdigest()

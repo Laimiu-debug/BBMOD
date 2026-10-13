@@ -7,7 +7,7 @@ import pytest
 
 from core.game import GameInfo
 from core.paths import resource_path
-from core.seedgen.config_emitter import SeedGenConfig
+from core.seedgen.config_emitter import CampaignConfig, CommonConfig, SeedGenConfig
 from core.seedgen.orchestrator import SeedGenOrchestrator
 from core.seedgen.session import FileSession
 
@@ -42,6 +42,35 @@ def test_roundtrip_restores_original_configs_and_mods(game):
     assert (game.root / "bbmod_seedgen_session/session.json").is_file()
     assert not (game.data_dir / "user_mod.zip").exists()
     assert session.stop_and_restore() == 1
+    assert signature(game.data_dir) == before
+    assert not session.files.active
+
+
+@pytest.mark.parametrize("origin,mode", [
+    ("scenario.cultists", "bro_only"),
+    ("scenario.cultists", "all"),
+    ("scenario.cultists", "map_only"),
+    ("scenario.early_access", "map_only"),
+])
+def test_official_search_omits_unavailable_editor_and_restores_user_mod(game, origin, mode):
+    editor = "scripts/!mods_preload/mod_breditor.nut"
+    with zipfile.ZipFile(game.data_dir / "user_mod.zip", "a") as archive:
+        archive.writestr(editor, "// user-installed editor must be restored unchanged")
+    before = signature(game.data_dir)
+    session = orchestrator(game)
+    cfg = SeedGenConfig(campaign=CampaignConfig(origin=origin), common=CommonConfig.preset(mode))
+    try:
+        session.prepare(cfg)
+        assert not (game.data_dir / editor).exists()
+        assert not (game.data_dir / "user_mod.zip").exists()
+        for name in ("scripts/!mods_preload/mod_seed_generator.nut", "mod_hooks.zip",
+                     "seed_generator/function_generate_brother.nut",
+                     "seed_generator/function_generate_settlement.nut"):
+            assert (game.data_dir / name).read_bytes() == (session.payload_dir / name).read_bytes()
+        campaign = (game.data_dir / "seed_generator/config_campaign.nut").read_text(encoding="utf-8")
+        assert f'Origin = "{origin}"' in campaign
+    finally:
+        session.stop_and_restore()
     assert signature(game.data_dir) == before
     assert not session.files.active
 

@@ -195,11 +195,15 @@ class ProfileTests(TestCase):
 
     def test_public_catalog_search_pagination_and_blocked_profiles(self):
         from app.core.profile_protocol import manifest_key
+        from datetime import timedelta
+        from django.utils import timezone
+        since = timezone.now()
         for number in range(14):
             payload = copy.deepcopy(self.payload)
             payload['name'] = f'组合 {number:02}'
             payload['note'] = '新手 & 汉化' if number == 13 else '其他玩法'
-            SharedProfile.objects.create(manifest=payload, fingerprint=manifest_key(payload), blocked=number == 0)
+            profile = SharedProfile.objects.create(manifest=payload, fingerprint=manifest_key(payload), blocked=number == 0)
+            SharedProfile.objects.filter(pk=profile.pk).update(created_at=since + timedelta(seconds=number))
         response = self.client.get('/api/v1/profiles/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Cache-Control'], 'private, no-store')

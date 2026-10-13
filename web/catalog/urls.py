@@ -7,8 +7,18 @@ from . import suggestions
 from . import wiki
 from . import community
 from . import profiles
+from . import saves
 
 urlpatterns = [
+    path('saves/', saves.gallery, name='saves'),
+    path('saves/<uuid:save_id>/', saves.detail, name='save_detail'),
+    path('saves/<uuid:save_id>/bundle/', saves.bundle, name='save_bundle'),
+    path('api/v1/saves/plan/', saves.negotiate, name='save_plan'),
+    path('api/v1/saves/files/<str:sha>/', saves.upload_file, name='save_upload'),
+    path('api/v1/saves/', saves.publish, name='save_publish'),
+    path('api/v1/saves/<uuid:save_id>/', saves.public_record, name='save_record'),
+    path('api/v1/saves/<uuid:save_id>/files/<str:sha>/', saves.download_file, name='save_download'),
+    path('manage/saves/', saves.management, name='save_management'),
     path('guide/', TemplateView.as_view(template_name='beginner_guide.html', extra_context={'track_visit': True}), name='beginner_guide'),
     path('profiles/', profiles.gallery, name='profiles'),
     path('profiles/<uuid:profile_id>/', profiles.detail, name='profile_detail'),

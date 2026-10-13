@@ -20,13 +20,13 @@ def squirrel(tmp_path, source):
 @pytest.mark.parametrize('clock_advances', [True, False])
 def test_actual_main_loop_passes_20000_and_counts_skipped_maps(tmp_path, clock_advances):
     source = r'''
-::clock <- 0.0; ::Time <- {setVirtualTime=function(n){}, getExactTime=function(){::clock+=0.01; return ::clock;}};
+::clock <- 0.0; ::Time <- {clearEvents=function(){},setVirtualTime=function(n){}, getExactTime=function(){::clock+=0.01; return ::clock;}};
 ::Math <- {seedRandomString=function(s){}, rand=function(a,b){return a;}};
 ::maxLoop <- 0; ::outputs <- 0; ::skips <- 0;
 ::logInfo <- function(s) { if(s.find("BBMODSeedProgress:") == 0) ::maxLoop=::SeedGenerator.CurrentLoop; };
 ::SeedGenerator <- {LowestScore=0,Attr={},AttrNum=0,Role={},RoleName=["Melee"],RoleNum=1,
 BroOutput={},BroOutputConditionArray=[],MaxRoleArray={},BroSortEntry={},BroScoreEntry={},BroSortEntryNum=0,BroEntryNum=0,
-LoopPrintInterval=10000,DebugConfig={DebugMode=false},
+LoopPrintInterval=10000,DebugConfig={DebugMode=false},lair_info_list=[],
 CommonConfig={GenerateSettlementMode=true,GenerateBrotherMode=false,PrintLairInfo=false,
 PrintLairNamedDetail=false,OnlyPrintMatchingLair=false,OnlyPrintMatchingSettlement=true,EnableLowercaseSeed=false},
 generateSettlement=function(seed,world){
@@ -35,7 +35,7 @@ generateSettlement=function(seed,world){
  if(this.CurrentLoop%11==0){::skips++;return -2;}
  return 0;
 },printSettlementInfo=function(){::outputs++;}};
-::World <- {Assets={getStash=function(){return {clear=function(){},resize=function(n){}};}},
+::World <- {getPlayerRoster=function(){return {clear=function(){}};},Assets={getStash=function(){return {clear=function(){},resize=function(n){}};}},
 clearScene=function(){},EntityManager={clear=function(){}},FactionManager={clear=function(){}}};
 ::world <- {setAutoPause=function(n){},setPause=function(n){},Time=::Time,Math=::Math,World=::World,logInfo=::logInfo,
 m={IsRunningUpdatesWhilePaused=false,CampaignSettings={Seed="AAAAAAAAAA",StartingScenario={getID=function(){return "scenario.cultists";}}}}};

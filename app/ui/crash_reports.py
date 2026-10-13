@@ -2,6 +2,7 @@
 import base64
 import json
 import time
+from collections import deque
 from types import SimpleNamespace
 
 from PySide6.QtCore import QObject, QTimer, QUrl, Signal
@@ -9,7 +10,7 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkCookie, QNetworkReq
 
 from core import game as game_mod
 from core.site_config import SITE_ORIGIN
-from core.crash_reports import AUTO_UPLOAD_KEY, ReportStore, begin_session, clean_exit
+from core.crash_reports import AUTO_UPLOAD_KEY, MAX_RECORDS, ReportStore, begin_session, clean_exit
 from core.version import VERSION
 from .workers import Worker
 
@@ -29,6 +30,10 @@ class CrashReports(QObject):
         self.reply = None
         self.worker = None
         self.session = None
+        self._seed_pending = deque()
+        self._seed_failed = deque()
+        self._seed_active = None
+        self._normal_pending = None
         self.current = None
         self.closed = False
         self.reviewing = False
@@ -59,28 +64,85 @@ class CrashReports(QObject):
     def cancel_capture(self):
         self.session = None
 
+    def collect_seed(self, snapshot):
+        """Accept frozen evidence while the seed game may still be running."""
+        if self.closed:
+            return
+        identity = snapshot['session_id']
+        if ((self._seed_active and self._seed_active['session_id'] == identity) or
+                any(item['session_id'] == identity for item, _ in (*self._seed_pending, *self._seed_failed))):
+            return
+        if len(self._seed_pending) + len(self._seed_failed) + bool(self._seed_active) >= MAX_RECORDS:
+            self._capture_failed('种子错误报告队列已满，请先处理已保存的报告。')
+            return
+        automatic = self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is True
+        self._seed_pending.append((snapshot, automatic))
+        self.pump()
+
+    def _collect_next_seed(self):
+        snapshot, automatic = self._seed_pending.popleft()
+        self._seed_active = snapshot
+        self._seed_automatic = automatic
+        self.worker = Worker(lambda: self.store.capture_seed(snapshot, automatic), self)
+        self.worker.done.connect(self._seed_captured)
+        self.worker.failed.connect(self._seed_capture_failed)
+        self.worker.finished.connect(self._seed_capture_finished)
+        self.worker.start()
+
+    def _seed_captured(self, item):
+        if item:
+            self.status = item['message'] if item['state'] == 'sent' else (
+                           '种子搜索错误已保存，可在错误报告中查看搜索条件、进度和日志。'
+                           + ('正在等待自动上传。' if item['automatic'] else '可预览后提交。'))
+            self.changed.emit()
+
+    def _seed_capture_finished(self):
+        worker, self.worker = self.worker, None
+        self._seed_active = None
+        worker.deleteLater()
+        # Do not change GameSession state or record a last-good MOD collection:
+        # the game may still be running with the temporary seed payload.
+        self.pump()
+        self.changed.emit()
+
+    def _seed_capture_failed(self, error):
+        self._seed_failed.append((self._seed_active, self._seed_automatic))
+        self._capture_failed(error + ' 本次快照暂留内存，可在错误报告中重试保存；请先不要关闭软件。')
+
+    def retry_seed_captures(self):
+        if self.closed:
+            return
+        self._seed_pending.extend(self._seed_failed)
+        self._seed_failed.clear()
+        self.pump()
+        self.changed.emit()
+
     def collect(self):
-        if self.closed or not self.session or self.ctx.seedgen_active or self.worker:
+        if self.closed or not self.session or self.ctx.seedgen_active:
             return
         session, self.session = self.session, None
         automatic = self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is True
         self.ctx.game_session.begin_collecting()
-        context = self.context
+        self._normal_pending = (session, self.context, automatic)
+        self.pump()
 
-        def work():
-            folders = game_mod.find_log_write_paths()
-            item = self.store.capture(context, session, folders, automatic)
-            if item is not None:
-                return item, 'crash'
-            if not clean_exit(session, folders):
-                return None, 'unknown'
-            if context.mm is not None:
-                try:
-                    context.mm.remember_last_good()
-                except (OSError, ValueError):
-                    pass
-            return None, 'clean'
-        self.worker = Worker(work, self)
+    def _capture_normal(self, session, context, automatic):
+        folders = game_mod.find_log_write_paths()
+        item = self.store.capture(context, session, folders, automatic)
+        if item is not None:
+            return item, 'crash'
+        if not clean_exit(session, folders):
+            return None, 'unknown'
+        if context.mm is not None:
+            try:
+                context.mm.remember_last_good()
+            except (OSError, ValueError):
+                pass
+        return None, 'clean'
+
+    def _collect_next_normal(self):
+        request, self._normal_pending = self._normal_pending, None
+        self.worker = Worker(lambda: self._capture_normal(*request), self)
         self.worker.done.connect(lambda result: self._captured(*result))
         self.worker.failed.connect(self._capture_failed)
         self.worker.finished.connect(self._capture_finished)
@@ -103,8 +165,15 @@ class CrashReports(QObject):
         worker.deleteLater()
         self.ctx.game_session.finish_collecting()
         self.pump()
+        self.changed.emit()
 
     def pump(self):
+        if not self.closed and not self.reply and not self.worker and self._normal_pending:
+            self._collect_next_normal()
+            return
+        if not self.closed and not self.reply and not self.worker and self._seed_pending:
+            self._collect_next_seed()
+            return
         if (self.closed or self.reviewing or not self.automatic or self.reply or self.worker
                 or self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is not True):
             return
@@ -209,6 +278,8 @@ class CrashReports(QObject):
                 item['ticket'] = {key: data[key] for key in ('submission', 'csrf_token')}
                 self.store.save(item)
                 # Turning the option off also cancels automatic GET -> POST.
+                if self.closed:
+                    raise ValueError('程序正在关闭，报告已留待下次提交。')
                 if item['automatic'] and self.ctx.settings.get(AUTO_UPLOAD_KEY, False) is not True:
                     raise ValueError('自动上传已关闭。')
                 self._request(post=True)
@@ -235,6 +306,7 @@ class CrashReports(QObject):
             if self.reply is None:
                 self.current = None
                 self.changed.emit()
+                self.pump()
 
     def shutdown(self):
         self.closed = True
@@ -243,3 +315,26 @@ class CrashReports(QObject):
             self.reply.abort()
         if self.worker:
             self.worker.wait()
+        if self._seed_active is not None:
+            # Worker failure/done signals may still be queued while shutdown
+            # blocks Qt. A stable report ID makes this final save idempotent.
+            try:
+                self.store.capture_seed(self._seed_active, self._seed_automatic)
+            except (OSError, ValueError) as error:
+                self._capture_failed(str(error))
+        if self._normal_pending:
+            request, self._normal_pending = self._normal_pending, None
+            try:
+                self._capture_normal(*request)
+            except (OSError, ValueError) as error:
+                self._capture_failed(str(error))
+        # The queued objects already own bounded log bytes, so closing BBMOD
+        # cannot lose a failure while another report was saving or uploading.
+        self._seed_pending.extend(self._seed_failed)
+        self._seed_failed.clear()
+        while self._seed_pending:
+            snapshot, automatic = self._seed_pending.popleft()
+            try:
+                self.store.capture_seed(snapshot, automatic)
+            except (OSError, ValueError) as error:
+                self._capture_failed(str(error))

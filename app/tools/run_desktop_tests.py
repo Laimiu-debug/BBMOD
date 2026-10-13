@@ -10,11 +10,28 @@ import sys
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--all', action='store_true')
+    parser.add_argument('modules', nargs='*', metavar='TEST_MODULE',
+                        help='Test filenames or paths relative to the app directory')
     args = parser.parse_args()
+    if args.all and args.modules:
+        parser.error('--all cannot be combined with individual test modules')
     root = Path(__file__).resolve().parents[1]
     names = ['test_mod_file_safety.py', 'test_io_util.py', 'test_profiles_page.py', 'test_online_catalog.py', 'test_localization_profiles.py',
              'test_localization_manager_ui.py', 'test_seed_session.py', 'test_app_updates.py', 'test_update_notice.py']
-    paths = sorted((root / 'tests').glob('test_*.py')) if args.all else [root / 'tests' / name for name in names]
+    if args.modules:
+        paths = []
+        for name in args.modules:
+            path = Path(name)
+            if not path.is_absolute():
+                path = root / ('tests' if path.parent == Path('.') else '') / path
+            path = path.resolve()
+            if (not path.is_relative_to(root / 'tests') or not path.is_file()
+                    or not path.name.startswith('test_') or path.suffix != '.py'):
+                parser.error(f'Not a test module under app/tests: {name}')
+            if path not in paths:
+                paths.append(path)
+    else:
+        paths = sorted((root / 'tests').glob('test_*.py')) if args.all else [root / 'tests' / name for name in names]
     results = []
     for path in paths:
         result = subprocess.run([sys.executable, '-X', 'utf8', '-m', 'pytest', str(path), '-q'],

@@ -77,6 +77,13 @@ local startNewCampaign = function()
 
 	while(true)
 	{
+		// All paths, including skipped maps/spawns, finish here before another
+		// seed starts. Fast scoring has no local roster, but camp generation
+		// still creates real actors. Release those only after printing results.
+		this.Time.clearEvents();
+		this.World.getPlayerRoster().clear();
+		gt.SeedGenerator.lair_info_list = [];
+
 		// Count every attempted seed, including map-generation skips.
 		loop_idx++;
 		gt.SeedGenerator.CurrentLoop = loop_idx;

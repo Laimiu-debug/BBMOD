@@ -24,7 +24,7 @@ class SeedWeaponFilter(QWidget):
         self.kind = QComboBox()
         self.kind.setObjectName('lair_filter_kind')
         self.kind.addItem('红装总数', 'total')
-        self.kind.addItem('指定红武器', 'weapon')
+        self.kind.addItem('指定红装武器', 'weapon')
         self.stack = QStackedWidget()
         total = QWidget()
         total_layout = QGridLayout(total)
@@ -87,7 +87,7 @@ class SeedWeaponFilter(QWidget):
         by_weapon = self.kind.currentData() == 'weapon'
         self.stack.setCurrentIndex(1 if by_weapon else 0)
         self.kind.setToolTip(
-            '统计生成时营地中的红武器，每件须同时满足所选品质。100% 为该加成的满随机值；位置和属性见结果详情。'
+            '统计生成时营地中的红装武器，每件须同时满足所选品质。100% 为该加成的满随机值；位置和属性见结果详情。'
             if by_weapon else '统计生成时营地中的全部红装，位置可在结果详情的营地记录里核对。')
 
     def _changed(self, *_):

@@ -10,7 +10,7 @@ from __future__ import annotations
 import tempfile
 import time
 import uuid
-from dataclasses import dataclass, field, replace
+from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 
 from .. import game as game_mod
@@ -66,6 +66,8 @@ class SeedGenOrchestrator:
         self._started_at: float | None = None
         self._readers: dict[Path, tuple[IncrementalLogReader, SeedLogParser]] = {}
         self._seen: set[tuple[str, str, int]] = set()
+        self._report_baseline = None
+        self._report_config = {}
 
     # ---------------- 准备 ----------------
 
@@ -95,9 +97,9 @@ class SeedGenOrchestrator:
             for path in self.payload_dir.rglob("*") if path.is_file()}
         retained, mods = origin_payload(self.game.data_dir, cfg.campaign.origin, payload["mod_hooks.zip"])
         payload.update(retained)
-        if retained:
-            # The fixed-roster path needs no editor UI; its JS is not shipped.
-            payload.pop("scripts/!mods_preload/mod_breditor.nut", None)
+        # No seed-search origin needs the editor UI, whose JS is not shipped.
+        # Loading its preload would connect a nonexistent WorldBreditorScreen.
+        payload.pop("scripts/!mods_preload/mod_breditor.nut", None)
         payload["seed_generator/config_environment.nut"] = emit_mod_environment(mods, self.game.version or "").encode('utf-8')
         with tempfile.TemporaryDirectory(prefix="bbmod-config-") as temporary:
             temporary_root = Path(temporary).resolve()
@@ -115,6 +117,7 @@ class SeedGenOrchestrator:
         self.mm._audit("seedgen-prepare", self.game.data_dir, self.files.root)
         self.state.stage = "prepared"
         self._campaign = replace(cfg.campaign)
+        self._report_config = asdict(cfg)
         self._mods = mods
         self.state.warnings = warnings
         return warnings
@@ -125,6 +128,8 @@ class SeedGenOrchestrator:
         if self.state.stage != "prepared":
             raise RuntimeError("请先 prepare()")
         self._discover_readers()
+        from ..crash_reports import begin_session
+        self._report_baseline = begin_session({path.parent for path in self._readers})
         # Launch the exact installation that received the temporary payload.
         ok = game_mod.launch_game(self.game, via_steam=False)
         if ok:
@@ -244,6 +249,33 @@ class SeedGenOrchestrator:
     @property
     def startup(self):
         return self._parser.startup
+
+    @property
+    def script_error(self) -> str:
+        return self._parser.script_error
+
+    def failure_report(self, error: str = "") -> dict | None:
+        """Freeze this launch's evidence before restoration or a new log overwrites it.
+
+        Called only on a failure or after polling has stopped, never per seed.
+        Configuration and MOD metadata describe the injected search environment,
+        not the user's original MOD collection restored at the end of a search.
+        """
+        if self._report_baseline is None:
+            return None
+        from .error_report import snapshot_seed_failure
+        if not error:
+            error = self.startup.detail if self.startup.stage == "error" else self.script_error
+        paths = ([self.log_path] if self.log_path else []) + self.checked_log_paths
+        return snapshot_seed_failure(
+            session_id=self._session_id, paths=list(dict.fromkeys(paths)),
+            baseline=self._report_baseline, error=error,
+            metadata={"game_version": self.game.version or "", "config": self._report_config,
+                      "limits": asdict(self.limits), "mods": self._mods,
+                      "dlc_mask": self._parser.dlc_mask, "progress": asdict(self.progress),
+                      "elapsed_seconds": self.elapsed_seconds, "result_count": len(self.results),
+                      "startup": asdict(self.startup)},
+        )
 
     # ---------------- 结束 ----------------
 

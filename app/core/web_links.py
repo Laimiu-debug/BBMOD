@@ -14,9 +14,9 @@ def parse_link(value):
     if not isinstance(value, str) or len(value) > 200:
         raise ValueError('网页链接无效。')
     parts = urlsplit(value)
-    if (parts.scheme != 'bbmod' or parts.netloc not in {'mods', 'seeds', 'profiles'}
+    if (parts.scheme != 'bbmod' or parts.netloc not in {'mods', 'seeds', 'profiles', 'saves'}
             or parts.query or parts.fragment or not parts.path.startswith('/')):
-        raise ValueError('只支持 BBMOD 的 MOD、种子或共享方案链接。')
+        raise ValueError('只支持 BBMOD 的 MOD、种子、方案或存档分享链接。')
     identity = parts.path[1:]
     try:
         if str(uuid.UUID(identity)) != identity:

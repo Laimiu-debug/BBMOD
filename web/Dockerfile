@@ -5,10 +5,13 @@ COPY web/requirements.lock ./requirements.lock
 RUN pip install --no-cache-dir -r requirements.lock && useradd --uid 10001 --create-home bbmod
 COPY app/core/archive_safety.py /srv/app/core/archive_safety.py
 COPY app/core/profile_protocol.py /srv/app/core/profile_protocol.py
+COPY app/core/save_protocol.py /srv/app/core/save_protocol.py
 COPY app/core/paths.py app/core/gamelog.py /srv/app/core/
 COPY app/core/modinfo.py app/core/l10n_identity.py /srv/app/core/
+COPY app/core/item_inspector.py /srv/app/core/item_inspector.py
 COPY app/core/seedgen/config_emitter.py app/core/seedgen/log_watcher.py app/core/seedgen/presentation.py app/core/seedgen/protocol.py app/core/seedgen/traits.py app/core/seedgen/weapons.py app/core/seedgen/mod_origins.py /srv/app/core/seedgen/
 COPY app/data/seed_traits.json /srv/app/data/seed_traits.json
+COPY app/data/item_inspector/catalog.json /srv/app/data/item_inspector/catalog.json
 COPY web /srv/web
 RUN BBMOD_DEBUG=1 python manage.py check && BBMOD_DEBUG=1 python manage.py collectstatic --noinput && mkdir -p /srv/data /srv/desktop && chown -R bbmod:bbmod /srv/data /srv/desktop
 USER bbmod

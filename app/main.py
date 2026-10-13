@@ -52,7 +52,7 @@ def selftest() -> int:
     crash_reports_ready = (hasattr(w, 'crash_reports') and w.crash_reports.reply is None
                            and not w.crash_reports.timer.isActive()
                            and w.settings_page.auto_crash_upload.objectName() == 'autoCrashUpload')
-    settings_ready = w.tabs.count() == 8 and w.settings_page.family.count() > 0
+    settings_ready = w.tabs.count() == 9 and w.settings_page.family.count() > 0
     equipment_ready = (w.inspector.sections.count() == 2 and w.inspector.sections.currentIndex() == 0
                        and w.inspector.catalog_page.table.rowCount() > 94)
     launch_ready = (w.l10n.management.session is w.ctx.game_session
@@ -65,6 +65,9 @@ def selftest() -> int:
         and hasattr(w.mods, 'import_profile_btn') and w.profiles.sections.count() == 2
         and w.nav_buttons[7].text() == '方案管理' and parse_link(
             'bbmod://profiles/00000000-0000-0000-0000-000000000001')[0] == 'profiles')
+    save_sharing_ready = (hasattr(w, 'saves') and w.saves.sections.count() == 2
+        and w.nav_buttons[8].text() == '存档分享' and parse_link(
+            'bbmod://saves/00000000-0000-0000-0000-000000000001')[0] == 'saves')
     print(f"equipment_catalog: {'ready' if equipment_ready else 'missing'} entries={w.inspector.catalog_page.table.rowCount()}")
     print(f"game_launch_feedback: {'ready' if launch_ready else 'missing'} state={w.ctx.game_session.state}")
     print(f"localization_guidance: {'ready' if guidance_ready else 'missing'}")
@@ -73,6 +76,7 @@ def selftest() -> int:
     print(f"seed_code_copy: {'ready' if seed_copy_ready else 'missing'}")
     print(f"seed_mod_origin: {'ready' if mod_origin_ready else 'missing'}")
     print(f"profile_sharing: {'ready' if profile_sharing_ready else 'missing'}")
+    print(f"save_sharing: {'ready' if save_sharing_ready else 'missing'}")
     print(f"update_notice: {'ready' if update_notice_ready else 'missing'}")
     print(f"crash_reports: {'ready' if crash_reports_ready else 'missing'}")
     print(f"official_site: {SITE_ORIGIN}")
@@ -80,7 +84,7 @@ def selftest() -> int:
     ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and cleanup_ready and guidance_ready and hooks_ready and trait_count == 58
     if w.ctx.game:
         ok = ok and errors >= 0
-    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and mod_origin_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready else 1
+    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and mod_origin_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready and save_sharing_ready else 1
 
 
 def main() -> int:

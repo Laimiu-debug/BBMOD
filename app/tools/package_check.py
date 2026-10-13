@@ -52,7 +52,8 @@ def main() -> int:
     if retired:
         raise RuntimeError('新版不得携带旧注入组件：' + '、'.join(retired))
     python_archive = archive.open_embedded_archive(next(name for name in archive.toc if name.startswith('PYZ')))
-    for module in ('core.site_config', 'core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
+    for module in ('pefile', 'core.site_config', 'core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
+                   'core.shared_saves', 'core.save_protocol', 'ui.saves_page',
                    'core.support_report', 'core.l10n_identity', 'ui.feedback_page', 'ui.support_dialog',
                    'core.installed_mod_catalog', 'core.catalog_versions', 'ui.installed_catalog_service', 'ui.seed_poll_worker'):
         if module not in python_archive.toc:
@@ -151,6 +152,8 @@ def main() -> int:
             raise RuntimeError('EXE 未加载版本管理与更新组件')
         if result.returncode == 0 and b'profile_sharing: ready' not in result.stdout:
             raise RuntimeError('EXE 未加载共享方案界面或网页方案联动')
+        if result.returncode == 0 and b'save_sharing: ready' not in result.stdout:
+            raise RuntimeError('EXE 未加载存档分享、存档广场或网页存档联动')
         if result.returncode == 0 and b'update_notice: ready' not in result.stdout:
             raise RuntimeError('EXE 未加载新版更新提示条')
         report = {
@@ -190,6 +193,7 @@ def main() -> int:
             "update_notice_ready": b'update_notice: ready' in result.stdout,
             "crash_reports_ready": b'crash_reports: ready' in result.stdout,
             "profile_sharing_ready": b'profile_sharing: ready' in result.stdout,
+            "save_sharing_ready": b'save_sharing: ready' in result.stdout,
         }
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

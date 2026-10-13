@@ -22,7 +22,15 @@ class ModTransaction:
         self.directory = self.root / 'bbmod_disabled' / 'operations'
         self.journal = self.directory / 'pending.json'
 
+    def relative(self, destination):
+        return str(Path(destination).relative_to(self.root))
+
+    def before_commit(self, entries):
+        pass
+
     def target(self, relative):
+        if str(relative).startswith('@savegames-'):
+            raise ValueError('这是未完成的存档导入，请在「存档分享」选择原存档目录并恢复上次导入。')
         path = self.root / relative
         parent = path.parent.resolve()
         allowed = {self.root / 'data', self.root / 'bbmod_disabled'}
@@ -48,7 +56,7 @@ class ModTransaction:
         committed = False
         try:
             for index, (destination, source) in enumerate(changes.items()):
-                relative = str(Path(destination).relative_to(self.root))
+                relative = self.relative(destination)
                 target = self.target(relative)
                 before = digest(target)
                 backup = staging / f'{index}.before'
@@ -66,6 +74,7 @@ class ModTransaction:
             atomic_json(self.journal, record)
             if keep_backups:
                 atomic_json(staging / 'completed.json', record)
+            self.before_commit(entries)
             for index, entry in enumerate(entries):
                 target = self.target(entry['path'])
                 if digest(target) != entry['before']:

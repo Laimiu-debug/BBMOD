@@ -17,6 +17,8 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
+import pefile
+
 APP_ID = "365360"
 GAME_DIRNAME = "Battle Brothers"
 SUPPORTED_VERSION = "1.5.2.3"
@@ -295,6 +297,25 @@ def find_log_write_path() -> Path | None:
 
 # ---------------- 进程管理 ----------------
 
+def _is_gog_executable(executable: Path) -> bool:
+    """Recognize Galaxy builds without weakening the guard for unknown EXEs."""
+    try:
+        with pefile.PE(str(executable), fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT'],
+                pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT'],
+            ])
+            dependencies = {
+                entry.dll.lower()
+                for directory in ('DIRECTORY_ENTRY_IMPORT', 'DIRECTORY_ENTRY_DELAY_IMPORT')
+                for entry in getattr(image, directory, [])
+            }
+    except (OSError, pefile.PEFormatError):
+        return False
+    return (b'galaxy.dll' in dependencies
+            and not dependencies.intersection({b'steam_api.dll', b'steam_api64.dll'}))
+
+
 def is_game_running() -> bool:
     try:
         return probe_game_running()
@@ -320,7 +341,9 @@ def launch_executable(game: GameInfo) -> dict:
     if hasattr(os, 'startfile'):
         # Steam can relaunch its registered installation; copied games must
         # never escape the directory protected by the active MOD transaction.
-        steam = find_steam_root()
+        # Galaxy builds do not bootstrap through Steam. A separate Steam
+        # installation must not prevent launching the selected GOG game.
+        steam = None if _is_gog_executable(executable) else find_steam_root()
         registered = []
         for library in list_steam_libraries(steam) if steam else []:
             manifest = library / 'steamapps' / f'appmanifest_{APP_ID}.acf'

@@ -13,7 +13,8 @@ ROOTS = {'scripts', 'ui', 'gfx', 'sounds', 'music', 'brushes', 'fonts'}
 # Battle Brothers MODs. Only Squirrel files are accepted outside resource roots.
 SCRIPT_ROOTS = {'modern_hooks', 'msu', 'eimo', 'swifter', 'prepare_for_battle',
                 'mod_better_obituary', 'mod_find_legendary_maps', 'vse',
-                'mod_well_trained_pets', 'mod_configurable_pause', 'mod_ws'}
+                'mod_well_trained_pets', 'mod_configurable_pause', 'mod_ws',
+                'mod_nested_tooltips', 'mod_maxi_tooltips', 'script_hooks'}
 FORBIDDEN = {'.exe', '.dll', '.com', '.bat', '.cmd', '.ps1', '.vbs', '.msi', '.scr', '.lnk', '.jar', '.zip', '.rar', '.7z'}
 
 
@@ -44,9 +45,12 @@ def inspect_archive(stream, *, max_bytes=100 * 1024 * 1024):
             for entry in infos:
                 # ZipInfo normalizes backslashes on Windows and strips NULs. Validate
                 # the original name so server and desktop enforce the same policy.
-                name = entry.orig_filename
+                name = entry.orig_filename.replace('\\', '/')
                 path = PurePosixPath(name)
-                if (not name or '\\' in name or ':' in name or '\x00' in name or path.is_absolute()
+                if '\\' in entry.orig_filename and (not path.parts or path.parts[0].lower() not in SCRIPT_ROOTS
+                        or path.suffix.lower() not in {'.nut', '.cnut'}):
+                    raise ValueError('ZIP 包含不安全的文件路径。')
+                if (not name or ':' in name or '\x00' in name or path.is_absolute()
                         or '..' in path.parts or any(ord(c) < 32 for c in name)):
                     raise ValueError('ZIP 包含不安全的文件路径。')
                 canonical = str(path).casefold()

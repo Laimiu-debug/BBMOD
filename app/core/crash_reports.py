@@ -10,7 +10,7 @@ from types import SimpleNamespace
 
 from .crash_suspects import describe, find_suspects
 from .gamelog import iter_rows
-from .io_util import atomic_write_json
+from .io_util import atomic_write_bytes, atomic_write_json
 from .support_report import build_report, MAX_REPORT_CHARS
 from .version import VERSION
 
@@ -32,8 +32,9 @@ def fingerprint(path):
 
 
 def begin_session(folders):
-    return {'started': time.time(), 'logs': {str(Path(folder) / 'log.html'):
-            fingerprint(Path(folder) / 'log.html') for folder in folders}}
+    return {'started': time.time(), 'logs': {str(Path(folder) / name):
+            fingerprint(Path(folder) / name) for folder in folders
+            for name in ('log.html', 'log.txt')}}
 
 
 def read_session_log(path, session):
@@ -123,11 +124,61 @@ class ReportStore:
     def delete(self, identity):
         folder = self.folder(identity)
         # Only remove files owned by this feature, never an arbitrary tree.
-        for name in ('record.json', 'record.tmp', 'log.html'):
+        for name in ('record.json', 'record.tmp', 'log.html', 'log.txt'):
             (folder / name).unlink(missing_ok=True)
         for stale in folder.glob('.bbmod-*.tmp'):
             stale.unlink(missing_ok=True)
         folder.rmdir()
+
+    def _make_room(self):
+        records = self.records()
+        while len(records) >= MAX_RECORDS:
+            removable = next((item for item in reversed(records) if item['state'] == 'sent'), None)
+            if removable is None:
+                raise OSError('已保留 20 份报告，请在错误报告列表中删除不再需要的记录。')
+            self.delete(removable['id'])
+            records.remove(removable)
+
+    def capture_seed(self, snapshot, automatic=False):
+        """Persist the already-captured search failure, once per session.
+
+        No live game log or MOD scan is consulted here: either may have changed
+        before the desktop receives this snapshot from its search worker.
+        """
+        from .seedgen.error_report import redact_seed_text, seed_diagnostic
+        session_id = str(snapshot['session_id'])
+        if not session_id:
+            raise ValueError('刷种子错误报告缺少会话编号')
+        identity = uuid.uuid5(uuid.NAMESPACE_URL, 'bbmod-seed-session:' + session_id).hex
+        if (self.folder(identity) / 'record.json').is_file():
+            return self.get(identity)
+        body, metadata = seed_diagnostic(snapshot, identity)
+        error = redact_seed_text(str(snapshot.get('error', ''))[:4000])
+        name = 'log.txt' if str(snapshot.get('log_name', '')).lower().endswith('.txt') else 'log.html'
+        item = {
+            'schema': 1, 'id': identity, 'source': 'seedgen', 'session_id': session_id,
+            'created': snapshot.get('captured_at') or datetime.now(timezone.utc).isoformat(timespec='seconds'),
+            'state': 'pending' if automatic else 'manual', 'automatic': automatic,
+            'partial_log': bool(snapshot.get('partial_log')), 'metadata': metadata,
+            'log_name': name, 'log_error': redact_seed_text(snapshot.get('log_error', '')),
+            'log_encoding': snapshot.get('log_encoding', 'utf-8'),
+            'suspects': [], 'attempts': 0, 'next_retry': 0, 'ticket': None, 'posted': False,
+            'message': '刷种子错误快照已保存在本机，等待提交。',
+            'payload': {
+                'kind': 'bug', 'title': '种子搜索错误：' + error[:80],
+                'details': '种子搜索期间检测到错误；附带本次会话配置、进度与即时日志快照。',
+                'version': 'BBMOD desktop ' + VERSION, 'nickname': '', 'contact': '',
+                'diagnostic_report': body[:MAX_REPORT_CHARS],
+            },
+        }
+        self._make_room()
+        folder = self.folder(identity)
+        folder.mkdir(parents=True, exist_ok=True)
+        raw = snapshot.get('raw', b'')
+        if raw:
+            atomic_write_bytes(folder / name, raw[-MAX_LOG_BYTES:])
+        self.save(item)
+        return item
 
     def capture(self, ctx, session, folders, automatic=False):
         candidates = {Path(path) for path in session['logs']}
@@ -142,13 +193,7 @@ class ReportStore:
                 continue
         if not fresh:
             return None
-        records = self.records()
-        while len(records) >= MAX_RECORDS:
-            removable = next((item for item in reversed(records) if item['state'] == 'sent'), None)
-            if removable is None:
-                raise OSError('已保留 20 份报告，请在错误报告列表中删除不再需要的记录。')
-            self.delete(removable['id'])
-            records.remove(removable)
+        self._make_room()
         _, source, (raw, error, partial) = max(fresh, key=lambda entry: entry[0])
         identity = uuid.uuid4().hex
         folder = self.folder(identity)

@@ -90,6 +90,37 @@ gt.SeedGenerator.attached_id_num_dict <- {}; # 对应ID的附属建筑数量
 // gt.SeedGenerator.wool_spinner_num <- 0; # 纺织厂 学徒 商队帮工 裁缝 牧羊人
 // gt.SeedGenerator.workshop_num <- 0; # 工坊 学徒 商队帮工 小贩 临时工
 
+// A rare native map can exhaust settlement placement with zero or one town.
+// Stop before its road builder indexes an empty list. The caller already clears
+// a skipped world's actors/factions before continuing with the next seed.
+gt.SeedGenerator.fillSettlementMap <- function(worldmap, rect)
+{
+	local buildSettlements = worldmap.buildSettlements;
+	local build = buildSettlements.bindenv(worldmap);
+	worldmap.buildSettlements = function(rect)
+	{
+		build(rect);
+		if (this.World.EntityManager.getSettlements().len() < 2)
+			throw "BBMOD-incomplete-map";
+	};
+	try
+	{
+		worldmap.fill(rect, null);
+	}
+	catch(error)
+	{
+		worldmap.buildSettlements = buildSettlements;
+		if (error != "BBMOD-incomplete-map") throw error;
+		// Native fill normally releases these tile references at its end.
+		worldmap.m.Tiles = [];
+		worldmap.m.WorldTiles = [];
+		this.reportProgress("map-skipped");
+		return false;
+	}
+	worldmap.buildSettlements = buildSettlements;
+	return true;
+}
+
 enum ConnectedAnsEntry
 {
 	VertexNum,
@@ -245,12 +276,12 @@ gt.SeedGenerator.generateSettlement <- function(seedString, world_state, read_ex
 	local minX = worldmap.getMinX();
 	local minY = worldmap.getMinY();
 	this.World.resizeScene(minX, minY);
-	worldmap.fill({
+	if (!this.fillSettlementMap(worldmap, {
 		X = 0,
 		Y = 0,
 		W = minX,
 		H = minY
-	}, null);
+	})) return -2;
 	}
 
 	local settlements = this.World.EntityManager.getSettlements();

@@ -25,6 +25,9 @@ RE_SEED_HEAD = re.compile(
 )
 RE_LOOP_PROGRESS = re.compile(r"^LoopIdx:\s+(\d+)\((\d+)\)\s*(.*)$")
 RE_TEAM_SCORE = re.compile(r"^TeamInfo:\s*([+-]?\d+(?:\.\d+)?)\b")
+RE_SCRIPT_ERROR_TEXT = re.compile(
+    r"AN ERROR HAS OCCURR?ED|\bSCRIPT ERROR\b|\[critical\]|^critical\s*:"
+    r"|\[error\].*\bSQ\b|\bSQ\b\s*[:|]?\s*error\b", re.I)
 
 
 @dataclass
@@ -97,6 +100,7 @@ class SeedLogParser:
         self.mods: list[dict[str, str]] = []
         self.campaign: tuple[int | None, ...] = (None, None, None)
         self.game_version = ""
+        self.script_error = ""
 
     def finish(self, complete: bool = False) -> list[SeedResult]:
         """Preserve a final unfinished block, explicitly labelled as incomplete."""
@@ -131,11 +135,18 @@ class SeedLogParser:
                     elif not matched:
                         self.current = None
                         self.startup = StartupStatus()
+                        self.script_error = ""
                     self.session_seen = matched
                 continue
             if not self.session_seen:
                 continue
             self.last_activity = time.monotonic()
+            # Preserve one cause, not an ever-growing list of repeated errors.
+            # JS/UI warnings are unrelated to the Squirrel generation loop.
+            if not self.script_error and (row.level == "critical" or
+                    (row.level == "error" and row.tag.strip().upper() in {"SQ", "SCRIPT ERROR"}) or
+                    (row.tag == "TXT" and RE_SCRIPT_ERROR_TEXT.search(text))):
+                self.script_error = text[:4000]
             if text.startswith("BBMODSeedEnvironment: Difficulty:"):
                 match = re.fullmatch(r"BBMODSeedEnvironment: Difficulty:([0-2]),([0-2]),([0-2])", text)
                 if match:

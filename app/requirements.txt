@@ -1,2 +1,3 @@
 # BBMOD 管理器运行依赖；测试依赖见 requirements-test.txt，打包依赖见 requirements-dev.txt
 PySide6>=6.7
+pefile>=2024.8.26

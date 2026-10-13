@@ -23,6 +23,7 @@ BUILTIN = 'bbmod'
 STORAGE = 'bbmod_localizations'
 GUARD = 'mod_zz_bbmod_preview_guard.zip'
 NAME_HINT = re.compile(r'汉化|中文|chinese|localization|translation|l10n|zh[-_]?cn', re.I)
+GAME_TEXT_DIRS = ('ambitions', 'contracts', 'entity', 'events', 'items', 'retinue', 'scenarios', 'skills')
 
 
 def _zip_name(name: str) -> str:
@@ -46,6 +47,19 @@ def archive_paths(path: Path) -> set[str]:
 def _overrides(names: set[str]) -> set[str]:
     return {re.sub(r'\.(?:c?nut)$', '.squirrel', name) for name in names
             if name.startswith(('ui/', 'scripts/', 'gfx/fonts/'))}
+
+
+def _covers_game_text(names: set[str]) -> bool:
+    """Require game-wide file evidence, not a Chinese label on a MOD ZIP.
+
+    Only inspect archive paths. Unknown hook-based translations can still be
+    saved explicitly; their actual file overlaps are checked independently.
+    """
+    if 'ui/main.html' in names:
+        return True
+    domains = {domain: sum(name.startswith(f'scripts/{domain}/') and name.endswith(('.nut', '.cnut'))
+                           for name in names) for domain in GAME_TEXT_DIRS}
+    return sum(domains.values()) >= 20 and sum(count > 0 for count in domains.values()) >= 3
 
 
 @dataclass
@@ -116,9 +130,17 @@ class LocalizationProfiles:
                 if path.name == GUARD:
                     continue
                 own = l10n.is_bbmod_l10n(path)
+                registered = path.name.casefold() in managed
+                name_hint = bool(NAME_HINT.search(path.name))
+                candidate = own
+                if not own and (registered or name_hint):
+                    try:
+                        candidate = _covers_game_text(archive_paths(path))
+                    except (OSError, ValueError, zipfile.BadZipFile):
+                        # An unreadable ZIP is not evidence of a second translation.
+                        pass
                 result.append({'path': path, 'name': path.name, 'enabled': enabled, 'own': own,
-                               'managed': path.name.casefold() in managed,
-                               'candidate': own or bool(NAME_HINT.search(path.name))})
+                               'managed': registered, 'name_hint': name_hint, 'candidate': candidate})
         return result
 
     def _ensure_idle(self, *, changing: bool = False) -> None:
@@ -363,7 +385,7 @@ class LocalizationProfiles:
             raise ValueError('启动目标与当前游戏目录不一致')
         active = [item for item in self.inventory() if item['enabled']]
         own = [item for item in active if item['own']]
-        if len(own) > 1 or (own and any(not item['own'] and (item['managed'] or item['candidate']) for item in active)):
+        if len(own) > 1 or (own and any(not item['own'] and item['candidate'] for item in active)):
             raise RuntimeError('当前同时启用了多套汉化，请先选择方案并应用。')
         if own:
             overlaps = l10n.conflicting_ui_mods(self.data, own[0]['path'])

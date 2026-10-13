@@ -231,3 +231,24 @@ class ProfileUploadBudget(models.Model):
     count = models.PositiveIntegerField(default=0)
     size = models.PositiveBigIntegerField(default=0)
     since = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
+class SharedSaveFile(models.Model):
+    sha256 = models.CharField(max_length=64, primary_key=True)
+    file = models.FileField(upload_to='shared-saves/')
+    size = models.PositiveBigIntegerField()
+    blocked = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class SharedSave(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    fingerprint = models.CharField(max_length=64, unique=True)
+    manifest = models.JSONField()
+    save_file = models.ForeignKey(SharedSaveFile, on_delete=models.PROTECT)
+    blocked = models.BooleanField(default=False, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at', '-id']
+        indexes = [models.Index(fields=['blocked', '-created_at', '-id'], name='save_public_created_idx')]

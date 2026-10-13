@@ -31,6 +31,7 @@ class LocalizationManager(QWidget):
         self.ctx, self._busy, self._root = ctx, False, None
         self.backend, self.plan = None, None
         self._active = []
+        self._auxiliary = []
         self._profiles = {}
         self._legacy = False
         self._mixed = False
@@ -103,14 +104,15 @@ class LocalizationManager(QWidget):
         layout.addWidget(self.advanced_panel)
         self.advanced_panel.hide()
         self.advanced_toggle.toggled.connect(self.advanced_panel.setVisible)
-        self.table = LocalizationFiles(0, 3)
-        self.table.setHorizontalHeaderLabels(['是否启用', '汉化文件', '来源'])
+        self.table = LocalizationFiles(0, 4)
+        self.table.setHorizontalHeaderLabels(['是否启用', '文件', '识别范围', '来源'])
         style_table(self.table)
         self.table.verticalHeader().setDefaultSectionSize(34)
         self.table.setMinimumHeight(110)
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
-        self.table.setColumnWidth(0, 80)
-        self.table.setColumnWidth(2, 180)
+        self.table.setColumnWidth(0, 100)
+        self.table.setColumnWidth(2, 160)
+        self.table.setColumnWidth(3, 150)
         self.table.horizontalHeader().setSectionResizeMode(1, QHeaderView.Stretch)
         layout.addWidget(self.table, 1)
         self.preview_title = QLabel('方案说明')
@@ -145,6 +147,7 @@ class LocalizationManager(QWidget):
         self._root = key
         self.plan = None
         self._active = []
+        self._auxiliary = []
         self._profiles = {}
         self._legacy = self._mixed = False
         self.choice.blockSignals(True)
@@ -158,16 +161,21 @@ class LocalizationManager(QWidget):
             self._profiles = profiles
             for profile_id, profile in profiles.items():
                 self.choice.addItem('BBMOD 独立汉化（已保存方案）' if profile_id == BUILTIN else profile['name'], profile_id)
-            rows = [item for item in self.backend.inventory() if item['candidate'] or item['managed']] if self.backend else []
+            rows = [item for item in self.backend.inventory()
+                    if item['candidate'] or item['managed'] or item['name_hint']] if self.backend else []
             self.table.setRowCount(len(rows))
             for i, item in enumerate(rows):
                 labels = ['当前启用' if item['enabled'] else '已停用', item['name'],
-                          'BBMOD 独立制作' if item['own'] else ('已加入方案' if item['managed'] else '待归类 · 按文件名识别')]
+                          '游戏本体汉化' if item['candidate'] else 'MOD 汉化 / 待确认',
+                          'BBMOD 独立制作' if item['own'] else ('已加入方案' if item['managed'] else
+                          ('按包内文件识别' if item['candidate'] else '文件名提示'))]
                 for column, label in enumerate(labels):
                     cell = QTableWidgetItem(label)
-                    cell.setToolTip(str(item['path']))
+                    cell.setToolTip(str(item['path']) + ('' if item['candidate'] else
+                                    '\n未识别为游戏本体汉化，不计入多套汉化；实际覆盖相同文件时仍会提示冲突。'))
                     self.table.setItem(i, column, cell)
-            self._active = [item for item in rows if item['enabled']]
+            self._active = [item for item in rows if item['enabled'] and item['candidate']]
+            self._auxiliary = [item for item in rows if item['enabled'] and not item['candidate']]
             own = [item for item in self._active if item['own']]
             manifests = [l10n.package_manifest(item['path']) or {} for item in own]
             self._legacy = any(m.get('requires_bbmod_launcher') or m.get('uses_bbmod_map_font') for m in manifests)
@@ -259,6 +267,8 @@ class LocalizationManager(QWidget):
                 message = '上方汉化仍然启用，下方选择尚未应用。继续使用当前汉化无需重新生成。'
             else:
                 message = '日常游玩直接启动游戏即可；更新 BBMOD 软件也无需重新生成或重新应用汉化。'
+            if self._auxiliary:
+                message += f' 另有 {len(self._auxiliary)} 个 MOD 汉化或辅助包待确认，不计入游戏本体汉化。'
             self.summary.setText(message)
         self.update_controls()
 

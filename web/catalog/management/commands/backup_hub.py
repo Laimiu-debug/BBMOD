@@ -29,6 +29,8 @@ class Command(BaseCommand):
                 source.backup(target)
                 rows = target.execute('SELECT archive, cover FROM catalog_release').fetchall()
                 rows += target.execute('SELECT archive FROM catalog_sharedmodfile').fetchall()
+                if target.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='catalog_sharedsavefile'").fetchone():
+                    rows += target.execute('SELECT file FROM catalog_sharedsavefile').fetchall()
                 desktop_rows = target.execute('SELECT file FROM catalog_desktoprelease').fetchall()
             try:
                 with tarfile.open(archive_path, 'x:gz') as out:

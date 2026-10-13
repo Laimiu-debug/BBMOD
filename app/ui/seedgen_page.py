@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import Qt, QTimer, QUrl, QSignalBlocker, QItemSelectionModel
+from PySide6.QtCore import Qt, QTimer, QUrl, QSignalBlocker, QItemSelectionModel, Signal
 from PySide6.QtGui import QKeySequence, QShortcut, QDesktopServices
 from PySide6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
@@ -92,6 +92,8 @@ class SeedWorkspaces(QTabWidget):
 
 
 class SeedGenPage(QWidget):
+    error_report_ready = Signal(object)
+
     def __init__(self, ctx: AppContext) -> None:
         super().__init__()
         self.setObjectName("seedPage")
@@ -100,6 +102,12 @@ class SeedGenPage(QWidget):
         self._poll_worker: SeedPollWorker | None = None
         self.results: list[SeedResult] = []
         self._automatic_stop_failed = False
+        self._error_reported = False
+        self._seed_process_seen = False
+        self._startup_report_probe_elapsed = -10
+        self._stopping = False
+        if getattr(ctx, 'game_session', None) is not None:
+            ctx.game_session.changed.connect(self._seed_game_state_changed)
         self._import_worker: Worker | None = None
         self._share_worker: SeedShareWorker | None = None
         self._share_active = False
@@ -921,16 +929,25 @@ class SeedGenPage(QWidget):
     def _generation_options(self) -> None:
         dialog = QDialog(self)
         dialog.setWindowTitle("种子生成设置")
+        dialog.setMinimumWidth(560)
         layout = QVBoxLayout(dialog)
+        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setSpacing(16)
         campaign_form = QFormLayout()
+        campaign_form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
+        campaign_form.setHorizontalSpacing(20)
+        campaign_form.setVerticalSpacing(12)
         levels = {}
         for key, label, choices in (
             ("combat_difficulty", "战斗难度", DIFFICULTY_LABELS),
             ("economic_difficulty", "经济难度", DIFFICULTY_LABELS),
             ("budget_difficulty", "初始资金", BUDGET_LABELS),
         ):
-            widget = QComboBox()
+            widget = QComboBox(dialog)
             widget.setObjectName(key)
+            widget.ensurePolished()
+            widget.setMinimumWidth(180)
+            widget.setMinimumHeight(max(38, widget.fontMetrics().height() + 16))
             for value, caption in choices.items():
                 widget.addItem(caption, value)
             widget.setCurrentIndex(widget.findData(self._campaign_levels[key]))
@@ -964,6 +981,7 @@ class SeedGenPage(QWidget):
         buttons.accepted.connect(dialog.accept)
         buttons.rejected.connect(dialog.reject)
         layout.addWidget(buttons)
+        dialog.resize(640, layout.totalHeightForWidth(640))
         if dialog.exec() == QDialog.Accepted:
             self._limits = StopLimits(hits.value(), minutes.value())
             self.ctx.settings.set("seed_stop_limits", {"hits": hits.value(), "minutes": minutes.value()})
@@ -1085,6 +1103,9 @@ class SeedGenPage(QWidget):
         if not self.ctx.game:
             QMessageBox.warning(self, "未找到游戏", "请先指定游戏目录")
             return
+        if getattr(getattr(self.ctx, 'game_session', None), 'state', '') == 'collecting':
+            QMessageBox.information(self, '正在保存错误日志', '请等待上次游戏的日志保存完成后再开始刷种子。')
+            return
         if game_mod.is_game_running():
             QMessageBox.warning(self, "游戏运行中", "请先关闭游戏再开始")
             return
@@ -1097,6 +1118,9 @@ class SeedGenPage(QWidget):
         self.orch = SeedGenOrchestrator(self.ctx.game, PAYLOAD_DIR,
             log_directory=self._log_directory, limits=self._limits)
         self._automatic_stop_failed = False
+        self._error_reported = False
+        self._seed_process_seen = False
+        self._startup_report_probe_elapsed = -10
         try:
             warnings = self.orch.prepare(cfg)
         except Exception as error:
@@ -1124,6 +1148,7 @@ class SeedGenPage(QWidget):
             QMessageBox.critical(self, "启动失败", str(error))
             return
         self.progress_label.setToolTip("")
+        self._seed_process_seen = getattr(getattr(self.ctx, 'game_session', None), 'state', '') == 'running'
         self.ctx.set_seedgen_active(True)
         self.start_btn.setEnabled(False)
         self.stop_btn.setEnabled(True)
@@ -1172,6 +1197,35 @@ class SeedGenPage(QWidget):
         self._automatic_stop_failed = True
         self.progress_label.setText('日志读取失败，已保存结果保留 · 请点击「停止并恢复」')
         self.progress_label.setToolTip(detail)
+        self._capture_seed_error('log-read-failed ' + detail)
+
+    def _capture_seed_error(self, error="", *, final=False):
+        session = self.orch
+        if session is None or self._error_reported:
+            return
+        capture = getattr(session, 'failure_report', None)
+        if capture is None or not (final or error or session.startup.stage == 'error'
+                                    or getattr(session, 'script_error', '')):
+            return
+        try:
+            snapshot = capture(error)
+        except Exception as exc:
+            self.progress_label.setToolTip('错误日志快照未完成：' + str(exc))
+            return
+        if snapshot is not None:
+            self._error_reported = True
+            self.error_report_ready.emit(snapshot)
+
+    def _seed_game_state_changed(self):
+        if self.orch is None or self._stopping:
+            return
+        if self.ctx.game_session.state == 'running':
+            self._seed_process_seen = True
+        elif self.ctx.game_session.state == 'idle' and self._seed_process_seen:
+            self._seed_process_seen = False
+            # This also catches compile failures before the session marker.
+            # A normal shutdown without errors does not create a report.
+            self._capture_seed_error(final=True)
 
     def stop(self, _checked=False, *, reason: str = "") -> None:
         if not self.orch:
@@ -1179,15 +1233,21 @@ class SeedGenPage(QWidget):
         self.timer.stop()
         self._automatic_stop_failed = False
         self.progress_label.setText("正在恢复游戏配置…")
+        self._stopping = True
         try:
             if not self.shutdown_polling():
                 raise RuntimeError('日志读取尚未结束，备份已保留，请稍后重试停止。')
+            self._capture_seed_error()
             restored = self.orch.stop_and_restore()
         except Exception as error:
             self._automatic_stop_failed = True
             self.timer.start()
             QMessageBox.warning(self, "恢复未完成", str(error))
             return
+        finally:
+            self._stopping = False
+        # stop_and_restore drains trailing rows that may not have reached Qt.
+        self._capture_seed_error(final=True)
         session_results = list(self.orch.results)
         self._accept_results(session_results)
         preserved = getattr(getattr(self.orch, "files", None), "preserved", [])
@@ -1231,8 +1291,8 @@ class SeedGenPage(QWidget):
                 "demo-unavailable": "当前游戏模式不支持新建战役",
                 "banners-unavailable": "游戏未提供可用旗帜，请检查游戏文件",
                 "settings-mismatch": "游戏开局设置与软件不一致，已阻止继续刷种子",
-                "start-failed": "自动开局失败，请停止并恢复后查看营地诊断",
-                "generation-failed": "生成脚本出错，请停止并恢复后查看营地诊断",
+                "start-failed": "自动开局失败，请停止并恢复，详情见错误报告",
+                "generation-failed": "生成脚本出错，请停止并恢复，详情见错误报告",
             }.get(code, "自动开局失败，请停止并恢复后查看营地诊断")
             self.progress_label.setText(message)
             self.progress_label.setToolTip(startup.detail)
@@ -1250,6 +1310,13 @@ class SeedGenPage(QWidget):
             self.progress_label.setText("生成器已加载 · 等待游戏主菜单准备就绪后自动开始")
         elif elapsed >= 45:
             self.progress_label.setText("尚未读到本次日志 · 游戏仍加载时请等待；已开始刷种子可在「日志」选择目录")
+        self._capture_seed_error()
+        if (not self._error_reported and startup.stage == 'waiting' and elapsed >= 5
+                and elapsed - self._startup_report_probe_elapsed >= 10):
+            # Compile errors can happen before the generator prints its marker,
+            # leaving the game in the menu. Probe only while awaiting startup.
+            self._startup_report_probe_elapsed = elapsed
+            self._capture_seed_error(final=True)
         if results:
             self._accept_results(results)
         if results:

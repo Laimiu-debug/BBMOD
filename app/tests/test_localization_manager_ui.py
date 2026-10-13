@@ -148,6 +148,30 @@ def test_manually_installed_own_package_does_not_require_regeneration(app, conte
     assert not page.backend.registry.exists() and installed.is_file()
 
 
+def test_mod_chinese_labels_are_displayed_separately_from_active_game_translation(app, context):
+    installed = own_package(context.game.data_dir / 'mod_bbmod_zhcn.zip', version='0.3.2')
+    auxiliaries = {
+        'mod_msu-1.9.0(汉化版).zip': 'ui/mods/msu/settings.js',
+        '显示营地红装信息中文.zip': 'scripts/!mods_preload/Lair_Info_Compilation.nut',
+        '狐狸汉化专用_cn_显星不带评价.zip': 'scripts/!mods_preload/mod_sr_alternative_standard.nut',
+    }
+    for name, entry in auxiliaries.items():
+        with zipfile.ZipFile(context.game.data_dir / name, 'w') as archive:
+            archive.writestr(entry, 'fixture')
+    page = LocalizationManager(context, lambda: None)
+    assert page.current_name.text() == 'BBMOD 独立汉化 0.3.2 · 已启用'
+    assert not page._mixed and len(page._active) == 1
+    assert '同时检测到' not in page.summary.text()
+    assert '另有 3 个' in page.summary.text()
+    assert page.table.rowCount() == 4 and page.table.columnCount() == 4
+    scopes = {page.table.item(i, 1).text(): page.table.item(i, 2).text()
+              for i in range(page.table.rowCount())}
+    assert scopes[installed.name] == '游戏本体汉化'
+    assert all(scopes[name] == 'MOD 汉化 / 待确认' for name in auxiliaries)
+    page.choice.setCurrentIndex(page.choice.findData(NONE))
+    assert page.plan.disable == [installed.name]
+
+
 def test_opening_advanced_making_tools_does_not_build_or_replace_active_package(app, context):
     from ui.l10n_page import L10nPage
     installed = own_package(context.game.data_dir / 'mod_bbmod_zhcn.zip')

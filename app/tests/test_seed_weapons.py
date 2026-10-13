@@ -8,6 +8,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 
+from core.item_inspector import catalog
 from core.paths import resource_path
 from core import game as game_mod
 from core.seedgen.config_emitter import CommonConfig, SeedGenConfig, render_lair_row, write_configs
@@ -16,6 +17,15 @@ from core.seedgen.presentation import format_seed
 from core.seedgen.weapons import NAMED_WEAPONS, WEAPON_CHOICES, weapon_condition
 from core.settings import Settings
 from ui.seedgen_page import SeedGenPage
+
+
+def test_weapon_names_share_the_reviewed_equipment_catalog():
+    items = catalog()
+    assert NAMED_WEAPONS == {identifier: item['zh'] for identifier, item in items.items()
+                             if item['kind'] == 'weapon'}
+    assert len(NAMED_WEAPONS) == 50
+    assert NAMED_WEAPONS['weapon.named_greatsword'] == '巨剑'
+    assert WEAPON_CHOICES['weapon'] == '任意武器'
 
 
 def test_weapon_catalog_matches_the_actual_game_scripts():
@@ -28,7 +38,7 @@ def test_weapon_catalog_matches_the_actual_game_scripts():
         if match:
             actual.add(match[1])
     assert set(NAMED_WEAPONS) == actual
-    assert len(NAMED_WEAPONS) == len(set(NAMED_WEAPONS.values())) == 50
+    assert len(NAMED_WEAPONS) == 50
 
 
 @pytest.mark.parametrize('args', [
@@ -141,6 +151,8 @@ def test_ui_selection_reaches_all_red_loot_modes_and_survives_reopen(tmp_path):
     page.rule_mode.setCurrentIndex(page.rule_mode.findData('traits'))  # Empty inactive trait rule must not block loot.
     assert not page.filter_tabs.isTabEnabled(0) and not page.filter_tabs.isTabEnabled(1)
     filt = page.weapon_filter
+    for identifier, label in NAMED_WEAPONS.items():
+        assert filt.weapon.itemText(filt.weapon.findData(identifier)) == label
     filt.kind.setFocus()
     QTest.keyClick(filt.kind, Qt.Key_Down)
     assert filt.kind.currentData() == 'weapon' and filt.stack.currentIndex() == 1
@@ -190,10 +202,10 @@ def test_result_names_and_affix_rolls_are_kept_separate_from_final_weapon_stats(
         'ItemInfo(OneHanded): weapon.unknown MinDamage:30',
     ])
     text = format_seed(seed)
-    assert '红标枪：伤害品质 75%；穿甲品质 100%' in text
+    assert NAMED_WEAPONS['weapon.named_javelin'] + '（红装）：伤害品质 75%；穿甲品质 100%' in text
     assert '最低伤害 40' in text and '无视护甲比例 45%' in text
-    assert '红甲：' in text and '护甲 250' in text
-    assert '单手红武：最低伤害 30' in text
+    assert '护甲（红装）：' in text and '护甲 250' in text
+    assert '单手武器（红装）：最低伤害 30' in text
 
 
 def test_seed_launch_uses_normal_desktop_path_and_keeps_copy_guard(tmp_path):
@@ -223,20 +235,21 @@ def test_actual_main_loop_loot_only_ignores_map_and_character_filters(tmp_path):
     if not sq.is_file():
         pytest.skip('Offline Squirrel interpreter unavailable')
     source = r'''
-::Time <- {setVirtualTime=function(n){},getExactTime=function(){return 0.0;}};
+::Time <- {clearEvents=function(){},setVirtualTime=function(n){},getExactTime=function(){return 0.0;}};
 ::Math <- {seedRandomString=function(s){},rand=function(a,b){return a;}};
 ::outputs <- 0; ::aligned <- 0; ::named <- 0;
 ::logInfo <- function(s) {};
 ::SeedGenerator <- {LowestScore=0,Attr={},AttrNum=0,Role={},RoleName=["Melee"],RoleNum=1,
 BroOutput={},BroOutputConditionArray=[],MaxRoleArray={},BroSortEntry={},BroScoreEntry={},BroSortEntryNum=0,BroEntryNum=0,
-LoopPrintInterval=10000,DebugConfig={DebugMode=false},EndlessLoopFlag=false,
+LoopPrintInterval=10000,DebugConfig={DebugMode=false},EndlessLoopFlag=false,lair_info_list=[],
 CommonConfig={GenerateSettlementMode=true,GenerateBrotherMode=false,PrintLairInfo=true,
 PrintLairNamedDetail=true,OnlyPrintMatchingLair=true,OnlyPrintMatchingSettlement=false,EnableLowercaseSeed=false},
 generateSettlement=function(seed,world){if(this.CurrentLoop==6) throw "finished"; return -1;},
 generateBrother=function(seed,world,align){assert(align);::aligned++;},
 generateLairInfo=function(){return this.CurrentLoop%2==0?0:-1;},
 printLairInfo=function(){::named++;},printSettlementInfo=function(){::outputs++;}};
-::World <- {Assets={getStash=function(){return {clear=function(){},resize=function(n){}};}},
+::World <- {getPlayerRoster=function(){return {clear=function(){}};},
+Assets={getStash=function(){return {clear=function(){},resize=function(n){}};}},
 clearScene=function(){},EntityManager={clear=function(){}},FactionManager={clear=function(){},runSimulation=function(){}}};
 ::world <- {setAutoPause=function(n){},setPause=function(n){},Time=::Time,Math=::Math,World=::World,logInfo=::logInfo,
 m={IsRunningUpdatesWhilePaused=false,CampaignSettings={Seed="AAAAAAAAAA",StartingScenario={getID=function(){return "scenario.cultists";},onSpawnPlayer=function(){}}}}};

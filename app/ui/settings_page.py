@@ -35,13 +35,13 @@ class SettingsPage(QWidget):
         crash_box = QGroupBox('游戏错误报告')
         crash_layout = QVBoxLayout(crash_box)
         from core.crash_reports import AUTO_UPLOAD_KEY
-        self.auto_crash_upload = QCheckBox('自动上传疑似闪退报告')
+        self.auto_crash_upload = QCheckBox('自动上传游戏和种子搜索错误报告')
         self.auto_crash_upload.setObjectName('autoCrashUpload')
         self.auto_crash_upload.setChecked(settings.get(AUTO_UPLOAD_KEY, False) is True)
         self.auto_crash_upload.toggled.connect(self._save_crash_upload)
         crash_layout.addWidget(self.auto_crash_upload)
-        self.crash_hint = QLabel('默认关闭。从 BBMOD 启动并保持管理器运行，检测到疑似异常退出时保存日志。'
-                                '开启后会自动将脱敏日志、MOD 清单及版本发送到官网，仅管理员可见，不上传存档。'
+        self.crash_hint = QLabel('自动上传默认关闭。从 BBMOD 启动并保持管理器运行，游戏疑似异常退出或种子搜索报错时保存日志。'
+                                '开启后会将脱敏日志、运行环境及版本发送到官网；种子报告还包含搜索条件和进度。仅管理员可见，不上传存档。'
                                 '断网保留报告，最多尝试 3 次；关闭后停止后续自动提交，已发送的请求无法撤回。')
         self.crash_hint.setWordWrap(True)
         crash_layout.addWidget(self.crash_hint)

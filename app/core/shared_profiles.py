@@ -243,8 +243,8 @@ def _local_state(manager):
     return state
 
 
-def preview_apply(manager, manifest):
-    manifest = validate_manifest(manifest)
+def preview_apply(manager, manifest, *, allow_empty=False):
+    manifest = validate_manifest(manifest, allow_empty=allow_empty)
     if manager.transaction.journal.exists():
         raise ValueError('请先恢复上次 MOD 操作。')
     state = _local_state(manager)
@@ -254,7 +254,7 @@ def preview_apply(manager, manifest):
     download = [m['file_name'] for m in manifest['mods'] if m['sha256'] not in hashes]
     change = [m['file_name'] for m in manifest['mods'] if m['file_name'].casefold() not in active
               or state[str(active[m['file_name'].casefold()].path.relative_to(manager.root))] != m['sha256']]
-    return {'state': state, 'fingerprint': manifest_key(manifest), 'download': download, 'change': change,
+    return {'state': state, 'fingerprint': manifest_key(manifest, allow_empty=allow_empty), 'download': download, 'change': change,
             'disable': sorted(m.path.name for key, m in active.items() if key not in desired)}
 
 
@@ -264,12 +264,15 @@ def _download(origin, identity, item, destination):
                       destination, size=item['size'], sha256=item['sha256'])
 
 
-def apply_shared(manager, origin, identity, manifest, *, expected, progress=lambda _: None):
+def apply_shared(manager, origin, identity, manifest, *, expected, progress=lambda _: None,
+                 allow_empty=False, verify=None, download=None, extra_changes=None, save_share=False):
     identity = profile_identity(identity, origin)
-    manifest = validate_manifest(manifest)
-    if preview_apply(manager, manifest) != expected:
+    manifest = validate_manifest(manifest, allow_empty=allow_empty)
+    verify = verify or (lambda: fetch_profile(origin, identity))
+    download = download or (lambda item, destination: _download(origin, identity, item, destination))
+    if preview_apply(manager, manifest, allow_empty=allow_empty) != expected:
         raise ValueError('本机 MOD 或方案已改变，请重新预览。')
-    if fetch_profile(origin, identity) != manifest:
+    if verify() != manifest:
         raise ValueError('共享方案已改变，请重新预览。')
     with tempfile.TemporaryDirectory(prefix='bbmod-profile-') as temporary:
         staging, packages, infos = Path(temporary), {}, []
@@ -284,7 +287,7 @@ def apply_shared(manager, origin, identity, manifest, *, expected, progress=lamb
                     shutil.copyfile(local[sha], destination)
                 else:
                     progress('下载缺失 MOD：' + item['file_name'])
-                    _download(origin, identity, item, destination)
+                    download(item, destination)
                 with destination.open('rb') as source:
                     checked = inspect_archive(source, max_bytes=MAX_MOD_BYTES)
                 if checked['sha256'] != sha or checked['size'] != item['size']:
@@ -294,10 +297,11 @@ def apply_shared(manager, origin, identity, manifest, *, expected, progress=lamb
             info.file_name = item['file_name']
             infos.append(info)
         warnings = _check_combination(infos)
-        if preview_apply(manager, manifest) != expected:
+        if preview_apply(manager, manifest, allow_empty=allow_empty) != expected:
             raise ValueError('下载期间本机文件已改变，尚未应用，请重新预览。')
         # Recheck delisting after downloads, including when all files were local.
-        fetch_profile(origin, identity)
+        if verify() != manifest:
+            raise ValueError('共享清单已改变，请重新预览。')
         from .game import is_game_running
         if is_game_running():
             raise ValueError('游戏已启动，请关闭游戏后重新应用方案。')
@@ -316,18 +320,19 @@ def apply_shared(manager, origin, identity, manifest, *, expected, progress=lamb
             target = existing.path if existing else manager.data / item['file_name']
             changes[target] = packages[item['sha256']]
         profiles = manager.load_profiles()
+        id_field = 'shared_save_id' if save_share else 'shared_id'
         name = next((name for name, profile in profiles.items()
-                     if profile.get('shared_id') == identity and same_site(profile.get('shared_origin'), site_origin(origin))),
+                     if profile.get(id_field) == identity and same_site(profile.get('shared_origin'), site_origin(origin))),
                     manifest['name'])
         serial = 2
-        while name in profiles and (profiles[name].get('shared_id') != identity
+        while name in profiles and (profiles[name].get(id_field) != identity
                 or not same_site(profiles[name].get('shared_origin'), site_origin(origin))):
             name = f"{manifest['name']}（共享 {serial}）"
             serial += 1
         from datetime import datetime
         profiles[name] = {**profiles.get(name, {}), 'enabled': sorted(path.name for path, source in changes.items()
                                           if path.parent == manager.data and source is not None),
-                          'saved_at': datetime.now().isoformat(timespec='seconds'), 'shared_id': identity,
+                          'saved_at': datetime.now().isoformat(timespec='seconds'), id_field: identity,
                           'shared_origin': site_origin(origin)}
         profile_file = staging / 'profiles.json'
         atomic_json(profile_file, profiles)
@@ -342,6 +347,8 @@ def apply_shared(manager, origin, identity, manifest, *, expected, progress=lamb
             receipt_file = staging / 'online-catalog.json'
             atomic_json(receipt_file, receipt)
             changes[installer.state_path] = receipt_file
+        if extra_changes:
+            changes.update(extra_changes)
         progress('所有文件已校验，正在应用整套方案…')
         backup = manager._apply(changes, validate=True, keep_backups=True)
         manager._audit('shared-profile-apply', manager._profiles_path(), manager.data)

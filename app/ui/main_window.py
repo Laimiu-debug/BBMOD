@@ -15,6 +15,7 @@ from .dashboard_page import DashboardPage
 from .l10n_page import L10nPage
 from .mods_page import ModsPage
 from .profiles_page import ProfilesPage
+from .saves_page import SavesPage
 from .seedgen_page import SeedGenPage
 from .settings_page import SettingsPage
 from .feedback_page import FeedbackPage
@@ -33,8 +34,9 @@ PAGES = [
     ('shield', '装备百科', 'EQUIPMENT CODEX', '查阅装备属性与红装范围；装备鉴定可对照游戏中实际获得的红装。'),
     ('book', '反馈与建议', 'FEEDBACK', '把问题和想法直接送达 BBMOD 管理后台。'),
     ('book', '方案管理', 'MOD PROFILES', '整理本地 MOD 组合，直接浏览并应用网站共享方案。'),
+    ('save', '存档分享', 'SHARED CAMPAIGNS', '把战役连同配套 MOD 分享，继续兄弟的远征。'),
 ]
-NAV_ORDER = (0, 1, 7, 2, 3, 5, 6, 4)
+NAV_ORDER = (0, 1, 7, 8, 2, 3, 5, 6, 4)
 
 
 def apply_dark_palette(app) -> None:
@@ -185,6 +187,8 @@ class MainWindow(QMainWindow):
         self.mods.choose_game_requested.connect(self.pick_game_dir)
         self.profiles = ProfilesPage(self.ctx, self.mods)
         self.profiles.choose_game_requested.connect(self.pick_game_dir)
+        self.saves = SavesPage(self.ctx, self.mods)
+        self.saves.choose_game_requested.connect(self.pick_game_dir)
         self.mods.profiles_requested.connect(self.browse_profiles)
         self.l10n = L10nPage(self.ctx)
         self.seedgen = SeedGenPage(self.ctx)
@@ -197,6 +201,7 @@ class MainWindow(QMainWindow):
         self.dashboard.support_requested.connect(self.preview_support)
         from .crash_reports import CrashReports
         self.crash_reports = CrashReports(self.ctx, self, automatic=auto_updates)
+        self.seedgen.error_report_ready.connect(self.crash_reports.collect_seed)
         self.crash_reports.changed.connect(self._crash_reports_changed)
         self.settings_page.crash_reports_requested.connect(self.show_crash_reports)
         self.settings_page.crash_upload_changed.connect(self.crash_reports.pump)
@@ -206,7 +211,7 @@ class MainWindow(QMainWindow):
         self.dashboard.localization.connect(lambda: self.select_page(2))
         self.dashboard.browse_mods.connect(self.browse_mods)
         self.page_scrolls = []
-        for page in (self.dashboard, self.mods, self.l10n, self.seedgen, self.settings_page, self.inspector, self.feedback, self.profiles):
+        for page in (self.dashboard, self.mods, self.l10n, self.seedgen, self.settings_page, self.inspector, self.feedback, self.profiles, self.saves):
             page.layout().setContentsMargins(0, 0, 0, 0)
             page.layout().setSizeConstraint(QLayout.SetMinimumSize)
             scroll = QScrollArea()
@@ -217,7 +222,7 @@ class MainWindow(QMainWindow):
             self.page_scrolls.append(scroll)
             self.tabs.addWidget(scroll)
         content.addWidget(self.tabs, 1)
-        footnote = QLabel('BBMOD  ·  本地管理工具                         Alt + 1–8 切换页面')
+        footnote = QLabel('BBMOD  ·  本地管理工具                         Alt + 1–9 切换页面')
         footnote.setObjectName('mainFooter')
         content.addWidget(footnote)
         shell.addWidget(workspace, 1)
@@ -284,6 +289,9 @@ class MainWindow(QMainWindow):
             elif kind == 'profiles':
                 self.select_page(7)
                 self.profiles.sharing.import_link(identity, origin=SITE_ORIGIN)
+            elif kind == 'saves':
+                self.select_page(8)
+                self.saves.import_link(identity, origin=SITE_ORIGIN)
             else:
                 if getattr(self, '_seed_import_worker', None) and self._seed_import_worker.isRunning():
                     raise ValueError('正在导入种子，请稍后重试。')
@@ -458,6 +466,8 @@ class MainWindow(QMainWindow):
             self.mods.check_catalog()
         elif index == 7:
             self.profiles.refresh()
+        elif index == 8:
+            self.saves.refresh()
 
     def pick_game_dir(self) -> None:
         if self.ctx.management_busy:

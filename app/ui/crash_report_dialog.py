@@ -20,7 +20,7 @@ class CrashReportDialog(QDialog):
         self.setWindowTitle('已保存的错误报告')
         self.resize(850, 730)
         layout = QVBoxLayout(self)
-        hint = QLabel('疑似异常退出的日志已保存在本机。提交内容仅管理员可见，存档不会上传。\n'
+        hint = QLabel('游戏异常退出和种子搜索错误的日志保存在本机。提交内容仅管理员可见，存档不会上传。\n'
                       '首次提交前可修改报告和补充说明；已尝试发送的报告保持原内容，以便重复请求使用同一回执。')
         hint.setWordWrap(True)
         layout.addWidget(hint)
@@ -56,6 +56,9 @@ class CrashReportDialog(QDialog):
         self.details.setAcceptRichText(False)
         self.details.setMaximumHeight(90)
         layout.addWidget(self.details)
+        self.retry_capture_button = QPushButton('重试保存种子错误报告')
+        self.retry_capture_button.clicked.connect(service.retry_seed_captures)
+        layout.addWidget(self.retry_capture_button)
         actions = QHBoxLayout()
         self.open_button = QPushButton('打开本地日志目录')
         self.open_button.clicked.connect(self.open_folder)
@@ -68,8 +71,23 @@ class CrashReportDialog(QDialog):
         for button in (self.open_button, self.delete_button, self.send_button, close):
             actions.addWidget(button)
         layout.addLayout(actions)
-        service.changed.connect(self.update_status)
+        service.changed.connect(self.reports_changed)
         self.refresh()
+
+    def reports_changed(self):
+        identities = [item['id'] for item in self.service.store.records()]
+        shown = [self.listing.item(index).data(Qt.UserRole) for index in range(self.listing.count())]
+        if identities != shown:
+            selected = self.identity
+            previous = next((item for item in self.service.store.records() if item['id'] == selected), None)
+            editable = previous and not previous['posted'] and previous['state'] != 'sent'
+            draft = (self.editor.toPlainText(), self.details.toPlainText()) if editable else None
+            self.refresh()
+            if draft and self.identity == selected:
+                self.editor.setPlainText(draft[0])
+                self.details.setPlainText(draft[1])
+        else:
+            self.update_status()
 
     def refresh(self):
         selected = self.identity
@@ -102,17 +120,24 @@ class CrashReportDialog(QDialog):
             self.refresh()
             return
         busy = self.service.reply is not None or self.service.worker is not None
+        self.retry_capture_button.setVisible(bool(self.service._seed_failed))
+        self.retry_capture_button.setEnabled(not busy)
         self.send_button.setEnabled(bool(record and record['state'] != 'sent') and not busy)
         self.delete_button.setEnabled(bool(record) and not busy)
         self.open_button.setEnabled(bool(record))
         self.suspects.setVisible(bool(record))
+        seed_report = bool(record and record.get('source') == 'seedgen')
+        self.restore_button.setVisible(not seed_report)
+        self.bisect_button.setVisible(not seed_report)
         if record:
-            self.suspects.setText(describe(record['suspects']) if 'suspects' in record
-                                  else '这份报告保存于旧版本，未包含可疑 MOD 推断。')
+            self.suspects.setText('本次种子搜索的设置、进度和临时脚本环境已写入报告。' if seed_report else
+                                 (describe(record['suspects']) if 'suspects' in record
+                                  else '这份报告保存于旧版本，未包含可疑 MOD 推断。'))
         readonly = not record or busy or record['posted'] or record['state'] == 'sent'
         self.editor.setReadOnly(readonly)
         self.details.setReadOnly(readonly)
-        self.message.setText(self.service.status if busy else (record['message'] if record else '暂无已保存的错误报告。'))
+        self.message.setText(self.service.status if busy or self.service._seed_failed else
+                             (record['message'] if record else '暂无已保存的错误报告。'))
         self.send_button.setText('核对后重新提交' if record and record['state'] == 'review' else '提交 / 重试')
         for index in range(self.listing.count()):
             item = self.listing.item(index)
@@ -150,6 +175,7 @@ class CrashReportDialog(QDialog):
                 self.service.store.delete(self.identity)
                 self.refresh()
                 self.service.changed.emit()
+                self.service.retry_seed_captures()
             except OSError as exc:
                 self.message.setText('删除失败：' + str(exc))
 

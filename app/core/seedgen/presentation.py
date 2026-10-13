@@ -14,8 +14,8 @@ FORMATS = {"种子档案（含详情）": "detail", "弹幕模式（一行一条
 OPENERS = ["自动开场白", "卡大货了？", "缺大哥？", "跑商发愁？", "想找红装？", "不加开场白"]
 ROLES = {"Melee": "近战", "Range": "远程", "Guard": "盾卫", "Throw": "投掷",
          "Leader": "队长", "Duel": "决斗", "Polearm": "长柄", "Initiative": "先攻", "Useless": "待分配"}
-ITEMS = {"Armor": "红甲", "Helmet": "红盔", "Shield": "红盾", "OneHanded": "单手红武",
-         "TwoHanded": "双手红武", "RangedWeapon": "远程红武"}
+ITEMS = {"Armor": "护甲", "Helmet": "头盔", "Shield": "盾牌", "OneHanded": "单手武器",
+         "TwoHanded": "双手武器", "RangedWeapon": "远程武器"}
 BUILDINGS = {"Build": "建筑总数", "Armorsmith": "铠甲匠", "Weaponsmith": "武器匠",
     "Fletcher": "弓弩匠", "Barber": "理发店", "Kennel": "犬舍", "Tavern": "酒馆",
     "Taxidermist": "标本匠", "Temple": "神殿", "Traininghall": "训练场"}
@@ -157,8 +157,8 @@ def world_details(result: SeedResult) -> list[str]:
                 quality = [f"{NAMED_ATTR_LABELS[key]}品质 {value}%"
                            for key, value in re.findall(r"(\w+):([\d.]+)%", rolls or '')
                            if key in NAMED_ATTR_LABELS]
-                title = NAMED_WEAPONS.get(item_id, ITEMS.get(kind, '红装'))
-                sections.append(f"{title}：" + ("；".join(quality + values) or "未记录属性"))
+                title = NAMED_WEAPONS.get(item_id, ITEMS.get(kind, '装备'))
+                sections.append(f"{title}（红装）：" + ("；".join(quality + values) or "未记录属性"))
     return sections
 
 

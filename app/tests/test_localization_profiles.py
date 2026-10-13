@@ -13,7 +13,7 @@ from core.localization_profiles import BUILTIN, CURRENT, NONE, GUARD, Localizati
 def package(path, entries=None, *, own=False):
     path.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(path, 'w') as archive:
-        for name, value in (entries or {'scripts/items/example.cnut': 'example'}).items():
+        for name, value in (entries or {'ui/main.html': 'example'}).items():
             archive.writestr(name, value)
         if own:
             archive.writestr(l10n.BRAND_META, json.dumps({'package_id': l10n.PACKAGE_ID, 'requires_bbmod_launcher': True}))
@@ -298,6 +298,76 @@ def test_conflicting_localizations_and_pending_journal_block_launch(setup):
     with patch('core.game.launch_executable') as launch, pytest.raises(RuntimeError, match='多套汉化'):
         manager.launch(game, tmp)
     launch.assert_not_called()
+
+
+@pytest.mark.parametrize(('name', 'entries'), [
+    ('mod_msu-1.9.0(汉化版).zip', {'msu/systems/settings.nut': 'fixture',
+                                 'scripts/!mods_preload/mod_msu.nut': 'fixture',
+                                 'ui/mods/msu/settings.js': 'fixture'}),
+    ('显示营地红装信息中文.zip', {'scripts/!mods_preload/Lair_Info_Compilation.nut': 'fixture'}),
+    ('狐狸汉化专用_cn_显星不带评价.zip', {'scripts/!mods_preload/mod_sr_alternative_standard.nut': 'fixture',
+                          'ui/screens/world/modules/world_town_screen/world_town_screen_hire_dialog_module.js': 'fixture'}),
+    ('chinese_font.zip', {'gfx/fonts/chinese.ttf': 'fixture'}),
+])
+def test_mod_chinese_labels_do_not_block_launch_or_get_automatically_disabled(setup, name, entries):
+    manager, tmp = setup
+    own = package(manager.data / 'ours.zip', {l10n.BRAND_META: json.dumps({'package_id': l10n.PACKAGE_ID})})
+    auxiliary = package(manager.data / name, entries)
+    before = auxiliary.read_bytes()
+    item = next(item for item in manager.inventory() if item['name'] == name)
+    assert item['name_hint'] and not item['candidate']
+    assert manager.plan(NONE).disable == [own.name]
+    game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
+    with patch('core.game.launch_executable', return_value={'mode': 'current'}) as launch:
+        assert manager.launch(game, tmp)['mode'] == 'current'
+        launch.assert_called_once_with(game)
+    manager.apply(manager.plan(NONE))
+    assert auxiliary.read_bytes() == before
+
+
+def test_saved_auxiliary_file_is_not_a_second_game_translation(setup):
+    manager, tmp = setup
+    package(manager.data / 'ours.zip', {l10n.BRAND_META: json.dumps({'package_id': l10n.PACKAGE_ID})})
+    font = package(manager.data / 'font.zip', {'gfx/fonts/chinese.ttf': 'fixture'})
+    manager.register('字体', [font])
+    game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
+    with patch('core.game.launch_executable') as launch:
+        manager.launch(game, tmp)
+        launch.assert_called_once_with(game)
+    # Explicitly saved scheme members still participate in an intentional switch.
+    assert font.name in manager.plan(NONE).disable
+
+
+def test_mod_translation_actual_file_overlap_still_blocks_launch(setup):
+    manager, tmp = setup
+    shared = 'ui/screens/world/modules/world_town_screen/world_town_screen_hire_dialog_module.js'
+    package(manager.data / 'ours.zip', {shared: 'fixture',
+            l10n.BRAND_META: json.dumps({'package_id': l10n.PACKAGE_ID})})
+    auxiliary = package(manager.data / '显星中文.zip', {shared: 'fixture'})
+    assert not next(item for item in manager.inventory() if item['name'] == auxiliary.name)['candidate']
+    game = SimpleNamespace(root=manager.root, exe=manager.root / 'win32/BattleBrothers.exe')
+    with patch('core.game.launch_executable') as launch, pytest.raises(RuntimeError, match='与独立汉化冲突'):
+        manager.launch(game, tmp)
+    launch.assert_not_called()
+    key = manager.register('独立汉化', [manager.data / 'ours.zip'], builtin=True)
+    assert manager.plan(key).conflicts == [auxiliary.name]
+
+
+def test_broad_game_translation_without_main_html_is_still_identified(setup):
+    manager, _ = setup
+    entries = {f'scripts/{domain}/example_{i}.cnut': 'fixture'
+               for domain in ('items', 'skills', 'events') for i in range(8)}
+    path = package(manager.data / '游戏中文.zip', entries)
+    assert next(item for item in manager.inventory() if item['name'] == path.name)['candidate']
+    assert manager.plan(NONE).disable == [path.name]
+
+
+def test_unreadable_named_package_is_not_automatically_treated_as_game_translation(setup):
+    manager, _ = setup
+    path = manager.data / 'unknown_chinese.zip'
+    path.write_bytes(b'not a valid ZIP')
+    assert not manager.inventory()[0]['candidate']
+    assert not manager.plan(NONE).changed
 
 
 def test_legacy_direct_launch_package_cannot_invoke_retired_native_loader(setup):

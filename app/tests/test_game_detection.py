@@ -2,6 +2,7 @@
 import os
 from pathlib import Path, PureWindowsPath
 import stat
+import struct
 from unittest.mock import Mock, patch
 
 import pytest
@@ -14,6 +15,50 @@ def make_game(root):
     (root / 'win32' / game.EXE_NAME).write_bytes(b'test fixture, not executable')
     (root / 'data').mkdir()
     return root
+
+
+def write_pe_imports(executable, dependencies, delayed=()):
+    """Small PE32 fixture with real import tables; never run this binary."""
+    content = bytearray(4096)
+    content[:2] = b'MZ'
+    struct.pack_into('<I', content, 0x3C, 0x80)
+    content[0x80:0x84] = b'PE\0\0'
+    struct.pack_into('<HHIIIHH', content, 0x84, 0x14C, 1, 0, 0, 0, 224, 0x102)
+    optional = 0x98
+    struct.pack_into('<H', content, optional, 0x10B)
+    struct.pack_into('<III', content, optional + 28, 0x400000, 0x1000, 0x200)
+    struct.pack_into('<II', content, optional + 56, 0x2000, 0x200)
+    struct.pack_into('<I', content, optional + 92, 16)
+    section = optional + 224
+    content[section:section + 8] = b'.rdata\0\0'
+    struct.pack_into('<IIII', content, section + 8, 0xE00, 0x1000, 0xE00, 0x200)
+    struct.pack_into('<I', content, section + 36, 0x40000040)
+    cursor = 0x200
+
+    def allocate(value):
+        nonlocal cursor
+        offset = cursor
+        content[offset:offset + len(value)] = value
+        cursor += len(value)
+        return offset, 0x1000 + offset - 0x200
+
+    for dlls, directory, width in ((dependencies, 1, 20), (delayed, 13, 32)):
+        if not dlls:
+            continue
+        table, table_rva = allocate(bytes(width * (len(dlls) + 1)))
+        struct.pack_into('<II', content, optional + 96 + directory * 8,
+                         table_rva, width * (len(dlls) + 1))
+        for index, dll in enumerate(dlls):
+            _, name_rva = allocate(dll.encode('ascii') + b'\0')
+            _, symbol_rva = allocate(b'\0\0FixtureFunction\0')
+            _, thunk_rva = allocate(struct.pack('<II', symbol_rva, 0))
+            if directory == 1:
+                struct.pack_into('<IIIII', content, table + width * index,
+                                 thunk_rva, 0, 0, name_rva, thunk_rva)
+            else:
+                struct.pack_into('<IIIIIIII', content, table + width * index,
+                                 1, name_rva, 0, thunk_rva, thunk_rva, 0, 0, 0)
+    executable.write_bytes(content)
 
 
 @pytest.fixture(autouse=True)
@@ -87,6 +132,56 @@ def test_valid_manual_path_is_preserved(tmp_path):
     detected = game.locate_game(str(root))
     assert detected.root == root and detected.version == game.SUPPORTED_VERSION
     game.find_steam_root.assert_not_called()
+
+
+@pytest.mark.parametrize(('dependencies', 'delayed', 'expected'), [
+    (['Galaxy.dll', 'KERNEL32.dll'], [], True),
+    ([], ['GALAXY.DLL'], True),
+    (['steam_api.dll'], [], False),
+    (['Galaxy.dll', 'Steam_API.dll'], [], False),
+    (['Galaxy.dll'], ['steam_api64.dll'], False),
+    (['KERNEL32.dll'], [], False),
+])
+def test_gog_detection_reads_real_normal_and_delay_imports(tmp_path, dependencies, delayed, expected):
+    executable = tmp_path / game.EXE_NAME
+    write_pe_imports(executable, dependencies, delayed)
+    assert game._is_gog_executable(executable) is expected
+
+
+@pytest.mark.parametrize('contents', [None, b'not a PE file'])
+def test_missing_or_invalid_exe_keeps_steam_guard(tmp_path, contents):
+    executable = tmp_path / game.EXE_NAME
+    if contents is not None:
+        executable.write_bytes(contents)
+    assert not game._is_gog_executable(executable)
+
+
+@pytest.mark.parametrize('mode', ['plain', 'localization', 'seed'])
+def test_gog_launch_with_another_steam_install_preserves_selected_game(tmp_path, monkeypatch, mode):
+    root = make_game(tmp_path / '独立游戏')
+    executable = root / 'win32' / game.EXE_NAME
+    write_pe_imports(executable, ['Galaxy.dll'])
+    selected = game.locate_game(str(root))
+    steam = tmp_path / 'steam'
+    (steam / 'steamapps/common' / game.GAME_DIRNAME).mkdir(parents=True)
+    (steam / f'steamapps/appmanifest_{game.APP_ID}.acf').write_text('"installdir" "Battle Brothers"')
+    # A leftover Steam DLL must not override what the EXE actually imports.
+    (executable.parent / 'steam_api.dll').write_bytes(b'unused fixture')
+    discovery = Mock(return_value=steam)
+    monkeypatch.setattr(game, 'find_steam_root', discovery)
+    before = {path: path.read_bytes() for path in root.rglob('*') if path.is_file()}
+    with patch.object(game.os, 'startfile', create=True) as start, \
+            patch.object(game, 'is_game_running', return_value=False):
+        if mode == 'localization':
+            from core.localization_profiles import LocalizationProfiles
+            assert LocalizationProfiles(root).launch(selected, tmp_path / 'runtime') == {'mode': 'current'}
+        elif mode == 'seed':
+            assert game.launch_game(selected, via_steam=False)
+        else:
+            assert game.launch_executable(selected) == {'mode': 'current'}
+        start.assert_called_once_with(str(executable), cwd=str(executable.parent))
+    discovery.assert_not_called()
+    assert all(path.read_bytes() == contents for path, contents in before.items())
 
 
 def test_custom_windows_manual_path_does_not_require_steam():
