@@ -25,13 +25,16 @@ from core.seedgen.orchestrator import SeedGenOrchestrator, StopLimits
 from core.seedgen.library import SeedLibrary
 from core.seedgen.protocol import seed_key, share_payload
 from core.seedgen.sharing import publish_seed, PUBLIC_SITE
-from core.seedgen.traits import trait_name, validate_traits
+from core.seedgen.traits import trait_label, validate_traits
+from core.seedgen.brother_rating import rating_rules
+from core.seedgen.stars import validate_star_filters
 from core.seedgen.presentation import (
     FORMATS, OPENERS, format_collection, format_seed, highlights, note_key, raw_record,
 )
 from .app_context import AppContext
 from .theme import style_button, style_table
 from .seed_trait_dialog import SeedTraitDialog
+from .seed_star_dialog import SeedStarDialog
 from .seed_weapon_filter import SeedWeaponFilter
 from .workers import Worker, track
 from .seed_share_worker import SeedShareWorker
@@ -133,6 +136,15 @@ class SeedGenPage(QWidget):
         self._log_directory = Path(folder) if isinstance(folder, str) and folder else None
         self.extra_attributes: dict[str, int] = {}
         self.required_traits, self.excluded_traits, self.trait_match = [], [], 'all'
+        self.star_min, self.star_max, self.star_ranges = 0, 24, {}
+        saved_stars = ctx.settings.get('seed_stars', {})
+        if isinstance(saved_stars, dict):
+            try:
+                low, high = saved_stars.get('minimum', 0), saved_stars.get('maximum', 24)
+                ranges = validate_star_filters(low, high, saved_stars.get('attributes', {}))
+                self.star_min, self.star_max, self.star_ranges = low, high, ranges
+            except ValueError:
+                pass
         saved_traits = ctx.settings.get('seed_traits', {})
         if isinstance(saved_traits, dict):
             try:
@@ -174,7 +186,7 @@ class SeedGenPage(QWidget):
         labeled_row(top, "起源", self.origin_combo, 1)
         help_button = QPushButton("评分说明")
         style_button(help_button, "book")
-        help_button.clicked.connect(lambda: QMessageBox.information(self, "评分与属性怎么算", SCORE_EXPLANATION))
+        help_button.clicked.connect(self._show_score_explanation)
         top.addWidget(help_button)
         filters.addLayout(top)
         self.origin_hint = QLabel()
@@ -190,7 +202,7 @@ class SeedGenPage(QWidget):
         bro_layout.setSpacing(4)
         rule_row = QHBoxLayout()
         self.rule_mode = QComboBox()
-        for label, key in (("属性与特质（推荐）", "attributes"), ("沿用起源预设", "preset"), ("高级评分", "score"), ("仅按特质筛选", "traits")):
+        for label, key in (("属性、星数与特质", "attributes"), ("沿用起源预设", "preset"), ("高级评分", "score"), ("仅按星数与特质", "traits")):
             self.rule_mode.addItem(label, key)
         rule_row.addWidget(self.rule_mode, 2)
         self.bro_count = spin(1, 27, 1)
@@ -234,9 +246,12 @@ class SeedGenPage(QWidget):
             self.bro_role.addItem(label, key)
         self.role_label = labeled_row(score_layout, "职业", self.bro_role)
         self.rule_stack.addWidget(score_page)
-        trait_only = QLabel('只筛选开局特质，不检查能力值。点击「特质筛选」设置必选或排除项。')
+        trait_only = QLabel('按总星数、星位或特质筛选，不检查能力值。可单独寻找9星兄弟。')
         trait_only.setWordWrap(True)
         self.rule_stack.addWidget(trait_only)
+        self.stars_btn = QPushButton('星数与星位…')
+        self.stars_btn.clicked.connect(self._edit_stars)
+        bro_layout.addWidget(self.stars_btn)
         self.attr_hint = QLabel("同一名兄弟须同时满足以上门槛 · 属性均为11级预估 · 不限项不参与筛选")
         self.attr_hint.setObjectName("muted")
         self.attr_hint.setWordWrap(True)
@@ -843,6 +858,17 @@ class SeedGenPage(QWidget):
         self.rule_stack.setCurrentIndex(index)
         self.more_btn.setVisible(index == 0)
         self.traits_btn.setVisible(index in (0, 3))
+        self.stars_btn.setVisible(index in (0, 3))
+        star_summary = []
+        if self.star_min == self.star_max:
+            star_summary.append(f'总计恰好{self.star_min}星')
+        elif self.star_min:
+            star_summary.append(f'总计至少{self.star_min}星')
+        for key, (low, high) in self.star_ranges.items():
+            star_summary.append(f'{ATTRIBUTES[key]}{"恰好" if low == high else "至少"}{low}星')
+        self.stars_btn.setText('星数与星位：' + ('；'.join(star_summary[:2]) +
+            (f'（另设{len(star_summary) - 2}项）' if len(star_summary) > 2 else '') if star_summary else '不限（可选9星、指定属性星位）'))
+        self.stars_btn.setToolTip('同一名兄弟须同时满足星数、星位、属性及特质。' + '；'.join(star_summary))
         selected = len(self.required_traits) + len(self.excluded_traits)
         self.traits_btn.setText(f'特质筛选（{selected}项）' if selected else '特质筛选…')
         team = index == 2 and self.bro_type_combo.currentData() == "TeamScore"
@@ -855,14 +881,14 @@ class SeedGenPage(QWidget):
             extra = f" · 另设{len(self.extra_attributes)}项（其他属性中查看）" if self.extra_attributes else ""
             text = "11级预估 · 同一名兄弟须满足所有门槛 · 不限项不参与筛选" + extra
         elif index == 1:
-            text = "原始起源预设可能较严格。想自己选条件，请切回「属性与特质」。"
+            text = "原始起源预设可能较严格。想自己选条件，请切回「属性、星数与特质」。"
         elif index == 2:
             text = "0.8 是综合潜力评分；可能超过1。这里按严格大于筛选，计算方法见「评分说明」。"
         else:
-            text = '只筛特质 · 同一名兄弟须满足特质组合 · 达到人数门槛才保留'
+            text = '只筛星数与特质 · 同一名兄弟须满足全部组合 · 达到人数门槛才保留'
         if index in (0, 3):
             def names(items):
-                return '、'.join(trait_name(key) for key in items[:3]) + (f'等{len(items)}项' if len(items) > 3 else '')
+                return '、'.join(trait_label(key) for key in items[:3]) + (f'等{len(items)}项' if len(items) > 3 else '')
             summary = []
             if self.required_traits:
                 summary.append(('全部具备：' if self.trait_match == 'all' else '任意具备：') + names(self.required_traits))
@@ -878,6 +904,28 @@ class SeedGenPage(QWidget):
             self.ctx.settings.set('seed_traits', {'required':self.required_traits,
                 'excluded':self.excluded_traits, 'match':self.trait_match})
             self._rule_changed()
+
+    def _edit_stars(self):
+        dialog = SeedStarDialog(self.star_min, self.star_max, self.star_ranges, self)
+        if dialog.exec() == QDialog.Accepted:
+            self.star_min, self.star_max, self.star_ranges = dialog.selection()
+            self.ctx.settings.set('seed_stars', {'minimum': self.star_min,
+                'maximum': self.star_max, 'attributes': self.star_ranges})
+            self._rule_changed()
+
+    def _show_score_explanation(self):
+        dialog = QDialog(self)
+        dialog.setWindowTitle('评分、属性与三国分档规则')
+        dialog.resize(720, 540)
+        layout = QVBoxLayout(dialog)
+        text = QTextEdit()
+        text.setReadOnly(True)
+        text.setPlainText(SCORE_EXPLANATION + '\n\n' + rating_rules())
+        layout.addWidget(text)
+        buttons = QDialogButtonBox(QDialogButtonBox.Close)
+        buttons.rejected.connect(dialog.reject)
+        layout.addWidget(buttons)
+        dialog.exec()
 
     def _save_map_filters(self, *_args) -> None:
         self.ctx.settings.set("seed_map_filters", {
@@ -1077,10 +1125,12 @@ class SeedGenPage(QWidget):
                 if self.rule_mode.currentData() == "attributes":
                     thresholds = {key: widget.value() for key, widget in self.attr_spins.items() if widget.value()}
                     thresholds.update(self.extra_attributes)
-                if self.rule_mode.currentData() == 'traits' and not (self.required_traits or self.excluded_traits):
-                    raise ValueError('请在「特质筛选」中选择至少一项必选或排除特质')
+                if self.rule_mode.currentData() == 'traits' and not (self.required_traits or self.excluded_traits
+                        or self.star_min or self.star_max != 24 or self.star_ranges):
+                    raise ValueError('请至少设置一项星数、星位或特质条件')
                 condition = brother_condition(self.bro_count.value(), thresholds,
-                    self.required_traits, self.excluded_traits, self.trait_match)
+                    self.required_traits, self.excluded_traits, self.trait_match,
+                    total_min=self.star_min, total_max=self.star_max, star_ranges=self.star_ranges)
             else:
                 condition = score_condition(self.bro_type_combo.currentData(), round(self.bro_score.value(), 2),
                                             self.bro_count.value(), self.bro_role.currentData())

@@ -6,7 +6,8 @@ import re
 
 from .config_emitter import ATTRIBUTES, ORIGIN_LABELS, DIFFICULTY_LABELS, BUDGET_LABELS
 from .log_watcher import SeedResult
-from .traits import trait_name
+from .traits import trait_label
+from .brother_rating import rate_brother
 from .weapons import NAMED_WEAPONS
 from .config_emitter import NAMED_ATTR_LABELS
 
@@ -76,6 +77,12 @@ def named_count(result: SeedResult) -> int | None:
     return total if total is not None else (len(result.named_items) if result.named_items else None)
 
 
+def star_description(brother: Brother) -> str:
+    positions = '、'.join(f'{ATTRIBUTES[key]}{value}星' for key, value in brother.stars.items() if value)
+    total = f'总计{sum(brother.stars.values())}星' if len(brother.stars) == len(ATTRIBUTES) else '星位记录不全'
+    return total + ('；' + positions if positions else '')
+
+
 def highlights(result: SeedResult) -> list[str]:
     facts = []
     ports = metric(result, "SettlementInfo:", "Port")
@@ -92,6 +99,13 @@ def highlights(result: SeedResult) -> list[str]:
         maximum = max((b.projected.get("MeleeSkill", -100) for b in people), default=-100)
         if maximum >= 0:
             facts.append(f"最高预估11级近战{maximum}")
+    nine_stars = sum(len(b.stars) == len(ATTRIBUTES) and sum(b.stars.values()) == 9 for b in people)
+    if nine_stars:
+        facts.append(f'{nine_stars}名9星兄弟')
+    rated = [(b, rating) for b in people if (rating := rate_brother(b)) is not None and rating.rank > 0]
+    if rated:
+        best, rating = max(rated, key=lambda item: item[1].rank)
+        facts.append(f'兄弟{best.index}：{rating.label}（11级潜力）')
     armor = metric(result, "NamedInfo:", "Armor")
     if armor is None and result.named_items:
         armor = sum("ItemInfo(Armor):" in item for item in result.named_items)
@@ -212,8 +226,14 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
             values = [f"{label} {brother.initial[key]}→{brother.projected[key]}（{brother.stars[key]}星）"
                       for key, label in ATTRIBUTES.items() if key in brother.projected]
             lines.append(f"兄弟{brother.index} · {brother.role}：" + "；".join(values))
+            lines.append('星位：' + star_description(brother))
+            rating = rate_brother(brother)
+            lines.append('三国评价：' + (f'{rating.label}（11级潜力）；依据：{rating.evidence}'
+                if rating is not None else '资料不足，暂不分档'))
             if brother.traits:
-                lines.append('特质：' + '、'.join(trait_name(key) for key in brother.traits))
+                lines.append('特质：' + '、'.join(trait_label(key) for key in brother.traits))
+        lines += ['评价说明：按最擅长方向分档，各档所有门槛均须满足；9星不直接决定档位。',
+                  '11级属性是分别每级提升该项的潜力预估，不能同时把全部属性点满；未计装备和额外加点特技。']
     lines.extend(world_details(result))
     return "\n".join(lines)
 

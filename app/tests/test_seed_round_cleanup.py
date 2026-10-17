@@ -16,6 +16,8 @@ seterrorhandler(function(error) {});
 ::require <- function(ok, message) { if (!ok) throw message; };
 ::include <- function(path) {};
 ::SeedGenerator <- {};
+::Const <- { Attributes = { Hitpoints=0, Bravery=1, Fatigue=2, Initiative=3,
+    MeleeSkill=4, RangedSkill=5, MeleeDefense=6, RangedDefense=7 } };
 dofile("seed_generator/define_common.nut");
 dofile("seed_generator/define_role.nut");
 dofile("seed_generator/function_brother_output_check.nut");
@@ -96,7 +98,9 @@ S.World <- ::World;
 S.generateBrother = function(seed, state, forceNative = false) {
     if (forceNative) return ::nativeGenerateBrother.call(this, seed, state, true);
     // Fast search uses value records; only the native alignment path owns actors.
-    return [{ Traits = [] }, { Traits = [] }, { Traits = [] }];
+    return [{ Traits = [], Talents = [0,0,3,0,3,0,3,0] },
+        { Traits = [], Talents = [0,0,3,0,3,0,3,0] },
+        { Traits = [], Talents = [0,0,3,0,3,0,3,0] }];
 };
 S.getBroScoreFast <- function(brother) {
     return [array(8, 50), array(8, 80), array(9, 0.8)];
@@ -109,6 +113,10 @@ S.generateLairInfo <- function() {
 S.printBroInfo <- function(roster, roles, average, count, brothers, entries) {
     ::require(count == 3 && brothers.len() == 3 && entries.len() == 3,
         "brother results cleared before output");
+    local stars = entries[0][this.BroScoreEntry.Stars];
+    ::require(stars[this.Attr.Stamina] == 3 && stars[this.Attr.MeleeSkill] == 3
+        && stars[this.Attr.MeleeDefense] == 3 && stars[this.Attr.Initiative] == 0,
+        "star positions changed between generation and output");
     ::brotherResults++;
 };
 S.printLairInfo <- function() {

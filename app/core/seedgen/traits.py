@@ -14,6 +14,14 @@ ORIGIN_TRAITS = {
     "trait.cultist_chosen": "达夫库尔选民", "trait.cultist_prophet": "达夫库尔先知",
 }
 
+# Familiar names from other Chinese translations remain searchable.
+TRAIT_ALIASES = {"trait.determined": ("毅然",), "trait.huge": ("巨人",)}
+
+
+def trait_label(trait_id: str) -> str:
+    aliases = TRAIT_ALIASES.get(trait_id, ())
+    return trait_name(trait_id) + (f"（{'、'.join(aliases)}）" if aliases else "")
+
 @dataclass(frozen=True)
 class Trait:
     id: str

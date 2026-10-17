@@ -11,8 +11,10 @@ sys.path.insert(0, str(ROOT))
 os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 from PySide6.QtWidgets import QApplication, QDialogButtonBox
 from core.settings import Settings
+from core.seedgen.log_watcher import SeedResult
 from ui.seedgen_page import SeedGenPage
 from ui.seed_trait_dialog import SeedTraitDialog
+from ui.seed_star_dialog import SeedStarDialog
 from ui.theme import apply_theme
 
 def main():
@@ -42,12 +44,38 @@ def main():
         okay = dialog.buttons.button(QDialogButtonBox.Ok)
         assert dialog.rect().contains(okay.mapTo(dialog, okay.rect().bottomRight()))
         assert dialog.grab().save(str(output/'traits.png'))
-        report = {'game_started':False,'filters':[page.width(),page.height()],
+        dialog.search.setText('毅然')
+        app.processEvents()
+        assert dialog.grab().save(str(output/'determined.png'))
+        stars = SeedStarDialog(9, 9, {'MeleeSkill': (3,3), 'MeleeDefense': (3,3), 'Stamina': (3,3)})
+        stars.show()
+        app.processEvents()
+        assert stars.selection() == (9, 9, {'Stamina': (3,3), 'MeleeSkill': (3,3), 'MeleeDefense': (3,3)})
+        assert stars.rect().contains(stars.buttons.mapTo(stars, stars.buttons.rect().bottomRight()))
+        assert stars.grab().save(str(output/'stars.png'))
+        # A labelled fixture verifies the result text, not a generated game seed.
+        sample = SeedResult('UI_FIXTURE', 1, origin='scenario.militia', done=True, lines=[
+            'CharInfo: 0 Melee:0.9 Hitpoints:60(95)0 Bravery:40(55)0 Stamina:80(115)3 '
+            'MeleeSkill:60(95)3 RangedSkill:40(70)0 MeleeDefense:5(35)3 '
+            'RangedDefense:0(30)0 Initiative:100(140)0', 'Trait: trait.determined'])
+        page._accept_results([sample])
+        page.sections.setCurrentIndex(1)
+        page.format_combo.setCurrentIndex(page.format_combo.findData('detail'))
+        page.table.selectRow(0)
+        page.preview_btn.setChecked(True)
+        page.resize(1000, 850)
+        app.processEvents()
+        assert '关张档 · 猛将' in page.detail_label.toPlainText()
+        assert '总计9星' in page.detail_label.toPlainText()
+        assert page.grab().save(str(output/'rating-fixture.png'))
+        report = {'game_started':False,'filters':[840,590], 'result_preview':[page.width(),page.height()],
                   'dialog':[dialog.width(),dialog.height()],'traits':dialog.table.rowCount(),
-                  'controls_in_bounds':True}
+                  'stars_dialog':[stars.width(),stars.height()], 'controls_in_bounds':True,
+                  'fixture_rating':'关张档 · 猛将'}
         (output/'validation.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
         print(json.dumps(report))
         dialog.close()
+        stars.close()
         page.close()
 
 if __name__ == '__main__':

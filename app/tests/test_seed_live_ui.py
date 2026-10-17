@@ -7,6 +7,8 @@ from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox
 from core.settings import Settings
 from core.seedgen.log_watcher import Progress, SeedResult, StartupStatus
 from ui.seedgen_page import SeedGenPage
+from ui.seed_star_dialog import SeedStarDialog
+from ui.seed_trait_dialog import SeedTraitDialog
 
 
 @pytest.fixture(scope="module")
@@ -33,6 +35,53 @@ def fake_session():
     return SimpleNamespace(prepare=lambda cfg: [], launch=lambda: True, results=[],
         poll=lambda: ([], []), progress=Progress(500, 999), startup=StartupStatus("generating"),
         stop_and_restore=lambda: 2, stop_reason="", elapsed_seconds=75, log_path=None)
+
+
+def test_determined_can_be_found_and_selected_using_either_chinese_name(app):
+    dialog = SeedTraitDialog()
+    for text in ('毅然', '坚定', 'Determined'):
+        dialog.search.setText(text)
+        visible = [row for row in range(dialog.table.rowCount()) if not dialog.table.isRowHidden(row)]
+        assert any('坚定（毅然）' in dialog.table.item(row, 0).text() for row in visible)
+    dialog.choices['trait.determined'].setCurrentIndex(1)
+    assert dialog.selection()[0] == ['trait.determined']
+    dialog.close()
+
+
+def test_star_dialog_supports_exact_zero_and_catches_conflicting_totals(app):
+    dialog = SeedStarDialog()
+    dialog._nine()
+    for key in ('MeleeSkill', 'MeleeDefense', 'Stamina'):
+        dialog.choices[key].setCurrentIndex(6)  # Exactly three stars.
+    dialog.choices['RangedSkill'].setCurrentIndex(3)  # Exactly zero stars.
+    low, high, ranges = dialog.selection()
+    assert (low, high) == (9, 9) and ranges['RangedSkill'] == (0, 0)
+    dialog.total.setValue(8)
+    dialog._accept()
+    assert '矛盾' in dialog.error.text()
+    dialog.clear()
+    assert dialog.selection() == (0, 24, {})
+    dialog.close()
+
+
+def test_star_only_rule_reaches_config_and_persists_on_reopen(page, app):
+    dialog = SeedStarDialog(9, 9, {'MeleeSkill': (3, 3), 'RangedSkill': (0, 0)})
+    with patch('ui.seedgen_page.SeedStarDialog', return_value=dialog), \
+            patch.object(dialog, 'exec', return_value=1):
+        page._edit_stars()
+    page.mode_combo.setCurrentText('只找开局兄弟（快）')
+    page.rule_mode.setCurrentIndex(page.rule_mode.findData('traits'))
+    condition = page._current_config().origins[page.origin_combo.currentData()].conditions[0]
+    assert condition.type == 'BrotherFilter' and condition.args[5:7] == [9, 9]
+    assert condition.args[7][3] == 3 and condition.args[8][4] == 0
+    reloaded = SeedGenPage(page.ctx)
+    assert reloaded.star_min == reloaded.star_max == 9
+    assert reloaded.star_ranges == {'MeleeSkill': (3, 3), 'RangedSkill': (0, 0)}
+    page.rule_mode.setCurrentIndex(page.rule_mode.findData('score'))
+    assert page.stars_btn.isHidden()
+    reloaded.timer.stop()
+    reloaded.close()
+    dialog.close()
 
 
 def start(page, fake):

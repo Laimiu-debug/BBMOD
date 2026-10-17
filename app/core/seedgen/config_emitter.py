@@ -17,6 +17,7 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from .traits import validate_traits
+from .stars import validate_star_filters
 
 ROLES = {
     "RoleMelee": 0, "RoleRange": 1, "RoleGuard": 2, "RoleThrow": 3,
@@ -184,16 +185,24 @@ def score_condition(kind: str, score: float, count: int, role: str) -> BroCondit
     raise ValueError("未知评分条件")
 
 
-def brother_condition(count: int, thresholds: dict[str, int], required=(), excluded=(), match='all') -> BroCondition:
+def brother_condition(count: int, thresholds: dict[str, int], required=(), excluded=(), match='all',
+                      *, total_min=0, total_max=24, star_ranges=None) -> BroCondition:
     """Count distinct brothers satisfying the attributes AND the trait rule."""
     required, excluded = validate_traits(required, excluded, match)
-    if not required and not excluded:
+    star_ranges = validate_star_filters(total_min, total_max, star_ranges)
+    has_stars = bool(star_ranges) or total_min != 0 or total_max != 24
+    if not required and not excluded and not has_stars:
         return attribute_condition(count, thresholds)
     if type(count) is not int or not 1 <= count <= 27:
         raise ValueError('兄弟人数应在1至27之间')
     if any(key not in ATTRIBUTES for key in thresholds) or any(type(v) is not int or v < 0 for v in thresholds.values()):
         raise ValueError('属性门槛必须是有效属性的非负整数')
-    return BroCondition('BrotherFilter', [count, [thresholds.get(key, -100) for key in ATTRIBUTES], required, excluded, match == 'all'])
+    args = [count, [thresholds.get(key, -100) for key in ATTRIBUTES], required, excluded, match == 'all']
+    if has_stars:
+        args.extend([total_min, total_max,
+                     [star_ranges.get(key, (0, 3))[0] for key in ATTRIBUTES],
+                     [star_ranges.get(key, (0, 3))[1] for key in ATTRIBUTES]])
+    return BroCondition('BrotherFilter', args)
 
 
 @dataclass

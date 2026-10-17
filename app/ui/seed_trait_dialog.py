@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (
     QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout,
 )
 
-from core.seedgen.traits import traits, validate_traits
+from core.seedgen.traits import trait_label, traits, validate_traits
 from .theme import style_table
 
 
@@ -41,7 +41,7 @@ class SeedTraitDialog(QDialog):
         self.search_text = []
         for row, item in enumerate(traits().values()):
             self.table.insertRow(row)
-            name = item.name + ('（巨人）' if item.id == 'trait.huge' else '')
+            name = trait_label(item.id)
             label = QTableWidgetItem(f'{name} · {item.english}')
             label.setData(Qt.UserRole, item.id)
             label.setToolTip(item.description)

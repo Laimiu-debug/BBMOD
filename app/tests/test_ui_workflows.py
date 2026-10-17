@@ -176,8 +176,11 @@ def test_trait_filter_ui_combines_attributes_and_handles_modes(app, context):
     assert page._current_config().common.GenerateBrotherMode
     assert not page._current_config().common.GenerateSettlementMode
     page.required_traits, page.excluded_traits = [], []
-    with pytest.raises(ValueError, match='至少一项'):
+    with pytest.raises(ValueError, match='至少.*一项'):
         page._current_config()
+    page.star_min, page.star_max = 9, 9
+    condition = next(iter(page._current_config().origins.values())).conditions[0]
+    assert condition.type == 'BrotherFilter' and condition.args[5:7] == [9, 9]
 
 
 def test_trait_dialog_search_clear_conflicts_and_cancel(app):

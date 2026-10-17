@@ -2,7 +2,7 @@
 import re
 
 # Public releases always use MAJOR.MINOR.PATCH; see docs/versioning.md.
-VERSION = '0.5.2'
+VERSION = '0.6.0'
 
 
 def release_filename(version: str = VERSION) -> str:

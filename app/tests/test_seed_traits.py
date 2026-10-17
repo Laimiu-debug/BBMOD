@@ -11,7 +11,8 @@ from core.seedgen.config_emitter import (
 )
 from core.seedgen.log_watcher import SeedResult
 from core.seedgen.presentation import brothers, format_seed
-from core.seedgen.traits import traits, validate_traits
+from core.seedgen.traits import trait_label, traits, validate_traits
+from core.seedgen.stars import validate_star_filters
 
 
 def test_catalog_uses_reviewed_names_and_real_trait_identifiers():
@@ -20,6 +21,7 @@ def test_catalog_uses_reviewed_names_and_real_trait_identifiers():
     assert choices['trait.iron_lungs'].name == '铁肺'
     assert choices['trait.huge'].name == '高大'
     assert 'trait.tiny' in choices['trait.huge'].incompatible
+    assert trait_label('trait.determined') == '坚定（毅然）'
     catalog = json.loads(resource_path('localization/full_catalog.json').read_text(encoding='utf-8'))
     translations = {entry['source']:entry['translation'] for entry in catalog['entries'].values()}
     assert all(choice.name == translations[choice.english] for choice in choices.values())
@@ -99,9 +101,15 @@ local BroOutput = S.BroOutput;
 local world = { m = { CampaignSettings = { StartingScenario = { getID = function() { return "scenario.militia"; } } } } };
 local count = 0;
 function bro(attack, defense, held) {
-    local value = array(7, 0);
+    local value = array(8, 0);
     value[5] = [70, 40, 100, attack, 40, defense, 10, 100];
     value[6] = held;
+    value[7] = array(8, 0);
+    return value;
+}
+function starBro(attack, defense, held, stars) {
+    local value = bro(attack, defense, held);
+    value[7] = stars;
     return value;
 }
 function run(rule, people, wanted) {
@@ -133,10 +141,46 @@ run(exclude, [bro(60,0,["trait.asthmatic"])], -1);
 run(exclude, [bro(60,0,[])], 0);
 run(exclude, [], -1);
 run(attribute, [bro(90,0,[])], 0);
-assert(count == 16);
+local nine = {row(brother_condition(1, {}, total_min=9, total_max=9))};
+local starRule = {row(brother_condition(1, {'MeleeSkill':90}, ['trait.determined'], total_min=9, total_max=9, star_ranges={'MeleeSkill':(3,3), 'MeleeDefense':(3,3), 'Stamina':(3,3), 'RangedSkill':(0,0)}))};
+local twoStars = {row(brother_condition(2, {}, star_ranges={'MeleeSkill':(2,3)}))};
+local good = [0,0,3,3,0,3,0,0];
+local bad = [3,3,3,0,0,0,0,0];
+run(nine, [starBro(90,25,[],good)], 0);
+run(nine, [starBro(90,25,[],[0,0,2,3,0,3,0,0])], -1);
+run(nine, [starBro(90,25,[],[1,0,3,3,0,3,0,0])], -1);
+run(starRule, [starBro(90,25,["trait.determined"],good)], 0);
+run(starRule, [starBro(90,25,["trait.determined"],bad)], -1);
+run(starRule, [starBro(89,25,["trait.determined"],good)], -1);
+run(starRule, [starBro(90,25,[],good),starBro(90,25,["trait.determined"],bad)], -1);
+run(twoStars, [starBro(90,25,[],good)], -1);
+run(twoStars, [starBro(90,25,[],good),starBro(90,25,[],good)], 0);
+run(twoStars, [starBro(90,25,[],good),starBro(90,25,[],bad)], -1);
+::Const <- {{ Attributes = {{ Hitpoints=0, Bravery=1, Fatigue=2, Initiative=3, MeleeSkill=4, RangedSkill=5, MeleeDefense=6, RangedDefense=7 }} }};
+local sourceStars = [0,1,2,3,0,1,2,3];
+local fastStars = S.getBrotherStars({{Talents=sourceStars}}, true);
+local slowStars = S.getBrotherStars({{getTalents=function() {{ return sourceStars; }} }}, false);
+local expectedStars = [0,1,2,0,1,2,3,3];
+for(local j=0; j<8; j++) {{ assert(fastStars[j] == expectedStars[j]); assert(slowStars[j] == expectedStars[j]); }}
+assert(count == 26);
 print("BBMOD_SEED_TRAITS_PASS cases="+count+"\\n");
 '''
     script = tmp_path/'check-traits.nut'
     script.write_text(harness, encoding='utf-8')
     result = subprocess.run([str(sq), str(script)], cwd=payload, capture_output=True, timeout=15)
-    assert result.returncode == 0 and not result.stderr and b'BBMOD_SEED_TRAITS_PASS cases=16' in result.stdout, (result.stdout+result.stderr).decode(errors='replace')
+    assert result.returncode == 0 and not result.stderr and b'BBMOD_SEED_TRAITS_PASS cases=26' in result.stdout, (result.stdout+result.stderr).decode(errors='replace')
+
+
+@pytest.mark.parametrize('low,high,ranges', [
+    (10,9,{}), (True,9,{}), (9,9,{'MeleeSkill':(4,4)}),
+    (9,9,{'fake':(3,3)}), (0,5,{'MeleeSkill':(3,3),'MeleeDefense':(3,3)}),
+    (9,9,{key:(0,0) for key in ('Hitpoints','Bravery','Stamina','MeleeSkill','RangedSkill','MeleeDefense')}),
+])
+def test_star_filters_reject_invalid_or_contradictory_ranges(low, high, ranges):
+    with pytest.raises(ValueError):
+        validate_star_filters(low, high, ranges)
+
+
+def test_star_filter_accepts_saved_json_lists_and_explicit_zero_stars():
+    assert validate_star_filters(9,9,{'MeleeSkill':[3,3], 'RangedSkill':[0,0]}) == {
+        'MeleeSkill':(3,3), 'RangedSkill':(0,0)}

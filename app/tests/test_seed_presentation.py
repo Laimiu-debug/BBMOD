@@ -3,7 +3,43 @@ import pytest
 from core.gamelog import LogRow
 from core.seedgen.config_emitter import attribute_condition, render_bro_row, score_condition
 from core.seedgen.log_watcher import SeedLogParser, SeedResult
-from core.seedgen.presentation import brothers, format_collection, format_seed, highlights, metric
+from core.seedgen.presentation import Brother, brothers, format_collection, format_seed, highlights, metric
+from core.seedgen.brother_rating import PROFILES, TIERS, rate_brother
+
+
+@pytest.mark.parametrize('title,keys,levels', PROFILES)
+def test_each_ability_profile_has_enforced_tier_boundaries(title, keys, levels):
+    for rank, thresholds in enumerate(levels, 1):
+        brother = Brother(1, '', projected=dict(zip(keys, thresholds)))
+        rating = rate_brother(brother)
+        assert rating.rank == rank and rating.title == title
+        assert TIERS[rank] in rating.label
+        for key in keys:
+            reduced = Brother(1, '', projected={**brother.projected, key: brother.projected[key] - 1})
+            assert rate_brother(reduced).rank < rank
+
+
+def test_nine_stars_do_not_replace_combat_attributes_or_missing_evidence():
+    brother = Brother(1, '', projected={'MeleeSkill': 75, 'MeleeDefense': 10,
+        'Hitpoints': 70, 'Stamina': 90, 'Bravery': 40},
+        stars={'MeleeSkill': 3, 'MeleeDefense': 3, 'Stamina': 3})
+    assert rate_brother(brother).rank == 0
+    assert rate_brother(Brother(1, '', projected={'MeleeSkill': 110})) is None
+
+
+def test_seed_description_contains_themed_rating_evidence_and_star_positions():
+    seed = SeedResult('THEMEDSEED', 1, done=True, lines=[
+        'CharInfo: 0 Melee:0.9 Hitpoints:60(95)0 Bravery:40(55)0 Stamina:80(115)3 '
+        'MeleeSkill:60(95)3 RangedSkill:40(70)0 MeleeDefense:5(35)3 '
+        'RangedDefense:0(30)0 Initiative:100(140)0',
+        'Trait: trait.determined',
+    ])
+    detail = format_seed(seed)
+    assert '总计9星；疲劳上限3星、近战命中3星、近战防御3星' in detail
+    assert '关张档 · 猛将' in detail and '依据：近战命中95、近战防御35' in detail
+    assert '坚定（毅然）' in detail and '不能同时把全部属性点满' in detail
+    brief = format_seed(seed, 'danmaku')
+    assert '1名9星兄弟' in brief and '关张档 · 猛将' in brief
 
 
 def result():
