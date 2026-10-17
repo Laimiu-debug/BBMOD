@@ -86,7 +86,7 @@ def main():
         window.show()
         ready(window)
         page = window.settings_page
-        assert window.tabs.count() == 8 and page.size.value() == 12
+        assert window.tabs.count() == 9 and page.size.value() == 12
         QTest.mouseClick(window.nav_buttons[4], Qt.LeftButton)
         assert window.tabs.currentIndex() == 4
         old_font = window.launch_btn.font()
@@ -175,6 +175,10 @@ def main():
                     window.profiles.sections.setCurrentIndex(0)
                     important=[window.profiles.save_btn, window.profiles.apply_btn, window.profiles.rename_btn,
                                window.profiles.delete_btn, window.profiles.copy_local_btn]
+                elif index == 8:
+                    window.saves.sections.setCurrentIndex(0)
+                    important=[window.saves.folder_btn, window.saves.local_refresh_btn,
+                               window.saves.share_btn, window.saves.import_btn]
                 else:
                     important=[window.feedback.title, window.feedback.details, window.feedback.submit_button]
                 for widget in important:

@@ -1,5 +1,6 @@
 'use strict';
 function bindPage(root = document) {
+window.BBMODPresentation?.bind(root);
 root.querySelectorAll('[data-confirm]').forEach(button => button.addEventListener('click', event => {
   if (!window.confirm(button.dataset.confirm)) event.preventDefault();
 }));

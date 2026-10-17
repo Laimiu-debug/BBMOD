@@ -33,15 +33,18 @@ class DashboardPage(QWidget):
 
         self.overview_label = QLabel('正在检查营地状态…')
         self.overview_label.setWordWrap(True)
-        self.overview_label.setStyleSheet('color: #ead7a4; padding: 10px 4px;')
+        self.overview_label.setObjectName('campStatus')
         self.overview_label.setTextFormat(Qt.PlainText)
         root.addWidget(self.overview_label)
         guide = QGroupBox('开始使用 · 三步完成整备')
         steps = QHBoxLayout(guide)
-        for title, action in [('1. 确认游戏目录', self.choose_game.emit),
-                              ('2. 检查当前汉化', self.localization.emit),
-                              ('3. 浏览在线 MOD', lambda: self.browse_mods.emit(''))]:
-            button = QPushButton(title)
+        for title, hint, glyph, action in [
+                ('确认游戏目录', '01  ·  选择你的战场', 'folder', self.choose_game.emit),
+                ('检查当前汉化', '02  ·  用熟悉的语言出发', 'book', self.localization.emit),
+                ('浏览在线 MOD', '03  ·  扩充战团军械', 'shield', lambda: self.browse_mods.emit(''))]:
+            button = QPushButton(title + '\n' + hint)
+            button.setObjectName('quickStep')
+            style_button(button, glyph)
             button.clicked.connect(lambda checked=False, callback=action: callback())
             steps.addWidget(button)
         root.addWidget(guide)
@@ -68,6 +71,7 @@ class DashboardPage(QWidget):
         diag_box = QGroupBox("健康诊断（冲突 / 版本 / 影响种子 / 上次启动报错）")
         diag_layout = QVBoxLayout(diag_box)
         self.summary_label = QLabel("—")
+        self.summary_label.setObjectName('diagnosisSummary')
         self.show_info = QPushButton('显示普通提示')
         self.show_info.setCheckable(True)
         self.show_info.toggled.connect(lambda: self._show_report(self.report) if self.report else None)
@@ -90,6 +94,12 @@ class DashboardPage(QWidget):
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         diag_layout.addWidget(self.summary_label)
         diag_layout.addWidget(self.table, 1)
+        self.empty_label = QLabel('选择游戏目录后，这里会显示诊断结果。')
+        self.empty_label.setObjectName('diagnosisEmpty')
+        self.empty_label.setAlignment(Qt.AlignCenter)
+        self.empty_label.setWordWrap(True)
+        diag_layout.addWidget(self.empty_label, 1)
+        self.table.hide()
         root.addWidget(diag_box, 1)
 
     def refresh(self) -> None:
@@ -135,6 +145,11 @@ class DashboardPage(QWidget):
     def _show_report(self, report: DiagnosisReport) -> None:
         self.report = report
         issues = [issue for issue in report.sorted() if issue.severity != 'info' or self.show_info.isChecked()]
+        self.table.setVisible(bool(issues))
+        self.empty_label.setVisible(not issues)
+        self.empty_label.setText(
+            '未发现错误或警告，可以继续整备。\n点击「显示普通提示」查看检查说明。'
+            if report.issues else '未发现需要处理的问题。\n更换 MOD 后可重新检测。')
         self.summary_label.setText(
             f"共 {len(report.issues)} 条 —— 错误 {report.error_count} · 警告 {report.warning_count} · 提示 "
             f"{len(report.issues) - report.error_count - report.warning_count}"

@@ -344,3 +344,29 @@ QTextEdit { background:#f0e3c7; border:1px solid #ad9161; }
 #fontPreview { background:#f4e9d2; border:1px solid #b29b71; }
 #fontPreview QLabel { border:none; background:transparent; }
 """
+
+# Quieter surfaces give the original brass frames and red banners room to breathe.
+STYLESHEET += """
+#navButton { border-radius:3px; padding:11px 10px; color:#e0cfaa; }
+#navButton:focus { border:2px solid #e8c98b; padding:10px 9px; }
+#navButton:checked { border-left:3px solid #efce8a; color:#fff2d2; }
+#gameBar { border-radius:4px; border-color:#8c7451; }
+#gamePath { color:#e1d1b3; }
+#pageSubtitle { color:#dfcdb0; }
+#mainFooter { color:#c0ae8e; }
+QGroupBox { background:#ecddbe; }
+QPushButton { border-radius:3px; background:qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #f1e3c6,stop:1 #ddc79d); border-bottom:2px solid #91764d; }
+QPushButton:hover { background:#fff0d1; border-color:#966731; }
+QPushButton:pressed { background:#c9ae7b; border-top:2px solid #91764d; border-bottom:1px solid #91764d; }
+QPushButton:checked { background:#d1b689; border-color:#876039; color:#512e22; }
+QPushButton[primary="true"]:pressed { background:#582b23; }
+QTableWidget, QTableView, QListWidget { background:#f6ecd6; alternate-background-color:#ede0c3; border:1px solid #ad9366; }
+QTableWidget::item { border-bottom:1px solid #dfceb0; }
+QTableWidget::item:hover { background:#e9d3a8; }
+QTableWidget::item:selected { background:#755035; color:#fff0ce; }
+#campStatus { color:#f2e0bc; background:#30291f; border:1px solid #796242; border-left:3px solid #d7b574; padding:12px 14px; border-radius:3px; }
+#quickStep { text-align:left; padding:12px 14px; min-height:44px; font-size:12px; }
+#quickStep:hover { background:#fff0d1; border-color:#8f5932; }
+#diagnosisSummary { color:#5c452a; background:#e3cda5; padding:7px 10px; border-radius:3px; }
+#diagnosisEmpty { color:#6c573c; padding:24px 14px; background:#f5e9ce; border:1px solid #c9b187; border-radius:3px; }
+"""

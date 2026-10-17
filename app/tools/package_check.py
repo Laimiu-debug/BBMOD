@@ -52,7 +52,7 @@ def main() -> int:
     if retired:
         raise RuntimeError('新版不得携带旧注入组件：' + '、'.join(retired))
     python_archive = archive.open_embedded_archive(next(name for name in archive.toc if name.startswith('PYZ')))
-    for module in ('pefile', 'core.site_config', 'core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.update_notice',
+    for module in ('pefile', 'core.site_config', 'core.downloads', 'core.profile_protocol', 'core.shared_profiles', 'ui.profile_sharing', 'ui.profiles_page', 'ui.motion', 'ui.update_notice',
                    'core.shared_saves', 'core.save_protocol', 'ui.saves_page',
                    'core.support_report', 'core.l10n_identity', 'ui.feedback_page', 'ui.support_dialog',
                    'core.installed_mod_catalog', 'core.catalog_versions', 'ui.installed_catalog_service', 'ui.seed_poll_worker'):

@@ -8,7 +8,7 @@ from core.version import VERSION
 from PySide6.QtWidgets import (
     QButtonGroup, QFileDialog, QFrame, QHBoxLayout, QLabel, QLineEdit,
     QLayout, QMainWindow, QMessageBox, QPushButton, QScrollArea, QSizePolicy,
-    QStackedWidget, QTableWidget, QVBoxLayout, QWidget,
+    QTableWidget, QVBoxLayout, QWidget,
 )
 from .app_context import AppContext
 from .dashboard_page import DashboardPage
@@ -23,6 +23,7 @@ from .inspector_page import InspectorPage
 from .update_service import UpdateService
 from .update_dialog import UpdateDialog
 from .update_notice import UpdateNotice
+from .motion import MotionStack, REDUCE_MOTION_KEY
 from .theme import GOLD, CampHeader, ParchmentSurface, apply_theme, crest, fit_table_font, icon, style_button
 
 PAGES = [
@@ -54,6 +55,8 @@ class MainWindow(QMainWindow):
         self.resize(1360, 880)
         self.setMinimumSize(1080, 720)
         self.ctx = AppContext()
+        from PySide6.QtWidgets import QApplication
+        QApplication.instance().setProperty('bbmodReduceMotion', self.ctx.settings.get(REDUCE_MOTION_KEY, False) is True)
         self.updates = UpdateService(self.ctx.settings, self, automatic=auto_updates)
         self._update_dialog = None
         self._pending_update = None
@@ -181,7 +184,7 @@ class MainWindow(QMainWindow):
         self.crash_notice.hide()
         self.crash_notice.clicked.connect(self.show_crash_reports)
         content.addWidget(self.crash_notice)
-        self.tabs = QStackedWidget()
+        self.tabs = MotionStack()
         self.dashboard = DashboardPage(self.ctx)
         self.mods = ModsPage(self.ctx, automatic_catalog=auto_updates)
         self.mods.choose_game_requested.connect(self.pick_game_dir)
@@ -228,6 +231,7 @@ class MainWindow(QMainWindow):
         shell.addWidget(workspace, 1)
         self.setCentralWidget(root)
         self.settings_page.applied.connect(self._fit_typography)
+        self.settings_page.motion_changed.connect(self.tabs.clear_transition)
         self.nav_group.idClicked.connect(self.select_page)
         self.select_page(0)
         self.ctx.data_changed.connect(self.dashboard.refresh)

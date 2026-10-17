@@ -1,4 +1,4 @@
-"""Render all four real Qt pages at desktop and compact sizes without game writes."""
+"""Render all nine real Qt pages at desktop and compact sizes without game writes."""
 from __future__ import annotations
 
 import json
@@ -27,20 +27,23 @@ def main() -> None:
         app = QApplication([])
         apply_dark_palette(app)
         window = MainWindow(auto_updates=False)
+        # Capture settled content; transition behaviour is checked separately.
+        app.setProperty('bbmodReduceMotion', True)
         window.show()
         window.select_page(1)
         started = time.monotonic()
         report = []
 
         def capture() -> None:
-            if any(worker.isRunning() for worker in window.findChildren(Worker)):
+            if (window.ctx.game_session.state == 'checking'
+                    or any(worker.isRunning() for worker in window.findChildren(Worker))):
                 if time.monotonic() - started > 45:
                     raise TimeoutError("界面加载超时")
                 QTimer.singleShot(200, capture)
                 return
             for width, height in ((1360, 880), (1080, 720)):
                 window.resize(width, height)
-                for index, name in enumerate(("camp", "armory", "workshop", "expedition")):
+                for index, name in enumerate(("camp", "armory", "workshop", "expedition", "settings", "equipment", "feedback", "profiles", "saves")):
                     window.select_page(index)
                     app.processEvents()
                     assert (window.width(), window.height()) == (width, height)

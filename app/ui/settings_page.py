@@ -10,12 +10,14 @@ from PySide6.QtWidgets import (
 
 from core.appearance import Appearance, MAX_SIZE, MIN_SIZE, SETTINGS_KEY
 from .theme import apply_theme, css_family, resolve_appearance, style_button
+from .motion import REDUCE_MOTION_KEY
 
 
 class SettingsPage(QWidget):
     applied = Signal()
     crash_reports_requested = Signal()
     crash_upload_changed = Signal()
+    motion_changed = Signal()
 
     def __init__(self, settings, updates=None):
         super().__init__()
@@ -23,6 +25,17 @@ class SettingsPage(QWidget):
         self.settings = settings
         self.saved = resolve_appearance(settings.get(SETTINGS_KEY))
         root = QVBoxLayout(self)
+        motion_box = QGroupBox('界面动效')
+        motion_layout = QVBoxLayout(motion_box)
+        self.reduce_motion = QCheckBox('减少动态效果')
+        self.reduce_motion.setChecked(settings.get(REDUCE_MOTION_KEY, False) is True)
+        self.reduce_motion.setToolTip('关闭页面淡入淡出，切换后立即显示内容。')
+        self.reduce_motion.toggled.connect(self._save_motion)
+        motion_layout.addWidget(self.reduce_motion)
+        self.motion_status = QLabel('关闭动效后，切换页面立即显示内容。此设置自动保存。')
+        self.motion_status.setWordWrap(True)
+        motion_layout.addWidget(self.motion_status)
+        root.addWidget(motion_box)
         web_box = QGroupBox('官网联动')
         web_layout = QVBoxLayout(web_box)
         enable_web = QPushButton('启用「用 BBMOD 打开」')
@@ -118,6 +131,20 @@ class SettingsPage(QWidget):
         self.family.currentFontChanged.connect(self._preview)
         self.size.valueChanged.connect(self._preview)
         self._load(self.saved)
+
+    def _save_motion(self, enabled):
+        previous = self.settings.get(REDUCE_MOTION_KEY, False)
+        try:
+            self.settings.set(REDUCE_MOTION_KEY, enabled)
+        except OSError as exc:
+            self.settings.data[REDUCE_MOTION_KEY] = previous
+            with QSignalBlocker(self.reduce_motion):
+                self.reduce_motion.setChecked(previous is True)
+            self.motion_status.setText('设置未保存：' + str(exc))
+            return
+        QApplication.instance().setProperty('bbmodReduceMotion', enabled)
+        self.motion_status.setText('已减少动态效果。' if enabled else '已启用轻量页面过渡。')
+        self.motion_changed.emit()
 
     def enable_web_links(self):
         from core.web_links import register_protocol
