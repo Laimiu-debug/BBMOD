@@ -247,6 +247,7 @@ local startNewCampaign = function()
 				bros_entries[i][BroScoreEntry.MaxRoleScoreType] = max_index_;
 				bros_entries[i][BroScoreEntry.InitAttr] = role_initattr_maxattr_score_[0].slice(0);
 				bros_entries[i][BroScoreEntry.MaxAttr] = role_initattr_maxattr_score_[1].slice(0);
+				bros_entries[i][BroScoreEntry.Stars] = gt.SeedGenerator.getBrotherStars(bros[i], roster == null);
 
 				if(roster == null)
 					bros_entries[i][BroScoreEntry.Trait] = bros[i]["Traits"].slice(0);

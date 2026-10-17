@@ -18,9 +18,20 @@ gt.SeedGenerator.BroScoreEntry <- {
 	InitAttr = 4,
 	MaxAttr = 5,
 	Trait = 6,
-	End = 7,
+	Stars = 7,
+	End = 8,
 };
 gt.SeedGenerator.BroEntryNum <- gt.SeedGenerator.BroScoreEntry.End;
+
+gt.SeedGenerator.getBrotherStars <- function(bro, fast)
+{
+	// Talent order differs from Attr order. Reading talents must not advance RNG.
+	local talents = fast ? bro["Talents"] : bro.getTalents();
+	local A = ::Const.Attributes;
+	return [talents[A.Hitpoints], talents[A.Bravery], talents[A.Fatigue],
+		talents[A.MeleeSkill], talents[A.RangedSkill], talents[A.MeleeDefense],
+		talents[A.RangedDefense], talents[A.Initiative]];
+}
 
 # 根据输出条件计算是否输出该种子
 gt.SeedGenerator.broOutputCheck <- function(wolrd_state, bros_sort_entries, bros_entries, team_score_avg)
@@ -163,6 +174,18 @@ gt.SeedGenerator.broOutputCheck <- function(wolrd_state, bros_sort_entries, bros
 				for(local attribute = 0; attribute < AttrNum; attribute++)
 					if(brother[BroScoreEntry.MaxAttr][attribute] < cond[2][attribute]) pass = false;
 				if(!pass) continue;
+				if(cond.len() > 6)
+				{
+					local stars = brother[BroScoreEntry.Stars];
+					local total = 0;
+					for(local attribute = 0; attribute < AttrNum; attribute++)
+					{
+						total += stars[attribute];
+						if(stars[attribute] < cond[8][attribute] || stars[attribute] > cond[9][attribute]) pass = false;
+					}
+					if(total < cond[6] || total > cond[7]) pass = false;
+					if(!pass) continue;
+				}
 				local held = brother[BroScoreEntry.Trait];
 				foreach(trait in cond[4])
 					if(held.find(trait) != null) pass = false;
