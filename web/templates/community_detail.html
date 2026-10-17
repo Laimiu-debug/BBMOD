@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% block title %}{{ mod.title }} · BBMOD{% endblock %}{% block content %}
 <a class="back" href="{% url 'catalog' %}">← 返回探索 MOD</a>
 <section class="page-head"><p class="eyebrow">{{ mod.category }}</p><h1>{{ mod.title }}</h1><p>{{ mod.summary }}</p><p class="muted">原作者 {{ mod.author }}{% if mod.english_name %} · {{ mod.english_name }}{% endif %}</p></section>
-<div class="detail-layout"><div><section class="panel prose"><h2>作品介绍</h2><p>{{ mod.description }}</p><h2>与 BBMOD 汉化搭配</h2><p>{{ mod.compatibility }}</p>{% if mod.installation_steps %}<h2>安装方法</h2><ol>{% for step in mod.installation_steps %}<li>{{ step }}</li>{% endfor %}</ol>{% endif %}</section></div>
+<div class="detail-layout"><div><figure class="theme-detail-cover"><img class="detail-cover" src="{{ cover.url }}" alt="{{ cover.alt }}" decoding="async"><figcaption>主题插画 · {{ cover.title }}</figcaption></figure><section class="panel prose"><h2>作品介绍</h2><p>{{ mod.description }}</p><h2>与 BBMOD 汉化搭配</h2><p>{{ mod.compatibility }}</p>{% if mod.installation_steps %}<h2>安装方法</h2><ol>{% for step in mod.installation_steps %}<li>{{ step }}</li>{% endfor %}</ol>{% endif %}</section></div>
 <aside><section class="panel install-panel"><h2>获取 MOD</h2>
 {% if mod.official_downloads %}
 {% for file in mod.official_downloads %}<a class="button primary full" href="{{ file.url }}" rel="noopener noreferrer">{{ file.label }} · {{ file.version }} ↓</a>{% endfor %}

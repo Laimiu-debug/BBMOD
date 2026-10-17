@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "generator": "built-in image_gen",
+  "processing": "WebP encoding only; original framing and dimensions preserved",
+  "assets": [
+    {
+      "id": "lu-bu",
+      "file": "covers/v1/lu-bu.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 272756,
+      "sha256": "83c9b333870e7119b4bbe416947a07d3ce4a2200cc03eb83ccd38a6c77d2d90d",
+      "source_image_filename": "exec-08c75851-5db9-4e1d-9279-18dfc8b494ff.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal website card cover for BBMOD, a medieval mercenary game community, part of a cohesive Three Kingdoms heroes illustration library. Primary request: a striking and immediately recognizable Lu Bu (吕布) portrayed as a legendary Chinese warrior: ornate dark steel lamellar armor with restrained crimson and antique gold details, two very long pheasant-tail plumes on his crown, wielding a single iconic crescent-sided halberd (fangtian huaji). Subject: one adult male warrior, commanding and powerful, face clearly readable, waist-up three-quarter view; not a portrait of an actor. Scene/backdrop: distant battlefield, windblown banners and dusty hills, no violence or gore. Style/medium: richly textured hand-painted oil and gouache illustration, grounded gritty fantasy, weathered parchment atmosphere, sophisticated muted earth tones, detailed face and convincing weapon anatomy, dramatic but readable, consistent with a mercenary chronicle. Composition/framing: wide horizontal landscape, intended 16:9 card crop; keep entire head, crown and distinguishing plumes within the central 75 percent and away from edges; subject near center, background extends fully to all four edges, no border. Lighting/mood: warm sunset rim light, deep olive shadows, heroic yet battle-worn. Text: none. Constraints: no lettering, Chinese characters, title, labels, logo, watermark, UI, numbers or collage; one single complete scene; no modern objects, no photographic actors, no anime, no glossy mobile-game style."
+    },
+    {
+      "id": "guan-yu",
+      "file": "covers/v1/guan-yu.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 262000,
+      "sha256": "617c78c5651ae196a66116ba95670a26a2977681e702b84c203eb71adba8d144",
+      "source_image_filename": "exec-7de850a3-1302-4c80-a524-5796357e93d9.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal website card cover for BBMOD, part of one cohesive Three Kingdoms warrior cover library. Style/medium: richly textured hand-painted oil and gouache illustration, grounded gritty historical fantasy, weathered parchment atmosphere, muted olive and charcoal shadows with warm antique-gold light and weathered cloth, detailed convincing face and weapon anatomy, a mercenary chronicle look. Composition: wide horizontal landscape for a 16:9 card, waist-up three-quarter warrior composition, keep entire head and distinctive silhouette inside the central 75 percent, subject readable at thumbnail size, full-bleed environment to all four edges, no frame. Text: none. Avoid all lettering, labels, title, logo, watermark, UI, numbers, collage, modern objects, photographic actor likeness, anime, glossy mobile-game style, gore. Primary request: one immediately recognizable Guan Yu (关羽/关二爷), dignified Chinese warrior with a long flowing black beard, subtly ruddy face, green robe over worn steel lamellar armor and green headcloth, holding a heavy green-dragon crescent blade (qinglong yanyuedao). The blade head must be visible beside him and clearly separate from his face. Calm unwavering eyes and an imposing upright posture. Scene: a quiet mountain pass with ancient stone battlements, pine trees and misty ranks of banners; sunset through clouds. One adult male character only."
+    },
+    {
+      "id": "zhang-fei",
+      "file": "covers/v1/zhang-fei.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 293966,
+      "sha256": "3d174b4579b2195988e430a5d459a100a9e7ad79da4173b228107180364c929e",
+      "source_image_filename": "exec-81eae392-824a-473a-8f85-e7aeb39c123e.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal website card cover for BBMOD, part of a cohesive Three Kingdoms hero library. Primary request: a striking and immediately recognizable Zhang Fei (张飞), a massive broad-shouldered Chinese warrior with a bold black face, thick wild full beard and fierce round eyes, wearing practical dark iron lamellar armor with weathered deep red cloth, gripping his distinctive long serpent-headed spear. Subject: one adult male warrior, formidable physical strength and larger-than-life presence, waist-up three-quarter view, readable expressive face; not an actor portrait. Scene/backdrop: ancient wooden bridge near misty hills, rough mercenary banners receding into the distance, no violence or gore. Style/medium: richly textured hand-painted oil and gouache illustration, grounded gritty fantasy, weathered parchment atmosphere, muted earth tones, detailed convincing anatomy, consistent with a mercenary chronicle. Composition/framing: wide horizontal landscape for a 16:9 card crop, head and beard fully inside central 75 percent; spear forms a clear diagonal without crossing or obscuring the face; background extends to edges; no border. Lighting/mood: warm overcast light, deep olive and charcoal shadows, courageous and defiant. Text: none. Constraints: no lettering, title, labels, logo, watermark, UI, numbers, collage, anime, photorealistic actors, glossy mobile-game rendering or modern items."
+    },
+    {
+      "id": "huang-zhong",
+      "file": "covers/v1/huang-zhong.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 374208,
+      "sha256": "03fff2fbf9eb187b9d46924a5ec4bb545519433151d4d5d81632a7683ca5a7a5",
+      "source_image_filename": "exec-2bf2ea26-50e8-4e40-93cd-d6dfcb179270.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal website card cover for BBMOD, part of one cohesive Three Kingdoms warrior cover library. Style/medium: richly textured hand-painted oil and gouache illustration, grounded gritty historical fantasy, weathered parchment atmosphere, muted olive and charcoal shadows with warm antique-gold light and weathered cloth, detailed convincing face and weapon anatomy, a mercenary chronicle look. Composition: wide horizontal landscape for a 16:9 card, waist-up three-quarter warrior composition, keep entire head and distinctive silhouette inside the central 75 percent, subject readable at thumbnail size, full-bleed environment to all four edges, no frame. Text: none. Avoid all lettering, labels, title, logo, watermark, UI, numbers, collage, modern objects, photographic actor likeness, anime, glossy mobile-game style, gore. Primary request: one immediately recognizable Huang Zhong (黄忠), a veteran Chinese archer with a weathered lined face, long white beard and focused eyes, wearing practical bronze and dark steel lamellar armor with muted ochre cloth. He holds an ornate but believable recurve bow, arrow nocked and pointed away from the viewer; the bow and hands are convincingly constructed and no string crosses the face. Scene: a low grassy ridge overlooking distant fortified walls and a calm misty valley. One adult male character only, vigorous seasoned dignity."
+    },
+    {
+      "id": "yan-liang",
+      "file": "covers/v1/yan-liang.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 350700,
+      "sha256": "d01622cc399608ca75e2b586ccc07892cfcfdbb8af2e4db5e1d39b3fbdae7c37",
+      "source_image_filename": "exec-fe9a1a43-3e51-4cb4-a81c-1b171ce4022f.png",
+      "prompt": "Use case: stylized-concept. Asset type: horizontal BBMOD community website card cover in a cohesive Three Kingdoms warrior library. Style: richly textured hand-painted oil and gouache illustration, grounded gritty historical fantasy and mercenary-chronicle atmosphere; muted weathered earth, olive and charcoal, warm antique gold light; convincing face, hands and weapon anatomy; detailed but readable at thumbnail size. Composition: wide 16:9 landscape, one waist-up adult male warrior, entire head inside central 75 percent, unobstructed face, full-bleed environment, no border. No text, lettering, labels, title, logos, UI, watermarks, numbers, collage, photographic actor likeness, anime, modern objects or gore. Primary request: Yan Liang (颜良), a formidable northern Chinese general of the late Han period, distinguished from other library heroes by a dark blue battle cloak, severe clean-shaven square face and a practical crested iron helmet with blue cloth ties. He carries a heavy long-handled single-edged war blade held diagonally low across the foreground, calm intimidating readiness rather than a shout. Weathered ornate dark steel lamellar armor with restrained brass accents. Backdrop: wind across dry northern hills and a small distant army encampment with blue banners; pale late afternoon sky."
+    },
+    {
+      "id": "wen-chou",
+      "file": "covers/v1/wen-chou.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 312394,
+      "sha256": "dcf9c67598534f6676837511969c7227fa05370280a36053e201d5e3c06e1cbb",
+      "source_image_filename": "exec-86ead999-6c69-436f-a258-cb9849ed346b.png",
+      "prompt": "Use case: stylized-concept. Asset type: horizontal BBMOD community website card cover in a cohesive Three Kingdoms warrior library. Style: richly textured hand-painted oil and gouache illustration, grounded gritty historical fantasy and mercenary-chronicle atmosphere; muted weathered earth, olive and charcoal, warm antique gold light; convincing face, hands and weapon anatomy; detailed but readable at thumbnail size. Composition: wide 16:9 landscape, one waist-up adult male warrior, entire head inside central 75 percent, unobstructed face, full-bleed environment, no border. No text, lettering, labels, title, logos, UI, watermarks, numbers, collage, photographic actor likeness, anime, modern objects or gore. Primary request: Wen Chou (文丑), a formidable northern Chinese general of the late Han period, distinguished from other library heroes by bronze-scaled heavy lamellar armor, a muted ochre cloak, a short rugged black beard and an iron helmet with a small ochre plume. He holds a straight long spear upright beside one shoulder, no serpent blade, with a strong grounded stance and resolute focused eyes. Backdrop: an ancient northern fortress gate in warm dusty sunlight, ochre banners and weathered stone. One character only."
+    },
+    {
+      "id": "trade-port",
+      "file": "covers/v1/trade-port.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 413514,
+      "sha256": "4dff59f46ba347b88adf0bb051cd82d50e2c8e389ae836528f096d47193a0751",
+      "source_image_filename": "exec-9924723b-83de-4759-9c03-0e07b4cc461a.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal card cover for the BBMOD Battle Brothers community website, consistent with a gritty hand-painted Three Kingdoms hero cover library. Style: richly textured oil and gouache illustration, grounded medieval mercenary fantasy, weathered parchment atmosphere, muted olive and charcoal shadows, antique gold highlights, convincing worn steel and coarse cloth, painterly and highly readable at thumbnail size. Composition: wide 16:9 landscape, one coherent full-bleed scene, keep essential content inside the central 75 percent, no border. Text: none. Avoid all lettering, labels, logos, numbers, watermarks, UI, collage, modern objects, anime, glossy mobile-game style or gore. Primary request: an inviting busy medieval trading port in warm late-afternoon light, with weathered wooden piers, two believable small wooden merchant sailing ships with furled ochre canvas sails, crates and barrels by the dock, and a caravan arriving along the foreground path. A compact fortified European medieval town climbs the hillside behind the harbor. A few tiny period merchants add scale; the harbor and trade route are the main subject. No Chinese general or identifiable named hero."
+    },
+    {
+      "id": "named-loot",
+      "file": "covers/v1/named-loot.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 297144,
+      "sha256": "b429c958266e1c803459ad149bc92ad22ea7cf079566c69908227bf81a1c47a9",
+      "source_image_filename": "exec-48c3eb1f-5c89-4414-bc11-fa1e3d10a6f9.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal card cover for the BBMOD Battle Brothers community website, consistent with a gritty hand-painted Three Kingdoms hero cover library. Style: richly textured oil and gouache illustration, grounded medieval mercenary fantasy, weathered parchment atmosphere, muted olive and charcoal shadows, antique gold highlights, convincing worn steel and coarse cloth, painterly and highly readable at thumbnail size. Composition: wide 16:9 landscape, one coherent full-bleed scene, keep essential content inside the central 75 percent, no border. Text: none. Avoid all lettering, labels, logos, numbers, watermarks, UI, collage, modern objects, anime, glossy mobile-game style or gore. Primary request: a beautiful still life of legendary mercenary equipment carefully arranged on a deep faded crimson cloth inside a rough medieval camp tent. Main objects: one exceptional engraved steel longsword, a sturdy weathered shield, a heavy dark steel mail-and-plate cuirass and a distinctive closed helmet with brass trim; a small wooden chest with a few old coins nearby. Realistic functional armor and craftsmanship, magical only in the sense of precious rare loot, no glowing effects. Warm lamplight highlights the metal, distant blurred tent banners visible behind."
+    },
+    {
+      "id": "mercenary-camp",
+      "file": "covers/v1/mercenary-camp.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 358726,
+      "sha256": "7dbeb3eb7dac268be5ee6d190d4ce279cbcda23ce642ea484e226f20fd3c7284",
+      "source_image_filename": "exec-92bd7c95-69ec-4bde-bb2f-fe69d7571171.png",
+      "prompt": "Use case: stylized-concept. Asset type: reusable horizontal card cover for the BBMOD Battle Brothers community website, consistent with a gritty hand-painted Three Kingdoms hero cover library. Style: richly textured oil and gouache illustration, grounded medieval mercenary fantasy, weathered parchment atmosphere, muted olive and charcoal shadows, antique gold highlights, convincing worn steel and coarse cloth, painterly and highly readable at thumbnail size. Composition: wide 16:9 landscape, one coherent full-bleed scene, keep essential content inside the central 75 percent, no border. Text: none. Avoid all lettering, labels, logos, numbers, watermarks, UI, collage, modern objects, anime, glossy mobile-game style or gore. Primary request: three adult medieval European mercenary companions preparing for an expedition at a small campfire beside weathered canvas tents. One rugged swordsman sits checking his blade, one practical shield bearer stands looking toward the road, and one archer tightens a leather strap. Worn layered cloth, mail armor, round shields and travel packs; believable ordinary soldiers, no named historical hero. A winding path leads toward a distant small castle and misty hills at amber dawn. Warm companionship and anticipation, not a battle."
+    },
+    {
+      "id": "armoury",
+      "file": "covers/v1/armoury.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 370838,
+      "sha256": "45ed91c2b40aa2c46fb5c80ee40fe7e06b390924ae754c1fae4b60059467574a",
+      "source_image_filename": "exec-0657e50b-358d-4c1d-9256-ce6718eb81a1.png",
+      "prompt": "Use case: stylized-concept. Asset type: horizontal card cover for BBMOD medieval mercenary community, cohesive with a hand-painted hero-and-adventure cover library. Style: richly textured oil and gouache illustration, grounded medieval fantasy, weathered parchment atmosphere, warm antique-gold highlights with muted olive and charcoal shadows, convincing metal, wood and coarse cloth; detailed but readable at thumbnail size. Composition: 16:9 wide landscape, full-bleed coherent scene, essential objects arranged in the central 75 percent with depth, no border. Text: none. No legible letters, writing, numbers, titles, labels, logos, watermarks, UI, collage, modern objects, anime, magical glow or gore. Primary request: the inside of a medieval mercenary armorer's workshop. A sturdy adult blacksmith in a worn leather apron uses tongs beside an anvil and a glowing ordinary coal forge; one sword blade lies across the anvil, a tidy rack of spears and shields and a repaired mail shirt fill the background. Believable period tools, riveted iron, soot and sparks; warm practical working atmosphere, a compact and readable tableau. No historic Chinese general; this picture represents equipment and gameplay modification."
+    },
+    {
+      "id": "chronicle",
+      "file": "covers/v1/chronicle.webp",
+      "width": 1672,
+      "height": 941,
+      "bytes": 365500,
+      "sha256": "761395e1e85d1490f2d40bbb073fcc202222cea8bc817c95126cc470ce51a991",
+      "source_image_filename": "exec-4d8de2cb-1289-460a-bdd3-8e6b12e5fa1c.png",
+      "prompt": "Use case: stylized-concept. Asset type: horizontal card cover for BBMOD medieval mercenary community, cohesive with a hand-painted hero-and-adventure cover library. Style: richly textured oil and gouache illustration, grounded medieval fantasy, weathered parchment atmosphere, warm antique-gold highlights with muted olive and charcoal shadows, convincing metal, wood and coarse cloth; detailed but readable at thumbnail size. Composition: 16:9 wide landscape, full-bleed coherent scene, essential objects arranged in the central 75 percent with depth, no border. Text: none. No legible letters, writing, numbers, titles, labels, logos, watermarks, UI, collage, modern objects, anime, magical glow or gore. Primary request: a scholarly medieval campaign desk beside the open flap of a canvas tent, with an unfolded hand-drawn topographic map containing only abstract route lines and tiny terrain drawings, a blank open parchment notebook, a feather quill and inkpot, a brass compass, simple wax seals without letters and a small wooden counting board. A candle and amber daylight from the tent opening illuminate richly tactile paper, leather and wood. No readable writing anywhere, no characters on the map, no person or named hero. Mood: thoughtful preparation for a new expedition."
+    }
+  ]
+}

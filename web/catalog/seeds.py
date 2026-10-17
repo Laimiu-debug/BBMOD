@@ -27,6 +27,7 @@ from app.core.seedgen.protocol import MAX_SHARE_BYTES, seed_key, validate_share,
 from app.core.seedgen.traits import traits
 from .models import SharedSeed, SharedSeedBrother, SeedUploadBudget
 from .services import audit
+from .seed_story import seed_story
 
 ORIGINS = [(key, label) for key, label in ORIGIN_LABELS.items() if key != 'common']
 
@@ -62,6 +63,7 @@ def _card(seed):
     result = SeedResult(**seed.record)
     seed.origin_label = ORIGIN_LABELS.get(seed.origin, seed.origin)
     seed.highlights = highlights(result)
+    seed.story = seed_story(result)
     seed.combat_label = DIFFICULTY_LABELS.get(seed.combat_difficulty, '未记录')
     seed.economic_label = DIFFICULTY_LABELS.get(seed.economic_difficulty, '未记录')
     seed.budget_label = BUDGET_LABELS.get(seed.budget_difficulty, '未记录')

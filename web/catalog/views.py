@@ -25,6 +25,7 @@ from .models import Mod, Release, DesktopRelease, AuthorProfile, AuditLog, Login
 from .services import public_releases, create_release, can_inspect, audit
 from .visitors import traffic_summary
 from .community import CatalogueSequence, catalogue_items, original_items, requirement_labels
+from .cover_art import mod_artwork
 
 admin_required = user_passes_test(lambda u: u.is_active and u.is_superuser)
 
@@ -89,6 +90,7 @@ def detail(request, mod_id):
     if not rels:
         raise Http404
     return render(request, 'detail.html', {'release': rels[0], 'history': rels,
+                                          'cover': mod_artwork(rels[0].metadata, reverse('cover', args=[rels[0].id]) if rels[0].cover else ''),
                                           'requirements': requirement_labels(rels[0].metadata.get('requires', [])),
                                           'track_visit': True})
 

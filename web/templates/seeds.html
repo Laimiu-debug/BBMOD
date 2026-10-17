@@ -6,7 +6,21 @@
 <p class="help">人物门槛须由同一名兄弟满足；11级属性为预估值。未记录的数据不参与对应筛选。</p><div class="row-actions inline"><button class="button primary">筛选种子</button><a class="button" href="{% url 'seeds' %}">重置</a></div></form></aside>
 <section class="seed-results" aria-label="种子列表"><div class="section-heading"><h2>兄弟的发现</h2><span>{{ page.paginator.count }} 条种子</span></div>
 {% include 'seed_pagination.html' with position='上方' %}
-{% if page %}<div class="seed-grid">{% for seed in page %}<article class="seed-card"><div class="seed-card-top"><span class="tag">{{ seed.origin_label }}</span><time datetime="{{ seed.created_at|date:'c' }}">{{ seed.created_at|date:'m.d' }}</time></div><h3><a href="{% url 'seed_detail' seed.id %}">{{ seed.seed }}</a></h3><div class="seed-facts">{% for fact in seed.highlights %}<span>{{ fact }}</span>{% empty %}<span>查看完整开局记录</span>{% endfor %}</div><p class="seed-note">{{ seed.note|default:'这个开局，留给兄弟们探索。'|truncatechars:100 }}</p><p class="seed-levels">战斗{{ seed.combat_label }} · 经济{{ seed.economic_label }} · 资金{{ seed.budget_label }}</p><div class="seed-card-bottom"><a href="{% url 'seed_detail' seed.id %}">查看种子档案 →</a><button class="button small" data-seed-copy="{{ seed.seed }}">复制种子码</button></div></article>{% endfor %}</div>
+{% if page %}<div class="seed-grid">{% for seed in page %}
+<article class="seed-card story-card" data-cover-theme="{{ seed.story.cover.key }}">
+  <a class="seed-cover" href="{% url 'seed_detail' seed.id %}" aria-label="查看{{ seed.seed }}的种子档案">
+    <img src="{{ seed.story.cover.url }}" alt="{{ seed.story.cover.alt }}" width="1672" height="941" loading="lazy" decoding="async">
+    <span class="cover-motif">{{ seed.story.motif_label }}</span><span class="cover-mark">主题插画</span>
+  </a>
+  <div class="seed-card-content"><div class="seed-card-top"><span class="tag">{{ seed.origin_label }}</span><time datetime="{{ seed.created_at|date:'c' }}">{{ seed.created_at|date:'m.d' }}</time></div>
+  <h3><a href="{% url 'seed_detail' seed.id %}">{{ seed.story.headline }}</a></h3><p class="seed-card-code">{{ seed.seed }}</p>
+  <p class="seed-story-intro">{{ seed.story.intro }}</p>
+  <div class="seed-facts">{% for fact in seed.highlights %}<span>{{ fact }}</span>{% empty %}<span>查看完整开局记录</span>{% endfor %}</div>
+  {% if seed.note %}<p class="seed-note"><span>兄弟留言</span> {{ seed.note|truncatechars:100 }}</p>{% endif %}
+  <p class="seed-levels">战斗{{ seed.combat_label }} · 经济{{ seed.economic_label }} · 资金{{ seed.budget_label }}</p>
+  <div class="seed-card-bottom"><a href="{% url 'seed_detail' seed.id %}">翻开远征档案 →</a><button class="button small" data-seed-copy="{{ seed.seed }}">复制种子码</button></div>
+  </div>
+</article>{% endfor %}</div>
 {% else %}<div class="empty"><h3>{% if total %}暂时没有符合条件的种子{% else %}种子广场，等你第一份发现{% endif %}</h3><p>{% if total %}试试放宽属性门槛，或换一个起源。{% else %}在 BBMOD 的种子远征中选中一条结果，点击「分享给兄弟」，无需登录即可公开。{% endif %}</p><a class="button" href="{% if total %}{% url 'seeds' %}{% else %}{% url 'downloads' %}{% endif %}">{% if total %}查看全部种子{% else %}下载 BBMOD{% endif %}</a></div>{% endif %}
 {% if page.has_other_pages %}{% include 'seed_pagination.html' with position='下方' %}{% endif %}
 <p class="help seed-community-note">来自玩家的分享。开局时请保持种子码大小写，并使用记录中的游戏版本、起源和难度；会改动开局的 MOD 可能影响结果。</p></section></div><p id="seed-copy-status" role="status" aria-live="polite" class="seed-copy-status"></p>

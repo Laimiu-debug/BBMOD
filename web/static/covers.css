@@ -1,0 +1,56 @@
+/* Theme illustrations share one visual library across seeds and MODs. */
+.cover-mark{position:absolute;top:12px;right:12px;z-index:1;padding:3px 7px;border:1px solid #f5dfb24d;border-radius:2px;background:#211e18d9;color:#f3dfbc;font-size:11px;line-height:1.6;letter-spacing:.03em}
+.card-art .cover-mark{top:10px;right:10px}
+.seed-card.story-card{padding:0;overflow:hidden;border-radius:4px;background:#fffcf4;box-shadow:0 5px 24px #442d1612}
+.seed-cover{display:block;position:relative;overflow:hidden;aspect-ratio:16/9;background:#302c23;border-bottom:1px solid #c4ac80}
+.seed-cover:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#171813b8);pointer-events:none}
+.seed-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.seed-cover:hover img{transform:scale(1.025)}
+.cover-motif{position:absolute;left:18px;bottom:14px;z-index:1;color:#fff0cc;font-size:17px;font-weight:700;letter-spacing:.04em;text-shadow:0 2px 5px #000}
+.seed-card-content{display:flex;flex-direction:column;flex:1;padding:21px 23px 22px;min-width:0}
+.story-card h3{font-family:inherit;font-size:1.28rem;line-height:1.45;letter-spacing:0;margin:15px 0 7px;overflow-wrap:anywhere}
+.story-card h3 a{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.seed-card-code{font:14px/1.5 Consolas,monospace;color:#87673d;margin:0 0 15px;letter-spacing:.08em;overflow-wrap:anywhere}
+.seed-story-intro{font-size:.86rem;line-height:1.85;color:#625541;margin:0 0 15px;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.story-card .seed-facts{gap:6px;margin-bottom:14px}
+.story-card .seed-facts span{font-size:.75rem;padding:4px 7px}
+.story-card .seed-note{font-size:.8rem;margin:0 0 12px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.story-card .seed-note>span{color:#92553a;font-weight:600}
+.story-card .seed-levels{margin-top:auto;margin-bottom:8px}
+.story-card .seed-card-bottom{margin-top:0;gap:8px}
+.seed-chronicle{min-width:0;display:grid;gap:22px}
+.seed-story-hero{position:relative;overflow:hidden;border:1px solid #8a714f;border-radius:4px;background:#29271f;aspect-ratio:16/9}
+.seed-story-hero>img{display:block;width:100%;height:100%;object-fit:cover}
+.seed-story-hero>div{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;background:linear-gradient(transparent 35%,#11140de8);color:#fff0d0}
+.seed-story-hero .eyebrow{color:#ebc58c;margin-bottom:8px;font-family:inherit;letter-spacing:.08em}
+.seed-story-hero h2{font-size:1.85rem;line-height:1.45;margin:0;text-shadow:0 2px 8px #0008;max-width:95%}
+.seed-story-panel{margin:0;padding:28px}
+.seed-story-panel>.eyebrow{font-size:11px;letter-spacing:.1em;margin-bottom:10px}
+.seed-story-lead{font-size:1rem;line-height:1.95;color:#4f4635;overflow-wrap:anywhere}
+.seed-story-facts{padding-left:22px;color:#685a45;line-height:1.9;font-size:.9rem;margin:20px 0}
+.seed-story-facts li+li{margin-top:7px}
+.seed-player-note{padding:19px 21px;margin:23px 0;border-left:3px solid #9e6d45;background:#f2ead7}
+.seed-player-note h3{font-size:.95rem;color:#815c38;margin-bottom:9px}
+.seed-player-note p{line-height:1.9;margin:0;overflow-wrap:anywhere}
+.seed-player-note .seed-intro{border:0;padding:0;background:none}
+.seed-brother-roster{margin-top:26px;padding-top:24px;border-top:1px solid #d9cdb6}
+.seed-brother-roster>h3{font-size:1.15rem;margin-bottom:17px}
+.seed-brother-story{display:flex;gap:18px;padding:18px 0;border-top:1px solid #e4dac7;align-items:flex-start}
+.seed-brother-story>img{width:136px;aspect-ratio:4/3;object-fit:cover;flex-shrink:0;border:1px solid #c2a77c;border-radius:3px}
+.seed-brother-story>div{min-width:0}
+.seed-brother-story .eyebrow{font-family:inherit;font-size:12px;line-height:1.5;letter-spacing:.04em;margin-bottom:4px;color:#826844}
+.seed-brother-story h4{font-size:18px;line-height:1.5;margin:0 0 5px}
+.seed-brother-story p{font-size:.84rem;line-height:1.85;margin-bottom:5px;overflow-wrap:anywhere}
+.seed-brother-story .seed-brother-grade{font-weight:600;color:#8a4332}
+.seed-brother-story .seed-star-line{color:#7a6a4c;font-size:.78rem}
+.seed-full-record{margin-top:25px;border-top:1px solid #d9cdb6}
+.seed-full-record summary{padding:19px 0 2px;font-weight:600;color:#775231;cursor:pointer}
+.seed-full-record .seed-record{margin-top:18px}
+.theme-detail-cover{margin:0 0 22px}
+.theme-detail-cover .detail-cover{display:block;margin-bottom:0;width:100%;height:auto;max-height:none}
+.theme-detail-cover figcaption{font-size:12px;line-height:1.8;text-align:right;color:#85704f;margin-top:6px}
+@media(max-width:1000px){.seed-story-hero h2{font-size:1.5rem}.seed-story-hero>div{padding:22px}.seed-brother-story>img{width:105px}.seed-card-content{padding:19px}}
+@media(max-width:700px){.seed-story-hero h2{font-size:1.35rem}.seed-story-hero>div{padding:18px}.seed-story-panel{padding:20px}.seed-brother-story{gap:13px}.seed-brother-story>img{width:90px}.cover-motif{font-size:16px}.seed-cover{aspect-ratio:16/9}.seed-story-hero .eyebrow{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.seed-cover img{transition:none}.seed-cover:hover img{transform:none}}
+html[data-motion=reduce] .seed-cover img{transition:none}
+html[data-motion=reduce] .seed-cover:hover img{transform:none}

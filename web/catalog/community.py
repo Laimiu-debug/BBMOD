@@ -8,6 +8,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_GET
+from .cover_art import mod_artwork
 
 
 @lru_cache(maxsize=1)
@@ -18,9 +19,14 @@ def community_data():
 def hosted_items(releases):
     aliases = {r['published_mod_id']: r['english_name'] for r in community_data()['mods'] if r.get('published_mod_id')}
     source_aliases = {r['source_url']: r['english_name'] for r in community_data()['mods']}
-    return [dict(metadata={**r.metadata, 'english_name': aliases.get(str(r.mod_id), source_aliases.get(r.metadata.get('source_url'), ''))}, url=reverse('detail', args=[r.mod_id]),
-                 cover_url=reverse('cover', args=[r.id]) if r.cover else '',
-                 version=r.version, created_at=r.created_at, source_kind='hosted') for r in releases]
+    items = []
+    for r in releases:
+        metadata = {**r.metadata, 'english_name': aliases.get(str(r.mod_id), source_aliases.get(r.metadata.get('source_url'), ''))}
+        cover = mod_artwork(metadata, reverse('cover', args=[r.id]) if r.cover else '')
+        items.append(dict(metadata=metadata, url=reverse('detail', args=[r.mod_id]),
+                          cover_url=cover['url'], cover=cover,
+                          version=r.version, created_at=r.created_at, source_kind='hosted'))
+    return items
 
 
 def original_items(hosted_sources):
@@ -32,8 +38,9 @@ def original_items(hosted_sources):
             continue
         if row['source_url'] in hosted_sources:
             continue
+        cover = mod_artwork(row)
         items.append(dict(metadata=row, url=reverse('community_detail', args=[row['slug']]),
-                          source_kind='original', version='', cover_url=''))
+                          source_kind='original', version='', cover_url=cover['url'], cover=cover))
     return items
 
 
@@ -80,4 +87,4 @@ def detail(request, slug):
     hosted = public_releases().filter(metadata__source_url=row['source_url']).first()
     if hosted is not None:
         return redirect('detail', mod_id=hosted.mod_id)
-    return render(request, 'community_detail.html', {'mod': row, 'track_visit': True})
+    return render(request, 'community_detail.html', {'mod': row, 'cover': mod_artwork(row), 'track_visit': True})

@@ -54,6 +54,21 @@ class SeedSharingTests(TestCase):
         self.assertContains(response, 'screenshots/mod-manager.png')
         self.assertContains(response, 'id="web-links"')
 
+    def test_hero_story_and_cover_preserve_shared_record_and_player_note(self):
+        from .test_seed_story import character_result
+        value = payload()
+        value['record']['lines'] = character_result().lines
+        value['note'] = '我的九星兄弟，慢慢练'
+        page = self.publish(value).json()['page_path']
+        listing = self.client.get('/seeds/')
+        detail = self.client.get(page)
+        self.assertContains(listing, 'covers/v1/lu-bu.webp')
+        self.assertContains(detail, 'covers/v1/lu-bu.webp')
+        self.assertContains(detail, '吕布档 · 猛将')
+        self.assertContains(detail, value['note'])
+        self.assertContains(detail, '近战命中3星')
+        self.assertEqual(self.client.get('/api/v1' + page).json(), value)
+
     def publish(self, value=None, **kwargs):
         return self.client.post('/api/v1/seeds/', value or payload(), content_type='application/json',
             HTTP_X_BBMOD_SEED_SHARE='1', **kwargs)
