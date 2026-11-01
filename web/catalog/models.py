@@ -196,6 +196,17 @@ class SuggestionBudget(models.Model):
     since = models.DateTimeField(auto_now_add=True, db_index=True)
 
 
+class SuggestionReply(models.Model):
+    suggestion = models.ForeignKey(Suggestion, on_delete=models.CASCADE, related_name='replies')
+    body = models.TextField('给用户的回复', max_length=5000)
+    status = models.CharField(max_length=15, choices=Suggestion.Status.choices)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at', 'id']
+
+
 class SharedModFile(models.Model):
     """Content-addressed files supplied by players, separate from author releases."""
     sha256 = models.CharField(max_length=64, primary_key=True)

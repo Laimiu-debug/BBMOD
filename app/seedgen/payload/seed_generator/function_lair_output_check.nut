@@ -1,4 +1,5 @@
 ::include("seed_generator/define_lair");
+::include("seed_generator/function_weapon_filter");
 
 local gt = this.getroottable();
 
@@ -38,6 +39,11 @@ gt.SeedGenerator.lairOutoutCheck <- function()
 	local output_type = -1;
 	foreach( i, cond in LairOutputConditionArray )
 	{
+		if(cond[0] == LairOutput.NamedWeaponFilter)
+		{
+			if(checkWeaponFilter(cond)) return i;
+			continue;
+		}
 		if(cond[0] == LairOutput.NamedAttrValue || cond[0] == LairOutput.NamedAttrValueBroOutput || cond[0] == LairOutput.NamedAttrValueStrength
 			|| cond[0] == LairOutput.NamedNumber)
 		{

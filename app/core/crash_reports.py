@@ -20,6 +20,27 @@ MAX_RECORDS = 20
 SHUTDOWN = 'shutting down engine core.'
 
 
+def _error_summary(rows, errors):
+    """Keep the last actual failure instead of trailing crash-dump headings."""
+    generic = ''
+    for index in reversed(errors):
+        text = rows[index].text.strip()
+        normalized = text.casefold().rstrip(': .')
+        if (not text or normalized in ('script stacktrace', 'modules & application stacktrace')
+                or text.casefold().startswith(('function:', 'variables:'))):
+            continue
+        if normalized in ('a critical exception occured', 'a critical exception occurred',
+                          'a critical error occured', 'a critical error occurred'):
+            generic = generic or text
+            continue
+        # A prior nonfatal resource/script error need not explain a later
+        # native exception. Keep that exception visible without claiming cause.
+        if generic and rows[index].level != 'critical':
+            return generic + ' 此前日志：' + text
+        return text
+    return generic or '日志未记录具体错误，请查看附带的日志快照'
+
+
 def fingerprint(path):
     try:
         with Path(path).open('rb') as stream:
@@ -59,7 +80,7 @@ def read_session_log(path, session):
     # A clean shutdown after the last error is not a crash indication.
     if any(SHUTDOWN in row.text.lower() for row in rows[errors[-1] + 1:]):
         return None
-    return raw, rows[errors[-1]].text, offset > 0
+    return raw, _error_summary(rows, errors), offset > 0
 
 
 def session_suspects(manager, raw):

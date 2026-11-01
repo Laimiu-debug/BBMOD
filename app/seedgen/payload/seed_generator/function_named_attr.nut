@@ -22,8 +22,11 @@ local randomizeValues_Weapon = function()
 	{
 		local f = this.Math.rand(110, 130);
 		gt.SeedGenerator.NamedIndexDict[gt.SeedGenerator.NamedIndex].extend([NamedAttr.RegularDamage, f, 110, 130]);
-		_i.m.RegularDamage = this.Math.round(_i.m.RegularDamage * f * 0.01);
-		_i.m.RegularDamageMax = this.Math.round(_i.m.RegularDamageMax * f * 0.01);
+		// Original bytecode computes the float32 multiplier before damage.
+		// Keeping this order matters for e.g. 50 * (121 * 0.01) -> 60.
+		local factor = f * 0.01;
+		_i.m.RegularDamage = this.Math.round(_i.m.RegularDamage * factor);
+		_i.m.RegularDamageMax = this.Math.round(_i.m.RegularDamageMax * factor);
 	});
 	available.push(function ( _i )
 	{

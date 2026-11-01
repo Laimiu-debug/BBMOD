@@ -1,12 +1,67 @@
-{% extends 'base.html' %}{% block title %}管理后台 · BBMOD{% endblock %}{% block content %}
-<section class="page-head heading-actions"><div><p class="eyebrow">CAMP COMMAND</p><h1>管理后台</h1><p>管理公开作品、程序版本、玩家建议、作者账号与操作记录。</p></div><div class="row-actions inline"><a class="button primary" href="{% url 'software_management' %}">管理器版本</a><a class="button" href="{% url 'accounts' %}">作者账号管理</a></div></section>
+{% extends 'management_base.html' %}
+{% block title %}管理工作台 · BBMOD{% endblock %}
+{% block management_content %}
+<header class="page-head heading-actions management-heading">
+  <div><p class="eyebrow">CAMP COMMAND</p><h1>管理工作台</h1><p>先处理玩家反馈，再整理营地内容。</p></div>
+  <a class="button" href="{% url 'software_management' %}">发布管理器版本 <span aria-hidden="true">↗</span></a>
+</header>
+<section class="management-stats" aria-label="管理概况">
+  <a class="management-stat attention" href="{% url 'suggestion_management' %}?status=new"><span>待查看反馈</span><strong>{{ new_suggestions }}</strong><small>查看新报告与建议 <span aria-hidden="true">→</span></small></a>
+  <a class="management-stat" href="{% url 'suggestion_management' %}?status=reviewing"><span>处理中的反馈</span><strong>{{ reviewing_suggestions }}</strong><small>继续跟进处理进度 <span aria-hidden="true">→</span></small></a>
+  <a class="management-stat" href="{% url 'management' %}#mods"><span>全部 MOD 作品</span><strong>{{ mod_totals.total }}</strong><small>包括未公开与已下架作品 <span aria-hidden="true">→</span></small></a>
+  <a class="management-stat" href="{% url 'management' %}?state=blocked#mods"><span>已下架作品</span><strong>{{ mod_totals.blocked }}</strong><small>查看原因与恢复展示 <span aria-hidden="true">→</span></small></a>
+</section>
 {% include 'traffic_summary.html' %}
-<section class="panel"><h2>共享游戏存档</h2><p class="muted">管理战役存档与配套 MOD 的公开分享。</p><a class="button" href="{% url 'save_management' %}">管理存档分享 →</a></section>
-<section class="panel"><h2>共享 MOD 方案</h2><p class="muted">管理玩家分享的方案及网站原本没有的补传文件。</p><a class="button" href="{% url 'profile_management' %}">管理共享方案 →</a></section>
-<section class="panel"><h2>游戏百科</h2><p class="muted">查看当前资料版本、迁移完整性、图片来源和待核对项目。</p><a class="button" href="{% url 'wiki_management' %}">百科导入报告 →</a></section>
-<section class="panel"><div class="section-heading"><h2>错误报告与建议</h2><span>{{ new_suggestions }} 条待查看</span></div><p class="muted">集中查看玩家提交的错误日志、MOD 清单和建议，记录排查进度。</p><a class="button" href="{% url 'suggestion_management' %}">管理报告与建议 →</a> <a class="button" href="{% url 'suggestion_management' %}?reports=1">查看错误报告 →</a></section>
-<section class="panel"><h2>全部作品</h2>{% for mod in mods %}<article class="manage-row"><div><h3>{{ mod.title }}</h3><p class="muted">{{ mod.owner.first_name|default:mod.owner.username }} · {{ mod.install_name }}</p><p>{% if mod.blocked %}已下架：{{ mod.block_reason }}{% else %}正常{% endif %}</p><a href="{% url 'upload' mod.id %}">检查版本与文件 →</a></div><form method="post" action="{% url 'moderate' mod.id %}" class="moderation-form">{% csrf_token %}{% if mod.blocked %}<input type="hidden" name="action" value="restore"><button class="button">恢复作品</button>{% else %}<input type="hidden" name="action" value="block"><label class="sr-only" for="reason-{{ mod.id }}">下架原因</label><input id="reason-{{ mod.id }}" name="reason" placeholder="填写下架原因" required maxlength="500"><button class="button danger" data-confirm="下架作品及其全部版本？">下架</button>{% endif %}</form></article>{% empty %}<p class="muted">还没有作者提交作品。</p>{% endfor %}{% if mods.has_other_pages %}<nav class="pagination">{% if mods.has_previous %}<a href="?page={{ mods.previous_page_number }}">上一页</a>{% endif %}<span>{{ mods.number }} / {{ mods.paginator.num_pages }}</span>{% if mods.has_next %}<a href="?page={{ mods.next_page_number }}">下一页</a>{% endif %}</nav>{% endif %}</section>
-<section class="panel"><h2>最近操作</h2><div class="audit-list">{% for log in logs %}<div><time>{{ log.created_at|date:'m.d H:i' }}</time><strong>{{ log.actor.username|default:'已移除账号' }}</strong><span>{{ log.action }} · {{ log.detail|default:log.target }}</span></div>{% empty %}<p class="muted">暂无记录。</p>{% endfor %}</div></section>
-<section class="panel"><h2>社区种子</h2><p>查看匿名分享，管理广场展示。</p><a class="button" href="{% url 'seed_management' %}">管理种子分享 →</a></section>
-
+<div class="management-overview">
+  <section class="panel management-inbox" aria-labelledby="feedback-heading">
+    <div class="section-heading"><h2 id="feedback-heading">待办反馈</h2><a href="{% url 'suggestion_management' %}">全部反馈 →</a></div>
+    <div class="management-inbox-links"><a href="{% url 'suggestion_management' %}?reports=1">诊断报告</a><a href="{% url 'suggestion_management' %}?replied=no">尚未回复</a></div>
+    {% for suggestion in pending_suggestions %}
+    <a class="management-inbox-row" href="{% url 'suggestion_detail' suggestion.id %}"><span class="management-state {% if suggestion.status == 'new' %}attention{% else %}reviewing{% endif %}">{{ suggestion.get_status_display }}</span><strong>{{ suggestion.title }}</strong><time datetime="{{ suggestion.created_at|date:'c' }}">{{ suggestion.created_at|date:'m.d' }}</time></a>
+    {% empty %}<div class="management-empty"><strong>待办已处理完毕</strong><p>新的报告和建议会显示在这里。</p></div>{% endfor %}
+  </section>
+  <section class="panel management-shortcuts" aria-labelledby="shortcuts-heading">
+    <div class="section-heading"><h2 id="shortcuts-heading">常用管理</h2><span>内容与发布</span></div>
+    <div class="management-shortcut-grid">
+      <a href="{% url 'seed_management' %}"><strong>种子分享 <span aria-hidden="true">↗</span></strong><small>管理社区种子档案</small></a>
+      <a href="{% url 'profile_management' %}"><strong>共享方案 <span aria-hidden="true">↗</span></strong><small>方案与玩家补传文件</small></a>
+      <a href="{% url 'save_management' %}"><strong>存档分享 <span aria-hidden="true">↗</span></strong><small>战役与配套 MOD</small></a>
+      <a href="{% url 'wiki_management' %}"><strong>游戏百科 <span aria-hidden="true">↗</span></strong><small>快照与导入报告</small></a>
+      <a href="{% url 'software_management' %}"><strong>管理器版本 <span aria-hidden="true">↗</span></strong><small>上传、公开与历史版本</small></a>
+      <a href="{% url 'accounts' %}"><strong>作者账号 <span aria-hidden="true">↗</span></strong><small>创建、停用与密码重置</small></a>
+    </div>
+  </section>
+</div>
+<section class="panel management-mods" id="mods" aria-labelledby="mods-heading">
+  <div class="section-heading"><div><h2 id="mods-heading">MOD 作品</h2><p class="muted">按名称、安装文件名或作者查找作品。</p></div><span>共 {{ mod_totals.total }} 个作品</span></div>
+  <form method="get" action="{% url 'management' %}#mods" class="management-filters" role="search" aria-label="筛选 MOD 作品">
+    <div class="management-search"><label for="management-q">搜索作品或作者</label><input id="management-q" name="q" value="{{ q }}" maxlength="100" placeholder="作品名称、mod_xxx.zip、作者"></div>
+    <div><label for="management-state">作品状态</label><select id="management-state" name="state"><option value="">全部状态</option><option value="normal" {% if state == 'normal' %}selected{% endif %}>未下架</option><option value="blocked" {% if state == 'blocked' %}selected{% endif %}>已下架</option></select></div>
+    <button class="button primary" type="submit">查找作品</button>{% if q or state %}<a class="button" href="{% url 'management' %}#mods">重置筛选</a>{% endif %}
+  </form>
+  <p class="management-result-count" role="status">{% if q or state %}符合条件 {{ mods.paginator.count }} 个{% else %}最近更新的作品{% endif %} · 第 {{ mods.number }} / {{ mods.paginator.num_pages }} 页</p>
+  {% for mod in mods %}
+  <article class="manage-row management-mod-row">
+    <div class="management-mod-info">
+      <div class="management-mod-title"><h3><a href="{% url 'upload' mod.id %}">{{ mod.title }}</a></h3><span class="management-state {% if mod.blocked %}blocked{% elif not mod.owner.is_active %}attention{% else %}normal{% endif %}">{% if mod.blocked %}已下架{% elif not mod.owner.is_active %}作者已停用{% else %}未下架{% endif %}</span></div>
+      <p class="muted">{{ mod.owner.first_name|default:mod.owner.username }} · {{ mod.category }} · 更新于 {{ mod.updated_at|date:'Y.m.d' }}</p>
+      <code class="management-filename">{{ mod.install_name }}</code>
+      {% if mod.blocked %}<p class="management-block-reason">下架原因：{{ mod.block_reason|default:'未记录原因' }}</p>{% endif %}
+    </div>
+    <div class="management-mod-actions">
+      <a class="button small" href="{% url 'upload' mod.id %}">版本与文件</a>
+      {% if mod.blocked %}
+      <form method="post" action="{% url 'moderate' mod.id %}">{% csrf_token %}<input type="hidden" name="action" value="restore"><input type="hidden" name="q" value="{{ q }}"><input type="hidden" name="state" value="{{ state }}"><input type="hidden" name="page" value="{{ mods.number }}"><button class="button small" type="submit">恢复作品</button></form>
+      {% else %}
+      <details class="management-moderation"><summary>下架作品</summary><form method="post" action="{% url 'moderate' mod.id %}">{% csrf_token %}<input type="hidden" name="action" value="block"><input type="hidden" name="q" value="{{ q }}"><input type="hidden" name="state" value="{{ state }}"><input type="hidden" name="page" value="{{ mods.number }}"><label for="reason-{{ mod.id }}">下架原因</label><input id="reason-{{ mod.id }}" name="reason" placeholder="填写原因，便于后续核对" required maxlength="500"><button class="button small danger" type="submit" data-confirm="下架作品及其全部版本？">确认下架</button></form></details>
+      {% endif %}
+    </div>
+  </article>
+  {% empty %}<div class="management-empty"><strong>{% if q or state %}没有符合条件的作品{% else %}还没有作者提交作品{% endif %}</strong><p>{% if q or state %}请更换关键词或重置筛选条件。{% else %}作者提交后，可以在这里检查文件与管理展示。{% endif %}</p></div>{% endfor %}
+  {% if mods.has_other_pages %}<nav class="pagination" aria-label="作品分页">{% if mods.has_previous %}<a href="?q={{ q|urlencode }}&amp;state={{ state|urlencode }}&amp;page={{ mods.previous_page_number }}#mods">← 上一页</a>{% endif %}<span>{{ mods.number }} / {{ mods.paginator.num_pages }}</span>{% if mods.has_next %}<a href="?q={{ q|urlencode }}&amp;state={{ state|urlencode }}&amp;page={{ mods.next_page_number }}#mods">下一页 →</a>{% endif %}</nav>{% endif %}
+</section>
+<section class="panel management-audit" aria-labelledby="audit-heading">
+  <div class="section-heading"><h2 id="audit-heading">最近操作</h2><span>最近 25 条</span></div>
+  <details class="management-audit-details"><summary>展开操作记录</summary><div class="audit-list">{% for log in logs %}<div><time datetime="{{ log.created_at|date:'c' }}">{{ log.created_at|date:'m.d H:i' }}</time><strong>{{ log.actor.username|default:'已移除账号' }}</strong><span>{{ log.action }} · {{ log.detail|default:log.target }}</span></div>{% empty %}<p class="muted">暂无记录。</p>{% endfor %}</div></details>
+</section>
 {% endblock %}

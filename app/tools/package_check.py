@@ -31,7 +31,7 @@ def main() -> int:
     required = ["assets/equipment/manifest.json", "data/equipment_catalog.json", "assets/game-ui/dialog_panel_01.png", "data/item_inspector/catalog.json", "data/item_inspector/bridge.nut", "data/item_inspector/hover.js", "assets/bbmod.ico", "assets/crest-painted.png", "assets/camp-painted.png",
                 "assets/panel-frame.svg", "assets/Cinzel.ttf",
                 "localization/catalog.json", "localization/full_catalog.json", "localization/runtime.js",
-                "localization/name_order.json", "localization/reviewed_dynamic.json", "localization/reviewed_contextual.json", "localization/reviewed_source_fixes.json",
+                "localization/name_order.json", "localization/army_names.json", "localization/reviewed_dynamic.json", "localization/reviewed_contextual.json", "localization/reviewed_source_fixes.json",
                 "localization/place_names.json", "localization/place_name_pools.cnut",
                 "localization/reviewed_place_names.json", "localization/place_session.nut",
                 "localization/NotoSansSC-Regular.ttf", "localization/FONT-LICENSE.txt",
@@ -69,7 +69,7 @@ def main() -> int:
         resource = 'assets/equipment/' + filename
         if resource not in bundled or hashlib.sha256(archive.extract(bundled[resource])).hexdigest() != metadata['sha256']:
             raise RuntimeError('EXE 中的装备图标缺失或校验失败：' + resource)
-    for name in ('localization/runtime.js', 'localization/name_order.json', 'localization/reviewed_dynamic.json', 'localization/reviewed_contextual.json', 'localization/reviewed_source_fixes.json', 'localization/reviewed_place_names.json',
+    for name in ('localization/runtime.js', 'localization/name_order.json', 'localization/army_names.json', 'localization/reviewed_dynamic.json', 'localization/reviewed_contextual.json', 'localization/reviewed_source_fixes.json', 'localization/reviewed_place_names.json',
                  'assets/equipment/manifest.json', 'assets/bbmod.ico', 'data/equipment_catalog.json', 'data/item_inspector/catalog.json', 'data/item_inspector/bridge.nut', 'assets/game-ui/dialog_panel_01.png', 'data/seed_traits.json', 'seedgen/payload/seed_generator/config_role_condition.nut',
                  'seedgen/payload/seed_generator/config_map_condition.nut',
                  'seedgen/payload/seed_generator/function_map_output_check.nut',
@@ -120,6 +120,14 @@ def main() -> int:
         result = subprocess.run([str(standalone), "--selftest"], env=environment, cwd=temporary,
                                 capture_output=True, timeout=55,
                                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        if result.returncode == 0 and b'offline_atlas: ready towns=19 camps=102 loot=10' not in result.stdout:
+            raise RuntimeError('EXE 未通过脱离游戏的地图、跑商和营地红装解算')
+        if result.returncode == 0 and b'offline_brothers: ready origins=14 members=12' not in result.stdout:
+            raise RuntimeError('EXE 未通过脱离游戏的人物、特质与星位解算')
+        if result.returncode == 0 and b'offline_campaigns: ready origin=scenario.deserters combat=0 economic=1 budget=2' not in result.stdout:
+            raise RuntimeError('EXE 未通过脱离游戏的组合搜索和起源、难度参数解算')
+        if result.returncode == 0 and b'offline_prefilter: ready tested=2 rejected=2 campaigns=0' not in result.stdout:
+            raise RuntimeError('EXE 未通过组合搜索先筛人物、淘汰后不生成地图的自检')
         if result.returncode == 0 and b'l10n_manager=ready' not in result.stdout:
             raise RuntimeError('EXE 没有加载新版汉化管理界面')
         if result.returncode == 0 and b'legacy_hooks=ready' not in result.stdout:

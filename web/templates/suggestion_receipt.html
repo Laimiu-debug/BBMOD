@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}查看反馈回复 · BBMOD{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="{% static 'suggestions.css' %}">{% endblock %}
+{% block content %}
+<section class="page-head"><a href="{% url 'suggestions' %}">← 反馈与建议</a><h1>查看处理进度与回复</h1><p>无需登录，输入提交成功时得到的回执编号。以前提交的反馈也可以查询。</p></section>
+{% if receipt %}
+<section class="panel receipt-result" aria-labelledby="receipt-heading">
+  <h2 id="receipt-heading">回执 {{ receipt.reference }}</h2><div class="suggestion-meta"><span class="tag suggestion-status-{{ receipt.status }}">{{ receipt.status_label }}</span><span>最近处理 {{ receipt.updated_at|date:'Y.m.d H:i' }}</span></div>
+  <div class="reply-thread">{% for reply in receipt.replies %}<article class="suggestion-reply"><div class="suggestion-meta"><strong>管理员回复</strong><time datetime="{{ reply.created_at|date:'c' }}">{{ reply.created_at|date:'Y.m.d H:i' }}</time></div><div class="prose">{{ reply.body|linebreaks }}</div></article>{% empty %}<p class="muted">管理员暂未回复。收到回复后会显示在这里，可收藏本页稍后查看。</p>{% endfor %}</div>
+  <p class="help">需要补充日志或复现步骤？<a href="{% url 'suggestions' %}">再提交一条反馈</a>，并写明此回执编号。</p>
+</section>
+{% endif %}
+{% if receipt %}<details class="receipt-switch"><summary>查询其他回执</summary>{% endif %}
+<form method="post" action="{% url 'suggestion_lookup' %}" class="panel editor receipt-lookup" novalidate>{% csrf_token %}
+  {% if form.non_field_errors %}<div class="notice error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+  {% include 'field.html' with field=form.reference %}<button class="button primary" type="submit">查看回复</button>
+  <p class="help">请保管好回执编号和本页链接，持有人可查看处理状态及管理员回复。</p>
+</form>
+{% if receipt %}</details>{% endif %}
+{% if recent_receipts %}<section class="panel receipt-history"><h2>本浏览器保存的回执</h2><p class="help">保留最近 30 条，一年内可在此找回。换设备或清理 Cookie 后，请手动输入编号。</p>{% for item in recent_receipts %}<a class="receipt-history-row" href="{% url 'suggestion_receipt' item.reference %}"><strong>{{ item.reference }}</strong><span>{{ item.get_status_display }}</span><span class="tag">{% if item.has_reply %}已有回复{% else %}等待回复{% endif %}</span></a>{% endfor %}</section>{% endif %}
+{% endblock %}

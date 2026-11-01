@@ -7,6 +7,7 @@ from ..paths import resource_path
 
 # Fixed origin traits are displayable but deliberately not random-trait filters.
 ORIGIN_TRAITS = {
+    "trait.glorious": "角斗士专属天赋",
     "trait.player": "战团领袖", "trait.old": "年迈", "trait.arena_fighter": "竞技场斗士",
     "trait.arena_veteran": "竞技场老兵", "trait.arena_pit_fighter": "竞技场角斗士",
     "trait.cultist_fanatic": "达夫库尔狂信徒", "trait.cultist_zealot": "达夫库尔狂热者",
@@ -18,7 +19,11 @@ ORIGIN_TRAITS = {
 TRAIT_ALIASES = {"trait.determined": ("毅然",), "trait.huge": ("巨人",)}
 
 
-def trait_label(trait_id: str) -> str:
+def trait_label(trait_id: str, origin: str = '', brother_index: int = 0) -> str:
+    # The three original scripts share one ID; use the fixed roster position.
+    # Names match BBMOD's reviewed Glorious Resolve/Endurance/Quickness mapping.
+    if trait_id == 'trait.glorious' and origin == 'scenario.gladiators' and brother_index in (1, 2, 3):
+        return ('坚定意志', '不屈耐力', '迅捷连杀')[brother_index-1]
     aliases = TRAIT_ALIASES.get(trait_id, ())
     return trait_name(trait_id) + (f"（{'、'.join(aliases)}）" if aliases else "")
 

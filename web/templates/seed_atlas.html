@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}种子地图与跑商 · BBMOD{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'seed-atlas.css' %}"><script src="{% static 'seed-atlas.js' %}" defer></script>{% endblock %}
+{% block content %}
+<section class="atlas-head"><a href="{% url 'seeds' %}">← 种子广场</a><p class="eyebrow">THE EXPLORER'S ATLAS</p><h1>看地图，谋一条好商路</h1><p>输入种子码，查看整张地图、城镇特产和开局红装。无需启动游戏。</p>
+<form id="atlas-form" class="atlas-input"><label for="atlas-seed">十位种子码</label><input id="atlas-seed" name="seed" value="{{ seed_code }}" required pattern="[A-Za-z0-9]{10}" maxlength="10" autocomplete="off" spellcheck="false"><button class="button primary" type="submit">解算地图</button><span id="atlas-status" role="status" aria-live="polite">保留种子码大小写</span></form>
+<p class="help">原版 1.5.2.3 · 全 DLC。营地与红装按「农民民兵 · 战斗/经济/资金专家」开局生成。跑商采用中立关系与基础行情；事件、关系、库存和开局 MOD 会改变实际结果。</p></section>
+<div class="atlas-workspace" id="atlas-workspace" hidden>
+<section class="atlas-map-panel" aria-label="可交互世界地图">
+  <div class="atlas-map-tools"><button type="button" class="button small" id="atlas-fit">全图</button><button type="button" class="button small" id="atlas-in" aria-label="放大地图">＋</button><button type="button" class="button small" id="atlas-out" aria-label="缩小地图">−</button><label>底图<select id="atlas-mode"><option value="terrain">地形图</option><option value="trade">商路图</option></select></label><label>字号<select id="atlas-font"><option value="14">14</option><option value="18" selected>18</option><option value="22">22</option><option value="26">26</option><option value="30">30</option></select></label></div>
+  <div class="atlas-layers"><label><input type="checkbox" id="atlas-roads" checked> 道路</label><label><input type="checkbox" id="atlas-regions"> 地区名称</label><label><input type="checkbox" id="atlas-camps"> 全部营地</label></div>
+  <div class="atlas-canvas-wrap"><canvas id="atlas-canvas" tabindex="0" aria-label="种子地图。拖动平移，滚轮或加减键缩放；单击城镇查看详情，双击城镇加入路线；也可使用右侧列表。"></canvas></div>
+  <p class="atlas-map-help">拖动平移 · 滚轮缩放 · 双击城镇加入路线<br><span class="atlas-town-key">● 城镇</span> <span class="atlas-loot-key">◆ 红装营地</span> <span class="atlas-route-key">━ 所选路线</span></p>
+</section>
+<aside class="atlas-data-panel">
+  <div class="atlas-tabs" role="tablist" aria-label="地图资料"><button type="button" role="tab" aria-selected="true" aria-controls="atlas-town-panel" id="atlas-town-tab" data-tab="town">城镇与特产</button><button type="button" role="tab" aria-selected="false" aria-controls="atlas-trade-panel" id="atlas-trade-tab" data-tab="trade">跑商规划</button><button type="button" role="tab" aria-selected="false" aria-controls="atlas-loot-panel" id="atlas-loot-tab" data-tab="loot">红装定位</button></div>
+  <section id="atlas-town-panel" role="tabpanel" aria-labelledby="atlas-town-tab">
+    <p class="help">选择城镇，查看设施、采购与销售建议。</p><div id="atlas-towns" class="atlas-list" aria-label="城镇列表"></div>
+    <div class="atlas-detail"><h2 id="atlas-town-name">选择一座城镇</h2><p id="atlas-town-traits"></p><p id="atlas-town-sites"></p><button class="button" type="button" id="atlas-add-town">加入跑商路线</button><pre id="atlas-town-advice"></pre><h3>基础市场价格（克朗／件）</h3><div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>商品</th><th>买入</th><th>卖出</th></tr></thead><tbody id="atlas-market"></tbody></table></div></div>
+  </section>
+  <section id="atlas-trade-panel" role="tabpanel" aria-labelledby="atlas-trade-tab" hidden>
+    <h2>特产去向</h2><p class="help">选择一条生意，自动在地图画出采购地到销地的路线。</p><div id="atlas-offers" class="atlas-list"></div><p id="atlas-offer-reason" class="atlas-callout"></p>
+    <h2>我的路线</h2><div class="atlas-route-add"><select id="atlas-route-town" aria-label="选择路线城镇"></select><button class="button" type="button" id="atlas-route-add">添加一站</button></div><ol id="atlas-stops" class="atlas-stops"></ol>
+    <div class="atlas-route-actions"><button class="button small" type="button" id="atlas-undo">撤销一站</button><button class="button small" type="button" id="atlas-reverse">反向</button><button class="button small" type="button" id="atlas-clear">清空</button><button class="button small" type="button" id="atlas-export">导出路线</button></div>
+    <div class="atlas-route-cost"><label><input type="checkbox" id="atlas-road-only"> 只走连续道路</label><label>单种商品件数<input id="atlas-quantity" type="number" min="1" max="999" value="1"></label><label>战团每日开销<input id="atlas-cost" type="number" min="0" max="10000" value="0"></label></div><p id="atlas-route-status" role="status" aria-live="polite"></p><pre id="atlas-route-summary" class="atlas-callout">添加两座城镇以计算行程。</pre><p class="help">行程按基础昼间速度估算，扣除开销不包含战斗、停留与事件；特产推荐以单种商品计算。</p>
+  </section>
+  <section id="atlas-loot-panel" role="tabpanel" aria-labelledby="atlas-loot-tab" hidden>
+    <h2 id="atlas-loot-count">开局红装</h2><div class="atlas-loot-filter"><select id="atlas-loot-kind" aria-label="红装类型"><option value="">所有红装</option><option value="weapon">武器</option><option value="armor">盔甲</option><option value="helmet">头盔</option><option value="shield">盾牌</option></select><input id="atlas-loot-search" type="search" placeholder="搜索装备或营地" aria-label="搜索红装"></div>
+    <p class="help">点击一件红装，地图会定位到实际营地。武器同时显示实用词条评分和 roll 品质；分数适合比较同类武器。</p><div id="atlas-loot" class="atlas-list"></div><pre id="atlas-loot-detail" class="atlas-detail">选择红装查看属性和营地位置。</pre>
+  </section>
+</aside></div>
+{% endblock %}

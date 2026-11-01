@@ -62,3 +62,32 @@ def test_empty_batch_does_not_open_database(tmp_path):
     with patch.object(library, '_connect') as connect:
         assert library.save_many([]) == []
         connect.assert_not_called()
+
+
+def test_large_batch_merges_duplicates_across_lookup_groups(tmp_path):
+    library = SeedLibrary(tmp_path / 'seeds.sqlite3')
+    rows = [record('A' * 7 + chr(65 + i // 676) + chr(65 + i // 26 % 26) + chr(65 + i % 26))
+            for i in range(1001)]
+    library.save_many(rows[:501])
+    library.delete([seed_key(rows[500])])
+    richer = replace(rows[500], lines=rows[500].lines + ['Trait: trait.tough'])
+    other = replace(rows[999], lines=rows[999].lines + ['Trait: trait.iron_lungs'])
+    saved = library.save_many([*rows, richer, other, rows[500], rows[999]])
+    assert saved[-4:] == [(richer, True), (other, False), (richer, True), (other, False)]
+    expected = [other if index == 999 else row for index, row in enumerate(rows) if index != 500]
+    assert library.all() == expected
+    assert library.all(deleted=True) == [richer]
+
+
+def test_sql_failure_rolls_back_bulk_updates_and_inserts(tmp_path):
+    library = SeedLibrary(tmp_path / 'seeds.sqlite3')
+    first, rejected = record(), record('ABCDEFGHIJ')
+    library.save(first)
+    with library._connect() as db:
+        db.execute("CREATE TRIGGER fail_seed BEFORE INSERT ON seeds WHEN NEW.identity='" +
+                   seed_key(rejected) + "' BEGIN SELECT RAISE(ABORT, 'test write failure'); END")
+    richer = replace(first, lines=first.lines + ['Trait: trait.tough'])
+    import sqlite3
+    with pytest.raises(sqlite3.IntegrityError, match='test write failure'):
+        library.save_many([richer, record('abcdefghij'), rejected])
+    assert SeedLibrary(library.path).all() == [first]

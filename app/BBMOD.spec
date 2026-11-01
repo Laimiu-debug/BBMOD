@@ -25,7 +25,9 @@ a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('data', 'data'), ('seedgen', 'seedgen'), ('assets', 'assets'), ('localization', 'localization')],
+    datas=[('data', 'data'), ('seedgen', 'seedgen'), ('assets', 'assets'), ('localization', 'localization')]
+          + ([(str(Path(SPECPATH)/'build/offline-map/package'), 'worldmap')]
+             if (Path(SPECPATH)/'build/offline-map/package/pack.json').is_file() else []),
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

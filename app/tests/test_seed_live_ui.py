@@ -85,6 +85,7 @@ def test_star_only_rule_reaches_config_and_persists_on_reopen(page, app):
 
 
 def start(page, fake):
+    page.engine_combo.setCurrentIndex(page.engine_combo.findData('game'))
     with patch("ui.seedgen_page.game_mod.is_game_running", return_value=False), \
          patch("ui.seedgen_page.SeedGenOrchestrator", return_value=fake):
         page.start_btn.click()

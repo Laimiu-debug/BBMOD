@@ -6,12 +6,13 @@
   <p class="eyebrow">LETTERS TO THE CAMP</p>
   <h1>好兄弟，说说你的想法</h1>
   <p>想要的新功能、使用中遇到的问题，或是一个小小的改进，都可以在这里告诉我们。</p>
+  <a class="button" href="{% url 'suggestion_lookup' %}">查看处理进度与回复 →</a>
 </section>
 <div class="suggestion-layout">
   <form method="post" class="panel editor suggestion-editor" action="{% url 'suggestions' %}" novalidate>
     {% csrf_token %}{{ form.submission }}
     <div class="section-heading"><h2>描述问题或建议</h2><span>带 * 为必填</span></div>
-    <p class="muted">无需登录，提交后由管理员查看。</p>
+    <p class="muted">无需登录，提交后请保存回执编号，用它查看处理进度与管理员回复。</p>
     {% if form.errors %}<div class="notice error" role="alert"><strong>还差一步</strong>{% if form.non_field_errors %}{{ form.non_field_errors }}{% else %}<p>请检查下方标出的内容，修改后再提交。</p>{% endif %}{{ form.submission.errors }}</div>{% endif %}
     {% include 'field.html' with field=form.kind %}
     {% include 'field.html' with field=form.title %}

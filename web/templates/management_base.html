@@ -1,0 +1,35 @@
+{% extends 'base.html' %}{% load static %}
+{% block navigation_links %}
+<a href="{% url 'catalog' %}">网站首页 ↗</a><a href="{% url 'downloads' %}">下载页</a><a href="{% url 'workshop' %}">作者工坊</a><a href="{% url 'management' %}" {% if request.resolver_match.url_name == 'management' %}aria-current="page"{% endif %}>管理后台</a>
+{% endblock %}
+{% block body_class %}management-page{% endblock %}
+{% block main_class %}management-shell{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'management.css' %}?v=1">
+{% block management_head %}{% endblock %}
+{% endblock %}
+{% block content %}
+<div class="management-layout">
+  <aside class="management-sidebar" aria-label="管理导航">
+    <a class="management-home" href="{% url 'management' %}"><span class="management-seal" aria-hidden="true">B</span><span><strong>营地管理</strong><small>BBMOD CONTROL</small></span></a>
+    {% with current=request.resolver_match.url_name %}
+    <nav aria-label="后台功能">
+      <a href="{% url 'management' %}" {% if current == 'management' %}aria-current="page"{% endif %}><span aria-hidden="true">⌂</span>工作台</a>
+      <a href="{% url 'suggestion_management' %}" {% if current == 'suggestion_management' or current == 'suggestion_detail' %}aria-current="page"{% endif %}><span aria-hidden="true">✉</span>错误报告与建议</a>
+      <p class="management-nav-label">内容与分享</p>
+      <a href="{% url 'management' %}#mods"><span aria-hidden="true">▤</span>MOD 作品</a>
+      <a href="{% url 'seed_management' %}" {% if current == 'seed_management' %}aria-current="page"{% endif %}><span aria-hidden="true">❧</span>种子分享</a>
+      <a href="{% url 'profile_management' %}" {% if current == 'profile_management' %}aria-current="page"{% endif %}><span aria-hidden="true">▦</span>共享方案与文件</a>
+      <a href="{% url 'save_management' %}" {% if current == 'save_management' %}aria-current="page"{% endif %}><span aria-hidden="true">▣</span>存档分享</a>
+      <a href="{% url 'wiki_management' %}" {% if current == 'wiki_management' %}aria-current="page"{% endif %}><span aria-hidden="true">▥</span>百科导入报告</a>
+      <p class="management-nav-label">发布与账号</p>
+      <a href="{% url 'software_management' %}" {% if current == 'software_management' %}aria-current="page"{% endif %}><span aria-hidden="true">↑</span>管理器版本</a>
+      <a href="{% url 'accounts' %}" {% if current == 'accounts' or current == 'account_change' %}aria-current="page"{% endif %}><span aria-hidden="true">♙</span>作者账号</a>
+    </nav>
+    {% endwith %}
+    <a class="management-public-link" href="{% url 'catalog' %}">打开网站首页 <span aria-hidden="true">↗</span></a>
+    <p class="management-sidebar-note">管理内容仅管理员可见</p>
+  </aside>
+  <div class="management-main">{% block management_content %}{% endblock %}</div>
+</div>
+{% endblock %}

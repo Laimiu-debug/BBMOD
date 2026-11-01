@@ -94,7 +94,7 @@ def scaled(value, percent):
 
 
 def rounded(value):
-    return math.floor(value + .5)
+    return math.floor(value + .5) if value >= 0 else math.ceil(value - .5)
 
 
 @dataclass

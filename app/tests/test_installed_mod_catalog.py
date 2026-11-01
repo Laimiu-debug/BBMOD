@@ -57,6 +57,35 @@ def test_ambiguous_index_registration_does_not_invent_a_name():
     assert resolve_installed_mod(mod('renamed.zip'), local_index=index).display_name == 'Example'
 
 
+def test_standalone_hooks_does_not_inherit_bundled_fox_localization_name():
+    from core.modstore import load_index
+
+    info = mod('mod_hooks.zip', ids=('mod_hooks',), version='21.1', api='legacy')
+    info.registrations[0].name = 'Modding Script Hooks'
+    index = load_index()
+    assert index['data狐狸汉化+hooks 20260624.zip']['mod_ids'] == ['mod_hooks']
+    assert resolve_installed_mod(info, local_index=index).display_name == 'Modding Script Hooks'
+    info.file_name = 'data狐狸汉化+hooks 20260624.zip'
+    assert resolve_installed_mod(info, local_index=index).display_name == index[info.file_name]['name_cn']
+
+
+def test_legacy_hooks_registration_alone_cannot_identify_a_catalog_package():
+    info = mod('renamed.zip', ids=('mod_hooks',), version='21.1', api='legacy')
+    hooks = release('mod_hooks.zip', ids=('mod_hooks',), version='21.1', title='旧版 Hooks')
+    fox = release('data_fox_zhcn.zip', ids=('mod_hooks',), title='狐狸汉化')
+    for items in ([hooks], [fox], [hooks, fox]):
+        result = resolve_installed_mod(info, items, local_index={})
+        assert result.catalog_item is None and not result.update_available
+    for item in (hooks, fox):
+        info.file_name = item['file_name']
+        result = resolve_installed_mod(info, [hooks, fox], local_index={})
+        assert result.catalog_item is item and result.matched_by == 'file_name'
+    info.file_name = 'renamed.zip'
+    result = resolve_installed_mod(info, [hooks, fox], receipts=receipt(info, hooks),
+                                   local_sha256='a' * 64, local_index={})
+    assert result.catalog_item is hooks and result.matched_by == 'receipt'
+
+
 def test_package_identity_keeps_bundled_hooks_out_of_matching():
     info = mod('localization.zip', ids=('mod_hooks',), version='21.1', api='legacy')
     info.package_id = 'bbmod.independent.zh-CN'

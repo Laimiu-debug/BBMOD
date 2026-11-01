@@ -8,6 +8,7 @@ from . import wiki
 from . import community
 from . import profiles
 from . import saves
+from . import worldmaps
 
 urlpatterns = [
     path('saves/', saves.gallery, name='saves'),
@@ -41,11 +42,16 @@ urlpatterns = [
     path('suggestions/', suggestions.submit, name='suggestions'),
     path('api/v1/suggestions/', suggestions.api_submit, name='suggestion_api'),
     path('suggestions/thanks/', suggestions.thanks, name='suggestion_thanks'),
+    path('suggestions/replies/', suggestions.receipt_lookup, name='suggestion_lookup'),
+    path('suggestions/replies/<str:reference>/', suggestions.receipt_lookup, name='suggestion_receipt'),
     path('manage/suggestions/', suggestions.management, name='suggestion_management'),
     path('manage/suggestions/<uuid:suggestion_id>/', suggestions.detail, name='suggestion_detail'),
     path('manage/suggestions/<uuid:suggestion_id>/report/', suggestions.report_download, name='suggestion_report_download'),
     path('api/v1/visitor/', visitors.visit, name='visitor_visit'),
     path('seeds/', seeds.gallery, name='seeds'),
+    path('seeds/map/', worldmaps.atlas, name='seed_atlas'),
+    path('api/v1/worldmaps/<str:seed>/', worldmaps.map_data, name='worldmap_data'),
+    path('api/v1/worldmaps/<str:seed>/route/', worldmaps.route_data, name='worldmap_route'),
     path('seeds/<uuid:seed_id>/', seeds.detail, name='seed_detail'),
     path('api/v1/seeds/', seeds.publish, name='seed_publish'),
     path('api/v1/seeds/<uuid:seed_id>/', seeds.public_record, name='seed_public_record'),

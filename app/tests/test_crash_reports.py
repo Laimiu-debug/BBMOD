@@ -97,6 +97,47 @@ def test_missing_and_non_error_logs_do_not_report(tmp_path):
     assert read_session_log(path, session) is None
 
 
+@pytest.mark.parametrize('failure,level,trailer', [
+    ('Class/Structure with key "12345" is not registered.', 'critical', [
+        'A critical exception occured.', 'Modules & Application Stacktrace:', 'Script Stacktrace:']),
+    ("the index 'getID' does not exist", 'error', [
+        'Function:\nonDeserialize -> scripts/example.nut : 12', 'Variables:\nthis = Table']),
+])
+def test_crash_title_keeps_concrete_error_before_stack_headers(tmp_path, ctx, failure, level, trailer):
+    path = tmp_path / 'log.html'
+    session = begin_session([tmp_path])
+    path.write_text(row(failure, level) + ''.join(row(text, 'critical') for text in trailer), encoding='utf-8')
+    item = ReportStore(tmp_path / 'reports').capture(ctx, session, [tmp_path])
+    assert item['payload']['title'] == '疑似游戏闪退：' + failure
+    assert all(text in item['payload']['diagnostic_report'].replace('\r', '') for text in trailer)
+
+
+def test_crash_title_keeps_generic_exception_when_no_concrete_error(tmp_path):
+    path = tmp_path / 'log.html'
+    session = begin_session([tmp_path])
+    path.write_text(row('A critical exception occured.', 'critical') +
+                    row('Script Stacktrace:', 'critical'), encoding='utf-8')
+    assert read_session_log(path, session)[1] == 'A critical exception occured.'
+
+
+def test_crash_title_prefers_latest_concrete_error(tmp_path):
+    path = tmp_path / 'log.html'
+    session = begin_session([tmp_path])
+    path.write_text(row('missing optional resource') + row('save class missing') +
+                    row('Script Stacktrace:', 'critical'), encoding='utf-8')
+    assert read_session_log(path, session)[1] == 'save class missing'
+
+
+def test_generic_fatal_remains_visible_after_unrelated_earlier_error(tmp_path):
+    path = tmp_path / 'log.html'
+    session = begin_session([tmp_path])
+    path.write_text(row('missing optional resource') + row('game continued', 'info') +
+                    row('A critical exception occured.', 'critical') +
+                    row('Script Stacktrace:', 'critical'), encoding='utf-8')
+    assert read_session_log(path, session)[1] == (
+        'A critical exception occured. 此前日志：missing optional resource')
+
+
 def test_large_log_is_bounded_and_personal_data_redacted(tmp_path, ctx):
     path = tmp_path / 'log.html'
     session = begin_session([tmp_path])

@@ -80,10 +80,12 @@ MAP_METRIC_LABELS = {
     "GemMineNum": "宝石矿≥", "SaltMineNum": "盐矿≥",
 }
 
-LAIR_OUTPUT = {"NamedNumber": 0, "NamedAttrValue": 1, "NamedAttrValueBroOutput": 2, "NamedAttrValueStrength": 3}
+LAIR_OUTPUT = {"NamedNumber": 0, "NamedAttrValue": 1, "NamedAttrValueBroOutput": 2, "NamedAttrValueStrength": 3,
+               "NamedWeaponFilter": 4}
 LAIR_OUTPUT_LABELS = {
     "NamedNumber": "红装总数", "NamedAttrValue": "红装属性roll",
     "NamedAttrValueBroOutput": "红装属性+人物条件", "NamedAttrValueStrength": "红装属性+营地强度",
+    "NamedWeaponFilter": "红装总数与多武器要求",
 }
 NAMED_ATTRS = {
     "RegularDamage": 0, "ArmorDamageMult": 1, "ChanceToHitHead": 2, "DirectDamageAdd": 3,
@@ -103,7 +105,7 @@ ORIGIN_LABELS = {
     "scenario.rangers": "游侠", "scenario.paladins": "圣骑士", "scenario.raiders": "掠夺者",
     "scenario.anatomists": "解剖学者", "scenario.beast_hunters": "猎兽人",
     "scenario.gladiators": "角斗士", "scenario.manhunters": "猎奴人",
-    "scenario.cultists": "达库尔信徒", "scenario.deserters": "逃兵（仅慢速）",
+    "scenario.cultists": "达库尔信徒", "scenario.deserters": "逃兵",
     "scenario.afeix_expedition": "阿飞远征团（固定人物）",
     "common": "通用预设（未配置起源）",
 }
@@ -314,7 +316,7 @@ def render_lair_row(row: list) -> str:
         elif isinstance(v, str) and v in NAMED_ATTRS:
             out.append(f"NamedAttr.{v}")
         elif isinstance(v, str):
-            out.append(f'"{v}"')
+            out.append(json.dumps(v, ensure_ascii=False))
         else:
             out.append(str(v))
     return "[" + ", ".join(out) + "],"
@@ -398,12 +400,14 @@ def emit_lair_conditions(template_text: str, cfg: SeedGenConfig) -> str:
 def write_configs(payload_dir: Path, data_dir: Path, cfg: SeedGenConfig, session_id: str = "") -> list[Path]:
     """生成筛选条件和自动开局配置，返回写入的文件。"""
     import shutil
+    from .weapon_rating import emit_weapon_rating
 
     src = Path(payload_dir) / "seed_generator"
     dst = Path(data_dir) / "seed_generator"
     dst.mkdir(parents=True, exist_ok=True)
     written = []
     for name, text in (
+        ("config_weapon_rating.nut", emit_weapon_rating()),
         ("config_campaign.nut", emit_campaign(cfg.campaign, session_id)),
         ("config_common.nut", emit_common(cfg.common)),
         ("config_role_condition.nut", emit_role_conditions((src / "config_role_condition.nut").read_text(encoding="utf-8"), cfg)),

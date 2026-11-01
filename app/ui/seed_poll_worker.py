@@ -1,5 +1,6 @@
 """Read seed logs outside Qt's GUI thread, with one acknowledged batch at a time."""
 from threading import Event
+from time import monotonic
 
 from PySide6.QtCore import QThread, Signal
 
@@ -27,6 +28,19 @@ class SeedPollWorker(QThread):
                 results, _ = self.session.poll()
                 if self.isInterruptionRequested():
                     break
+                # Independent matches arrive one JSON line at a time. Gather
+                # a short, bounded burst before asking Qt to save and display
+                # it, rather than issuing a database commit for each small read.
+                if results and getattr(self.session, 'independent', False):
+                    results = list(results)
+                    deadline = monotonic() + .05
+                    while (len(results) < 256 and monotonic() < deadline
+                           and not self.isInterruptionRequested()
+                           and not self.session.stop_reason):
+                        more, _ = self.session.poll()
+                        results.extend(more)
+                        if not more:
+                            self.msleep(2)
                 self._acknowledged.clear()
                 self.batch_ready.emit(results)
                 # The GUI saves and displays this batch before another one can

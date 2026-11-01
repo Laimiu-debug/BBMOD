@@ -14,7 +14,9 @@ from core import game as game_mod
 from core.seedgen.config_emitter import CommonConfig, SeedGenConfig, render_lair_row, write_configs
 from core.seedgen.log_watcher import SeedResult
 from core.seedgen.presentation import format_seed
-from core.seedgen.weapons import NAMED_WEAPONS, WEAPON_CHOICES, weapon_condition
+from core.seedgen.weapons import (
+    NAMED_WEAPONS, WEAPON_CHOICES, WeaponRequirement, weapon_condition, weapon_filter_condition,
+)
 from core.settings import Settings
 from ui.seedgen_page import SeedGenPage
 
@@ -151,17 +153,25 @@ def test_ui_selection_reaches_all_red_loot_modes_and_survives_reopen(tmp_path):
     page.rule_mode.setCurrentIndex(page.rule_mode.findData('traits'))  # Empty inactive trait rule must not block loot.
     assert not page.filter_tabs.isTabEnabled(0) and not page.filter_tabs.isTabEnabled(1)
     filt = page.weapon_filter
+    row = filt.rows[0]
     for identifier, label in NAMED_WEAPONS.items():
-        assert filt.weapon.itemText(filt.weapon.findData(identifier)) == label
-    filt.kind.setFocus()
-    QTest.keyClick(filt.kind, Qt.Key_Down)
-    assert filt.kind.currentData() == 'weapon' and filt.stack.currentIndex() == 1
-    filt.weapon.setCurrentIndex(filt.weapon.findData('weapon.named_javelin'))
-    filt.count.setValue(2)
-    filt.damage.setValue(75)
-    filt.penetration.setValue(75)
+        assert row.weapon.itemText(row.weapon.findData(identifier)) == label
+    filt.weapons_enabled.setFocus()
+    QTest.keyClick(filt.weapons_enabled, Qt.Key_Space)
+    assert filt.weapons_enabled.isChecked() and filt.table.isVisible()
+    row.weapon.setCurrentIndex(row.weapon.findData('weapon.named_javelin'))
+    row.count.setValue(2)
+    row.damage.setValue(75)
+    row.penetration.setValue(75)
+    row.score.setValue(90)
+    row.quality.setValue(80)
+    filt.add.click()
+    row2 = filt.rows[1]
+    row2.weapon.setCurrentIndex(row2.weapon.findData('weapon.named_greatsword'))
+    requirements = [WeaponRequirement('weapon.named_javelin', 2, 75, 75, 90, 80),
+                    WeaponRequirement('weapon.named_greatsword')]
     cfg = page._current_config()
-    assert cfg.lair_conditions == [weapon_condition('weapon.named_javelin', 2, 75, 75)]
+    assert cfg.lair_conditions == [weapon_filter_condition(requirements, 20)]
     assert cfg.origins == {} and cfg.map_conditions is None
     page.rule_mode.setCurrentIndex(page.rule_mode.findData('attributes'))
     for label in ('人物 + 红装', '人物 + 地图 + 红装'):
@@ -174,11 +184,17 @@ def test_ui_selection_reaches_all_red_loot_modes_and_survives_reopen(tmp_path):
     reopened = SeedGenPage(context)
     reopened.mode_combo.setCurrentText('只找红装')
     assert reopened._current_config().lair_conditions == cfg.lair_conditions
-    reopened.weapon_filter.kind.setCurrentIndex(0)
+    reopened.weapon_filter.weapons_enabled.setChecked(False)
     reopened.named_min.setValue(28)
     assert reopened._current_config().lair_conditions == [['NamedNumber', 28]]
-    reopened.weapon_filter.kind.setCurrentIndex(1)
-    assert reopened._current_config().lair_conditions == cfg.lair_conditions  # No OR with total count.
+    reopened.weapon_filter.weapons_enabled.setChecked(True)
+    assert reopened._current_config().lair_conditions == [weapon_filter_condition(requirements, 28)]
+    reopened.weapon_filter.total_enabled.setChecked(False)
+    reopened.weapon_filter.match.setCurrentIndex(1)
+    assert reopened._current_config().lair_conditions == [weapon_filter_condition(requirements, match='any')]
+    reopened.weapon_filter.rows[1].remove.click()
+    assert len(reopened.weapon_filter.rows) == 1
+    assert reopened._current_config().lair_conditions == [weapon_filter_condition(requirements[:1], match='any')]
     reopened.close()
     page.close()
     app.processEvents()
@@ -191,7 +207,7 @@ def test_unknown_saved_values_fall_back_without_emitting_custom_script(tmp_path)
     settings.data = {'seed_lair_filter': {'kind':'weapon','weapon':'unknown','count':-5,'damage':'bad','penetration':True}}
     page = SeedGenPage(SimpleNamespace(game=None, settings=settings))
     page.mode_combo.setCurrentText('只找红装')
-    assert page._current_config().lair_conditions == [weapon_condition('weapon')]
+    assert page._current_config().lair_conditions == [weapon_filter_condition([WeaponRequirement()])]
     page.close()
 
 

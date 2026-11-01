@@ -36,6 +36,8 @@ gt.SeedGenerator.LowestScore <- 0.6; # 当一个角色的被分配到的职业�
 # 特性打分表
 gt.SeedGenerator.TraitScoreTable <- {};
 local TraitScoreTable = gt.SeedGenerator.TraitScoreTable;
+// Origin combat effects have no flat attribute bonus in this rating model.
+TraitScoreTable["trait.glorious"] <- [array(AttrNum, 0), array(RoleNum, 0)];
 
 ## 病弱
 TraitScoreTable["trait.ailing"] <- array(2);

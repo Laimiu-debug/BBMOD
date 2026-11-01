@@ -4,6 +4,7 @@ import hashlib
 import hmac
 import logging
 import json
+import re
 import secrets
 import uuid
 
@@ -14,17 +15,20 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core import signing
 from django.core.paginator import Paginator
 from django.db import OperationalError, transaction
-from django.db.models import Count, F, Q
+from django.db.models import Count, Exists, F, OuterRef, Q
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_GET, require_http_methods
 
-from .models import Suggestion, SuggestionBudget
+from .models import Suggestion, SuggestionBudget, SuggestionReply
 from .services import audit
 
 TOKEN_SALT = 'bbmod.suggestion.v1'
+RECEIPT_COOKIE = 'bbmod_feedback_receipts'
+RECEIPT_SALT = 'bbmod.feedback.receipts.v1'
 logger = logging.getLogger(__name__)
 admin_required = user_passes_test(lambda user: user.is_active and user.is_superuser)
 
@@ -52,12 +56,112 @@ class SuggestionForm(forms.ModelForm):
 
 class HandlingForm(forms.ModelForm):
     revision = forms.DateTimeField(widget=forms.HiddenInput)
+    reply_body = forms.CharField(label='给用户的回复', required=False, max_length=5000,
+        widget=forms.Textarea(attrs={'rows': 7, 'placeholder': '说明处理结果、修复版本，或请用户按步骤排查。'}),
+        help_text='填写后随处理记录一起发布，持有回执编号的用户可查看。不要复制内部备注或个人信息。')
 
     class Meta:
         model = Suggestion
         fields = ['status', 'internal_notes']
         widgets = {'internal_notes': forms.Textarea(attrs={'rows': 7, 'placeholder': '记录排查结果、后续计划或处理原因'})}
         help_texts = {'internal_notes': '仅管理员可见，保存后不会自动发送给提交者。'}
+
+
+class ReceiptForm(forms.Form):
+    reference = forms.RegexField(label='回执编号', regex=r'^[0-9A-Fa-f]{12}$', max_length=12,
+        error_messages={'invalid': '请输入提交后得到的 12 位回执编号。'},
+        widget=forms.TextInput(attrs={'placeholder': '12 位字母与数字', 'autocomplete': 'off',
+                                     'spellcheck': 'false', 'autocapitalize': 'characters'}))
+
+    def clean_reference(self):
+        return self.cleaned_data['reference'].upper()
+
+
+def _receipts(request):
+    try:
+        values = request.get_signed_cookie(RECEIPT_COOKIE, default='', salt=RECEIPT_SALT).split(',')
+    except (signing.BadSignature, ValueError):
+        return []
+    return [value for value in values[:30] if re.fullmatch(r'[0-9A-F]{12}', value)]
+
+
+def _remember_receipt(request, response, reference):
+    values = [reference] + [value for value in _receipts(request) if value != reference]
+    response.set_signed_cookie(RECEIPT_COOKIE, ','.join(values[:30]), salt=RECEIPT_SALT,
+        max_age=365 * 86400, secure=settings.HTTPS, httponly=True, samesite='Lax')
+    return response
+
+
+def _receipt_headers(response):
+    response['Cache-Control'] = 'private, no-store'
+    response['X-Robots-Tag'] = 'noindex, nofollow'
+    # Retain the origin for browser CSRF checks while omitting the receipt path.
+    response['Referrer-Policy'] = 'strict-origin'
+    return response
+
+
+def _lookup_budget(request):
+    now = timezone.now()
+    address = request.META.get('REMOTE_ADDR', '')
+    if settings.TRUST_PROXY:
+        address = request.META.get('HTTP_X_REAL_IP', address)
+    # Reads have a separate budget; querying a reply never uses a submission slot.
+    with transaction.atomic():
+        SuggestionBudget.objects.filter(since__lt=now - timedelta(days=2)).delete()
+        for scope, limit in [('address:' + address, 120), ('global', 3000)]:
+            key = hmac.new(settings.SECRET_KEY.encode(),
+                ('lookup:' + now.strftime('%Y%m%d%H') + ':' + scope).encode(), hashlib.sha256).hexdigest()
+            SuggestionBudget.objects.get_or_create(key=key)
+            if not SuggestionBudget.objects.filter(key=key, count__lt=limit).update(count=F('count') + 1):
+                raise QuotaExceeded
+
+
+@require_http_methods(['GET', 'POST'])
+def receipt_lookup(request, reference=None):
+    form = ReceiptForm({'reference': reference} if reference is not None else
+                       request.POST if request.method == 'POST' else None)
+    receipt = None
+    status = 200
+    if form.is_bound:
+        try:
+            _lookup_budget(request)
+        except QuotaExceeded:
+            form.add_error(None, '查询较频繁，请一小时后再试。')
+            status = 429
+        except OperationalError:
+            form.add_error(None, '暂时无法查询，请稍后重试。')
+            status = 503
+        else:
+            if form.is_valid():
+                matches = list(Suggestion.objects.filter(pk__startswith=form.cleaned_data['reference'].lower())
+                    .only('id', 'status', 'updated_at').prefetch_related('replies')[:2])
+                if len(matches) == 1:
+                    receipt = matches[0]
+                    if request.method == 'POST':
+                        return _remember_receipt(request, redirect('suggestion_receipt', reference=receipt.reference), receipt.reference)
+                else:
+                    form.add_error(None, '未找到对应回执，请核对编号。')
+                    status = 404
+            else:
+                status = 400
+    # Use an explicit allowlist: neither original text nor private diagnostics are
+    # passed to the receipt template, including for legacy 12-character receipts.
+    result = None if receipt is None else {'reference': receipt.reference, 'status': receipt.status,
+        'status_label': receipt.get_status_display(), 'updated_at': receipt.updated_at,
+        'replies': list(receipt.replies.values('body', 'status', 'created_at'))}
+    remembered = _receipts(request)
+    filters = Q(pk__in=[])
+    for value in remembered:
+        filters |= Q(pk__startswith=value.lower())
+    recent = Suggestion.objects.filter(filters).only('id', 'status', 'updated_at').annotate(
+        has_reply=Exists(SuggestionReply.objects.filter(suggestion_id=OuterRef('pk')))) if remembered else []
+    response = render(request, 'suggestion_receipt.html', {'form': form, 'receipt': result,
+        'recent_receipts': recent}, status=status)
+    if receipt:
+        _remember_receipt(request, response, receipt.reference)
+    if status in (429, 503):
+        response['Retry-After'] = '3600' if status == 429 else '5'
+    return _receipt_headers(response)
 
 
 class QuotaExceeded(Exception):
@@ -139,7 +243,9 @@ def api_submit(request):
     except OperationalError:
         logger.warning('Desktop suggestion storage temporarily unavailable')
         return reply({'error': '暂时无法保存建议，请稍后重试。'}, 503, 5)
-    return reply({'reference': suggestion.reference, 'message': '建议已送达，管理员会在后台查看。'}, 201)
+    return _remember_receipt(request, reply({'reference': suggestion.reference,
+        'reply_url': reverse('suggestion_receipt', kwargs={'reference': suggestion.reference}),
+        'message': '反馈已送达。可凭回执编号到官网「查看回复」查询处理进度。'}, 201), suggestion.reference)
 
 
 @require_http_methods(['GET', 'POST'])
@@ -179,7 +285,7 @@ def submit(request):
                     status = 503
                 else:
                     request.session['last_suggestion'] = str(suggestion.pk)
-                    return redirect('suggestion_thanks')
+                    return _remember_receipt(request, redirect('suggestion_thanks'), suggestion.reference)
             else:
                 status = 400
     response = render(request, 'suggestions.html', {'form': form, 'track_visit': True}, status=status)
@@ -194,16 +300,17 @@ def thanks(request):
     suggestion = Suggestion.objects.filter(pk=suggestion_id).first() if suggestion_id else None
     if not suggestion:
         return redirect('suggestions')
-    return render(request, 'suggestion_thanks.html', {'reference': suggestion.reference, 'track_visit': True})
+    return _receipt_headers(render(request, 'suggestion_thanks.html', {'reference': suggestion.reference}))
 
 
 @admin_required
 @require_GET
 def management(request):
-    query = Suggestion.objects.all()
+    query = Suggestion.objects.annotate(reply_count=Count('replies')).order_by('-created_at', '-id')
     status = request.GET.get('status', '')
     kind = request.GET.get('kind', '')
     reports = request.GET.get('reports') == '1'
+    replied = request.GET.get('replied', '')
     search = request.GET.get('q', '').strip()[:100]
     if status not in Suggestion.Status.values:
         status = ''
@@ -215,13 +322,15 @@ def management(request):
         query = query.filter(kind=kind)
     if reports:
         query = query.exclude(diagnostic_report='')
+    if replied in ('yes', 'no'):
+        query = query.filter(reply_count__gt=0) if replied == 'yes' else query.filter(reply_count=0)
     if search:
         query = query.filter(Q(title__icontains=search) | Q(details__icontains=search) | Q(nickname__icontains=search)
                              | Q(diagnostic_report__icontains=search) | Q(version__icontains=search))
     totals = dict(Suggestion.objects.values_list('status').annotate(total=Count('pk')))
     return render(request, 'suggestion_management.html', {
         'page': Paginator(query, 20).get_page(request.GET.get('page')),
-        'status': status, 'kind': kind, 'q': search, 'reports': reports,
+        'status': status, 'kind': kind, 'q': search, 'reports': reports, 'replied': replied,
         'statuses': Suggestion.Status.choices, 'kinds': Suggestion.Kind.choices,
         'total': sum(totals.values()), 'new_count': totals.get(Suggestion.Status.NEW, 0),
         'reviewing_count': totals.get(Suggestion.Status.REVIEWING, 0),
@@ -247,19 +356,33 @@ def detail(request, suggestion_id):
     status = 200
     if request.method == 'POST':
         if form.is_valid():
-            with transaction.atomic():
-                updated = Suggestion.objects.filter(pk=suggestion.pk, updated_at=form.cleaned_data['revision']).update(
-                    status=form.cleaned_data['status'], internal_notes=form.cleaned_data['internal_notes'],
-                    handled_by=request.user, updated_at=timezone.now())
+            try:
+                with transaction.atomic():
+                    updated = Suggestion.objects.filter(pk=suggestion.pk, updated_at=form.cleaned_data['revision']).update(
+                        status=form.cleaned_data['status'], internal_notes=form.cleaned_data['internal_notes'],
+                        handled_by=request.user, updated_at=timezone.now())
+                    if updated:
+                        audit(request.user, '处理建议', suggestion.pk, dict(Suggestion.Status.choices)[form.cleaned_data['status']])
+                        if form.cleaned_data['reply_body']:
+                            SuggestionReply.objects.create(suggestion=suggestion, body=form.cleaned_data['reply_body'],
+                                status=form.cleaned_data['status'], author=request.user)
+                            audit(request.user, '回复建议', suggestion.pk, '已发布回复')
+            except OperationalError:
+                logger.warning('Suggestion reply storage temporarily unavailable')
+                form.add_error(None, '暂时无法保存，填写的回复和备注已保留，请稍后重试。')
+                status = 503
+            else:
                 if updated:
-                    audit(request.user, '处理建议', suggestion.pk, dict(Suggestion.Status.choices)[form.cleaned_data['status']])
-            if updated:
-                messages.success(request, '处理记录已保存。')
-                return redirect('suggestion_detail', suggestion_id=suggestion.pk)
-            form.add_error(None, '这条建议已被其他管理员更新。请重新打开页面查看最新记录，再合并你的备注。')
-            status = 409
+                    messages.success(request, '处理记录已保存，回复已发布。' if form.cleaned_data['reply_body'] else '处理记录已保存。')
+                    return redirect('suggestion_detail', suggestion_id=suggestion.pk)
+                form.add_error(None, '这条建议已被其他管理员更新。请重新打开页面查看最新记录，再合并你的备注。')
+                status = 409
         else:
             status = 400
         # ModelForm validation mutates its instance; show the actual saved state.
         suggestion.refresh_from_db()
-    return render(request, 'suggestion_detail.html', {'suggestion': suggestion, 'form': form}, status=status)
+    response = render(request, 'suggestion_detail.html', {'suggestion': suggestion, 'form': form,
+        'replies': suggestion.replies.select_related('author')}, status=status)
+    if status == 503:
+        response['Retry-After'] = '5'
+    return response

@@ -128,6 +128,7 @@ def test_click_copy_preferences_and_notes_survive_reopen(app, context):
 
 def test_plain_attribute_filter_and_modes(app, context):
     page = SeedGenPage(context)
+    page.mode_combo.setCurrentText('人物 + 地图')
     page.bro_count.setValue(3)
     cfg = page._current_config()
     condition = next(iter(cfg.origins.values())).conditions[0]

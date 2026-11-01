@@ -129,7 +129,10 @@ def _match(info, items, receipt):
             if not info.package_id or info.package_id not in declared:
                 return None, ''
         return item, 'file_name'
-    if not own_ids:
+    # Legacy Hooks is also the only registration in unbranded localization
+    # bundles. Its ID alone cannot identify either the bundle or the framework;
+    # require the filename or a verified receipt instead.
+    if not own_ids or own_ids == {'mod_hooks'}:
         return None, ''
     if info.package_id:
         matches = [item for item in items
@@ -152,6 +155,10 @@ def _offline_name(info, index):
     if len(exact) == 1:
         return _text(exact[0].get('name_cn'))
     own_ids = _local_ids(info)
+    # A translation may embed Hooks without registering a separate package ID.
+    # In particular, the Fox index entry must not rename standalone Hooks.
+    if own_ids == {'mod_hooks'}:
+        return ''
     matches = [meta for _, meta in entries
                if own_ids and _ids(meta.get('mod_ids')) == own_ids]
     return _text(matches[0].get('name_cn')) if len(matches) == 1 else ''

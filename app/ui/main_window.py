@@ -532,6 +532,7 @@ class MainWindow(QMainWindow):
                     event.ignore()
                     return
         self.seedgen.shutdown_sharing()
+        self.seedgen.map_preview.shutdown()
         self.updates.shutdown()
         self.ctx.game_session.shutdown()
         self.inspector.shutdown()

@@ -4,6 +4,8 @@ import hashlib
 import io
 import json
 import runpy
+import subprocess
+import sys
 import tarfile
 from pathlib import Path
 
@@ -15,6 +17,7 @@ parser.add_argument('--output', type=Path, default=ROOT / 'app/build/hub' / VERS
 args = parser.parse_args()
 OUT = args.output.resolve()
 OUT.mkdir(parents=True, exist_ok=True)
+subprocess.run([sys.executable, str(ROOT/'web/tools/package_atlas.py')], check=True)
 target = OUT / f'{PREFIX}.tar.gz'
 files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py', ROOT / 'app/core/profile_protocol.py',
          ROOT / 'app/core/save_protocol.py', ROOT / 'app/core/modinfo.py', ROOT / 'app/core/l10n_identity.py',
@@ -22,7 +25,12 @@ files = [ROOT / '.dockerignore', ROOT / 'app/core/archive_safety.py', ROOT / 'ap
          ROOT / 'app/core/seedgen/mod_origins.py']
 files += [ROOT / 'app' / name for name in ['core/paths.py', 'core/gamelog.py',
     'core/seedgen/config_emitter.py', 'core/seedgen/log_watcher.py', 'core/seedgen/presentation.py',
-    'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'core/seedgen/weapons.py', 'data/seed_traits.json']]
+    'core/seedgen/protocol.py', 'core/seedgen/traits.py', 'core/seedgen/weapons.py', 'core/seedgen/brother_rating.py',
+    'core/seedgen/weapon_rating.py', 'core/io_util.py', 'data/seed_traits.json', 'native/worldmap/runtime.cpp',
+    'build/offline-map/web-labels.json', 'build/offline-map/package/runtime.nut', 'build/offline-map/package/camps.nut',
+    'build/offline-map/package/SQUIRREL-COPYRIGHT']]
+for folder in ['app/core/worldmap','app/build/offline-map/vendor','app/build/offline-map/package/rules','app/tests/fixtures/worldmap']:
+    files += [p for p in (ROOT/folder).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix != '.pyc']
 web = ROOT / 'web'
 for name in ['manage.py', 'requirements.txt', 'requirements.lock', 'requirements-wiki.txt', 'Dockerfile', 'compose.yml', 'compose.https.yml', 'compose.gateway.yml', '.env.example', 'README.md']:
     files.append(web / name)

@@ -27,6 +27,7 @@ def context(tmp_path):
 
 def test_port_choices_persist_and_only_apply_in_map_modes(app, context):
     page = SeedGenPage(context)
+    page.mode_combo.setCurrentText('人物 + 地图')
     assert not page.north_south_ports.isChecked() and not page.arena_port.isChecked()
     page.show()
     page.filter_tabs.setCurrentIndex(1)

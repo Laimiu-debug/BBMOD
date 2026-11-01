@@ -20,7 +20,7 @@ from .l10n_compat import override_keys, write_hooks
 from .l10n_identity import BRAND_META, PACKAGE_ID, PACKAGE_BRAND
 
 PACKAGE_NAME = 'mod_bbmod_zhcn.zip'
-VERSION = '0.3.2'
+VERSION = '0.3.3'
 CATALOG_FILE = resource_path('localization/catalog.json')
 UI_ROOT = 'ui/mods/bbmod_l10n/'
 FONT_ENTRY = UI_ROOT + 'NotoSansSC-Regular.ttf'
@@ -143,8 +143,10 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
         # Shared code/display constants stay unchanged in native bytecode.
         # Translate their rendered text using the same published catalog.
         ui_dictionary = dict(full.get('display_fallbacks', {}))
+        # " Company" is a noble-army suffix. Stripping its space must not
+        # overwrite the standalone Company UI label (the player's warband).
         ui_dictionary.update({source.strip(): value.strip() for source, value in dictionary.items()
-                              if source.strip() and value.strip()})
+                              if source.strip() and value.strip() and source != ' Company'})
         inline = preserve_inline_names({key: {**entry, 'translation': dictionary.get(entry['source'], entry['translation'])}
                                        for key, entry in full['entries'].items()}, policy)
         ui_dictionary.update({entry['source'].strip(): entry['translation'].strip()
@@ -164,7 +166,7 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                 ui_dictionary[source.strip()] = value.strip()
     raw, archive_name = read_base_html(game_root / 'data')
     html = raw.decode('utf-8-sig')
-    from .l10n_display import build_name_forms, build_person_names, build_southern_name_parts, build_city_places, ENTRY as NAME_FORMS_ENTRY
+    from .l10n_display import build_name_forms, build_person_names, build_southern_name_parts, build_city_places, build_army_names, ENTRY as NAME_FORMS_ENTRY
     name_forms = build_name_forms(full, dictionary) if full else {}
     injection = ('\n<!-- BBMOD independent localization -->\n'
         '<link rel="stylesheet" href="mods/bbmod_l10n/fonts.css"/>\n'
@@ -217,7 +219,10 @@ def build_localization(game_root: Path, overrides: dict[str, str], out_path: Pat
                 content += 'window.BBMOD_PERSON_NAMES = ' + json.dumps(person_names, ensure_ascii=True, sort_keys=True) + ';\n'
                 city_places = build_city_places(dictionary)
                 content += 'window.BBMOD_CITY_PLACES = ' + json.dumps(city_places, ensure_ascii=True, sort_keys=True) + ';\n'
+                armies = build_army_names(full, {**ui_dictionary, **dictionary})
+                content += 'window.BBMOD_ARMY_NAMES = ' + json.dumps(armies, ensure_ascii=True, sort_keys=True) + ';\n'
                 zf.writestr(NAME_FORMS_ENTRY, content)
+                manifest['mercenary_company_display_names'] = len(armies['companies'])
                 manifest['name_display_forms'] = len(name_forms)
                 manifest['southern_name_parts'] = sum(len(terms) for terms in southern_parts.values())
                 manifest['person_name_forms'] = len(person_names)

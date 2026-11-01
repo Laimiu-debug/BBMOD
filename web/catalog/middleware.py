@@ -40,7 +40,7 @@ class SecurityHeadersMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         response['Content-Security-Policy'] = "default-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
-        response['Referrer-Policy'] = 'same-origin'
+        response.setdefault('Referrer-Policy', 'same-origin')
         response['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()'
         # Public pages also contain the visitor's session state and CSRF tokens.
         # Never let a reverse-proxy cache replay them to a different visitor.

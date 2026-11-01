@@ -9,6 +9,35 @@ from .place_names import load_policy
 ENTRY = 'ui/mods/bbmod_l10n/name_forms.js'
 
 
+def build_army_names(catalog, dictionary):
+    """Whole known party labels, distinct from player names and geography."""
+    policy = load_policy(catalog)
+    if not policy:
+        return {}
+    review = json.loads(resource_path('localization/army_names.json').read_text(encoding='utf-8'))
+
+    def translated(source):
+        target = dictionary.get(source, '').strip()
+        if not target:
+            raise ValueError('军队名称缺少译文：' + source)
+        return target
+
+    companies = {name: translated(name) for name in review['mercenary_companies']}
+    # Only settlement names qualify for the noble "<town> Company" template.
+    # A mountain named Bulwark must not turn a custom "Bulwark Company" into
+    # a noble army. Canonical saved names are never modified here.
+    settlements = {}
+    for site in policy['sites']:
+        if not site['file'].startswith('scripts/entity/world/settlements/'):
+            continue
+        name = catalog['entries'][site['key']]['source']
+        target = translated(name)
+        settlements[name] = settlements[target] = target
+    return {'companies': companies, 'settlements': settlements,
+            'generic': {name: translated(name) for name in ('Army', 'Mercenaries')},
+            'nobleSuffix': translated(' Company')}
+
+
 def build_city_places(dictionary):
     """CityStateNames are a separate official pool from northern place templates."""
     review = json.loads(resource_path('localization/name_order.json').read_text(encoding='utf-8'))

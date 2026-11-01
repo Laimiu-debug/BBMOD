@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 from datetime import timedelta
+from urllib.parse import urlencode
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, update_session_auth_hash
@@ -11,7 +12,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator
 from django.db import transaction, IntegrityError
-from django.db.models import F, OuterRef, Subquery, Sum
+from django.db.models import Count, F, OuterRef, Q, Subquery, Sum
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -255,12 +256,34 @@ def release_action(request, release_id):
 
 
 @admin_required
+@require_GET
 def management(request):
-    mods = Mod.objects.select_related('owner').order_by('-updated_at')
+    search, state = management_filters(request.GET)
+    mods = Mod.objects.select_related('owner').order_by('-updated_at', '-pk')
+    if search:
+        mods = mods.filter(Q(title__icontains=search) | Q(install_name__icontains=search)
+                           | Q(owner__username__icontains=search) | Q(owner__first_name__icontains=search))
+    if state:
+        mods = mods.filter(blocked=state == 'blocked')
+    feedback = Suggestion.objects.aggregate(
+        new=Count('pk', filter=Q(status=Suggestion.Status.NEW)),
+        reviewing=Count('pk', filter=Q(status=Suggestion.Status.REVIEWING)))
     return render(request, 'management.html', {'mods': Paginator(mods, 30).get_page(request.GET.get('page')),
                                                'logs': AuditLog.objects.select_related('actor').order_by('-created_at')[:25],
                                                'traffic': traffic_summary(),
-                                               'new_suggestions': Suggestion.objects.filter(status=Suggestion.Status.NEW).count()})
+                                               'q': search, 'state': state,
+                                               'mod_totals': Mod.objects.aggregate(total=Count('pk'), blocked=Count('pk', filter=Q(blocked=True))),
+                                               'new_suggestions': feedback['new'],
+                                               'reviewing_suggestions': feedback['reviewing'],
+                                               'pending_suggestions': Suggestion.objects.filter(
+                                                   status__in=[Suggestion.Status.NEW, Suggestion.Status.REVIEWING])
+                                                   .only('title', 'status', 'created_at').order_by('-created_at', '-pk')[:4]})
+
+
+def management_filters(params):
+    search = params.get('q', '').strip()[:100]
+    state = params.get('state', '')
+    return search, state if state in {'normal', 'blocked'} else ''
 
 
 @admin_required
@@ -277,6 +300,13 @@ def moderate(request, mod_id):
             mod.block_reason = reason if mod.blocked else ''
             mod.save(update_fields=['blocked', 'block_reason'])
             audit(request.user, '下架作品' if mod.blocked else '恢复作品', mod.pk, reason)
+    search, state = management_filters(request.POST)
+    params = {key: value for key, value in [('q', search), ('state', state)] if value}
+    page = request.POST.get('page', '')
+    if page.isascii() and page.isdecimal() and 0 < len(page) <= 6 and int(page) > 1:
+        params['page'] = page
+    if params:
+        return redirect(f"{reverse('management')}?{urlencode(params)}#mods")
     return redirect('management')
 
 
@@ -311,7 +341,7 @@ def account_change(request, user_id):
             audit(request.user, '重置作者密码', user.username)
             messages.success(request, '密码已重置，该用户需要重新登录并修改密码。')
             return redirect('accounts')
-    return render(request, 'form.html', {'form': form, 'title': f'重置 {user.username} 的密码', 'submit': '重置密码', 'action': 'password', 'compact': True})
+    return render(request, 'management_form.html', {'form': form, 'title': f'重置 {user.username} 的密码', 'submit': '重置密码', 'action': 'password'})
 
 
 def _tag(*parts):

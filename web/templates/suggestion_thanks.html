@@ -7,7 +7,7 @@
   <p class="eyebrow">LETTER RECEIVED</p><h1>建议收到了，好兄弟</h1>
   <p>你的建议已保存，管理员可以在后台查看和处理。<br>感谢你花时间帮助 BBMOD 变得更好。</p>
   <p class="suggestion-reference">建议编号 <strong>{{ reference }}</strong></p>
-  <p class="help">建议内容不会公开。若你留下了联系方式，我们可在需要时进一步了解情况。</p>
-  <div class="form-actions"><a class="button primary" href="{% url 'catalog' %}">返回军械库</a><a class="button" href="{% url 'suggestions' %}">再提一条</a></div>
+  <p class="help">请保管好回执编号。管理员的回复和处理状态会显示在查询页，可收藏链接稍后查看。原始内容及联系方式仅管理员可见。</p>
+  <div class="form-actions"><a class="button primary" href="{% url 'suggestion_receipt' reference %}">查看处理进度与回复</a><a class="button" href="{% url 'suggestions' %}">再提一条</a><a href="{% url 'catalog' %}">返回军械库</a></div>
 </section>
 {% endblock %}

@@ -33,6 +33,7 @@ gt.SeedGenerator.LairOutput <- {
 	NamedAttrValue = 1, # 红装满足对应属性和roll值
 	NamedAttrValueBroOutput = 2, # 红装满足对应属性和roll值，同时满足对应的角色输出条件
 	NamedAttrValueStrength = 3, # 红装满足对应属性和roll值和营地强度值 <=150 小营地 <=250 中营地 <=500 大营地
+	NamedWeaponFilter = 4, # 总数 AND 多条武器要求；行内全部满足或任一满足
 };
 
 local LairOutput = gt.SeedGenerator.LairOutput;

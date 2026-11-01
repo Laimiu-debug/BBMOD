@@ -4,7 +4,10 @@ from __future__ import annotations
 from PySide6.QtCore import QByteArray, Qt, QRect
 from PySide6.QtGui import QColor, QFont, QFontDatabase, QFontMetrics, QIcon, QPainter, QPalette, QPixmap, QLinearGradient
 from PySide6.QtSvg import QSvgRenderer
-from PySide6.QtWidgets import QApplication, QHeaderView, QPushButton, QTableWidget, QWidget, QStyleOption, QStyle
+from PySide6.QtWidgets import (
+    QAbstractSpinBox, QApplication, QComboBox, QHeaderView, QLineEdit,
+    QPushButton, QTableWidget, QWidget, QStyleOption, QStyle,
+)
 import random
 import re
 
@@ -70,6 +73,18 @@ def style_table(table: QTableWidget) -> None:
     table.horizontalHeader().setMinimumSectionSize(64)
 
 
+def fit_form_controls(root: QWidget) -> None:
+    """Keep compact forms readable when minimum layout sizes are used."""
+    controls = (QPushButton, QComboBox, QAbstractSpinBox, QLineEdit)
+    for widget in root.findChildren(QWidget):
+        if not isinstance(widget, controls):
+            continue
+        if isinstance(widget, QLineEdit) and isinstance(widget.parentWidget(), (QComboBox, QAbstractSpinBox)):
+            continue  # Embedded editors use the surrounding control's size.
+        widget.ensurePolished()
+        widget.setMinimumHeight(widget.fontMetrics().height() + 4)
+
+
 def fit_table_font(table: QTableWidget) -> None:
     table.ensurePolished()
     height = max(38, table.fontMetrics().height() + 18, table.iconSize().height() + 8)
@@ -81,8 +96,9 @@ def fit_table_font(table: QTableWidget) -> None:
     metrics = QFontMetrics(label_font)
     minimums = {column: metrics.horizontalAdvance(table.horizontalHeaderItem(column).text()) + 24
                 for column in range(table.columnCount()) if table.horizontalHeaderItem(column)}
-    stretch_minimum = max([64] + [width for column, width in minimums.items()
-                                  if header.sectionResizeMode(column) == QHeaderView.Stretch])
+    stretch_minimum = (64 if table.property('compactHeaders') else
+                       max([64] + [width for column, width in minimums.items()
+                                   if header.sectionResizeMode(column) == QHeaderView.Stretch]))
     header.setMinimumSectionSize(stretch_minimum)
     widths = getattr(table, '_bbmod_font_widths', {})
     for column, minimum in minimums.items():
@@ -227,6 +243,8 @@ def apply_theme(app: QApplication, preferences=None) -> Appearance:
     for widget in app.allWidgets():
         if isinstance(widget, QTableWidget):
             fit_table_font(widget)
+        elif widget.objectName() == 'seedPage':
+            fit_form_controls(widget)
     return preferences
 
 
@@ -329,6 +347,15 @@ QTextEdit { background:#f0e3c7; border:1px solid #ad9161; }
 #seedPage QComboBox, #seedPage QSpinBox, #seedPage QDoubleSpinBox, #seedPage QLineEdit { padding:3px 5px; min-height:18px; }
 #seedPage QPushButton { padding:4px 8px; min-height:18px; }
 #seedPage QPushButton[primary="true"] { padding:4px 10px; }
+#seedRunPanel { background:#30291f; border:1px solid #82704d; border-top:1px solid #b69a63; }
+#seedRunPanel #runStatus { color:#e5d2ac; }
+#seedWorkspaces > QTabBar::tab { padding:5px 16px; }
+#seedWorkspaces > QTabBar::tab:selected { border-top:3px solid #89503a; }
+#seedArchivePanel::pane { background:#eadbb8; border:1px solid #a58a57; }
+#seedArchivePanel > QTabBar::tab, #mapDetailTabs > QTabBar::tab { padding:6px 10px; }
+#mapTownDetails > QTabBar::tab, #mapRouteDetails > QTabBar::tab, #mapLootDetails > QTabBar::tab { padding:3px 7px; }
+#seedPage QPushButton:checked { background:#705038; color:#fff0ce; border:1px solid #4c3323; border-top:2px solid #4c3323; }
+#seedPage #seedLibraryLink { background:transparent; border:none; color:#743e29; padding:1px 4px; min-height:18px; }
 #filterTabs::pane { border:1px solid #a58a57; background:rgba(244,229,196,90); }
 #filterTabs QTabBar::tab { padding:4px 12px; background:#bda477; color:#4b3b24; border:1px solid #988053; }
 #filterTabs QTabBar::tab:selected { background:#eddbb4; color:#743e29; border-bottom-color:#eddbb4; }

@@ -142,7 +142,7 @@ gt.SeedGenerator.generateBrother <- function(seedString, world_state, disable_fa
 		local bros =  generateAnatomistsBrotherFast(seedString);
 		if(CommonConfig.UseBrotherLevel11RealAttr)
 		{
-			for(local i = 0; i < 6; i++)
+			for(local i = 0; i < 7; i++)
 				this.Math.rand(0, 1);
 			generateBrotherLevel11Attr(bros);
 		}
@@ -154,7 +154,7 @@ gt.SeedGenerator.generateBrother <- function(seedString, world_state, disable_fa
 		local bros =  generateBeastHuntersBrotherFast(seedString);
 		if(CommonConfig.UseBrotherLevel11RealAttr)
 		{
-			for(local i = 0; i < 4; i++)
+			for(local i = 0; i < 5; i++)
 				this.Math.rand(0, 1);
 			generateBrotherLevel11Attr(bros);
 		}
@@ -226,12 +226,12 @@ generateBrotherLevel11Attr = function(bros)
 	{
 		if(bros.len() == 1)
 		{
-			for(local i = 0; i < 5; i++)
+			for(local i = 0; i < 7; i++)
 				this.Math.rand(0, 1);
 		}
 		else
 		{
-			for(local i = 0; i < 6; i++)
+			for(local i = 0; i < 8; i++)
 				this.Math.rand(0, 1);
 		}
 
@@ -560,7 +560,7 @@ generateRangersBrotherFast = function(seedString)
 	bros[1]["Talents"][Talents.RangedSkill] = 2;
 	bros[1]["Talents"][Talents.Stamina] = 1;
 	bros[1]["Talents"][Talents.Initiative] = 1;
-	for(local j = 0; j < 1; j++)
+	for(local j = 0; j < 2; j++)
 			this.Math.rand(0, 1);
 
 	setStartValuesExFast(bros[2], bros.len(), ["poacher_background"]);
@@ -739,7 +739,7 @@ generateBeastHuntersBrotherFast = function(seedString)
 	bros[2]["Talents"][Talents.RangedSkill] = 2;
 	bros[2]["Talents"][Talents.RangedDefense] = 1;
 	bros[2]["Talents"][Talents.Stamina] = 1;
-	for(local j = 0; j < 4; j++)
+	for(local j = 0; j < 5; j++)
 		this.Math.rand(0, 1);
 	return bros;
 }
@@ -772,6 +772,7 @@ generateGladiatorBrotherFast = function(seedString)
 		if( index != null )
 			bros[i]["Traits"].remove(index);
 		bros[i]["Traits"].push("trait.arena_fighter");
+		bros[i]["Traits"].push("trait.glorious");
 		this.Math.rand(0, 1);
 	}
 
@@ -779,7 +780,7 @@ generateGladiatorBrotherFast = function(seedString)
 	bros[0]["Talents"][Talents.MeleeDefense] = 2;
 	bros[0]["Talents"][Talents.Stamina] = 2;
 	bros[0]["Talents"][Talents.MeleeSkill] = 3;
-	for(local j = 0; j < 7; j++)
+	for(local j = 0; j < 9; j++)
 		this.Math.rand(0, 1);
 	for(local j = 0; j < 60; j++)
 		this.Math.rand(0, 1);
@@ -790,7 +791,7 @@ generateGladiatorBrotherFast = function(seedString)
 	bros[1]["Talents"][Talents.Hitpoints] = 3;
 	bros[1]["Talents"][Talents.Stamina] = 2;
 	bros[1]["Talents"][Talents.Bravery] = 2;
-	for(local j = 0; j < 7; j++)
+	for(local j = 0; j < 9; j++)
 		this.Math.rand(0, 1);
 	for(local j = 0; j < 60; j++)
 		this.Math.rand(0, 1);
@@ -801,14 +802,14 @@ generateGladiatorBrotherFast = function(seedString)
 	bros[2]["Talents"][Talents.MeleeDefense] = 2;
 	bros[2]["Talents"][Talents.Initiative] = 3;
 	bros[2]["Talents"][Talents.MeleeSkill] = 2;
-	for(local j = 0; j < 7; j++)
+	for(local j = 0; j < 9; j++)
 		this.Math.rand(0, 1);
 	for(local j = 0; j < 60; j++)
 		this.Math.rand(0, 1);
 	for(local j = 0; j < 6; j++)
 		this.Math.rand(0, 1);
 
-	for(local j = 0; j < 18; j++)
+	for(local j = 0; j < 24; j++)
 		this.Math.rand(0, 1);
 	return bros;
 }
@@ -1122,7 +1123,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 			if (r <= 50)
 			{
 				this.Math.rand(0, 1);
-				// this.Math.rand(0, 1); // ammo ?
+				this.Math.rand(0, 1); // Quiver creation
 			}
 			else if (r <= 80)
 			{
@@ -1131,7 +1132,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 			else
 			{
 				this.Math.rand(0, 1);
-				// this.Math.rand(0, 1); // ammo ?
+				this.Math.rand(0, 1); // Quiver creation
 			}
 
 			r = this.Math.rand(0, 4); // add to bag
@@ -1435,7 +1436,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 		else if(background_id == "background.companionranged")
 		{
 			this.Math.rand(0, 1);
-			// this.Math.rand(0, 1); // ammo ?
+			this.Math.rand(0, 1); // Quiver creation
 			this.Math.rand(0, 1); // add to bag knife
 
 			local r;
@@ -1487,7 +1488,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 		{
 			local r;
 			this.Math.rand(0, 1);
-			// this.Math.rand(0, 1); // ammo ?
+			this.Math.rand(0, 1); // Quiver creation
 			this.Math.rand(0, 1); // add to bag knife
 
 			r = this.Math.rand(0, 2);
@@ -1501,7 +1502,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 		{
 			local r;
 			this.Math.rand(0, 1);
-			// this.Math.rand(0, 1); // ammo ?
+			this.Math.rand(0, 1); // Quiver creation
 
 			r = this.Math.rand(0, 1);
 			if( r == 0 )
@@ -1582,6 +1583,7 @@ setStartValuesExFast = function(bro, bros_len, backgrounds, is_untalented = fals
 			{
 				this.Math.rand(0, 1);
 				this.Math.rand(0, 1);
+				this.Math.rand(0, 1); // Original quiver creation
 			}
 			else
 			{

@@ -56,6 +56,7 @@ def test_campaign_options_persist_and_reach_every_search_mode(app, context):
 
 def test_start_displays_readiness_and_errors_without_manual_origin_instruction(app, context):
     page = SeedGenPage(context)
+    page.engine_combo.setCurrentIndex(page.engine_combo.findData('game'))
     fake = SimpleNamespace(prepare=lambda cfg: [], launch=lambda: True, results=[],
         poll=lambda: ([], []), progress=Progress(), startup=StartupStatus("loaded"),
         stop_and_restore=lambda: 0)

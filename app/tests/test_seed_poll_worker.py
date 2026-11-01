@@ -84,3 +84,52 @@ def test_background_read_error_is_reported_and_thread_ends(app):
     assert worker.wait(2000)
     pump(20)
     assert errors == ['test log unavailable']
+
+
+def test_independent_single_record_stream_is_batched_without_loss(app):
+    class Session:
+        independent = True
+        stop_reason = ''
+
+        def __init__(self):
+            self.results = []
+
+        def poll(self):
+            if len(self.results) == 1000:
+                self.stop_reason = 'done'
+                return [], []
+            value = len(self.results)
+            self.results.append(value)
+            return [value], []
+
+    session = Session()
+    batches = []
+    worker = SeedPollWorker(session)
+
+    class Receiver(QObject):
+        @Slot(object)
+        def receive(self, records):
+            batches.append(records)
+
+    receiver = Receiver()
+    worker.batch_ready.connect(receiver.receive)
+    worker.start()
+    try:
+        for _ in range(100):
+            pump(10)
+            if batches:
+                break
+        assert batches and len(batches[0]) > 1
+        received = len(batches)
+        read = len(session.results)
+        pump(80)
+        assert len(batches) == received and len(session.results) == read
+        for _ in range(100):
+            worker.acknowledge()
+            pump(10)
+            if sum(len(batch) for batch in batches) == 1000:
+                break
+        assert [value for batch in batches for value in batch] == list(range(1000))
+        assert len([batch for batch in batches if batch]) < 10
+    finally:
+        assert worker.stop()

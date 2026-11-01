@@ -1,5 +1,6 @@
 {% extends 'base.html' %}{% block title %}种子广场 · BBMOD{% endblock %}{% block content %}
 <section class="camp-banner"><div><p class="eyebrow">A GOOD START, SHARED</p><h1>好种子，一起开新档</h1><p>兄弟们找到的好开局，都在这里。挑起源、看大哥，再出发。</p></div><span class="banner-seal">{{ total }} <small>条兄弟分享</small></span></section>
+<section class="atlas-at-square"><div><h2>种子地图与跑商</h2><p>仅凭种子码解算地图，查看中文城镇与特产、规划商路、定位开局红装。</p></div><a class="button primary" href="{% url 'seed_atlas' %}">打开地图与跑商 →</a></section>
 <div class="seed-layout"><aside class="panel seed-filters"><h2>挑个好开局</h2><form method="get">
 <div class="seed-filter-main">{% for field in form %}{% if field.name == 'q' or field.name == 'origin' or field.name == 'ports' or field.name == 'named' or field.name == 'sort' or field.name == 'per_page' %}<div class="seed-field{% if field.name == 'q' or field.name == 'origin' or field.name == 'sort' or field.name == 'per_page' %} seed-wide{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endif %}{% endfor %}</div>
 <details class="seed-filter-extra" {% if advanced %}open{% endif %}><summary>人物、特质与难度</summary><div class="seed-filter-main">{% for field in form %}{% if field.name != 'q' and field.name != 'origin' and field.name != 'ports' and field.name != 'named' and field.name != 'sort' and field.name != 'per_page' %}<div class="seed-field{% if field.name == 'trait' or field.name == 'exclude' or field.name == 'people' %} seed-wide{% endif %}"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endif %}{% endfor %}</div></details>
@@ -18,7 +19,7 @@
   <div class="seed-facts">{% for fact in seed.highlights %}<span>{{ fact }}</span>{% empty %}<span>查看完整开局记录</span>{% endfor %}</div>
   {% if seed.note %}<p class="seed-note"><span>兄弟留言</span> {{ seed.note|truncatechars:100 }}</p>{% endif %}
   <p class="seed-levels">战斗{{ seed.combat_label }} · 经济{{ seed.economic_label }} · 资金{{ seed.budget_label }}</p>
-  <div class="seed-card-bottom"><a href="{% url 'seed_detail' seed.id %}">翻开远征档案 →</a><button class="button small" data-seed-copy="{{ seed.seed }}">复制种子码</button></div>
+  <div class="seed-card-bottom"><a href="{% url 'seed_detail' seed.id %}">翻开远征档案 →</a><a class="button small" href="{% url 'seed_atlas' %}?seed={{ seed.seed }}">地图与跑商</a><button class="button small" data-seed-copy="{{ seed.seed }}">复制种子码</button></div>
   </div>
 </article>{% endfor %}</div>
 {% else %}<div class="empty"><h3>{% if total %}暂时没有符合条件的种子{% else %}种子广场，等你第一份发现{% endif %}</h3><p>{% if total %}试试放宽属性门槛，或换一个起源。{% else %}在 BBMOD 的种子远征中选中一条结果，点击「分享给兄弟」，无需登录即可公开。{% endif %}</p><a class="button" href="{% if total %}{% url 'seeds' %}{% else %}{% url 'downloads' %}{% endif %}">{% if total %}查看全部种子{% else %}下载 BBMOD{% endif %}</a></div>{% endif %}

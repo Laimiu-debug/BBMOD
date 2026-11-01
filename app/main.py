@@ -27,6 +27,7 @@ def selftest() -> int:
     w.show()
     QTimer.singleShot(6000, app.quit)
     app.exec()
+    offline_controls_ready = (w.seedgen.engine_combo.findData('offline') >= 0)
     errors = w.dashboard.report.error_count if w.dashboard.report else -1
     manager_ready = (w.l10n.sections.count() == 2
                      and all(w.l10n.management.choice.findData(key) >= 0 for key in (CURRENT, NONE)))
@@ -37,7 +38,8 @@ def selftest() -> int:
     hooks_ready = len(hooks_assets()) == 4
     trait_count = len(traits())
     weapon_count = len(NAMED_WEAPONS)
-    weapons_ready = w.seedgen.weapon_filter.weapon.count() == len(WEAPON_CHOICES)
+    weapons_ready = (bool(w.seedgen.weapon_filter.rows)
+        and all(row.weapon.count() == len(WEAPON_CHOICES) for row in w.seedgen.weapon_filter.rows))
     ports_ready = all(getattr(w.seedgen, name, None) is not None
                       and getattr(w.seedgen, name).objectName() == name
                       for name in ('north_south_ports', 'arena_port'))
@@ -68,6 +70,76 @@ def selftest() -> int:
     save_sharing_ready = (hasattr(w, 'saves') and w.saves.sections.count() == 2
         and w.nav_buttons[8].text() == '存档分享' and parse_link(
             'bbmod://saves/00000000-0000-0000-0000-000000000001')[0] == 'saves')
+    from core.worldmap.engine import MapSolver
+    from core.worldmap.atlas import atlas_data
+    from core.worldmap.routes import RoutePlanner
+    from core.worldmap.loot import item_rating
+    world = MapSolver().solve('46U2HMOORH', include_camps=True, use_cache=False).world
+    atlas = atlas_data(world)
+    offline_ready = (w.seedgen.sections.count() == 3 and w.seedgen.map_preview.canvas.label_size >= 18
+        and len(world.settlements) == 19 and len(world.campaign.camps) == 102
+        and len(atlas['loot']) == 10 and all(t['name'] != '未收录地名' for t in atlas['towns'])
+        and RoutePlanner(world).plan([0, 1]).hours > 0
+        and all(item_rating(item) for camp in world.campaign.camps for item in camp.items if item.kind == 'weapon'))
+    print(f"offline_atlas: {'ready' if offline_ready else 'missing'} towns={len(world.settlements)} camps={len(world.campaign.camps)} loot={len(atlas['loot'])}")
+    from core.seedgen.offline import OfflineSeedSearch, ORIGINS
+    from core.seedgen.config_emitter import BroCondition, CampaignConfig, CommonConfig, OriginConfig, SeedGenConfig
+    import time
+    character_config = SeedGenConfig(common=CommonConfig.preset('bro_only'),
+        campaign=CampaignConfig(origin='scenario.militia'),
+        origins={'scenario.militia': OriginConfig(conditions=[BroCondition('TeamScore', [-100])])})
+    search = OfflineSeedSearch(seeds=['46U2HMOORH'], return_all=True)
+    search.prepare(character_config)
+    began = time.monotonic()
+    try:
+        search.launch()
+        while not search.stop_reason and time.monotonic()-began < 15:
+            search.poll()
+            time.sleep(.005)
+    finally:
+        search.stop_and_restore()
+    brother_count = len(search.results[0].brothers) if search.results else 0
+    characters_ready = (offline_controls_ready and not search.script_error and brother_count == 12
+        and search.results[0].done and search.results[0].dlc_mask == 342
+        and search.records[0]['raw'][0]['Attr'] == [64, 35, 105, 55, 42, 1, 0, 104])
+    print(f"offline_brothers: {'ready' if characters_ready else 'missing'} origins={len(ORIGINS)} members={brother_count}")
+    campaign_config = SeedGenConfig(common=CommonConfig.preset('all'),
+        campaign=CampaignConfig('scenario.deserters', 0, 1, 2),
+        origins={'scenario.deserters': OriginConfig(conditions=[BroCondition('TeamScore', [-100])])},
+        map_conditions=[['SettlementNum', 1]], lair_conditions=[['NamedNumber', 0]])
+    campaign_search = OfflineSeedSearch(seeds=['46U2HMOORH'])
+    campaign_search.prepare(campaign_config)
+    began = time.monotonic()
+    try:
+        campaign_search.launch()
+        while not campaign_search.stop_reason and time.monotonic()-began < 20:
+            campaign_search.poll(); time.sleep(.005)
+    finally:
+        campaign_search.stop_and_restore()
+    campaigns_ready = (not campaign_search.script_error and len(campaign_search.results) == 1
+        and campaign_search.results[0].done and len(campaign_search.results[0].brothers) == 3
+        and campaign_search.results[0].named_items and campaign_search.results[0].map_output_type >= 0
+        and campaign_search.results[0].lair_output_type >= 0
+        and campaign_search.results[0].combat_difficulty == 0
+        and campaign_search.results[0].economic_difficulty == 1
+        and campaign_search.results[0].budget_difficulty == 2)
+    print(f"offline_campaigns: {'ready' if campaigns_ready else 'missing'} origin=scenario.deserters combat=0 economic=1 budget=2")
+    prefilter_config = SeedGenConfig(common=CommonConfig.preset('all'),
+        campaign=CampaignConfig(origin='scenario.militia'),
+        origins={'scenario.militia': OriginConfig(conditions=[BroCondition('TeamScore', [100])])})
+    prefilter_search = OfflineSeedSearch(seeds=['46U2HMOORH', 'ABCDEFGHIJ'])
+    prefilter_search.prepare(prefilter_config)
+    began = time.monotonic()
+    try:
+        prefilter_search.launch()
+        while not prefilter_search.stop_reason and time.monotonic()-began < 15:
+            prefilter_search.poll(); time.sleep(.005)
+    finally:
+        prefilter_search.stop_and_restore()
+    prefilter_ready = (not prefilter_search.script_error and not prefilter_search.results
+        and prefilter_search.progress.loop_idx == 2 and prefilter_search.prefilter_rejected == 2
+        and prefilter_search.campaign_candidates == 0)
+    print(f"offline_prefilter: {'ready' if prefilter_ready else 'missing'} tested={prefilter_search.progress.loop_idx} rejected={prefilter_search.prefilter_rejected} campaigns={prefilter_search.campaign_candidates}")
     print(f"equipment_catalog: {'ready' if equipment_ready else 'missing'} entries={w.inspector.catalog_page.table.rowCount()}")
     print(f"game_launch_feedback: {'ready' if launch_ready else 'missing'} state={w.ctx.game_session.state}")
     print(f"localization_guidance: {'ready' if guidance_ready else 'missing'}")
@@ -84,7 +156,7 @@ def selftest() -> int:
     ok = settings_ready and len(w.l10n.entries) > 0 and not w.windowIcon().isNull() and manager_ready and cleanup_ready and guidance_ready and hooks_ready and trait_count == 58
     if w.ctx.game:
         ok = ok and errors >= 0
-    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and mod_origin_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready and save_sharing_ready else 1
+    return 0 if ok and updater_ready and update_notice_ready and crash_reports_ready and weapons_ready and weapon_count == 50 and ports_ready and mod_origin_ready and equipment_ready and launch_ready and sharing_ready and seed_copy_ready and profile_sharing_ready and save_sharing_ready and offline_ready and characters_ready and campaigns_ready and prefilter_ready else 1
 
 
 def main() -> int:
@@ -166,5 +238,10 @@ if __name__ == "__main__":
     if '--check-updates-selftest' in sys.argv:
         raise SystemExit(check_updates_selftest())
     if "--selftest" in sys.argv:
-        raise SystemExit(selftest())
+        try:
+            code = selftest()
+        except Exception:
+            traceback.print_exc()
+            code = 1
+        raise SystemExit(code)
     raise SystemExit(main())

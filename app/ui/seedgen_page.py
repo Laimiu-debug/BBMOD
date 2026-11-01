@@ -6,13 +6,16 @@ from pathlib import Path
 from PySide6.QtCore import Qt, QTimer, QUrl, QSignalBlocker, QItemSelectionModel, Signal
 from PySide6.QtGui import QKeySequence, QShortcut, QDesktopServices
 from PySide6.QtWidgets import (
-    QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+    QApplication, QCheckBox, QDialog, QDialogButtonBox,
     QDoubleSpinBox, QFileDialog, QFormLayout, QFrame, QGridLayout, QGroupBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit, QMenu, QMessageBox, QPushButton,
-    QSpinBox, QStackedWidget, QTableWidget, QTableWidgetItem, QTabWidget, QProgressBar,
+    QSizePolicy, QSpinBox, QSplitter, QStackedWidget, QTableWidget, QTableWidgetItem, QProgressBar,
     QTextEdit, QVBoxLayout, QWidget,
 )
 
+from .readable_combo import ReadableComboBox as QComboBox
+from .readable_label import ReadableLabel
+from .active_tabs import ActivePageTabs as SeedWorkspaces
 from core import game as game_mod
 from core.paths import resource_path
 from core.seedgen.config_emitter import (
@@ -32,7 +35,7 @@ from core.seedgen.presentation import (
     FORMATS, OPENERS, format_collection, format_seed, highlights, note_key, raw_record,
 )
 from .app_context import AppContext
-from .theme import style_button, style_table
+from .theme import fit_form_controls, style_button, style_table
 from .seed_trait_dialog import SeedTraitDialog
 from .seed_star_dialog import SeedStarDialog
 from .seed_weapon_filter import SeedWeaponFilter
@@ -40,6 +43,7 @@ from .workers import Worker, track
 from .seed_share_worker import SeedShareWorker
 from .seed_poll_worker import SeedPollWorker
 from core.seedgen.mod_origins import AFEI_ORIGIN
+from core.seedgen.offline import OfflineSeedSearch, ORIGINS as OFFLINE_ORIGINS, supports as offline_supports
 
 PAYLOAD_DIR = resource_path("seedgen/payload")
 MODE_LABELS = {
@@ -65,33 +69,6 @@ def labeled_row(layout, label, widget, stretch=1):
     layout.addWidget(caption)
     layout.addWidget(widget, stretch)
     return caption
-
-
-class SeedWorkspaces(QTabWidget):
-    """Hidden expedition filters must not widen the saved-seed library."""
-    def __init__(self):
-        super().__init__()
-        self.currentChanged.connect(self.updateGeometry)
-
-    def minimumSizeHint(self):
-        size = super().minimumSizeHint()
-        page = self.currentWidget()
-        if page is not None:
-            sizes = [self.widget(i).minimumSizeHint() for i in range(self.count())]
-            chrome_width = max(0, size.width() - max(value.width() for value in sizes))
-            chrome_height = max(0, size.height() - max(value.height() for value in sizes))
-            size.setWidth(max(self.tabBar().minimumSizeHint().width() + 4,
-                              page.minimumSizeHint().width() + chrome_width))
-            size.setHeight(page.minimumSizeHint().height() + chrome_height)
-        return size
-
-    def heightForWidth(self, width):
-        page = self.currentWidget()
-        if page is None:
-            return super().heightForWidth(width)
-        minimum = self.minimumSizeHint()
-        chrome = minimum.height() - page.minimumSizeHint().height()
-        return max(minimum.height(), page.layout().totalHeightForWidth(max(0, width - 4)) + chrome)
 
 
 class SeedGenPage(QWidget):
@@ -164,15 +141,16 @@ class SeedGenPage(QWidget):
                 if type(value) is int and value in (0, 1, 2):
                     self._campaign_levels[key] = value
         root = QVBoxLayout(self)
-        root.setSpacing(6)
+        root.setSpacing(4)
 
-        self.cfg_box = QGroupBox("Ⅰ  选择想要的开局")
+        self.cfg_box = QGroupBox("Ⅰ  设定远征目标与筛选条件")
         self.cfg_box.setObjectName("seedFilters")
         filters = QVBoxLayout(self.cfg_box)
         filters.setSpacing(4)
         top = QHBoxLayout()
         self.mode_combo = QComboBox()
         self.mode_combo.addItems(MODE_LABELS)
+        self.mode_combo.setCurrentText("只找开局兄弟（快）")
         labeled_row(top, "寻找", self.mode_combo, 2)
         self.origin_combo = QComboBox()
         for key, label in ORIGIN_LABELS.items():
@@ -189,10 +167,21 @@ class SeedGenPage(QWidget):
         help_button.clicked.connect(self._show_score_explanation)
         top.addWidget(help_button)
         filters.addLayout(top)
+        engine_row = QHBoxLayout()
+        self.engine_combo = QComboBox()
+        self.engine_combo.addItem("自动选择", "auto")
+        self.engine_combo.addItem("独立解算", "offline")
+        self.engine_combo.addItem("游戏解算", "game")
+        self.engine_combo.setCurrentIndex(max(0, self.engine_combo.findData(ctx.settings.get('seed_engine', 'auto'))))
+        labeled_row(engine_row, "解算方式", self.engine_combo)
+        self.engine_hint = QLabel()
+        self.engine_hint.setWordWrap(True)
+        engine_row.addWidget(self.engine_hint, 4)
+        filters.addLayout(engine_row)
         self.origin_hint = QLabel()
         self.origin_hint.setWordWrap(True)
         filters.addWidget(self.origin_hint)
-        self.filter_tabs = QTabWidget()
+        self.filter_tabs = SeedWorkspaces()
         self.filter_tabs.setObjectName("filterTabs")
         filters.addWidget(self.filter_tabs)
 
@@ -252,7 +241,7 @@ class SeedGenPage(QWidget):
         self.stars_btn = QPushButton('星数与星位…')
         self.stars_btn.clicked.connect(self._edit_stars)
         bro_layout.addWidget(self.stars_btn)
-        self.attr_hint = QLabel("同一名兄弟须同时满足以上门槛 · 属性均为11级预估 · 不限项不参与筛选")
+        self.attr_hint = ReadableLabel("同一名兄弟须同时满足以上门槛 · 属性均为11级预估 · 不限项不参与筛选")
         self.attr_hint.setObjectName("muted")
         self.attr_hint.setWordWrap(True)
         bro_layout.addWidget(self.attr_hint)
@@ -352,8 +341,10 @@ class SeedGenPage(QWidget):
         root.addLayout(library_row)
 
         self.table = QTableWidget(0, 4)
+        self.table.setProperty('compactHeaders', True)
         style_table(self.table)
-        self.table.setMinimumHeight(360)
+        self.table.setMinimumHeight(132)
+        self.table.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.table.setHorizontalHeaderLabels(["种子码", "发现的亮点", "起源", "轮次"])
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
         self.table.setSelectionMode(QTableWidget.ExtendedSelection)
@@ -385,23 +376,26 @@ class SeedGenPage(QWidget):
         style_button(self.copy_btn, "copy", primary=True)
         self.export_btn = QPushButton("导出全部 TXT")
         style_button(self.export_btn, "save")
-        share_row.addWidget(self.format_combo, 2)
-        share_row.addWidget(self.opener_combo, 1)
-        share_row.addWidget(self.click_copy)
-        share_row.addWidget(self.copy_btn)
-        share_row.addWidget(self.export_btn)
-        share_layout.addLayout(share_row)
+        self.format_combo.setAccessibleName('复制文案格式')
+        self.opener_combo.setAccessibleName('弹幕开场白')
+        format_row = QHBoxLayout()
+        format_row.addWidget(self.format_combo, 3)
+        format_row.addWidget(self.opener_combo, 2)
+        share_layout.addLayout(format_row)
         self.detail_label = QTextEdit()
         self.detail_label.setReadOnly(True)
-        self.detail_label.setMinimumHeight(160)
-        self.detail_label.setMaximumHeight(230)
+        self.detail_label.setMinimumHeight(64)
         self.detail_label.setPlaceholderText("Ⅱ  命中种子后点选一行；在这里预览档案或弹幕，复制后即可粘贴。")
-        share_layout.addWidget(self.detail_label)
+        share_layout.addWidget(self.detail_label, 1)
         self.note_edit = QLineEdit()
         self.note_edit.setMaxLength(1000)
         self.note_edit.setPlaceholderText("补充介绍 / 路线：例如出门金鹅，坐船到北港……（随所选种子保存）")
         self.note_edit.setToolTip("自动文案使用日志中的属性、港口和红装数量；路线由你补充，按种子与起源保存。")
         share_layout.addWidget(self.note_edit)
+        share_row.addWidget(self.click_copy)
+        share_row.addStretch()
+        share_row.addWidget(self.copy_btn)
+        share_layout.addLayout(share_row)
         root.addWidget(share)
 
         preferences = ctx.settings.get("seed_share", {})
@@ -433,6 +427,7 @@ class SeedGenPage(QWidget):
         self.rule_mode.currentIndexChanged.connect(self._rule_changed)
         self.bro_type_combo.currentIndexChanged.connect(self._rule_changed)
         self.mode_combo.currentIndexChanged.connect(self._mode_changed)
+        self.engine_combo.currentIndexChanged.connect(self._engine_changed)
         self.origin_combo.currentIndexChanged.connect(self._origin_changed)
         self.timer = QTimer(self)
         self.timer.setInterval(1000)
@@ -454,43 +449,71 @@ class SeedGenPage(QWidget):
         # Separate the expedition form from the saved library so filters no
         # longer squeeze the seed table down to three visible rows.
         while root.count(): root.takeAt(0)
-        root.addLayout(run_row)
+        self.run_panel = QFrame()
+        self.run_panel.setObjectName('seedRunPanel')
+        run_panel_layout = QVBoxLayout(self.run_panel)
+        run_panel_layout.setContentsMargins(7, 3, 7, 3)
+        run_panel_layout.addLayout(run_row)
+        root.addWidget(self.run_panel)
         self.sections = SeedWorkspaces()
         self.sections.setObjectName('seedWorkspaces')
         expedition = QWidget(); expedition_layout = QVBoxLayout(expedition)
+        expedition_layout.setContentsMargins(8, 4, 8, 4)
+        expedition_layout.setSpacing(6)
         expedition_layout.addWidget(self.cfg_box)
-        hint = QLabel('找到的结果自动进入「我的种子」。可以随时切换查看，远征会继续运行。')
-        hint.setWordWrap(True); hint.setObjectName('muted'); expedition_layout.addWidget(hint)
+        expedition_footer = QHBoxLayout()
+        hint = QLabel('命中结果自动保存；切换查看种子时，远征继续运行。')
+        hint.setWordWrap(True); hint.setObjectName('muted'); expedition_footer.addWidget(hint, 1)
         show_library = QPushButton('查看我的种子 →')
+        show_library.setObjectName('seedLibraryLink')
         show_library.clicked.connect(lambda: self.sections.setCurrentIndex(1))
-        expedition_layout.addWidget(show_library); expedition_layout.addStretch()
+        expedition_footer.addWidget(show_library)
+        expedition_layout.addLayout(expedition_footer); expedition_layout.addStretch()
         library_page = QWidget(); library_layout = QVBoxLayout(library_page)
+        library_layout.setContentsMargins(6, 6, 6, 6)
+        library_layout.setSpacing(6)
         library_layout.addLayout(library_row)
+        library_row.insertWidget(library_row.indexOf(self.gallery_btn), self.export_btn)
+        self.archive_panel = SeedWorkspaces()
+        self.archive_panel.setObjectName('seedArchivePanel')
+        self.archive_panel.setMinimumWidth(300)
+        self.archive_panel.setMaximumWidth(440)
+        self.archive_panel.addTab(share, '档案与文案')
+        sharing_page = QWidget()
+        sharing_layout = QVBoxLayout(sharing_page)
+        sharing_layout.setContentsMargins(10, 10, 10, 10)
+        sharing_layout.setSpacing(8)
         self.library_label.setWordWrap(True)
         sharing = QHBoxLayout()
-        public_hint = QLabel('分享到种子广场后，所有人都可查看。')
+        public_hint = QLabel('公开分享至种子广场\n种子详情和补充介绍对所有人可见。')
         public_hint.setWordWrap(True); public_hint.setObjectName('muted')
-        sharing.addWidget(public_hint, 1)
+        sharing_layout.addWidget(public_hint)
         sharing.addWidget(self.publish_btn)
         self.publish_all_btn = QPushButton('一键分享全部')
         self.publish_all_btn.setToolTip('公开分享本机已保存的全部完整种子及各自介绍，包含搜索隐藏的条目；跳过已分享和回收站。仅处理点击时已有的种子。')
         style_button(self.publish_all_btn, 'copy', primary=True)
-        sharing.addWidget(self.publish_all_btn)
+        library_row.removeWidget(self.save_btn)
+        sharing.addWidget(self.save_btn)
         self.cancel_share_btn = QPushButton('停止上传')
         self.cancel_share_btn.setEnabled(False)
         self.cancel_share_btn.setToolTip('停止后续上传；正在发送的这一条可能完成，成功记录会保存。再次点击一键分享可继续剩余种子。')
-        sharing.addWidget(self.cancel_share_btn)
-        library_layout.addLayout(sharing)
+        sharing_layout.addLayout(sharing)
+        batch_sharing = QHBoxLayout()
+        batch_sharing.addWidget(self.publish_all_btn)
+        batch_sharing.addWidget(self.cancel_share_btn)
+        sharing_layout.addLayout(batch_sharing)
         self.share_status = QLabel('全部分享会跳过已分享的种子，包含搜索隐藏的条目；新刷出的种子不会自动上传。')
         self.share_status.setTextFormat(Qt.PlainText)
         self.share_status.setWordWrap(True); self.share_status.setObjectName('muted')
-        library_layout.addWidget(self.share_status)
+        sharing_layout.addWidget(self.share_status)
         share_progress_row = QHBoxLayout()
         self.share_progress = QProgressBar(); self.share_progress.setRange(0, 1); self.share_progress.setValue(0)
         self.share_progress.hide(); share_progress_row.addWidget(self.share_progress, 1)
         self.share_details_btn = QPushButton('查看分享结果'); self.share_details_btn.hide()
         share_progress_row.addWidget(self.share_details_btn)
-        library_layout.addLayout(share_progress_row)
+        sharing_layout.addLayout(share_progress_row)
+        sharing_layout.addStretch()
+        self.archive_panel.addTab(sharing_page, '公开分享')
         self.publish_all_btn.clicked.connect(self.publish_all)
         self.cancel_share_btn.clicked.connect(self.cancel_sharing)
         self.share_details_btn.clicked.connect(self.show_share_results)
@@ -508,8 +531,16 @@ class SeedGenPage(QWidget):
         self.library_view = QComboBox(); self.library_view.addItems(['已保存', '回收站']); tools.addWidget(self.library_view)
         self.delete_btn = QPushButton('删除所选'); tools.addWidget(self.delete_btn)
         self.restore_btn = QPushButton('恢复所选'); tools.addWidget(self.restore_btn)
-        self.preview_btn = QPushButton('展开档案与分享'); self.preview_btn.setCheckable(True); tools.addWidget(self.preview_btn)
-        library_layout.addLayout(tools); library_layout.addWidget(self.table, 1)
+        self.preview_btn = QPushButton('档案与分享'); self.preview_btn.setCheckable(True); tools.addWidget(self.preview_btn)
+        self.preview_btn.setToolTip('在右侧展开所选种子的档案、补充介绍和公开分享工具。')
+        library_layout.addLayout(tools)
+        self.library_splitter = QSplitter(Qt.Horizontal)
+        self.library_splitter.setChildrenCollapsible(False)
+        self.library_splitter.addWidget(self.table)
+        self.library_splitter.addWidget(self.archive_panel)
+        self.library_splitter.setStretchFactor(0, 3)
+        self.library_splitter.setStretchFactor(1, 2)
+        library_layout.addWidget(self.library_splitter, 1)
         paging = QHBoxLayout()
         self.library_page_label = QLabel()
         self.library_page_label.setObjectName('muted')
@@ -523,13 +554,22 @@ class SeedGenPage(QWidget):
         for button in (self.previous_page_btn, self.next_page_btn, self.latest_page_btn):
             paging.addWidget(button)
         library_layout.addLayout(paging)
-        library_layout.addWidget(share); share.setVisible(False)
-        self.preview_btn.toggled.connect(share.setVisible)
-        self.preview_btn.toggled.connect(lambda active: self.preview_btn.setText('收起档案与分享' if active else '展开档案与分享'))
+        self.archive_panel.hide()
+        self.preview_btn.toggled.connect(self.archive_panel.setVisible)
+        self.preview_btn.toggled.connect(lambda active: self.preview_btn.setText('收起侧栏' if active else '档案与分享'))
         self.selection_hint = QLabel('Ctrl / Shift 可多选 · 双击查看完整档案 · 删除后可从回收站恢复')
         self.selection_hint.setObjectName('muted'); self.selection_hint.setWordWrap(True)
+        self.selection_hint.setToolTip('Ctrl / Shift 可多选 · 双击查看完整档案 · 删除后可从回收站恢复')
         library_layout.addWidget(self.selection_hint)
         self.sections.addTab(expedition, '寻找新开局'); self.sections.addTab(library_page, '我的种子')
+        from .worldmap_page import WorldMapPage
+        self.map_preview = WorldMapPage(ctx.settings)
+        self.sections.addTab(self.map_preview, '离线地图与跑商')
+        self.sections.currentChanged.connect(self._workspace_changed)
+        self.map_preview_button = QPushButton('预览地图')
+        self.map_preview_button.setToolTip('预览所选种子的离线地图、跑商路线和营地红装')
+        self.map_preview_button.clicked.connect(self._open_selected_map)
+        tools.insertWidget(tools.indexOf(self.preview_btn), self.map_preview_button)
         root.addWidget(self.sections, 1)
         self.library_search.textChanged.connect(self._filter_library)
         self.library_view.currentIndexChanged.connect(self._change_library_view)
@@ -540,7 +580,28 @@ class SeedGenPage(QWidget):
             self.ctx.session_changed.connect(self._selection_actions)
         self._rebuild_library()
         if self.results: self.sections.setCurrentIndex(1)
+        fit_form_controls(self)
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        # Parent-specific styles finish applying when QScrollArea attaches
+        # this page to the desktop shell.
+        fit_form_controls(self)
+
+    def _workspace_changed(self, index):
+        # Map tools have their own solve/cancel actions. Keep expedition Stop
+        # available when a search is still running in the background.
+        self.run_panel.setVisible(index != 2 or self.orch is not None)
+        if index == 2:
+            self.map_preview.activate()
+
+    def _open_selected_map(self):
+        result = self._selected_result()
+        if result is not None:
+            self.map_preview.open_seed(result.seed, origin=result.origin,
+                combat=result.combat_difficulty, economic=result.economic_difficulty, budget=result.budget_difficulty,
+                dlc_mask=result.dlc_mask, mods=result.mods)
+            self.sections.setCurrentIndex(2)
     def _library_status(self):
         if self._library_error:
             self.library_label.setText('自动保存失败 · 结果仍在列表中，请导出 TXT 备份')
@@ -665,6 +726,7 @@ class SeedGenPage(QWidget):
     def _selection_actions(self, *_):
         if not hasattr(self, 'delete_btn'): return
         count = len(self._selected_keys())
+        self.map_preview_button.setEnabled(count > 0)
         self.copy_codes_btn.setEnabled(count > 0)
         self.copy_codes_btn.setText('复制种子码')
         busy = self.orch is not None or self._share_active
@@ -673,7 +735,7 @@ class SeedGenPage(QWidget):
         self.restore_btn.setEnabled(bool(count and self.library and not busy))
         visible = sum(not self.table.isRowHidden(row) for row in range(self.table.rowCount()))
         self.selection_hint.setText(f'当前显示 {visible} 条 · 已选 {count} 条 · Ctrl+C 复制种子码 · ' +
-            ('远征或分享进行中，结束后可删除 / 恢复' if busy else 'Ctrl / Shift 多选；双击查看档案；删除可恢复'))
+            ('任务结束后可删除 / 恢复' if busy else '双击查看档案'))
 
     def delete_selected(self):
         self._change_deleted(False)
@@ -946,6 +1008,23 @@ class SeedGenPage(QWidget):
         self.filter_tabs.setTabText(0, "开局兄弟" if enabled[0] else "本次不筛人物")
         self.filter_tabs.setTabText(1, "地图与港口" if enabled[1] else "本次不筛地图")
         self.filter_tabs.setTabText(2, "营地红装" if enabled[2] else "本次不筛红装")
+        self._engine_changed()
+
+    def _engine_changed(self, *_args):
+        mode = MODE_LABELS[self.mode_combo.currentText()]
+        compatible = self.origin_combo.currentData() in OFFLINE_ORIGINS
+        selected = self.engine_combo.currentData()
+        self.engine_hint.setText(
+            ('独立解算 · 无需游戏目录 · 人物快速筛选' if mode == 'bro_only'
+             and self.origin_combo.currentData() != 'scenario.deserters' else
+             '独立解算 · 先筛人物，通过后再生成地图与红装'
+             if mode in {'bro_map', 'bro_lair', 'all'} and self.origin_combo.currentData() != 'scenario.deserters' else
+             '独立解算 · 按所选起源与难度生成地图、人物和开局红装')
+            if compatible and selected != 'game' else
+            '自制起源暂需游戏解算，请切换解算方式'
+            if selected == 'offline' else
+            '游戏解算 · 需要游戏目录，并会临时切换 MOD')
+        self.ctx.settings.set('seed_engine', selected)
 
     def _origin_changed(self, *_args) -> None:
         fixed = self.origin_combo.currentData() == AFEI_ORIGIN
@@ -1059,7 +1138,7 @@ class SeedGenPage(QWidget):
             self._set_log_directory(Path(folder))
 
     def _set_log_directory(self, folder: Path | None) -> None:
-        if self.orch:
+        if self.orch and not getattr(self.orch, 'independent', False):
             if not self.shutdown_polling():
                 self.progress_label.setText('日志读取尚未结束，请稍后重试切换目录')
                 return
@@ -1069,11 +1148,14 @@ class SeedGenPage(QWidget):
             self.orch.set_log_directory(folder)
         self._log_directory = folder
         self.ctx.settings.set("seed_log_directory", str(folder) if folder else "")
-        if self.orch:
+        if self.orch and not getattr(self.orch, 'independent', False):
             self.progress_label.setText("正在重新查找本次刷种子的日志…")
             self._start_polling()
 
     def _show_log_location(self) -> None:
+        if self.orch and getattr(self.orch, 'independent', False):
+            self.progress_label.setText('独立解算直接接收完整结果，无需读取游戏日志。')
+            return
         path = self.orch.log_path if self.orch else None
         directories = game_mod.find_log_write_paths(self._log_directory)
         message = (f"正在读取：\n{path}" if path else "尚未连接本次刷种子日志。")
@@ -1150,23 +1232,31 @@ class SeedGenPage(QWidget):
     def start(self) -> None:
         if self.orch or (self._import_worker and self._import_worker.isRunning()):
             return
-        if not self.ctx.game:
-            QMessageBox.warning(self, "未找到游戏", "请先指定游戏目录")
-            return
-        if getattr(getattr(self.ctx, 'game_session', None), 'state', '') == 'collecting':
-            QMessageBox.information(self, '正在保存错误日志', '请等待上次游戏的日志保存完成后再开始刷种子。')
-            return
-        if game_mod.is_game_running():
-            QMessageBox.warning(self, "游戏运行中", "请先关闭游戏再开始")
-            return
         try:
             cfg = self._current_config()
             self._save_campaign()
         except ValueError as error:
             QMessageBox.warning(self, "检查筛选条件", str(error))
             return
-        self.orch = SeedGenOrchestrator(self.ctx.game, PAYLOAD_DIR,
-            log_directory=self._log_directory, limits=self._limits)
+        independent = offline_supports(cfg) and self.engine_combo.currentData() != 'game'
+        if self.engine_combo.currentData() == 'offline' and not independent:
+            QMessageBox.warning(self, '当前组合暂不支持独立解算',
+                '官方起源支持人物、地图和红装的独立组合搜索；自制起源请使用游戏解算。')
+            return
+        if independent:
+            self.orch = OfflineSeedSearch(limits=self._limits)
+        else:
+            if not self.ctx.game:
+                QMessageBox.warning(self, "未找到游戏", "当前组合需要游戏解算，请先指定游戏目录")
+                return
+            if getattr(getattr(self.ctx, 'game_session', None), 'state', '') == 'collecting':
+                QMessageBox.information(self, '正在保存错误日志', '请等待上次游戏的日志保存完成后再开始刷种子。')
+                return
+            if game_mod.is_game_running():
+                QMessageBox.warning(self, "游戏运行中", "请先关闭游戏再开始")
+                return
+            self.orch = SeedGenOrchestrator(self.ctx.game, PAYLOAD_DIR,
+                log_directory=self._log_directory, limits=self._limits)
         self._automatic_stop_failed = False
         self._error_reported = False
         self._seed_process_seen = False
@@ -1205,7 +1295,10 @@ class SeedGenPage(QWidget):
         self.cfg_box.setEnabled(False)
         self.options_btn.setEnabled(False)
         self.import_action.setEnabled(False)
-        self.progress_label.setText(f"正在启动游戏 · 加载完成后自动以「{self.origin_combo.currentText()}」开始")
+        self.stop_btn.setText('停止搜索' if independent else '停止并恢复')
+        self.stop_btn.setToolTip('停止独立解算并保存已命中结果' if independent else '停止游戏解算并恢复原配置')
+        self.progress_label.setText(f"独立解算 · 正在筛选「{self.origin_combo.currentText()}」" if independent else
+            f"正在启动游戏 · 加载完成后自动以「{self.origin_combo.currentText()}」开始")
         self.timer.start()
         self.ctx.data_changed.emit()
         self._show_detail()
@@ -1214,7 +1307,7 @@ class SeedGenPage(QWidget):
     def _start_polling(self):
         # Test sessions and manual diagnostic callers retain the synchronous
         # _poll entry point; actual file parsing runs outside the GUI thread.
-        if self._poll_worker is not None or type(self.orch) is not SeedGenOrchestrator:
+        if self._poll_worker is not None or type(self.orch) not in (SeedGenOrchestrator, OfflineSeedSearch):
             return
         worker = SeedPollWorker(self.orch, self)
         self._poll_worker = worker
@@ -1267,7 +1360,7 @@ class SeedGenPage(QWidget):
             self.error_report_ready.emit(snapshot)
 
     def _seed_game_state_changed(self):
-        if self.orch is None or self._stopping:
+        if self.orch is None or self._stopping or getattr(self.orch, 'independent', False):
             return
         if self.ctx.game_session.state == 'running':
             self._seed_process_seen = True
@@ -1282,7 +1375,8 @@ class SeedGenPage(QWidget):
             return
         self.timer.stop()
         self._automatic_stop_failed = False
-        self.progress_label.setText("正在恢复游戏配置…")
+        independent = getattr(self.orch, 'independent', False)
+        self.progress_label.setText('正在停止解算并保存结果…' if independent else "正在恢复游戏配置…")
         self._stopping = True
         try:
             if not self.shutdown_polling():
@@ -1302,6 +1396,7 @@ class SeedGenPage(QWidget):
         self._accept_results(session_results)
         preserved = getattr(getattr(self.orch, "files", None), "preserved", [])
         self.orch = None
+        self.run_panel.setVisible(self.sections.currentIndex() != 2)
         self.start_btn.setEnabled(True)
         self.stop_btn.setEnabled(False)
         self.cfg_box.setEnabled(True)
@@ -1310,7 +1405,8 @@ class SeedGenPage(QWidget):
         self.ctx.set_seedgen_active(False)
         complete = sum(result.done for result in session_results)
         partial = len(session_results) - complete
-        self.progress_label.setText(f"{reason or '已停止'} · 命中 {complete} 条 · 恢复 {restored} 个 MOD" +
+        self.progress_label.setText(f"{reason or '已停止'} · 命中 {complete} 条 · " +
+                                   ('独立解算' if independent else f'恢复 {restored} 个 MOD') +
                                    (f" · 保留 {partial} 条未完整记录" if partial else ""))
         self.ctx.data_changed.emit()
         self._show_detail()
@@ -1334,6 +1430,9 @@ class SeedGenPage(QWidget):
         elapsed = getattr(self.orch, "elapsed_seconds", 0)
         path = getattr(self.orch, "log_path", None)
         self.progress_label.setToolTip((f"实时读取：{path}\n" if path else "尚未连接本次日志\n") + self._limits.description)
+        independent = getattr(self.orch, 'independent', False)
+        if independent:
+            self.progress_label.setToolTip('原版 1.5.2.3 全 DLC 独立解算\n'+self._limits.description)
         if startup.stage == "error":
             code = startup.detail.split(" ", 1)[0]
             message = {
@@ -1344,16 +1443,22 @@ class SeedGenPage(QWidget):
                 "start-failed": "自动开局失败，请停止并恢复，详情见错误报告",
                 "generation-failed": "生成脚本出错，请停止并恢复，详情见错误报告",
             }.get(code, "自动开局失败，请停止并恢复后查看营地诊断")
-            self.progress_label.setText(message)
+            self.progress_label.setText('独立解算失败，已保留已完成结果' if independent else message)
             self.progress_label.setToolTip(startup.detail)
         elif progress.loop_idx or self.orch.results:
             rounds = max(progress.loop_idx, max((result.loop_idx for result in self.orch.results), default=0))
-            phase = {"map": "生成地图", "routes": "分析路线", "map-skipped": "复杂地图已跳过", "brothers": "筛选兄弟"}.get(getattr(progress, "phase", ""), "搜索中")
+            phase = {"map": "生成地图", "routes": "分析路线", "camps": "生成营地与红装",
+                     "map-skipped": "复杂地图已跳过", "brothers": "筛选兄弟"}.get(getattr(progress, "phase", ""), "搜索中")
             silent = getattr(self.orch, "silent_seconds", 0)
             status = f"日志 {silent} 秒未更新，可停止并保留结果" if silent >= 30 else phase
+            if independent:
+                speed = self.orch.seeds_per_second
+                speed_text = f'{speed:.2f}' if speed < 10 else f'{speed:.0f}'
+                status = f'独立解算 · {phase} · {speed_text} 种子/秒'
             self.progress_label.setText(f"第 {rounds} 轮 · 本次命中 {len(self.orch.results)} 条 · {status} · {elapsed // 60:02}:{elapsed % 60:02}")
         elif startup.stage == "generating":
-            self.progress_label.setText("已自动开局 · 正在生成第一批种子，地图生成可能需要较长时间")
+            self.progress_label.setText('独立解算 · 正在生成第一批种子' if independent else
+                "已自动开局 · 正在生成第一批种子，地图生成可能需要较长时间")
         elif startup.stage == "requested":
             self.progress_label.setText(f"已选择「{self.origin_combo.currentText()}」· 正在加载战役")
         elif startup.stage == "loaded":
@@ -1438,6 +1543,7 @@ class SeedGenPage(QWidget):
 
     def _share_changed(self, *_args, save=True) -> None:
         self.opener_combo.setEnabled(self.format_combo.currentData() == "danmaku")
+        self.opener_combo.setVisible(self.format_combo.currentData() == "danmaku")
         if save:
             self.ctx.settings.set("seed_share", {"format": self.format_combo.currentData(),
                 "opener": self.opener_combo.currentText(), "click_copy": self.click_copy.isChecked()})

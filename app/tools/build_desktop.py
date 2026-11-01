@@ -22,13 +22,51 @@ def sources():
     for name in ('core', 'ui', 'data', 'seedgen', 'assets', 'localization'):
         paths.extend(path for path in (ROOT / name).rglob('*')
                      if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc')
+    component = ROOT/'build/offline-map/package'
+    if (component/'pack.json').is_file():
+        paths.extend(path for path in component.rglob('*') if path.is_file())
     return {path.relative_to(ROOT).as_posix(): digest(path) for path in sorted(paths)}
+
+
+def verify_worldmap_component():
+    component = (ROOT/'build/offline-map/package').resolve()
+    manifest_path = component/'pack.json'
+    if not manifest_path.is_file():
+        raise RuntimeError('缺少离线地图组件，请先运行 tools/package_worldmap.py。')
+    manifest = json.loads(manifest_path.read_text('utf-8'))
+    validation = json.loads((component/'validation.json').read_text('utf-8'))
+    camp_validation = json.loads((component/'camp-validation.json').read_text('utf-8'))
+    brother_validation = json.loads((component/'brother-validation.json').read_text('utf-8'))
+    search_validation = json.loads((component/'campaign-search-validation.json').read_text('utf-8'))
+    prefilter_validation = json.loads((component/'prefilter-validation.json').read_text('utf-8'))
+    from core.worldmap.engine import Components
+    actual = Components(component/'worldmap.exe', component/'runtime.nut', component/'rules').fingerprint()
+    if (not validation.get('success') or not camp_validation.get('success')
+            or actual != manifest['fingerprint'] or actual != validation['fingerprint']
+            or actual != camp_validation['fingerprint']):
+        raise RuntimeError('离线地图组件未通过当前版本的原版对照。')
+    from core.seedgen.offline import fingerprint as brother_fingerprint
+    current_brothers = brother_fingerprint(Components(component/'worldmap.exe', component/'runtime.nut', component/'rules'))
+    if (not brother_validation.get('success') or current_brothers != brother_validation['fingerprint']
+            or current_brothers != manifest['brother_fingerprint']):
+        raise RuntimeError('独立人物解算组件未通过当前版本的原版对照。')
+    if (not search_validation.get('success') or current_brothers != search_validation['fingerprint']
+            or len(search_validation.get('origins', [])) != 14 or search_validation.get('difficulty_combinations') != 27):
+        raise RuntimeError('独立组合搜索组件未通过当前版本的原版起源与难度对照。')
+    if (not prefilter_validation.get('success') or current_brothers != prefilter_validation['fingerprint']
+            or len(prefilter_validation.get('origins', [])) != 13 or prefilter_validation.get('difficulty_combinations') != 27):
+        raise RuntimeError('人物预筛组件未通过当前版本的原版完整开局对照。')
+    for name, expected in manifest['files'].items():
+        path = (component/name).resolve()
+        if not path.is_relative_to(component) or not path.is_file() or digest(path) != expected:
+            raise RuntimeError('离线地图组件文件校验失败：'+name)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=ROOT / 'dist')
     args = parser.parse_args()
+    verify_worldmap_component()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     target = output / release_filename()

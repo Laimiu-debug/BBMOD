@@ -1,0 +1,6 @@
+{% extends 'management_base.html' %}
+{% block title %}{{ title }} · BBMOD{% endblock %}
+{% block management_content %}
+<section class="page-head"><a href="{% url 'accounts' %}">← 作者账号</a><h1>{{ title }}</h1><p>重置后，作者需要重新登录并设置自己的密码。</p></section>
+<form method="post" class="panel editor compact">{% csrf_token %}{% include 'form_fields.html' %}<input type="hidden" name="action" value="{{ action }}"><div class="form-actions"><button class="button primary" type="submit">{{ submit }}</button><a href="{% url 'accounts' %}">返回作者账号</a></div></form>
+{% endblock %}

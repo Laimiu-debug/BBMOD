@@ -9,6 +9,7 @@ from .log_watcher import SeedResult
 from .traits import trait_label
 from .brother_rating import rate_brother
 from .weapons import NAMED_WEAPONS
+from .weapon_rating import MODEL, rate_weapon_line
 from .config_emitter import NAMED_ATTR_LABELS
 
 FORMATS = {"种子档案（含详情）": "detail", "弹幕模式（一行一条）": "danmaku", "仅种子码": "seed"}
@@ -114,6 +115,10 @@ def highlights(result: SeedResult) -> list[str]:
     total = named_count(result)
     if total is not None:
         facts.append(f"共{total}件红装")
+    weapons = [rating for line in result.lines if (rating := rate_weapon_line(line)) is not None]
+    if weapons:
+        best = max(weapons, key=lambda rating: (rating.score, rating.quality))
+        facts.append(f'红武最高实用{best.score}分（roll {best.quality}%）')
     return facts
 
 
@@ -133,6 +138,7 @@ def opening(result: SeedResult, selection: str) -> str:
 
 def world_details(result: SeedResult) -> list[str]:
     sections = []
+    has_ratings = False
     for prefix, title, labels in (
         ("SettlementInfo:", "城镇与交通", {"Settlements": "聚落", "Port": "港口", "CityPort": "城邦港口",
             "Products": "特产总数", "Connected": "连通聚落"}),
@@ -156,11 +162,11 @@ def world_details(result: SeedResult) -> list[str]:
                 sections += ["", f"营地：{name}（{LAIRS.get(kind, '未知驻军')}）",
                     f"驻军强度 {strength}；最近聚落 {town}；距离 {distance}，方位 {direction}"]
         elif line.startswith("ItemInfo("):
-            match = re.match(r"ItemInfo\((\w+)\):\s*([^\s(]+)(?:\(([^)]*)\))?\s+(.*)", line)
+            match = re.match(r"ItemInfo\((\w+)\):\s*([^\s(]+)(?:\(([^)]*)\))?(?:\s+(.*))?$", line)
             if match:
                 kind, item_id, rolls, fields = match.groups()
                 values = []
-                for key, value in re.findall(r"(\w+):(-?[\d.]+)", fields):
+                for key, value in re.findall(r"(\w+):(-?[\d.]+)", fields or ''):
                     if key not in ITEM_ATTRIBUTES:
                         continue
                     if key in {"ArmorDamage", "DirectDamage"}:
@@ -172,7 +178,20 @@ def world_details(result: SeedResult) -> list[str]:
                            for key, value in re.findall(r"(\w+):([\d.]+)%", rolls or '')
                            if key in NAMED_ATTR_LABELS]
                 title = NAMED_WEAPONS.get(item_id, ITEMS.get(kind, '装备'))
+                rating = rate_weapon_line(line)
+                if rating is not None:
+                    quality = [f'{NAMED_ATTR_LABELS[key]}品质 {value}%'
+                               for key, value in rating.affixes]
                 sections.append(f"{title}（红装）：" + ("；".join(quality + values) or "未记录属性"))
+                if kind in {'OneHanded', 'TwoHanded', 'RangedWeapon'}:
+                    if rating is not None:
+                        sections.append(f'红武评分：实用词条 {rating.score}/100；roll 品质 {rating.quality}%（{MODEL}）')
+                        has_ratings = True
+                    else:
+                        sections.append('红武评分：武器或两条词条记录不完整 / 不在原版词条池，暂不评分')
+    if has_ratings:
+        sections += ['', '红武评分说明：实用分按词条权重与品质计算，roll 为两条词条品质的平均；'
+                     '疲劳减负越多品质越高，耐久不参与。仅供同类武器词条比较；完整权重与公式见营地红装的“红武评分说明”。']
     return sections
 
 
@@ -231,7 +250,7 @@ def format_seed(result: SeedResult, mode: str = "detail", opener: str = "自动�
             lines.append('三国评价：' + (f'{rating.label}（11级潜力）；依据：{rating.evidence}'
                 if rating is not None else '资料不足，暂不分档'))
             if brother.traits:
-                lines.append('特质：' + '、'.join(trait_label(key) for key in brother.traits))
+                lines.append('特质：' + '、'.join(trait_label(key, result.origin, brother.index) for key in brother.traits))
         lines += ['评价说明：按最擅长方向分档，各档所有门槛均须满足；9星不直接决定档位。',
                   '11级属性是分别每级提升该项的潜力预估，不能同时把全部属性点满；未计装备和额外加点特技。']
     lines.extend(world_details(result))

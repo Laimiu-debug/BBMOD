@@ -1,7 +1,6 @@
 """Durable local seed history. A new expedition never clears this database."""
 from contextlib import closing
 from collections.abc import Iterable
-from dataclasses import asdict
 import json
 from pathlib import Path
 import sqlite3
@@ -67,20 +66,36 @@ class SeedLibrary:
         results = list(results)
         if not results:
             return []
+        identities = [seed_key(result) for result in results]
+        unique = list(dict.fromkeys(identities))
         saved = []
         with closing(self._connect()) as db, db:
-            for result in results:
-                identity = seed_key(result)
-                row = db.execute("SELECT record, deleted_at FROM seeds WHERE identity=?", (identity,)).fetchone()
-                deleted = bool(row and row[1])
-                if row:
-                    old = SeedResult(**json.loads(row[0]))
+            db.execute('BEGIN IMMEDIATE')
+            existing = {}
+            # Fetch history once per bounded group instead of one query for
+            # every result. Keep sequential merge semantics within this batch.
+            for start in range(0, len(unique), 500):
+                keys = unique[start:start + 500]
+                rows = db.execute('SELECT identity, record, deleted_at FROM seeds WHERE identity IN (' +
+                                  ','.join('?' for _ in keys) + ')', keys)
+                existing.update((identity, (SeedResult(**json.loads(raw)), bool(deleted)))
+                                for identity, raw, deleted in rows)
+            pending = {}
+            for result, identity in zip(results, identities):
+                old, deleted = existing.get(identity, (None, False))
+                if old is not None:
                     if (old.done and not result.done) or (old.done == result.done and len(old.lines) >= len(result.lines)):
                         saved.append((old, deleted))
                         continue
-                db.execute("INSERT INTO seeds(identity, record) VALUES (?, ?) ON CONFLICT(identity) DO UPDATE SET record=excluded.record",
-                           (identity, json.dumps(asdict(result), ensure_ascii=False)))
+                existing[identity] = result, deleted
+                pending[identity] = result
                 saved.append((result, deleted))
+            # JSON reads the primitive/list/dict dataclass fields directly;
+            # deepcopying all log lines before serialization adds no isolation
+            # to this synchronous write, and is expensive for large batches.
+            db.executemany("INSERT INTO seeds(identity, record) VALUES (?, ?) ON CONFLICT(identity) DO UPDATE SET record=excluded.record",
+                [(identity, json.dumps({name: getattr(result, name) for name in SeedResult.__dataclass_fields__},
+                                       ensure_ascii=False)) for identity, result in pending.items()])
         return saved
 
     def shared_url(self, result: SeedResult) -> str:

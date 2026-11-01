@@ -11,6 +11,7 @@
     var nameForms = root.BBMOD_NAME_FORMS || {};
     var personNames = root.BBMOD_PERSON_NAMES || {};
     var southernNames = root.BBMOD_SOUTHERN_NAME_PARTS || null;
+    var armyNames = root.BBMOD_ARMY_NAMES || null;
     function buckets(names, byEnd) {
         var result = {};
         Object.keys(names).forEach(function (name) {
@@ -44,6 +45,35 @@
         given: buckets(southernNames.given), family: buckets(southernNames.family),
         titles: buckets(southernNames.titles)
     } : null;
+
+    function translateArmyLabel(value) {
+        if (!armyNames) { return null; }
+        // Preserve the complete native headcount suffix, including whitespace.
+        // Do not translate arbitrary substrings of player or mod company names.
+        var count = /\s*(?:\(\d+\)|（\d+）)$/.exec(value);
+        var base = count ? value.substring(0, count.index) : value;
+        var target = null, match, city;
+        if (own.call(armyNames.companies, base)) {
+            target = armyNames.companies[base];
+        } else if (own.call(armyNames.generic, base)) {
+            target = armyNames.generic[base];
+        } else {
+            match = /^(.*?)(?: Company| 战团| 军队)$/.exec(base);
+            if (match && own.call(armyNames.settlements, match[1])) {
+                target = (placeSession ? armyNames.settlements[match[1]] : match[1]) + armyNames.nobleSuffix;
+            } else {
+                match = /^(?:Regiment of |军团[：:]\s*)(.+)$/.exec(base);
+                if (match) {
+                    city = own.call(cityPlaces, match[1]) ? cityPlaces[match[1]] : null;
+                    if (city === null && Object.keys(cityPlaces).some(function (name) { return cityPlaces[name] === match[1]; })) {
+                        city = match[1];
+                    }
+                    if (city !== null) { target = city + "军团"; }
+                }
+            }
+        }
+        return target === null ? null : target + (count ? count[0] : "");
+    }
 
     function southernPart(value, offset, group) {
         var choices = southernBuckets[group][value.charAt(offset)] || [], i, name, end;
@@ -198,7 +228,8 @@
     function translate(value) {
         if (typeof value !== "string") { return value; }
         var trimmed = value.replace(/^\s+|\s+$/g, "");
-        var translated = own.call(dict, trimmed) ? dict[trimmed] : null;
+        var translated = translateArmyLabel(trimmed);
+        if (translated === null && own.call(dict, trimmed)) { translated = dict[trimmed]; }
         var i;
         if (translated === null && /^Switch to (.+)$/.test(trimmed)) {
             var item = trimmed.substring(10);
@@ -279,7 +310,7 @@
         if (root.console && root.console.log) { root.console.log("BBMOD independent UI localization loaded"); }
     }
 
-    root.BBMODL10N = {translate: translate, walk: walk, start: start, setPlaceSession: setPlaceSession, version: "0.3.0-rc.8"};
+    root.BBMODL10N = {translate: translate, walk: walk, start: start, setPlaceSession: setPlaceSession, version: "0.3.3"};
     if (places && !placeSession && root.MainMenuScreen && root.SQ) {
         var previousConnection = root.MainMenuScreen.prototype.onConnection;
         root.MainMenuScreen.prototype.onConnection = function (handle) {
