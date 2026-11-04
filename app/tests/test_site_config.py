@@ -11,6 +11,7 @@ from core.online_catalog import site_origin
 from core.seedgen.library import SeedLibrary
 from core.seedgen import sharing
 from core.site_config import SITE_ORIGIN, canonical_site_origin, canonical_site_url, same_site
+from core.site_config import DIRECT_DOWNLOAD_BASE, canonical_public_read_url, public_read_urls
 from test_seed_history import record
 
 
@@ -70,3 +71,27 @@ def test_seed_publish_with_saved_official_origin_requests_only_new_site():
     assert requests == [SITE_ORIGIN + '/api/v1/seeds/'] * 2
     assert receipt.url == default.url == SITE_ORIGIN + path
     assert site_origin('https://bbmod.site') == SITE_ORIGIN
+
+
+@pytest.mark.parametrize('path', [
+    '/api/v1/catalog/', '/api/v1/desktop/releases/',
+    '/files/01234567-89ab-cdef-0123-456789abcdef/download/',
+    '/downloads/windows/01234567-89ab-cdef-0123-456789abcdef/',
+    '/api/v1/saves/01234567-89ab-cdef-0123-456789abcdef/files/' + 'a' * 64 + '/',
+])
+def test_official_public_reads_use_independent_route_without_changing_identity(path):
+    assert public_read_urls('https://bbmod.site' + path) == (DIRECT_DOWNLOAD_BASE + path, SITE_ORIGIN + path)
+    assert canonical_public_read_url(DIRECT_DOWNLOAD_BASE + path) == SITE_ORIGIN + path
+
+
+@pytest.mark.parametrize('url', [
+    'https://custom.example/api/v1/catalog/', 'http://bbmod.com/api/v1/catalog/',
+    'https://bbmod.com@evil.example/api/v1/catalog/', 'https://user@bbmod.com/api/v1/catalog/',
+    'https://bbmod.com:8443/api/v1/catalog/', 'https://bbmod.com/api/v1/catalog/?token=private',
+    'https://bbmod.com/api/v1/catalog/#private', 'https://bbmod.com/manage/',
+    'https://bbmod.com/api/v1/profiles/files/' + 'a' * 64 + '/',
+    'https://bbmod.com/api/v1/saves/', 'https://bbmod.com//api/v1/catalog/',
+    'https://dl.gongpro.app/bbmod/api/v1/catalog/?token=private',
+])
+def test_private_custom_and_upload_urls_never_gain_relay_routes(url):
+    assert public_read_urls(url) == (url,)

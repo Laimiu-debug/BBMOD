@@ -117,7 +117,8 @@ def test_old_official_download_uses_new_site_and_retries_with_same_hash(tmp_path
         target = tmp_path / 'file'
         downloads.download_verified(url, target, size=len(data), sha256=hashlib.sha256(data).hexdigest())
     assert [call.args for call in request.call_args_list] == [
-        ('https://bbmod.com' + urlsplit(url).path, 0)] * 2
+        ('https://dl.gongpro.app/bbmod' + urlsplit(url).path, 0),
+        ('https://bbmod.com' + urlsplit(url).path, 0)]
     assert target.read_bytes() == data
 
 
@@ -128,3 +129,32 @@ def test_old_official_download_uses_new_site_and_retries_with_same_hash(tmp_path
     'https://bbmod.site/files/ba29edd4-f68d-4cce-9024-e2f1056d774d/download/?token=private'])
 def test_other_routes_never_switch_sources(url):
     assert downloads.canonical_download_url(url) == url
+
+
+def test_official_download_keeps_received_bytes_when_switching_routes(tmp_path):
+    data = b'first part and second part'
+    class Interrupted(io.BytesIO):
+        status, headers = 200, {'Content-Length': str(len(data))}
+        def read1(self, _):
+            if self.tell():
+                raise ConnectionResetError()
+            return self.read(10)
+    resumed = io.BytesIO(data[10:])
+    resumed.status, resumed.headers = 206, {'Content-Range': f'bytes 10-{len(data)-1}/{len(data)}',
+                                         'Content-Length': str(len(data)-10)}
+    path = '/files/01234567-89ab-cdef-0123-456789abcdef/download/'
+    with patch.object(downloads, '_request', side_effect=[Interrupted(data), resumed]) as request, patch.object(downloads, '_pause'):
+        target=tmp_path/'mod.zip'
+        downloads.download_verified('https://bbmod.com'+path,target,size=len(data),sha256=hashlib.sha256(data).hexdigest())
+    assert [call.args for call in request.call_args_list] == [
+        ('https://dl.gongpro.app/bbmod'+path,0),('https://bbmod.com'+path,10)]
+    assert target.read_bytes()==data
+
+
+def test_withdrawn_official_download_never_tries_other_source(tmp_path):
+    from urllib.error import HTTPError
+    with patch.object(downloads,'_request',side_effect=HTTPError('https://bbmod.com',404,'withdrawn',{},None)) as request:
+        with pytest.raises(ValueError,match='404'):
+            downloads.download_verified('https://bbmod.com/files/01234567-89ab-cdef-0123-456789abcdef/download/',
+                tmp_path/'mod.zip',size=10,sha256='a'*64)
+    assert request.call_count==1

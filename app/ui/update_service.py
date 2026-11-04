@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from dataclasses import replace
 import json
 from pathlib import Path
+import re
 import time
 import uuid
 import sys
@@ -15,7 +16,10 @@ from PySide6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequ
 from core.app_updates import (API_URL, SITE_API_URL, VERSION, Release, available_releases,
     download_host_allowed, parse_releases, parse_site_releases, verify_download, version_key, write_json)
 from .workers import Worker, track
-from core.site_config import canonical_site_url
+from core.site_config import canonical_site_url, public_read_urls
+
+DIRECT_API_URL = public_read_urls(SITE_API_URL)[0]
+MAX_DOWNLOAD_RETRIES = 4
 
 
 class UpdateService(QObject):
@@ -48,6 +52,9 @@ class UpdateService(QObject):
         self._verifier = None
         self._api_data = bytearray()
         self.network = QNetworkAccessManager(self)
+        self._retry_timer = QTimer(self)
+        self._retry_timer.setSingleShot(True)
+        self._retry_timer.timeout.connect(self._start_download)
         try:
             cached = (self.folder / 'releases-cache.json').read_bytes()
             self.releases = parse_site_releases(cached) if cached.lstrip().startswith(b'{') else parse_releases(cached)
@@ -117,7 +124,10 @@ class UpdateService(QObject):
     def _request(self, url):
         request = QNetworkRequest(QUrl(canonical_site_url(url)))
         request.setRawHeader(b'User-Agent', ('BBMOD/' + VERSION).encode())
-        request.setRawHeader(b'Accept', b'application/json' if url in (API_URL, SITE_API_URL) else b'application/octet-stream')
+        request.setRawHeader(b'Accept', b'application/json' if url in (API_URL, SITE_API_URL, DIRECT_API_URL) else b'application/octet-stream')
+        request.setRawHeader(b'Accept-Encoding', b'identity')
+        if self.busy == 'download' and self.received:
+            request.setRawHeader(b'Range', f'bytes={self.received}-'.encode())
         if url == API_URL:
             request.setRawHeader(b'X-GitHub-Api-Version', b'2022-11-28')
         request.setTransferTimeout(20000)
@@ -129,7 +139,7 @@ class UpdateService(QObject):
 
     def _redirect(self, reply, destination):
         url = destination.toString()
-        allowed = (url in (API_URL, SITE_API_URL)
+        allowed = (url in (API_URL, SITE_API_URL, DIRECT_API_URL)
                    if self.busy == 'check' else download_host_allowed(url) and canonical_site_url(url) == url)
         if allowed:
             reply.redirectAllowed.emit()
@@ -140,14 +150,14 @@ class UpdateService(QObject):
     def check(self):
         if self._closed or self.busy:
             return
-        self._source = 'site'
+        self._source = 'direct'
         self._check_errors = []
         self.busy, self.status, self._failure = 'check', '正在检查官网发布版本…', ''
         self._start_check()
 
     def _start_check(self):
         self._api_data = bytearray()
-        self.reply = self._request({'site': SITE_API_URL, 'github': API_URL}[self._source])
+        self.reply = self._request({'direct': DIRECT_API_URL, 'site': SITE_API_URL, 'github': API_URL}[self._source])
         self.reply.readyRead.connect(self._read_check)
         self.reply.finished.connect(self._checked)
         self.changed.emit()
@@ -172,9 +182,9 @@ class UpdateService(QObject):
         except (OSError, ValueError, TypeError) as error:
             self._check_errors.append(str(error))
             if not self._closed and self._failure != '已取消。':
-                next_source = 'github' if self._source == 'site' else None
-            self.status = ('官网连接失败，正在检查 GitHub 备用源…' if next_source
-                           else str(error))
+                next_source = {'direct': 'site', 'site': 'github'}.get(self._source)
+            self.status = ('直连线路暂不可用，正在检查官网备用线路…' if next_source == 'site'
+                           else '官网连接失败，正在检查 GitHub 备用源…' if next_source else str(error))
         else:
             try:
                 self.folder.mkdir(parents=True, exist_ok=True)
@@ -241,18 +251,55 @@ class UpdateService(QObject):
         self.busy, self.status, self._failure = 'download', f'正在下载 {release.tag}…', ''
         self.downloaded, self.download_release = None, release
         self.received, self.total = 0, release.size
-        self.reply = self._request(release.download_url)
+        self._download_urls = public_read_urls(release.download_url)
+        self._download_attempt = 0
+        self._start_download()
+
+    def _start_download(self):
+        if self._closed or self.busy != 'download':
+            return
+        self._download_offset = self.received
+        self._download_headers_checked = False
+        self.reply = self._request(self._download_urls[self._download_attempt % len(self._download_urls)])
         self.reply.readyRead.connect(self._read_download)
         self.reply.finished.connect(self._downloaded)
         self.changed.emit()
 
+    def _download_headers(self):
+        if self._download_headers_checked:
+            return True
+        reply = self.reply
+        code = reply.attribute(QNetworkRequest.HttpStatusCodeAttribute)
+        if code not in (200, 206):
+            return False
+        if bytes(reply.rawHeader('Content-Encoding')).lower() not in (b'', b'identity'):
+            raise ValueError('下载响应编码无效')
+        if code == 206:
+            match = re.fullmatch(rb'bytes (\d+)-(\d+)/(\d+)', bytes(reply.rawHeader('Content-Range')))
+            if not match or tuple(map(int, match.groups())) != (self._download_offset, self.total - 1, self.total):
+                raise ValueError('网站返回了错误的续传位置，已停止下载')
+        elif self._download_offset:
+            self._stream.seek(0)
+            self._stream.truncate()
+            self.received = 0
+        length = bytes(reply.rawHeader('Content-Length'))
+        if length and (not length.isdigit() or int(length) != self.total - self.received):
+            raise ValueError('下载大小与发布记录不符')
+        self._download_headers_checked = True
+        return True
+
     def _read_download(self):
         chunk = bytes(self.reply.readAll())
+        if self._failure:
+            return
         try:
+            if not self._download_headers():
+                return
             self.received += len(chunk)
             if self.received > self.total:
                 raise ValueError('下载大小与发布记录不符')
             self._stream.write(chunk)
+            self.status = f'正在下载 {self.download_release.tag}：{self.received / 1024**2:.1f} / {self.total / 1024**2:.1f} MB'
         except (OSError, ValueError) as error:
             self._failure = str(error)
             self.reply.abort()
@@ -260,24 +307,38 @@ class UpdateService(QObject):
 
     def _downloaded(self):
         reply = self.reply
+        retry = False
         try:
             self._read_download()
+            if self._failure:
+                raise ValueError(self._failure)
+            code = reply.attribute(QNetworkRequest.HttpStatusCodeAttribute)
+            complete = code in (200, 206) and self.received == self.total
+            transient = (code in (408, 429, 500, 502, 503, 504)
+                         or code is None or code in (200, 206) and not complete)
+            if transient and self._download_attempt < MAX_DOWNLOAD_RETRIES and not self._closed:
+                self._download_attempt += 1
+                retry = True
+                self.status = f'连接中断，正在重试并续传（{self._download_attempt}/{MAX_DOWNLOAD_RETRIES}）…'
+                self._retry_timer.start(min(2 ** (self._download_attempt - 1), 4) * 1000)
+                return
+            if not complete:
+                raise ValueError(f'下载未完成，请稍后重试。（HTTP {code}）' if code else '下载连接失败，请稍后重试。')
             self._stream.close()
             self._stream = None
-            self._check_response(reply)
             partial, release = self._partial, self.download_release
             self._partial = None
             self._verify_async(partial, release, partial=True)
         except (OSError, ValueError) as error:
             self.status = str(error)
         finally:
-            if self._stream:
+            if self._stream and not retry:
                 self._stream.close()
                 self._stream = None
-            if self._partial and self._partial.exists():
+            if self._partial and self._partial.exists() and not retry:
                 self._partial.unlink()
             self.reply = None
-            if self.busy != 'verify':
+            if self.busy != 'verify' and not retry:
                 self.busy = ''
             reply.deleteLater()
             self.changed.emit()
@@ -338,6 +399,17 @@ class UpdateService(QObject):
             pass
 
     def cancel(self):
+        if self._retry_timer.isActive():
+            self._retry_timer.stop()
+            self._failure = self.status = '已取消。'
+            if self._stream:
+                self._stream.close()
+                self._stream = None
+            if self._partial:
+                self._partial.unlink(missing_ok=True)
+                self._partial = None
+            self.busy = ''
+            self.changed.emit()
         if self.reply:
             self._failure = '已取消。'
             self.reply.abort()

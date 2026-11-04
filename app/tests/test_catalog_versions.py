@@ -5,7 +5,7 @@ from unittest.mock import Mock
 import pytest
 
 from core.catalog_versions import identify_release_versions, public_release_links
-from core.site_config import SITE_ORIGIN
+from core.site_config import SITE_ORIGIN, DIRECT_DOWNLOAD_BASE
 
 
 WORK = '00000000-0000-0000-0000-000000000001'
@@ -23,6 +23,13 @@ def history(entries):
 
 def download(index=0):
     return f'/files/{RELEASES[index]}/download/'
+
+
+def test_direct_download_history_keeps_official_origin_and_rejects_lookalikes():
+    document = history([('1.0', DIRECT_DOWNLOAD_BASE + download()),
+                        ('2.0', DIRECT_DOWNLOAD_BASE + download(1) + '?token=private'),
+                        ('3.0', 'https://dl.gongpro.app.evil/bbmod' + download(2))])
+    assert public_release_links(document, SITE_ORIGIN) == [('1.0', SITE_ORIGIN + download())]
 
 
 class HeadResponse:

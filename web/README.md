@@ -132,7 +132,7 @@ docker compose -f compose.yml -f compose.https.yml up -d --build
 
 网关部署对 MOD、汉化包及共享方案文件启用 `BBMOD_MOD_DOWNLOAD_ACCEL=1`，通过私有 `/_mods/` 交给 Nginx 传输，并支持 HEAD 和 Range 续传。每次下载及续传仍先经过 Django 的公开、下架与文件校验。网关以只读方式挂载数据卷；`/_mods/` 禁止外部直接访问。直接运行 Django 时保留普通文件响应。
 
-当前生产环境将 `BBMOD_PUBLIC_DOWNLOAD_BASE` 留空，网页下载按钮和桌面 API 返回站内相对路径，由 `https://bbmod.com` 提供文件下载。自部署时如需显式生成绝对地址，可设置为自己的 HTTPS 官网域名。下载及续传仍必须通过相同的发布权限检查。
+当前生产环境将 `BBMOD_PUBLIC_DOWNLOAD_BASE` 设为 `https://dl.gongpro.app/bbmod`，网页下载按钮使用独立 HTTPS 直连入口，桌面 API 继续返回站内相对路径。直连入口只转发白名单中的公开 GET/HEAD 请求，原站仍检查发布权限和文件完整性，支持 Range，不缓存文件、不转发登录凭据。桌面 0.9.3 优先使用直连入口，失败时尝试 `https://bbmod.com`。自部署时可留空或配置自己的 HTTPS 下载入口。部署与回滚参见 `deploy/deployment-direct-downloads-2026-11-03.md`。
 
 - `/downloads/`：管理器下载页，附历史版本与更新说明。
 - `/downloads/windows/`：当前推荐版本的附件下载，支持 HEAD。

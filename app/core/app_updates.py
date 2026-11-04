@@ -16,7 +16,7 @@ import uuid
 
 from .io_util import atomic_write_json as write_json, file_sha256 as sha256_file
 from .version import VERSION
-from .site_config import SITE_ORIGIN, OFFICIAL_SITE_ORIGINS
+from .site_config import SITE_ORIGIN, OFFICIAL_SITE_ORIGINS, DIRECT_DOWNLOAD_BASE
 
 REPOSITORY = 'Laimiu-debug/BBMOD'
 RELEASES_URL = f'https://github.com/{REPOSITORY}/releases'
@@ -144,6 +144,8 @@ def download_host_allowed(url: str) -> bool:
             return False
         if parsed.scheme + '://' + parsed.netloc.lower() in OFFICIAL_SITE_ORIGINS:
             return bool(re.fullmatch(r'/downloads/windows/[a-f0-9-]{36}/', parsed.path)) and not parsed.query and not parsed.fragment
+        if url.startswith(DIRECT_DOWNLOAD_BASE + '/'):
+            return bool(re.fullmatch(r'/downloads/windows/[a-f0-9-]{36}/', url[len(DIRECT_DOWNLOAD_BASE):]))
         if parsed.hostname == 'github.com':
             return parsed.path.startswith(f'/{REPOSITORY}/releases/download/')
         return parsed.hostname in {'release-assets.githubusercontent.com', 'objects.githubusercontent.com'}

@@ -8,15 +8,17 @@ import shutil
 import tempfile
 import time
 import uuid
+from http.client import HTTPException
 from pathlib import Path
 from urllib.parse import urlsplit
+from urllib.error import HTTPError
 from urllib.request import Request, HTTPRedirectHandler, build_opener
 
 from .archive_safety import inspect_archive, valid_install_name
 from .modinfo import analyze_zip
 from .downloads import download_verified
 from .io_util import atomic_write_json as _atomic_json, file_sha256 as _hash
-from .site_config import canonical_site_origin, same_site
+from .site_config import canonical_site_origin, same_site, public_read_urls
 
 MAX_DOWNLOAD = 100 * 1024 * 1024
 
@@ -81,7 +83,17 @@ def parse_catalog(payload):
 
 
 def fetch_catalog(origin):
-    return _fetch_catalog(site_origin(origin) + '/api/v1/catalog/')
+    urls = public_read_urls(site_origin(origin) + '/api/v1/catalog/')
+    for index, url in enumerate(urls):
+        try:
+            return _fetch_catalog(url)
+        except HTTPError as error:
+            error.close()
+            if error.code not in {408, 429, 500, 502, 503, 504} or index == len(urls) - 1:
+                raise
+        except (OSError, HTTPException):
+            if index == len(urls) - 1:
+                raise
 
 
 def _fetch_catalog(url):
@@ -89,8 +101,10 @@ def _fetch_catalog(url):
     with _request(url) as response:
         while block := response.read1(128 * 1024):
             total += len(block)
-            if total > 4 * 1024 * 1024 or time.monotonic() - started > 30:
-                raise ValueError('目录数据过大或读取超时。')
+            if total > 4 * 1024 * 1024:
+                raise ValueError('目录数据过大。')
+            if time.monotonic() - started > 30:
+                raise TimeoutError('目录读取超时。')
             parts.append(block)
     return parse_catalog(json.loads(b''.join(parts)))
 

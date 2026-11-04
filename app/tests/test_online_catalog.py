@@ -116,6 +116,7 @@ def test_old_official_catalog_only_requests_new_domain(failure):
         with pytest.raises(type(failure)):
             fetch_catalog('https://bbmod.site')
     assert [call.args[0] for call in request.call_args_list] == [
+        'https://dl.gongpro.app/bbmod/api/v1/catalog/',
         'https://bbmod.com/api/v1/catalog/']
 
 

@@ -6,6 +6,7 @@ from urllib.parse import urlsplit
 from urllib.request import Request, build_opener
 
 from .online_catalog import NoRedirect, _request, site_origin
+from .site_config import canonical_public_read_url
 
 
 def public_release_links(document, origin):
@@ -21,7 +22,7 @@ def public_release_links(document, origin):
             continue
         for link in re.findall(r'href=["\']([^"\']+)["\']', match[2]):
             try:
-                parts = urlsplit(html.unescape(link))
+                parts = urlsplit(canonical_public_read_url(html.unescape(link)))
             except ValueError:
                 continue
             if parts.query or parts.fragment or parts.username or parts.password:

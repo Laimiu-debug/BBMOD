@@ -6,7 +6,7 @@ from http.client import HTTPException
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
-from .site_config import canonical_site_url
+from .site_config import canonical_site_url, public_read_urls
 
 IDLE_TIMEOUT = 20
 MAX_RETRIES = 4
@@ -59,14 +59,14 @@ def download_verified(url, destination, *, size, sha256, cancelled=lambda: False
     Reconnects stay within this operation. Nothing is installed until size and hash
     match, and unsuccessful temporary files are removed by the caller.
     """
-    url = canonical_download_url(url)
+    urls = public_read_urls(canonical_download_url(url))
     count, digest, reported = 0, hashlib.sha256(), 0.0
     with destination.open('wb') as output:
         for attempt in range(MAX_RETRIES + 1):
             _check_cancel(cancelled)
             try:
                 try:
-                    response = _request(url, count)
+                    response = _request(urls[attempt % len(urls)], count)
                 except HTTPError as error:
                     error.close()
                     if error.code not in {408, 429, 500, 502, 503, 504}:
@@ -121,5 +121,6 @@ def download_verified(url, destination, *, size, sha256, cancelled=lambda: False
                 _check_cancel(cancelled)
                 if attempt == MAX_RETRIES:
                     raise ValueError('下载连接多次中断或超时，请检查网络后重试；本机 MOD 未更改。') from error
-                progress(f'连接中断，正在重试 / 续传（{attempt + 1}/{MAX_RETRIES}，已下载 {count / 1024**2:.1f} MB）…')
+                action = '切换线路并续传' if len(urls) > 1 else '重试 / 续传'
+                progress(f'连接中断，正在{action}（{attempt + 1}/{MAX_RETRIES}，已下载 {count / 1024**2:.1f} MB）…')
                 _pause(min(2 ** attempt, 4), cancelled)
